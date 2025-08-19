@@ -1,0 +1,37 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../constants/enums.dart';
+import '../../repo/shared_preference_repository.dart';
+
+
+class AppController extends AutoDisposeNotifier<PageState> {
+  late final Ref _ref;
+
+  @override
+  PageState build() {
+    _ref = ref;
+    return PageState.initial;
+  }
+
+  Future<void> fetchAppDetails() async {
+    await checkUserToken() ;
+  }
+
+  Future<void> checkUserToken() async {
+    state = PageState.loading;
+    await Future.delayed(const Duration(seconds: 3));
+    final token = await SharedPreferenceRepository.getToken();
+    // final token = ""; // use this to simulate unauthenticated
+    state = PageState.success;
+    if (token.isNotEmpty == true) {
+      // loadBottomBar();
+    } else {
+      // _ref.read(authProvider.notifier).loadSignInScreen();
+    }
+  }
+
+
+
+}

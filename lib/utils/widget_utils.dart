@@ -83,7 +83,6 @@ class WidgetUtils {
         padding: const EdgeInsets.symmetric(horizontal: 20),
         children: <Widget>[
           logoWidget(),
-          const Text(AppStrings.appName),
           Padding(
             padding: const EdgeInsets.only(top: 50),
             child: Text(

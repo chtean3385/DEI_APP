@@ -1,6 +1,7 @@
 
 import 'package:dei_champions/providers/theme_controller.dart';
 import 'package:dei_champions/service/notification_service.dart';
+import 'package:dei_champions/ui/pages/on_board/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
-    NotificationService().init(context);
+    // NotificationService().init(context);
   }
 
   @override
@@ -52,7 +53,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         darkTheme: darkTheme(context),
         themeMode: themeMode,
         debugShowCheckedModeBanner: false,
-        // home: const SplashScreen()
+        home: const SplashScreen()
     );
   }
 }

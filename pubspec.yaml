@@ -76,6 +76,5 @@ flutter:
   assets:
     - assets/
     - assets/drawables/
-    - assets/anime/
     - assets/icon/
-    - assets/icon/bottom_bar_icons/
+    - assets/icon/bottom_bar/
