@@ -34,7 +34,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       body: DecoratedBox(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(AppDrawables.splash1), // your bg image
+            image: AssetImage(AppDrawables.splash), // your bg image
             fit: BoxFit.cover, // cover / contain / fill depending on need
           ),
         ),

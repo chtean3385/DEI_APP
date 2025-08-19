@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
+import '../ui/pages/auth/login_screen.dart';
 
 class AppNavigator {
   // static void toBottomBar() {
@@ -31,4 +32,13 @@ class AppNavigator {
   //     MaterialPageRoute(builder: (_) => const MyAccountScreen()),
   //   );
   // }
+
+  static loadSignInScreen({bool isFromLogout = false}) {
+    // if(!isFromLogout) initController();
+    Navigator.pushAndRemoveUntil(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => SignInScreen()),
+          (route) => false,
+    );
+  }
 }

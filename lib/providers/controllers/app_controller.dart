@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -26,9 +27,9 @@ class AppController extends AutoDisposeNotifier<PageState> {
     // final token = ""; // use this to simulate unauthenticated
     state = PageState.success;
     if (token.isNotEmpty == true) {
-      // loadBottomBar();
+      AppNavigator.loadSignInScreen();
     } else {
-      // _ref.read(authProvider.notifier).loadSignInScreen();
+      AppNavigator.loadSignInScreen();
     }
   }
 

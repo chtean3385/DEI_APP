@@ -46,7 +46,7 @@ class AppTextFormField extends StatelessWidget {
       cursorColor: Colors.black,
       maxLength: maxLength,
       style: theme.textTheme.bodyMedium?.copyWith(
-        color: theme.colorScheme.secondary,fontWeight: makeBold? FontWeight.w800 : FontWeight.normal
+      fontWeight: makeBold? FontWeight.w800 : FontWeight.normal
       ),
       onChanged: onChanged,
       decoration: InputDecoration(
@@ -54,15 +54,11 @@ class AppTextFormField extends StatelessWidget {
         prefixStyle: theme.textTheme.bodyMedium,
         label: Text(
           label ?? '',
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.secondary,
-          ),
+          style: theme.textTheme.bodyMedium
         ),
         hint: Text(
           hint ?? '',
-          style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.secondary,
-          ),
+          style: theme.textTheme.bodyMedium
         ),
 
         suffixIcon: suffix,
