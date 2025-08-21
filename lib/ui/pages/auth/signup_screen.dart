@@ -8,6 +8,12 @@ import 'package:flutter/material.dart';
 import '../../../constants/app_colors.dart';
 import '../../../widgets/form/transparent_form_field.dart';
 import '../../../widgets/others/custom_theme_button.dart';
+import 'components/backround_image_overlay.dart';
+import 'components/gradient_overlay.dart';
+import 'components/signup_header.dart';
+import 'components/terms_conditions.dart';
+import 'components/update_check_box.dart';
+import 'components/work_status_view.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -23,8 +29,8 @@ class _SignupScreenState extends State<SignupScreen>
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  final _mobileController = TextEditingController();
 
-  bool _agreeToTerms = false;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -59,6 +65,7 @@ class _SignupScreenState extends State<SignupScreen>
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _mobileController.dispose();
     super.dispose();
   }
 
@@ -77,36 +84,12 @@ class _SignupScreenState extends State<SignupScreen>
         child: Stack(
           children: [
             // Background Image with Overlay
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(AppDrawables.signupBg),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                    Colors.black.withValues(alpha: 0.5),
-                    BlendMode.darken,
-                  ),
-                ),
-              ),
+            BackgroundImageOverlay(
+              imagePath: AppDrawables.signupBg,
+              darkenOpacity: 0.5,
             ),
-
             // Gradient Overlay
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Colors.transparent,
-                    Colors.transparent,
-                    Colors.black.withValues(alpha: .3),
-                    Colors.black.withValues(alpha: .5),
-                    Colors.black.withValues(alpha: .7),
-                  ],
-                ),
-              ),
-            ),
-
+            GradientOverlay(),
             SafeArea(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
@@ -118,64 +101,7 @@ class _SignupScreenState extends State<SignupScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 60),
-                        // Logo and Title Section
-                        Center(
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(16),
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.35),
-                                  borderRadius: BorderRadius.circular(20),
-                                  // border: Border.all(
-                                  //   color: Colors.white.withOpacity(0.3),
-                                  //   width: 1,
-                                  // ),
-                                ),
-                                child: Image.asset(
-                                  AppDrawables.logoWithoutSubtitle,
-                                ),
-                                // child: ColorFiltered(
-                                //   colorFilter: ColorFilter.mode(
-                                //     Colors.white,
-                                //     BlendMode.srcATop,
-                                //   ),
-                                //   child: WidgetUtils.logoWidget(),
-                                // ),
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                AppStrings.appTitle,
-                                style: context.textTheme.headlineSmall
-                                    ?.copyWith(
-                                      color:
-                                          context.theme.colorScheme.onPrimary,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        SizedBox(height: 50),
-
-                        // Welcome Text
-                        Text(
-                          'Create Account',
-                          style: TextStyle(
-                            fontSize: 28,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Text(
-                          'Join thousands of professionals',
-                          style: TextStyle(fontSize: 16, color: Colors.white70),
-                        ),
-
-                        SizedBox(height: 40),
-
+                        SignupHeader(),
                         // Signup Form
                         Form(
                           key: _formKey,
@@ -184,11 +110,12 @@ class _SignupScreenState extends State<SignupScreen>
                               // Full Name Field
                               TransparentFormField(
                                 controller: _nameController,
-                                hint: 'Full Name',
+                                hint: AppStrings.name,
                                 icon: Icons.person_outline,
                                 validator: AppValidators.fieldEmpty(
-                                  'Full Name',
+                                  AppStrings.name,
                                 ),
+                                textCapitalization: TextCapitalization.words,
                               ),
 
                               SizedBox(height: 20),
@@ -196,7 +123,7 @@ class _SignupScreenState extends State<SignupScreen>
                               // Email Field
                               TransparentFormField(
                                 controller: _emailController,
-                                hint: 'Email Address',
+                                hint: AppStrings.email,
                                 icon: Icons.email_outlined,
                                 keyboardType: TextInputType.emailAddress,
                                 validator: AppValidators.email,
@@ -207,7 +134,7 @@ class _SignupScreenState extends State<SignupScreen>
                               // Password Field
                               TransparentFormField(
                                 controller: _passwordController,
-                                hint: 'Password',
+                                hint: AppStrings.password,
                                 icon: Icons.lock_outline,
                                 isPassword: true,
                                 validator: AppValidators.password,
@@ -224,77 +151,33 @@ class _SignupScreenState extends State<SignupScreen>
                                 validator: AppValidators.password,
                               ),
 
+                              SizedBox(height: 20),
+
+                              // Confirm Password Field
+                              TransparentFormField(
+                                controller: _mobileController,
+                                hint: AppStrings.mobile,
+                                icon: Icons.phone_android,
+                                isPassword: true,
+                                validator: AppValidators.phone,
+                              ),
+
+                              SizedBox(height: 16),
+                              // Work Status Selection
+                              WorkStatusView(),
+
                               SizedBox(height: 24),
 
-                              // Terms and Conditions
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    margin: EdgeInsets.only(top: 2),
-                                    child: Transform.scale(
-                                      scale: 0.9,
-                                      child: Checkbox(
-                                        value: _agreeToTerms,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            _agreeToTerms = value ?? false;
-                                          });
-                                        },
-                                        activeColor: Color(0xFF667eea),
-                                        side: BorderSide(color: Colors.white70),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(
-                                            4,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          _agreeToTerms = !_agreeToTerms;
-                                        });
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.only(top: 4),
-                                        child: RichText(
-                                          text: TextSpan(
-                                            text: 'I agree to the ',
-                                            style: TextStyle(
-                                              color: Colors.white70,
-                                              fontSize: 14,
-                                            ),
-                                            children: [
-                                              TextSpan(
-                                                text: 'Terms of Service',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w600,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                              ),
-                                              TextSpan(text: ' and '),
-                                              TextSpan(
-                                                text: 'Privacy Policy',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w600,
-                                                  decoration:
-                                                      TextDecoration.underline,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              // SMS/Email Updates Checkbox
+                              UpdatesCheckbox(
+                                initialValue: false,
+                                onChanged: (val) {
+                                  print("Checkbox value: $val");
+                                },
                               ),
+
+                              // Terms and Conditions
+                              const TermsAndConditions(),
 
                               SizedBox(height: 32),
 

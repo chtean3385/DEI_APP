@@ -4,15 +4,12 @@ class TransparentFormField extends StatefulWidget {
   final TextEditingController controller;
   final String hint;
   final IconData icon;
-
   final TextInputType? keyboardType;
-
   final bool isPassword;
-
-
   final VoidCallback? onTogglePassword;
-
   final FormFieldValidator<String>? validator;
+  final TextCapitalization textCapitalization;
+
 
   TransparentFormField({
     super.key,
@@ -23,6 +20,8 @@ class TransparentFormField extends StatefulWidget {
     this.isPassword = false,
     this.onTogglePassword,
     this.validator,
+    this.textCapitalization = TextCapitalization.none,
+
   });
 
   @override
@@ -47,6 +46,8 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
         keyboardType: widget.keyboardType,
         obscureText: widget.isPassword && !_isPasswordVisible,
         validator: widget.validator,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        textCapitalization: widget.textCapitalization,
         style: TextStyle(color: Colors.white, fontSize: 16),
         decoration: InputDecoration(
           hintText: widget.hint,
