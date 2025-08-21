@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColors {
   // Primary Shades (Blue)
-  static const primaryColor = Color(0xFF005CE5);   // Base Blue
-  static const primarySemiDarkColor = Color(0xFF0047B2); // Medium Dark Blue
-  static const primaryDarkColor = Color(0xFF003380);     // Deep Navy Blue
+  static const primaryColor =  Color(0xFF667eea);   // Base Blue
+  static const primarySemiDarkColor = Color(0xFF6d65c6); // Medium Dark Blue
+  static const primaryDarkColor =  Color(0xFF764ba2);     // Deep Navy Blue
 
 // Secondary Shades (White)
   static const secondaryColor = Color(0xFFFFFFFF); // Pure White

@@ -1,3 +1,4 @@
+import 'package:dei_champions/ui/pages/auth/signup_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import '../ui/pages/auth/login_screen.dart';
@@ -38,6 +39,15 @@ class AppNavigator {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => SignInScreen()),
+          (route) => false,
+    );
+  }
+
+  static loadSignUpScreen({bool isFromLogout = false}) {
+    // if(!isFromLogout) initController();
+    Navigator.pushAndRemoveUntil(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => SignupScreen()),
           (route) => false,
     );
   }

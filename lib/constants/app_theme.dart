@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'app_colors.dart';
+
  ThemeData lightTheme(BuildContext context) {
 final isTablet = MediaQuery
     .of(context)
@@ -159,27 +161,36 @@ ThemeData darkTheme(BuildContext context) {
   );
 }
 
+
+
 // 🌞 Light Theme ColorScheme
-final ColorScheme lightColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color(0xFF005CE5), // base primary blue
+final ColorScheme lightColorScheme = ColorScheme(
   brightness: Brightness.light,
-  primary: const Color(0xFF005CE5), // buttons, icons, highlights
-  onPrimary: Colors.white,          // text/icons on primary
-  secondary: Colors.white,          // accents, chips
-  onSecondary: Colors.black,        // text/icons on secondary
-  surface: Colors.grey[100]!,       // cards, sheets, containers
-  onSurface: Colors.black,          // text/icons on surface
+  primary: AppColors.primaryColor,
+  onPrimary: Colors.white,
+  secondary: AppColors.primarySemiDarkColor,
+  onSecondary: Colors.white,
+  surface: Colors.grey[100]!,
+  onSurface: Colors.black,
+  background: Colors.white,
+  onBackground: Colors.black,
+  error: Colors.red,
+  onError: Colors.white,
 );
 
 // 🌚 Dark Theme ColorScheme
-final ColorScheme darkColorScheme = ColorScheme.fromSeed(
-  seedColor: const Color(0xFF005CE5),
+final ColorScheme darkColorScheme = ColorScheme(
   brightness: Brightness.dark,
-  primary: const Color(0xFF005CE5), // still your blue
-  onPrimary: Colors.white,          // text/icons on blue
-  secondary: Colors.white,          // accents
-  onSecondary: Colors.black,        // text/icons on white
-  surface: Colors.grey[900]!,       // cards, sheets
-  onSurface: Colors.white,          // text/icons on surface
+  primary: AppColors.primarySemiDarkColor, // slighty deeper blue/purple blend
+  onPrimary: Colors.white,
+  secondary: AppColors.primaryDarkColor,
+  onSecondary: Colors.white,
+  surface: Colors.grey[900]!,
+  onSurface: Colors.white,
+  background: Colors.black,
+  onBackground: Colors.white,
+  error: Colors.red[400]!,
+  onError: Colors.black,
 );
+
 

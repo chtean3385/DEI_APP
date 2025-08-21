@@ -1,5 +1,6 @@
 class AppStrings {
   static const appName = 'DEI Champions';
+  static const appTitle = 'Breaking Barriers, Building Careers';
   static const String loginTitle = 'Login to your Account';
   static const name = 'Your Full Name';
   static const mobile = 'Your Mobile Number';
@@ -8,6 +9,7 @@ class AppStrings {
   static const login = 'Login';
   static const loginMsg = 'Already have an account? ';
   static const signup = 'Signup';
+  static const createAccount = 'Create Account';
   static const signIn = 'SignIn';
   static const forgotPassword = 'Forgot Password?';
   static const rememberMe = 'Remember Me';

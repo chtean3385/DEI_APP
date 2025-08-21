@@ -6,6 +6,7 @@ class CustomThemeButton extends StatelessWidget {
   final Widget child;
   final Color? color;
   final double radius;
+  final double? height;
   final bool isExpanded;
   final bool isLoading;
   final GestureTapCallback? onTap;
@@ -16,6 +17,7 @@ class CustomThemeButton extends StatelessWidget {
     required this.child,
     this.color,
     this.radius = 12,
+    this.height ,
     this.isExpanded = false,
     this.isLoading = false,
     this.onTap,
@@ -53,43 +55,46 @@ class CustomThemeButton extends StatelessWidget {
           border: Border.all(width: 1, color: AppColors.primaryColor),
           borderRadius: BorderRadius.all(Radius.circular(radius)),
         ),
-        child: Padding(
-          padding:
-              padding ??
-              const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-          child:AnimatedSwitcher(
-            duration: const Duration(milliseconds: 300),
-            switchInCurve: Curves.easeIn,
-            switchOutCurve: Curves.easeOut,
-            child: isExpanded
-                ? SizedBox(
-              width: double.infinity,
-              child: Center(
-                child: isLoading
-                    ? const SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator.adaptive(
-                    strokeWidth: 2,
-                    backgroundColor: Colors.transparent,
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                  ),
-                )
-                    : child,
-              ),
+        child: SizedBox(
+          height: height,
+          child: Padding(
+            padding:
+                padding ??
+                const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+            child:AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              switchInCurve: Curves.easeIn,
+              switchOutCurve: Curves.easeOut,
+              child: isExpanded
+                  ? SizedBox(
+                width: double.infinity,
+                child: Center(
+                  child: isLoading
+                      ? const SizedBox(
+                    height: 20,
+                    width: 20,
+                    child: CircularProgressIndicator.adaptive(
+                      strokeWidth: 2,
+                      backgroundColor: Colors.transparent,
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
+                  )
+                      : child,
+                ),
+              )
+                  : isLoading
+                  ? const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator.adaptive(
+                  strokeWidth: 2,
+                  backgroundColor: Colors.transparent,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+                  : child,
             )
-                : isLoading
-                ? const SizedBox(
-              height: 20,
-              width: 20,
-              child: CircularProgressIndicator.adaptive(
-                strokeWidth: 2,
-                backgroundColor: Colors.transparent,
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              ),
-            )
-                : child,
-          )
+          ),
         ),
       ),
     );

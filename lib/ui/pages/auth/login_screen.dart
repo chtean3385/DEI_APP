@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_drawables.dart';
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -101,15 +102,18 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
   }
 
   Widget _signup(){
-    return RichText(textAlign: TextAlign.center,
-      text: TextSpan(children: [
-        TextSpan(
-            text: AppStrings.signupMsg,
-            style: context.textTheme.bodyMedium),
+    return GestureDetector(
+      onTap: ()=>AppNavigator.loadSignUpScreen(),
+      child: RichText(textAlign: TextAlign.center,
+        text: TextSpan(children: [
           TextSpan(
-              text: AppStrings.signupForFree,
-              style: context.textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor) )
-      ]),
+              text: AppStrings.signupMsg,
+              style: context.textTheme.bodyMedium),
+            TextSpan(
+                text: AppStrings.signupForFree,
+                style: context.textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor) )
+        ]),
+      ),
     );
   }
 
