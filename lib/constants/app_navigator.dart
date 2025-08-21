@@ -1,6 +1,7 @@
 import 'package:dei_champions/ui/pages/auth/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
+import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
 
@@ -57,6 +58,12 @@ class AppNavigator {
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => OTPVerificationScreen()),
           (route) => false,
+    );
+  }
+  static loadForgotPasswordScreen({bool isFromLogout = false}) {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => ForgotPasswordScreen()),
     );
   }
 }

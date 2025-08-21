@@ -82,9 +82,12 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                               print("$label changed to $isSelected");
                             },
                           ),
-                          Text(
-                            AppStrings.forgotPassword,
-                            style: context.textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor),
+                          GestureDetector(
+                            onTap: AppNavigator.loadForgotPasswordScreen,
+                            child: Text(
+                              AppStrings.forgotPassword,
+                              style: context.textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor),
+                            ),
                           ),
                         ],
                       ),
