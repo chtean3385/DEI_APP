@@ -5,9 +5,9 @@ import 'package:dei_champions/constants/app_validators.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../constants/app_colors.dart';
-import '../../../widgets/form/transparent_form_field.dart';
-import '../../../widgets/others/custom_theme_button.dart';
+import '../../../../constants/app_colors.dart';
+import '../../../../widgets/form/transparent_form_field.dart';
+import '../../../../widgets/others/custom_theme_button.dart';
 import 'components/backround_image_overlay.dart';
 import 'components/gradient_overlay.dart';
 import 'components/signup_header.dart';
@@ -270,9 +270,11 @@ class _SignupScreenState extends State<SignupScreen>
       radius: 16,
       isExpanded: true,
       onTap: () {
-        if (_formKey.currentState?.validate() == true) {
-          // controller.signInUser(context);
-        }
+        AppNavigator.loadOtpScreen();
+        // if (_formKey.currentState?.validate() == true) {
+        //   // controller.signInUser(context);
+        //   AppNavigator.loadOtpScreen();
+        // }
       },
       child: Text(
         AppStrings.createAccount,

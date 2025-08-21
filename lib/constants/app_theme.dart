@@ -111,6 +111,11 @@ ThemeData darkTheme(BuildContext context) {
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
+      headlineLarge: GoogleFonts.poppins(
+        fontSize:isTablet ? 38 :  28,
+        fontWeight: FontWeight.normal,
+        color: Colors.black,
+      ),
       headlineMedium: GoogleFonts.poppins(
         fontSize:isTablet ? 24 :  20,
         fontWeight: FontWeight.bold,

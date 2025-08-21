@@ -1,7 +1,8 @@
-import 'package:dei_champions/ui/pages/auth/signup_screen.dart';
+import 'package:dei_champions/ui/pages/auth/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import '../ui/pages/auth/login_screen.dart';
+import '../ui/pages/auth/otp/otp_screen.dart';
 
 class AppNavigator {
   // static void toBottomBar() {
@@ -48,6 +49,13 @@ class AppNavigator {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => SignupScreen()),
+          (route) => false,
+    );
+  }
+  static loadOtpScreen({bool isFromLogout = false}) {
+    Navigator.pushAndRemoveUntil(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => OTPVerificationScreen()),
           (route) => false,
     );
   }
