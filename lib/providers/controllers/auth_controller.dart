@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../constants/app_navigator.dart';
 import '../../constants/enums.dart';
 import '../../models/state_models/auth_state.dart';
 
@@ -90,6 +91,7 @@ class AuthController extends AutoDisposeNotifier<AuthState> {
   Future<void> signInUser(BuildContext context) async {
     setPageState(PageState.loading);
     await Future.delayed(Duration(seconds: 3));
+    AppNavigator.loadOtpScreen();
     setPageState(PageState.success);
     // try {
     //   final BaseModel result = await _authService.signIn(

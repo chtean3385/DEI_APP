@@ -24,15 +24,17 @@ class SignInScreen extends ConsumerStatefulWidget {
 class _SignUpScreenState extends ConsumerState<SignInScreen> {
   late final AuthController controller;
   final _formKey = GlobalKey<FormState>();
-
+  bool _rememberMe = false;
   @override
   void initState() {
     super.initState();
     controller = ref.read(authProvider.notifier);
   }
 
+
   @override
   Widget build(BuildContext context) {
+    print("build -- SignInScreen");
     final screenWidth = MediaQuery.of(context).size.width;
     double responsivePadding = screenWidth * 0.2;
     return Scaffold(
@@ -74,10 +76,11 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           CustomCheckbox(
-                            label: AppStrings.rememberMe,
-                            selected:false,
-                            onChanged: (v,b){},
-
+                            label: "Remember Me",
+                            initialValue: false,
+                            onChanged: (label, isSelected) {
+                              print("$label changed to $isSelected");
+                            },
                           ),
                           Text(
                             AppStrings.forgotPassword,
@@ -152,6 +155,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       isLoading: pageState == PageState.loading,
       color: AppColors.primaryColor,
       radius: 30,
+      height: 56,
       onTap: () {
         if (_formKey.currentState?.validate() == true) {
           controller.signInUser(context);
@@ -159,7 +163,9 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       },
       child:  Text(
         AppStrings.signIn,
-        style: context.textTheme.labelMedium?.copyWith(color: context.theme.colorScheme.onPrimary ),
+        style: context.textTheme.titleMedium?.copyWith(
+          color: context.theme.colorScheme.onPrimary,
+        ),
       ),
     );
   }

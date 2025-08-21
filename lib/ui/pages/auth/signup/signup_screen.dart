@@ -93,7 +93,7 @@ class _SignupScreenState extends State<SignupScreen>
             SafeArea(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 16.0),
                 child: FadeTransition(
                   opacity: _fadeAnimation,
                   child: SlideTransition(
@@ -270,11 +270,11 @@ class _SignupScreenState extends State<SignupScreen>
       radius: 16,
       isExpanded: true,
       onTap: () {
-        AppNavigator.loadOtpScreen();
-        // if (_formKey.currentState?.validate() == true) {
-        //   // controller.signInUser(context);
-        //   AppNavigator.loadOtpScreen();
-        // }
+        // AppNavigator.loadOtpScreen();
+        if (_formKey.currentState?.validate() == true) {
+          // controller.signInUser(context);
+          AppNavigator.loadOtpScreen();
+        }
       },
       child: Text(
         AppStrings.createAccount,
