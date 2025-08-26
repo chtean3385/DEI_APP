@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_strings.dart';
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_validators.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +12,9 @@ import '../components/terms_conditions.dart';
 import '../components/update_check_box.dart';
 
 class BasicPersonalInfo extends StatefulWidget {
-  final GlobalKey<FormState> formKey;
+  final VoidCallback onNext;
 
-  const BasicPersonalInfo({super.key, required this.formKey});
+  const BasicPersonalInfo({super.key, required this.onNext});
 
   @override
   _BasicPersonalInfoState createState() => _BasicPersonalInfoState();
@@ -21,6 +22,7 @@ class BasicPersonalInfo extends StatefulWidget {
 
 class _BasicPersonalInfoState extends State<BasicPersonalInfo>
     with SingleTickerProviderStateMixin {
+  final formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -40,11 +42,12 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.formKey,
+      key: formKey,
       child: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
+            gap16(),
             // Full Name Field
             TransparentFormField(
               controller: _nameController,
@@ -159,7 +162,6 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               ),
             ),
             SizedBox(height: 40),
-
           ],
         ),
       ),
@@ -167,18 +169,14 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   }
 
   Widget _nextButton() {
-    // final pageState = ref.watch(authProvider).pageState;
     return CustomThemeButton(
-      // isLoading: pageState == PageState.loading,
       color: AppColors.primaryColor,
       height: 56,
       radius: 16,
       isExpanded: true,
       onTap: () {
-        // AppNavigator.loadOtpScreen();
-        if (widget.formKey.currentState?.validate() == true) {
-          // controller.signInUser(context);
-          // AppNavigator.loadOtpScreen();
+        if (formKey.currentState?.validate() == true) {
+          widget.onNext();
         }
       },
       child: Text(

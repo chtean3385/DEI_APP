@@ -1,9 +1,11 @@
 import 'package:dei_champions/constants/app_drawables.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/basic_info.dart';
+import 'package:dei_champions/ui/pages/auth/signup/widgets/other_info.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_navigator.dart';
 import 'components/backround_image_overlay.dart';
 import 'components/gradient_overlay.dart';
 import 'components/registration_progress_bar.dart';
@@ -20,9 +22,8 @@ class _SignupScreenState extends State<SignupScreen>
     with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
   int currentStep = 0;
-  final int totalSteps = 8;
+  final int totalSteps = 2;
 
-  final List<GlobalKey<FormState>> _formKeys = List.generate(8, (_) => GlobalKey<FormState>());
 
 
   late AnimationController _animationController;
@@ -59,7 +60,6 @@ class _SignupScreenState extends State<SignupScreen>
     super.dispose();
   }
   void nextStep() {
-    if (_formKeys[currentStep].currentState!.validate()) {
       if (currentStep < totalSteps - 1) {
         setState(() {
           currentStep++;
@@ -70,8 +70,8 @@ class _SignupScreenState extends State<SignupScreen>
         );
       } else {
         // submitRegistration(context);
+        AppNavigator.loadOtpScreen();
       }
-    }
   }
 
   void previousStep() {
@@ -119,21 +119,21 @@ class _SignupScreenState extends State<SignupScreen>
                       children: [
                         SignupHeader(),
                         // Signup Form
-                        RegistrationProgressBar(currentStep: 0,totalSteps: 2,),
+                        RegistrationProgressBar(currentStep: currentStep,totalSteps: totalSteps,),
                         gap16(),
-                        // BasicPersonalInfo(),
-                        IntrinsicHeight(
-                          child: SizedBox(height: MediaQuery.of(context).size.height*.9,
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(20),
-                              child: PageView(
-                                controller: _pageController,
-                                physics: NeverScrollableScrollPhysics(),
-                                children: [
-                                  BasicPersonalInfo(formKey:_formKeys[0] ,),
-                                ],
-                              ),
-                            ),
+                        Container(
+                          height: MediaQuery.of(context).size.height * 0.9,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: PageView(
+                            controller: _pageController,
+                            physics: NeverScrollableScrollPhysics(),
+                            allowImplicitScrolling: true,
+                            children: [
+                              BasicPersonalInfo(onNext: nextStep),
+                              OtherInfo(onNext: nextStep)
+                            ],
                           ),
                         )
                       ],
