@@ -65,6 +65,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
       child: SingleChildScrollView(
         physics: NeverScrollableScrollPhysics(),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             gap16(),
             // Full Name Field
@@ -209,9 +210,9 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
       radius: 16,
       isExpanded: true,
       onTap: () {
-        if (formKey.currentState?.validate() == true) {
+        // if (formKey.currentState?.validate() == true) {
           widget.onNext();
-        }
+        // }
       },
       child: Text(
         AppStrings.next,

@@ -3,7 +3,8 @@ import 'work_status_card.dart';
 
 class WorkStatusView extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  const WorkStatusView({super.key, required this.formKey});
+  final ValueChanged<String>? onStatusChanged;
+  const WorkStatusView({super.key, required this.formKey, this.onStatusChanged});
 
   @override
   State<WorkStatusView> createState() => _WorkStatusViewState();
@@ -11,6 +12,7 @@ class WorkStatusView extends StatefulWidget {
 
 class _WorkStatusViewState extends State<WorkStatusView> {
   String? _selectedWorkStatus;
+
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +40,9 @@ class _WorkStatusViewState extends State<WorkStatusView> {
                       setState(() {
                         _selectedWorkStatus = "experienced";
                         field.didChange(_selectedWorkStatus);
+                        if (widget.onStatusChanged != null) {
+                          widget.onStatusChanged!(_selectedWorkStatus!);
+                        }
                       });
                     },
                   ),
@@ -53,6 +58,9 @@ class _WorkStatusViewState extends State<WorkStatusView> {
                       setState(() {
                         _selectedWorkStatus = "fresher";
                         field.didChange(_selectedWorkStatus);
+                        if (widget.onStatusChanged != null) {
+                          widget.onStatusChanged!(_selectedWorkStatus!);
+                        }
                       });
                     },
                   ),

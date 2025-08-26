@@ -22,7 +22,7 @@ class AppStrings {
   static const signupForFree = 'Signup up for free';
   static const getStarted = 'Get Started';
   static const proceed = 'Proceed';
-  static const city = 'Your City';
+  static const city = 'Current City';
   static const area = 'Your Area';
 
 

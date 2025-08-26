@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
 import '../../../../../constants/app_strings.dart';
+import '../../../../../constants/app_validators.dart';
+import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 
 class OtherInfo extends StatefulWidget {
@@ -18,6 +20,8 @@ class OtherInfo extends StatefulWidget {
 
 class _OtherInfoState extends State<OtherInfo> {
   final formKey = GlobalKey<FormState>();
+  final _cityController = TextEditingController();
+  String? selectedWorkStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +29,32 @@ class _OtherInfoState extends State<OtherInfo> {
       key: formKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          WorkStatusView(formKey: formKey),
-          gap16(),
+          gap20(),
+          WorkStatusView(
+            formKey: formKey,
+            onStatusChanged: (value) {
+              setState(() {
+                selectedWorkStatus = value;
+              });
+            },
+          ),
+          gap20(),
+          // Conditionally show location field
+          if (selectedWorkStatus != null &&
+              selectedWorkStatus!.isNotEmpty) ...[
+            TransparentFormField(
+              controller: _cityController,
+              hint: AppStrings.city,
+              icon: Icons.person_outline,
+              textInputAction: TextInputAction.next,
+              validator: AppValidators.fieldEmpty(AppStrings.city),
+              textCapitalization: TextCapitalization.words,
+            ),
+
+            gap20(),
+          ],
           _nextButton(),
           gap16(),
         ],

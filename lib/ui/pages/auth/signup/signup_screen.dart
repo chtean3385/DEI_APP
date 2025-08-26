@@ -117,11 +117,9 @@ class _SignupScreenState extends State<SignupScreen>
                         totalSteps: totalSteps,
                       ),
                       gap16(),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.9,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * .8,
+
                         child: PageView(
                           controller: _pageController,
                           physics: NeverScrollableScrollPhysics(),
