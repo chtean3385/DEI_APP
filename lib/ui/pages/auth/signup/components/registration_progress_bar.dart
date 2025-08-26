@@ -35,12 +35,12 @@ class RegistrationProgressBar extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         ClipRRect(
-          borderRadius: BorderRadius.circular(8), // Rounded corners
+          borderRadius: BorderRadius.circular(16), // Rounded corners
           child: LinearProgressIndicator(
             value: (currentStep + 1) / totalSteps,
             backgroundColor: Colors.white.withOpacity(0.3),
             valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
-            minHeight: 8,
+            minHeight: 10,
           ),
         ),
       ],

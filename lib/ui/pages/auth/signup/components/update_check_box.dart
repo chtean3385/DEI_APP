@@ -53,6 +53,7 @@ class _UpdatesCheckboxState extends State<UpdatesCheckbox> {
               child: Checkbox(
                 value: _value,
                 onChanged: _toggle,
+                visualDensity: VisualDensity.compact,
                 activeColor: const Color(0xFF667eea),
                 side: const BorderSide(color: Colors.white70),
                 shape: RoundedRectangleBorder(

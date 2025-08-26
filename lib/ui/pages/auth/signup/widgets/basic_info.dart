@@ -57,7 +57,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               textCapitalization: TextCapitalization.words,
             ),
 
-            SizedBox(height: 20),
+            gap20(),
 
             // Email Field
             TransparentFormField(
@@ -68,7 +68,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               validator: AppValidators.email,
             ),
 
-            SizedBox(height: 20),
+            gap20(),
 
             // Password Field
             TransparentFormField(
@@ -79,7 +79,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               validator: AppValidators.password,
             ),
 
-            SizedBox(height: 20),
+            gap20(),
 
             // Confirm Password Field
             TransparentFormField(
@@ -90,21 +90,19 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               validator: AppValidators.password,
             ),
 
-            SizedBox(height: 20),
+            gap20(),
 
             // Confirm Password Field
             TransparentFormField(
               controller: _mobileController,
               hint: AppStrings.mobile,
               icon: Icons.phone_android,
-              isPassword: true,
               validator: AppValidators.phone,
             ),
 
-            SizedBox(height: 16),
 
             // Work Status Selection
-            SizedBox(height: 24),
+            gap20(),
 
             // SMS/Email Updates Checkbox
             UpdatesCheckbox(
@@ -117,12 +115,13 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
             // Terms and Conditions
             const TermsAndConditions(),
 
-            SizedBox(height: 32),
+            gap16(),
+            gap16(),
 
             // Sign Up Button
             _nextButton(),
 
-            SizedBox(height: 24),
+            gap16(),
 
             // Divider
             Row(
@@ -139,7 +138,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               ],
             ),
 
-            SizedBox(height: 32),
+           gap16(),
 
             // Login Link
             GestureDetector(
