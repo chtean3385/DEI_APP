@@ -6,6 +6,7 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
+import '../../../../../service/screen_shot_security_manager.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../components/terms_conditions.dart';
@@ -30,12 +31,21 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   final _mobileController = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ScreenShotProtector.enableScreenProtection();
+
+  }
+
+  @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     _mobileController.dispose();
+    ScreenShotProtector.disableScreenProtection();
     super.dispose();
   }
 
