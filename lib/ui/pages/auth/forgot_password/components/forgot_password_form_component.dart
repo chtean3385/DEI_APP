@@ -10,7 +10,6 @@ class ForgotPasswordFormCard extends StatelessWidget {
   final bool isLoading;
   final Animation<double> pulseAnimation;
   final VoidCallback onSendReset;
-  final VoidCallback onBackToLogin;
 
   const ForgotPasswordFormCard({
     super.key,
@@ -19,7 +18,6 @@ class ForgotPasswordFormCard extends StatelessWidget {
     required this.isLoading,
     required this.pulseAnimation,
     required this.onSendReset,
-    required this.onBackToLogin,
   });
 
   @override

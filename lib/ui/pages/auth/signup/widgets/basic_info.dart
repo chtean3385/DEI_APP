@@ -202,9 +202,9 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
       radius: 16,
       isExpanded: true,
       onTap: () {
-        if (formKey.currentState?.validate() == true) {
+        // if (formKey.currentState?.validate() == true) {
           widget.onNext();
-        }
+        // }
       },
       child: Text(
         AppStrings.next,

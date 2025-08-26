@@ -20,7 +20,7 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen>
     with SingleTickerProviderStateMixin {
-  final PageController _pageController = PageController();
+  late PageController _pageController;
   int currentStep = 0;
   final int totalSteps = 2;
 
@@ -51,12 +51,13 @@ class _SignupScreenState extends State<SignupScreen>
     );
 
     _animationController.forward();
+    _pageController = PageController();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
-
+    _pageController.dispose();
     super.dispose();
   }
   void nextStep() {
@@ -107,6 +108,7 @@ class _SignupScreenState extends State<SignupScreen>
             ),
             // Gradient Overlay
             GradientOverlay(),
+
             SafeArea(
               child: SingleChildScrollView(
                 physics: BouncingScrollPhysics(),
@@ -142,6 +144,7 @@ class _SignupScreenState extends State<SignupScreen>
                 ),
               ),
             ),
+            if(currentStep>0)  Positioned(left:10,top:40,child: BackButton(onPressed:previousStep)),
           ],
         ),
       ),

@@ -6,13 +6,11 @@ import 'back_to_login.dart';
 class ForgotPasswordSuccessCard extends StatelessWidget {
   final String email;
   final Animation<double> pulseAnimation;
-  final VoidCallback onBackToLogin;
 
   const ForgotPasswordSuccessCard({
     super.key,
     required this.email,
     required this.pulseAnimation,
-    required this.onBackToLogin,
   });
 
   @override

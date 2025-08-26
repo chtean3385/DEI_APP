@@ -116,7 +116,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                   email: _emailController.text,
                                   pulseAnimation:
                                       _animationController.pulseAnimation,
-                                  onBackToLogin: _goBack,
                                 )
                               : ForgotPasswordFormCard(
                                   emailController: _emailController,
@@ -125,7 +124,6 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                                   pulseAnimation:
                                       _animationController.pulseAnimation,
                                   onSendReset: _sendResetEmail,
-                                  onBackToLogin: _goBack,
                                 ),
                         ),
                       ),
