@@ -44,7 +44,7 @@ class _UpdatesCheckboxState extends State<UpdatesCheckbox> {
         ),
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 2),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -64,13 +64,10 @@ class _UpdatesCheckboxState extends State<UpdatesCheckbox> {
             Expanded(
               child: GestureDetector(
                 onTap: () => _toggle(!_value),
-                child:  Padding(
-                  padding: EdgeInsets.only(top: 4),
-                  child: Text(
-                    'Send me important updates & promotions via SMS, email, and WhatsApp',
-                      style: context.textTheme.displaySmall?.copyWith(color: Colors.white)
+                child:  Text(
+                  'Send me important updates & promotions via SMS, email, and WhatsApp',
+                    style: context.textTheme.displaySmall?.copyWith(color: Colors.white,fontSize: 10)
 
-                  ),
                 ),
               ),
             ),

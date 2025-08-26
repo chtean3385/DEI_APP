@@ -16,7 +16,9 @@ class AppTextFormField extends StatelessWidget {
     this.radius = 30,
     this.readOnly = false,
     this.makeBold = false,
-    this.onChanged
+    this.onChanged,
+    this.autofillHints,
+    this.textInputAction
   });
 
   final TextEditingController? controller;
@@ -32,6 +34,8 @@ class AppTextFormField extends StatelessWidget {
   final bool readOnly ;
   final bool makeBold ;
   final ValueChanged<String>? onChanged;
+  final Iterable<String>? autofillHints;
+  final TextInputAction? textInputAction;
 
   @override
   Widget build(final BuildContext context) {
@@ -48,6 +52,8 @@ class AppTextFormField extends StatelessWidget {
       style: theme.textTheme.bodyMedium?.copyWith(
       fontWeight: makeBold? FontWeight.w800 : FontWeight.normal
       ),
+      autofillHints: autofillHints,
+      textInputAction:textInputAction,
       onChanged: onChanged,
       decoration: InputDecoration(
         prefix: prefix,

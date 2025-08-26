@@ -9,6 +9,8 @@ class TransparentFormField extends StatefulWidget {
   final VoidCallback? onTogglePassword;
   final FormFieldValidator<String>? validator;
   final TextCapitalization textCapitalization;
+  final Iterable<String>? autofillHints;
+  final TextInputAction? textInputAction;
 
 
   TransparentFormField({
@@ -20,7 +22,8 @@ class TransparentFormField extends StatefulWidget {
     this.isPassword = false,
     this.onTogglePassword,
     this.validator,
-    this.textCapitalization = TextCapitalization.none,
+    this.textCapitalization = TextCapitalization
+        .none, this.autofillHints, this.textInputAction,
 
   });
 
@@ -30,9 +33,11 @@ class TransparentFormField extends StatefulWidget {
 
 class _TransparentFormFieldState extends State<TransparentFormField> {
   bool _isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final theme = Theme.of(context);
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(16),
@@ -48,10 +53,22 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
         validator: widget.validator,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         textCapitalization: widget.textCapitalization,
-        style: TextStyle(color: Colors.white, fontSize: 16),
+        autofillHints: widget.autofillHints,
+        textInputAction:widget.textInputAction,
+        cursorColor: Colors.white,
+        style: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onPrimary,fontWeight:  FontWeight.normal
+        ),
         decoration: InputDecoration(
           hintText: widget.hint,
-          hintStyle: TextStyle(color: Colors.white60, fontSize: 16),
+          hintStyle: theme.textTheme.bodyMedium?.copyWith(
+        color:Colors.white60,
+        ),
+          errorStyle: TextStyle(
+            color: Colors.redAccent,
+            fontSize: 10,
+            // fontWeight: FontWeight.w600,
+          ),
           prefixIcon: Icon(widget.icon, color: Colors.white70, size: 22),
           suffixIcon: widget.isPassword
               ? IconButton(

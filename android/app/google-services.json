@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "325714813742",
+    "project_id": "dei-champions",
+    "storage_bucket": "dei-champions.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:325714813742:android:70baa600d4c1d1e7be90bf",
+        "android_client_info": {
+          "package_name": "com.drmstc.dei_champions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "325714813742-a6qudjd6mjqavjcsv9b7abrull1n9kj1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drmstc.dei_champions",
+            "certificate_hash": "af6a8295e2508db556167fea47c246d252e0a536"
+          }
+        },
+        {
+          "client_id": "325714813742-g3e0tbtm4iudajtijo0ur657jgillpeu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.drmstc.dei_champions",
+            "certificate_hash": "2748459f56ba21b244af0af5823955ee552d4514"
+          }
+        },
+        {
+          "client_id": "325714813742-s9mq0r87p08nej5c2sppde3vpvts1u66.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnPslTnqzzyvyFG499QNGWDI_KbgVMX5o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "325714813742-s9mq0r87p08nej5c2sppde3vpvts1u66.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "325714813742-me68iclfkd366hg8b378pv6fspt2eqtf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.drmstc.deiChampions"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

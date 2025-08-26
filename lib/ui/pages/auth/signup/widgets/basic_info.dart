@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
 import '../../../../../service/screen_shot_security_manager.dart';
+import '../../../../../service/user_info_service.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../components/terms_conditions.dart';
@@ -35,7 +36,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
     // TODO: implement initState
     super.initState();
     ScreenShotProtector.enableScreenProtection();
-
+    _autoFillUserData();
   }
 
   @override
@@ -47,6 +48,14 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
     _mobileController.dispose();
     ScreenShotProtector.disableScreenProtection();
     super.dispose();
+  }
+
+  Future<void> _autoFillUserData() async {
+    final email = await UserInfoService.getUserEmail();
+    final mobile = await MobileHelper.getMobileNumber();
+
+    if (email != null) _emailController.text = email;
+    if (mobile != null) _mobileController.text = mobile;
   }
 
   @override
@@ -63,6 +72,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               controller: _nameController,
               hint: AppStrings.name,
               icon: Icons.person_outline,
+              textInputAction: TextInputAction.next,
               validator: AppValidators.fieldEmpty(AppStrings.name),
               textCapitalization: TextCapitalization.words,
             ),
@@ -74,10 +84,23 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               controller: _emailController,
               hint: AppStrings.email,
               icon: Icons.email_outlined,
+              textInputAction: TextInputAction.next,
+              autofillHints: [AutofillHints.email],
               keyboardType: TextInputType.emailAddress,
               validator: AppValidators.email,
             ),
+            gap20(),
 
+            // Confirm Password Field
+            TransparentFormField(
+              controller: _mobileController,
+              hint: AppStrings.mobile,
+              autofillHints: [AutofillHints.telephoneNumber],
+              textInputAction: TextInputAction.next,
+              icon: Icons.phone_android,
+              validator: AppValidators.phone,
+              keyboardType: TextInputType.phone,
+            ),
             gap20(),
 
             // Password Field
@@ -85,6 +108,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               controller: _passwordController,
               hint: AppStrings.password,
               icon: Icons.lock_outline,
+              textInputAction: TextInputAction.next,
               isPassword: true,
               validator: AppValidators.password,
             ),
@@ -96,20 +120,10 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               controller: _confirmPasswordController,
               hint: 'Confirm Password',
               icon: Icons.lock_outline,
+              textInputAction: TextInputAction.next,
               isPassword: true,
-              validator: AppValidators.password,
+              validator: AppValidators.confirmPassword(_passwordController),
             ),
-
-            gap20(),
-
-            // Confirm Password Field
-            TransparentFormField(
-              controller: _mobileController,
-              hint: AppStrings.mobile,
-              icon: Icons.phone_android,
-              validator: AppValidators.phone,
-            ),
-
 
             // Work Status Selection
             gap20(),
@@ -118,7 +132,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
             UpdatesCheckbox(
               initialValue: false,
               onChanged: (val) {
-                print("Checkbox value: $val");
+                debugPrint("Checkbox value: $val");
               },
             ),
 
@@ -141,14 +155,16 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     'OR',
-                    style: TextStyle(color: Colors.white70, fontSize: 14),
+                    style: context.textTheme.bodyMedium?.copyWith(
+                        color: Colors.white70
+                    ),
                   ),
                 ),
                 Expanded(child: Divider(color: Colors.white30, thickness: 1)),
               ],
             ),
 
-           gap16(),
+            gap16(),
 
             // Login Link
             GestureDetector(
@@ -156,7 +172,9 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               child: RichText(
                 text: TextSpan(
                   text: 'Already have an account? ',
-                  style: TextStyle(color: Colors.white70, fontSize: 16),
+                  style: context.textTheme.bodyMedium?.copyWith(
+                    color: Colors.white70
+                  ),
                   children: [
                     TextSpan(
                       text: 'Sign In',

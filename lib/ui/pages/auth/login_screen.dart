@@ -34,7 +34,6 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("build -- SignInScreen");
     final screenWidth = MediaQuery.of(context).size.width;
     double responsivePadding = screenWidth * 0.2;
     return Scaffold(
@@ -139,7 +138,10 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       controller: controller.emailNameController,
       label: AppStrings.email,
       validator: AppValidators.email,
-      textInputType: TextInputType.text,
+      textInputType: TextInputType.emailAddress,
+      autofillHints: [AutofillHints.email],
+      textInputAction: TextInputAction.next,
+
     );
   }
 
@@ -149,6 +151,8 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       label: AppStrings.password,
       validator: AppValidators.fieldEmpty(AppStrings.password),
       textInputType: TextInputType.text,
+      autofillHints: [AutofillHints.password],
+      textInputAction: TextInputAction.next,
     );
   }
 

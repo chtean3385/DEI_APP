@@ -44,6 +44,20 @@ class AppValidators {
     }
     return null;
   };
+  static FormFieldValidator<String> confirmPassword(TextEditingController passwordController) {
+    return (value) {
+      if (value == null || value.isEmpty) {
+        return 'Please confirm your password';
+      } else if (value.length < 8) {
+        return 'Password must be at least 8 characters long';
+      } else if (value.contains(' ')) {
+        return 'Password must not contain whitespace';
+      } else if (value != passwordController.text.trim()) {
+        return 'Passwords do not match';
+      }
+      return null;
+    };
+  }
   static FormFieldValidator<String> phone = (value) {
     String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
     RegExp regExp = RegExp(pattern);
