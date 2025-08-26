@@ -13,46 +13,21 @@ class SignupHeader extends StatelessWidget {
       children: [
         const SizedBox(height: 40),
 
-        // Logo and Title Section
-        Center(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.35),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Image.asset(
-                  AppDrawables.logoWithoutSubtitle,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                AppStrings.appTitle,
-                style: context.textTheme.headlineSmall?.copyWith(
-                  color: context.theme.colorScheme.onPrimary,
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        const SizedBox(height: 50),
-
         // Welcome Text
-        const Text(
+        Text(
           'Create Account',
-          style: TextStyle(
-            fontSize: 28,
-            fontWeight: FontWeight.bold,
+          textAlign: TextAlign.center,
+          style: context.textTheme.headlineLarge?.copyWith(
             color: Colors.white,
+            fontWeight: FontWeight.w600,
           ),
         ),
+
         const SizedBox(height: 8),
-        const Text(
+        Text(
           'Join thousands of professionals',
-          style: TextStyle(fontSize: 16, color: Colors.white70),
+          textAlign: TextAlign.center,
+          style: context.textTheme.bodySmall?.copyWith(color: Colors.white70),
         ),
 
         const SizedBox(height: 40),

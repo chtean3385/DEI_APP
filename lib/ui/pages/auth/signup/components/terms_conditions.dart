@@ -10,10 +10,10 @@ class TermsAndConditions extends StatelessWidget {
       child: RichText(
         textAlign: TextAlign.center,
         text: const TextSpan(
-          text: 'By clicking register, you agree to the \n ',
+          text: 'By clicking register, you agree to the  ',
           style: TextStyle(
             color: Colors.white70,
-            fontSize: 14,
+            fontSize: 10,
           ),
           children: [
             TextSpan(

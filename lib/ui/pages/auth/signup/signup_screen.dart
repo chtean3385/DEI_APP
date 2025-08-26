@@ -1,19 +1,13 @@
 import 'package:dei_champions/constants/app_drawables.dart';
-import 'package:dei_champions/constants/app_navigator.dart';
-import 'package:dei_champions/constants/app_strings.dart';
-import 'package:dei_champions/constants/app_validators.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/ui/pages/auth/signup/widgets/basic_info.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
-import '../../../../widgets/form/transparent_form_field.dart';
-import '../../../../widgets/others/custom_theme_button.dart';
 import 'components/backround_image_overlay.dart';
 import 'components/gradient_overlay.dart';
+import 'components/registration_progress_bar.dart';
 import 'components/signup_header.dart';
-import 'components/terms_conditions.dart';
-import 'components/update_check_box.dart';
-import 'components/work_status_view.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -24,12 +18,12 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen>
     with SingleTickerProviderStateMixin {
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
-  final _mobileController = TextEditingController();
+  final PageController _pageController = PageController();
+  int currentStep = 0;
+  final int totalSteps = 8;
+
+  final List<GlobalKey<FormState>> _formKeys = List.generate(8, (_) => GlobalKey<FormState>());
+
 
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -49,11 +43,11 @@ class _SignupScreenState extends State<SignupScreen>
 
     _slideAnimation = Tween<Offset>(begin: Offset(0, 0.3), end: Offset.zero)
         .animate(
-          CurvedAnimation(
-            parent: _animationController,
-            curve: Curves.easeOutCubic,
-          ),
-        );
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
 
     _animationController.forward();
   }
@@ -61,12 +55,35 @@ class _SignupScreenState extends State<SignupScreen>
   @override
   void dispose() {
     _animationController.dispose();
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
-    _mobileController.dispose();
+
     super.dispose();
+  }
+  void nextStep() {
+    if (_formKeys[currentStep].currentState!.validate()) {
+      if (currentStep < totalSteps - 1) {
+        setState(() {
+          currentStep++;
+        });
+        _pageController.nextPage(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      } else {
+        // submitRegistration(context);
+      }
+    }
+  }
+
+  void previousStep() {
+    if (currentStep > 0) {
+      setState(() {
+        currentStep--;
+      });
+      _pageController.previousPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override
@@ -99,156 +116,26 @@ class _SignupScreenState extends State<SignupScreen>
                   child: SlideTransition(
                     position: _slideAnimation,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SignupHeader(),
                         // Signup Form
-                        Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              // Full Name Field
-                              TransparentFormField(
-                                controller: _nameController,
-                                hint: AppStrings.name,
-                                icon: Icons.person_outline,
-                                validator: AppValidators.fieldEmpty(
-                                  AppStrings.name,
-                                ),
-                                textCapitalization: TextCapitalization.words,
-                              ),
-
-                              SizedBox(height: 20),
-
-                              // Email Field
-                              TransparentFormField(
-                                controller: _emailController,
-                                hint: AppStrings.email,
-                                icon: Icons.email_outlined,
-                                keyboardType: TextInputType.emailAddress,
-                                validator: AppValidators.email,
-                              ),
-
-                              SizedBox(height: 20),
-
-                              // Password Field
-                              TransparentFormField(
-                                controller: _passwordController,
-                                hint: AppStrings.password,
-                                icon: Icons.lock_outline,
-                                isPassword: true,
-                                validator: AppValidators.password,
-                              ),
-
-                              SizedBox(height: 20),
-
-                              // Confirm Password Field
-                              TransparentFormField(
-                                controller: _confirmPasswordController,
-                                hint: 'Confirm Password',
-                                icon: Icons.lock_outline,
-                                isPassword: true,
-                                validator: AppValidators.password,
-                              ),
-
-                              SizedBox(height: 20),
-
-                              // Confirm Password Field
-                              TransparentFormField(
-                                controller: _mobileController,
-                                hint: AppStrings.mobile,
-                                icon: Icons.phone_android,
-                                isPassword: true,
-                                validator: AppValidators.phone,
-                              ),
-
-                              SizedBox(height: 16),
-                              // Work Status Selection
-                              WorkStatusView(),
-
-                              SizedBox(height: 24),
-
-                              // SMS/Email Updates Checkbox
-                              UpdatesCheckbox(
-                                initialValue: false,
-                                onChanged: (val) {
-                                  print("Checkbox value: $val");
-                                },
-                              ),
-
-                              // Terms and Conditions
-                              const TermsAndConditions(),
-
-                              SizedBox(height: 32),
-
-                              // Sign Up Button
-                              _signUpButton(),
-
-                              SizedBox(height: 24),
-
-                              // Divider
-                              Row(
+                        RegistrationProgressBar(currentStep: 0,totalSteps: 2,),
+                        gap16(),
+                        // BasicPersonalInfo(),
+                        IntrinsicHeight(
+                          child: SizedBox(height: MediaQuery.of(context).size.height*.9,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: PageView(
+                                controller: _pageController,
+                                physics: NeverScrollableScrollPhysics(),
                                 children: [
-                                  Expanded(
-                                    child: Divider(
-                                      color: Colors.white30,
-                                      thickness: 1,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                    ),
-                                    child: Text(
-                                      'OR',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 14,
-                                      ),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: Divider(
-                                      color: Colors.white30,
-                                      thickness: 1,
-                                    ),
-                                  ),
+                                  BasicPersonalInfo(formKey:_formKeys[0] ,),
                                 ],
                               ),
-
-                              SizedBox(height: 32),
-
-                              // Login Link
-                              Center(
-                                child: GestureDetector(
-                                  onTap: () => AppNavigator.loadSignInScreen(),
-                                  child: RichText(
-                                    text: TextSpan(
-                                      text: 'Already have an account? ',
-                                      style: TextStyle(
-                                        color: Colors.white70,
-                                        fontSize: 16,
-                                      ),
-                                      children: [
-                                        TextSpan(
-                                          text: 'Sign In',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                            decoration:
-                                                TextDecoration.underline,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(height: 40),
-                            ],
+                            ),
                           ),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -261,27 +148,4 @@ class _SignupScreenState extends State<SignupScreen>
     );
   }
 
-  Widget _signUpButton() {
-    // final pageState = ref.watch(authProvider).pageState;
-    return CustomThemeButton(
-      // isLoading: pageState == PageState.loading,
-      color: AppColors.primaryColor,
-      height: 56,
-      radius: 16,
-      isExpanded: true,
-      onTap: () {
-        // AppNavigator.loadOtpScreen();
-        if (_formKey.currentState?.validate() == true) {
-          // controller.signInUser(context);
-          AppNavigator.loadOtpScreen();
-        }
-      },
-      child: Text(
-        AppStrings.createAccount,
-        style: context.textTheme.titleMedium?.copyWith(
-          color: context.theme.colorScheme.onPrimary,
-        ),
-      ),
-    );
-  }
 }

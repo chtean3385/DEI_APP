@@ -1,3 +1,4 @@
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 class UpdatesCheckbox extends StatefulWidget {
@@ -32,8 +33,8 @@ class _UpdatesCheckboxState extends State<UpdatesCheckbox> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+    return DecoratedBox(
+
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
@@ -42,38 +43,38 @@ class _UpdatesCheckboxState extends State<UpdatesCheckbox> {
           width: 1,
         ),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Transform.scale(
-            scale: 1,
-            child: Checkbox(
-              value: _value,
-              onChanged: _toggle,
-              activeColor: const Color(0xFF667eea),
-              side: const BorderSide(color: Colors.white70),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Transform.scale(
+              scale: 1,
+              child: Checkbox(
+                value: _value,
+                onChanged: _toggle,
+                activeColor: const Color(0xFF667eea),
+                side: const BorderSide(color: Colors.white70),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(4),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () => _toggle(!_value),
-              child: const Padding(
-                padding: EdgeInsets.only(top: 4),
-                child: Text(
-                  'Send me important updates & promotions via SMS, email, and WhatsApp',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    height: 1.4,
+            Expanded(
+              child: GestureDetector(
+                onTap: () => _toggle(!_value),
+                child:  Padding(
+                  padding: EdgeInsets.only(top: 4),
+                  child: Text(
+                    'Send me important updates & promotions via SMS, email, and WhatsApp',
+                      style: context.textTheme.displaySmall?.copyWith(color: Colors.white)
+
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
