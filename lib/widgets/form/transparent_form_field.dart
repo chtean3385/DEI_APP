@@ -11,6 +11,7 @@ class TransparentFormField extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final Iterable<String>? autofillHints;
   final TextInputAction? textInputAction;
+  final ValueChanged<String>? onFieldSubmitted;
 
 
   TransparentFormField({
@@ -22,8 +23,10 @@ class TransparentFormField extends StatefulWidget {
     this.isPassword = false,
     this.onTogglePassword,
     this.validator,
-    this.textCapitalization = TextCapitalization
-        .none, this.autofillHints, this.textInputAction,
+    this.textCapitalization = TextCapitalization.none,
+    this.autofillHints,
+    this.textInputAction,
+    this.onFieldSubmitted,
 
   });
 
@@ -59,6 +62,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
         style: theme.textTheme.bodyMedium?.copyWith(
             color: theme.colorScheme.onPrimary,fontWeight:  FontWeight.normal
         ),
+        onFieldSubmitted:widget.onFieldSubmitted,
         decoration: InputDecoration(
           hintText: widget.hint,
           hintStyle: theme.textTheme.bodyMedium?.copyWith(

@@ -24,8 +24,6 @@ class _SignupScreenState extends State<SignupScreen>
   int currentStep = 0;
   final int totalSteps = 2;
 
-
-
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -44,11 +42,11 @@ class _SignupScreenState extends State<SignupScreen>
 
     _slideAnimation = Tween<Offset>(begin: Offset(0, 0.3), end: Offset.zero)
         .animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeOutCubic,
-      ),
-    );
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeOutCubic,
+          ),
+        );
 
     _animationController.forward();
     _pageController = PageController();
@@ -60,19 +58,20 @@ class _SignupScreenState extends State<SignupScreen>
     _pageController.dispose();
     super.dispose();
   }
+
   void nextStep() {
-      if (currentStep < totalSteps - 1) {
-        setState(() {
-          currentStep++;
-        });
-        _pageController.nextPage(
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeInOut,
-        );
-      } else {
-        // submitRegistration(context);
-        AppNavigator.loadOtpScreen();
-      }
+    if (currentStep < totalSteps - 1) {
+      setState(() {
+        currentStep++;
+      });
+      _pageController.nextPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    } else {
+      // submitRegistration(context);
+      AppNavigator.loadOtpScreen();
+    }
   }
 
   void previousStep() {
@@ -90,65 +89,63 @@ class _SignupScreenState extends State<SignupScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [AppColors.primaryColor, AppColors.secondaryColor],
+      backgroundColor: Colors.black12,
+      body: Stack(
+        children: [
+          // Background Image with Overlay
+          BackgroundImageOverlay(
+            imagePath: AppDrawables.signupBg,
+            darkenOpacity: 0.5,
           ),
-        ),
-        child: Stack(
-          children: [
-            // Background Image with Overlay
-            BackgroundImageOverlay(
-              imagePath: AppDrawables.signupBg,
-              darkenOpacity: 0.5,
-            ),
-            // Gradient Overlay
-            GradientOverlay(),
+          // Gradient Overlay
+          GradientOverlay(),
 
-            SafeArea(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: SlideTransition(
-                    position: _slideAnimation,
-                    child: Column(
-                      children: [
-                        SignupHeader(),
-                        // Signup Form
-                        RegistrationProgressBar(currentStep: currentStep,totalSteps: totalSteps,),
-                        gap16(),
-                        Container(
-                          height: MediaQuery.of(context).size.height * 0.9,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: PageView(
-                            controller: _pageController,
-                            physics: NeverScrollableScrollPhysics(),
-                            allowImplicitScrolling: true,
-                            children: [
-                              BasicPersonalInfo(onNext: nextStep),
-                              OtherInfo(onNext: nextStep)
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
+          SafeArea(
+            child: SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              child: FadeTransition(
+                opacity: _fadeAnimation,
+                child: SlideTransition(
+                  position: _slideAnimation,
+                  child: Column(
+                    children: [
+                      SignupHeader(),
+                      // Signup Form
+                      RegistrationProgressBar(
+                        currentStep: currentStep,
+                        totalSteps: totalSteps,
+                      ),
+                      gap16(),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.9,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: PageView(
+                          controller: _pageController,
+                          physics: NeverScrollableScrollPhysics(),
+                          allowImplicitScrolling: true,
+                          children: [
+                            BasicPersonalInfo(onNext: nextStep),
+                            OtherInfo(onNext: nextStep),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
-            if(currentStep>0)  Positioned(left:10,top:40,child: BackButton(onPressed:previousStep)),
-          ],
-        ),
+          ),
+          if (currentStep > 0)
+            Positioned(
+              left: 10,
+              top: 40,
+              child: BackButton(onPressed: previousStep),
+            ),
+        ],
       ),
     );
   }
-
 }

@@ -111,6 +111,9 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               textInputAction: TextInputAction.next,
               isPassword: true,
               validator: AppValidators.password,
+              onFieldSubmitted: (_) {
+                FocusScope.of(context).nextFocus();
+              },
             ),
 
             gap20(),
@@ -123,6 +126,9 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               textInputAction: TextInputAction.next,
               isPassword: true,
               validator: AppValidators.confirmPassword(_passwordController),
+              onFieldSubmitted: (_) {
+                FocusScope.of(context).nextFocus();
+              },
             ),
 
             // Work Status Selection
@@ -202,9 +208,9 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
       radius: 16,
       isExpanded: true,
       onTap: () {
-        // if (formKey.currentState?.validate() == true) {
+        if (formKey.currentState?.validate() == true) {
           widget.onNext();
-        // }
+        }
       },
       child: Text(
         AppStrings.next,
