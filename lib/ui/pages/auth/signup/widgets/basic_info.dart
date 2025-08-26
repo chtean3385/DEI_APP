@@ -136,6 +136,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
 
             // SMS/Email Updates Checkbox
             UpdatesCheckbox(
+              formKey: formKey,
               initialValue: false,
               onChanged: (val) {
                 debugPrint("Checkbox value: $val");

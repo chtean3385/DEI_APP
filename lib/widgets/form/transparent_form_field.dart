@@ -49,49 +49,50 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
           width: 1,
         ),
       ),
-      child: TextFormField(
-        controller: widget.controller,
-        keyboardType: widget.keyboardType,
-        obscureText: widget.isPassword && !_isPasswordVisible,
-        validator: widget.validator,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        textCapitalization: widget.textCapitalization,
-        autofillHints: widget.autofillHints,
-        textInputAction:widget.textInputAction,
-        cursorColor: Colors.white,
-        style: theme.textTheme.bodyMedium?.copyWith(
-            color: theme.colorScheme.onPrimary,fontWeight:  FontWeight.normal
-        ),
-        onFieldSubmitted:widget.onFieldSubmitted,
-        decoration: InputDecoration(
-          hintText: widget.hint,
-          hintStyle: theme.textTheme.bodyMedium?.copyWith(
-        color:Colors.white60,
-        ),
-          errorStyle: TextStyle(
-            color: Colors.redAccent,
-            fontSize: 10,
-            // fontWeight: FontWeight.w600,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 2),
+        child: TextFormField(
+          controller: widget.controller,
+          keyboardType: widget.keyboardType,
+          obscureText: widget.isPassword && !_isPasswordVisible,
+          validator: widget.validator,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          textCapitalization: widget.textCapitalization,
+          autofillHints: widget.autofillHints,
+          textInputAction:widget.textInputAction,
+          cursorColor: Colors.white,
+          style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onPrimary,fontWeight:  FontWeight.normal
           ),
-          prefixIcon: Icon(widget.icon, color: Colors.white70, size: 22),
-          suffixIcon: widget.isPassword
-              ? IconButton(
-            icon: Icon(
-              _isPasswordVisible
-                  ? Icons.visibility_outlined
-                  : Icons.visibility_off_outlined,
-              color: Colors.white70,
-              size: 22,
+          onFieldSubmitted:widget.onFieldSubmitted,
+          decoration: InputDecoration(
+            hintText: widget.hint,
+            hintStyle: theme.textTheme.bodyMedium?.copyWith(
+          color:Colors.white60,
+          ),
+            errorStyle: theme.textTheme.displaySmall?.copyWith(
+                color: Colors.redAccent,fontWeight:  FontWeight.normal,fontSize: 10
             ),
-            onPressed: () {
-              setState(() {
-                _isPasswordVisible = !_isPasswordVisible;
-              });
-            },
-          )
-              : null,
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+            prefixIcon: Icon(widget.icon, color: Colors.white70, size: 22),
+            suffixIcon: widget.isPassword
+                ? IconButton(
+              icon: Icon(
+                _isPasswordVisible
+                    ? Icons.visibility_outlined
+                    : Icons.visibility_off_outlined,
+                color: Colors.white70,
+                size: 22,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isPasswordVisible = !_isPasswordVisible;
+                });
+              },
+            )
+                : null,
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+          ),
         ),
       ),
     );
