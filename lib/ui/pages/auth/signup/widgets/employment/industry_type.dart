@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../components/auto_sugstion_form_field.dart';
+import '../../components/auto_sugstion_form_field.dart';
 
 /// 1. Industry Type
 class IndustryTypeField extends StatelessWidget {

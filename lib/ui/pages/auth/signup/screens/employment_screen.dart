@@ -1,11 +1,11 @@
 // employment_screen.dart
 import 'package:dei_champions/constants/app_styles.dart';
-import 'package:dei_champions/ui/pages/auth/signup/widgets/current_company.dart';
-import 'package:dei_champions/ui/pages/auth/signup/widgets/current_job.dart';
-import 'package:dei_champions/ui/pages/auth/signup/widgets/department_type.dart';
-import 'package:dei_champions/ui/pages/auth/signup/widgets/industry_type.dart';
-import 'package:dei_champions/ui/pages/auth/signup/widgets/job_role_type.dart';
-import 'package:dei_champions/ui/pages/auth/signup/widgets/role_category_type.dart';
+import 'package:dei_champions/ui/pages/auth/signup/widgets/employment/current_company.dart';
+import 'package:dei_champions/ui/pages/auth/signup/widgets/employment/current_job.dart';
+import 'package:dei_champions/ui/pages/auth/signup/widgets/employment/department_type.dart';
+import 'package:dei_champions/ui/pages/auth/signup/widgets/employment/industry_type.dart';
+import 'package:dei_champions/ui/pages/auth/signup/widgets/employment/job_role_type.dart';
+import 'package:dei_champions/ui/pages/auth/signup/widgets/employment/role_category_type.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -19,10 +19,10 @@ import '../components/backround_image_overlay.dart';
 import '../components/gradient_overlay.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
-import '../widgets/notice_period.dart';
-import '../widgets/salary.dart';
+import '../widgets/employment/notice_period.dart';
+import '../widgets/employment/salary.dart';
 import '../widgets/signup_back_button.dart';
-import '../widgets/work_duration.dart';
+import '../widgets/employment/work_duration.dart';
 
 class EmploymentScreen extends StatefulWidget {
   final VoidCallback onNext;

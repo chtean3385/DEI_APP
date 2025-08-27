@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/auto_sugstion_form_field.dart' show AutoSuggestionDropdownField;
+import '../../components/auto_sugstion_form_field.dart' show AutoSuggestionDropdownField;
 
 /// 2. Department
 class DepartmentField extends StatelessWidget {

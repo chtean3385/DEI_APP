@@ -2,8 +2,8 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show FilteringTextInputFormatter;
 
-import '../../../../../constants/app_validators.dart';
-import '../../../../../widgets/form/transparent_form_field.dart';
+import '../../../../../../constants/app_validators.dart';
+import '../../../../../../widgets/form/transparent_form_field.dart';
 
 class SalaryWidget extends StatelessWidget {
   final TextEditingController controller;

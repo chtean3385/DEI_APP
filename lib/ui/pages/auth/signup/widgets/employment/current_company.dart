@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../components/auto_sugstion_form_field.dart';
+import '../../components/auto_sugstion_form_field.dart';
 
 class CurrentCompany extends StatelessWidget {
   final TextEditingController controller;
