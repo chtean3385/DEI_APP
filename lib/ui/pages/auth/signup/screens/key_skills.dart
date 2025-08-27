@@ -1,4 +1,3 @@
-// employment_screen.dart
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/key_skills/skill_form.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -12,6 +11,7 @@ import '../components/backround_image_overlay.dart';
 import '../components/gradient_overlay.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
+import '../widgets/key_skills/selected_key_skills.dart';
 import '../widgets/signup_back_button.dart';
 
 class KeySkills extends StatefulWidget {
@@ -22,11 +22,11 @@ class KeySkills extends StatefulWidget {
   @override
   State<KeySkills> createState() => _KeySkillsState();
 }
-
 class _KeySkillsState extends State<KeySkills> {
   final formKey = GlobalKey<FormState>();
-
   final TextEditingController skillController = TextEditingController();
+
+  final List<String> _selectedSkills = [];
 
   @override
   void dispose() {
@@ -34,16 +34,25 @@ class _KeySkillsState extends State<KeySkills> {
     super.dispose();
   }
 
+  void _addSkill(String skill) {
+    if (skill.isNotEmpty && !_selectedSkills.contains(skill)) {
+      setState(() => _selectedSkills.add(skill));
+    }
+    skillController.clear();
+  }
+
+  void _removeSkill(String skill) {
+    setState(() => _selectedSkills.remove(skill));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Background Image with Overlay
         BackgroundImageOverlay(
           imagePath: AppDrawables.signupBg,
           darkenOpacity: 0.5,
         ),
-        // Gradient Overlay
         GradientOverlay(),
         SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -56,18 +65,51 @@ class _KeySkillsState extends State<KeySkills> {
                     key: formKey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         SignupHeaderSmall(
                           title: "Key Skills",
-                          subTitle: 'Lets fill your specific key skills',
+                          subTitle: 'Let’s fill your specific key skills',
                         ),
-                        // Signup Form
                         RegistrationProgressBar(),
                         gap16(),
                         gap16(),
 
-                        KeyForm(controller: skillController),
+                        /// 🔽 Skill Input
+                        KeyForm(
+                          controller: skillController,
+                          onSkillSelected: _addSkill,
+                        ),
+
+                        gap16(),
+
+                        /// 🔽 Show selected skills
+                        if (_selectedSkills.isNotEmpty)
+                          SelectedKeySkills(
+                            selectedSkill: _selectedSkills,
+                            onRemove: _removeSkill,
+                          ),
+
+                        /// 🔽 Validator error message
+                        Builder(
+                          builder: (context) {
+                            return Visibility(
+                              visible: _selectedSkills.isEmpty,
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    "Please enter at least one skill",
+                                    style: TextStyle(
+                                      color: Colors.red.shade300,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
 
                         gap20(),
                       ],
@@ -80,7 +122,7 @@ class _KeySkillsState extends State<KeySkills> {
             ),
           ),
         ),
-        Positioned(left: 10, top: 40, child: SignupBackButton()),
+        const Positioned(left: 10, top: 40, child: SignupBackButton()),
       ],
     );
   }
@@ -93,9 +135,13 @@ class _KeySkillsState extends State<KeySkills> {
         radius: 16,
         isExpanded: false,
         onTap: () {
-          // if (formKey.currentState?.validate() == true) {
+          if (_selectedSkills.isEmpty) {
+            // force rebuild to show error
+            setState(() {});
+            return;
+          }
+
           widget.onNext();
-          // }
         },
         child: Text(
           AppStrings.next,
@@ -107,5 +153,4 @@ class _KeySkillsState extends State<KeySkills> {
     );
   }
 }
-
 

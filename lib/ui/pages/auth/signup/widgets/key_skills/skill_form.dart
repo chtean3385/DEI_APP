@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-
 import '../../components/auto_sugstion_form_field.dart';
 
 class KeyForm extends StatelessWidget {
   final TextEditingController controller;
-  KeyForm({super.key, required this.controller});
+  final Function(String)? onSkillSelected;
 
-  // Updated: skills instead of job titles
+   KeyForm({
+    super.key,
+    required this.controller,
+    this.onSkillSelected,
+  });
+
+  // Skills list
   final List<String> _skills = [
     'Java',
     'Python',
@@ -55,18 +60,13 @@ class KeyForm extends StatelessWidget {
     return AutoSuggestionDropdownField(
       controller: controller,
       hint: "Enter your key skill",
-      icon: Icons.build_circle_outlined, // changed to a "skills" icon
+      icon: Icons.build_circle_outlined,
       suggestions: _skills,
       maxSuggestions: 8,
       caseSensitive: false,
       onSuggestionSelected: (suggestion) {
-        print('Selected skill: $suggestion');
-      },
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Please enter at least one skill';
-        }
-        return null;
+        onSkillSelected?.call(suggestion);
+        controller.clear();
       },
     );
   }
