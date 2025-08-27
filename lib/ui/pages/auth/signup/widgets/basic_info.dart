@@ -6,10 +6,15 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
+import '../../../../../constants/app_drawables.dart';
 import '../../../../../service/screen_shot_security_manager.dart';
 import '../../../../../service/user_info_service.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
+import '../components/backround_image_overlay.dart';
+import '../components/gradient_overlay.dart';
+import '../components/registration_progress_bar.dart';
+import '../components/signup_header.dart';
 import '../components/terms_conditions.dart';
 import '../components/update_check_box.dart';
 
@@ -27,8 +32,8 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   final formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-  final _confirmPasswordController = TextEditingController();
+  // final _passwordController = TextEditingController();
+  // final _confirmPasswordController = TextEditingController();
   final _mobileController = TextEditingController();
 
   @override
@@ -43,8 +48,8 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
-    _passwordController.dispose();
-    _confirmPasswordController.dispose();
+    // _passwordController.dispose();
+    // _confirmPasswordController.dispose();
     _mobileController.dispose();
     ScreenShotProtector.disableScreenProtection();
     super.dispose();
@@ -62,143 +67,166 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   Widget build(BuildContext context) {
     return Form(
       key: formKey,
-      child: SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            gap16(),
-            // Full Name Field
-            TransparentFormField(
-              controller: _nameController,
-              hint: AppStrings.name,
-              icon: Icons.person_outline,
-              textInputAction: TextInputAction.next,
-              validator: AppValidators.fieldEmpty(AppStrings.name),
-              textCapitalization: TextCapitalization.words,
-            ),
-
-            gap20(),
-
-            // Email Field
-            TransparentFormField(
-              controller: _emailController,
-              hint: AppStrings.email,
-              icon: Icons.email_outlined,
-              textInputAction: TextInputAction.next,
-              autofillHints: [AutofillHints.email],
-              keyboardType: TextInputType.emailAddress,
-              validator: AppValidators.email,
-            ),
-            gap20(),
-
-            // Confirm Password Field
-            TransparentFormField(
-              controller: _mobileController,
-              hint: AppStrings.mobile,
-              autofillHints: [AutofillHints.telephoneNumber],
-              textInputAction: TextInputAction.next,
-              icon: Icons.phone_android,
-              validator: AppValidators.phone,
-              keyboardType: TextInputType.phone,
-            ),
-            gap20(),
-
-            // Password Field
-            TransparentFormField(
-              controller: _passwordController,
-              hint: AppStrings.password,
-              icon: Icons.lock_outline,
-              textInputAction: TextInputAction.next,
-              isPassword: true,
-              validator: AppValidators.password,
-              onFieldSubmitted: (_) {
-                FocusScope.of(context).nextFocus();
-              },
-            ),
-
-            gap20(),
-
-            // Confirm Password Field
-            TransparentFormField(
-              controller: _confirmPasswordController,
-              hint: 'Confirm Password',
-              icon: Icons.lock_outline,
-              textInputAction: TextInputAction.next,
-              isPassword: true,
-              validator: AppValidators.confirmPassword(_passwordController),
-              onFieldSubmitted: (_) {
-                FocusScope.of(context).nextFocus();
-              },
-            ),
-
-            // Work Status Selection
-            gap20(),
-
-            // SMS/Email Updates Checkbox
-            UpdatesCheckbox(
-              formKey: formKey,
-              initialValue: false,
-              onChanged: (val) {
-                debugPrint("Checkbox value: $val");
-              },
-            ),
-
-            // Terms and Conditions
-            const TermsAndConditions(),
-
-            gap16(),
-            gap16(),
-
-            // Sign Up Button
-            _nextButton(),
-
-            gap16(),
-
-            // Divider
-            Row(
-              children: [
-                Expanded(child: Divider(color: Colors.white30, thickness: 1)),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16),
-                  child: Text(
-                    'OR',
-                    style: context.textTheme.bodyMedium?.copyWith(
-                        color: Colors.white70
-                    ),
+      child: Stack(
+        children: [
+          // Background Image with Overlay
+          BackgroundImageOverlay(
+            imagePath: AppDrawables.signupBg,
+            darkenOpacity: 0.5,
+          ),
+          // Gradient Overlay
+          GradientOverlay(),
+          SafeArea(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SignupHeader(),
+                  // Signup Form
+                  RegistrationProgressBar(),
+                  gap16(),
+                  gap16(),
+                  // Full Name Field
+                  TransparentFormField(
+                    controller: _nameController,
+                    hint: AppStrings.name,
+                    icon: Icons.person_outline,
+                    textInputAction: TextInputAction.next,
+                    validator: AppValidators.fieldEmpty(AppStrings.name),
+                    textCapitalization: TextCapitalization.words,
                   ),
-                ),
-                Expanded(child: Divider(color: Colors.white30, thickness: 1)),
-              ],
-            ),
 
-            gap16(),
+                  gap20(),
 
-            // Login Link
-            GestureDetector(
-              onTap: () => AppNavigator.loadSignInScreen(),
-              child: RichText(
-                text: TextSpan(
-                  text: 'Already have an account? ',
-                  style: context.textTheme.bodyMedium?.copyWith(
-                    color: Colors.white70
+                  // Email Field
+                  TransparentFormField(
+                    controller: _emailController,
+                    hint: AppStrings.email,
+                    icon: Icons.email_outlined,
+                    textInputAction: TextInputAction.next,
+                    autofillHints: [AutofillHints.email],
+                    keyboardType: TextInputType.emailAddress,
+                    validator: AppValidators.email,
                   ),
-                  children: [
-                    TextSpan(
-                      text: 'Sign In',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        decoration: TextDecoration.underline,
+                  gap20(),
+
+                  // Confirm Password Field
+                  TransparentFormField(
+                    controller: _mobileController,
+                    hint: AppStrings.mobile,
+                    autofillHints: [AutofillHints.telephoneNumber],
+                    textInputAction: TextInputAction.next,
+                    icon: Icons.phone_android,
+                    validator: AppValidators.phone,
+                    keyboardType: TextInputType.phone,
+                  ),
+                  gap20(),
+
+                  // // Password Field
+                  // TransparentFormField(
+                  //   controller: _passwordController,
+                  //   hint: AppStrings.password,
+                  //   icon: Icons.lock_outline,
+                  //   textInputAction: TextInputAction.next,
+                  //   isPassword: true,
+                  //   validator: AppValidators.password,
+                  //   onFieldSubmitted: (_) {
+                  //     FocusScope.of(context).nextFocus();
+                  //   },
+                  // ),
+                  //
+                  // gap20(),
+                  //
+                  // // Confirm Password Field
+                  // TransparentFormField(
+                  //   controller: _confirmPasswordController,
+                  //   hint: 'Confirm Password',
+                  //   icon: Icons.lock_outline,
+                  //   textInputAction: TextInputAction.next,
+                  //   isPassword: true,
+                  //   validator: AppValidators.confirmPassword(
+                  //     _passwordController,
+                  //   ),
+                  //   onFieldSubmitted: (_) {
+                  //     FocusScope.of(context).nextFocus();
+                  //   },
+                  // ),
+
+                  // Work Status Selection
+                  gap20(),
+
+                  // SMS/Email Updates Checkbox
+                  UpdatesCheckbox(
+                    formKey: formKey,
+                    initialValue: false,
+                    onChanged: (val) {
+                      debugPrint("Checkbox value: $val");
+                    },
+                  ),
+
+                  // Terms and Conditions
+                  const TermsAndConditions(),
+
+                  gap16(),
+                  gap16(),
+
+                  // Sign Up Button
+                  _nextButton(),
+
+                  gap16(),
+
+                  // Divider
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Divider(color: Colors.white30, thickness: 1),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: Text(
+                          'OR',
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: Colors.white70,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Divider(color: Colors.white30, thickness: 1),
+                      ),
+                    ],
+                  ),
+
+                  gap16(),
+
+                  // Login Link
+                  GestureDetector(
+                    onTap: () => AppNavigator.loadSignInScreen(),
+                    child: RichText(
+                      text: TextSpan(
+                        text: 'Already have an account? ',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white70,
+                        ),
+                        children: [
+                          TextSpan(
+                            text: 'Sign In',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            SizedBox(height: 40),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -211,7 +239,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
       isExpanded: true,
       onTap: () {
         // if (formKey.currentState?.validate() == true) {
-          widget.onNext();
+        widget.onNext();
         // }
       },
       child: Text(

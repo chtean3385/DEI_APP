@@ -1,29 +1,22 @@
-import 'package:dei_champions/constants/app_drawables.dart';
-import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/ui/pages/auth/signup/screens/employment_screen.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/basic_info.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/other_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../constants/app_colors.dart';
-import '../../../../constants/app_navigator.dart';
-import 'components/backround_image_overlay.dart';
-import 'components/gradient_overlay.dart';
-import 'components/registration_progress_bar.dart';
-import 'components/signup_header.dart';
+import '../../../../providers/providers.dart';
 
-class SignupScreen extends StatefulWidget {
+
+class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
 
   @override
-  _SignupScreenState createState() => _SignupScreenState();
+  ConsumerState<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen>
+class _SignupScreenState extends ConsumerState<SignupScreen>
     with SingleTickerProviderStateMixin {
-  late PageController _pageController;
-  int currentStep = 0;
-  final int totalSteps = 2;
-
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
@@ -31,8 +24,9 @@ class _SignupScreenState extends State<SignupScreen>
   @override
   void initState() {
     super.initState();
+
     _animationController = AnimationController(
-      duration: Duration(milliseconds: 1200),
+      duration: const Duration(milliseconds: 1200),
       vsync: this,
     );
 
@@ -40,109 +34,44 @@ class _SignupScreenState extends State<SignupScreen>
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
 
-    _slideAnimation = Tween<Offset>(begin: Offset(0, 0.3), end: Offset.zero)
+    _slideAnimation = Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero)
         .animate(
-          CurvedAnimation(
-            parent: _animationController,
-            curve: Curves.easeOutCubic,
-          ),
-        );
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeOutCubic,
+      ),
+    );
 
     _animationController.forward();
-    _pageController = PageController();
   }
 
   @override
   void dispose() {
     _animationController.dispose();
-    _pageController.dispose();
     super.dispose();
-  }
-
-  void nextStep() {
-    if (currentStep < totalSteps - 1) {
-      setState(() {
-        currentStep++;
-      });
-      _pageController.nextPage(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    } else {
-      // submitRegistration(context);
-      AppNavigator.loadOtpScreen();
-    }
-  }
-
-  void previousStep() {
-    if (currentStep > 0) {
-      setState(() {
-        currentStep--;
-      });
-      _pageController.previousPage(
-        duration: Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-      );
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final controller = ref.read(signupFlowControllerProvider.notifier);
     return Scaffold(
       backgroundColor: Colors.black12,
-      body: Stack(
-        children: [
-          // Background Image with Overlay
-          BackgroundImageOverlay(
-            imagePath: AppDrawables.signupBg,
-            darkenOpacity: 0.5,
-          ),
-          // Gradient Overlay
-          GradientOverlay(),
-
-          SafeArea(
-            child: SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              child: FadeTransition(
-                opacity: _fadeAnimation,
-                child: SlideTransition(
-                  position: _slideAnimation,
-                  child: Column(
-                    children: [
-                      SignupHeader(),
-                      // Signup Form
-                      RegistrationProgressBar(
-                        currentStep: currentStep,
-                        totalSteps: totalSteps,
-                      ),
-                      gap16(),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * .8,
-
-                        child: PageView(
-                          controller: _pageController,
-                          physics: NeverScrollableScrollPhysics(),
-                          allowImplicitScrolling: true,
-                          children: [
-                            BasicPersonalInfo(onNext: nextStep),
-                            OtherInfo(onNext: nextStep),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+      body: SizedBox(
+        height: double.infinity,
+        child: PageView(
+          controller: controller.pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          allowImplicitScrolling: true,
+          children: [
+            BasicPersonalInfo(
+              onNext: () => controller.nextStep(),
             ),
-          ),
-          if (currentStep > 0)
-            Positioned(
-              left: 10,
-              top: 40,
-              child: BackButton(onPressed: previousStep),
+            OtherInfo(
+              onNext: () => controller.nextStep(),
             ),
-        ],
+            EmploymentScreen(onNext: () => controller.nextStep()),
+          ],
+        ),
       ),
     );
   }

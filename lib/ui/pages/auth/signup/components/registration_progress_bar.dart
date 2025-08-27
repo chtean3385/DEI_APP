@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class RegistrationProgressBar extends StatelessWidget {
-  final int currentStep;
-  final int totalSteps;
+import '../../../../../providers/providers.dart';
 
-  const RegistrationProgressBar({
-    super.key,
-    required this.currentStep,
-    required this.totalSteps,
-  });
+class RegistrationProgressBar extends ConsumerWidget {
+  const RegistrationProgressBar({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(signupFlowControllerProvider);
+
+    final int currentStep = state.currentStep;
+    final int totalSteps = state.totalSteps;
+    final double progress = (currentStep + 1) / totalSteps;
+
     return Column(
       children: [
         Row(
@@ -25,7 +27,7 @@ class RegistrationProgressBar extends StatelessWidget {
               ),
             ),
             Text(
-              '${((currentStep + 1) / totalSteps * 100).round()}%',
+              '${(progress * 100).round()}%',
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w500,
@@ -37,7 +39,7 @@ class RegistrationProgressBar extends StatelessWidget {
         ClipRRect(
           borderRadius: BorderRadius.circular(16), // Rounded corners
           child: LinearProgressIndicator(
-            value: (currentStep + 1) / totalSteps,
+            value: progress,
             backgroundColor: Colors.white.withOpacity(0.3),
             valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
             minHeight: 10,

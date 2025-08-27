@@ -4,6 +4,7 @@ import '../main.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
+import '../ui/pages/auth/signup/screens/employment_screen.dart';
 
 class AppNavigator {
   // static void toBottomBar() {
@@ -49,7 +50,7 @@ class AppNavigator {
     // if(!isFromLogout) initController();
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => SignupScreen()),
+      MaterialPageRoute(builder: (_) =>  SignupScreen()),
           (route) => false,
     );
   }
