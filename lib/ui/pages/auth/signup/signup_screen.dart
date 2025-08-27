@@ -1,4 +1,3 @@
-import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/ui/pages/auth/signup/screens/employment_screen.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/basic_info.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/other_info.dart';
@@ -6,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers/providers.dart';
-
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -34,13 +32,13 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
 
-    _slideAnimation = Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero)
-        .animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeOutCubic,
-      ),
-    );
+    _slideAnimation =
+        Tween<Offset>(begin: const Offset(0, 0.3), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: _animationController,
+            curve: Curves.easeOutCubic,
+          ),
+        );
 
     _animationController.forward();
   }
@@ -63,13 +61,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
           physics: const NeverScrollableScrollPhysics(),
           allowImplicitScrolling: true,
           children: [
-            BasicPersonalInfo(
-              onNext: () => controller.nextStep(),
-            ),
-            OtherInfo(
-              onNext: () => controller.nextStep(),
-            ),
+            BasicPersonalInfo(onNext: () => controller.nextStep()),
+            OtherInfo(onNext: () => controller.nextStep()),
             EmploymentScreen(onNext: () => controller.nextStep()),
+            SizedBox(),
           ],
         ),
       ),

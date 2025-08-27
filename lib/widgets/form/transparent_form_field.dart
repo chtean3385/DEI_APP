@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show TextInputFormatter;
 
 class TransparentFormField extends StatefulWidget {
   final TextEditingController controller;
@@ -12,6 +13,7 @@ class TransparentFormField extends StatefulWidget {
   final Iterable<String>? autofillHints;
   final TextInputAction? textInputAction;
   final ValueChanged<String>? onFieldSubmitted;
+  final List<TextInputFormatter>? inputFormatters;
 
 
   TransparentFormField({
@@ -27,6 +29,7 @@ class TransparentFormField extends StatefulWidget {
     this.autofillHints,
     this.textInputAction,
     this.onFieldSubmitted,
+    this.inputFormatters,
 
   });
 
@@ -60,6 +63,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
           textCapitalization: widget.textCapitalization,
           autofillHints: widget.autofillHints,
           textInputAction:widget.textInputAction,
+          inputFormatters: widget.inputFormatters,
           cursorColor: Colors.white,
           style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onPrimary,fontWeight:  FontWeight.normal

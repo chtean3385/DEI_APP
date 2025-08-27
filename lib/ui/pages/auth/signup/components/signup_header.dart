@@ -44,8 +44,7 @@ class SignupHeaderSmall extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SizedBox(height: 40),
-
+        const SizedBox(height: 50),
         // Welcome Text
         Text(
           title,
@@ -63,7 +62,7 @@ class SignupHeaderSmall extends StatelessWidget {
           style: context.textTheme.bodyMedium?.copyWith(color: Colors.white70),
         ),
 
-        const SizedBox(height: 40),
+        const SizedBox(height: 10),
       ],
     );
   }

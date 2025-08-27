@@ -1,3 +1,4 @@
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 
@@ -52,21 +53,14 @@ class WorkStatusCard extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               title,
-              style: const TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Colors.white,
-              ),
+              style: context.textTheme.bodyMedium?.copyWith(  color: Colors.white,fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
               subtitle,
-              style: const TextStyle(
-                fontSize: 11,
-                color: Colors.white70,
-                height: 1.3,
-              ),
+              style: context.textTheme.displaySmall?.copyWith(  color: Colors.white70,fontSize: 11,
+                height: 1.3),
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

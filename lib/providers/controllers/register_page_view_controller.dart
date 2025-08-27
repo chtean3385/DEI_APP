@@ -27,7 +27,7 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
     });
 
     // Set your total steps here (or expose a setter).
-    return const SignupFlowState(currentStep: 0, totalSteps: 3);
+    return const SignupFlowState(currentStep: 0, totalSteps: 4);
   }
 
   void nextStep({VoidCallback? onComplete}) {
