@@ -7,8 +7,9 @@ import '../../../../../../widgets/form/transparent_form_field.dart';
 
 class SalaryWidget extends StatelessWidget {
   final TextEditingController controller;
+  final String? title;
 
-  const SalaryWidget({Key? key, required this.controller}) : super(key: key);
+  const SalaryWidget({Key? key, required this.controller, this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class SalaryWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Current annual salary*',
+          title ?? 'Current annual salary*',
           style: context.textTheme.bodyMedium?.copyWith(
             color: Colors.white,
             fontWeight: FontWeight.w600,
