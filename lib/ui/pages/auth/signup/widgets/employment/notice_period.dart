@@ -1,5 +1,6 @@
-import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../../widgets/pickers/option_selector.dart';
 
 class NoticePeriodWidget extends StatelessWidget {
   final String selectedPeriod;
@@ -22,56 +23,11 @@ class NoticePeriodWidget extends StatelessWidget {
       'Serving Notice Period',
     ];
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Notice period*',
-          style: context.textTheme.bodyMedium?.copyWith(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: periods.map((period) {
-            final isSelected = selectedPeriod == period;
-            return GestureDetector(
-              onTap: () => onChanged(period),
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  // color: isSelected ? const Color(0xFF4285F4) : Colors.white,
-                  borderRadius: BorderRadius.circular(24),
-                  border: Border.all(
-                    width: isSelected ? .5: .2,
-                    color: isSelected
-                        ? const Color(0xFF4285F4)
-                        : Colors.grey.shade300,
-                  ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  child: Text(
-                    period,
-                    style: context.textTheme.displaySmall?.copyWith(
-                      color: isSelected ? Colors.white : Colors.white70,
-                      fontWeight: isSelected
-                          ? FontWeight.w500
-                          : FontWeight.normal,
-                    ),
-                  ),
-                ),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
+    return OptionSelector(
+      title: "Notice period*",
+      options:periods,
+      selectedValue: selectedPeriod,
+      onChanged: onChanged,
     );
   }
 }

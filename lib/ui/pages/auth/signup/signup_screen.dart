@@ -1,3 +1,4 @@
+import 'package:dei_champions/ui/pages/auth/signup/screens/education.dart';
 import 'package:dei_champions/ui/pages/auth/signup/screens/employment_screen.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/basic_info.dart';
 import 'package:dei_champions/ui/pages/auth/signup/screens/key_skills.dart';
@@ -66,6 +67,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
             OtherInfo(onNext: () => controller.nextStep()),
             EmploymentScreen(onNext: () => controller.nextStep()),
             KeySkills(onNext: () => controller.nextStep()),
+            Education(onNext: () => controller.nextStep()),
           ],
         ),
       ),

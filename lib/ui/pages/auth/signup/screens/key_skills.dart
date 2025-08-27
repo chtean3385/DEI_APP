@@ -11,6 +11,7 @@ import '../components/backround_image_overlay.dart';
 import '../components/gradient_overlay.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
+import '../widgets/key_skills/error_validation.dart';
 import '../widgets/key_skills/selected_key_skills.dart';
 import '../widgets/signup_back_button.dart';
 
@@ -39,10 +40,12 @@ class _KeySkillsState extends State<KeySkills> {
       setState(() => _selectedSkills.add(skill));
     }
     skillController.clear();
+    formKey.currentState?.validate();
   }
 
   void _removeSkill(String skill) {
     setState(() => _selectedSkills.remove(skill));
+    formKey.currentState?.validate();
   }
 
   @override
@@ -83,33 +86,13 @@ class _KeySkillsState extends State<KeySkills> {
                         gap16(),
 
                         /// 🔽 Show selected skills
-                        if (_selectedSkills.isNotEmpty)
+
                           SelectedKeySkills(
                             selectedSkill: _selectedSkills,
                             onRemove: _removeSkill,
                           ),
 
-                        /// 🔽 Validator error message
-                        Builder(
-                          builder: (context) {
-                            return Visibility(
-                              visible: _selectedSkills.isEmpty,
-                              child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    "Please enter at least one skill",
-                                    style: TextStyle(
-                                      color: Colors.red.shade300,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
+
 
                         gap20(),
                       ],
@@ -135,13 +118,17 @@ class _KeySkillsState extends State<KeySkills> {
         radius: 16,
         isExpanded: false,
         onTap: () {
-          if (_selectedSkills.isEmpty) {
-            // force rebuild to show error
-            setState(() {});
-            return;
-          }
 
+          if (formKey.currentState?.validate() == true) {
           widget.onNext();
+          }
+          // if (_selectedSkills.isEmpty) {
+          //   // force rebuild to show error
+          //   setState(() {});
+          //   return;
+          // }
+          //
+          // widget.onNext();
         },
         child: Text(
           AppStrings.next,

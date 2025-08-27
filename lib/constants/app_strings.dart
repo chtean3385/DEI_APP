@@ -25,5 +25,62 @@ class AppStrings {
   static const city = 'Current City';
   static const area = 'Your Area';
 
+  static const List<String> courses = [
+    "B.Tech / B.E.",
+    "B.Com",
+    "B.Sc",
+    "B.A",
+    "BBA",
+    "BCA",
+    "LLB",
+    "MBBS",
+    "BDS",
+    "B.Pharm",
+    "B.Arch",
+    "B.Ed",
+    "BHM (Hotel Management)",
+    "BFA (Fine Arts)",
+    "B.Design",
+    "B.Voc",
+    "BPT (Physiotherapy)",
+    "BMS (Management Studies)",
+    "BMM (Mass Media)",
+    "CA (Chartered Accountancy)",
+    "CS (Company Secretary)",
+    "CFA (Chartered Financial Analyst)",
+    "Diploma in Engineering",
+    "Diploma in Pharmacy",
+    "M.Tech / M.E.",
+    "M.Com",
+    "M.Sc",
+    "M.A",
+    "MBA / PGDM",
+    "MCA",
+    "LLM",
+    "M.Pharm",
+    "M.Arch",
+    "M.Ed",
+    "M.Des",
+    "Ph.D",
+    "Other",
+  ];
+  static const List<String> specializations = [
+    "Computer Science", "Information Technology", "Mechanical Engineering",
+    "Civil Engineering", "Electrical Engineering", "Electronics & Communication",
+    "Chemical Engineering", "Aerospace Engineering", "Automobile Engineering",
+    "Biotechnology", "Biochemical Engineering", "Industrial Engineering",
+    "Production Engineering", "Architecture", "Fashion Design", "Graphic Design",
+    "Interior Design", "Fine Arts", "MBA - Marketing", "MBA - Finance",
+    "MBA - HR", "MBA - Operations", "MBA - IT", "MBA - International Business",
+    "BBA - Marketing", "BBA - Finance", "BBA - HR", "BBA - IT",
+    "Economics", "Psychology", "Sociology", "Political Science",
+    "Philosophy", "Mathematics", "Statistics", "Physics", "Chemistry",
+    "Biology", "Pharmacy", "Nursing", "Education", "Law", "Journalism & Mass Communication",
+    "Media Studies", "Hospitality & Hotel Management", "Tourism Management",
+    "Sports Science", "Physical Education", "Agriculture", "Environmental Science",
+  ];
+
+
+
 
 }

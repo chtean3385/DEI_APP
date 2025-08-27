@@ -61,7 +61,6 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
     departmentController.dispose();
     workDurationController.dispose();
     workedTillDurationController.dispose();
-    departmentController.dispose();
     industryController.dispose();
     roleCategoryController.dispose();
     jobRoleController.dispose();
