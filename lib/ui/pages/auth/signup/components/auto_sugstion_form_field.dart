@@ -132,25 +132,26 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
     final size = renderBox.size;
     final position = renderBox.localToGlobal(Offset.zero);
 
-    // Screen height
     final screenHeight = MediaQuery.of(context).size.height;
-    // Keyboard height
     final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
-    // Space available below textfield
-    final spaceBelow = screenHeight - position.dy - size.height - keyboardHeight;
-    // Space available above textfield
+
+    const maxDropdownHeight = 200.0;
+
+    // Space available above the field (from field top to top of screen)
     final spaceAbove = position.dy;
 
-    // Decide where to show dropdown
-    final bool showAbove = spaceBelow < 200 && spaceAbove > spaceBelow;
+    // Set dropdown height to min(maxDropdownHeight, available space above)
+    final dropdownHeight = spaceAbove > maxDropdownHeight ? maxDropdownHeight : spaceAbove - 8;
+
+    // Top of dropdown = field top - dropdownHeight - margin
+    final dropdownTop = position.dy - dropdownHeight - 4;
 
     return OverlayEntry(
       builder: (context) => Positioned(
         left: position.dx,
         width: size.width,
-        top: showAbove
-            ? position.dy - 200 - 4 // above textfield
-            : position.dy + size.height + 4, // below textfield
+        top: dropdownTop,
+        height: dropdownHeight,
         child: Material(
           elevation: 8,
           borderRadius: BorderRadius.circular(12),
@@ -168,23 +169,19 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
               borderRadius: BorderRadius.circular(12),
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxHeight: 200),
-                  child: ListView.builder(
-                    padding: EdgeInsets.zero,
-                    shrinkWrap: true,
-                    itemCount: _filteredSuggestions.length,
-                    itemBuilder: (context, index) {
-                      final suggestion = _filteredSuggestions[index];
-                      return _SuggestionTile(
-                        suggestion: suggestion,
-                        onTap: () => _onSuggestionTap(suggestion),
-                        query: widget.controller.text.trim(),
-                        caseSensitive: widget.caseSensitive,
-                        isLast: index == _filteredSuggestions.length - 1,
-                      );
-                    },
-                  ),
+                child: ListView.builder(
+                  padding: EdgeInsets.zero,
+                  itemCount: _filteredSuggestions.length,
+                  itemBuilder: (context, index) {
+                    final suggestion = _filteredSuggestions[index];
+                    return _SuggestionTile(
+                      suggestion: suggestion,
+                      onTap: () => _onSuggestionTap(suggestion),
+                      query: widget.controller.text.trim(),
+                      caseSensitive: widget.caseSensitive,
+                      isLast: index == _filteredSuggestions.length - 1,
+                    );
+                  },
                 ),
               ),
             ),
@@ -193,6 +190,8 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
       ),
     );
   }
+
+
 
 
   void _onSuggestionTap(String suggestion) {
