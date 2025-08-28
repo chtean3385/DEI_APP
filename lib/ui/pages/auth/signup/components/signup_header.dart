@@ -67,3 +67,33 @@ class SignupHeaderSmall extends StatelessWidget {
     );
   }
 }
+class SignupHeaderEmployer extends StatelessWidget {
+  const SignupHeaderEmployer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 40),
+
+        // Welcome Text
+        Text(
+          'Create Account as Job Poster',
+          textAlign: TextAlign.center,
+          style: context.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+
+        const SizedBox(height: 8),
+        Text(
+          'Register to post jobs and find the best talent for your organization',
+          textAlign: TextAlign.center,
+          style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
+        ),
+
+        const SizedBox(height: 40),
+      ],
+    );
+  }
+}

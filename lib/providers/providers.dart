@@ -22,3 +22,8 @@ AutoDisposeNotifierProvider<AuthController, AuthState>(AuthController.new);
 final signupFlowControllerProvider =
 AutoDisposeNotifierProvider<SignupFlowController, SignupFlowState>(
     SignupFlowController.new);
+
+/// signup Page employer
+final employerSignupFlowControllerProvider =
+AutoDisposeNotifierProvider<EmployerSignupFlowController, SignupFlowState>(
+    EmployerSignupFlowController.new);

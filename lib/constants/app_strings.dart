@@ -86,5 +86,13 @@ class AppStrings {
 'Flutter developer with 5+ years of experience building scalable apps',
 ];
 
+  /// employer
+  static const nameAsPerPAN = 'Enter your full name as per PAN';
+  static const fullNameAsPerPan = 'Full Name (as per PAN)';
+  static const officialEmailId = 'Official email ID';
+  static const enterOfficialEmailId = 'Enter your official email ID';
+  static const createStrongPassword = 'Create a strong password';
+  static const createPassword = 'Create Password';
+
 
 }

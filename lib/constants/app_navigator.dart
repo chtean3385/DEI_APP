@@ -4,7 +4,9 @@ import '../main.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
+import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup/screens/employment_screen.dart';
+import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 
 class AppNavigator {
   // static void toBottomBar() {
@@ -46,11 +48,26 @@ class AppNavigator {
     );
   }
 
+  static loadCommonSignUp() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) =>  ChooseSignupType()),
+          // (route) => false,
+    );
+  }
   static loadSignUpScreen({bool isFromLogout = false}) {
     // if(!isFromLogout) initController();
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) =>  SignupScreen()),
+          // (route) => false,
+    );
+  }
+  static loadEmployerSignUpScreen({bool isFromLogout = false}) {
+    // if(!isFromLogout) initController();
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) =>  SignupEmployerScreen()),
           // (route) => false,
     );
   }

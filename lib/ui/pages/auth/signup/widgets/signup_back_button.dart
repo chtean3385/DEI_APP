@@ -13,7 +13,7 @@ class SignupBackButton extends ConsumerWidget {
 
     return IconButton(
       icon: const Icon(Icons.arrow_back,color: Colors.black,),
-      onPressed: state.isFirst ? null : controller.previousStep,
+      onPressed: state.isFirst ? Navigator.of(context).pop : controller.previousStep,
     );
   }
 }
