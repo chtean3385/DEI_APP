@@ -3,8 +3,10 @@ import '../../components/auto_sugstion_form_field.dart';
 
 class UniversityField extends StatelessWidget {
   final TextEditingController controller;
+  final FocusNode focusNode;
 
-  UniversityField({super.key, required this.controller});
+
+  UniversityField({super.key, required this.controller, required this.focusNode});
 
   final List<String> _universities = [
     // Global universities
@@ -85,6 +87,7 @@ class UniversityField extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoSuggestionDropdownField(
       controller: controller,
+      focusNode: focusNode,
       hint: "University name",
       icon: Icons.school_outlined,
       suggestions: _universities,

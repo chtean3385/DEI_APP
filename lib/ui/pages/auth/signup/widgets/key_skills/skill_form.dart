@@ -4,11 +4,13 @@ import '../../components/auto_sugstion_form_field.dart';
 class KeyForm extends StatelessWidget {
   final TextEditingController controller;
   final Function(String)? onSkillSelected;
+  final FocusNode focusNode;
+
 
    KeyForm({
     super.key,
     required this.controller,
-    this.onSkillSelected,
+    this.onSkillSelected, required this.focusNode,
   });
 
   // Skills list
@@ -59,6 +61,7 @@ class KeyForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoSuggestionDropdownField(
       controller: controller,
+      focusNode: focusNode,
       hint: "Enter your key skill",
       icon: Icons.build_circle_outlined,
       suggestions: _skills,

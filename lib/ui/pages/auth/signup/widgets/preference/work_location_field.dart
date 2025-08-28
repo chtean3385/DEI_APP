@@ -4,8 +4,10 @@ import '../../components/auto_sugstion_form_field.dart';
 
 class WorkLocationField extends StatefulWidget {
   final TextEditingController controller;
+  final FocusNode focusNode;
 
-  const WorkLocationField({super.key, required this.controller});
+
+  const WorkLocationField({super.key, required this.controller, required this.focusNode});
 
   @override
   State<WorkLocationField> createState() => _WorkLocationFieldState();
@@ -51,6 +53,7 @@ class _WorkLocationFieldState extends State<WorkLocationField> {
       children: [
         AutoSuggestionDropdownField(
           controller: widget.controller,
+          focusNode: widget.focusNode,
           hint: "Preferred Work Location",
           icon: Icons.location_on_outlined,
           suggestions: _workLocations,

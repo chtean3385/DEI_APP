@@ -21,6 +21,7 @@ import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
 import '../widgets/employment/notice_period.dart';
 import '../widgets/employment/salary.dart';
+import '../widgets/employment/work_experience.dart';
 import '../widgets/signup_back_button.dart';
 import '../widgets/employment/work_duration.dart';
 
@@ -51,6 +52,20 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
   bool isCurrentlyEmployed = true;
   String selectedNoticePeriod = "";
 
+  // Create FocusNodes
+  final _yearFocus = FocusNode();
+  final _monthFocus = FocusNode();
+  final _jobTitleFocus = FocusNode();
+  final _companyNameFocus = FocusNode();
+  final _workDurationFocus = FocusNode();
+  final _workTillFocus = FocusNode();
+  final _annualSalaryFocus = FocusNode();
+  final _noticePeriodFocus = FocusNode();
+  final _industryTypeFocus = FocusNode();
+  final _departmentFocus = FocusNode();
+  final _roleCategoryFocus = FocusNode();
+  final _jobRoleFocus = FocusNode();
+
   @override
   void dispose() {
     yearsController.dispose();
@@ -64,6 +79,19 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
     industryController.dispose();
     roleCategoryController.dispose();
     jobRoleController.dispose();
+
+    _yearFocus.dispose();
+    _monthFocus.dispose();
+    _jobTitleFocus.dispose();
+    _companyNameFocus.dispose();
+    _workDurationFocus.dispose();
+    _workTillFocus.dispose();
+    _annualSalaryFocus.dispose();
+    _noticePeriodFocus.dispose();
+    _industryTypeFocus.dispose();
+    _departmentFocus.dispose();
+    _roleCategoryFocus.dispose();
+    _jobRoleFocus.dispose();
     super.dispose();
   }
 
@@ -71,7 +99,6 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-
         FocusTraversalGroup(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -103,47 +130,55 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                             },
                           ),
                           gap20(),
-          
+
                           // Total Work Experience
                           ExperienceWidget(
                             yearsController: yearsController,
                             monthsController: monthsController,
+                            focusNode1: _yearFocus,
+                            focusNode2: _monthFocus,
+                            nextFocus:_jobTitleFocus ,
                           ),
                           gap20(),
-          
-                          CurrentJob(controller: jobTitleController),
+
+                          CurrentJob(controller: jobTitleController,focusNode: _jobTitleFocus,nextFocus:_companyNameFocus),
                           gap20(),
-                          CurrentCompany(controller: companyController),
-          
+                          CurrentCompany(controller: companyController,focusNode: _companyNameFocus,nextFocus:_workDurationFocus),
+
                           gap20(),
                           // Work Duration
                           WorkDuration(
                             controller: workDurationController,
                             isWorking: isCurrentlyEmployed,
                             workedTillController: workedTillDurationController,
+                            workedTillFocusNode: _workTillFocus,
+                            focusNode: _workDurationFocus,
+                              nextFocus: isCurrentlyEmployed ? _annualSalaryFocus : _workTillFocus,nextFocus2:_annualSalaryFocus ,
                           ),
                           gap20(),
                           // Current Annual Salary
-                          SalaryWidget(controller: salaryController),
+                          SalaryWidget(controller: salaryController,focusNode: _annualSalaryFocus),
                           gap20(),
                           // Notice Period
                           NoticePeriodWidget(
                             selectedPeriod: selectedNoticePeriod,
+                              focusNode: _noticePeriodFocus,
                             onChanged: (period) {
                               setState(() {
                                 selectedNoticePeriod = period;
+                                FocusScope.of(context).requestFocus(_industryTypeFocus);
                               });
                             },
                           ),
                           gap20(),
-          
-                          IndustryTypeField(controller: industryController),
+
+                          IndustryTypeField(controller: industryController,focusNode: _industryTypeFocus,nextFocus:_departmentFocus),
                           gap20(),
-                          DepartmentField(controller: departmentController),
+                          DepartmentField(controller: departmentController,focusNode: _departmentFocus,nextFocus:_roleCategoryFocus),
                           gap20(),
-                          RoleCategoryField(controller: roleCategoryController),
+                          RoleCategoryField(controller: roleCategoryController,focusNode: _roleCategoryFocus,nextFocus:_jobRoleFocus),
                           gap20(),
-                          JobRoleField(controller: jobRoleController),
+                          JobRoleField(controller: jobRoleController,focusNode: _jobRoleFocus,),
                           gap20(),
                         ],
                       ),
@@ -353,61 +388,7 @@ class EmploymentStatusWidget extends StatelessWidget {
   }
 }
 
-class ExperienceWidget extends StatelessWidget {
-  final TextEditingController yearsController;
-  final TextEditingController monthsController;
 
-  const ExperienceWidget({
-    Key? key,
-    required this.yearsController,
-    required this.monthsController,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          'Total work experience*',
-          style: context.textTheme.bodyMedium?.copyWith(
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(
-              child: TransparentFormField(
-                controller: yearsController,
-                hint: "Years",
-                icon: Icons.calendar_today_rounded,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.number,
-                validator: AppValidators.fieldEmpty("Years"),
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: TransparentFormField(
-                controller: monthsController,
-                hint: "Months",
-                icon: Icons.calendar_month,
-                textInputAction: TextInputAction.next,
-                keyboardType: TextInputType.number,
-                validator: AppValidators.fieldEmpty("Months"),
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).nextFocus();
-                },
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
 
 class CustomTextField extends StatelessWidget {
   final String label;
@@ -454,5 +435,3 @@ class CustomTextField extends StatelessWidget {
     );
   }
 }
-
-

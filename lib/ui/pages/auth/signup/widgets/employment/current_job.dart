@@ -6,7 +6,11 @@ import '../../components/auto_sugstion_form_field.dart';
 
 class CurrentJob extends StatelessWidget {
   final TextEditingController controller;
-   CurrentJob({super.key, required this.controller});
+  final FocusNode focusNode;
+  final FocusNode? nextFocus;
+
+
+   CurrentJob({super.key, required this.controller, required this.focusNode, this.nextFocus});
 
   final List<String> _jobTitles = [
     'Software Engineer',
@@ -51,6 +55,10 @@ class CurrentJob extends StatelessWidget {
       maxSuggestions: 8,
       caseSensitive: false,
       showAbove: true,
+      focusNode: focusNode,
+      onFieldSubmitted: (_) {
+        FocusScope.of(context).requestFocus(nextFocus);
+      },
       onSuggestionSelected: (suggestion) {
         print('Selected Job: $suggestion');
       },

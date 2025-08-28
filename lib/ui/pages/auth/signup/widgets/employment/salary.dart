@@ -7,9 +7,10 @@ import '../../../../../../widgets/form/transparent_form_field.dart';
 
 class SalaryWidget extends StatelessWidget {
   final TextEditingController controller;
+  final FocusNode focusNode;
   final String? title;
 
-  const SalaryWidget({Key? key, required this.controller, this.title}) : super(key: key);
+  const SalaryWidget({Key? key, required this.controller, this.title, required this.focusNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +30,7 @@ class SalaryWidget extends StatelessWidget {
             Expanded(
               child: TransparentFormField(
                 controller: controller,
+                focusNode: focusNode,
                 hint: 'Eg. 4,50,000',
                 icon: Icons.currency_rupee,
                 textInputAction: TextInputAction.next,

@@ -5,11 +5,12 @@ import '../../../../../../widgets/pickers/option_selector.dart';
 class NoticePeriodWidget extends StatelessWidget {
   final String selectedPeriod;
   final Function(String) onChanged;
+  final FocusNode focusNode;
 
   const NoticePeriodWidget({
     Key? key,
     required this.selectedPeriod,
-    required this.onChanged,
+    required this.onChanged, required this.focusNode,
   }) : super(key: key);
 
   @override

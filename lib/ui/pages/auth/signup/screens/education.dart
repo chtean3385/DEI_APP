@@ -3,11 +3,8 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
-import '../../../../../constants/app_drawables.dart';
 import '../../../../../constants/app_strings.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
-import '../components/backround_image_overlay.dart';
-import '../components/gradient_overlay.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
 import '../widgets/education/course_selector.dart';
@@ -31,13 +28,14 @@ class _EducationState extends State<Education> {
   final formKeyEducation = GlobalKey<FormState>();
   final TextEditingController skillController = TextEditingController();
   final TextEditingController universityController = TextEditingController();
-
-  final List<String> _selectedSkills = [];
+  final _universityFocus = FocusNode();
+  // final List<String> _selectedSkills = [];
 
   @override
   void dispose() {
     skillController.dispose();
     universityController.dispose();
+    _universityFocus.dispose();
     super.dispose();
   }
 
@@ -127,7 +125,7 @@ class _EducationState extends State<Education> {
                           ),
 
                           gap20(),
-                          if(selectedSpecialization.isNotEmpty)   UniversityField(controller: universityController),
+                          if(selectedSpecialization.isNotEmpty)   UniversityField(controller: universityController,focusNode: _universityFocus),
                           gap20(),
                           // Starting Year
                           if(universityController.text.isNotEmpty)   YearSelector(

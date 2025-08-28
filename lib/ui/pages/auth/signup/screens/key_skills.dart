@@ -22,12 +22,14 @@ class KeySkills extends StatefulWidget {
 class _KeySkillsState extends State<KeySkills> {
   final formKeySkills = GlobalKey<FormState>();
   final TextEditingController skillController = TextEditingController();
-
+  final _skillFocus = FocusNode();
   final List<String> _selectedSkills = [];
 
   @override
   void dispose() {
     skillController.dispose();
+    _skillFocus.dispose();
+
     super.dispose();
   }
 
@@ -72,6 +74,7 @@ class _KeySkillsState extends State<KeySkills> {
                           /// 🔽 Skill Input
                           KeyForm(
                             controller: skillController,
+                            focusNode: _skillFocus,
                             onSkillSelected: _addSkill,
                           ),
 

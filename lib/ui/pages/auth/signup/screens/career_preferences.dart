@@ -25,13 +25,17 @@ class _CareerPreferencesState extends State<CareerPreferences> {
   final TextEditingController preferSalaryController = TextEditingController();
   final TextEditingController preferWorkLocationController =
       TextEditingController();
-
+  final _preferSalaryFocus = FocusNode();
+  final _preferWorkLocationFocus = FocusNode();
   final List<String> selectedLocations = [];
 
   @override
   void dispose() {
     preferSalaryController.dispose();
     preferWorkLocationController.dispose();
+
+    _preferSalaryFocus.dispose();
+    _preferWorkLocationFocus.dispose();
     super.dispose();
   }
 
@@ -66,13 +70,14 @@ class _CareerPreferencesState extends State<CareerPreferences> {
                           RegistrationProgressBar(),
                           gap16(),
                           gap16(),
-                          SalaryWidget(controller: preferSalaryController),
+                          SalaryWidget(controller: preferSalaryController,focusNode: _preferSalaryFocus),
           
                           gap20(),
           
                           // usage
                           WorkLocationField(
                             controller: preferWorkLocationController,
+                            focusNode: _preferWorkLocationFocus,
                           ),
           
                           gap20(),

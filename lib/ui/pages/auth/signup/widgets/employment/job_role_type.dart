@@ -4,7 +4,8 @@ import '../../components/auto_sugstion_form_field.dart';
 /// 4. Job Role
 class JobRoleField extends StatelessWidget {
   final TextEditingController controller;
-  JobRoleField({super.key, required this.controller});
+  final FocusNode focusNode;
+  JobRoleField({super.key, required this.controller, required this.focusNode});
 
   final List<String> _jobRoles = [
     'Software Engineer',
@@ -33,6 +34,7 @@ class JobRoleField extends StatelessWidget {
   Widget build(BuildContext context) {
     return AutoSuggestionDropdownField(
       controller: controller,
+      focusNode:  focusNode,
       hint: "Current job role",
       icon: Icons.person_outline,
       suggestions: _jobRoles,
