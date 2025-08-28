@@ -31,6 +31,7 @@ class _OtherInfoState extends State<OtherInfo> {
   final _passwordFocus = FocusNode();
   final _confirmPasswordFocus = FocusNode();
 
+
   @override
   void dispose() {
     _passwordController.dispose();
@@ -44,90 +45,93 @@ class _OtherInfoState extends State<OtherInfo> {
   Widget build(BuildContext context) {
     return  Stack(
       children: [
-        SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: IntrinsicHeight(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child:Form(
-                    key: otherInfoFormKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SignupHeaderSmall(title: "Basic Details",subTitle: 'Lets start creating your profile',),
-                        // Signup Form
-                        RegistrationProgressBar(),
-                        gap16(),
-                        gap16(),
-                        // Password Field
-                        TransparentFormField(
-                          controller: _passwordController,
-                          focusNode: _passwordFocus,
-                          hint: AppStrings.password,
-                          icon: Icons.lock_outline,
-                          textInputAction: TextInputAction.next,
-                          isPassword: true,
-                          validator: AppValidators.password,
-                          onFieldSubmitted: (_) {
-                            FocusScope.of(context).requestFocus(_confirmPasswordFocus);
-                          },
-                        ),
-
-                        gap20(),
-
-                        // Confirm Password Field
-                        TransparentFormField(
-                          controller: _confirmPasswordController,
-                          hint: 'Confirm Password',
-                          icon: Icons.lock_outline,
-                          textInputAction: TextInputAction.next,
-                          isPassword: true,
-                          validator: AppValidators.confirmPassword(
-                            _passwordController,
-                          ),
-                          onFieldSubmitted: (_) {
-                            FocusScope.of(context).nextFocus();
-                          },
-                        ),
-
-                        gap20(),
-                        WorkStatusView(
-                          formKey: otherInfoFormKey,
-                          onStatusChanged: (value) {
-                            setState(() {
-                              selectedWorkStatus = value;
-                            });
-                          },
-                        ),
-                        gap20(),
-                        // Conditionally show location field
-                        if (selectedWorkStatus != null &&
-                            selectedWorkStatus!.isNotEmpty) ...[
+        FocusTraversalGroup(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child:Form(
+                      key: otherInfoFormKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SignupHeaderSmall(title: "Basic Details",subTitle: 'Lets start creating your profile',),
+                          // Signup Form
+                          RegistrationProgressBar(),
+                          gap16(),
+                          gap16(),
+                          // Password Field
                           TransparentFormField(
-                            controller: _cityController,
-                            hint: AppStrings.city,
-                            icon: Icons.person_outline,
+                            controller: _passwordController,
+                            focusNode: _passwordFocus,
+                            hint: AppStrings.password,
+                            icon: Icons.lock_outline,
                             textInputAction: TextInputAction.next,
-                            validator: AppValidators.fieldEmpty(AppStrings.city),
-                            textCapitalization: TextCapitalization.words,
+                            isPassword: true,
+                            validator: AppValidators.password,
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context).requestFocus(_confirmPasswordFocus);
+                            },
+                          ),
+
+                          gap20(),
+
+                          // Confirm Password Field
+                          TransparentFormField(
+                            controller: _confirmPasswordController,
+                            focusNode: _confirmPasswordFocus,
+                            hint: 'Confirm Password',
+                            icon: Icons.lock_outline,
+                            textInputAction: TextInputAction.next,
+                            isPassword: true,
+                            validator: AppValidators.confirmPassword(
+                              _passwordController,
+                            ),
                             onFieldSubmitted: (_) {
                               FocusScope.of(context).nextFocus();
                             },
                           ),
 
                           gap20(),
-                        ],
+                          WorkStatusView(
+                            formKey: otherInfoFormKey,
+                            onStatusChanged: (value) {
+                              setState(() {
+                                selectedWorkStatus = value;
+                              });
+                            },
+                          ),
+                          gap20(),
+                          // Conditionally show location field
+                          if (selectedWorkStatus != null &&
+                              selectedWorkStatus!.isNotEmpty) ...[
+                            TransparentFormField(
+                              controller: _cityController,
+                              hint: AppStrings.city,
+                              icon: Icons.person_outline,
+                              textInputAction: TextInputAction.next,
+                              validator: AppValidators.fieldEmpty(AppStrings.city),
+                              textCapitalization: TextCapitalization.words,
+                              onFieldSubmitted: (_) {
+                                FocusScope.of(context).nextFocus();
+                              },
+                            ),
 
-                      ],
+                            gap20(),
+                          ],
+
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                _nextButton(),
-                gap20()
-              ],
+                  _nextButton(),
+                  gap20()
+                ],
+              ),
             ),
           ),
         ),

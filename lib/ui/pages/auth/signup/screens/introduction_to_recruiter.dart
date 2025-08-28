@@ -42,49 +42,51 @@ class _IntroductionToRecruiterState extends State<IntroductionToRecruiter> {
     return Stack(
       children: [
 
-        SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Form(
-                key: formKeySkills,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SignupHeaderSmall(
-                      title: "Introduction to recruiter",
-                      subTitle: 'Let’s introduce yourself',
-                    ),
-                    RegistrationProgressBar(),
-                    gap16(),
-                    gap16(),
-
-                    TransparentFormField(
-                      controller: introlController,
-                      hint: "Short Introduction",
-                      icon: Icons.person_outline,
-                      textInputAction: TextInputAction.next,
-                      validator: AppValidators.fieldEmpty(
-                        "Short Introduction",
+        FocusTraversalGroup(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Form(
+                  key: formKeySkills,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SignupHeaderSmall(
+                        title: "Introduction to recruiter",
+                        subTitle: 'Let’s introduce yourself',
                       ),
-                      textCapitalization: TextCapitalization.words,
-                    ),
-
-                    gap16(),
-
-                    SelectIntro(
-                      introList: AppStrings.introList,
-                      onRemove: (v) {},
-                    ),
-
-                    gap20(),
-                  ],
+                      RegistrationProgressBar(),
+                      gap16(),
+                      gap16(),
+          
+                      TransparentFormField(
+                        controller: introlController,
+                        hint: "Short Introduction",
+                        icon: Icons.person_outline,
+                        textInputAction: TextInputAction.next,
+                        validator: AppValidators.fieldEmpty(
+                          "Short Introduction",
+                        ),
+                        textCapitalization: TextCapitalization.words,
+                      ),
+          
+                      gap16(),
+          
+                      SelectIntro(
+                        introList: AppStrings.introList,
+                        onRemove: (v) {},
+                      ),
+          
+                      gap20(),
+                    ],
+                  ),
                 ),
-              ),
-              _nextButton(),
-              gap20(),
-            ],
+                _nextButton(),
+                gap20(),
+              ],
+            ),
           ),
         ),
         const Positioned(left: 10, top: 40, child: SignupBackButton()),

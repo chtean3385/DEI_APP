@@ -72,85 +72,87 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
     return Stack(
       children: [
 
-        SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: IntrinsicHeight(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: Form(
-                    key: employmentFormKey,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SignupHeaderSmall(
-                          title: "Employment",
-                          subTitle: 'Lets fill your professional experience',
-                        ),
-                        // Signup Form
-                        RegistrationProgressBar(),
-                        gap16(),
-                        gap16(),
-                        EmploymentStatusWidget(
-                          isEmployed: isCurrentlyEmployed,
-                          onChanged: (value) {
-                            setState(() {
-                              isCurrentlyEmployed = value;
-                            });
-                          },
-                        ),
-                        gap20(),
-
-                        // Total Work Experience
-                        ExperienceWidget(
-                          yearsController: yearsController,
-                          monthsController: monthsController,
-                        ),
-                        gap20(),
-
-                        CurrentJob(controller: jobTitleController),
-                        gap20(),
-                        CurrentCompany(controller: companyController),
-
-                        gap20(),
-                        // Work Duration
-                        WorkDuration(
-                          controller: workDurationController,
-                          isWorking: isCurrentlyEmployed,
-                          workedTillController: workedTillDurationController,
-                        ),
-                        gap20(),
-                        // Current Annual Salary
-                        SalaryWidget(controller: salaryController),
-                        gap20(),
-                        // Notice Period
-                        NoticePeriodWidget(
-                          selectedPeriod: selectedNoticePeriod,
-                          onChanged: (period) {
-                            setState(() {
-                              selectedNoticePeriod = period;
-                            });
-                          },
-                        ),
-                        gap20(),
-
-                        IndustryTypeField(controller: industryController),
-                        gap20(),
-                        DepartmentField(controller: departmentController),
-                        gap20(),
-                        RoleCategoryField(controller: roleCategoryController),
-                        gap20(),
-                        JobRoleField(controller: jobRoleController),
-                        gap20(),
-                      ],
+        FocusTraversalGroup(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Form(
+                      key: employmentFormKey,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          SignupHeaderSmall(
+                            title: "Employment",
+                            subTitle: 'Lets fill your professional experience',
+                          ),
+                          // Signup Form
+                          RegistrationProgressBar(),
+                          gap16(),
+                          gap16(),
+                          EmploymentStatusWidget(
+                            isEmployed: isCurrentlyEmployed,
+                            onChanged: (value) {
+                              setState(() {
+                                isCurrentlyEmployed = value;
+                              });
+                            },
+                          ),
+                          gap20(),
+          
+                          // Total Work Experience
+                          ExperienceWidget(
+                            yearsController: yearsController,
+                            monthsController: monthsController,
+                          ),
+                          gap20(),
+          
+                          CurrentJob(controller: jobTitleController),
+                          gap20(),
+                          CurrentCompany(controller: companyController),
+          
+                          gap20(),
+                          // Work Duration
+                          WorkDuration(
+                            controller: workDurationController,
+                            isWorking: isCurrentlyEmployed,
+                            workedTillController: workedTillDurationController,
+                          ),
+                          gap20(),
+                          // Current Annual Salary
+                          SalaryWidget(controller: salaryController),
+                          gap20(),
+                          // Notice Period
+                          NoticePeriodWidget(
+                            selectedPeriod: selectedNoticePeriod,
+                            onChanged: (period) {
+                              setState(() {
+                                selectedNoticePeriod = period;
+                              });
+                            },
+                          ),
+                          gap20(),
+          
+                          IndustryTypeField(controller: industryController),
+                          gap20(),
+                          DepartmentField(controller: departmentController),
+                          gap20(),
+                          RoleCategoryField(controller: roleCategoryController),
+                          gap20(),
+                          JobRoleField(controller: jobRoleController),
+                          gap20(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                _nextButton(),
-                gap20(),
-              ],
+                  _nextButton(),
+                  gap20(),
+                ],
+              ),
             ),
           ),
         ),

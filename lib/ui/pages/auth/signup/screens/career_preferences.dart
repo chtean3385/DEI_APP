@@ -3,12 +3,8 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
-import '../../../../../constants/app_drawables.dart';
 import '../../../../../constants/app_strings.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
-import '../../../../../widgets/pickers/single_option_selector_remove_others.dart';
-import '../components/backround_image_overlay.dart';
-import '../components/gradient_overlay.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
 import '../widgets/employment/salary.dart';
@@ -50,42 +46,44 @@ class _CareerPreferencesState extends State<CareerPreferences> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: IntrinsicHeight(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: Form(
-                    key: formKeyCareer,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SignupHeaderSmall(
-                          title: "Career Preferences",
-                          subTitle: 'Let’s fill your preferences ',
-                        ),
-                        RegistrationProgressBar(),
-                        gap16(),
-                        gap16(),
-                        SalaryWidget(controller: preferSalaryController),
-
-                        gap20(),
-
-                        // usage
-                        WorkLocationField(
-                          controller: preferWorkLocationController,
-                        ),
-
-                        gap20(),
-                      ],
+        FocusTraversalGroup(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Form(
+                      key: formKeyCareer,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SignupHeaderSmall(
+                            title: "Career Preferences",
+                            subTitle: 'Let’s fill your preferences ',
+                          ),
+                          RegistrationProgressBar(),
+                          gap16(),
+                          gap16(),
+                          SalaryWidget(controller: preferSalaryController),
+          
+                          gap20(),
+          
+                          // usage
+                          WorkLocationField(
+                            controller: preferWorkLocationController,
+                          ),
+          
+                          gap20(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                _nextButton(),
-                gap20(),
-              ],
+                  _nextButton(),
+                  gap20(),
+                ],
+              ),
             ),
           ),
         ),

@@ -70,136 +70,138 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        physics: BouncingScrollPhysics(),
-        child: Form(
-          key: basicPersonalInfoFormKey,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SignupHeader(),
-              // Signup Form
-              RegistrationProgressBar(),
-              gap16(),
-              gap16(),
-              // Full Name Field
-              TransparentFormField(
-                controller: _nameController,
-                focusNode: _nameFocus,
-                hint: AppStrings.name,
-                icon: Icons.person_outline,
-                textInputAction: TextInputAction.next,
-                validator: AppValidators.fieldEmpty(AppStrings.name),
-                textCapitalization: TextCapitalization.words,
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_emailFocus);
-                },
-              ),
-
-              gap20(),
-
-              // Email Field
-              TransparentFormField(
-                controller: _emailController,
-                focusNode: _emailFocus,
-                hint: AppStrings.email,
-                icon: Icons.email_outlined,
-                textInputAction: TextInputAction.next,
-                autofillHints: [AutofillHints.email],
-                keyboardType: TextInputType.emailAddress,
-                validator: AppValidators.email,
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_mobileFocus);
-                },
-              ),
-              gap20(),
-
-              // Confirm Password Field
-              TransparentFormField(
-                controller: _mobileController,
-                focusNode: _mobileFocus,
-                hint: AppStrings.mobile,
-                autofillHints: [AutofillHints.telephoneNumber],
-                textInputAction: TextInputAction.next,
-                icon: Icons.phone_android,
-                validator: AppValidators.phone,
-                keyboardType: TextInputType.phone,
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(_checkBoxFocus);
-                },
-              ),
-              gap20(),
-
-
-
-              // SMS/Email Updates Checkbox
-              UpdatesCheckbox(
-                formKey: basicPersonalInfoFormKey,
-                initialValue: false,
-                onChanged: (val) {
-                  debugPrint("Checkbox value: $val");
-                },
-              ),
-
-              // Terms and Conditions
-              const TermsAndConditions(),
-
-              gap16(),
-              gap16(),
-
-              // Sign Up Button
-              _nextButton(),
-
-              gap16(),
-
-              // Divider
-              Row(
-                children: [
-                  Expanded(
-                    child: Divider(color: Colors.white30, thickness: 1),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      'OR',
+    return FocusTraversalGroup(
+      child: SafeArea(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 16),
+          physics: BouncingScrollPhysics(),
+          child: Form(
+            key: basicPersonalInfoFormKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SignupHeader(),
+                // Signup Form
+                RegistrationProgressBar(),
+                gap16(),
+                gap16(),
+                // Full Name Field
+                TransparentFormField(
+                  controller: _nameController,
+                  focusNode: _nameFocus,
+                  hint: AppStrings.name,
+                  icon: Icons.person_outline,
+                  textInputAction: TextInputAction.next,
+                  validator: AppValidators.fieldEmpty(AppStrings.name),
+                  textCapitalization: TextCapitalization.words,
+                  onFieldSubmitted: (_) {
+                    FocusScope.of(context).requestFocus(_emailFocus);
+                  },
+                ),
+      
+                gap20(),
+      
+                // Email Field
+                TransparentFormField(
+                  controller: _emailController,
+                  focusNode: _emailFocus,
+                  hint: AppStrings.email,
+                  icon: Icons.email_outlined,
+                  textInputAction: TextInputAction.next,
+                  autofillHints: [AutofillHints.email],
+                  keyboardType: TextInputType.emailAddress,
+                  validator: AppValidators.email,
+                  onFieldSubmitted: (_) {
+                    FocusScope.of(context).requestFocus(_mobileFocus);
+                  },
+                ),
+                gap20(),
+      
+                // Confirm Password Field
+                TransparentFormField(
+                  controller: _mobileController,
+                  focusNode: _mobileFocus,
+                  hint: AppStrings.mobile,
+                  autofillHints: [AutofillHints.telephoneNumber],
+                  textInputAction: TextInputAction.next,
+                  icon: Icons.phone_android,
+                  validator: AppValidators.phone,
+                  keyboardType: TextInputType.phone,
+                  onFieldSubmitted: (_) {
+                    FocusScope.of(context).requestFocus(_checkBoxFocus);
+                  },
+                ),
+                gap20(),
+      
+      
+      
+                // SMS/Email Updates Checkbox
+                UpdatesCheckbox(
+                  formKey: basicPersonalInfoFormKey,
+                  initialValue: false,
+                  onChanged: (val) {
+                    debugPrint("Checkbox value: $val");
+                  },
+                ),
+      
+                // Terms and Conditions
+                const TermsAndConditions(),
+      
+                gap16(),
+                gap16(),
+      
+                // Sign Up Button
+                _nextButton(),
+      
+                gap16(),
+      
+                // Divider
+                Row(
+                  children: [
+                    Expanded(
+                      child: Divider(color: Colors.white30, thickness: 1),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'OR',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.white70,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Divider(color: Colors.white30, thickness: 1),
+                    ),
+                  ],
+                ),
+      
+                gap16(),
+      
+                // Login Link
+                GestureDetector(
+                  onTap: () => AppNavigator.loadSignInScreen(),
+                  child: RichText(
+                    text: TextSpan(
+                      text: 'Already have an account? ',
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: Colors.white70,
                       ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Divider(color: Colors.white30, thickness: 1),
-                  ),
-                ],
-              ),
-
-              gap16(),
-
-              // Login Link
-              GestureDetector(
-                onTap: () => AppNavigator.loadSignInScreen(),
-                child: RichText(
-                  text: TextSpan(
-                    text: 'Already have an account? ',
-                    style: context.textTheme.bodyMedium?.copyWith(
-                      color: Colors.white70,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: 'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
+                      children: [
+                        TextSpan(
+                          text: 'Sign In',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

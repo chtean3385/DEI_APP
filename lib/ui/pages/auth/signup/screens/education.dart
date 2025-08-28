@@ -52,115 +52,117 @@ class _EducationState extends State<Education> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: IntrinsicHeight(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Expanded(
-                  child: Form(
-                    key: formKeyEducation,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SignupHeaderSmall(
-                          title: "Education",
-                          subTitle:
-                              'Let’s fill your educational qualifications',
-                        ),
-                        RegistrationProgressBar(),
-                        gap16(),
-                        gap16(),
-                        HighestQualification(
-                          selectedPeriod: selectedNoticePeriod,
-                          onChanged: (period) {
-                            setState(() {
-                              selectedNoticePeriod = period;
-                              formKeyEducation.currentState?.validate();
-                            });
-                          },
-                        ),
-
-                        gap20(),
-
-                      if(selectedNoticePeriod.isNotEmpty)  Align(
-                          alignment: AlignmentGeometry.centerLeft,
-                          child: CourseSelector(
-                            courses: AppStrings.courses,
-                            selectedCourse: selectedCourse,
-                            initiallyVisible: 7,
-                            onChanged: (value) {
+        FocusTraversalGroup(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: IntrinsicHeight(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Expanded(
+                    child: Form(
+                      key: formKeyEducation,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SignupHeaderSmall(
+                            title: "Education",
+                            subTitle:
+                                'Let’s fill your educational qualifications',
+                          ),
+                          RegistrationProgressBar(),
+                          gap16(),
+                          gap16(),
+                          HighestQualification(
+                            selectedPeriod: selectedNoticePeriod,
+                            onChanged: (period) {
                               setState(() {
-                                selectedCourse = value;
+                                selectedNoticePeriod = period;
+                                formKeyEducation.currentState?.validate();
                               });
                             },
                           ),
-                        ),
 
-                        gap20(),
+                          gap20(),
 
-                        if(selectedCourse.isNotEmpty)   CourseTypeSelector(
-                          selectedType: selectedCourseType,
-                          onChanged: (type) {
-                            setState(() {
-                              selectedCourseType = type;
-                              formKeyEducation.currentState?.validate();
-                            });
-                          },
-                        ),
-                        gap20(),
+                        if(selectedNoticePeriod.isNotEmpty)  Align(
+                            alignment: AlignmentGeometry.centerLeft,
+                            child: CourseSelector(
+                              courses: AppStrings.courses,
+                              selectedCourse: selectedCourse,
+                              initiallyVisible: 7,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedCourse = value;
+                                });
+                              },
+                            ),
+                          ),
 
-                        if(selectedCourseType.isNotEmpty)  Align(
-                          alignment: AlignmentGeometry.centerLeft,
-                          child: SpecializationSelector(
-                            specializations: AppStrings.specializations,
-                            selectedSpecialization: selectedSpecialization,
-                            initiallyVisible: 7,
-                            onChanged: (value) {
+                          gap20(),
+
+                          if(selectedCourse.isNotEmpty)   CourseTypeSelector(
+                            selectedType: selectedCourseType,
+                            onChanged: (type) {
                               setState(() {
-                                selectedSpecialization = value;
+                                selectedCourseType = type;
+                                formKeyEducation.currentState?.validate();
                               });
                             },
                           ),
-                        ),
+                          gap20(),
 
-                        gap20(),
-                        if(selectedSpecialization.isNotEmpty)   UniversityField(controller: universityController),
-                        gap20(),
-                        // Starting Year
-                        if(universityController.text.isNotEmpty)   YearSelector(
-                          title: "Starting Year",
-                          selectedYear: selectedStartingYear,
-                          onChanged: (year) {
-                            print("Selected Starting Year: $year");
-                            setState(() {
-                              selectedStartingYear = year;
-                            });
-                          },
-                        ),
-                        gap20(),
+                          if(selectedCourseType.isNotEmpty)  Align(
+                            alignment: AlignmentGeometry.centerLeft,
+                            child: SpecializationSelector(
+                              specializations: AppStrings.specializations,
+                              selectedSpecialization: selectedSpecialization,
+                              initiallyVisible: 7,
+                              onChanged: (value) {
+                                setState(() {
+                                  selectedSpecialization = value;
+                                });
+                              },
+                            ),
+                          ),
 
-// Passing Year
-                        if(selectedStartingYear.isNotEmpty)   YearSelector(
-                          title: "Passing Year",
-                          selectedYear: selectedPassingYear,
-                          onChanged: (year) {
-                            print("Selected Passing Year: $year");
-                            setState(() {
-                              selectedPassingYear = year;
-                            });
-                          },
-                        ),
+                          gap20(),
+                          if(selectedSpecialization.isNotEmpty)   UniversityField(controller: universityController),
+                          gap20(),
+                          // Starting Year
+                          if(universityController.text.isNotEmpty)   YearSelector(
+                            title: "Starting Year",
+                            selectedYear: selectedStartingYear,
+                            onChanged: (year) {
+                              print("Selected Starting Year: $year");
+                              setState(() {
+                                selectedStartingYear = year;
+                              });
+                            },
+                          ),
+                          gap20(),
+
+          // Passing Year
+                          if(selectedStartingYear.isNotEmpty)   YearSelector(
+                            title: "Passing Year",
+                            selectedYear: selectedPassingYear,
+                            onChanged: (year) {
+                              print("Selected Passing Year: $year");
+                              setState(() {
+                                selectedPassingYear = year;
+                              });
+                            },
+                          ),
 
 
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                _nextButton(),
-                gap20(),
-              ],
+                  _nextButton(),
+                  gap20(),
+                ],
+              ),
             ),
           ),
         ),
