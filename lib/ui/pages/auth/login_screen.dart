@@ -163,6 +163,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       color: AppColors.primaryColor,
       radius: 30,
       height: 56,
+      isExpanded: true,
       onTap: () {
         if (_formKey.currentState?.validate() == true) {
           controller.signInUser(context);
