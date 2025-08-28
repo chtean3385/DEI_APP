@@ -51,14 +51,6 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
   List<String> _filteredSuggestions = [];
   bool _isDropdownOpen = false;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   print("widget.focusNode - ${widget.focusNode.canRequestFocus}");
-  //   _focusNode = widget.focusNode;
-  //   _focusNode.addListener(_onFocusChanged);
-  //   widget.controller.addListener(_onTextChanged);
-  // }
   @override
   void initState() {
     super.initState();
@@ -86,14 +78,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
 
     super.dispose();
   }
-  // @override
-  // void dispose() {
-  //   _focusNode.removeListener(_onFocusChanged);
-  //   widget.controller.removeListener(_onTextChanged);
-  //   _focusNode.dispose();
-  //   _removeOverlay();
-  //   super.dispose();
-  // }
+
 
   void _onFocusChanged() {
     if (_focusNode.hasFocus) {
@@ -163,6 +148,52 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
     _overlayEntry = null;
   }
 
+  // OverlayEntry _createOverlayEntry() {
+  //   final renderBox = context.findRenderObject() as RenderBox;
+  //   final size = renderBox.size;
+  //   final position = renderBox.localToGlobal(Offset.zero);
+  //
+  //   final screenHeight = MediaQuery.of(context).size.height;
+  //   final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+  //
+  //   const maxDropdownHeight = 200.0;
+  //
+  //   // Space above and below the field
+  //   final spaceAbove = position.dy;
+  //   final spaceBelow = screenHeight - (position.dy + size.height) - keyboardHeight;
+  //
+  //   // If showAbove is true → calculate top position above field
+  //   if (widget.showAbove) {
+  //     final dropdownHeight =
+  //     spaceAbove > maxDropdownHeight ? maxDropdownHeight : spaceAbove - 8;
+  //     final dropdownTop = position.dy - dropdownHeight - 4;
+  //
+  //     return OverlayEntry(
+  //       builder: (context) => Positioned(
+  //         left: position.dx,
+  //         width: size.width,
+  //         top: dropdownTop,
+  //         height: dropdownHeight,
+  //         child: _buildDropdown(),
+  //       ),
+  //     );
+  //   } else {
+  //     // Show below → calculate top position below field
+  //     final dropdownHeight =
+  //     spaceBelow > maxDropdownHeight ? maxDropdownHeight : spaceBelow - 8;
+  //     final dropdownTop = position.dy + size.height + 4;
+  //
+  //     return OverlayEntry(
+  //       builder: (context) => Positioned(
+  //         left: position.dx,
+  //         width: size.width,
+  //         top: dropdownTop,
+  //         height: dropdownHeight,
+  //         child: _buildDropdown(),
+  //       ),
+  //     );
+  //   }
+  // }
   OverlayEntry _createOverlayEntry() {
     final renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
@@ -172,49 +203,87 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
     final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
     const maxDropdownHeight = 200.0;
+    final itemHeight = 48.0; // estimated height per suggestion
+    final dropdownHeight = (_filteredSuggestions.length * itemHeight)
+        .clamp(0.0, maxDropdownHeight); // clamp height
+
+    if (dropdownHeight == 0) return OverlayEntry(builder: (_) => const SizedBox());
 
     // Space above and below the field
     final spaceAbove = position.dy;
     final spaceBelow = screenHeight - (position.dy + size.height) - keyboardHeight;
 
-    // If showAbove is true → calculate top position above field
-    if (widget.showAbove) {
-      final dropdownHeight =
-      spaceAbove > maxDropdownHeight ? maxDropdownHeight : spaceAbove - 8;
-      final dropdownTop = position.dy - dropdownHeight - 4;
+    final double dropdownTop = widget.showAbove
+        ? (spaceAbove > dropdownHeight ? position.dy - dropdownHeight - 4 : 0)
+        : (spaceBelow > dropdownHeight ? position.dy + size.height + 4 : 0);
 
-      return OverlayEntry(
-        builder: (context) => Positioned(
-          left: position.dx,
-          width: size.width,
-          top: dropdownTop,
-          height: dropdownHeight,
-          child: _buildDropdown(),
-        ),
-      );
-    } else {
-      // Show below → calculate top position below field
-      final dropdownHeight =
-      spaceBelow > maxDropdownHeight ? maxDropdownHeight : spaceBelow - 8;
-      final dropdownTop = position.dy + size.height + 4;
+    return OverlayEntry(
+      builder: (context) => Positioned(
+        left: position.dx,
+        width: size.width,
+        top: dropdownTop,
+        height: dropdownHeight,
+        child: _buildDropdown(),
+      ),
+    );
+  }
 
-      return OverlayEntry(
-        builder: (context) => Positioned(
-          left: position.dx,
-          width: size.width,
-          top: dropdownTop,
-          height: dropdownHeight,
-          child: _buildDropdown(),
+  // Widget _buildDropdown() {
+  //   return Material(
+  //     elevation: 8,
+  //     borderRadius: BorderRadius.circular(12),
+  //     color:Colors.white70,
+  //     child: Container(
+  //       decoration: BoxDecoration(
+  //         color: AppColors.primaryColor.withValues(alpha: 0.15),
+  //         borderRadius: BorderRadius.circular(12),
+  //         border: Border.all(
+  //           color: AppColors.primaryColor.withValues(alpha: 0.13),
+  //           width: 1,
+  //         ),
+  //       ),
+  //       child: ClipRRect(
+  //         borderRadius: BorderRadius.circular(12),
+  //         child: BackdropFilter(
+  //           filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+  //           child: ListView.builder(
+  //             padding: EdgeInsets.zero,
+  //             itemCount: _filteredSuggestions.length,
+  //             itemBuilder: (context, index) {
+  //               final suggestion = _filteredSuggestions[index];
+  //               return _SuggestionTile(
+  //                 suggestion: suggestion,
+  //                 onTap: () => _onSuggestionTap(suggestion),
+  //                 query: widget.controller.text.trim(),
+  //                 caseSensitive: widget.caseSensitive,
+  //                 isLast: index == _filteredSuggestions.length - 1,
+  //               );
+  //             },
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
+  Widget _buildDropdown() {
+    if (_filteredSuggestions.isEmpty) {
+      return Material(
+        elevation: 4,
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.white,
+        child: Center(
+          child: Text(
+            'No suggestions',
+            style: TextStyle(color: Colors.black45),
+          ),
         ),
       );
     }
-  }
 
-  Widget _buildDropdown() {
     return Material(
       elevation: 8,
       borderRadius: BorderRadius.circular(12),
-      color: Colors.white70,
+      color: Colors.white,
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.primaryColor.withValues(alpha: 0.15),
@@ -226,22 +295,19 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: ListView.builder(
-              padding: EdgeInsets.zero,
-              itemCount: _filteredSuggestions.length,
-              itemBuilder: (context, index) {
-                final suggestion = _filteredSuggestions[index];
-                return _SuggestionTile(
-                  suggestion: suggestion,
-                  onTap: () => _onSuggestionTap(suggestion),
-                  query: widget.controller.text.trim(),
-                  caseSensitive: widget.caseSensitive,
-                  isLast: index == _filteredSuggestions.length - 1,
-                );
-              },
-            ),
+          child: ListView.builder(
+            padding: EdgeInsets.zero,
+            itemCount: _filteredSuggestions.length,
+            itemBuilder: (context, index) {
+              final suggestion = _filteredSuggestions[index];
+              return _SuggestionTile(
+                suggestion: suggestion,
+                onTap: () => _onSuggestionTap(suggestion),
+                query: widget.controller.text.trim(),
+                caseSensitive: widget.caseSensitive,
+                isLast: index == _filteredSuggestions.length - 1,
+              );
+            },
           ),
         ),
       ),
@@ -301,15 +367,6 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
                 fontSize: 10,
               ),
               prefixIcon: Icon(widget.icon, color: Colors.black54, size: 22),
-              suffixIcon: _filteredSuggestions.isNotEmpty && _focusNode.hasFocus
-                  ? Icon(
-                _isDropdownOpen
-                    ? Icons.keyboard_arrow_up_outlined
-                    : Icons.keyboard_arrow_down_outlined,
-                color: Colors.black54,
-                size: 22,
-              )
-                  : null,
               border: InputBorder.none,
               contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
             ),

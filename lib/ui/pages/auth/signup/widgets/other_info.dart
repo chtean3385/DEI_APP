@@ -120,12 +120,12 @@ class _OtherInfoState extends State<OtherInfo> {
                               focusNode: _cityFocus,
                               hint: AppStrings.city,
                               icon: Icons.location_city_outlined,
-                              textInputAction: TextInputAction.next,
+                              textInputAction: TextInputAction.done,
                               validator: AppValidators.fieldEmpty(AppStrings.city),
                               textCapitalization: TextCapitalization.words,
-                              onFieldSubmitted: (_) {
-                                FocusScope.of(context).nextFocus();
-                              },
+                              // onFieldSubmitted: (_) {
+                              //   FocusScope.of(context).requestFocus();
+                              // },
                             ),
 
                             gap20(),
@@ -163,6 +163,7 @@ class _OtherInfoState extends State<OtherInfo> {
         alignRight: true,
         onTap: () {
           if (otherInfoFormKey.currentState?.validate() == true) {
+            print("otherInfoFormKey.currentState?.validate() -- ${otherInfoFormKey.currentState?.validate()}");
             widget.onNext();
           }
         },
