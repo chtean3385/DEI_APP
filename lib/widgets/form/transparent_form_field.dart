@@ -46,6 +46,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
 
   @override
   Widget build(BuildContext context) {
+    print("_TransparentFormFieldState build");
     final theme = Theme.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(

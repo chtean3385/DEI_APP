@@ -8,9 +8,10 @@ import '../../../../../../widgets/form/transparent_form_field.dart';
 class SalaryWidget extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
+  final FocusNode nextNode;
   final String? title;
 
-  const SalaryWidget({Key? key, required this.controller, this.title, required this.focusNode}) : super(key: key);
+  const SalaryWidget({Key? key, required this.controller, this.title, required this.focusNode, required this.nextNode}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,9 @@ class SalaryWidget extends StatelessWidget {
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 validator: AppValidators.fieldEmpty("Current annual salary"),
+                onFieldSubmitted: (_) {
+                  FocusScope.of(context).requestFocus(nextNode);
+                },
               ),
             ),
             const SizedBox(width: 16),

@@ -70,7 +70,7 @@ class _CareerPreferencesState extends State<CareerPreferences> {
                           RegistrationProgressBar(),
                           gap16(),
                           gap16(),
-                          SalaryWidget(controller: preferSalaryController,focusNode: _preferSalaryFocus),
+                          SalaryWidget(controller: preferSalaryController,focusNode: _preferSalaryFocus,nextNode:_preferWorkLocationFocus ),
           
                           gap20(),
           

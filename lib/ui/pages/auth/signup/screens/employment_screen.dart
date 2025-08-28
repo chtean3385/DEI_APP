@@ -157,7 +157,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                           ),
                           gap20(),
                           // Current Annual Salary
-                          SalaryWidget(controller: salaryController,focusNode: _annualSalaryFocus),
+                          SalaryWidget(controller: salaryController,focusNode: _annualSalaryFocus,nextNode:_noticePeriodFocus ),
                           gap20(),
                           // Notice Period
                           NoticePeriodWidget(
