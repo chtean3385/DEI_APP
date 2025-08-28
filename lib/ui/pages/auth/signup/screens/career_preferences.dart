@@ -30,12 +30,18 @@ class _CareerPreferencesState extends State<CareerPreferences> {
   final List<String> selectedLocations = [];
 
   @override
+  void initState() {
+    super.initState();
+    debugPrint("CareerPreferences init");
+  }
+  @override
   void dispose() {
     preferSalaryController.dispose();
     preferWorkLocationController.dispose();
 
     _preferSalaryFocus.dispose();
     _preferWorkLocationFocus.dispose();
+    debugPrint("CareerPreferences dispose");
     super.dispose();
   }
 

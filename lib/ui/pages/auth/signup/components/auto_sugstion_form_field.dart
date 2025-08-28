@@ -17,7 +17,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
   final int maxSuggestions;
   final bool caseSensitive;
   final bool showAbove;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
 
 
   const AutoSuggestionDropdownField({
@@ -36,7 +36,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
     this.maxSuggestions = 5,
     this.caseSensitive = false,
     this.showAbove = false,
-    required this.focusNode,
+     this.focusNode,
   });
 
   @override
@@ -46,15 +46,31 @@ class AutoSuggestionDropdownField extends StatefulWidget {
 class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownField> {
   final LayerLink _layerLink = LayerLink();
   OverlayEntry? _overlayEntry;
-   FocusNode _focusNode = FocusNode();
+  late FocusNode _focusNode;
+  FocusNode? _internalFocusNode; // track if we created it
   List<String> _filteredSuggestions = [];
   bool _isDropdownOpen = false;
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   print("widget.focusNode - ${widget.focusNode.canRequestFocus}");
+  //   _focusNode = widget.focusNode;
+  //   _focusNode.addListener(_onFocusChanged);
+  //   widget.controller.addListener(_onTextChanged);
+  // }
   @override
   void initState() {
     super.initState();
-    print("widget.focusNode - ${widget.focusNode.canRequestFocus}");
-    _focusNode = widget.focusNode;
+
+    // if parent provided, use it, else create one
+    if (widget.focusNode != null) {
+      _focusNode = widget.focusNode!;
+    } else {
+      _internalFocusNode = FocusNode();
+      _focusNode = _internalFocusNode!;
+    }
+
     _focusNode.addListener(_onFocusChanged);
     widget.controller.addListener(_onTextChanged);
   }
@@ -63,10 +79,21 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
   void dispose() {
     _focusNode.removeListener(_onFocusChanged);
     widget.controller.removeListener(_onTextChanged);
-    _focusNode.dispose();
     _removeOverlay();
+
+    // only dispose if we created it
+    _internalFocusNode?.dispose();
+
     super.dispose();
   }
+  // @override
+  // void dispose() {
+  //   _focusNode.removeListener(_onFocusChanged);
+  //   widget.controller.removeListener(_onTextChanged);
+  //   _focusNode.dispose();
+  //   _removeOverlay();
+  //   super.dispose();
+  // }
 
   void _onFocusChanged() {
     if (_focusNode.hasFocus) {
@@ -93,6 +120,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
       _hideDropdown();
     }
   }
+
 
   void _updateSuggestions() {
     final query = widget.controller.text.trim();

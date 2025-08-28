@@ -30,6 +30,8 @@ class _OtherInfoState extends State<OtherInfo> {
   // Create FocusNodes
   final _passwordFocus = FocusNode();
   final _confirmPasswordFocus = FocusNode();
+  final _statusFocus = FocusNode();
+  final _cityFocus = FocusNode();
 
 
   @override
@@ -38,6 +40,9 @@ class _OtherInfoState extends State<OtherInfo> {
     _confirmPasswordController.dispose();
     _passwordFocus.dispose();
     _confirmPasswordFocus.dispose();
+    _statusFocus.dispose();
+    _cityFocus.dispose();
+    debugPrint("OtherInfo dispose");
     super.dispose();
   }
 
@@ -92,7 +97,7 @@ class _OtherInfoState extends State<OtherInfo> {
                               _passwordController,
                             ),
                             onFieldSubmitted: (_) {
-                              FocusScope.of(context).nextFocus();
+                              FocusScope.of(context).requestFocus(_statusFocus);
                             },
                           ),
 
@@ -103,6 +108,7 @@ class _OtherInfoState extends State<OtherInfo> {
                               setState(() {
                                 selectedWorkStatus = value;
                               });
+                              FocusScope.of(context).requestFocus(_cityFocus);
                             },
                           ),
                           gap20(),
@@ -111,8 +117,9 @@ class _OtherInfoState extends State<OtherInfo> {
                               selectedWorkStatus!.isNotEmpty) ...[
                             TransparentFormField(
                               controller: _cityController,
+                              focusNode: _cityFocus,
                               hint: AppStrings.city,
-                              icon: Icons.person_outline,
+                              icon: Icons.location_city_outlined,
                               textInputAction: TextInputAction.next,
                               validator: AppValidators.fieldEmpty(AppStrings.city),
                               textCapitalization: TextCapitalization.words,

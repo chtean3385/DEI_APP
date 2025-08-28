@@ -10,13 +10,8 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
-import '../../../../../constants/app_drawables.dart';
 import '../../../../../constants/app_strings.dart';
-import '../../../../../constants/app_validators.dart';
-import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
-import '../components/backround_image_overlay.dart';
-import '../components/gradient_overlay.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
 import '../widgets/employment/notice_period.dart';
@@ -92,6 +87,8 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
     _departmentFocus.dispose();
     _roleCategoryFocus.dispose();
     _jobRoleFocus.dispose();
+    debugPrint("employment dispose");
+
     super.dispose();
   }
 

@@ -57,6 +57,8 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
     _emailFocus.dispose();
     _checkBoxFocus.dispose();
     ScreenShotProtector.disableScreenProtection();
+    debugPrint("BasicPersonalInfo dispose");
+
     super.dispose();
   }
 
