@@ -48,10 +48,10 @@ class AppNavigator {
 
   static loadSignUpScreen({bool isFromLogout = false}) {
     // if(!isFromLogout) initController();
-    Navigator.pushAndRemoveUntil(
+    Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) =>  SignupScreen()),
-          (route) => false,
+          // (route) => false,
     );
   }
   static loadOtpScreen({bool isFromLogout = false}) {

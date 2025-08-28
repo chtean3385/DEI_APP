@@ -44,8 +44,6 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
     // TODO: implement initState
     super.initState();
     ScreenShotProtector.enableScreenProtection();
-
-
   }
 
   @override
@@ -103,7 +101,11 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                 Consumer(
                     builder: (context, ref, child) {
                       final email = ref.watch(signupFlowControllerProvider.select((user) => user.email));
-                  if(email != null)    _emailController.text = email;
+                      if (email != null && email != _emailController.text) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          _emailController.text = email;
+                        });
+                      }
                     return TransparentFormField(
                       controller: _emailController,
                       focusNode: _emailFocus,
