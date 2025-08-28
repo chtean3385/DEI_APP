@@ -149,6 +149,7 @@ class _OtherInfoState extends State<OtherInfo> {
         height: 56,
         radius: 16,
         isExpanded: false,
+        alignRight: true,
         onTap: () {
           // if (formKey.currentState?.validate() == true) {
             widget.onNext();

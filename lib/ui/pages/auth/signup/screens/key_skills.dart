@@ -111,6 +111,7 @@ class _KeySkillsState extends State<KeySkills> {
         height: 56,
         radius: 16,
         isExpanded: false,
+        alignRight: true,
         onTap: () {
 
           if (formKeySkills.currentState?.validate() == true) {

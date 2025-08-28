@@ -166,6 +166,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
         height: 56,
         radius: 16,
         isExpanded: false,
+        alignRight: true,
         onTap: () {
           // if (formKey.currentState?.validate() == true) {
           widget.onNext();

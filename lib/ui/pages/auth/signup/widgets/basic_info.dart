@@ -211,7 +211,8 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
       color: AppColors.primaryColor,
       height: 56,
       radius: 16,
-      isExpanded: true,
+      isExpanded: false,
+      alignRight: true,
       onTap: () {
         // if (formKey.currentState?.validate() == true) {
         widget.onNext();

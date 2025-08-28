@@ -79,21 +79,6 @@ class _CareerPreferencesState extends State<CareerPreferences> {
                         ),
 
                         gap20(),
-                        // Align(
-                        //   alignment: Alignment.centerLeft,
-                        //   child: SingleOptionSelectorRemoveOthers(
-                        //     title: "Selected Locations",
-                        //     options: selectedLocations,
-                        //     onChanged: (value) {
-                        //       setState(() {
-                        //         selectedLocations.remove(value);
-                        //       });
-                        //
-                        //     },
-                        //   ),
-                        // ),
-
-                        // Passing Year
                       ],
                     ),
                   ),
@@ -116,6 +101,7 @@ class _CareerPreferencesState extends State<CareerPreferences> {
         height: 56,
         radius: 16,
         isExpanded: false,
+        alignRight: true,
         onTap: () {
           if (formKeyCareer.currentState?.validate() == true) {
             widget.onNext();

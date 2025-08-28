@@ -99,17 +99,12 @@ class _IntroductionToRecruiterState extends State<IntroductionToRecruiter> {
         height: 56,
         radius: 16,
         isExpanded: false,
+        alignRight: true,
         onTap: () {
           if (formKeySkills.currentState?.validate() == true) {
             widget.onNext();
           }
-          // if (_selectedSkills.isEmpty) {
-          //   // force rebuild to show error
-          //   setState(() {});
-          //   return;
-          // }
-          //
-          // widget.onNext();
+
         },
         child: Text(
           AppStrings.next,

@@ -1,8 +1,9 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:dei_champions/widgets/pickers/custom_chip.dart';
 import 'package:flutter/material.dart';
 
-class SelectIntro extends StatelessWidget {
+class SelectIntro extends StatefulWidget {
   final List<String> introList;
   final Function(String) onRemove;
   final GlobalKey<FormState>? formKey;
@@ -15,10 +16,17 @@ class SelectIntro extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<SelectIntro> createState() => _SelectIntroState();
+}
+
+class _SelectIntroState extends State<SelectIntro> {
+  String? _selectedValue;
+
+  @override
   Widget build(BuildContext context) {
     return FormField<List<String>>(
       validator: (_) {
-        if (introList.isEmpty) {
+        if (widget.introList.isEmpty) {
           return "Please select at least one skill";
         }
         return null;
@@ -30,7 +38,7 @@ class SelectIntro extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (introList.isNotEmpty)
+              if (widget.introList.isNotEmpty)
                 Text(
                   'Or select from below',
                   style: context.textTheme.displaySmall?.copyWith(
@@ -38,16 +46,16 @@ class SelectIntro extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-              if (introList.isNotEmpty) const SizedBox(height: 16),
+              if (widget.introList.isNotEmpty) const SizedBox(height: 16),
 
               ListView.separated(
                 padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: introList.length,
+                itemCount: widget.introList.length,
                 separatorBuilder: (_, __) => SizedBox(height: 8),
                 itemBuilder: (context, index) {
-                  final title = introList[index];
+                  final title = widget.introList[index];
                   return DecoratedBox(
                     decoration: BoxDecoration(
                       color: AppColors.primaryColor.withValues(alpha: 0.1),
@@ -77,31 +85,18 @@ class SelectIntro extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(width: 12),
-                          GestureDetector(
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                color:AppColors.primaryColor.withValues(alpha: 0.15),
-                                borderRadius: BorderRadius.circular(24),
-                                border: Border.all(
-                                  width: 2,
-                                  color: const Color(0xFF4285F4),
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 4,
-                                ),
-                                child: Text(
-                                  "Select",
-                                  style: context.textTheme.displaySmall
-                                      ?.copyWith(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ),
-                            ),
+                          CustomChip(
+                            option: "Select",
+                            showRemove: false,
+                            onChanged: (value) {
+                              setState(() {
+                                _selectedValue = value;
+                              });
+                              // widget.onChanged(value);
+                              // field.didChange(value);
+                              // field.validate();
+                            },
+                            isSelected: false,
                           ),
                         ],
                       ),

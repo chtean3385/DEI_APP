@@ -176,6 +176,7 @@ class _EducationState extends State<Education> {
         height: 56,
         radius: 16,
         isExpanded: false,
+        alignRight: true,
         onTap: () {
           if (formKeyEducation.currentState?.validate() == true) {
             widget.onNext();
