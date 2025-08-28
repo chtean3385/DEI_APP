@@ -32,6 +32,7 @@ class ExperienceWidget extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: TransparentFormField(
@@ -41,7 +42,7 @@ class ExperienceWidget extends StatelessWidget {
                 icon: Icons.calendar_today_rounded,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
-                validator: AppValidators.fieldEmpty("Years"),
+                validator: AppValidators.validateYears,
               ),
             ),
             const SizedBox(width: 16),
@@ -53,7 +54,7 @@ class ExperienceWidget extends StatelessWidget {
                 icon: Icons.calendar_month,
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
-                validator: AppValidators.fieldEmpty("Months"),
+                validator: AppValidators.validateMonths,
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(nextFocus);
                 },

@@ -54,6 +54,7 @@ class WorkDuration extends StatelessWidget {
               // Done button
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextButton(
                     onPressed: () {
@@ -166,7 +167,7 @@ class WorkDuration extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 32),
+            const SizedBox(width: 12),
             if (isWorking)
               Text(
                 'Present',

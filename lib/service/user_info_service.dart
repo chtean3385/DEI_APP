@@ -16,7 +16,7 @@ class UserInfoService {
     try {
       await _googleSignIn.initialize(
         serverClientId:
-            "325714813742-s9mq0r87p08nej5c2sppde3vpvts1u66.apps.googleusercontent.com",
+        "325714813742-s9mq0r87p08nej5c2sppde3vpvts1u66.apps.googleusercontent.com",
       );
       _isGoogleSignInInitialized = true;
     } catch (e) {
@@ -31,19 +31,24 @@ class UserInfoService {
     }
   }
 
-  /// Fetch primary Google email (if logged in / available silently)
+  /// Try to fetch user email (silent first, fallback to interactive auth)
   static Future<String?> getUserEmail() async {
     await _ensureGoogleSignInInitialized();
+
     try {
-      final account = await _googleSignIn.authenticate(scopeHint: scopes);
+      // ✅ Silent sign-in replacement
+      final GoogleSignInAccount? account =
+      await _googleSignIn.attemptLightweightAuthentication();
+
       if (account != null) {
         return account.email;
-      } else {
-        // If silent sign-in fails, prompt interactive auth
-        final GoogleSignInAccount? signedAccount = await _googleSignIn
-            .authenticate(scopeHint: scopes);
-        return signedAccount?.email;
       }
+
+      // 🚨 Only fallback to interactive login if needed
+      final GoogleSignInAccount signedAccount =
+      await _googleSignIn.authenticate(scopeHint: scopes);
+
+      return signedAccount.email;
     } on GoogleSignInException catch (e) {
       debugPrint("Google Sign-In error: $e");
       return null;
@@ -52,8 +57,8 @@ class UserInfoService {
       return null;
     }
   }
-
 }
+
 
 
 

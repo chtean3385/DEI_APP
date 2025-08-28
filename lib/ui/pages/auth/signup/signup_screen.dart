@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers/providers.dart';
+import '../../../../service/user_info_service.dart';
 
 class SignupScreen extends ConsumerStatefulWidget {
   const SignupScreen({super.key});
@@ -22,6 +23,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+
+
 
   @override
   void initState() {
@@ -46,6 +49,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
 
     _animationController.forward();
   }
+
 
   @override
   void dispose() {

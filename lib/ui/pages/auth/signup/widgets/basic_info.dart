@@ -4,10 +4,11 @@ import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_validators.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/app_colors.dart';
+import '../../../../../providers/providers.dart';
 import '../../../../../service/screen_shot_security_manager.dart';
-import '../../../../../service/user_info_service.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../components/registration_progress_bar.dart';
@@ -43,7 +44,8 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
     // TODO: implement initState
     super.initState();
     ScreenShotProtector.enableScreenProtection();
-    _autoFillUserData();
+
+
   }
 
   @override
@@ -62,13 +64,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
     super.dispose();
   }
 
-  Future<void> _autoFillUserData() async {
-    final email = await UserInfoService.getUserEmail();
-    final mobile = await MobileHelper.getMobileNumber();
 
-    if (email != null) _emailController.text = email;
-    if (mobile != null) _mobileController.text = mobile;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -100,25 +96,31 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                     FocusScope.of(context).requestFocus(_emailFocus);
                   },
                 ),
-      
+
                 gap20(),
-      
+
                 // Email Field
-                TransparentFormField(
-                  controller: _emailController,
-                  focusNode: _emailFocus,
-                  hint: AppStrings.email,
-                  icon: Icons.email_outlined,
-                  textInputAction: TextInputAction.next,
-                  autofillHints: [AutofillHints.email],
-                  keyboardType: TextInputType.emailAddress,
-                  validator: AppValidators.email,
-                  onFieldSubmitted: (_) {
-                    FocusScope.of(context).requestFocus(_mobileFocus);
-                  },
+                Consumer(
+                    builder: (context, ref, child) {
+                      final email = ref.watch(signupFlowControllerProvider.select((user) => user.email));
+                  if(email != null)    _emailController.text = email;
+                    return TransparentFormField(
+                      controller: _emailController,
+                      focusNode: _emailFocus,
+                      hint: AppStrings.email,
+                      icon: Icons.email_outlined,
+                      textInputAction: TextInputAction.next,
+                      autofillHints: [AutofillHints.email],
+                      keyboardType: TextInputType.emailAddress,
+                      validator: AppValidators.email,
+                      onFieldSubmitted: (_) {
+                        FocusScope.of(context).requestFocus(_mobileFocus);
+                      },
+                    );
+                  }
                 ),
                 gap20(),
-      
+
                 // Confirm Password Field
                 TransparentFormField(
                   controller: _mobileController,
@@ -134,9 +136,9 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                   },
                 ),
                 gap20(),
-      
-      
-      
+
+
+
                 // SMS/Email Updates Checkbox
                 UpdatesCheckbox(
                   formKey: basicPersonalInfoFormKey,
@@ -145,18 +147,18 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                     debugPrint("Checkbox value: $val");
                   },
                 ),
-      
+
                 // Terms and Conditions
                 const TermsAndConditions(),
-      
+
                 gap16(),
                 gap16(),
-      
+
                 // Sign Up Button
                 _nextButton(),
-      
+
                 gap16(),
-      
+
                 // Divider
                 Row(
                   children: [
@@ -177,9 +179,9 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                     ),
                   ],
                 ),
-      
+
                 gap16(),
-      
+
                 // Login Link
                 GestureDetector(
                   onTap: () => AppNavigator.loadSignInScreen(),

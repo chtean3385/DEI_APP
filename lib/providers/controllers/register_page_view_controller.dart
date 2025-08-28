@@ -1,7 +1,10 @@
+import 'package:dei_champions/main.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../../models/state_models/signup_flow_state.dart';
+import '../../service/user_info_service.dart';
+import '../../ui/pages/auth/signup/widgets/registration_complete.dart';
 
 
 
@@ -12,7 +15,7 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
   @override
   SignupFlowState build() {
     pageController = PageController();
-
+    _autoFillUserData();
     // If you ever allow swiping, keep state in sync with the controller.
     pageController.addListener(() {
       final idx = pageController.page?.round() ?? 0;
@@ -39,7 +42,8 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
         curve: Curves.easeInOut,
       );
     } else {
-      onComplete?.call();
+      submitRegistration(navigatorKey.currentContext!);
+      // onComplete?.call();
     }
   }
 
@@ -63,6 +67,17 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
   void setTotalSteps(int total) {
     state = state.copyWith(totalSteps: total.clamp(1, 1000));
   }
+
+  Future<void> _autoFillUserData() async {
+    final email = await UserInfoService.getUserEmail();
+    final mobile = await MobileHelper.getMobileNumber();
+
+    state = state.copyWith(
+      email: email,
+      phone: mobile,
+    );
+  }
+
 }
 
 

@@ -24,7 +24,7 @@ void submitRegistration(BuildContext context) {
         ),
         content: Text(
           'Registration completed successfully! Welcome to our job portal.',
-          style: context.textTheme.bodySmall, // make content readable
+          style: context.textTheme.bodySmall?.copyWith(fontSize: 13), // make content readable
         ),
         actions: [
           _nextButton(context),
@@ -36,17 +36,19 @@ void submitRegistration(BuildContext context) {
 Widget _nextButton(BuildContext context) {
   return CustomThemeButton(
     color: AppColors.primaryColor,
-    height: 56,
-    radius: 16,
+    height: 30,
+    radius: 12,
+    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 0),
     isExpanded: false,
+    alignRight: true,
     onTap: () {
       Navigator.of(context).pop();
       // Navigate to dashboard or login
     },
     child: Text(
       'Continue',
-      style: context.textTheme.titleMedium?.copyWith(
-        color: context.theme.colorScheme.onPrimary,
+      style: context.textTheme.bodyMedium?.copyWith(
+        color: context.theme.colorScheme.onPrimary,fontWeight: FontWeight.w600,fontSize: 13
       ),
     ),
   );
