@@ -202,9 +202,9 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
         isExpanded: false,
         alignRight: true,
         onTap: () {
-          // if (formKey.currentState?.validate() == true) {
+          if (employmentFormKey.currentState?.validate() == true) {
           widget.onNext();
-          // }
+          }
         },
         child: Text(
           AppStrings.next,

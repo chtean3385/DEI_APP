@@ -162,9 +162,9 @@ class _OtherInfoState extends State<OtherInfo> {
         isExpanded: false,
         alignRight: true,
         onTap: () {
-          // if (formKey.currentState?.validate() == true) {
+          if (otherInfoFormKey.currentState?.validate() == true) {
             widget.onNext();
-          // }
+          }
         },
         child: Text(
           AppStrings.next,

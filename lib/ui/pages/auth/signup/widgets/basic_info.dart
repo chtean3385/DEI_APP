@@ -222,9 +222,9 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
       isExpanded: false,
       alignRight: true,
       onTap: () {
-        // if (formKey.currentState?.validate() == true) {
+        if (basicPersonalInfoFormKey.currentState?.validate() == true) {
         widget.onNext();
-        // }
+        }
       },
       child: Text(
         AppStrings.next,

@@ -3,13 +3,10 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
-import '../../../../../constants/app_drawables.dart';
 import '../../../../../constants/app_strings.dart';
 import '../../../../../constants/app_validators.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
-import '../components/backround_image_overlay.dart';
-import '../components/gradient_overlay.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
 import '../widgets/introduction/select_intro.dart';
@@ -29,7 +26,7 @@ class _IntroductionToRecruiterState extends State<IntroductionToRecruiter> {
   final formKeySkills = GlobalKey<FormState>();
   final TextEditingController introlController = TextEditingController();
 
-  final List<String> _introList = [];
+  // final List<String> _introList = [];
 
   @override
   void dispose() {

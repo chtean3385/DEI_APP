@@ -36,23 +36,24 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
   void nextStep({VoidCallback? onComplete}) {
     if (!state.isLast) {
       final next = state.currentStep + 1;
-      pageController.nextPage(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
+      pageController.animateToPage(
+        next,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.ease,
       );
       state = state.copyWith(currentStep: next);
     } else {
       submitRegistration(navigatorKey.currentContext!);
-      // onComplete?.call();
     }
   }
+
 
   void previousStep() {
     if (!state.isFirst) {
       final prev = state.currentStep - 1;
       state = state.copyWith(currentStep: prev);
       pageController.previousPage(
-        duration: const Duration(milliseconds: 300),
+        duration: const Duration(milliseconds: 500),
         curve: Curves.easeInOut,
       );
     }
