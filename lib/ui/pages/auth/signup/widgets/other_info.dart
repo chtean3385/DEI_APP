@@ -25,7 +25,7 @@ class OtherInfo extends StatefulWidget {
 }
 
 class _OtherInfoState extends State<OtherInfo> {
-  final formKey = GlobalKey<FormState>();
+  final otherInfoFormKey = GlobalKey<FormState>();
   final _cityController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
@@ -57,7 +57,7 @@ class _OtherInfoState extends State<OtherInfo> {
               children: [
                 Expanded(
                   child:Form(
-                    key: formKey,
+                    key: otherInfoFormKey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -99,7 +99,7 @@ class _OtherInfoState extends State<OtherInfo> {
 
                         gap20(),
                         WorkStatusView(
-                          formKey: formKey,
+                          formKey: otherInfoFormKey,
                           onStatusChanged: (value) {
                             setState(() {
                               selectedWorkStatus = value;

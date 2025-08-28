@@ -28,7 +28,7 @@ class Education extends StatefulWidget {
 }
 
 class _EducationState extends State<Education> {
-  final formKey = GlobalKey<FormState>();
+  final formKeyEducation = GlobalKey<FormState>();
   final TextEditingController skillController = TextEditingController();
   final TextEditingController universityController = TextEditingController();
 
@@ -65,7 +65,7 @@ class _EducationState extends State<Education> {
               children: [
                 Expanded(
                   child: Form(
-                    key: formKey,
+                    key: formKeyEducation,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -82,7 +82,7 @@ class _EducationState extends State<Education> {
                           onChanged: (period) {
                             setState(() {
                               selectedNoticePeriod = period;
-                              formKey.currentState?.validate();
+                              formKeyEducation.currentState?.validate();
                             });
                           },
                         ),
@@ -110,7 +110,7 @@ class _EducationState extends State<Education> {
                           onChanged: (type) {
                             setState(() {
                               selectedCourseType = type;
-                              formKey.currentState?.validate();
+                              formKeyEducation.currentState?.validate();
                             });
                           },
                         ),
@@ -182,7 +182,7 @@ class _EducationState extends State<Education> {
         radius: 16,
         isExpanded: false,
         onTap: () {
-          if (formKey.currentState?.validate() == true) {
+          if (formKeyEducation.currentState?.validate() == true) {
             widget.onNext();
           }
         },

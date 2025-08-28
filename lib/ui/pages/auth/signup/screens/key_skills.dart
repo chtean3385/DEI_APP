@@ -11,7 +11,6 @@ import '../components/backround_image_overlay.dart';
 import '../components/gradient_overlay.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
-import '../widgets/key_skills/error_validation.dart';
 import '../widgets/key_skills/selected_key_skills.dart';
 import '../widgets/signup_back_button.dart';
 
@@ -24,7 +23,7 @@ class KeySkills extends StatefulWidget {
   State<KeySkills> createState() => _KeySkillsState();
 }
 class _KeySkillsState extends State<KeySkills> {
-  final formKey = GlobalKey<FormState>();
+  final formKeySkills = GlobalKey<FormState>();
   final TextEditingController skillController = TextEditingController();
 
   final List<String> _selectedSkills = [];
@@ -40,12 +39,12 @@ class _KeySkillsState extends State<KeySkills> {
       setState(() => _selectedSkills.add(skill));
     }
     skillController.clear();
-    formKey.currentState?.validate();
+    formKeySkills.currentState?.validate();
   }
 
   void _removeSkill(String skill) {
     setState(() => _selectedSkills.remove(skill));
-    formKey.currentState?.validate();
+    formKeySkills.currentState?.validate();
   }
 
   @override
@@ -65,7 +64,7 @@ class _KeySkillsState extends State<KeySkills> {
               children: [
                 Expanded(
                   child: Form(
-                    key: formKey,
+                    key: formKeySkills,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -119,7 +118,7 @@ class _KeySkillsState extends State<KeySkills> {
         isExpanded: false,
         onTap: () {
 
-          if (formKey.currentState?.validate() == true) {
+          if (formKeySkills.currentState?.validate() == true) {
           widget.onNext();
           }
           // if (_selectedSkills.isEmpty) {

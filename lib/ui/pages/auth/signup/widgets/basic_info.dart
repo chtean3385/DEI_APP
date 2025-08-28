@@ -29,7 +29,7 @@ class BasicPersonalInfo extends StatefulWidget {
 
 class _BasicPersonalInfoState extends State<BasicPersonalInfo>
     with SingleTickerProviderStateMixin {
-  final formKey = GlobalKey<FormState>();
+  final basicPersonalInfoFormKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   // final _passwordController = TextEditingController();
@@ -65,21 +65,21 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: formKey,
-      child: Stack(
-        children: [
-          // Background Image with Overlay
-          BackgroundImageOverlay(
-            imagePath: AppDrawables.signupBg,
-            darkenOpacity: 0.5,
-          ),
-          // Gradient Overlay
-          GradientOverlay(),
-          SafeArea(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              physics: BouncingScrollPhysics(),
+    return Stack(
+      children: [
+        // Background Image with Overlay
+        BackgroundImageOverlay(
+          imagePath: AppDrawables.signupBg,
+          darkenOpacity: 0.5,
+        ),
+        // Gradient Overlay
+        GradientOverlay(),
+        SafeArea(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            physics: BouncingScrollPhysics(),
+            child: Form(
+              key: basicPersonalInfoFormKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -159,7 +159,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
 
                   // SMS/Email Updates Checkbox
                   UpdatesCheckbox(
-                    formKey: formKey,
+                    formKey: basicPersonalInfoFormKey,
                     initialValue: false,
                     onChanged: (val) {
                       debugPrint("Checkbox value: $val");
@@ -226,8 +226,8 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 

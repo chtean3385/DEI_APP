@@ -80,7 +80,11 @@ class AppStrings {
     "Sports Science", "Physical Education", "Agriculture", "Environmental Science",
   ];
 
-
+  static const List<String> introList = [
+'Abc with B.Tech/B.E., currently living in Thrissur, Kerala',
+'Seasoned professional with 2 years of experience. Expert in Sales',
+'Flutter developer with 5+ years of experience building scalable apps',
+];
 
 
 }

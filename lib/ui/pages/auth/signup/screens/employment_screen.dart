@@ -34,7 +34,7 @@ class EmploymentScreen extends StatefulWidget {
 }
 
 class _EmploymentScreenState extends State<EmploymentScreen> {
-  final formKey = GlobalKey<FormState>();
+  final employmentFormKey = GlobalKey<FormState>();
   final TextEditingController yearsController = TextEditingController();
   final TextEditingController monthsController = TextEditingController();
   final TextEditingController jobTitleController = TextEditingController();
@@ -86,7 +86,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
               children: [
                 Expanded(
                   child: Form(
-                    key: formKey,
+                    key: employmentFormKey,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,

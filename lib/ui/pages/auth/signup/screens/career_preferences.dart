@@ -25,7 +25,7 @@ class CareerPreferences extends StatefulWidget {
 }
 
 class _CareerPreferencesState extends State<CareerPreferences> {
-  final formKey = GlobalKey<FormState>();
+  final formKeyCareer = GlobalKey<FormState>();
   final TextEditingController preferSalaryController = TextEditingController();
   final TextEditingController preferWorkLocationController =
       TextEditingController();
@@ -63,7 +63,7 @@ class _CareerPreferencesState extends State<CareerPreferences> {
               children: [
                 Expanded(
                   child: Form(
-                    key: formKey,
+                    key: formKeyCareer,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
@@ -122,7 +122,7 @@ class _CareerPreferencesState extends State<CareerPreferences> {
         radius: 16,
         isExpanded: false,
         onTap: () {
-          if (formKey.currentState?.validate() == true) {
+          if (formKeyCareer.currentState?.validate() == true) {
             widget.onNext();
           }
         },
