@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class CustomChip extends StatelessWidget {
       onTap:()=>onChanged(option),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.15),
+          color:AppColors.primaryColor.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
             width: isSelected ? 2 : 0.2,
@@ -39,7 +40,7 @@ class CustomChip extends StatelessWidget {
               Text(
                 option,
                 style: context.textTheme.displaySmall?.copyWith(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: isSelected
                       ? FontWeight.w500
                       : FontWeight.normal,
@@ -51,7 +52,7 @@ class CustomChip extends StatelessWidget {
                   onTap: () {
                     onChanged("");
                   },
-                  child: const Icon(Icons.close, size: 18, color: Colors.white),
+                  child: const Icon(Icons.close, size: 18, color: Colors.black),
                 ),
             ],
           ),

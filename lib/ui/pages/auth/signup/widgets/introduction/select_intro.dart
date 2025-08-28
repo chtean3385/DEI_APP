@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -33,7 +34,7 @@ class SelectIntro extends StatelessWidget {
                 Text(
                   'Or select from below',
                   style: context.textTheme.displaySmall?.copyWith(
-                    color: Colors.white,
+                    color: Colors.black54,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -49,10 +50,10 @@ class SelectIntro extends StatelessWidget {
                   final title = introList[index];
                   return DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.1),
+                      color: AppColors.primaryColor.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.2),
+                        color: AppColors.primaryColor.withValues(alpha: 0.2),
                         width: 1,
                       ),
                     ),
@@ -68,7 +69,7 @@ class SelectIntro extends StatelessWidget {
                             child: Text(
                               title,
                               style: context.textTheme.bodyMedium?.copyWith(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontSize: 13,
                               ),
                               maxLines: 3,
@@ -79,7 +80,7 @@ class SelectIntro extends StatelessWidget {
                           GestureDetector(
                             child: DecoratedBox(
                               decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.15),
+                                color:AppColors.primaryColor.withValues(alpha: 0.15),
                                 borderRadius: BorderRadius.circular(24),
                                 border: Border.all(
                                   width: 2,
@@ -95,7 +96,7 @@ class SelectIntro extends StatelessWidget {
                                   "Select",
                                   style: context.textTheme.displaySmall
                                       ?.copyWith(
-                                        color: Colors.white,
+                                        color: Colors.black,
                                         fontWeight: FontWeight.w500,
                                       ),
                                 ),

@@ -56,6 +56,7 @@ class _WorkLocationFieldState extends State<WorkLocationField> {
           suggestions: _workLocations,
           maxSuggestions: 8,
           caseSensitive: false,
+          showAbove: true,
           onSuggestionSelected: _onSuggestionSelected,
           validator: (value) {
             if (_selectedLocations.isEmpty) {

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,11 +23,11 @@ class RegistrationProgressBar extends ConsumerWidget {
           children: [
             Text(
               'Step ${currentStep + 1} of $totalSteps',
-              style: context.textTheme.bodyMedium?.copyWith(  color: Colors.white,fontWeight: FontWeight.w600),
+              style: context.textTheme.bodyMedium?.copyWith(  color: Colors.black,fontWeight: FontWeight.w600),
             ),
             Text(
               '${(progress * 100).round()}%',
-              style: context.textTheme.bodyMedium?.copyWith(  color: Colors.white,fontWeight: FontWeight.w600),
+              style: context.textTheme.bodyMedium?.copyWith(  color: Colors.black,fontWeight: FontWeight.w600),
             ),
           ],
         ),
@@ -35,8 +36,8 @@ class RegistrationProgressBar extends ConsumerWidget {
           borderRadius: BorderRadius.circular(16), // Rounded corners
           child: LinearProgressIndicator(
             value: progress,
-            backgroundColor: Colors.white.withValues(alpha: 0.3),
-            valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+            backgroundColor: AppColors.primaryColor.withValues(alpha: 0.3),
+            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primaryColor),
             minHeight: 10,
           ),
         ),

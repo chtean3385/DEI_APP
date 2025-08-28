@@ -90,6 +90,7 @@ class UniversityField extends StatelessWidget {
       suggestions: _universities,
       maxSuggestions: 10,
       caseSensitive: false,
+      showAbove: true,
       onSuggestionSelected: (suggestion) {
         print('Selected University: $suggestion');
       },

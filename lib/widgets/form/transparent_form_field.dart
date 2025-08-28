@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show TextInputFormatter;
 
+import '../../constants/app_colors.dart';
+
 class TransparentFormField extends StatefulWidget {
   final TextEditingController controller;
   final String hint;
@@ -14,6 +16,7 @@ class TransparentFormField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final ValueChanged<String>? onFieldSubmitted;
   final List<TextInputFormatter>? inputFormatters;
+  final FocusNode? focusNode;
 
 
   TransparentFormField({
@@ -30,6 +33,7 @@ class TransparentFormField extends StatefulWidget {
     this.textInputAction,
     this.onFieldSubmitted,
     this.inputFormatters,
+    this.focusNode,
 
   });
 
@@ -45,10 +49,10 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
     final theme = Theme.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.15),
+        color:AppColors.primaryColor.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.13),
+          color: AppColors.primaryColor.withValues(alpha: 0.13),
           width: 1,
         ),
       ),
@@ -56,6 +60,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
         padding: const EdgeInsets.symmetric(vertical: 2),
         child: TextFormField(
           controller: widget.controller,
+          focusNode: widget.focusNode,
           keyboardType: widget.keyboardType,
           obscureText: widget.isPassword && !_isPasswordVisible,
           validator: widget.validator,
@@ -64,27 +69,27 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
           autofillHints: widget.autofillHints,
           textInputAction:widget.textInputAction,
           inputFormatters: widget.inputFormatters,
-          cursorColor: Colors.white,
+          cursorColor: Colors.black,
           style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onPrimary,fontWeight:  FontWeight.normal
+              color: Colors.black,fontWeight:  FontWeight.normal
           ),
           onFieldSubmitted:widget.onFieldSubmitted,
           decoration: InputDecoration(
             hintText: widget.hint,
             hintStyle: theme.textTheme.bodyMedium?.copyWith(
-          color:Colors.white60,
+          color:Colors.black54,
           ),
             errorStyle: theme.textTheme.displaySmall?.copyWith(
                 color: Colors.redAccent,fontWeight:  FontWeight.normal,fontSize: 10
             ),
-            prefixIcon: Icon(widget.icon, color: Colors.white70, size: 22),
+            prefixIcon: Icon(widget.icon, color: Colors.black54, size: 22),
             suffixIcon: widget.isPassword
                 ? IconButton(
               icon: Icon(
                 _isPasswordVisible
                     ? Icons.visibility_outlined
                     : Icons.visibility_off_outlined,
-                color: Colors.white70,
+                color: Colors.black54,
                 size: 22,
               ),
               onPressed: () {

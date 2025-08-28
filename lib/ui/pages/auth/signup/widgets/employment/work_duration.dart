@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -128,7 +129,7 @@ class WorkDuration extends StatelessWidget {
         Text(
           'Work duration*',
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -141,10 +142,10 @@ class WorkDuration extends StatelessWidget {
                 child: AbsorbPointer(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.15),
+                      color: AppColors.primaryColor.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(16),
                       border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.13),
+                        color:  AppColors.primaryColor.withValues(alpha: 0.13),
                         width: 1,
                       ),
                     ),
@@ -152,15 +153,15 @@ class WorkDuration extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 2),
                       child: TextFormField(
                         controller: controller,
-                        cursorColor: Colors.white,
+                        cursorColor: Colors.black,
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onPrimary,
+                          color: Colors.black,
                           fontWeight: FontWeight.normal,
                         ),
                         decoration: InputDecoration(
                           hintText: "Select month/year",
                           hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                            color: Colors.white60,
+                            color: Colors.black54,
                           ),
                           errorStyle: theme.textTheme.displaySmall?.copyWith(
                             color: Colors.redAccent,
@@ -169,7 +170,7 @@ class WorkDuration extends StatelessWidget {
                           ),
                           prefixIcon: const Icon(
                             Icons.calendar_today,
-                            color: Colors.white70,
+                            color: Colors.black54,
                             size: 22,
                           ),
                           border: InputBorder.none,
@@ -191,7 +192,7 @@ class WorkDuration extends StatelessWidget {
               Text(
                 'Present',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.white,
+                  color: Colors.black,
                 ),
               ),
 
@@ -202,10 +203,10 @@ class WorkDuration extends StatelessWidget {
                   child: AbsorbPointer(
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.15),
+                        color:  AppColors.primaryColor.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: Colors.white.withValues(alpha: 0.13),
+                          color:  AppColors.primaryColor.withValues(alpha: 0.13),
                           width: 1,
                         ),
                       ),
@@ -213,15 +214,15 @@ class WorkDuration extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 2),
                         child: TextFormField(
                           controller: workedTillController,
-                          cursorColor: Colors.white,
+                          cursorColor: Colors.black,
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onPrimary,
+                            color: Colors.black,
                             fontWeight: FontWeight.normal,
                           ),
                           decoration: InputDecoration(
                             hintText: "Select month/year",
                             hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                              color: Colors.white60,
+                              color: Colors.black54,
                             ),
                             errorStyle: theme.textTheme.displaySmall?.copyWith(
                               color: Colors.redAccent,
@@ -230,7 +231,7 @@ class WorkDuration extends StatelessWidget {
                             ),
                             prefixIcon: const Icon(
                               Icons.calendar_today,
-                              color: Colors.white70,
+                              color: Colors.black54,
                               size: 22,
                             ),
                             border: InputBorder.none,

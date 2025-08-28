@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -27,14 +28,14 @@ class WorkStatusCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: isSelected
-              ? Colors.white.withValues(alpha: 0.2)
-              : Colors.white.withValues(alpha: 0.1),
+              ? AppColors.primaryColor.withValues(alpha: 0.2)
+              : AppColors.primaryColor.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: isSelected
                 ? const Color(0xFF667eea)
-                : Colors.white.withValues(alpha: 0.3),
-            width: isSelected ? 2 : 1,
+                : Colors.black.withValues(alpha: 0.3),
+            width: isSelected ? 2 : .5,
           ),
         ),
         child: Column(
@@ -45,21 +46,21 @@ class WorkStatusCard extends StatelessWidget {
               decoration: BoxDecoration(
                 color: isSelected
                     ? const Color(0xFF667eea)
-                    : Colors.white.withValues(alpha: 0.2),
+                    : AppColors.primaryColor.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(25),
               ),
-              child: Icon(icon, size: 24, color: Colors.white),
+              child: Icon(icon, size: 24, color:isSelected? Colors.white: Colors.black54),
             ),
             const SizedBox(height: 12),
             Text(
               title,
-              style: context.textTheme.bodyMedium?.copyWith(  color: Colors.white,fontWeight: FontWeight.w600),
+              style: context.textTheme.bodyMedium?.copyWith(  color: Colors.black,fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),
             Text(
               subtitle,
-              style: context.textTheme.displaySmall?.copyWith(  color: Colors.white70,fontSize: 11,
+              style: context.textTheme.displaySmall?.copyWith(  color: Colors.black54,fontSize: 11,
                 height: 1.3),
               textAlign: TextAlign.center,
               maxLines: 2,

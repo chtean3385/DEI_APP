@@ -52,7 +52,7 @@ class _CourseSelectorState extends State<CourseSelector> {
               Text(
                 "Select Course*",
                 style: textTheme.bodyMedium?.copyWith(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -98,7 +98,7 @@ class _CourseSelectorState extends State<CourseSelector> {
             Text(
               "Select Course*",
               style: textTheme.bodyMedium?.copyWith(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w600,
               ),
             ),

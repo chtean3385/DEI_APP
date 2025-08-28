@@ -32,6 +32,7 @@ class DepartmentField extends StatelessWidget {
       suggestions: _departments,
       maxSuggestions: 10,
       caseSensitive: false,
+      showAbove: true,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please select a department';

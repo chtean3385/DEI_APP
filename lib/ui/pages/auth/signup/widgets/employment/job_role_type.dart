@@ -38,6 +38,7 @@ class JobRoleField extends StatelessWidget {
       suggestions: _jobRoles,
       maxSuggestions: 10,
       caseSensitive: false,
+      showAbove: true,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please select your current role';

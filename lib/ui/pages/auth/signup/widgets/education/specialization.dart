@@ -52,7 +52,7 @@ class _SpecializationSelectorState extends State<SpecializationSelector> {
               Text(
                 "Select Specialization*",
                 style: textTheme.bodyMedium?.copyWith(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -100,7 +100,7 @@ class _SpecializationSelectorState extends State<SpecializationSelector> {
             Text(
               "Select Specialization*",
               style: textTheme.bodyMedium?.copyWith(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w600,
               ),
             ),

@@ -50,6 +50,7 @@ class CurrentJob extends StatelessWidget {
       suggestions: _jobTitles,
       maxSuggestions: 8,
       caseSensitive: false,
+      showAbove: true,
       onSuggestionSelected: (suggestion) {
         print('Selected Job: $suggestion');
       },

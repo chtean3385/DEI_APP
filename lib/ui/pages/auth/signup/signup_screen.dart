@@ -57,7 +57,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen>
   Widget build(BuildContext context) {
     final controller = ref.read(signupFlowControllerProvider.notifier);
     return Scaffold(
-      backgroundColor: Colors.black12,
+      backgroundColor: Colors.white,
       body: SizedBox(
         height: double.infinity,
         child: PageView(

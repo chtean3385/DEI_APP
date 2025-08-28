@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
@@ -15,6 +16,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
   final ValueChanged<String>? onSuggestionSelected;
   final int maxSuggestions;
   final bool caseSensitive;
+  final bool showAbove;
 
   const AutoSuggestionDropdownField({
     super.key,
@@ -31,6 +33,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
     this.onSuggestionSelected,
     this.maxSuggestions = 5,
     this.caseSensitive = false,
+    this.showAbove = false,
   });
 
   @override
@@ -127,6 +130,69 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
     _overlayEntry = null;
   }
 
+  // OverlayEntry _createOverlayEntry() {
+  //   final renderBox = context.findRenderObject() as RenderBox;
+  //   final size = renderBox.size;
+  //   final position = renderBox.localToGlobal(Offset.zero);
+  //
+  //   final screenHeight = MediaQuery.of(context).size.height;
+  //   final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+  //
+  //   const maxDropdownHeight = 200.0;
+  //
+  //   // Space available above the field (from field top to top of screen)
+  //   final spaceAbove = position.dy;
+  //
+  //   // Set dropdown height to min(maxDropdownHeight, available space above)
+  //   final dropdownHeight = spaceAbove > maxDropdownHeight ? maxDropdownHeight : spaceAbove - 8;
+  //
+  //   // Top of dropdown = field top - dropdownHeight - margin
+  //   final dropdownTop = position.dy - dropdownHeight - 4;
+  //
+  //   return OverlayEntry(
+  //     builder: (context) => Positioned(
+  //       left: position.dx,
+  //       width: size.width,
+  //       top: dropdownTop,
+  //       height: dropdownHeight,
+  //       child: Material(
+  //         elevation: 8,
+  //         borderRadius: BorderRadius.circular(12),
+  //         color: Colors.transparent,
+  //         child: Container(
+  //           decoration: BoxDecoration(
+  //             color: Colors.white.withValues(alpha: 0.15),
+  //             borderRadius: BorderRadius.circular(12),
+  //             border: Border.all(
+  //               color: Colors.white.withValues(alpha: 0.13),
+  //               width: 1,
+  //             ),
+  //           ),
+  //           child: ClipRRect(
+  //             borderRadius: BorderRadius.circular(12),
+  //             child: BackdropFilter(
+  //               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+  //               child: ListView.builder(
+  //                 padding: EdgeInsets.zero,
+  //                 itemCount: _filteredSuggestions.length,
+  //                 itemBuilder: (context, index) {
+  //                   final suggestion = _filteredSuggestions[index];
+  //                   return _SuggestionTile(
+  //                     suggestion: suggestion,
+  //                     onTap: () => _onSuggestionTap(suggestion),
+  //                     query: widget.controller.text.trim(),
+  //                     caseSensitive: widget.caseSensitive,
+  //                     isLast: index == _filteredSuggestions.length - 1,
+  //                   );
+  //                 },
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
   OverlayEntry _createOverlayEntry() {
     final renderBox = context.findRenderObject() as RenderBox;
     final size = renderBox.size;
@@ -137,53 +203,74 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
 
     const maxDropdownHeight = 200.0;
 
-    // Space available above the field (from field top to top of screen)
+    // Space above and below the field
     final spaceAbove = position.dy;
+    final spaceBelow = screenHeight - (position.dy + size.height) - keyboardHeight;
 
-    // Set dropdown height to min(maxDropdownHeight, available space above)
-    final dropdownHeight = spaceAbove > maxDropdownHeight ? maxDropdownHeight : spaceAbove - 8;
+    // If showAbove is true → calculate top position above field
+    if (widget.showAbove) {
+      final dropdownHeight =
+      spaceAbove > maxDropdownHeight ? maxDropdownHeight : spaceAbove - 8;
+      final dropdownTop = position.dy - dropdownHeight - 4;
 
-    // Top of dropdown = field top - dropdownHeight - margin
-    final dropdownTop = position.dy - dropdownHeight - 4;
+      return OverlayEntry(
+        builder: (context) => Positioned(
+          left: position.dx,
+          width: size.width,
+          top: dropdownTop,
+          height: dropdownHeight,
+          child: _buildDropdown(),
+        ),
+      );
+    } else {
+      // Show below → calculate top position below field
+      final dropdownHeight =
+      spaceBelow > maxDropdownHeight ? maxDropdownHeight : spaceBelow - 8;
+      final dropdownTop = position.dy + size.height + 4;
 
-    return OverlayEntry(
-      builder: (context) => Positioned(
-        left: position.dx,
-        width: size.width,
-        top: dropdownTop,
-        height: dropdownHeight,
-        child: Material(
-          elevation: 8,
+      return OverlayEntry(
+        builder: (context) => Positioned(
+          left: position.dx,
+          width: size.width,
+          top: dropdownTop,
+          height: dropdownHeight,
+          child: _buildDropdown(),
+        ),
+      );
+    }
+  }
+
+  Widget _buildDropdown() {
+    return Material(
+      elevation: 8,
+      borderRadius: BorderRadius.circular(12),
+      color: Colors.white70,
+      child: Container(
+        decoration: BoxDecoration(
+          color: AppColors.primaryColor.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(12),
-          color: Colors.transparent,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.13),
-                width: 1,
-              ),
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: ListView.builder(
-                  padding: EdgeInsets.zero,
-                  itemCount: _filteredSuggestions.length,
-                  itemBuilder: (context, index) {
-                    final suggestion = _filteredSuggestions[index];
-                    return _SuggestionTile(
-                      suggestion: suggestion,
-                      onTap: () => _onSuggestionTap(suggestion),
-                      query: widget.controller.text.trim(),
-                      caseSensitive: widget.caseSensitive,
-                      isLast: index == _filteredSuggestions.length - 1,
-                    );
-                  },
-                ),
-              ),
+          border: Border.all(
+            color: AppColors.primaryColor.withValues(alpha: 0.13),
+            width: 1,
+          ),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: _filteredSuggestions.length,
+              itemBuilder: (context, index) {
+                final suggestion = _filteredSuggestions[index];
+                return _SuggestionTile(
+                  suggestion: suggestion,
+                  onTap: () => _onSuggestionTap(suggestion),
+                  query: widget.controller.text.trim(),
+                  caseSensitive: widget.caseSensitive,
+                  isLast: index == _filteredSuggestions.length - 1,
+                );
+              },
             ),
           ),
         ),
@@ -209,10 +296,10 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
       link: _layerLink,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.15),
+          color: AppColors.primaryColor.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: Colors.white.withValues(alpha: 0.13),
+            color: AppColors.primaryColor.withValues(alpha: 0.13),
             width: 1,
           ),
         ),
@@ -227,29 +314,29 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
             textCapitalization: widget.textCapitalization,
             autofillHints: widget.autofillHints,
             textInputAction: widget.textInputAction,
-            cursorColor: Colors.white,
+            cursorColor: Colors.black,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onPrimary,
+              color: Colors.black,
               fontWeight: FontWeight.normal,
             ),
             onFieldSubmitted: widget.onFieldSubmitted,
             decoration: InputDecoration(
               hintText: widget.hint,
               hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.white60,
+                color: Colors.black54,
               ),
               errorStyle: theme.textTheme.displaySmall?.copyWith(
                 color: Colors.redAccent,
                 fontWeight: FontWeight.normal,
                 fontSize: 10,
               ),
-              prefixIcon: Icon(widget.icon, color: Colors.white70, size: 22),
+              prefixIcon: Icon(widget.icon, color: Colors.black54, size: 22),
               suffixIcon: _filteredSuggestions.isNotEmpty && _focusNode.hasFocus
                   ? Icon(
                 _isDropdownOpen
                     ? Icons.keyboard_arrow_up_outlined
                     : Icons.keyboard_arrow_down_outlined,
-                color: Colors.white70,
+                color: Colors.black54,
                 size: 22,
               )
                   : null,
@@ -290,7 +377,7 @@ class _SuggestionTile extends StatelessWidget {
         decoration: BoxDecoration(
           border: !isLast ? Border(
             bottom: BorderSide(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: AppColors.primaryColor.withValues(alpha: 0.1),
               width: 0.5,
             ),
           ) : null,
@@ -299,7 +386,7 @@ class _SuggestionTile extends StatelessWidget {
           children: [
             Icon(
               Icons.search_outlined,
-              color: Colors.white60,
+              color: Colors.black54,
               size: 18,
             ),
             SizedBox(width: 12),
@@ -317,7 +404,7 @@ class _SuggestionTile extends StatelessWidget {
       return Text(
         suggestion,
         style: theme.textTheme.bodyMedium?.copyWith(
-          color: Colors.white.withValues(alpha: 0.9),
+          color:AppColors.primaryColor.withValues(alpha: 0.9),
           fontWeight: FontWeight.normal,
         ),
       );
@@ -330,7 +417,7 @@ class _SuggestionTile extends StatelessWidget {
       return Text(
         suggestion,
         style: theme.textTheme.bodyMedium?.copyWith(
-          color: Colors.white.withValues(alpha: 0.9),
+          color: AppColors.primaryColor.withValues(alpha: 0.9),
           fontWeight: FontWeight.normal,
         ),
       );
@@ -346,14 +433,14 @@ class _SuggestionTile extends StatelessWidget {
             TextSpan(
               text: suggestion.substring(0, startIndex),
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.white.withValues(alpha: 0.9),
+                color: AppColors.primaryColor.withValues(alpha: 0.9),
                 fontWeight: FontWeight.normal,
               ),
             ),
           TextSpan(
             text: suggestion.substring(startIndex, endIndex),
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -361,7 +448,7 @@ class _SuggestionTile extends StatelessWidget {
             TextSpan(
               text: suggestion.substring(endIndex),
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.white.withValues(alpha: 0.9),
+                color: AppColors.primaryColor.withValues(alpha: 0.9),
                 fontWeight: FontWeight.normal,
               ),
             ),

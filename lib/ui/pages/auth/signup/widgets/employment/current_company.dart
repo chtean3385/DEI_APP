@@ -61,6 +61,7 @@ class CurrentCompany extends StatelessWidget {
       suggestions: _companyNames,
       maxSuggestions: 10,
       caseSensitive: false,
+      showAbove: true,
       onSuggestionSelected: (suggestion) {
         print('Selected Company: $suggestion');
       },

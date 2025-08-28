@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class OptionSelector extends StatelessWidget {
@@ -24,7 +25,7 @@ class OptionSelector extends StatelessWidget {
         Text(
           title,
           style: textTheme.bodyMedium?.copyWith(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -38,7 +39,7 @@ class OptionSelector extends StatelessWidget {
               onTap: () => onChanged(option),
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
                     width: isSelected ? 2 : 0.2,
@@ -55,7 +56,7 @@ class OptionSelector extends StatelessWidget {
                   child: Text(
                     option,
                     style: textTheme.displaySmall?.copyWith(
-                      color: isSelected ? Colors.white : Colors.white70,
+                      color: isSelected ? Colors.black : Colors.black54,
                       fontWeight:
                       isSelected ? FontWeight.w500 : FontWeight.normal,
                     ),

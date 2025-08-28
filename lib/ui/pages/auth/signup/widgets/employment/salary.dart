@@ -19,7 +19,7 @@ class SalaryWidget extends StatelessWidget {
         Text(
           title ?? 'Current annual salary*',
           style: context.textTheme.bodyMedium?.copyWith(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -43,7 +43,7 @@ class SalaryWidget extends StatelessWidget {
             Text(
               'Per year',
               style: context.textTheme.bodyMedium?.copyWith(
-                color: Colors.white,
+                color: Colors.black,
               ),
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -46,12 +47,12 @@ class _UpdatesCheckboxState extends State<UpdatesCheckbox> {
       builder: (field) {
         return DecoratedBox(
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.1),
+            color: AppColors.primaryColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: field.hasError
                   ? Colors.redAccent
-                  : Colors.white.withValues(alpha: 0.2),
+                  :AppColors.primaryColor.withValues(alpha: 0.2),
               width: 1,
             ),
           ),
@@ -71,7 +72,7 @@ class _UpdatesCheckboxState extends State<UpdatesCheckbox> {
                         onChanged: _toggle,
                         visualDensity: VisualDensity.compact,
                         activeColor: const Color(0xFF667eea),
-                        side: const BorderSide(color: Colors.white70),
+                        side: const BorderSide(color: Colors.black54),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4),
                         ),
@@ -83,7 +84,7 @@ class _UpdatesCheckboxState extends State<UpdatesCheckbox> {
                         child: Text(
                           'Send me important updates & promotions via SMS, email, and WhatsApp',
                           style: context.textTheme.displaySmall?.copyWith(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 10,
                           ),
                         ),

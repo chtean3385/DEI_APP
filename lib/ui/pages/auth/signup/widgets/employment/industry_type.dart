@@ -38,6 +38,7 @@ class IndustryTypeField extends StatelessWidget {
       suggestions: _industries,
       maxSuggestions: 10,
       caseSensitive: false,
+      showAbove: true,
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please select an industry type';

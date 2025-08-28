@@ -52,11 +52,6 @@ class _EducationState extends State<Education> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        BackgroundImageOverlay(
-          imagePath: AppDrawables.signupBg,
-          darkenOpacity: 0.5,
-        ),
-        GradientOverlay(),
         SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: IntrinsicHeight(

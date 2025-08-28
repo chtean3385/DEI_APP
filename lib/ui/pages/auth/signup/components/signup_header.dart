@@ -18,7 +18,6 @@ class SignupHeader extends StatelessWidget {
           'Create Account',
           textAlign: TextAlign.center,
           style: context.textTheme.titleLarge?.copyWith(
-            color: Colors.white,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -27,7 +26,7 @@ class SignupHeader extends StatelessWidget {
         Text(
           'Join thousands of professionals',
           textAlign: TextAlign.center,
-          style: context.textTheme.bodyMedium?.copyWith(color: Colors.white70),
+          style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
         ),
 
         const SizedBox(height: 40),
@@ -50,7 +49,7 @@ class SignupHeaderSmall extends StatelessWidget {
           title,
           textAlign: TextAlign.center,
           style: context.textTheme.headlineMedium?.copyWith(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -59,7 +58,7 @@ class SignupHeaderSmall extends StatelessWidget {
         Text(
           subTitle,
           textAlign: TextAlign.center,
-          style: context.textTheme.bodyMedium?.copyWith(color: Colors.white70),
+          style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
         ),
 
         const SizedBox(height: 10),

@@ -12,14 +12,14 @@ class TermsAndConditions extends StatelessWidget {
         text: const TextSpan(
           text: 'By clicking register, you agree to the  ',
           style: TextStyle(
-            color: Colors.white70,
+            color: Colors.black54,
             fontSize: 10,
           ),
           children: [
             TextSpan(
               text: 'Terms of Service',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline,
               ),
@@ -28,7 +28,7 @@ class TermsAndConditions extends StatelessWidget {
             TextSpan(
               text: 'Privacy Policy',
               style: TextStyle(
-                color: Colors.white,
+                color: Colors.black,
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline,
               ),

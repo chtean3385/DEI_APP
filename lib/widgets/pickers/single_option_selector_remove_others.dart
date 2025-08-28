@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class SingleOptionSelectorRemoveOthers extends StatefulWidget {
@@ -38,7 +39,7 @@ class _SingleOptionSelectorRemoveOthersState
         Text(
           widget.title,
           style: textTheme.bodyMedium?.copyWith(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -57,7 +58,7 @@ class _SingleOptionSelectorRemoveOthersState
               },
               child: DecoratedBox(
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
+                  color: AppColors.primaryColor.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(24),
                   border: Border.all(
                     width: isSelected ? 2 : 0.2,
@@ -77,7 +78,7 @@ class _SingleOptionSelectorRemoveOthersState
                       Text(
                         option,
                         style: textTheme.displaySmall?.copyWith(
-                          color: isSelected ? Colors.white : Colors.white70,
+                          color: isSelected ? Colors.black : Colors.black54,
                           fontWeight: isSelected
                               ? FontWeight.w500
                               : FontWeight.normal,
@@ -96,7 +97,7 @@ class _SingleOptionSelectorRemoveOthersState
                           child: const Icon(
                             Icons.close,
                             size: 18,
-                            color: Colors.white,
+                            color: Colors.black,
                           ),
                         ),
                     ],

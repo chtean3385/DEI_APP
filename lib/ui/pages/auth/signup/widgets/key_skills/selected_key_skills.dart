@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -31,8 +32,7 @@ class SelectedKeySkills extends StatelessWidget {
               if (selectedSkill.isNotEmpty)    Text(
                 'Selected Skills',
                 style: context.textTheme.bodyMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
+                  color: Colors.black54,
                 ),
               ),
               if (selectedSkill.isNotEmpty)   const SizedBox(height: 16),
@@ -43,7 +43,7 @@ class SelectedKeySkills extends StatelessWidget {
                   return GestureDetector(
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.15),
+                        color: AppColors.primaryColor.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
                           width: 2,
@@ -61,7 +61,7 @@ class SelectedKeySkills extends StatelessWidget {
                             Text(
                               skill,
                               style: context.textTheme.displaySmall?.copyWith(
-                                color: Colors.white,
+                                color: Colors.black,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -75,7 +75,7 @@ class SelectedKeySkills extends StatelessWidget {
                               child: const Icon(
                                 Icons.close,
                                 size: 18,
-                                color: Colors.white,
+                                color: Colors.black,
                               ),
                             ),
                           ],

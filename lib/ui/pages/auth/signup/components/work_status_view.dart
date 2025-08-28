@@ -1,3 +1,4 @@
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'work_status_card.dart';
 
@@ -72,7 +73,9 @@ class _WorkStatusViewState extends State<WorkStatusView> {
                 padding: const EdgeInsets.only(top: 8),
                 child: Text(
                   field.errorText!,
-                  style: const TextStyle(color: Colors.red, fontSize: 12),
+                  style:context.textTheme.displaySmall?.copyWith(
+                      color: Colors.redAccent,fontWeight:  FontWeight.normal,fontSize: 10
+                  ),
                 ),
               ),
           ],

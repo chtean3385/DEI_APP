@@ -64,7 +64,7 @@ class _YearSelectorState extends State<YearSelector> {
                 Text(
                   "${widget.title}*",
                   style: textTheme.bodyMedium?.copyWith(
-                    color: Colors.white,
+                    color: Colors.black,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -109,7 +109,7 @@ class _YearSelectorState extends State<YearSelector> {
               Text(
                 "${widget.title}*",
                 style: textTheme.bodyMedium?.copyWith(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.w600,
                 ),
               ),

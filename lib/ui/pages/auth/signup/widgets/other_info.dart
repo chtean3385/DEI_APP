@@ -5,13 +5,10 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
-import '../../../../../constants/app_drawables.dart';
 import '../../../../../constants/app_strings.dart';
 import '../../../../../constants/app_validators.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
-import '../components/backround_image_overlay.dart';
-import '../components/gradient_overlay.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
 
@@ -30,11 +27,16 @@ class _OtherInfoState extends State<OtherInfo> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
   String? selectedWorkStatus;
+  // Create FocusNodes
+  final _passwordFocus = FocusNode();
+  final _confirmPasswordFocus = FocusNode();
 
   @override
   void dispose() {
     _passwordController.dispose();
     _confirmPasswordController.dispose();
+    _passwordFocus.dispose();
+    _confirmPasswordFocus.dispose();
     super.dispose();
   }
 
@@ -42,13 +44,6 @@ class _OtherInfoState extends State<OtherInfo> {
   Widget build(BuildContext context) {
     return  Stack(
       children: [
-        // Background Image with Overlay
-        BackgroundImageOverlay(
-          imagePath: AppDrawables.signupBg,
-          darkenOpacity: 0.5,
-        ),
-        // Gradient Overlay
-        GradientOverlay(),
         SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: IntrinsicHeight(
@@ -70,13 +65,14 @@ class _OtherInfoState extends State<OtherInfo> {
                         // Password Field
                         TransparentFormField(
                           controller: _passwordController,
+                          focusNode: _passwordFocus,
                           hint: AppStrings.password,
                           icon: Icons.lock_outline,
                           textInputAction: TextInputAction.next,
                           isPassword: true,
                           validator: AppValidators.password,
                           onFieldSubmitted: (_) {
-                            FocusScope.of(context).nextFocus();
+                            FocusScope.of(context).requestFocus(_confirmPasswordFocus);
                           },
                         ),
 

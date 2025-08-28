@@ -71,13 +71,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        // Background Image with Overlay
-        BackgroundImageOverlay(
-          imagePath: AppDrawables.signupBg,
-          darkenOpacity: 0.5,
-        ),
-        // Gradient Overlay
-        GradientOverlay(),
+
         SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: IntrinsicHeight(
@@ -272,7 +266,7 @@ class EmploymentStatusWidget extends StatelessWidget {
         Text(
           'Are you currently employed ?',
           style: context.textTheme.bodyMedium?.copyWith(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
         ),
@@ -311,7 +305,7 @@ class EmploymentStatusWidget extends StatelessWidget {
                   Text(
                     'Yes',
                     style: context.textTheme.bodyMedium?.copyWith(
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -343,7 +337,7 @@ class EmploymentStatusWidget extends StatelessWidget {
                   Text(
                     'No',
                     style: context.textTheme.bodyMedium?.copyWith(
-                      color: Colors.white,
+                      color: Colors.black,
                     ),
                   ),
                 ],
@@ -374,7 +368,7 @@ class ExperienceWidget extends StatelessWidget {
         Text(
           'Total work experience*',
           style: context.textTheme.bodyMedium?.copyWith(
-            color: Colors.white,
+            color: Colors.black,
             fontWeight: FontWeight.w600,
           ),
         ),
