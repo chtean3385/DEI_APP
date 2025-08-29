@@ -4,16 +4,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../providers/providers.dart';
 
 class SignupBackButton extends ConsumerWidget {
-  const SignupBackButton({super.key});
+  final bool isEmployer;
+  const SignupBackButton({super.key,this.isEmployer = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.read(signupFlowControllerProvider.notifier);
-    final state = ref.watch(signupFlowControllerProvider);
-
+    final state = isEmployer
+        ? ref.watch(employerSignupFlowControllerProvider)
+        : ref.watch(signupFlowControllerProvider);
     return IconButton(
       icon: const Icon(Icons.arrow_back,color: Colors.black,),
-      onPressed: state.isFirst ? Navigator.of(context).pop : controller.previousStep,
+      onPressed: state.isFirst ? Navigator.of(context).pop : (isEmployer
+          ? ref.read(employerSignupFlowControllerProvider.notifier).previousStep : ref.read(signupFlowControllerProvider.notifier).previousStep),
     );
   }
 }

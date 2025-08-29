@@ -8,7 +8,6 @@ import '../../../../../constants/app_colors.dart';
 import '../../../../../constants/app_strings.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../../../../utils/widget_utils.dart';
-import 'components/signup_header.dart';
 
 class ChooseSignupType extends StatefulWidget {
   const ChooseSignupType({super.key});

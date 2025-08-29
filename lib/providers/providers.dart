@@ -6,6 +6,7 @@ import '../models/state_models/auth_state.dart';
 import '../models/state_models/signup_flow_state.dart';
 import 'controllers/app_controller.dart';
 import 'controllers/auth_controller.dart';
+import 'controllers/employer_register_page_view_controller.dart';
 import 'controllers/register_page_view_controller.dart';
 
 

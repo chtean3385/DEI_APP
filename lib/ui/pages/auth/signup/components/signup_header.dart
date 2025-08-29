@@ -41,7 +41,6 @@ class SignupHeaderSmall extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("SignupHeaderSmall");
     return Column(
       children: [
         const SizedBox(height: 50),

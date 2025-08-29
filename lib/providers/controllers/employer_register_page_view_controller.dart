@@ -1,21 +1,18 @@
-import 'package:dei_champions/main.dart';
-import 'package:flutter/material.dart';
-import 'package:riverpod/riverpod.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../main.dart';
 import '../../models/state_models/signup_flow_state.dart';
 import '../../service/user_info_service.dart';
 import '../../ui/pages/auth/signup/widgets/registration_complete.dart';
 
-
-
-/// Controller
-class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
+class EmployerSignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
   late final PageController pageController;
 
   @override
   SignupFlowState build() {
     pageController = PageController();
-    _autoFillUserData();
+    // _autoFillUserData();
     // If you ever allow swiping, keep state in sync with the controller.
     pageController.addListener(() {
       final idx = pageController.page?.round() ?? 0;
@@ -30,7 +27,7 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
     });
 
     // Set your total steps here (or expose a setter).
-    return const SignupFlowState(currentStep: 0, totalSteps: 7);
+    return const SignupFlowState(currentStep: 0, totalSteps: 2);
   }
 
   void nextStep({VoidCallback? onComplete}) {
@@ -80,8 +77,3 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
   }
 
 }
-
-
-
-
-

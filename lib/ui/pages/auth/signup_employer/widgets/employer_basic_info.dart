@@ -197,9 +197,9 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
       isExpanded: false,
       alignRight: true,
       onTap: () {
-        if (employerPersonalInfoFormKey.currentState?.validate() == true) {
+        // if (employerPersonalInfoFormKey.currentState?.validate() == true) {
         widget.onNext();
-        }
+        // }
       },
       child: Text(
         AppStrings.next,

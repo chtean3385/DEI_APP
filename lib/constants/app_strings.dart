@@ -94,5 +94,23 @@ class AppStrings {
   static const createStrongPassword = 'Create a strong password';
   static const createPassword = 'Create Password';
 
+  static const companyName = 'Company Name*';
+  static const enterCompanyName = 'Enter your company Name';
+  static const companyEmail = 'Company Email*';
+  static const enterCompanyEmail = 'company@domain.com';
+  static const designation = 'Your Designation*';
+  static const enterDesignation = 'eg. HR Manager ,CEO';
+  static const companySize = 'Company Size*';
+  static const selectCompanySize = 'Select company size';
+  static const website = 'Website';
+  static const enterWebsite = 'https://yourcompany.com';
 
+  static const List<String> companyEmployeeSize = [
+    "1-10 employees",
+    "11-50 employees",
+    "51-200 employees",
+    "201-500 employees",
+    "501-1000 employees",
+    "1000+ employees",
+  ];
 }

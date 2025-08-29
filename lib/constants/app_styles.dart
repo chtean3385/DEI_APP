@@ -13,6 +13,8 @@ class AppStyles {
 Widget gap() => const SizedBox(height: 10);
 Widget gapW6() => const SizedBox(width: 6);
 Widget gapW8() => const SizedBox(width: 8);
+Widget gapH4() => const SizedBox(height: 4);
+Widget gapH8() => const SizedBox(height: 8);
 Widget gap16() => const SizedBox(height: 16);
 Widget gap20() => const SizedBox(height: 20);
 Widget gap32() => const SizedBox(height: 32);
