@@ -9,7 +9,6 @@ class TransparentFormField extends StatefulWidget {
   final String hint;
   final String? label;
   final IconData icon;
-  final TextInputType? keyboardType;
   final bool isPassword;
   final VoidCallback? onTogglePassword;
   final FormFieldValidator<String>? validator;
@@ -19,6 +18,7 @@ class TransparentFormField extends StatefulWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final List<TextInputFormatter>? inputFormatters;
   final FocusNode? focusNode;
+  final TextInputType? keyboardType;
 
 
   TransparentFormField({
@@ -26,7 +26,7 @@ class TransparentFormField extends StatefulWidget {
     required this.controller,
     required this.hint,
     required this.icon,
-    this.keyboardType,
+
     this.isPassword = false,
     this.onTogglePassword,
     this.validator,
@@ -36,6 +36,7 @@ class TransparentFormField extends StatefulWidget {
     this.onFieldSubmitted,
     this.inputFormatters,
     this.focusNode,
+    this.keyboardType,
     this.label,
 
   });
