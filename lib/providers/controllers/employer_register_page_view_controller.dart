@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../main.dart';
 import '../../models/state_models/signup_flow_state.dart';
+import '../../service/screen_shot_security_manager.dart';
 import '../../service/user_info_service.dart';
 import '../../ui/pages/auth/signup/widgets/registration_complete.dart';
 
@@ -11,8 +12,9 @@ class EmployerSignupFlowController extends AutoDisposeNotifier<SignupFlowState> 
 
   @override
   SignupFlowState build() {
+    debugPrint("EmployerSignupFlowController init build");
     pageController = PageController();
-    // _autoFillUserData();
+
     // If you ever allow swiping, keep state in sync with the controller.
     pageController.addListener(() {
       final idx = pageController.page?.round() ?? 0;
@@ -23,11 +25,12 @@ class EmployerSignupFlowController extends AutoDisposeNotifier<SignupFlowState> 
 
     // Proper cleanup for Notifier-based providers.
     ref.onDispose(() {
+      debugPrint("EmployerSignupFlowController onDispose");
       pageController.dispose();
     });
 
     // Set your total steps here (or expose a setter).
-    return const SignupFlowState(currentStep: 0, totalSteps: 2);
+    return const SignupFlowState(currentStep: 0, totalSteps: 3);
   }
 
   void nextStep({VoidCallback? onComplete}) {
@@ -66,7 +69,16 @@ class EmployerSignupFlowController extends AutoDisposeNotifier<SignupFlowState> 
     state = state.copyWith(totalSteps: total.clamp(1, 1000));
   }
 
+  iniController(){
+    _autoFillUserData();
+    ScreenShotProtector.enableScreenProtection();
+  }
+  disposeValues(){
+    ScreenShotProtector.disableScreenProtection();
+  }
+
   Future<void> _autoFillUserData() async {
+    debugPrint("EmployerSignupFlowController _autoFillUserData");
     final email = await UserInfoService.getUserEmail();
     final mobile = await MobileHelper.getMobileNumber();
 

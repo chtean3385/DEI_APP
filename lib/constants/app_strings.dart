@@ -3,7 +3,8 @@ class AppStrings {
   static const appTitle = 'Breaking Barriers, Building Careers';
   static const String loginTitle = 'Login to your Account';
   static const name = 'Your Full Name';
-  static const mobile = 'Your Mobile Number';
+  static const mobile = 'Mobile Number';
+  static const enterMobile = 'Enter your mobile number';
   static const email = 'Your Email';
   static const password = 'Your Password';
   static const login = 'Login';
@@ -87,20 +88,21 @@ class AppStrings {
 ];
 
   /// employer
-  static const nameAsPerPAN = 'Enter your full name as per PAN';
+  static const nameAsPerPAN = 'Full Name as per PAN';
+  static const enterNameAsPerPAN = 'Enter your full name as per PAN';
   static const fullNameAsPerPan = 'Full Name (as per PAN)';
   static const officialEmailId = 'Official email ID';
   static const enterOfficialEmailId = 'Enter your official email ID';
   static const createStrongPassword = 'Create a strong password';
   static const createPassword = 'Create Password';
 
-  static const companyName = 'Company Name*';
+  static const companyName = 'Company Name';
   static const enterCompanyName = 'Enter your company Name';
-  static const companyEmail = 'Company Email*';
+  static const companyEmail = 'Company Email';
   static const enterCompanyEmail = 'company@domain.com';
-  static const designation = 'Your Designation*';
+  static const designation = 'Your Designation';
   static const enterDesignation = 'eg. HR Manager ,CEO';
-  static const companySize = 'Company Size*';
+  static const companySize = 'Company Size';
   static const selectCompanySize = 'Select company size';
   static const website = 'Website';
   static const enterWebsite = 'https://yourcompany.com';
@@ -113,4 +115,101 @@ class AppStrings {
     "501-1000 employees",
     "1000+ employees",
   ];
+
+  static const completeAddress = 'Complete Address';
+  static const enterCompleteAddress = 'Enter your complete address';
+  static const state = 'State';
+  static const selectState = 'Select State';
+  static const employerCity = 'City';
+  static const selectCity = 'Select City';
+  static const pinCode = 'PinCode';
+  static const enterPinCode = 'Enter PinCode';
+
+  static const List<String> indianStates = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttar Pradesh",
+    "Uttarakhand",
+    "West Bengal",
+    "Andaman and Nicobar Islands",
+    "Chandigarh",
+    "Dadra and Nagar Haveli and Daman and Diu",
+    "Delhi",
+    "Jammu and Kashmir",
+    "Ladakh",
+    "Lakshadweep",
+    "Puducherry",
+  ];
+  static const List<String> indianCities = [
+    "Ahmedabad",
+    "Bengaluru",
+    "Bhopal",
+    "Bhubaneswar",
+    "Chandigarh",
+    "Chennai",
+    "Coimbatore",
+    "Dehradun",
+    "Delhi",
+    "Durgapur",
+    "Faridabad",
+    "Ghaziabad",
+    "Guwahati",
+    "Gurugram",
+    "Hyderabad",
+    "Indore",
+    "Jaipur",
+    "Jodhpur",
+    "Kanpur",
+    "Kochi",
+    "Kolkata",
+    "Kozhikode",
+    "Lucknow",
+    "Ludhiana",
+    "Madurai",
+    "Mangaluru",
+    "Meerut",
+    "Mumbai",
+    "Mysuru",
+    "Nagpur",
+    "Nashik",
+    "Noida",
+    "Patna",
+    "Pune",
+    "Raipur",
+    "Rajkot",
+    "Ranchi",
+    "Surat",
+    "Thane",
+    "Thiruvananthapuram",
+    "Tiruchirappalli",
+    "Varanasi",
+    "Vijayawada",
+    "Visakhapatnam",
+    "Warangal",
+  ];
+
+
 }

@@ -27,6 +27,7 @@ class BusinessType extends StatelessWidget {
         ),
         const SizedBox(height: 8),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
               onTap: () => onChanged(true),
@@ -60,13 +61,12 @@ class BusinessType extends StatelessWidget {
                   Text(
                     'Company/Business',
                     style: context.textTheme.bodyMedium?.copyWith(
-                      color: Colors.black,
+                      color: Colors.black,fontSize: 13
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 32),
             GestureDetector(
               onTap: () => onChanged(false),
               behavior: HitTestBehavior.translucent,
@@ -101,7 +101,7 @@ class BusinessType extends StatelessWidget {
                   Text(
                     'Individual/Proprietor',
                     style: context.textTheme.bodyMedium?.copyWith(
-                      color: Colors.black,
+                      color: Colors.black,fontSize: 13
                     ),
                   ),
                 ],

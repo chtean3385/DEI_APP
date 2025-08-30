@@ -1,4 +1,5 @@
 
+import 'package:dei_champions/ui/pages/auth/signup_employer/widgets/employer_address_details.dart';
 import 'package:dei_champions/ui/pages/auth/signup_employer/widgets/employer_basic_info.dart';
 import 'package:dei_champions/ui/pages/auth/signup_employer/widgets/employer_company_details.dart';
 import 'package:dei_champions/widgets/others/animated_wrapper.dart';
@@ -17,11 +18,11 @@ class SignupEmployerScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: SignupBackButton(isEmployer: true),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   leading: SignupBackButton(isEmployer: true),
+      // ),
       body: AnimatedSignupWrapper(
         child: SizedBox(
           height: double.infinity,
@@ -32,6 +33,7 @@ class SignupEmployerScreen extends ConsumerWidget {
             children: [
               EmployerBasicPersonalInfo(onNext: () => controller.nextStep()),
               EmployerCompanyDetails(onNext: () => controller.nextStep()),
+              EmployerAddressDetails(onNext: () => controller.nextStep()),
 
             ],
           ),

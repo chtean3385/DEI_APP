@@ -6,24 +6,27 @@ import 'package:flutter/material.dart';
 import '../../signup/components/auto_sugstion_form_field.dart';
 
 
-class CompanyEmployeeSize extends StatelessWidget {
+class SelectState extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final FocusNode? nextFocus;
 
-  CompanyEmployeeSize({super.key, required this.controller, required this.focusNode, this.nextFocus});
-
-
+  const SelectState({
+    super.key,
+    required this.controller,
+    required this.focusNode,
+    this.nextFocus,
+  });
 
   @override
   Widget build(BuildContext context) {
     return AutoSuggestionDropdownField(
       controller: controller,
       focusNode: focusNode,
-      hint: AppStrings.selectCompanySize,
-      label: AppStrings.companySize,
-      icon: Icons.group_outlined,
-      suggestions: AppStrings.companyEmployeeSize,
+      hint: AppStrings.selectState,
+      label:AppStrings.state,
+      icon: Icons.map_outlined,
+      suggestions: AppStrings.indianStates,
       maxSuggestions: 10,
       caseSensitive: false,
       showAbove: true,
@@ -31,14 +34,14 @@ class CompanyEmployeeSize extends StatelessWidget {
         FocusScope.of(context).requestFocus(nextFocus);
       },
       onSuggestionSelected: (suggestion) {
-        print('Selected Company Size: $suggestion');
+        print('Selected State: $suggestion');
       },
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please select company size';
+          return 'Please select a state';
         }
         // ✅ Check if input is in list
-        if (!AppStrings.companyEmployeeSize.contains(value)) {
+        if (!AppStrings.indianStates.contains(value)) {
           return 'Please select a valid option from the list';
         }
         return null;
@@ -46,4 +49,5 @@ class CompanyEmployeeSize extends StatelessWidget {
     );
   }
 }
+
 

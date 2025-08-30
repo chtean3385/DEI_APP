@@ -96,3 +96,35 @@ class SignupHeaderEmployer extends StatelessWidget {
     );
   }
 }
+class EmployerSignupHeaderSmall extends StatelessWidget {
+  final String title;
+  final String subTitle;
+  const EmployerSignupHeaderSmall({super.key, required this.title, required this.subTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        const SizedBox(height: 10),
+        // Welcome Text
+        Text(
+          title,
+          textAlign: TextAlign.center,
+          style: context.textTheme.headlineMedium?.copyWith(
+            color: Colors.black,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+
+        const SizedBox(height: 8),
+        Text(
+          subTitle,
+          textAlign: TextAlign.center,
+          style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
+        ),
+
+        const SizedBox(height: 10),
+      ],
+    );
+  }
+}

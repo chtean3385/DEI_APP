@@ -19,7 +19,8 @@ class TransparentFormField extends StatefulWidget {
   final List<TextInputFormatter>? inputFormatters;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
-
+  final int? minLines;
+  final int? maxLength;
 
   TransparentFormField({
     super.key,
@@ -38,7 +39,8 @@ class TransparentFormField extends StatefulWidget {
     this.focusNode,
     this.keyboardType,
     this.label,
-
+    this.minLines,
+    this.maxLength,
   });
 
   @override
@@ -50,19 +52,23 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
 
   @override
   Widget build(BuildContext context) {
-    print("_TransparentFormFieldState build");
     final theme = Theme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-       if(widget.label != null) Text(widget.label!,style:theme.textTheme.bodyMedium?.copyWith(
-            color: Colors.black,fontWeight:  FontWeight.normal
-        ) ),
-        if(widget.label != null) gapH4(),
+        if (widget.label != null)
+          Text(
+            widget.label!,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        if (widget.label != null) gapH4(),
         DecoratedBox(
           decoration: BoxDecoration(
-            color:AppColors.primaryColor.withValues(alpha: 0.15),
+            color: AppColors.primaryColor.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: AppColors.primaryColor.withValues(alpha: 0.13),
@@ -80,40 +86,51 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               textCapitalization: widget.textCapitalization,
               autofillHints: widget.autofillHints,
-              textInputAction:widget.textInputAction,
+              textInputAction: widget.textInputAction,
               inputFormatters: widget.inputFormatters,
               cursorColor: Colors.black,
+              maxLength: widget.maxLength,
+              maxLines: widget.isPassword ? 1 : null,
+              minLines: widget.isPassword ? 1 : widget.minLines,
               style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.black,fontWeight:  FontWeight.normal
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
               ),
-              onFieldSubmitted:widget.onFieldSubmitted,
+              onFieldSubmitted: widget.onFieldSubmitted,
               decoration: InputDecoration(
                 hintText: widget.hint,
                 hintStyle: theme.textTheme.bodyMedium?.copyWith(
-              color:Colors.black54,
-              ),
+                  color: Colors.black54,
+                ),
+                counterText: "",
                 errorStyle: theme.textTheme.displaySmall?.copyWith(
-                    color: Colors.redAccent,fontWeight:  FontWeight.normal,fontSize: 10
+                  color: Colors.redAccent,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 10,
                 ),
                 prefixIcon: Icon(widget.icon, color: Colors.black54, size: 22),
                 suffixIcon: widget.isPassword
                     ? IconButton(
-                  icon: Icon(
-                    _isPasswordVisible
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                    color: Colors.black54,
-                    size: 22,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      _isPasswordVisible = !_isPasswordVisible;
-                    });
-                  },
-                )
+                        icon: Icon(
+                          _isPasswordVisible
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                          color: Colors.black54,
+                          size: 22,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isPasswordVisible = !_isPasswordVisible;
+                          });
+                        },
+                      )
                     : null,
                 border: InputBorder.none,
-                contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+                isDense: true,
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 18,
+                ),
               ),
             ),
           ),

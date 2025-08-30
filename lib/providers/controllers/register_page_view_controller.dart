@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../../models/state_models/signup_flow_state.dart';
+import '../../service/screen_shot_security_manager.dart';
 import '../../service/user_info_service.dart';
 import '../../ui/pages/auth/signup/widgets/registration_complete.dart';
 
@@ -14,8 +15,8 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
 
   @override
   SignupFlowState build() {
+    debugPrint("SignupFlowController init build");
     pageController = PageController();
-    _autoFillUserData();
     // If you ever allow swiping, keep state in sync with the controller.
     pageController.addListener(() {
       final idx = pageController.page?.round() ?? 0;
@@ -26,6 +27,7 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
 
     // Proper cleanup for Notifier-based providers.
     ref.onDispose(() {
+      debugPrint("SignupFlowController onDispose");
       pageController.dispose();
     });
 
@@ -70,6 +72,7 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
   }
 
   Future<void> _autoFillUserData() async {
+    debugPrint("SignupFlowController _autoFillUserData");
     final email = await UserInfoService.getUserEmail();
     final mobile = await MobileHelper.getMobileNumber();
 
@@ -77,6 +80,13 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
       email: email,
       phone: mobile,
     );
+  }
+  iniController(){
+    _autoFillUserData();
+    ScreenShotProtector.enableScreenProtection();
+  }
+  disposeValues(){
+    ScreenShotProtector.disableScreenProtection();
   }
 
 }

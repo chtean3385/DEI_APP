@@ -5,7 +5,6 @@ import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
 import '../ui/pages/auth/signup/choose_signup_type.dart';
-import '../ui/pages/auth/signup/screens/employment_screen.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 
 class AppNavigator {
