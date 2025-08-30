@@ -25,7 +25,7 @@ class SignupScreen extends ConsumerWidget {
           height: double.infinity,
           child: PageView(
             controller: controller.pageController,
-            physics: const NeverScrollableScrollPhysics(),
+            physics:   const ClampingScrollPhysics(),
             allowImplicitScrolling: true,
             children: [
               BasicPersonalInfo(onNext: () => controller.nextStep()),

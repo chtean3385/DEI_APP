@@ -70,17 +70,29 @@ class AppNavigator {
           // (route) => false,
     );
   }
-  static loadOtpScreen({bool isFromLogout = false}) {
+  static loadOtpScreen() {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => OTPVerificationScreen()),
           (route) => false,
     );
   }
+
   static loadForgotPasswordScreen({bool isFromLogout = false}) {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => ForgotPasswordScreen()),
     );
   }
+  static Future<bool> loadOtpScreenForSignup() async {
+    final result = await Navigator.push<bool>(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(
+        builder: (_) => const OTPVerificationScreen(),
+      ),
+    );
+
+    return result ?? false; // default false if user backs out
+  }
+
 }

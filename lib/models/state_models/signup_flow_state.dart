@@ -4,10 +4,12 @@ class SignupFlowState {
   final int totalSteps;
   final String? email;
   final String? phone;
+  final bool otpVerified;
 
   const SignupFlowState({
     required this.currentStep,
     required this.totalSteps,
+    required this.otpVerified,
     this.email,
     this.phone,
   });
@@ -15,12 +17,14 @@ class SignupFlowState {
   SignupFlowState copyWith({
     int? currentStep,
     int? totalSteps,
+    bool? otpVerified,
     String? email,
     String? phone,
   }) {
     return SignupFlowState(
       currentStep: currentStep ?? this.currentStep,
       totalSteps: totalSteps ?? this.totalSteps,
+      otpVerified: otpVerified ?? this.otpVerified,
       email: email ?? this.email,
       phone: phone ?? this.phone,
     );

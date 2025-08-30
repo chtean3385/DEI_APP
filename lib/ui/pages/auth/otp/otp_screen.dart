@@ -72,10 +72,20 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
       ),
     );
 
+
     // Simulate API call
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(context).pop(); // Remove loading dialog
-      showSnackBar('OTP Verified Successfully: $otp');
+
+      if (otp == "123456") {
+        // ✅ OTP correct
+        showSnackBar('OTP Verified Successfully: $otp');
+        Navigator.pop(context, true); // return true to caller
+      } else {
+        // ❌ OTP wrong
+        showSnackBar('Invalid OTP. Please try again.');
+        // do not pop the OTP screen
+      }
     });
   }
 
@@ -141,6 +151,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
                                 focusNodes[index + 1].requestFocus();
                               } else if (value.isEmpty && index > 0) {
                                 focusNodes[index - 1].requestFocus();
+                              }
+                              // Trigger completion callback when all fields are filled
+                              if (index == 5  &&
+                                  otpControllers.every((c) => c.text.isNotEmpty)) {
+                                // Unfocus all fields to hide keyboard
+                                FocusScope.of(context).unfocus();
+                                _verifyOTP();
                               }
                               setState(() {});
                             },

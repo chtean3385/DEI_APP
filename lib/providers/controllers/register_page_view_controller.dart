@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/main.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
@@ -32,22 +33,45 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
     });
 
     // Set your total steps here (or expose a setter).
-    return const SignupFlowState(currentStep: 0, totalSteps: 7);
+    return const SignupFlowState(currentStep: 0, totalSteps: 7,otpVerified: false);
   }
 
-  void nextStep({VoidCallback? onComplete}) {
+  Future<void> nextStep({VoidCallback? onComplete}) async {
     if (!state.isLast) {
       final next = state.currentStep + 1;
-      pageController.animateToPage(
-        next,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.ease,
-      );
-      state = state.copyWith(currentStep: next);
+
+      if (state.currentStep == 0) {
+        // 👉 Only ask OTP if not verified already
+        if (!state.otpVerified) {
+          final verified = await AppNavigator.loadOtpScreenForSignup();
+
+          if (verified != true) return; // stop if not verified
+
+          // Save that OTP is verified
+          state = state.copyWith(otpVerified: true);
+        }
+
+        // Move to next step
+        await pageController.nextPage(
+          // next,
+          duration: const Duration(milliseconds: 900),
+          curve: Curves.fastOutSlowIn,
+        );
+        state = state.copyWith(currentStep: next);
+      } else {
+        // Normal step navigation
+        await pageController.nextPage(
+          // next,
+          duration: const Duration(milliseconds: 900),
+          curve: Curves.fastOutSlowIn,
+        );
+        state = state.copyWith(currentStep: next);
+      }
     } else {
       submitRegistration(navigatorKey.currentContext!);
     }
   }
+
 
 
   void previousStep() {
