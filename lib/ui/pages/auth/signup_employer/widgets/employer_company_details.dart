@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../../constants/app_colors.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
+import '../../common/email_suggestion_field.dart';
 import '../../signup/components/registration_progress_bar.dart';
 import '../../signup/components/signup_header.dart';
 import '../../signup/widgets/signup_back_button.dart';
@@ -91,22 +92,29 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       validator: AppValidators.fieldEmpty(AppStrings.companyName),
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
-                      nextFocusNode: _companyNameFocus,
+                      nextFocusNode: _companyEmailFocus,
 
                     ),
                     gap20(),
-                    TransparentFormField(
+                    EmailSuggestionField(
                       controller: _companyEmailController,
                       focusNode: _companyEmailFocus,
-                      hint: AppStrings.enterCompanyEmail,
-                      label: AppStrings.companyEmail,
-                      icon: Icons.email_outlined,
-                      textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.emailAddress,
-                      validator: AppValidators.email,
-                      textCapitalization: TextCapitalization.none,
-                      nextFocusNode: _designationFocus,
+                      nextFocus: _designationFocus,
+                      hint: AppStrings.enterOfficialEmailId,
+                      label: AppStrings.officialEmailId,
                     ),
+                    // TransparentFormField(
+                    //   controller: _companyEmailController,
+                    //   focusNode: _companyEmailFocus,
+                    //   hint: AppStrings.enterCompanyEmail,
+                    //   label: AppStrings.companyEmail,
+                    //   icon: Icons.email_outlined,
+                    //   textInputAction: TextInputAction.next,
+                    //   keyboardType: TextInputType.emailAddress,
+                    //   validator: AppValidators.email,
+                    //   textCapitalization: TextCapitalization.none,
+                    //   nextFocusNode: _designationFocus,
+                    // ),
                     gap20(),
                     TransparentFormField(
                       controller: _designationController,

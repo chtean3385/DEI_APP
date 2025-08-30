@@ -10,6 +10,7 @@ import '../../../../../providers/providers.dart';
 import '../../../../../service/screen_shot_security_manager.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
+import '../../common/email_suggestion_field.dart';
 import '../../signup/components/registration_progress_bar.dart';
 import '../../signup/components/signup_header.dart';
 import '../../signup/widgets/signup_back_button.dart';
@@ -148,7 +149,15 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                               _emailController.text = email;
                             });
                           }
-                        return TransparentFormField(
+                        return EmailSuggestionField(
+                          controller: _emailController,
+                          focusNode: _emailFocus,
+                          nextFocus: _passwordFocus,
+                          hint: AppStrings.enterOfficialEmailId,
+                          label: AppStrings.officialEmailId,
+                        );
+
+                          TransparentFormField(
                           controller: _emailController,
                           focusNode: _emailFocus,
                           hint: AppStrings.enterOfficialEmailId,

@@ -12,6 +12,7 @@ import '../../../../../providers/providers.dart';
 import '../../../../../service/screen_shot_security_manager.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
+import '../../common/email_suggestion_field.dart';
 import '../components/registration_progress_bar.dart';
 import '../components/signup_header.dart';
 import '../components/terms_conditions.dart';
@@ -108,7 +109,15 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                               _emailController.text = email;
                             });
                           }
-                        return TransparentFormField(
+                        return  EmailSuggestionField(
+                          controller: _emailController,
+                          focusNode: _emailFocus,
+                          hint: AppStrings.email,
+                          label: AppStrings.email,
+                          nextFocus: _mobileFocus,
+                        );
+
+                          TransparentFormField(
                           controller: _emailController,
                           focusNode: _emailFocus,
                           hint: AppStrings.email,

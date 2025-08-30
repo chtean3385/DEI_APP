@@ -16,6 +16,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
   final TextInputAction? textInputAction;
   final ValueChanged<String>? onFieldSubmitted;
   final ValueChanged<String>? onSuggestionSelected;
+  final ValueChanged<String>? onChanged;
   final int maxSuggestions;
   final bool caseSensitive;
   final bool showAbove;
@@ -40,6 +41,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
     this.showAbove = false,
      this.focusNode,
     this.label,
+    this.onChanged,
   });
 
   @override
@@ -284,6 +286,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
                   fontWeight: FontWeight.normal,
                 ),
                 onFieldSubmitted: widget.onFieldSubmitted,
+                onChanged: widget.onChanged,
                 decoration: InputDecoration(
                   hintText: widget.hint,
                   hintStyle: theme.textTheme.bodyMedium?.copyWith(
