@@ -38,6 +38,7 @@ class IndustryTypeField extends StatelessWidget {
       controller: controller,
       focusNode:  focusNode,
       hint: "Select your industry type*",
+      label: "Your industry type*",
       icon: Icons.work_outline,
       suggestions: _industries,
       maxSuggestions: 10,
@@ -49,6 +50,10 @@ class IndustryTypeField extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please select an industry type';
+        }
+        // ✅ Check if input is in list
+        if (!_industries.contains(value)) {
+          return 'Please select a valid option from the list';
         }
         return null;
       },

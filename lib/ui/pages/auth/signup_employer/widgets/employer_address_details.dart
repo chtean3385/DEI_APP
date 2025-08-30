@@ -89,9 +89,7 @@ class _EmployerAddressDetailsState extends State<EmployerAddressDetails>
                       ),
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_stateFocus);
-                      },
+                      nextFocusNode:_stateFocus ,
                     ),
                     gap20(),
                     SelectState(

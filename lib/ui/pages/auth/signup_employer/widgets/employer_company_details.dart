@@ -91,9 +91,8 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       validator: AppValidators.fieldEmpty(AppStrings.companyName),
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_companyNameFocus);
-                      },
+                      nextFocusNode: _companyNameFocus,
+
                     ),
                     gap20(),
                     TransparentFormField(
@@ -106,9 +105,7 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       keyboardType: TextInputType.emailAddress,
                       validator: AppValidators.email,
                       textCapitalization: TextCapitalization.none,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_designationFocus);
-                      },
+                      nextFocusNode: _designationFocus,
                     ),
                     gap20(),
                     TransparentFormField(
@@ -121,9 +118,8 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
                       validator: AppValidators.fieldEmpty(AppStrings.designation),
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_companySizeFocus);
-                      },
+                      nextFocusNode: _companySizeFocus,
+
                     ),
                     gap20(),
                     CompanyEmployeeSize(controller:_companySizeController ,focusNode: _companySizeFocus,nextFocus: _webSiteFocus),

@@ -74,13 +74,12 @@ class _OtherInfoState extends State<OtherInfo> {
                             controller: _passwordController,
                             focusNode: _passwordFocus,
                             hint: AppStrings.password,
+                            label: AppStrings.password,
                             icon: Icons.lock_outline,
                             textInputAction: TextInputAction.next,
                             isPassword: true,
                             validator: AppValidators.password,
-                            onFieldSubmitted: (_) {
-                              FocusScope.of(context).requestFocus(_confirmPasswordFocus);
-                            },
+                            nextFocusNode:_confirmPasswordFocus ,
                           ),
 
                           gap20(),
@@ -90,15 +89,15 @@ class _OtherInfoState extends State<OtherInfo> {
                             controller: _confirmPasswordController,
                             focusNode: _confirmPasswordFocus,
                             hint: 'Confirm Password',
+                            label: 'Confirm Password',
                             icon: Icons.lock_outline,
                             textInputAction: TextInputAction.next,
                             isPassword: true,
                             validator: AppValidators.confirmPassword(
                               _passwordController,
                             ),
-                            onFieldSubmitted: (_) {
-                              FocusScope.of(context).requestFocus(_statusFocus);
-                            },
+                            nextFocusNode:_statusFocus ,
+
                           ),
 
                           gap20(),
@@ -119,6 +118,7 @@ class _OtherInfoState extends State<OtherInfo> {
                               controller: _cityController,
                               focusNode: _cityFocus,
                               hint: AppStrings.city,
+                              label: AppStrings.city,
                               icon: Icons.location_city_outlined,
                               textInputAction: TextInputAction.done,
                               validator: AppValidators.fieldEmpty(AppStrings.city),

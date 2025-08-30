@@ -34,15 +34,13 @@ class SalaryWidget extends StatelessWidget {
                 focusNode: focusNode,
                 hint: 'Eg. 4,50,000',
                 icon: Icons.currency_rupee,
-                textInputAction: TextInputAction.next,
+                textInputAction: TextInputAction.done,
                 keyboardType: TextInputType.number,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,
                 ],
                 validator: AppValidators.fieldEmpty("Current annual salary"),
-                onFieldSubmitted: (_) {
-                  FocusScope.of(context).requestFocus(nextNode);
-                },
+                nextFocusNode: nextNode,
               ),
             ),
             const SizedBox(width: 16),

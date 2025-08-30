@@ -89,13 +89,12 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                       controller: _nameController,
                       focusNode: _nameFocus,
                       hint: AppStrings.name,
+                      label: AppStrings.name,
                       icon: Icons.person_outline,
                       textInputAction: TextInputAction.next,
                       validator: AppValidators.fieldEmpty(AppStrings.name),
                       textCapitalization: TextCapitalization.words,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_emailFocus);
-                      },
+                      nextFocusNode:_emailFocus ,
                     ),
 
                     gap20(),
@@ -113,14 +112,13 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                           controller: _emailController,
                           focusNode: _emailFocus,
                           hint: AppStrings.email,
+                          label: AppStrings.email,
                           icon: Icons.email_outlined,
                           textInputAction: TextInputAction.next,
                           autofillHints: [AutofillHints.email],
                           keyboardType: TextInputType.emailAddress,
                           validator: AppValidators.email,
-                          onFieldSubmitted: (_) {
-                            FocusScope.of(context).requestFocus(_mobileFocus);
-                          },
+                          nextFocusNode:_mobileFocus ,
                         );
                       }
                     ),
@@ -131,14 +129,14 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                       controller: _mobileController,
                       focusNode: _mobileFocus,
                       hint: AppStrings.mobile,
+                      label: AppStrings.mobile,
                       autofillHints: [AutofillHints.telephoneNumber],
                       textInputAction: TextInputAction.next,
                       icon: Icons.phone_android,
                       validator: AppValidators.phone,
                       keyboardType: TextInputType.phone,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_checkBoxFocus);
-                      },
+                      maxLength: 10,
+                      nextFocusNode:_checkBoxFocus ,
                     ),
                     gap20(),
 

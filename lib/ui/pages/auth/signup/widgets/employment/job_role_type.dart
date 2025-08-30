@@ -36,6 +36,7 @@ class JobRoleField extends StatelessWidget {
       controller: controller,
       focusNode:  focusNode,
       hint: "Current job role",
+      label: "Current job role",
       icon: Icons.person_outline,
       suggestions: _jobRoles,
       maxSuggestions: 10,
@@ -44,6 +45,10 @@ class JobRoleField extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please select your current role';
+        }
+        // ✅ Check if input is in list
+        if (!_jobRoles.contains(value)) {
+          return 'Please select a valid option from the list';
         }
         return null;
       },

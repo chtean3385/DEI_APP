@@ -63,6 +63,7 @@ class KeyForm extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       hint: "Enter your key skill",
+      label: "Key Skill",
       icon: Icons.build_circle_outlined,
       suggestions: _skills,
       maxSuggestions: 8,

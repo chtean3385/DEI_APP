@@ -32,6 +32,7 @@ class RoleCategoryField extends StatelessWidget {
       controller: controller,
       focusNode:  focusNode,
       hint: "Select current role category",
+      label: "Current role category",
       icon: Icons.category_outlined,
       suggestions: _roleCategories,
       maxSuggestions: 10,
@@ -43,6 +44,10 @@ class RoleCategoryField extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please select a role category';
+        }
+        // ✅ Check if input is in list
+        if (!_roleCategories.contains(value)) {
+          return 'Please select a valid option from the list';
         }
         return null;
       },

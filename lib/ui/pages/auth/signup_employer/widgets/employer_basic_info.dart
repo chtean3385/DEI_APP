@@ -120,9 +120,7 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                       validator: AppValidators.phone,
                       keyboardType: TextInputType.phone,
                       maxLength: 10,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_nameFocus);
-                      },
+                      nextFocusNode:_nameFocus ,
                     ),
                     gap20(),
                     // Full Name Field
@@ -135,9 +133,8 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                       textInputAction: TextInputAction.next,
                       validator: AppValidators.fieldEmpty(AppStrings.fullNameAsPerPan),
                       textCapitalization: TextCapitalization.words,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(_emailFocus);
-                      },
+                      nextFocusNode:_emailFocus ,
+
                     ),
 
                     gap20(),
@@ -161,9 +158,8 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                           autofillHints: [AutofillHints.email],
                           keyboardType: TextInputType.emailAddress,
                           validator: AppValidators.email,
-                          onFieldSubmitted: (_) {
-                            FocusScope.of(context).requestFocus(_passwordFocus);
-                          },
+                          nextFocusNode:_passwordFocus ,
+
                         );
                       }
                     ),

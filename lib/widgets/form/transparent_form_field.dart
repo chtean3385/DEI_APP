@@ -15,9 +15,10 @@ class TransparentFormField extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final Iterable<String>? autofillHints;
   final TextInputAction? textInputAction;
-  final ValueChanged<String>? onFieldSubmitted;
+  // final ValueChanged<String>? onFieldSubmitted;
   final List<TextInputFormatter>? inputFormatters;
   final FocusNode? focusNode;
+  final FocusNode? nextFocusNode;
   final TextInputType? keyboardType;
   final int? minLines;
   final int? maxLength;
@@ -34,13 +35,14 @@ class TransparentFormField extends StatefulWidget {
     this.textCapitalization = TextCapitalization.none,
     this.autofillHints,
     this.textInputAction,
-    this.onFieldSubmitted,
+    // this.onFieldSubmitted,
     this.inputFormatters,
     this.focusNode,
     this.keyboardType,
     this.label,
     this.minLines,
     this.maxLength,
+    this.nextFocusNode,
   });
 
   @override
@@ -96,7 +98,19 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
               ),
-              onFieldSubmitted: widget.onFieldSubmitted,
+              onFieldSubmitted: (_) {
+                if (widget.nextFocusNode != null) {
+                  // Safe check: only move if nextNode is attached
+                  if (widget.nextFocusNode!.hasFocus == false && widget.nextFocusNode!.context != null) {
+                    FocusScope.of(context).requestFocus(widget.nextFocusNode);
+                  } else {
+                    FocusScope.of(context).unfocus();
+                  }
+                } else {
+                  FocusScope.of(context).unfocus();
+                }
+              },
+
               decoration: InputDecoration(
                 hintText: widget.hint,
                 hintStyle: theme.textTheme.bodyMedium?.copyWith(

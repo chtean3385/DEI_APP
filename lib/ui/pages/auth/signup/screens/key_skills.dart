@@ -30,7 +30,6 @@ class _KeySkillsState extends State<KeySkills> {
     skillController.dispose();
     _skillFocus.dispose();
     debugPrint("KeySkill dispose");
-
     super.dispose();
   }
 

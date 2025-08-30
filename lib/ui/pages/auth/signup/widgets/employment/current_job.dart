@@ -50,6 +50,7 @@ class CurrentJob extends StatelessWidget {
     return AutoSuggestionDropdownField(
       controller: controller,
       hint: "Current job title",
+      label: "Current job title",
       icon: Icons.work_outline,
       suggestions: _jobTitles,
       maxSuggestions: 8,
@@ -65,6 +66,10 @@ class CurrentJob extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please select a job title';
+        }
+        // ✅ Check if input is in list
+        if (!_jobTitles.contains(value)) {
+          return 'Please select a valid option from the list';
         }
         return null;
       },

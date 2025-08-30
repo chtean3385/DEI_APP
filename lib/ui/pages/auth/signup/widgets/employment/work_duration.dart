@@ -155,14 +155,14 @@ class WorkDuration extends StatelessWidget {
                   child: TransparentFormField(
                     controller: controller,
                     focusNode: focusNode,
-                    hint: "Select month/year",
+                    hint: "month/year",
+                    label: "Month/Year",
                     icon: Icons.calendar_today,
                     textInputAction: TextInputAction.next,
-                    validator: AppValidators.fieldEmpty("Select month/year"),
+                    validator: AppValidators.fieldEmpty("month/year"),
                     textCapitalization: TextCapitalization.words,
-                    onFieldSubmitted: (_) {
-                      FocusScope.of(context).requestFocus(nextFocus);
-                    },
+                    nextFocusNode: nextFocus,
+
                   ),
                 ),
               ),
@@ -185,14 +185,13 @@ class WorkDuration extends StatelessWidget {
                     child: TransparentFormField(
                       controller: workedTillController,
                       focusNode: workedTillFocusNode,
-                      hint: "Select month/year",
+                      hint: "month/year",
+                      label: "Month/Year",
                       icon: Icons.calendar_today,
                       textInputAction: TextInputAction.next,
-                      validator: AppValidators.fieldEmpty("Select month/year"),
+                      validator: AppValidators.fieldEmpty("month/year"),
                       textCapitalization: TextCapitalization.words,
-                      onFieldSubmitted: (_) {
-                        FocusScope.of(context).requestFocus(nextFocus2);
-                      },
+                      nextFocusNode: nextFocus2,
                     ),
 
                   ),

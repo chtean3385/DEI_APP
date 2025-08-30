@@ -61,6 +61,7 @@ class CurrentCompany extends StatelessWidget {
       controller: controller,
       focusNode: focusNode,
       hint: "Company name",
+      label: "Company name",
       icon: Icons.business_outlined,
       suggestions: _companyNames,
       maxSuggestions: 10,
@@ -75,6 +76,10 @@ class CurrentCompany extends StatelessWidget {
       validator: (value) {
         if (value == null || value.isEmpty) {
           return 'Please select a company';
+        }
+        // ✅ Check if input is in list
+        if (!_companyNames.contains(value)) {
+          return 'Please select a valid option from the list';
         }
         return null;
       },

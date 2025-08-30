@@ -101,6 +101,10 @@ class UniversityField extends StatelessWidget {
         if (value == null || value.isEmpty) {
           return 'Please select a university';
         }
+        // ✅ Check if input is in list
+        if (!_universities.contains(value)) {
+          return 'Please select a valid option from the list';
+        }
         return null;
       },
     );
