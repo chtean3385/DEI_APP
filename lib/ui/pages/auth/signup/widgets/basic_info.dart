@@ -116,19 +116,6 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                           label: AppStrings.email,
                           nextFocus: _mobileFocus,
                         );
-
-                          TransparentFormField(
-                          controller: _emailController,
-                          focusNode: _emailFocus,
-                          hint: AppStrings.email,
-                          label: AppStrings.email,
-                          icon: Icons.email_outlined,
-                          textInputAction: TextInputAction.next,
-                          autofillHints: [AutofillHints.email],
-                          keyboardType: TextInputType.emailAddress,
-                          validator: AppValidators.email,
-                          nextFocusNode:_mobileFocus ,
-                        );
                       }
                     ),
                     gap20(),

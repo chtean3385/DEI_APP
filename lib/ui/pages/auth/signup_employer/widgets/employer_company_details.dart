@@ -103,18 +103,6 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       hint: AppStrings.enterOfficialEmailId,
                       label: AppStrings.officialEmailId,
                     ),
-                    // TransparentFormField(
-                    //   controller: _companyEmailController,
-                    //   focusNode: _companyEmailFocus,
-                    //   hint: AppStrings.enterCompanyEmail,
-                    //   label: AppStrings.companyEmail,
-                    //   icon: Icons.email_outlined,
-                    //   textInputAction: TextInputAction.next,
-                    //   keyboardType: TextInputType.emailAddress,
-                    //   validator: AppValidators.email,
-                    //   textCapitalization: TextCapitalization.none,
-                    //   nextFocusNode: _designationFocus,
-                    // ),
                     gap20(),
                     TransparentFormField(
                       controller: _designationController,

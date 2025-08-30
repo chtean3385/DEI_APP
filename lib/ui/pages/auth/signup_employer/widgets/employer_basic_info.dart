@@ -156,20 +156,6 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                           hint: AppStrings.enterOfficialEmailId,
                           label: AppStrings.officialEmailId,
                         );
-
-                          TransparentFormField(
-                          controller: _emailController,
-                          focusNode: _emailFocus,
-                          hint: AppStrings.enterOfficialEmailId,
-                          label: AppStrings.officialEmailId,
-                          icon: Icons.email_outlined,
-                          textInputAction: TextInputAction.next,
-                          autofillHints: [AutofillHints.email],
-                          keyboardType: TextInputType.emailAddress,
-                          validator: AppValidators.email,
-                          nextFocusNode:_passwordFocus ,
-
-                        );
                       }
                     ),
                     gap20(),
