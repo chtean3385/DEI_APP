@@ -1,10 +1,12 @@
 import 'package:dei_champions/constants/app_drawables.dart';
+import 'package:dei_champions/ui/pages/accounts/accounts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
+import 'components/drawer/custom_drawer.dart';
 
 class BottomBar extends StatefulWidget {
   final int initialPage;
@@ -43,6 +45,7 @@ class _BottomBarState extends State<BottomBar> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar:   appBarHome(context),
+      drawer: CustomDrawer(),
       body: _buildScreen(_currentIndex),
       bottomNavigationBar: SafeArea(
         top: false,
