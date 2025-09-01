@@ -84,7 +84,7 @@ ThemeData darkTheme(BuildContext context) {
   return ThemeData(
     brightness: Brightness.dark,
     colorScheme: darkColorScheme,
-    scaffoldBackgroundColor: darkColorScheme.primary,
+    scaffoldBackgroundColor: Colors.white,
     textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.black),
     appBarTheme: AppBarTheme(
       backgroundColor: darkColorScheme.primary,

@@ -6,15 +6,16 @@ import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
 import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
+import '../ui/pages/main/bottom_bar.dart';
 
 class AppNavigator {
-  // static void toBottomBar() {
-  //   Navigator.pushAndRemoveUntil(
-  //     navigatorKey.currentContext!,
-  //     MaterialPageRoute(builder: (_) => const BottomBar()),
-  //     (route) => false,
-  //   );
-  // }
+  static void toBottomBar() {
+    Navigator.pushAndRemoveUntil(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => const BottomBar()),
+      (route) => false,
+    );
+  }
   //
   // static void toLoginScreen() {
   //   Navigator.pushAndRemoveUntil(
@@ -73,7 +74,7 @@ class AppNavigator {
   static loadOtpScreen() {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => OTPVerificationScreen()),
+      MaterialPageRoute(builder: (_) => OTPVerificationScreen(isFromSignup: false)),
           (route) => false,
     );
   }

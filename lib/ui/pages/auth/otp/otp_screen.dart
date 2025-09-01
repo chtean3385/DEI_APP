@@ -3,16 +3,18 @@ import 'package:dei_champions/widgets/others/snack_bar.dart';
 import 'package:flutter/material.dart';
 
 // Import the component files
+import '../../../../constants/app_navigator.dart';
 import 'components/otp_animation_controller.dart';
 import 'components/otp_floating_background.dart';
 import 'components/otp_main_card.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
   final String email;
+  final bool isFromSignup;
 
   const OTPVerificationScreen({
     super.key,
-    this.email = "user@example.com",
+    this.email = "user@example.com",  this.isFromSignup = true,
   });
 
   @override
@@ -80,7 +82,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
       if (otp == "123456") {
         // ✅ OTP correct
         showSnackBar('OTP Verified Successfully: $otp');
-        Navigator.pop(context, true); // return true to caller
+        if(widget.isFromSignup){
+          Navigator.pop(context, true); // return true to caller
+        } else{
+          AppNavigator.toBottomBar();
+        }
+
       } else {
         // ❌ OTP wrong
         showSnackBar('Invalid OTP. Please try again.');

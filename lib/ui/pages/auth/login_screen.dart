@@ -149,7 +149,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
     return AppTextFormField(
       controller: controller.passwordController,
       label: AppStrings.password,
-      validator: AppValidators.fieldEmpty(AppStrings.password),
+      validator: AppValidators.password,
       textInputType: TextInputType.text,
       autofillHints: [AutofillHints.password],
       textInputAction: TextInputAction.next,
