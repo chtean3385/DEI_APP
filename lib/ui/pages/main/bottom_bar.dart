@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/app_colors.dart';
+import '../../../widgets/appbar/home_app_bar.dart';
 
 class BottomBar extends StatefulWidget {
   final int initialPage;
@@ -41,7 +42,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget _buildMobileLayout() {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      // appBar:  const CommonAppBar(),
+      appBar:   appBarHome(context),
       body: _buildScreen(_currentIndex),
       bottomNavigationBar: SafeArea(
         top: false,

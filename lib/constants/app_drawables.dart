@@ -21,5 +21,6 @@ class AppDrawables {
   static const String profileFilled = "assets/icon/bottom_bar/profile_filled.jpeg";
   static const String all = "assets/icon/bottom_bar/all.jpeg";
   static const String allFilled = "assets/icon/bottom_bar/allFilled.jpeg";
+  static const String hamburgerMenu = "assets/icon/bottom_bar/hamburger_menu.jpeg";
 
 }

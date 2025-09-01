@@ -87,10 +87,10 @@ ThemeData darkTheme(BuildContext context) {
     scaffoldBackgroundColor: Colors.white,
     textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.black),
     appBarTheme: AppBarTheme(
-      backgroundColor: darkColorScheme.primary,
+      backgroundColor: Colors.white,
       foregroundColor: Colors.white,
       elevation: 1,
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: Colors.black54),
     ),
 
     floatingActionButtonTheme: FloatingActionButtonThemeData(

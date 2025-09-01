@@ -36,9 +36,7 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
           _showClear = text.isNotEmpty;
         });
       }
-      if (widget.onChanged != null) {
-        widget.onChanged!(text);
-      }
+      widget.onChanged?.call(text);
     });
   }
 
@@ -59,13 +57,15 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
       child: TextField(
         controller: _controller,
         style: theme.textTheme.bodyMedium?.copyWith(
+          fontSize: 14,
           color: theme.colorScheme.secondary,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w500,
         ),
         decoration: InputDecoration(
-          prefixIconConstraints: const BoxConstraints(minHeight: 24, minWidth: 24),
+          isDense: true, // helps reduce height
+          prefixIconConstraints: const BoxConstraints(minHeight: 20, minWidth: 20),
           prefixIcon: Padding(
-            padding: const EdgeInsets.only(left: 12, right: 8),
+            padding: const EdgeInsets.only(left: 12, right: 6),
             child: Image.asset(
               AppDrawables.search,
               width: 20,
@@ -83,20 +83,20 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
           )
               : null,
           hintText: widget.hint,
-          hintStyle: theme.textTheme.displaySmall,
+          hintStyle: theme.textTheme.displaySmall?.copyWith(fontSize: 14),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(vertical: 14),
+          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(24),
             borderSide: const BorderSide(color: Colors.grey, width: 1),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(24),
             borderSide: const BorderSide(color: Colors.grey, width: 1),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(24),
             borderSide: BorderSide(color: Colors.grey.shade600, width: 1),
           ),
         ),
