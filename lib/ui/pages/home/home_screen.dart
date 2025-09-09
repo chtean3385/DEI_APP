@@ -1,6 +1,7 @@
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/app_colors.dart';
 import 'components/boost/booster_slider.dart';
 import 'components/explore_more_jobs/explore_more_jobs.dart';
 import 'components/hiring_info/hiring_info.dart';
@@ -15,26 +16,29 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          gapH16(),
-          Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
-          gapH16(),
-          JobsBasedOnProfile(),
-          // gapH16(),
-          JobsYouMightLike(),
-          gapH16(),
-          ExploreMoreJobs(),
-          gapH16(),
-          TopCompaniesSection(),
-          gapH16(),
-          RecruitersNoticingWidget(
-            recruiters: ["01", "02", "03", "04"], // sample data
-          ),
-          HiringInfoWidget(),
-        ],
+    return ColoredBox(
+      color: AppColors.bg,
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            gapH16(),
+            Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
+            gapH16(),
+            JobsBasedOnProfile(),
+            // gapH16(),
+            JobsYouMightLike(),
+            gapH16(),
+            ExploreMoreJobs(),
+            gapH16(),
+            TopCompaniesSection(),
+            gapH16(),
+            RecruitersNoticingWidget(
+              recruiters: ["01", "02", "03", "04"], // sample data
+            ),
+            HiringInfoWidget(),
+          ],
+        ),
       ),
     );
   }

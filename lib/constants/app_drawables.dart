@@ -9,6 +9,7 @@ class AppDrawables {
   static const String signupBg = "assets/drawables/signupBg1.jpeg";
   ///icons
   static const String search = "assets/icon/search.png";
+  static const String searchJob = "assets/drawables/job_search.jpeg";
 
 ///bottom bar icons
   static const String home = "assets/icon/bottom_bar/home.jpeg";

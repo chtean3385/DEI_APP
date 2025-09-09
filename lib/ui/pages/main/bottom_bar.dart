@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
+import '../apply/apply_empty.dart';
 import '../home/home_screen.dart';
 import 'components/drawer/custom_drawer.dart';
 
@@ -37,8 +38,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget _buildMobileLayout() {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.bg,
-      appBar: appBarHome(context),
+      appBar: appBarHome(context,isFromHome: _currentIndex == 0),
       drawer: CustomDrawer(),
       body: _buildScreen(_currentIndex),
       bottomNavigationBar: SafeArea(
@@ -114,7 +114,7 @@ class _BottomBarState extends State<BottomBar> {
       case 0:
         return HomeScreen();
       case 1:
-        return const SizedBox();
+        return const ApplyEmptyScreen();
       case 2:
         return const SizedBox();
       case 3:
