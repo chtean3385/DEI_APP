@@ -96,10 +96,10 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                     //   style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
                     // ),
                     EmployerSignupHeaderSmall(title:"Basic Details",subTitle: 'We need these details to identify you and create your account' ,),
-                    gap16(),
+                    gapH16(),
                     RegistrationProgressBar(isEmployer: true),
-                    gap16(),
-                    gap16(),
+                    gapH16(),
+                    gapH16(),
                     BusinessType(
                       individual: isIndividual,
                       onChanged: (value) {
@@ -173,7 +173,7 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                     ),
                     gapH20(),
                     _nextButton(),
-                    gap16(),
+                    gapH16(),
 
                   ],
                 ),

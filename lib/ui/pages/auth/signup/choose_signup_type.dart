@@ -61,8 +61,8 @@ class _ChooseSignupTypeState extends State<ChooseSignupType> {
                 style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
               ),
 
-              gap16(),
-              gap16(),
+              gapH16(),
+              gapH16(),
               RoleSelectionView(
                 formKey: otherInfoFormKey,
                 onRoleChanged: (value) {

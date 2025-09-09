@@ -57,8 +57,8 @@ class _IntroductionToRecruiterState extends State<IntroductionToRecruiter> {
                         subTitle: 'Let’s introduce yourself',
                       ),
                       RegistrationProgressBar(),
-                      gap16(),
-                      gap16(),
+                      gapH16(),
+                      gapH16(),
           
                       TransparentFormField(
                         controller: introlController,
@@ -71,7 +71,7 @@ class _IntroductionToRecruiterState extends State<IntroductionToRecruiter> {
                         textCapitalization: TextCapitalization.words,
                       ),
           
-                      gap16(),
+                      gapH16(),
           
                       SelectIntro(
                         introList: AppStrings.introList,

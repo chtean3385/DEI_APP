@@ -67,8 +67,8 @@ class _OtherInfoState extends State<OtherInfo> {
                           SignupHeaderSmall(title: "Basic Details",subTitle: 'Lets start creating your profile',),
                           // Signup Form
                           RegistrationProgressBar(),
-                          gap16(),
-                          gap16(),
+                          gapH16(),
+                          gapH16(),
                           // Password Field
                           TransparentFormField(
                             controller: _passwordController,

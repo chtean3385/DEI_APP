@@ -68,8 +68,8 @@ class _KeySkillsState extends State<KeySkills> {
                             subTitle: 'Let’s fill your specific key skills',
                           ),
                           RegistrationProgressBar(),
-                          gap16(),
-                          gap16(),
+                          gapH16(),
+                          gapH16(),
 
                           /// 🔽 Skill Input
                           KeyForm(
@@ -78,7 +78,7 @@ class _KeySkillsState extends State<KeySkills> {
                             onSkillSelected: _addSkill,
                           ),
 
-                          gap16(),
+                          gapH16(),
 
                           /// 🔽 Show selected skills
 

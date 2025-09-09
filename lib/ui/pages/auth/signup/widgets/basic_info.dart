@@ -83,8 +83,8 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                     SignupHeader(),
                     // Signup Form
                     RegistrationProgressBar(),
-                    gap16(),
-                    gap16(),
+                    gapH16(),
+                    gapH16(),
                     // Full Name Field
                     TransparentFormField(
                       controller: _nameController,
@@ -150,13 +150,13 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                     // Terms and Conditions
                     const TermsAndConditions(),
 
-                    gap16(),
-                    gap16(),
+                    gapH16(),
+                    gapH16(),
 
                     // Sign Up Button
                     _nextButton(),
 
-                    gap16(),
+                    gapH16(),
 
                     // Divider
                     Row(
@@ -179,7 +179,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                       ],
                     ),
 
-                    gap16(),
+                    gapH16(),
 
                     // Login Link
                     GestureDetector(

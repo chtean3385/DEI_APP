@@ -69,8 +69,8 @@ class _EducationState extends State<Education> {
                                 'Let’s fill your educational qualifications',
                           ),
                           RegistrationProgressBar(),
-                          gap16(),
-                          gap16(),
+                          gapH16(),
+                          gapH16(),
                           HighestQualification(
                             selectedPeriod: selectedNoticePeriod,
                             onChanged: (period) {

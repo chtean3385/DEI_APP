@@ -74,8 +74,8 @@ class _CareerPreferencesState extends State<CareerPreferences> {
                             subTitle: 'Let’s fill your preferences ',
                           ),
                           RegistrationProgressBar(),
-                          gap16(),
-                          gap16(),
+                          gapH16(),
+                          gapH16(),
                           SalaryWidget(controller: preferSalaryController,focusNode: _preferSalaryFocus,nextNode:_preferWorkLocationFocus ),
           
                           gapH20(),

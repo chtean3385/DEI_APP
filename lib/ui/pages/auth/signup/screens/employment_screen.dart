@@ -116,8 +116,8 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                           ),
                           // Signup Form
                           RegistrationProgressBar(),
-                          gap16(),
-                          gap16(),
+                          gapH16(),
+                          gapH16(),
                           EmploymentStatusWidget(
                             isEmployed: isCurrentlyEmployed,
                             onChanged: (value) {

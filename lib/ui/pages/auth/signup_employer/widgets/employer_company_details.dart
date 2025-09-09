@@ -77,10 +77,10 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     EmployerSignupHeaderSmall(title: "Company Details" ,subTitle: 'Information about your organization' ,),
-                    gap16(),
+                    gapH16(),
                     RegistrationProgressBar(isEmployer: true),
-                    gap16(),
-                    gap16(),
+                    gapH16(),
+                    gapH16(),
                     TransparentFormField(
                       controller: _companyNameController,
                       focusNode: _companyNameFocus,
@@ -133,7 +133,7 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                     ),
                     gapH20(),
                     _nextButton(),
-                    gap16(),
+                    gapH16(),
 
                   ],
                 ),
