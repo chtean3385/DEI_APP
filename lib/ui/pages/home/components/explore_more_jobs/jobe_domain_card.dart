@@ -23,7 +23,9 @@ class ExploreJobCard extends StatelessWidget {
         border: Border.all(color: Colors.black12, width: 1),
       ),
       child: SizedBox(
-        width: 180, // ~70% of screen width
+        width: MediaQuery.of(context).size.width * 0.43,
+
+        // width: 180, // ~70% of screen width
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Row(

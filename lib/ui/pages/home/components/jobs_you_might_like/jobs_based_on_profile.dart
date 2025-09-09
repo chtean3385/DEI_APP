@@ -1,6 +1,7 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../widgets/others/view_all_button.dart';
 import 'jobs_card.dart';
 
 /// 📌 "Jobs based on your profile" section
@@ -72,15 +73,7 @@ class JobsBasedOnProfile extends StatelessWidget {
                     style: theme.titleMedium?.copyWith(color: Colors.black45),
                   ),
                   const Spacer(),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "View all",
-                      style: theme.bodySmall?.copyWith(
-                        color: AppColors.primaryColor,
-                      ),
-                    ),
-                  ),
+                  ViewAllButton()
                 ],
               ),
             ),
