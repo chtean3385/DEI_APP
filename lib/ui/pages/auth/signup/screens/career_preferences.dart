@@ -78,7 +78,7 @@ class _CareerPreferencesState extends State<CareerPreferences> {
                           gap16(),
                           SalaryWidget(controller: preferSalaryController,focusNode: _preferSalaryFocus,nextNode:_preferWorkLocationFocus ),
           
-                          gap20(),
+                          gapH20(),
           
                           // usage
                           WorkLocationField(
@@ -86,13 +86,13 @@ class _CareerPreferencesState extends State<CareerPreferences> {
                             focusNode: _preferWorkLocationFocus,
                           ),
           
-                          gap20(),
+                          gapH20(),
                         ],
                       ),
                     ),
                   ),
                   _nextButton(),
-                  gap20(),
+                  gapH20(),
                 ],
               ),
             ),

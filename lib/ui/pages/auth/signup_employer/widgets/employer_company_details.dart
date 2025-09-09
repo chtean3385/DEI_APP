@@ -95,7 +95,7 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       nextFocusNode: _companyEmailFocus,
 
                     ),
-                    gap20(),
+                    gapH20(),
                     EmailSuggestionField(
                       controller: _companyEmailController,
                       focusNode: _companyEmailFocus,
@@ -103,7 +103,7 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       hint: AppStrings.enterOfficialEmailId,
                       label: AppStrings.officialEmailId,
                     ),
-                    gap20(),
+                    gapH20(),
                     TransparentFormField(
                       controller: _designationController,
                       focusNode: _designationFocus,
@@ -117,10 +117,10 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       nextFocusNode: _companySizeFocus,
 
                     ),
-                    gap20(),
+                    gapH20(),
                     CompanyEmployeeSize(controller:_companySizeController ,focusNode: _companySizeFocus,nextFocus: _webSiteFocus),
 
-                    gap20(),
+                    gapH20(),
                     TransparentFormField(
                       controller: _webSiteController,
                       focusNode: _webSiteFocus,
@@ -131,7 +131,7 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       keyboardType: TextInputType.url,
                       textCapitalization: TextCapitalization.words,
                     ),
-                    gap20(),
+                    gapH20(),
                     _nextButton(),
                     gap16(),
 

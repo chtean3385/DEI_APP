@@ -98,7 +98,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                       nextFocusNode:_emailFocus ,
                     ),
 
-                    gap20(),
+                    gapH20(),
 
                     // Email Field
                     Consumer(
@@ -118,7 +118,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                         );
                       }
                     ),
-                    gap20(),
+                    gapH20(),
 
                     // Confirm Password Field
                     TransparentFormField(
@@ -134,7 +134,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                       maxLength: 10,
                       nextFocusNode:_checkBoxFocus ,
                     ),
-                    gap20(),
+                    gapH20(),
 
 
 

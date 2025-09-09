@@ -89,13 +89,13 @@ class _KeySkillsState extends State<KeySkills> {
 
 
 
-                          gap20(),
+                          gapH20(),
                         ],
                       ),
                     ),
                   ),
                   _nextButton(),
-                  gap20(),
+                  gapH20(),
                 ],
               ),
             ),

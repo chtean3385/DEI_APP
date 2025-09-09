@@ -108,7 +108,7 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                         });
                       },
                     ),
-                    gap20(),
+                    gapH20(),
                     // Confirm Password Field
                     TransparentFormField(
                       controller: _mobileController,
@@ -123,7 +123,7 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                       maxLength: 10,
                       nextFocusNode:_nameFocus ,
                     ),
-                    gap20(),
+                    gapH20(),
                     // Full Name Field
                     TransparentFormField(
                       controller: _nameController,
@@ -138,7 +138,7 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
 
                     ),
 
-                    gap20(),
+                    gapH20(),
 
                     // Email Field
                     Consumer(
@@ -158,7 +158,7 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                         );
                       }
                     ),
-                    gap20(),
+                    gapH20(),
                     // Password Field
                     TransparentFormField(
                       controller: _passwordController,
@@ -171,7 +171,7 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                       validator: AppValidators.password,
 
                     ),
-                    gap20(),
+                    gapH20(),
                     _nextButton(),
                     gap16(),
 

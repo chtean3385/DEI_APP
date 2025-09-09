@@ -81,7 +81,7 @@ class _EducationState extends State<Education> {
                             },
                           ),
 
-                          gap20(),
+                          gapH20(),
 
                         if(selectedNoticePeriod.isNotEmpty)  Align(
                             alignment: AlignmentGeometry.centerLeft,
@@ -97,7 +97,7 @@ class _EducationState extends State<Education> {
                             ),
                           ),
 
-                          gap20(),
+                          gapH20(),
 
                           if(selectedCourse.isNotEmpty)   CourseTypeSelector(
                             selectedType: selectedCourseType,
@@ -108,7 +108,7 @@ class _EducationState extends State<Education> {
                               });
                             },
                           ),
-                          gap20(),
+                          gapH20(),
 
                           if(selectedCourseType.isNotEmpty)  Align(
                             alignment: AlignmentGeometry.centerLeft,
@@ -124,9 +124,9 @@ class _EducationState extends State<Education> {
                             ),
                           ),
 
-                          gap20(),
+                          gapH20(),
                           if(selectedSpecialization.isNotEmpty)   UniversityField(controller: universityController,focusNode: _universityFocus),
-                          gap20(),
+                          gapH20(),
                           // Starting Year
                           if(universityController.text.isNotEmpty)   YearSelector(
                             title: "Starting Year",
@@ -138,7 +138,7 @@ class _EducationState extends State<Education> {
                               });
                             },
                           ),
-                          gap20(),
+                          gapH20(),
 
           // Passing Year
                           if(selectedStartingYear.isNotEmpty)   YearSelector(
@@ -158,7 +158,7 @@ class _EducationState extends State<Education> {
                     ),
                   ),
                   _nextButton(),
-                  gap20(),
+                  gapH20(),
                 ],
               ),
             ),

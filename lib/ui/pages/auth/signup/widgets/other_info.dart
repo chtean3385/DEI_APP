@@ -82,7 +82,7 @@ class _OtherInfoState extends State<OtherInfo> {
                             nextFocusNode:_confirmPasswordFocus ,
                           ),
 
-                          gap20(),
+                          gapH20(),
 
                           // Confirm Password Field
                           TransparentFormField(
@@ -100,7 +100,7 @@ class _OtherInfoState extends State<OtherInfo> {
 
                           ),
 
-                          gap20(),
+                          gapH20(),
                           WorkStatusView(
                             formKey: otherInfoFormKey,
                             onStatusChanged: (value) {
@@ -110,7 +110,7 @@ class _OtherInfoState extends State<OtherInfo> {
                               FocusScope.of(context).requestFocus(_cityFocus);
                             },
                           ),
-                          gap20(),
+                          gapH20(),
                           // Conditionally show location field
                           if (selectedWorkStatus != null &&
                               selectedWorkStatus!.isNotEmpty) ...[
@@ -128,7 +128,7 @@ class _OtherInfoState extends State<OtherInfo> {
                               // },
                             ),
 
-                            gap20(),
+                            gapH20(),
                           ],
 
                         ],
@@ -136,7 +136,7 @@ class _OtherInfoState extends State<OtherInfo> {
                     ),
                   ),
                   _nextButton(),
-                  gap20()
+                  gapH20()
                 ],
               ),
             ),

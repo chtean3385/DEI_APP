@@ -126,7 +126,7 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                               });
                             },
                           ),
-                          gap20(),
+                          gapH20(),
 
                           // Total Work Experience
                           ExperienceWidget(
@@ -136,13 +136,13 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                             focusNode2: _monthFocus,
                             nextFocus:_jobTitleFocus ,
                           ),
-                          gap20(),
+                          gapH20(),
 
                           CurrentJob(controller: jobTitleController,focusNode: _jobTitleFocus,nextFocus:_companyNameFocus),
-                          gap20(),
+                          gapH20(),
                           CurrentCompany(controller: companyController,focusNode: _companyNameFocus,nextFocus:_workDurationFocus),
 
-                          gap20(),
+                          gapH20(),
                           // Work Duration
                           WorkDuration(
                             controller: workDurationController,
@@ -152,10 +152,10 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                             focusNode: _workDurationFocus,
                               nextFocus: isCurrentlyEmployed ? _annualSalaryFocus : _workTillFocus,nextFocus2:_annualSalaryFocus ,
                           ),
-                          gap20(),
+                          gapH20(),
                           // Current Annual Salary
                           SalaryWidget(controller: salaryController,focusNode: _annualSalaryFocus,nextNode:_noticePeriodFocus ),
-                          gap20(),
+                          gapH20(),
                           // Notice Period
                           NoticePeriodWidget(
                             selectedPeriod: selectedNoticePeriod,
@@ -167,22 +167,22 @@ class _EmploymentScreenState extends State<EmploymentScreen> {
                               });
                             },
                           ),
-                          gap20(),
+                          gapH20(),
 
                           IndustryTypeField(controller: industryController,focusNode: _industryTypeFocus,nextFocus:_departmentFocus),
-                          gap20(),
+                          gapH20(),
                           DepartmentField(controller: departmentController,focusNode: _departmentFocus,nextFocus:_roleCategoryFocus),
-                          gap20(),
+                          gapH20(),
                           RoleCategoryField(controller: roleCategoryController,focusNode: _roleCategoryFocus,nextFocus:_jobRoleFocus),
-                          gap20(),
+                          gapH20(),
                           JobRoleField(controller: jobRoleController,focusNode: _jobRoleFocus,),
-                          gap20(),
+                          gapH20(),
                         ],
                       ),
                     ),
                   ),
                   _nextButton(),
-                  gap20(),
+                  gapH20(),
                 ],
               ),
             ),

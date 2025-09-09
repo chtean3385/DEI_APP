@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'components/boost/booster_slider.dart';
+import 'components/jobs_based_on_profile/jobs_based_on_profile.dart';
 import 'components/slider/home_top_slider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -16,6 +17,8 @@ class HomeScreen extends StatelessWidget {
           HomeTopSlider(),
           SizedBox(height: 16),
           ResumeBoostSlider(),
+          SizedBox(height: 16),
+          JobsBasedOnProfile(),
         ],
       ),
     );

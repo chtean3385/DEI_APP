@@ -91,20 +91,20 @@ class _EmployerAddressDetailsState extends State<EmployerAddressDetails>
                       textCapitalization: TextCapitalization.words,
                       nextFocusNode:_stateFocus ,
                     ),
-                    gap20(),
+                    gapH20(),
                     SelectState(
                       controller: _stateController,
                       focusNode: _stateFocus,
                       nextFocus: _cityFocus,
                     ),
-                    gap20(),
+                    gapH20(),
                     SelectCity(
                       controller: _cityController,
                       focusNode: _cityFocus,
                       nextFocus: _pinCodeFocus,
                     ),
 
-                    gap20(),
+                    gapH20(),
                     TransparentFormField(
                       controller: _picCodeController,
                       focusNode: _pinCodeFocus,
@@ -116,7 +116,7 @@ class _EmployerAddressDetailsState extends State<EmployerAddressDetails>
                       keyboardType: TextInputType.phone,
                       maxLength: 6,
                     ),
-                    gap20(),
+                    gapH20(),
                     _nextButton(),
                     gap16(),
                   ],
