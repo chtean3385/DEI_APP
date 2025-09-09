@@ -3,6 +3,8 @@ import 'package:dei_champions/constants/app_drawables.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:flutter/material.dart';
 
+import '../../../constants/app_navigator.dart';
+
 class ApplyEmptyScreen extends StatelessWidget {
   const ApplyEmptyScreen({super.key});
 
@@ -59,6 +61,8 @@ class ApplyEmptyScreen extends StatelessWidget {
               ),
               color: AppColors.primaryColor,
               radius: 30,
+              onTap: AppNavigator.loadJobSearchScreen,
+
             ),
           ],
         ),

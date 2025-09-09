@@ -20,3 +20,4 @@ Widget gapH20() => const SizedBox(height: 20);
 Widget gapH32() => const SizedBox(height: 32);
 Widget gap100() => const SizedBox(height: 100);
 Widget width32() => const SizedBox(width: 32);
+Widget gapW16() => const SizedBox(width: 16);
