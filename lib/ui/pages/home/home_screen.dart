@@ -2,6 +2,7 @@ import 'package:dei_champions/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
 import 'components/boost/booster_slider.dart';
+import 'components/explore_more_jobs/explore_more_jobs.dart';
 import 'components/jobs_based_on_profile/jobs_you_might_like.dart';
 import 'components/jobs_you_might_like/jobs_based_on_profile.dart';
 import 'components/slider/home_top_slider.dart';
@@ -23,6 +24,10 @@ class HomeScreen extends StatelessWidget {
           JobsBasedOnProfile(),
           gapH16(),
           JobsYouMightLike(),
+          gapH16(),
+          ExploreMoreJobs(),
+          gapH16(),
+
         ],
       ),
     );
