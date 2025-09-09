@@ -20,9 +20,15 @@ class HomeScreen extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
          gapH16(),
-          HomeTopSlider(),
-          gapH16(),
-          ResumeBoostSlider(),
+
+          // gapH16(),
+          Stack(
+            // alignment: top,
+            children: [
+              ResumeBoostSlider(),
+              HomeTopSlider(),
+            ],
+          ),
           gapH16(),
           JobsBasedOnProfile(),
           // gapH16(),
