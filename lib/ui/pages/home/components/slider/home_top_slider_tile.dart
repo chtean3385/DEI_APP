@@ -93,7 +93,7 @@ class HomeTopSliderTile extends StatelessWidget {
                                   .withValues(alpha: .1),
                               child: Text(
                                 counter!,
-                                style: theme.headlineMedium,
+                                style: theme.headlineSmall,
                               ),
                             )
                           : const SizedBox()),

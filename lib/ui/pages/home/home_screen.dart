@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'components/boost/booster_slider.dart';
 import 'components/slider/home_top_slider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,6 +14,8 @@ class HomeScreen extends StatelessWidget {
         children: [
           SizedBox(height: 16),
           HomeTopSlider(),
+          SizedBox(height: 16),
+          ResumeBoostSlider(),
         ],
       ),
     );
