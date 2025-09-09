@@ -54,7 +54,7 @@ class TopCompaniesSection extends StatelessWidget {
     return ColoredBox(
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 24, top: 10),
+        padding: const EdgeInsets.only(bottom: 24, top: 24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

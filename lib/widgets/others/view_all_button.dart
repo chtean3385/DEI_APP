@@ -24,7 +24,7 @@ class ViewAllButton extends StatelessWidget {
       child: Text(
         text,
         style: theme.bodySmall?.copyWith(
-          color: AppColors.primaryColor,
+          color: AppColors.primaryColor,fontWeight: FontWeight.w600
         ),
       ),
     );
