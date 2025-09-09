@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class OTPHeader extends StatelessWidget {
   final String email;
+  final bool isEmail;
   final Animation<double> pulseAnimation;
   final Animation<double> shineAnimation;
 
@@ -11,7 +12,7 @@ class OTPHeader extends StatelessWidget {
     super.key,
     required this.email,
     required this.pulseAnimation,
-    required this.shineAnimation,
+    required this.shineAnimation,  this.isEmail = true,
   });
 
   @override
@@ -27,20 +28,20 @@ class OTPHeader extends StatelessWidget {
 
         // Title
          Text(
-          'Verify Email',
+           isEmail ?  'Verify Email':'Verify Mobile Number',
           style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 12),
 
         // Subtitle
         Text(
-          'We\'ve sent a verification code to',
+          isEmail ?   'We\'ve sent a verification code to' : "Enter the 6-digit OTP send to",
           style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
         ),
         const SizedBox(height: 8),
 
         // Email container
-        _EmailContainer(email: email),
+        _EmailContainer(email:   email  ),
       ],
     );
   }

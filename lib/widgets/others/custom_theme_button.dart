@@ -36,26 +36,6 @@ class CustomThemeButton extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: color,
-            gradient: color != null
-                ? LinearGradient(
-                    colors: [
-                      AppColors.primaryColor,
-                      AppColors.primarySemiDarkColor,
-                      AppColors.primaryDarkColor,
-                    ],
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                  )
-                : null,
-            boxShadow: color != null
-                ? [
-                    BoxShadow(
-                      color: (color ?? AppColors.primaryColor).withAlpha((0.3 * 255).round()),
-                      blurRadius: 6,
-                      offset: const Offset(0, 3),
-                    ),
-                  ]
-                : null,
             border: Border.all(width: 1, color: AppColors.primaryColor),
             borderRadius: BorderRadius.all(Radius.circular(radius)),
           ),

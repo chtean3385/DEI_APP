@@ -56,7 +56,7 @@ class _ChooseSignupTypeState extends State<ChooseSignupType> {
 
               const SizedBox(height: 8),
               Text(
-                "Are you a Job Poster or a Job Seeker?",
+                "Are you an Employee or an Employer?",
                 textAlign: TextAlign.center,
                 style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
               ),
@@ -89,7 +89,7 @@ class _ChooseSignupTypeState extends State<ChooseSignupType> {
       isExpanded: false,
       onTap: () {
         if (otherInfoFormKey.currentState?.validate() == true) {
-          selectedRole == "poster" ? AppNavigator.loadEmployerSignUpScreen() : AppNavigator.loadSignUpScreen();
+          selectedRole == "employer" ? AppNavigator.loadEmployerSignUpScreen() : AppNavigator.loadSignUpScreen();
         }
       },
       child: Text(

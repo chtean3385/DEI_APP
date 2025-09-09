@@ -6,6 +6,7 @@ import 'otp_verify_button.dart';
 
 class OTPMainCard extends StatelessWidget {
   final String email;
+  final bool isEmail;
   final List<TextEditingController> otpControllers;
   final List<FocusNode> focusNodes;
   final int resendTimer;
@@ -26,6 +27,7 @@ class OTPMainCard extends StatelessWidget {
     required this.onVerifyOTP,
     required this.onResendCode,
     required this.onOTPChanged,
+     this.isEmail = true,
   });
 
   @override
@@ -48,6 +50,7 @@ class OTPMainCard extends StatelessWidget {
         children: [
           OTPHeader(
             email: email,
+            isEmail: isEmail,
             pulseAnimation: pulseAnimation,
             shineAnimation: shineAnimation,
           ),

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -43,14 +44,19 @@ class _AnimatedSignupWrapperState extends State<AnimatedSignupWrapper>
 
     _controller.forward();
     // Run after widget is mounted
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      final container = ProviderScope.containerOf(context);
-      if (widget.isEmployer) {
-        container.read(employerSignupFlowControllerProvider.notifier).iniController();
-      } else {
-        container.read(signupFlowControllerProvider.notifier).iniController();
-      }
-    });
+    if (kReleaseMode) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final container = ProviderScope.containerOf(context);
+
+        if (widget.isEmployer) {
+          container
+              .read(employerSignupFlowControllerProvider.notifier)
+              .iniController();
+        } else {
+          container.read(signupFlowControllerProvider.notifier).iniController();
+        }
+      });
+    }
   }
 
   @override

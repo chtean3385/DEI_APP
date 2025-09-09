@@ -89,15 +89,15 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
           contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24),
-            borderSide: const BorderSide(color: Colors.grey, width: .3),
+            borderSide: const BorderSide(color: Colors.grey, width: .5),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24),
-            borderSide: const BorderSide(color: Colors.grey, width: .3),
+            borderSide: const BorderSide(color: Colors.grey, width: .5),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24),
-            borderSide: BorderSide(color: Colors.grey.shade600, width: .3),
+            borderSide: BorderSide(color: Colors.grey.shade600, width: .5),
           ),
         ),
       ),

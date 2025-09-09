@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers/providers.dart';
-import '../signup/widgets/signup_back_button.dart';
 
 class SignupEmployerScreen extends ConsumerWidget {
   const SignupEmployerScreen({super.key});
@@ -18,11 +17,6 @@ class SignupEmployerScreen extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   leading: SignupBackButton(isEmployer: true),
-      // ),
       body: AnimatedSignupWrapper(
         child: SizedBox(
           height: double.infinity,

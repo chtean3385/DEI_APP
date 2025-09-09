@@ -50,7 +50,7 @@ class AuthController extends AutoDisposeNotifier<AuthState> {
   Future<void> signInUser(BuildContext context) async {
     setPageState(PageState.loading);
     await Future.delayed(Duration(seconds: 3));
-    AppNavigator.loadOtpScreen();
+    AppNavigator.toBottomBar();
     setPageState(PageState.success);
     // try {
     //   final BaseModel result = await _authService.signIn(

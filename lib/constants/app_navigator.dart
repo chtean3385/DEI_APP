@@ -71,12 +71,16 @@ class AppNavigator {
           // (route) => false,
     );
   }
-  static loadOtpScreen() {
-    Navigator.pushAndRemoveUntil(
+
+  static Future<bool> loadOtpScreenForSignup(bool isEmployer) async {
+    final result = await Navigator.push<bool>(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => OTPVerificationScreen(isFromSignup: false)),
-          (route) => false,
+      MaterialPageRoute(
+        builder: (_) =>  OTPVerificationScreen(isEmployer: isEmployer,emailOrMobile: isEmployer?  "user@example.com" : "1234567890" ,),
+      ),
     );
+
+    return result ?? false; // default false if user backs out
   }
 
   static loadForgotPasswordScreen({bool isFromLogout = false}) {
@@ -85,15 +89,6 @@ class AppNavigator {
       MaterialPageRoute(builder: (_) => ForgotPasswordScreen()),
     );
   }
-  static Future<bool> loadOtpScreenForSignup() async {
-    final result = await Navigator.push<bool>(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(
-        builder: (_) => const OTPVerificationScreen(),
-      ),
-    );
 
-    return result ?? false; // default false if user backs out
-  }
 
 }

@@ -9,12 +9,15 @@ import 'components/otp_floating_background.dart';
 import 'components/otp_main_card.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
-  final String email;
+  final String emailOrMobile;
   final bool isFromSignup;
+  final bool isEmployer;
 
   const OTPVerificationScreen({
     super.key,
-    this.email = "user@example.com",  this.isFromSignup = true,
+    this.emailOrMobile =  "user@example.com",
+    this.isFromSignup = true,
+     this.isEmployer = true,
   });
 
   @override
@@ -145,7 +148,8 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.all(24),
                           child: OTPMainCard(
-                            email: widget.email,
+                            email: widget.emailOrMobile,
+                            isEmail: widget.isEmployer,
                             otpControllers: otpControllers,
                             focusNodes: focusNodes,
                             resendTimer: resendTimer,

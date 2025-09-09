@@ -22,8 +22,8 @@ class AppController extends AutoDisposeNotifier<PageState> {
   Future<void> checkUserToken() async {
     state = PageState.loading;
     await Future.delayed(const Duration(seconds: 3));
-    // final token = await SharedPreferenceRepository.getToken();
-    final token = "qqwqw"; // use this to simulate unauthenticated
+    final token = await SharedPreferenceRepository.getToken();
+    // final token = "qqwqw"; // use this to simulate unauthenticated
     state = PageState.success;
     if (token.isNotEmpty == true) {
       AppNavigator.toBottomBar();

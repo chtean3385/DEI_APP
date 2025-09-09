@@ -43,7 +43,7 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
       if (state.currentStep == 0) {
         // 👉 Only ask OTP if not verified already
         if (!state.otpVerified) {
-          final verified = await AppNavigator.loadOtpScreenForSignup();
+          final verified = await AppNavigator.loadOtpScreenForSignup(false);
 
           if (verified != true) return; // stop if not verified
 

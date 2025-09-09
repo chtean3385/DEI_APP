@@ -34,13 +34,13 @@ class _RoleSelectionViewState extends State<RoleSelectionView> {
               children: [
                 Expanded(
                   child: WorkStatusCard(
-                    title: "Job Poster",
+                    title: "Employer",
                     subtitle: "I want to post jobs and hire candidates",
                     icon: Icons.business_center_outlined,
-                    isSelected: _selectedRole == "poster",
+                    isSelected: _selectedRole == "employer",
                     onTap: () {
                       setState(() {
-                        _selectedRole = "poster";
+                        _selectedRole = "employer";
                         field.didChange(_selectedRole);
                         widget.onRoleChanged?.call(_selectedRole!);
                       });
@@ -50,13 +50,13 @@ class _RoleSelectionViewState extends State<RoleSelectionView> {
                 const SizedBox(width: 16),
                 Expanded(
                   child: WorkStatusCard(
-                    title: "Job Seeker",
+                    title: "Employee",
                     subtitle: "I am looking for jobs/opportunities",
                     icon: Icons.person_search_outlined,
-                    isSelected: _selectedRole == "seeker",
+                    isSelected: _selectedRole == "employee",
                     onTap: () {
                       setState(() {
-                        _selectedRole = "seeker";
+                        _selectedRole = "employee";
                         field.didChange(_selectedRole);
                         widget.onRoleChanged?.call(_selectedRole!);
                       });
