@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import '../../../../../widgets/others/view_all_button.dart';
 import '../jobs_you_might_like/jobs_card.dart';
 
-
 /// 📌 "Jobs based on your profile" section
 class JobsYouMightLike extends StatelessWidget {
   const JobsYouMightLike({super.key});
@@ -16,7 +15,8 @@ class JobsYouMightLike extends StatelessWidget {
       JobCard(
         title: "Software Engineer",
         company: "Wipro",
-        image: "https://assets.streamlinehq.com/.../wipro-h69to9ubxsai6gq72cym27.png",
+        image:
+            "https://assets.streamlinehq.com/.../wipro-h69to9ubxsai6gq72cym27.png",
         location: "Bengaluru",
         posted: "1d ago",
         rating: 4.0,
@@ -74,7 +74,7 @@ class JobsYouMightLike extends StatelessWidget {
                     style: theme.titleMedium?.copyWith(color: Colors.black45),
                   ),
                   const Spacer(),
-                  ViewAllButton()
+                  ViewAllButton(),
                 ],
               ),
             ),

@@ -29,7 +29,12 @@ class JobCard extends StatelessWidget {
       width: MediaQuery.of(context).size.width * 0.65,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(6),
+            bottomLeft: Radius.circular(6),
+            bottomRight: Radius.circular(16),
+          ),
           side: BorderSide(color: Colors.black12, width: 1),
         ),
         elevation: 0,

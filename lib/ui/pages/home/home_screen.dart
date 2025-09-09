@@ -19,16 +19,8 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-         gapH16(),
-
-          // gapH16(),
-          Stack(
-            // alignment: top,
-            children: [
-              ResumeBoostSlider(),
-              HomeTopSlider(),
-            ],
-          ),
+          gapH16(),
+          Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
           gapH16(),
           JobsBasedOnProfile(),
           // gapH16(),
@@ -36,14 +28,12 @@ class HomeScreen extends StatelessWidget {
           gapH16(),
           ExploreMoreJobs(),
           gapH16(),
-         TopCompaniesSection(),
+          TopCompaniesSection(),
           gapH16(),
           RecruitersNoticingWidget(
             recruiters: ["01", "02", "03", "04"], // sample data
           ),
           HiringInfoWidget(),
-
-
         ],
       ),
     );

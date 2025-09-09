@@ -19,7 +19,6 @@ return ThemeData(
 
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.white,
-    foregroundColor: Colors.white,
     elevation: 1,
     titleTextStyle: GoogleFonts.poppins(
       fontSize: 14,
@@ -88,7 +87,6 @@ ThemeData darkTheme(BuildContext context) {
     textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.black),
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.white,
-      foregroundColor: Colors.white,
       elevation: 1,
       iconTheme: IconThemeData(color: Colors.black54),
     ),

@@ -28,7 +28,14 @@ class HomeTopSliderTile extends StatelessWidget {
       child: Card(
         elevation: 1,
         color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(6),
+            bottomLeft: Radius.circular(6),
+            bottomRight: Radius.circular(16),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           child: Row(
@@ -91,10 +98,7 @@ class HomeTopSliderTile extends StatelessWidget {
                               radius: 25,
                               backgroundColor: AppColors.primaryColor
                                   .withValues(alpha: .1),
-                              child: Text(
-                                counter!,
-                                style: theme.headlineSmall,
-                              ),
+                              child: Text(counter!, style: theme.headlineSmall),
                             )
                           : const SizedBox()),
               ),

@@ -19,7 +19,12 @@ class ExploreJobCard extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(6),
+          bottomLeft: Radius.circular(6),
+          bottomRight: Radius.circular(16),
+        ),
         border: Border.all(color: Colors.black12, width: 1),
       ),
       child: SizedBox(

@@ -35,8 +35,11 @@ class _ResumeBoostSliderState extends State<ResumeBoostSlider> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 80,width: double.infinity,),
-        ColoredBox(color:Colors.white,child: SizedBox(height: 40,width: double.infinity,)),
+        SizedBox(height: 80, width: double.infinity),
+        ColoredBox(
+          color: Colors.white,
+          child: SizedBox(height: 40, width: double.infinity),
+        ),
         SizedBox(
           height: 100,
           child: PageView.builder(

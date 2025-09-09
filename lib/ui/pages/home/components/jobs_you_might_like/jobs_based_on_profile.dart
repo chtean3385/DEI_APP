@@ -73,7 +73,7 @@ class JobsBasedOnProfile extends StatelessWidget {
                     style: theme.titleMedium?.copyWith(color: Colors.black45),
                   ),
                   const Spacer(),
-                  ViewAllButton()
+                  ViewAllButton(),
                 ],
               ),
             ),

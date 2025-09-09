@@ -1,4 +1,3 @@
-import 'package:dei_champions/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../widgets/others/view_all_button.dart';
@@ -46,7 +45,13 @@ class RecruitersNoticingWidget extends StatelessWidget {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black12),
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(20),topRight: Radius.circular(4),bottomLeft: Radius.circular(4),bottomRight:Radius.circular(20) ),
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(6),
+                          bottomLeft: Radius.circular(6),
+                          bottomRight: Radius.circular(16),
+                        ),
+
                         color: Colors.white,
                       ),
                       child: SizedBox(
@@ -70,7 +75,6 @@ class RecruitersNoticingWidget extends StatelessWidget {
                 },
               ),
             ),
-
           ],
         ),
       ),
