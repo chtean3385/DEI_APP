@@ -77,7 +77,7 @@ class JobsYouMightLike extends StatelessWidget {
                   const Spacer(),
                   ViewAllButton(
                     onPressed: () =>
-                        AppNavigator.loadRecommendedJobsScreen(index: 1),
+                        AppNavigator.loadRecommendedJobsScreen(initialCategoryId: 3),
                   ),
                 ],
               ),

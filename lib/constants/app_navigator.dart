@@ -121,10 +121,10 @@ class AppNavigator {
     );
   }
 
-  static loadRecommendedJobsScreen({int index = 0}) {
+  static loadRecommendedJobsScreen({int initialCategoryId = 1}) {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => RecommendedJobsScreen(index: index)),
+      MaterialPageRoute(builder: (_) => RecommendedJobsScreen(initialCategoryId: initialCategoryId)),
     );
   }
 }

@@ -9,9 +9,9 @@ import 'components/custom_tab_bar.dart';
 import 'components/recommended_jobs_view.dart';
 
 class RecommendedJobsScreen extends StatelessWidget {
-  final int index;
+  final int initialCategoryId;
 
-  RecommendedJobsScreen({Key? key, this.index = 0}) : super(key: key);
+  RecommendedJobsScreen({Key? key, this.initialCategoryId = 0}) : super(key: key);
   final ValueNotifier<List<JobModel>> jobsNotifier = ValueNotifier(jobs);
   final categories = [
     {"id": 1, "title": "Profile", "count": "70"},
@@ -165,7 +165,7 @@ class RecommendedJobsScreen extends StatelessWidget {
             gapH16(),
             CustomTabBar(
               filterItems: categories,
-              index: index,
+              initialId: initialCategoryId,
               onItemSelected: (_) {
                 // 🔀 Shuffle jobs when tab tapped
                 final shuffled = List<JobModel>.from(jobsNotifier.value)

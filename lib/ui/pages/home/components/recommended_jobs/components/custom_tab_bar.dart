@@ -6,14 +6,14 @@ class CustomTabBar extends StatefulWidget {
   final List<Map<String, dynamic>> filterItems;
   final Function(Map<String, dynamic>)? onItemSelected;
   final double? horizontalPadding;
-  final int index;
+  final int? initialId;
 
   const CustomTabBar({
     super.key,
     required this.filterItems,
     this.onItemSelected,
     this.horizontalPadding,
-    this.index = 0,
+    this.initialId,
   });
 
   @override
@@ -21,24 +21,60 @@ class CustomTabBar extends StatefulWidget {
 }
 
 class _CustomTabBarState extends State<CustomTabBar> {
-  late int selectedIndex = 0;
+  late int selectedIndex;
+  late ScrollController _scrollController;
+  late List<GlobalKey> _tabKeys;
 
   @override
   void initState() {
     super.initState();
-    // Initialize from widget.index
-    selectedIndex = widget.index;
+    _scrollController = ScrollController();
+    _tabKeys = List.generate(widget.filterItems.length, (_) => GlobalKey());
+
+    selectedIndex = widget.initialId != null
+        ? widget.filterItems.indexWhere((item) => item['id'] == widget.initialId)
+        : 0;
+    if (selectedIndex == -1) selectedIndex = 0;
+
+    // Scroll to selected after layout
+    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToSelected());
   }
 
   @override
   void didUpdateWidget(covariant CustomTabBar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    // Update selectedIndex if parent changes the index
-    if (widget.index != oldWidget.index && widget.index != selectedIndex) {
-      setState(() {
-        selectedIndex = widget.index;
-      });
+    if (widget.initialId != oldWidget.initialId && widget.initialId != null) {
+      final newIndex =
+      widget.filterItems.indexWhere((item) => item['id'] == widget.initialId);
+      if (newIndex != -1 && newIndex != selectedIndex) {
+        setState(() => selectedIndex = newIndex);
+        WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToSelected());
+      }
+    }
+
+    if (_tabKeys.length != widget.filterItems.length) {
+      _tabKeys = List.generate(widget.filterItems.length, (_) => GlobalKey());
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToSelected() {
+    final keyContext = _tabKeys[selectedIndex].currentContext;
+    if (keyContext != null) {
+      final box = keyContext.findRenderObject() as RenderBox;
+      final position = box.localToGlobal(Offset.zero, ancestor: context.findRenderObject());
+      final scrollOffset = _scrollController.offset + position.dx - 20; // add some padding
+      _scrollController.animateTo(
+        scrollOffset,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     }
   }
 
@@ -46,58 +82,48 @@ class _CustomTabBarState extends State<CustomTabBar> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return SizedBox(
-      height: 35,
-      child: ListView.separated(
+      height: 40,
+      child: SingleChildScrollView(
+        controller: _scrollController,
         scrollDirection: Axis.horizontal,
-        padding: EdgeInsets.symmetric(
-          horizontal: widget.horizontalPadding ?? 8,
+        padding: EdgeInsets.symmetric(horizontal: widget.horizontalPadding ?? 8),
+        child: Row(
+          children: List.generate(widget.filterItems.length, (index) {
+            final item = widget.filterItems[index];
+            final isSelected = index == selectedIndex;
+            return Padding(
+              key: _tabKeys[index],
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: GestureDetector(
+                onTap: () {
+                  setState(() => selectedIndex = index);
+                  widget.onItemSelected?.call(item);
+                  WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToSelected());
+                },
+                child: Container(
+                  padding:
+                  const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: isSelected ? AppColors.primaryColor : Colors.transparent,
+                        width: 2,
+                      ),
+                    ),
+                  ),
+                  child: Text(
+                    _buildLabel(item),
+                    style: theme.bodyMedium?.copyWith(
+                      color: isSelected ? Colors.black : Colors.black54,
+                      fontWeight:
+                      isSelected ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                ),
+              ),
+            );
+          }),
         ),
-        itemCount: widget.filterItems.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 4),
-        itemBuilder: (context, index) {
-          final item = widget.filterItems[index];
-          final isSelected = index == selectedIndex;
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedIndex = index;
-              });
-              if (widget.onItemSelected != null) {
-                widget.onItemSelected!(
-                  item,
-                ); // trigger callback with selected item
-              }
-            },
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: isSelected
-                        ? AppColors.primaryColor
-                        : Colors.transparent,
-                    width: 2,
-                  ),
-                ),
-              ),
-
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 4,
-                  horizontal: 10,
-                ),
-                child: Text(
-                  _buildLabel(item),
-                  style: theme.bodyMedium?.copyWith(
-                    color: isSelected ? Colors.black : Colors.black54,
-                    fontWeight: isSelected
-                        ? FontWeight.bold
-                        : FontWeight.normal,
-                  ),
-                ),
-              ),
-            ),
-          );
-        },
       ),
     );
   }
@@ -105,10 +131,8 @@ class _CustomTabBarState extends State<CustomTabBar> {
   String _buildLabel(Map<String, dynamic> item) {
     final title = item['title']?.toString() ?? item['name']?.toString() ?? "";
     final count = item['count']?.toString();
-
-    if (count != null && count.isNotEmpty) {
-      return "$title ($count)";
-    }
-    return title;
+    return (count != null && count.isNotEmpty) ? "$title ($count)" : title;
   }
 }
+
+
