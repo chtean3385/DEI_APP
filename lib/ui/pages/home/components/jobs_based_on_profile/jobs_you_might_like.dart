@@ -1,6 +1,7 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../constants/app_navigator.dart';
 import '../../../../../widgets/others/view_all_button.dart';
 import '../jobs_you_might_like/jobs_card.dart';
 
@@ -74,7 +75,10 @@ class JobsYouMightLike extends StatelessWidget {
                     style: theme.titleMedium?.copyWith(color: Colors.black45),
                   ),
                   const Spacer(),
-                  ViewAllButton(),
+                  ViewAllButton(
+                    onPressed: () =>
+                        AppNavigator.loadRecommendedJobsScreen(index: 1),
+                  ),
                 ],
               ),
             ),

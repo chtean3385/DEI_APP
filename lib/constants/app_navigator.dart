@@ -7,6 +7,7 @@ import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
 import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
+import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
 import '../ui/pages/main/bottom_bar.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
 import '../ui/pages/search/job_search_screen.dart';
@@ -19,6 +20,7 @@ class AppNavigator {
       (route) => false,
     );
   }
+
   //
   // static void toLoginScreen() {
   //   Navigator.pushAndRemoveUntil(
@@ -47,31 +49,33 @@ class AppNavigator {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => SignInScreen()),
-          (route) => false,
+      (route) => false,
     );
   }
 
   static loadCommonSignUp() {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) =>  ChooseSignupType()),
-          // (route) => false,
+      MaterialPageRoute(builder: (_) => ChooseSignupType()),
+      // (route) => false,
     );
   }
+
   static loadSignUpScreen({bool isFromLogout = false}) {
     // if(!isFromLogout) initController();
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) =>  SignupScreen()),
-          // (route) => false,
+      MaterialPageRoute(builder: (_) => SignupScreen()),
+      // (route) => false,
     );
   }
+
   static loadEmployerSignUpScreen({bool isFromLogout = false}) {
     // if(!isFromLogout) initController();
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) =>  SignupEmployerScreen()),
-          // (route) => false,
+      MaterialPageRoute(builder: (_) => SignupEmployerScreen()),
+      // (route) => false,
     );
   }
 
@@ -79,7 +83,10 @@ class AppNavigator {
     final result = await Navigator.push<bool>(
       navigatorKey.currentContext!,
       MaterialPageRoute(
-        builder: (_) =>  OTPVerificationScreen(isEmployer: isEmployer,emailOrMobile: isEmployer?  "user@example.com" : "1234567890" ,),
+        builder: (_) => OTPVerificationScreen(
+          isEmployer: isEmployer,
+          emailOrMobile: isEmployer ? "user@example.com" : "1234567890",
+        ),
       ),
     );
 
@@ -92,18 +99,21 @@ class AppNavigator {
       MaterialPageRoute(builder: (_) => ForgotPasswordScreen()),
     );
   }
+
   static loadJobSearchResultScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => JobSearchResultScreen()),
     );
   }
+
   static loadJobSearchScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => JobSearchScreen()),
     );
   }
+
   static loadTopCompaniesListScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
@@ -111,4 +121,10 @@ class AppNavigator {
     );
   }
 
+  static loadRecommendedJobsScreen({int index = 0}) {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => RecommendedJobsScreen(index: index)),
+    );
+  }
 }
