@@ -6,6 +6,7 @@ class CustomChip extends StatelessWidget {
   final String option;
   final bool showRemove;
   final bool isSelected;
+  final bool isMulti;
   final ValueChanged<String> onChanged;
   final ValueChanged<String>? onRemove;
 
@@ -13,6 +14,7 @@ class CustomChip extends StatelessWidget {
     super.key,
     required this.option,
     this.showRemove = true,
+    this.isMulti = false,
     required this.onChanged,
     this.onRemove, required this.isSelected,
   });
@@ -50,7 +52,8 @@ class CustomChip extends StatelessWidget {
               if (showRemove)
                 GestureDetector(
                   onTap: () {
-                    onChanged("");
+                    print("showRemoveshowRemove - $option");
+                    isMulti?onChanged(option)  :   onChanged("");
                   },
                   child: const Icon(Icons.close, size: 18, color: Colors.black),
                 ),

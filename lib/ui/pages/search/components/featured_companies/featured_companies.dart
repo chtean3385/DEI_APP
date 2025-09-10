@@ -1,49 +1,78 @@
 import 'dart:math';
-import 'package:dei_champions/ui/pages/home/components/top_companies/top_company_card.dart';
+import 'package:dei_champions/ui/pages/search/components/featured_companies/featured_company_card.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
 import '../../../../../widgets/others/view_all_button.dart';
+import '../../../home/components/top_companies/top_companies.dart';
 
-class TopCompaniesSection extends StatelessWidget {
-  TopCompaniesSection({super.key});
+class FeaturedCompaniesSection extends StatelessWidget {
+  FeaturedCompaniesSection({super.key});
 
   // Sample list (replace with your API data)
   final tags = ['Foreign MNC', 'Corporate', 'Internet', 'Startup', 'Fintech'];
-  final demoCompanies = List.generate(12, (i) {
-    return Company(
-      name: [
-        'Four Seasons',
-        'Seclore',
-        'DHL',
-        'Bosch',
-        'Capgemini',
-        'Adobe',
-        'Microsoft',
-        'HP',
-        'Cisco',
-        'Oracle',
-        'Zoho',
-        'Nvidia',
-      ][i % 12],
-      logoUrl: 'https://via.placeholder.com/112x112.png?text=Logo',
-      rating: 3.8 + (i % 5) * 0.2,
-      reviewCount: 50 + i * 7,
-      tag:
-          ['Foreign MNC', 'Corporate', 'Internet', 'Startup', 'Fintech'][i %
-              [
-                'Foreign MNC',
-                'Corporate',
-                'Internet',
-                'Startup',
-                'Fintech',
-              ].length],
-      // 🔹 Randomly cycles through tags
+  final demoCompanies = [
+    Company(
+      name: "Microsoft",
+      logoUrl: "https://img.icons8.com/color/96/000000/microsoft.png",
+      rating: 4.2,
+      reviewCount: 120,
+      tag: "Fintech",
+      description:
+          "Kotak Life is a leading insurance provider offering innovative life and savings plans for individuals and families.",
       onViewJobs: () {
-        // open jobs for this company
+        // Navigate to Kotak Life jobs
       },
-    );
-  });
+    ),
+    Company(
+      name: "Amazon",
+      logoUrl: "https://img.icons8.com/color/96/000000/amazon.png",
+      rating: 4.5,
+      reviewCount: 230,
+      tag: "Internet",
+      description:
+          "Amazon is a global leader in e-commerce and cloud services, driving innovation across multiple industries.",
+      onViewJobs: () {
+        // Navigate to Amazon jobs
+      },
+    ),
+    Company(
+      name: "IBM",
+      logoUrl: "https://img.icons8.com/color/96/000000/ibm.png",
+      rating: 4.0,
+      reviewCount: 180,
+      tag: "Corporate",
+      description:
+          "IBM provides cutting-edge cloud and AI solutions, helping enterprises transform through technology and services.",
+      onViewJobs: () {
+        // Navigate to IBM jobs
+      },
+    ),
+    Company(
+      name: "Meta",
+      logoUrl: "https://img.icons8.com/color/96/000000/meta.png",
+      rating: 3.8,
+      reviewCount: 95,
+      tag: "Startup",
+      description:
+          "Meta connects people worldwide through social platforms and invests heavily in virtual reality and the metaverse.",
+      onViewJobs: () {
+        // Navigate to Meta jobs
+      },
+    ),
+    Company(
+      name: "NoBroker.com",
+      logoUrl: "https://img.icons8.com/color/96/000000/google-logo.png",
+      rating: 3.1,
+      reviewCount: 60,
+      tag: "Internet",
+      description:
+          "NoBroker is a fast-growing proptech startup revolutionizing real estate with zero-brokerage rental and property services.",
+      onViewJobs: () {
+        // Navigate to NoBroker jobs
+      },
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +91,14 @@ class TopCompaniesSection extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 children: [
-                  Text('Top companies', style: theme.titleMedium),
+                  Text('Featured companies', style: theme.titleMedium),
                   const Spacer(),
                   ViewAllButton(),
                 ],
               ),
             ),
             SizedBox(
-              height: 250,
+              height: 300,
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 scrollDirection: Axis.horizontal,
@@ -81,7 +110,7 @@ class TopCompaniesSection extends StatelessWidget {
                     return _ViewAllCard(onTap: () {});
                   }
                   final company = demoCompanies[index];
-                  return TopCompanyCard(company: company, onTap: () {});
+                  return FeaturedCompanyCard(company: company, onTap: () {});
                 },
               ),
             ),
@@ -142,24 +171,4 @@ class _ViewAllCard extends StatelessWidget {
       ),
     );
   }
-}
-
-class Company {
-  final String name;
-  final String? description;
-  final String logoUrl; // can be a local asset with Image.asset if you prefer
-  final double rating; // e.g., 4.1
-  final int reviewCount; // e.g., 172
-  final String tag; // e.g., "Foreign MNC"
-  final VoidCallback? onViewJobs;
-
-  Company({
-    required this.name,
-    required this.logoUrl,
-    required this.rating,
-    required this.reviewCount,
-    required this.tag,
-    this.onViewJobs,
-    this.description,
-  });
 }

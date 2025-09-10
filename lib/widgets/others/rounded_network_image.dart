@@ -8,7 +8,7 @@ class RoundedNetworkImage extends StatelessWidget {
   final double height;
   final double borderRadius;
   final BorderRadiusGeometry? borderRadiusData;
-
+  final BoxFit? fit;
   const RoundedNetworkImage({
     super.key,
     required this.imageUrl,
@@ -16,6 +16,7 @@ class RoundedNetworkImage extends StatelessWidget {
     this.height = 150,
     this.borderRadius = 16,
     this.borderRadiusData,
+    this.fit,
   });
 
   @override
@@ -26,7 +27,7 @@ class RoundedNetworkImage extends StatelessWidget {
         imageUrl: imageUrl,
         width: width,
         height: height,
-        fit: BoxFit.cover,
+        fit:fit?? BoxFit.cover,
         placeholder: (context, url) => Shimmer.fromColors(
           baseColor: Colors.grey.shade300,
           highlightColor: Colors.grey.shade100,

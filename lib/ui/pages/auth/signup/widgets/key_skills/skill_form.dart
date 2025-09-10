@@ -5,13 +5,19 @@ class KeyForm extends StatelessWidget {
   final TextEditingController controller;
   final Function(String)? onSkillSelected;
   final FocusNode focusNode;
+  final String label;
+  final String hint;
 
 
    KeyForm({
     super.key,
     required this.controller,
     this.onSkillSelected, required this.focusNode,
+      this.label = "Key Skill",
+      this.hint = "Enter your key skill",
   });
+
+
 
   // Skills list
   final List<String> _skills = [
@@ -62,8 +68,8 @@ class KeyForm extends StatelessWidget {
     return AutoSuggestionDropdownField(
       controller: controller,
       focusNode: focusNode,
-      hint: "Enter your key skill",
-      label: "Key Skill",
+      hint: hint,
+      label:label,
       icon: Icons.build_circle_outlined,
       suggestions: _skills,
       maxSuggestions: 8,

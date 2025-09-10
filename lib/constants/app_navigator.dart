@@ -8,6 +8,7 @@ import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 import '../ui/pages/main/bottom_bar.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
+import '../ui/pages/search/job_search_screen.dart';
 
 class AppNavigator {
   static void toBottomBar() {
@@ -90,10 +91,16 @@ class AppNavigator {
       MaterialPageRoute(builder: (_) => ForgotPasswordScreen()),
     );
   }
-  static loadJobSearchScreen() {
+  static loadJobSearchResultScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => JobSearchResultScreen()),
+    );
+  }
+  static loadJobSearchScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => JobSearchScreen()),
     );
   }
 

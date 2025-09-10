@@ -14,7 +14,7 @@ class JobsBasedOnProfile extends StatelessWidget {
     final jobs = [
       JobCard(
         title: "Software Developer",
-        company: "Kotak Life",
+        company: "Microsoft",
         image: "https://img.icons8.com/color/96/000000/microsoft.png",
         location: "Bengaluru",
         posted: "4d ago",
