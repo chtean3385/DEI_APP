@@ -11,6 +11,7 @@ class ResumeBoostCard extends StatelessWidget {
   final double? recruiterPercentage;
   final int currentPage;
   final int totalPages;
+  final VoidCallback? onButtonTap;
 
   const ResumeBoostCard({
     super.key,
@@ -20,6 +21,7 @@ class ResumeBoostCard extends StatelessWidget {
     this.recruiterPercentage,
     required this.currentPage,
     required this.totalPages,
+    this.onButtonTap,
   });
 
   @override
@@ -63,6 +65,7 @@ class ResumeBoostCard extends StatelessWidget {
                 width32(),
                 CustomThemeButton(
                   radius: 30,
+                  onTap: onButtonTap,
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                   child: Text(
                     buttonTitle,

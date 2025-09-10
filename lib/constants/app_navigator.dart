@@ -9,6 +9,7 @@ import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
 import '../ui/pages/main/bottom_bar.dart';
+import '../ui/pages/profile/upload_profile_pic.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
 import '../ui/pages/search/job_search_screen.dart';
 
@@ -125,6 +126,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => RecommendedJobsScreen(initialCategoryId: initialCategoryId)),
+    );
+  }
+  static loadUploadProfilePicScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) =>UploadProfilePic() ),
     );
   }
 }
