@@ -1,4 +1,5 @@
 import 'package:dei_champions/ui/pages/auth/signup/signup_screen.dart';
+import 'package:dei_champions/ui/pages/home/components/top_companies/top_companies_list_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
@@ -103,6 +104,11 @@ class AppNavigator {
       MaterialPageRoute(builder: (_) => JobSearchScreen()),
     );
   }
-
+  static loadTopCompaniesListScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => TopCompanyListScreen()),
+    );
+  }
 
 }

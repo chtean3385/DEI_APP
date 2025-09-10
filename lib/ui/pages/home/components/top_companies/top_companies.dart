@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/ui/pages/home/components/top_companies/top_company_card.dart';
 import 'package:flutter/material.dart';
 
@@ -64,7 +65,9 @@ class TopCompaniesSection extends StatelessWidget {
                 children: [
                   Text('Top companies', style: theme.titleMedium),
                   const Spacer(),
-                  ViewAllButton(),
+                  ViewAllButton(
+                    onPressed: AppNavigator.loadTopCompaniesListScreen,
+                  ),
                 ],
               ),
             ),
