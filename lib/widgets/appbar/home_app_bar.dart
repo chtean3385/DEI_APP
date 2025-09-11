@@ -1,9 +1,10 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../form/home_search.dart';
 
-AppBar appBarHome(BuildContext context, {bool isFromHome = false}) {
+AppBar appBarHome(BuildContext context, {bool isFromHome = false,String title = ""}) {
   return AppBar(
     elevation: 0,
     backgroundColor: isFromHome ? AppColors.bg : null,
@@ -15,7 +16,7 @@ AppBar appBarHome(BuildContext context, {bool isFromHome = false}) {
         },
       ),
     ),
-    title: isFromHome ? HomeSearch() : null,
+    title: isFromHome ? HomeSearch() : title.isNotEmpty ? Text(title,style: context.textTheme.headlineMedium) :null,
     actions: isFromHome
         ? [
             Padding(

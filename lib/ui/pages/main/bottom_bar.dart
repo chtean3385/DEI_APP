@@ -38,7 +38,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget _buildMobileLayout() {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBarHome(context,isFromHome: _currentIndex == 0),
+      appBar: appBarHome(context,isFromHome: _currentIndex == 0,title: _currentIndex == 2 ?"NVites" : "" ),
       drawer: CustomDrawer(),
       body: _buildScreen(_currentIndex),
       bottomNavigationBar: SafeArea(
