@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -118,7 +119,9 @@ class InvitesJobList extends StatelessWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        return InvitesJobCard(job: jobs[index]);
+        return InvitesJobCard(job: jobs[index],
+          onTap: ()=>AppNavigator.loadJobInviteDetailsScreen(jobs[index]),
+        );
       },
       separatorBuilder: (context, index) => gapH16(),
     );
