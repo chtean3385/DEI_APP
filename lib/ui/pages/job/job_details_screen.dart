@@ -8,6 +8,7 @@ import '../../../widgets/others/custom_theme_button.dart';
 import '../home/components/recommended_jobs/components/custom_tab_bar.dart';
 import 'components/job_detail_header.dart';
 import 'components/job_details_view.dart';
+import 'components/save_share_bottom_sheet.dart';
 
 class JobDetailsScreen extends StatefulWidget {
   final int initialCategoryId;
@@ -128,7 +129,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       ),
                       IconButton(
                         icon: Icon(Icons.more_vert, color: Colors.grey[600]),
-                        onPressed: () {},
+                        onPressed: () => showJobOptionsSheet(context),
                       ),
                     ],
                     centerTitle: true,
