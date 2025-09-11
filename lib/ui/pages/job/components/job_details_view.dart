@@ -13,6 +13,7 @@ class JobDetailsView extends StatelessWidget {
   final ScrollController scrollController;
   final GlobalKey jobDetailsKey;
   final GlobalKey aboutCompanyKey;
+  final GlobalKey similarJobsKey;
   final JobModel jobModel;
 
   const JobDetailsView({
@@ -20,6 +21,7 @@ class JobDetailsView extends StatelessWidget {
     required this.scrollController,
     required this.jobDetailsKey,
     required this.aboutCompanyKey,
+    required this.similarJobsKey,
     required this.jobModel,
   });
 
@@ -155,7 +157,7 @@ class JobDetailsView extends StatelessWidget {
         children: [
           _buildJobDetailsTab(context),
           _buildAboutCompanyTab(),
-          Text('Similar jobs', style: context.textTheme.titleMedium),
+          Text(key: similarJobsKey,'Similar jobs', style: context.textTheme.titleMedium),
           gapH16(),
           SimilarJobsListView(jobs: jobs),
         ],

@@ -27,6 +27,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _jobDetailsKey = GlobalKey();
   final GlobalKey _aboutCompanyKey = GlobalKey();
+  final GlobalKey _similarJobsKey = GlobalKey();
   bool _showApplyButton = true;
 
   void _scrollToSection(GlobalKey key) {
@@ -104,23 +105,26 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     ),
 
                     actions: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.work_outline,
-                            color: AppColors.primaryColor,
-                            size: 20,
-                          ),
-                          SizedBox(width: 8),
-                          Text(
-                            'Similar jobs',
-                            style: context.textTheme.bodyMedium?.copyWith(
+                      GestureDetector(
+                        onTap: ()=> _scrollToSection(_similarJobsKey),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              Icons.work_outline,
                               color: AppColors.primaryColor,
+                              size: 20,
                             ),
-                          ),
-                        ],
+                            SizedBox(width: 8),
+                            Text(
+                              'Similar jobs',
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                       IconButton(
                         icon: Icon(Icons.more_vert, color: Colors.grey[600]),
@@ -179,6 +183,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         // We're using CustomScrollView now
                         jobDetailsKey: _jobDetailsKey,
                         aboutCompanyKey: _aboutCompanyKey,
+                        similarJobsKey:_similarJobsKey,
                         jobModel: widget.jobModel,
                       ),
                     ),
