@@ -5,6 +5,7 @@ import '../../../constants/app_colors.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
 import '../apply/apply_empty.dart';
 import '../home/home_screen.dart';
+import '../invites/invites_screen.dart';
 import 'components/drawer/custom_drawer.dart';
 
 class BottomBar extends StatefulWidget {
@@ -115,7 +116,7 @@ class _BottomBarState extends State<BottomBar> {
       case 1:
         return const ApplyEmptyScreen();
       case 2:
-        return const SizedBox();
+        return const InvitesScreen();
       case 3:
         return const SizedBox();
       case 4:

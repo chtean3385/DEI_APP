@@ -14,6 +14,9 @@ class JobModel {
   final bool hasVerifiedBenefits;
   final bool hasSalaryInsights;
   final bool hasAwards;
+  final String? reviews;
+  final String? postedDate;
+  final bool? isWalkIn;
 
   JobModel({
     required this.title,
@@ -31,5 +34,8 @@ class JobModel {
     required this.hasVerifiedBenefits,
     required this.hasSalaryInsights,
      this.rating,
+     this.reviews,
+     this.postedDate,
+     this.isWalkIn,
   });
 }

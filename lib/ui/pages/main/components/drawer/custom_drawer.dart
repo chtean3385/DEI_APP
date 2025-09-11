@@ -33,7 +33,7 @@ class CustomDrawer extends StatelessWidget {
                         strokeWidth: 5,
                         backgroundColor: Colors.grey[200],
                         valueColor:
-                        const AlwaysStoppedAnimation(Colors.orange),
+                        const AlwaysStoppedAnimation(AppColors.primaryColor),
                       ),
                     ),
                     const CircleAvatar(
@@ -120,8 +120,8 @@ class CustomDrawer extends StatelessWidget {
             Text(
               "($badge)",
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: badge == "New" ? Colors.red : Colors.blueGrey,
-                fontSize: 13,
+                color: badge == "New" ? AppColors.primaryColor : Colors.blueGrey,
+                fontSize: 13,fontWeight: FontWeight.w600
               ),
             ),
           ],
