@@ -8,6 +8,7 @@ class JobModel {
   final String vacancies;
   final String postedTime;
   final String logoUrl;
+  final double? rating;
 
   JobModel({
     required this.title,
@@ -19,5 +20,6 @@ class JobModel {
     required this.vacancies,
     required this.postedTime,
     required this.logoUrl,
+     this.rating,
   });
 }

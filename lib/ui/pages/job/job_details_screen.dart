@@ -39,17 +39,20 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       );
     }
   }
+
   @override
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
   }
+
   @override
   void dispose() {
     _scrollController.removeListener(_scrollListener);
     _scrollController.dispose();
     super.dispose();
   }
+
   void _scrollListener() {
     final aboutCompanyContext = _aboutCompanyKey.currentContext;
     if (aboutCompanyContext != null) {
@@ -104,12 +107,18 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
-                        children:  [
-                          Icon(Icons.work_outline, color:  AppColors.primaryColor, size: 20),
+                        children: [
+                          Icon(
+                            Icons.work_outline,
+                            color: AppColors.primaryColor,
+                            size: 20,
+                          ),
                           SizedBox(width: 8),
                           Text(
-                              'Similar jobs',
-                              style: context.textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor)
+                            'Similar jobs',
+                            style: context.textTheme.bodyMedium?.copyWith(
+                              color: AppColors.primaryColor,
+                            ),
                           ),
                         ],
                       ),
@@ -166,7 +175,8 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: JobDetailsView(
-                        scrollController: _scrollController, // We're using CustomScrollView now
+                        scrollController: _scrollController,
+                        // We're using CustomScrollView now
                         jobDetailsKey: _jobDetailsKey,
                         aboutCompanyKey: _aboutCompanyKey,
                         jobModel: widget.jobModel,
@@ -239,7 +249,11 @@ class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 70; // Height when expanded
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     return child;
   }
 

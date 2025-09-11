@@ -2,6 +2,7 @@ import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_navigator.dart';
+import '../../../../../models/job/job_model.dart';
 import '../../../../../widgets/others/view_all_button.dart';
 import '../jobs_you_might_like/jobs_card.dart';
 
@@ -12,47 +13,68 @@ class JobsYouMightLike extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final jobs = [
-      JobCard(
-        title: "Software Engineer",
-        company: "Wipro",
-        image:
-            "https://assets.streamlinehq.com/.../wipro-h69to9ubxsai6gq72cym27.png",
-        location: "Bengaluru",
-        posted: "1d ago",
-        rating: 4.0,
-      ),
-      JobCard(
-        title: "Backend Engineer",
-        company: "Amazon",
-        image: "https://img.icons8.com/color/96/000000/amazon.png",
-        location: "Hyderabad",
-        posted: "1d ago",
-        rating: 4.5,
-      ),
-      JobCard(
-        title: "Cloud Specialist",
-        company: "IBM",
-        image: "https://img.icons8.com/color/96/000000/ibm.png",
-        location: "Pune",
-        posted: "3d ago",
-        rating: 4.0,
-      ),
-      JobCard(
+
+    final List<JobModel> jobs = [
+      JobModel(
         title: "UI/UX Designer",
-        company: "Meta",
-        image: "https://img.icons8.com/color/96/000000/meta.png",
+        companyName: "Meta",
         location: "Remote",
-        posted: "5d ago",
+        experience: "1-4 yrs",
+        salary: "3 - 6 Lacs PA",
+        skills: ["UI Design", "UX Design", "Figma", "Adobe XD"],
+        vacancies: "2 vacancies",
+        postedTime: "5d ago",
+        logoUrl: "https://img.icons8.com/color/96/000000/meta.png",
         rating: 3.8,
       ),
-      JobCard(
+      JobModel(
         title: "Outbound Calling (WFH)",
-        company: "NoBroker.com",
-        image: "https://img.icons8.com/color/96/000000/google-logo.png",
+        companyName: "NoBroker.com",
         location: "Remote",
-        posted: "2d ago",
+        experience: "0-2 yrs",
+        salary: "1.5 - 3 Lacs PA",
+        skills: ["Communication", "Sales", "Customer Service", "Telecalling"],
+        vacancies: "10 vacancies",
+        postedTime: "2d ago",
+        logoUrl: "https://img.icons8.com/color/96/000000/google-logo.png",
         rating: 3.1,
+      ),
+      JobModel(
+        title: "Software Engineer",
+        companyName: "Wipro",
+        location: "Bengaluru",
+        experience: "1-3 yrs",
+        salary: "3 - 5 Lacs PA",
+        skills: ["Software Engineering", "Programming", "Development"],
+        vacancies: "Multiple",
+        postedTime: "1d ago",
+        logoUrl:
+            "https://assets.streamlinehq.com/.../wipro-h69to9ubxsai6gq72cym27.png",
+        rating: 4.0, // Add this field to JobModel if needed
+      ),
+      JobModel(
+        title: "Backend Engineer",
+        companyName: "Amazon",
+        location: "Hyderabad",
+        experience: "2-4 yrs",
+        salary: "4 - 7 Lacs PA",
+        skills: ["Backend Development", "API", "Microservices", "Database"],
+        vacancies: "5 vacancies",
+        postedTime: "1d ago",
+        logoUrl: "https://img.icons8.com/color/96/000000/amazon.png",
+        rating: 4.5,
+      ),
+      JobModel(
+        title: "Cloud Specialist",
+        companyName: "IBM",
+        location: "Pune",
+        experience: "2-5 yrs",
+        salary: "5 - 8 Lacs PA",
+        skills: ["Cloud Computing", "AWS", "Azure", "DevOps"],
+        vacancies: "3 vacancies",
+        postedTime: "3d ago",
+        logoUrl: "https://img.icons8.com/color/96/000000/ibm.png",
+        rating: 4.0,
       ),
     ];
 
@@ -76,8 +98,9 @@ class JobsYouMightLike extends StatelessWidget {
                   ),
                   const Spacer(),
                   ViewAllButton(
-                    onPressed: () =>
-                        AppNavigator.loadRecommendedJobsScreen(initialCategoryId: 3),
+                    onPressed: () => AppNavigator.loadRecommendedJobsScreen(
+                      initialCategoryId: 3,
+                    ),
                   ),
                 ],
               ),
@@ -93,7 +116,11 @@ class JobsYouMightLike extends StatelessWidget {
                 itemCount: jobs.length + 1, // add extra card for "View all"
                 itemBuilder: (context, index) {
                   if (index < jobs.length) {
-                    return jobs[index];
+                    return JobCard(
+                      jobModel: jobs[index],
+                      onTap: () =>
+                          AppNavigator.loadJobDetailsScreen(jobs[index]),
+                    );
                   } else {
                     // special "View all jobs" card
                     return SizedBox(
