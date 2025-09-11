@@ -11,8 +11,8 @@ import 'components/job_details_view.dart';
 import 'components/save_share_bottom_sheet.dart';
 
 class JobDetailsScreen extends StatefulWidget {
-  final int initialCategoryId;
   final JobModel jobModel;
+  final int initialCategoryId;
 
   const JobDetailsScreen({
     super.key,
@@ -28,6 +28,11 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _jobDetailsKey = GlobalKey();
   final GlobalKey _aboutCompanyKey = GlobalKey();
+  final _awardsKey = GlobalKey();
+  final _verifiedBenefitsKey = GlobalKey();
+  final _reviewsKey = GlobalKey();
+  final _benefitsKey = GlobalKey();
+  final _salaryInsightsKey = GlobalKey();
   final GlobalKey _similarJobsKey = GlobalKey();
   bool _showApplyButton = true;
 
@@ -56,7 +61,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   }
 
   void _scrollListener() {
-    final aboutCompanyContext = _aboutCompanyKey.currentContext;
+    final aboutCompanyContext = _similarJobsKey.currentContext;
     if (aboutCompanyContext != null) {
       final renderBox = aboutCompanyContext.findRenderObject() as RenderBox?;
       if (renderBox != null) {
@@ -77,9 +82,19 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final categories = const [
+    final categories = [
       {"id": 1, "title": 'Job Details'},
       {"id": 2, "title": 'About Company'},
+      {"id": 3, "title": 'Awards'},
+      {"id": 4, "title": 'Verified benefits'},
+      {"id": 5, "title": 'Reviews'},
+       {"id": 6, "title": 'Benefits'},
+      {"id": 7, "title": 'Salary '},
+      // if (widget.jobModel.hasAwards) {"id": 3, "title": 'Awards'},
+      // if (widget.jobModel.hasVerifiedBenefits) {"id": 4, "title": 'Verified benefits'},
+      // if (widget.jobModel.hasReviews) {"id": 5, "title": 'Reviews'},
+      // if (widget.jobModel.hasBenefits) {"id": 6, "title": 'Benefits'},
+      // if (widget.jobModel.hasVerifiedBenefits) {"id": 7, "title": 'Salary '},
     ];
 
     return Scaffold(
@@ -107,7 +122,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
                     actions: [
                       GestureDetector(
-                        onTap: ()=> _scrollToSection(_similarJobsKey),
+                        onTap: () => _scrollToSection(_similarJobsKey),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
@@ -166,6 +181,21 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                 } else if (item['id'] == 2) {
                                   _scrollToSection(_aboutCompanyKey);
                                 }
+                                else if (item['id'] == 3) {
+                                  _scrollToSection(_awardsKey);
+                                }
+                                else if (item['id'] == 4) {
+                                  _scrollToSection(_verifiedBenefitsKey);
+                                }
+                                else if (item['id'] == 5) {
+                                  _scrollToSection(_reviewsKey);
+                                }
+                                else if (item['id'] == 6) {
+                                  _scrollToSection(_benefitsKey);
+                                }
+                                else if (item['id'] == 7) {
+                                  _scrollToSection(_salaryInsightsKey);
+                                }
                               },
                             ),
                             gapH16(),
@@ -184,7 +214,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         // We're using CustomScrollView now
                         jobDetailsKey: _jobDetailsKey,
                         aboutCompanyKey: _aboutCompanyKey,
-                        similarJobsKey:_similarJobsKey,
+                        similarJobsKey: _similarJobsKey,
+                        awardsKey: _awardsKey,
+                        benefitsKey:_benefitsKey ,
+                        reviewsKey:_reviewsKey,
+                        salaryInsightsKey: _salaryInsightsKey,
+                        verifiedBenefitsKey: _verifiedBenefitsKey,
                         jobModel: widget.jobModel,
                       ),
                     ),

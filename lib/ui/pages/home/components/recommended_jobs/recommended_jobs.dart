@@ -35,8 +35,13 @@ class RecommendedJobsScreen extends StatelessWidget {
       skills: ["Telugu", "Malayalam", "Voice Process", "Voice", "Process"],
       vacancies: "10 vacancies",
       postedTime: "5d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/briefcase.png", // Brillio placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/briefcase.png",
+      rating: 3.5,
+      hasAwards: true,
+      hasReviews: false,
+      hasBenefits: true,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
     ),
     JobModel(
       title: "WFH - Data Entry",
@@ -47,8 +52,13 @@ class RecommendedJobsScreen extends StatelessWidget {
       skills: ["Typing", "Back office", "Computer Operating", "Data Entry"],
       vacancies: "Multiple",
       postedTime: "4d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/shopping-cart.png", // Bigbasket placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/shopping-cart.png",
+      rating: 3.0,
+      hasAwards: false,
+      hasReviews: true,
+      hasBenefits: false,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
     ),
     JobModel(
       title: "Pharmacist",
@@ -59,8 +69,13 @@ class RecommendedJobsScreen extends StatelessWidget {
       skills: ["Pharmacist", "Healthcare", "Medicine"],
       vacancies: "Not specified",
       postedTime: "2d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/hospital-room.png", // Pristyn Care placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/hospital-room.png",
+      rating: 4.1,
+      hasAwards: true,
+      hasReviews: true,
+      hasBenefits: true,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: false,
     ),
     JobModel(
       title: "Flutter Developer",
@@ -71,8 +86,13 @@ class RecommendedJobsScreen extends StatelessWidget {
       skills: ["Flutter", "Dart", "Provider", "Firebase"],
       vacancies: "3 vacancies",
       postedTime: "28d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/google-logo.png", // Tech Mahindra placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/google-logo.png",
+      rating: 4.2,
+      hasAwards: true,
+      hasReviews: true,
+      hasBenefits: true,
+      hasVerifiedBenefits: true,
+      hasSalaryInsights: false,
     ),
     JobModel(
       title: "Java Backend Developer",
@@ -84,6 +104,12 @@ class RecommendedJobsScreen extends StatelessWidget {
       vacancies: "5 vacancies",
       postedTime: "10d ago",
       logoUrl: "https://img.icons8.com/color/96/000000/microsoft.png",
+      rating: 4.0,
+      hasAwards: false,
+      hasReviews: true,
+      hasBenefits: true,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
     ),
     JobModel(
       title: "Software Engineer - Node.js",
@@ -94,8 +120,13 @@ class RecommendedJobsScreen extends StatelessWidget {
       skills: ["Node.js", "Express", "MongoDB", "REST API"],
       vacancies: "2 vacancies",
       postedTime: "7d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/ibm.png", // Tech Mahindra placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/ibm.png",
+      rating: 4.3,
+      hasAwards: true,
+      hasReviews: true,
+      hasBenefits: false,
+      hasVerifiedBenefits: true,
+      hasSalaryInsights: true,
     ),
     JobModel(
       title: "React Native Developer",
@@ -106,8 +137,13 @@ class RecommendedJobsScreen extends StatelessWidget {
       skills: ["React Native", "JavaScript", "Redux", "API Integration"],
       vacancies: "4 vacancies",
       postedTime: "3d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/briefcase.png", // Brillio placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/briefcase.png",
+      rating: 3.9,
+      hasAwards: false,
+      hasReviews: false,
+      hasBenefits: true,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
     ),
     JobModel(
       title: "Customer Support Executive",
@@ -118,8 +154,13 @@ class RecommendedJobsScreen extends StatelessWidget {
       skills: ["English", "Customer Service", "Communication"],
       vacancies: "15 vacancies",
       postedTime: "1d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/shopping-cart.png", // Bigbasket placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/shopping-cart.png",
+      rating: 3.6,
+      hasAwards: false,
+      hasReviews: true,
+      hasBenefits: false,
+      hasVerifiedBenefits: true,
+      hasSalaryInsights: false,
     ),
     JobModel(
       title: "Data Analyst",
@@ -130,8 +171,13 @@ class RecommendedJobsScreen extends StatelessWidget {
       skills: ["SQL", "Excel", "Python", "PowerBI"],
       vacancies: "2 vacancies",
       postedTime: "6d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/amazon.png", // Tech Mahindra placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/amazon.png",
+      rating: 4.4,
+      hasAwards: true,
+      hasReviews: false,
+      hasBenefits: true,
+      hasVerifiedBenefits: true,
+      hasSalaryInsights: true,
     ),
     JobModel(
       title: "Android Developer",
@@ -142,10 +188,17 @@ class RecommendedJobsScreen extends StatelessWidget {
       skills: ["Java", "Kotlin", "Android Studio", "Firebase"],
       vacancies: "3 vacancies",
       postedTime: "8d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/meta.png", // Tech Mahindra logo
+      logoUrl: "https://img.icons8.com/color/96/000000/meta.png",
+      rating: 4.1,
+      hasAwards: false,
+      hasReviews: true,
+      hasBenefits: true,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
     ),
   ];
+
+
 
   @override
   Widget build(BuildContext context) {

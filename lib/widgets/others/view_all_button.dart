@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 class ViewAllButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String text;
+  final bool isSmall;
 
   const ViewAllButton({
     super.key,
      this.onPressed,
     this.text = "View all",
+    this.isSmall = false,
   });
 
   @override
@@ -23,7 +25,9 @@ class ViewAllButton extends StatelessWidget {
       ),
       child: Text(
         text,
-        style: theme.bodySmall?.copyWith(
+        style: isSmall ?  theme.displaySmall?.copyWith(
+            color: AppColors.primaryColor,fontWeight: FontWeight.w600
+        ) : theme.bodySmall?.copyWith(
           color: AppColors.primaryColor,fontWeight: FontWeight.w600
         ),
       ),

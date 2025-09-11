@@ -26,6 +26,11 @@ class JobsYouMightLike extends StatelessWidget {
         postedTime: "5d ago",
         logoUrl: "https://img.icons8.com/color/96/000000/meta.png",
         rating: 3.8,
+        hasAwards: true,
+        hasReviews: false,
+        hasBenefits: true,
+        hasVerifiedBenefits: false,
+        hasSalaryInsights: true,
       ),
       JobModel(
         title: "Outbound Calling (WFH)",
@@ -38,6 +43,11 @@ class JobsYouMightLike extends StatelessWidget {
         postedTime: "2d ago",
         logoUrl: "https://img.icons8.com/color/96/000000/google-logo.png",
         rating: 3.1,
+        hasAwards: false,
+        hasReviews: true,
+        hasBenefits: false,
+        hasVerifiedBenefits: false,
+        hasSalaryInsights: true,
       ),
       JobModel(
         title: "Software Engineer",
@@ -49,8 +59,13 @@ class JobsYouMightLike extends StatelessWidget {
         vacancies: "Multiple",
         postedTime: "1d ago",
         logoUrl:
-            "https://assets.streamlinehq.com/.../wipro-h69to9ubxsai6gq72cym27.png",
-        rating: 4.0, // Add this field to JobModel if needed
+        "https://assets.streamlinehq.com/.../wipro-h69to9ubxsai6gq72cym27.png",
+        rating: 4.0,
+        hasAwards: true,
+        hasReviews: true,
+        hasBenefits: true,
+        hasVerifiedBenefits: true,
+        hasSalaryInsights: false,
       ),
       JobModel(
         title: "Backend Engineer",
@@ -63,6 +78,11 @@ class JobsYouMightLike extends StatelessWidget {
         postedTime: "1d ago",
         logoUrl: "https://img.icons8.com/color/96/000000/amazon.png",
         rating: 4.5,
+        hasAwards: false,
+        hasReviews: true,
+        hasBenefits: true,
+        hasVerifiedBenefits: true,
+        hasSalaryInsights: true,
       ),
       JobModel(
         title: "Cloud Specialist",
@@ -75,8 +95,14 @@ class JobsYouMightLike extends StatelessWidget {
         postedTime: "3d ago",
         logoUrl: "https://img.icons8.com/color/96/000000/ibm.png",
         rating: 4.0,
+        hasAwards: true,
+        hasReviews: false,
+        hasBenefits: false,
+        hasVerifiedBenefits: true,
+        hasSalaryInsights: true,
       ),
     ];
+
 
     return ColoredBox(
       color: Colors.white,

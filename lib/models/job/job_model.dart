@@ -9,6 +9,11 @@ class JobModel {
   final String postedTime;
   final String logoUrl;
   final double? rating;
+  final bool hasReviews;
+  final bool hasBenefits;
+  final bool hasVerifiedBenefits;
+  final bool hasSalaryInsights;
+  final bool hasAwards;
 
   JobModel({
     required this.title,
@@ -20,6 +25,11 @@ class JobModel {
     required this.vacancies,
     required this.postedTime,
     required this.logoUrl,
+    required this.hasAwards,
+    required this.hasReviews,
+    required this.hasBenefits,
+    required this.hasVerifiedBenefits,
+    required this.hasSalaryInsights,
      this.rating,
   });
 }

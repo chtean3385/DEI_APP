@@ -1,6 +1,9 @@
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/main.dart';
+import 'package:dei_champions/ui/pages/job/components/review_section.dart';
+import 'package:dei_champions/ui/pages/job/components/salaries.dart';
 import 'package:dei_champions/ui/pages/job/components/similar_jobs.dart';
+import 'package:dei_champions/ui/pages/job/components/verified_benefits.dart';
 import 'package:dei_champions/widgets/others/custom_decorated_box.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -8,12 +11,19 @@ import 'package:flutter/material.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../models/job/job_model.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
+import 'awards_timeline.dart';
+import 'benefits.dart';
 
 class JobDetailsView extends StatelessWidget {
   final ScrollController scrollController;
   final GlobalKey jobDetailsKey;
   final GlobalKey aboutCompanyKey;
   final GlobalKey similarJobsKey;
+  final GlobalKey awardsKey;
+  final GlobalKey verifiedBenefitsKey;
+  final GlobalKey reviewsKey;
+  final GlobalKey benefitsKey;
+  final GlobalKey salaryInsightsKey;
   final JobModel jobModel;
 
   const JobDetailsView({
@@ -22,6 +32,11 @@ class JobDetailsView extends StatelessWidget {
     required this.jobDetailsKey,
     required this.aboutCompanyKey,
     required this.similarJobsKey,
+    required this.awardsKey,
+    required this.verifiedBenefitsKey,
+    required this.reviewsKey,
+    required this.benefitsKey,
+    required this.salaryInsightsKey,
     required this.jobModel,
   });
 
@@ -35,8 +50,13 @@ class JobDetailsView extends StatelessWidget {
       skills: ["Telugu", "Malayalam", "Voice Process", "Voice", "Process"],
       vacancies: "10 vacancies",
       postedTime: "5d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/briefcase.png", // Brillio placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/briefcase.png",
+      hasAwards: true,
+      hasReviews: false,
+      hasBenefits: true,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
+      rating: 4.2,
     ),
     JobModel(
       title: "WFH - Data Entry",
@@ -47,8 +67,13 @@ class JobDetailsView extends StatelessWidget {
       skills: ["Typing", "Back office", "Computer Operating", "Data Entry"],
       vacancies: "Multiple",
       postedTime: "4d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/shopping-cart.png", // Bigbasket placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/shopping-cart.png",
+      hasAwards: false,
+      hasReviews: true,
+      hasBenefits: false,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
+      rating: 3.8,
     ),
     JobModel(
       title: "Pharmacist",
@@ -59,8 +84,13 @@ class JobDetailsView extends StatelessWidget {
       skills: ["Pharmacist", "Healthcare", "Medicine"],
       vacancies: "Not specified",
       postedTime: "2d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/hospital-room.png", // Pristyn Care placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/hospital-room.png",
+      hasAwards: true,
+      hasReviews: true,
+      hasBenefits: false,
+      hasVerifiedBenefits: true,
+      hasSalaryInsights: false,
+      rating: 4.5,
     ),
     JobModel(
       title: "Flutter Developer",
@@ -71,8 +101,13 @@ class JobDetailsView extends StatelessWidget {
       skills: ["Flutter", "Dart", "Provider", "Firebase"],
       vacancies: "3 vacancies",
       postedTime: "28d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/google-logo.png", // Tech Mahindra placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/google-logo.png",
+      hasAwards: false,
+      hasReviews: true,
+      hasBenefits: true,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
+      rating: 4.0,
     ),
     JobModel(
       title: "Java Backend Developer",
@@ -84,6 +119,12 @@ class JobDetailsView extends StatelessWidget {
       vacancies: "5 vacancies",
       postedTime: "10d ago",
       logoUrl: "https://img.icons8.com/color/96/000000/microsoft.png",
+      hasAwards: true,
+      hasReviews: false,
+      hasBenefits: true,
+      hasVerifiedBenefits: true,
+      hasSalaryInsights: false,
+      rating: 4.3,
     ),
     JobModel(
       title: "Software Engineer - Node.js",
@@ -94,8 +135,13 @@ class JobDetailsView extends StatelessWidget {
       skills: ["Node.js", "Express", "MongoDB", "REST API"],
       vacancies: "2 vacancies",
       postedTime: "7d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/ibm.png", // Tech Mahindra placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/ibm.png",
+      hasAwards: false,
+      hasReviews: true,
+      hasBenefits: true,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
+      rating: 3.9,
     ),
     JobModel(
       title: "React Native Developer",
@@ -106,8 +152,13 @@ class JobDetailsView extends StatelessWidget {
       skills: ["React Native", "JavaScript", "Redux", "API Integration"],
       vacancies: "4 vacancies",
       postedTime: "3d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/briefcase.png", // Brillio placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/briefcase.png",
+      hasAwards: true,
+      hasReviews: true,
+      hasBenefits: false,
+      hasVerifiedBenefits: true,
+      hasSalaryInsights: false,
+      rating: 4.4,
     ),
     JobModel(
       title: "Customer Support Executive",
@@ -118,8 +169,13 @@ class JobDetailsView extends StatelessWidget {
       skills: ["English", "Customer Service", "Communication"],
       vacancies: "15 vacancies",
       postedTime: "1d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/shopping-cart.png", // Bigbasket placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/shopping-cart.png",
+      hasAwards: false,
+      hasReviews: true,
+      hasBenefits: true,
+      hasVerifiedBenefits: false,
+      hasSalaryInsights: true,
+      rating: 3.7,
     ),
     JobModel(
       title: "Data Analyst",
@@ -130,8 +186,13 @@ class JobDetailsView extends StatelessWidget {
       skills: ["SQL", "Excel", "Python", "PowerBI"],
       vacancies: "2 vacancies",
       postedTime: "6d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/amazon.png", // Tech Mahindra placeholder
+      logoUrl: "https://img.icons8.com/color/96/000000/amazon.png",
+      hasAwards: true,
+      hasReviews: false,
+      hasBenefits: true,
+      hasVerifiedBenefits: true,
+      hasSalaryInsights: true,
+      rating: 4.1,
     ),
     JobModel(
       title: "Android Developer",
@@ -142,11 +203,15 @@ class JobDetailsView extends StatelessWidget {
       skills: ["Java", "Kotlin", "Android Studio", "Firebase"],
       vacancies: "3 vacancies",
       postedTime: "8d ago",
-      logoUrl:
-          "https://img.icons8.com/color/96/000000/meta.png", // Tech Mahindra logo
+      logoUrl: "https://img.icons8.com/color/96/000000/meta.png",
+      hasAwards: false,
+      hasReviews: true,
+      hasBenefits: false,
+      hasVerifiedBenefits: true,
+      hasSalaryInsights: true,
+      rating: 3.6,
     ),
   ];
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -157,7 +222,49 @@ class JobDetailsView extends StatelessWidget {
         children: [
           _buildJobDetailsTab(context),
           _buildAboutCompanyTab(),
-          Text(key: similarJobsKey,'Similar jobs', style: context.textTheme.titleMedium),
+          gapH16(),
+          AwardsTimeline(key: awardsKey,),
+          SizedBox(height: 18),
+          VerifiedBenefits(key:verifiedBenefitsKey ,),
+          SizedBox(height: 18),
+         ReviewsCarousel(key: reviewsKey,),
+         SizedBox(height: 18),
+           BenefitsGrid(key: benefitsKey,),
+          SizedBox(height: 18),
+         SalaryInsightsCard(key: salaryInsightsKey,),
+          SizedBox(height: 18),
+          // if (jobModel.hasAwards) AwardsTimeline(),
+          // if (jobModel.hasAwards) SizedBox(height: 18),
+          // if (jobModel.hasVerifiedBenefits) VerifiedBenefits(),
+          // if (jobModel.hasVerifiedBenefits) SizedBox(height: 18),
+          // if (jobModel.hasReviews) ReviewsCarousel(),
+          // if (jobModel.hasReviews) SizedBox(height: 18),
+          // if (jobModel.hasBenefits) BenefitsGrid(),
+          // if (jobModel.hasBenefits) SizedBox(height: 18),
+          // if (jobModel.hasSalaryInsights) SalaryInsightsCard(),
+          // if (jobModel.hasSalaryInsights) SizedBox(height: 18),
+          Center(
+            child: TextButton(
+              onPressed: () {},
+              child: Text(
+                'Send me jobs like this',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+          ),
+          gapH16(),
+          _applyNow(),
+          gapH32(),
+
+          Text(
+            key: similarJobsKey,
+            'Similar jobs',
+            style: context.textTheme.titleMedium,
+          ),
           gapH16(),
           SimilarJobsListView(jobs: jobs),
         ],
@@ -216,22 +323,7 @@ class JobDetailsView extends StatelessWidget {
             ],
           ),
         ),
-        Center(
-          child: TextButton(
-            onPressed: () {},
-            child: Text(
-              'Send me jobs like this',
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ),
-        gapH16(),
-        _applyNow(),
-        gapH32(),
+
       ],
     );
   }
@@ -275,7 +367,6 @@ class JobDetailsView extends StatelessWidget {
       ),
     );
   }
-
 
   Widget _detailsCard1(BuildContext context) {
     final theme = Theme.of(context).textTheme;
@@ -461,3 +552,8 @@ class JobDetailsView extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
