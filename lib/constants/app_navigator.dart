@@ -2,12 +2,14 @@ import 'package:dei_champions/ui/pages/auth/signup/signup_screen.dart';
 import 'package:dei_champions/ui/pages/home/components/top_companies/top_companies_list_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
+import '../models/job/job_model.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
 import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
+import '../ui/pages/job/job_details_screen.dart';
 import '../ui/pages/main/bottom_bar.dart';
 import '../ui/pages/profile/upload_profile_pic.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
@@ -132,6 +134,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) =>UploadProfilePic() ),
+    );
+  }
+  static loadJobDetailsScreen(JobModel jobModel) {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) =>JobDetailsScreen(jobModel: jobModel) ),
     );
   }
 }

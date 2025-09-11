@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/ui/pages/home/components/recommended_jobs/components/recommended_jobs_card.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class RecommendedJobsListView extends StatelessWidget {
       itemCount: jobs.length,
       padding: const EdgeInsets.symmetric(horizontal: 12),
       itemBuilder: (context, index) {
-        return RecommendedJobCard(jobModel: jobs[index]);
+        return RecommendedJobCard(jobModel: jobs[index],onTap:()=> AppNavigator.loadJobDetailsScreen(jobs[index]));
       },
     );
   }

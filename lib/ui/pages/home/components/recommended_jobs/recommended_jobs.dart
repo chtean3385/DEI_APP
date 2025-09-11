@@ -1,10 +1,8 @@
 import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../constants/app_colors.dart';
 import '../../../../../constants/app_styles.dart';
 import '../../../../../models/job/job_model.dart';
-import '../../../../../widgets/others/custom_theme_button.dart';
 import 'components/custom_tab_bar.dart';
 import 'components/job_apply_bottom_bar.dart';
 import 'components/recommended_jobs_view.dart';
@@ -191,45 +189,6 @@ class RecommendedJobsScreen extends StatelessWidget {
               onApply: () {},
               selectedCount: 1,
             ),
-            // Container(
-            //   padding: const EdgeInsets.symmetric(
-            //     horizontal: 16.0,
-            //     vertical: 12,
-            //   ),
-            //   decoration: BoxDecoration(
-            //     border: Border(top: BorderSide(color: Colors.grey.shade200)),
-            //   ),
-            //   child: Row(
-            //     children: [
-            //       Expanded(
-            //         child: CustomThemeButton(
-            //           child: Text(
-            //             "Clear selection",
-            //             style: theme.labelMedium?.copyWith(
-            //               color: AppColors.primaryColor,
-            //             ),
-            //           ),
-            //           radius: 30,
-            //           onTap: () => Navigator.pop(context),
-            //           isExpanded: true,
-            //         ),
-            //       ),
-            //       const SizedBox(width: 12),
-            //       Expanded(
-            //         child: CustomThemeButton(
-            //           child: Text(
-            //             "Apply to all",
-            //             style: theme.labelMedium?.copyWith(color: Colors.white),
-            //           ),
-            //           radius: 30,
-            //           onTap: () {},
-            //           isExpanded: true,
-            //           color: AppColors.primaryColor,
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),
