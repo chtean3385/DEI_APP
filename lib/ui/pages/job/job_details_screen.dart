@@ -27,6 +27,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _jobDetailsKey = GlobalKey();
   final GlobalKey _aboutCompanyKey = GlobalKey();
+  bool _showApplyButton = true;
 
   void _scrollToSection(GlobalKey key) {
     final context = key.currentContext;
@@ -36,6 +37,36 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         duration: const Duration(milliseconds: 400),
         curve: Curves.easeInOut,
       );
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_scrollListener);
+  }
+  @override
+  void dispose() {
+    _scrollController.removeListener(_scrollListener);
+    _scrollController.dispose();
+    super.dispose();
+  }
+  void _scrollListener() {
+    final aboutCompanyContext = _aboutCompanyKey.currentContext;
+    if (aboutCompanyContext != null) {
+      final renderBox = aboutCompanyContext.findRenderObject() as RenderBox?;
+      if (renderBox != null) {
+        final position = renderBox.localToGlobal(Offset.zero);
+        final screenHeight = MediaQuery.of(context).size.height;
+
+        // Hide button when About Company section reaches middle of screen
+        bool shouldShowButton = position.dy > screenHeight * 0.9;
+
+        if (shouldShowButton != _showApplyButton) {
+          setState(() {
+            _showApplyButton = shouldShowButton;
+          });
+        }
+      }
     }
   }
 
@@ -144,27 +175,35 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                   ),
 
                   // Bottom padding for apply button
-                  const SliverToBoxAdapter(
-                    child: SizedBox(height: 80), // Space for apply button
+                  SliverToBoxAdapter(
+                    child: SizedBox(height: _showApplyButton ? 80 : 20),
                   ),
                 ],
               ),
             ),
 
             // Fixed Apply Button at bottom
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, -2),
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              height: _showApplyButton ? 80 : 0,
+              child: AnimatedOpacity(
+                duration: const Duration(milliseconds: 300),
+                opacity: _showApplyButton ? 1.0 : 0.0,
+                child: Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.1),
+                        blurRadius: 8,
+                        offset: const Offset(0, -2),
+                      ),
+                    ],
                   ),
-                ],
+                  child: _applyNow(context),
+                ),
               ),
-              child: _applyNow(context),
             ),
           ],
         ),
