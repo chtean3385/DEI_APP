@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
+import '../apply/applied_jobs_screen.dart';
 import '../apply/apply_empty.dart';
 import '../home/home_screen.dart';
 import '../invites/invites_screen.dart';
@@ -114,7 +115,7 @@ class _BottomBarState extends State<BottomBar> {
       case 0:
         return HomeScreen();
       case 1:
-        return const ApplyEmptyScreen();
+        return const AppliedJobsScreen();
       case 2:
         return const InvitesScreen();
       case 3:
