@@ -84,7 +84,9 @@ class TopCompaniesSection extends StatelessWidget {
                     return _ViewAllCard(onTap: () {});
                   }
                   final company = demoCompanies[index];
-                  return TopCompanyCard(company: company, onTap: () {});
+                  return TopCompanyCard(company: company,
+                      onTap:  AppNavigator.loadCompanyProfileScreen
+                  );
                 },
               ),
             ),
