@@ -113,7 +113,6 @@ class _SkillsDesignationsLocationsState extends State<SkillsDesignationsLocation
     return SafeArea(
       child: CustomThemeButton(
         color: AppColors.primaryColor,
-        height: 56,
         radius: 30,
         isExpanded: false,
         alignRight: true,

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -13,10 +14,12 @@ import 'components/save_share_bottom_sheet.dart';
 class JobDetailsScreen extends StatefulWidget {
   final JobModel jobModel;
   final int initialCategoryId;
+  final bool isFromSearch;
 
   const JobDetailsScreen({
     super.key,
     this.initialCategoryId = 0,
+    this.isFromSearch = false,
     required this.jobModel,
   });
 
@@ -270,7 +273,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         style: theme.labelMedium?.copyWith(color: Colors.white),
       ),
       radius: 30,
-      onTap: () {},
+      onTap: (){
+        if(widget.isFromSearch)AppNavigator.toBottomBar(initialPage: 1,showAppliedList: true);
+      },
       isExpanded: true,
       color: AppColors.primaryColor,
     );

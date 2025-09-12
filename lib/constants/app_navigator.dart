@@ -1,3 +1,4 @@
+import 'package:dei_champions/ui/pages/apply/components/applied_jobs_list_view.dart';
 import 'package:dei_champions/ui/pages/auth/signup/signup_screen.dart';
 import 'package:dei_champions/ui/pages/home/components/top_companies/top_companies_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +13,21 @@ import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
 import '../ui/pages/invites/job_invite_details_screen.dart';
 import '../ui/pages/job/job_details_screen.dart';
 import '../ui/pages/main/bottom_bar.dart';
+import '../ui/pages/main/similar_jobs_list_screen.dart';
 import '../ui/pages/profile/upload_profile_pic.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
 import '../ui/pages/search/job_search_screen.dart';
 
 class AppNavigator {
-  static void toBottomBar() {
+  static void toBottomBar({int initialPage = 0, bool showAppliedList = false}) {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => const BottomBar()),
+      MaterialPageRoute(
+        builder: (_) => BottomBar(
+          initialPage: initialPage,
+          showAppliedList: showAppliedList,
+        ),
+      ),
       (route) => false,
     );
   }
@@ -128,25 +135,43 @@ class AppNavigator {
   static loadRecommendedJobsScreen({int initialCategoryId = 1}) {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => RecommendedJobsScreen(initialCategoryId: initialCategoryId)),
+      MaterialPageRoute(
+        builder: (_) =>
+            RecommendedJobsScreen(initialCategoryId: initialCategoryId),
+      ),
     );
   }
+
   static loadUploadProfilePicScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) =>UploadProfilePic() ),
+      MaterialPageRoute(builder: (_) => UploadProfilePic()),
     );
   }
-  static loadJobDetailsScreen(JobModel jobModel) {
+
+  static loadJobDetailsScreen(JobModel jobModel, {bool isFromSearch = false}) {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) =>JobDetailsScreen(jobModel: jobModel) ),
+      MaterialPageRoute(
+        builder: (_) =>
+            JobDetailsScreen(jobModel: jobModel, isFromSearch: isFromSearch),
+      ),
     );
   }
+
   static loadJobInviteDetailsScreen(JobModel jobModel) {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) =>JobInviteDetailsScreen(jobModel: jobModel) ),
+      MaterialPageRoute(
+        builder: (_) => JobInviteDetailsScreen(jobModel: jobModel),
+      ),
+    );
+  }
+
+  static loadSimilarJobsListScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => SimilarJobsListScreen()),
     );
   }
 }

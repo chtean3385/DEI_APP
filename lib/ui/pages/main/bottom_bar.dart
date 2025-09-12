@@ -3,16 +3,16 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
-import '../apply/applied_jobs_screen.dart';
-import '../apply/apply_empty.dart';
+import '../apply/apply_screen.dart';
 import '../home/home_screen.dart';
 import '../invites/invites_screen.dart';
 import 'components/drawer/custom_drawer.dart';
 
 class BottomBar extends StatefulWidget {
   final int initialPage;
+  final bool showAppliedList;
 
-  const BottomBar({super.key, this.initialPage = 0});
+  const BottomBar({super.key, this.initialPage = 0,this.showAppliedList = false});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -20,15 +20,18 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 0;
+  bool _showAppliedList = false;
 
   @override
   void initState() {
     super.initState();
     _currentIndex = widget.initialPage;
+    _showAppliedList = widget.showAppliedList;
   }
 
   void _onTap(int index) {
     setState(() => _currentIndex = index);
+    _showAppliedList = false;
   }
 
   @override
@@ -39,7 +42,7 @@ class _BottomBarState extends State<BottomBar> {
   Widget _buildMobileLayout() {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: appBarHome(context,isFromHome: _currentIndex == 0,title: _currentIndex == 2 ?"NVites" : "" ),
+      appBar: appBarHome(context,isFromHome: _currentIndex == 0,title: _currentIndex == 2 ?"NVites" :  "" ),
       drawer: CustomDrawer(),
       body: _buildScreen(_currentIndex),
       bottomNavigationBar: SafeArea(
@@ -115,7 +118,7 @@ class _BottomBarState extends State<BottomBar> {
       case 0:
         return HomeScreen();
       case 1:
-        return const AppliedJobsScreen();
+        return  ApplyScreen(showAppliedList: _showAppliedList);
       case 2:
         return const InvitesScreen();
       case 3:

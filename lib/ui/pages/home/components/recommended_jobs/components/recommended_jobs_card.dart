@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import '../../../../../../constants/app_styles.dart';
 import '../../../../../../widgets/others/check_box.dart';
 import '../../../../../../widgets/others/rounded_network_image.dart';
+import '../../../../job/components/save_hide_button.dart';
 
 class RecommendedJobCard extends StatelessWidget {
   final JobModel jobModel;
+  final bool showSave;
   final GestureTapCallback? onTap;
 
-  const RecommendedJobCard({super.key, required this.jobModel, this.onTap});
+  const RecommendedJobCard({super.key, required this.jobModel, this.onTap,this.showSave = false});
 
   @override
   Widget build(BuildContext context) {
@@ -168,16 +170,14 @@ class RecommendedJobCard extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Row(
-                    children: [
-                      Icon(Icons.remove_red_eye, size: 20, color: Colors.black54),
-                      SizedBox(width: 4),
-                      Text(
-                        "Hide",
-                        style: theme.labelSmall?.copyWith(color: Colors.black54),
-                      ),
-                    ],
+                  SaveHideButton(
+                    showSave: showSave, // or false for Hide
+                    onPressed: () {
+                      // 🔹 Add API call here
+                      print("Save/Hide tapped!");
+                    },
                   ),
+
                 ],
               ),
             ],

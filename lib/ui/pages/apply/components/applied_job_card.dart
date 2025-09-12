@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/models/job/job_model.dart';
 import 'package:dei_champions/widgets/others/custom_decorated_box.dart';
 import 'package:flutter/material.dart';
@@ -169,7 +170,7 @@ class AppliedJobCard extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    // onTap: () => _scrollToSection(_similarJobsKey),
+                    onTap: () => AppNavigator.loadSimilarJobsListScreen(),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       mainAxisSize: MainAxisSize.min,

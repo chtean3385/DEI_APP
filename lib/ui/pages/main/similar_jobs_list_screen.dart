@@ -1,26 +1,14 @@
-import 'package:dei_champions/ui/pages/search/components/seach_job_card.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:flutter/material.dart';
 
 import '../../../models/job/job_model.dart';
 import '../job/components/similar_jobs.dart';
-import 'components/appbar_search_screen.dart';
-import 'components/bottom_filter_options.dart';
 
-class JobSearchResultScreen extends StatelessWidget {
-  const JobSearchResultScreen({Key? key}) : super(key: key);
-  static const List<String> filters = [
-    "Work mode",
-    "Department",
-    "Experience",
-    "Salary",
-    "Companies",
-    "Industries",
-    "Role",
-    "Stipend",
-    "Duration",
-    "Education",
-  ];
+
+
+class SimilarJobsListScreen extends StatelessWidget {
+  const SimilarJobsListScreen({super.key});
+
   static final List<JobModel> jobs = [
     JobModel(
       title: "45days WFH Malayalam, Telugu",
@@ -197,23 +185,11 @@ class JobSearchResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarSearch(context),
+      appBar: appBarCommon(title:"371 Similar jobs" ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text("59 results ", style: context.textTheme.displaySmall),
-            ),
-            // Job list
-            Expanded(
-              child: SimilarJobsListView(jobs: jobs, enableScroll: true),
-            ),
-
-            // Sticky bottom filter bar
-            const FilterOptionsBar(filters: filters),
-          ],
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+          child: SimilarJobsListView(jobs: jobs),
         ),
       ),
     );
