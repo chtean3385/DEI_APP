@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_validators.dart';
 import '../../../constants/enums.dart';
-import '../../../providers/controllers/login_controller.dart';
+import '../../../providers/controllers/employee_login_controller.dart';
 import '../../../providers/providers.dart';
 import '../../../utils/app_textformfield.dart';
 import '../../../utils/widget_utils.dart';
@@ -22,7 +22,7 @@ class SignInScreen extends ConsumerStatefulWidget {
 }
 
 class _SignUpScreenState extends ConsumerState<SignInScreen> {
-  late final LoginController controller;
+  late final EmployeeLoginController controller;
   final _formKey = GlobalKey<FormState>();
   bool _rememberMe = false;
   @override
@@ -166,7 +166,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       isExpanded: true,
       onTap: () {
         if (_formKey.currentState?.validate() == true) {
-          controller.signInUser(context);
+          controller.signInEmployee();
         }
       },
       child:  Text(

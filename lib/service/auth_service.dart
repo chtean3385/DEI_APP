@@ -60,8 +60,8 @@ class AuthService {
     }
   }
 
-  Future<BaseModel> signIn({required String phoneNumber}) async {
-    final body = {'phone_number': phoneNumber};
+  Future<BaseModel> employeeSignIn({required String email,required String password}) async {
+    final body = {'email': email,"password":password};
 
     final result = await _apiHandler.post(url: ApiUrls.signIn, body: body);
 

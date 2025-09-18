@@ -6,7 +6,7 @@ import '../models/state_models/auth_state.dart';
 import '../models/state_models/register_state.dart';
 import '../models/state_models/signup_flow_state.dart';
 import 'controllers/app_controller.dart';
-import 'controllers/login_controller.dart';
+import 'controllers/employee_login_controller.dart';
 import 'controllers/employer_register_page_view_controller.dart';
 import 'controllers/employee_register_controller.dart';
 import 'controllers/register_page_view_controller.dart';
@@ -18,9 +18,11 @@ final appProvider =
     );
 
 
-/// authentication controller
-final loginProvider =
-AutoDisposeNotifierProvider<LoginController, AuthState>(LoginController.new);
+/// login controller
+
+final loginProvider  = StateNotifierProvider.autoDispose<EmployeeLoginController, AuthState>((ref) {
+  return EmployeeLoginController(ref);
+});
 
 /// registration controller
 final registerProvider  = StateNotifierProvider.autoDispose<EmployeeRegisterController, RegisterState>((ref) {
