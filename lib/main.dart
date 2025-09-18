@@ -54,7 +54,7 @@ class _MyAppState extends ConsumerState<MyApp> {
         darkTheme: darkTheme(context),
         themeMode: themeMode,
         debugShowCheckedModeBanner: false,
-        home: const BottomBar()
+        home: const SplashScreen()
     );
   }
 }

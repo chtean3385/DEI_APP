@@ -1,6 +1,8 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
+import 'components/company_details_header.dart';
+
 class CompanyProfileScreen extends StatefulWidget {
   @override
   _CompanyProfileScreenState createState() => _CompanyProfileScreenState();
@@ -52,153 +54,27 @@ class _CompanyProfileScreenState extends State<CompanyProfileScreen>
         child: Column(
           children: [
             // Company Header Section
-            Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  // Company Logo and Basic Info
-                  Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Column(
-                      children: [
-                        // Company Logo
-                        Container(
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                            color: AppColors.primaryColor,
-                            shape: BoxShape.circle,
-                          ),
-                          child: Center(
-                            child: Text(
-                              'A',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 32,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 16),
-
-                        // Company Name and Rating
-                        Text(
-                          'Asteria Aerospace',
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: 8),
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.star, color: Colors.orange, size: 18),
-                            SizedBox(width: 4),
-                            Text(
-                              '3.6',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                            Text(
-                              ' (95 reviews)',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 16),
-
-                        // Company Tags
-                        Wrap(
-                          spacing: 8,
-                          runSpacing: 8,
-                          alignment: WrapAlignment.center, // ✅ Center horizontally
-                          runAlignment: WrapAlignment.center, // ✅ Center vertically if multiple rows
-                          children: [
-                            _buildTag('Defence & Aerospace'),
-                            _buildTag('Internet'),
-                            _buildTag('Private'),
-                            _buildTag('Corporate'),
-                            _buildTag('B2B'),
-                          ],
-                        ),
-                        SizedBox(height: 20),
-
-                        // Follow Button
-                        Container(
-                          width: double.infinity,
-                          height: 48,
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.primaryColor,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.add, color: Colors.white, size: 20),
-                                SizedBox(width: 8),
-                                Text(
-                                  'Follow',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 16),
-
-                        // Followers Count
-                        Text(
-                          '2687 followers',
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  // Tab Bar
-                  TabBar(
-                    controller: _tabController,
-                    labelColor: Colors.black,
-                    unselectedLabelColor: Colors.grey[600],
-                    indicatorColor: Colors.black,
-                    indicatorWeight: 2,
-                    labelStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                    unselectedLabelStyle: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                    tabs: [
-                      Tab(text: 'Overview'),
-                      Tab(text: 'Jobs'),
-                    ],
-                  ),
-                ],
+            CompanyHeader(),
+            // Tab Bar
+            TabBar(
+              controller: _tabController,
+              labelColor: Colors.black,
+              unselectedLabelColor: Colors.grey[600],
+              indicatorColor: Colors.black,
+              indicatorWeight: 2,
+              labelStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
               ),
+              unselectedLabelStyle: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.normal,
+              ),
+              tabs: [
+                Tab(text: 'Overview'),
+                Tab(text: 'Jobs'),
+              ],
             ),
-
             // Tab Content
             Expanded(
               child: TabBarView(

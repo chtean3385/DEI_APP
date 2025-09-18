@@ -1,7 +1,11 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../repo/shared_preference_repository.dart';
+import '../../../../../utils/widget_utils.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
@@ -90,6 +94,16 @@ class CustomDrawer extends StatelessWidget {
           _drawerItem(Icons.help_outline, "How DEI works"),
           _drawerItem(Icons.mail_outline, "Write to us"),
           _drawerItem(Icons.info_outline, "About us"),
+          _drawerItem(
+            Icons.logout,
+            "Logout",
+            false, // bold
+            null,  // badge
+                () {
+              logoutAlertBox();
+            },
+          ),
+
 
           const SizedBox(height: 20),
         ],
@@ -97,11 +111,13 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
+
   Widget _drawerItem(
       IconData icon,
       String text, [
         bool bold = false,
         String? badge,
+        VoidCallback? onTap, // ✅ added as optional positional param
       ]) {
     final theme = Theme.of(navigatorKey.currentContext!);
     return ListTile(
@@ -120,15 +136,31 @@ class CustomDrawer extends StatelessWidget {
             Text(
               "($badge)",
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: badge == "New" ? AppColors.primaryColor : Colors.blueGrey,
-                fontSize: 13,fontWeight: FontWeight.w600
+                color: badge == "New"
+                    ? AppColors.primaryColor
+                    : Colors.blueGrey,
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ],
         ],
       ),
-      onTap: () {},
+      onTap: onTap, // ✅ use it here
     );
   }
+
+
 }
 
+void logoutAlertBox() {
+  WidgetUtils.showLogoutPopUp(
+    navigatorKey.currentContext!,
+    sBtnFunction: () => signOut(),
+  );
+}
+Future<void> signOut() async {
+  await SharedPreferenceRepository.setToken("");
+  await SharedPreferenceRepository.setUserId("");
+AppNavigator.loadSignInScreen();
+}
