@@ -33,6 +33,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _mobileController = TextEditingController();
+  bool _termsConditions = false;
 
   // Create FocusNodes
   final _nameFocus = FocusNode();
@@ -144,6 +145,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                       initialValue: false,
                       onChanged: (val) {
                         debugPrint("Checkbox value: $val");
+                        _termsConditions = val;
                       },
                     ),
 
@@ -219,23 +221,33 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   }
 
   Widget _nextButton() {
-    return CustomThemeButton(
-      color: AppColors.primaryColor,
-      height: 56,
-      radius: 16,
-      isExpanded: false,
-      alignRight: true,
-      onTap: () {
-        if (basicPersonalInfoFormKey.currentState?.validate() == true) {
-        widget.onNext();
-        }
+    return Consumer(
+      builder: (context, ref, _) {
+        final notifier = ref.read(registerProvider.notifier);
+        return CustomThemeButton(
+          color: AppColors.primaryColor,
+          height: 56,
+          radius: 16,
+          isExpanded: false,
+          alignRight: true,
+          onTap: () {
+            if (basicPersonalInfoFormKey.currentState?.validate() == true) {
+              notifier.setName(_nameController.text.trim());
+              notifier.setEmail(_emailController.text.trim());
+              notifier.setMobile(_mobileController.text.trim());
+              notifier.setAcceptTerms(_termsConditions);
+              widget.onNext();
+            }
+          },
+          child: Text(
+            AppStrings.next,
+            style: context.textTheme.titleMedium?.copyWith(
+              color: context.theme.colorScheme.onPrimary,
+            ),
+          ),
+        );
       },
-      child: Text(
-        AppStrings.next,
-        style: context.textTheme.titleMedium?.copyWith(
-          color: context.theme.colorScheme.onPrimary,
-        ),
-      ),
     );
   }
+
 }

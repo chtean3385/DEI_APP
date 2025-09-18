@@ -1,5 +1,4 @@
-import 'package:dei_champions/ui/pages/apply/components/applied_jobs_list_view.dart';
-import 'package:dei_champions/ui/pages/auth/signup/signup_screen.dart';
+import 'package:dei_champions/ui/pages/auth/signup/employee_signup_screen.dart';
 import 'package:dei_champions/ui/pages/home/components/top_companies/top_companies_list_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
@@ -57,7 +56,6 @@ class AppNavigator {
   // }
 
   static loadSignInScreen({bool isFromLogout = false}) {
-    // if(!isFromLogout) initController();
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => SignInScreen()),
@@ -77,7 +75,7 @@ class AppNavigator {
     // if(!isFromLogout) initController();
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => SignupScreen()),
+      MaterialPageRoute(builder: (_) => EmployeeSignupScreen()),
       // (route) => false,
     );
   }

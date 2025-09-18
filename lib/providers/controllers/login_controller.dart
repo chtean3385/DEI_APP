@@ -5,12 +5,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../constants/app_navigator.dart';
 import '../../constants/enums.dart';
 import '../../models/state_models/auth_state.dart';
+import '../../service/auth_service.dart';
 
-class AuthController extends AutoDisposeNotifier<AuthState> {
+class LoginController extends AutoDisposeNotifier<AuthState> {
   final emailNameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  // final AuthService _authService = AuthService();
+  final AuthService _authService = AuthService();
   String? error;
 
   @override

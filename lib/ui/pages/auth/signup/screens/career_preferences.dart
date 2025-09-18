@@ -13,8 +13,9 @@ import '../widgets/signup_back_button.dart';
 
 class CareerPreferences extends StatefulWidget {
   final VoidCallback onNext;
+  final VoidCallback onSkip;
 
-  const CareerPreferences({super.key, required this.onNext});
+  const CareerPreferences({super.key, required this.onNext, required this.onSkip});
 
   @override
   State<CareerPreferences> createState() => _CareerPreferencesState();
@@ -105,24 +106,47 @@ class _CareerPreferencesState extends State<CareerPreferences> {
 
   Widget _nextButton() {
     return SafeArea(
-      child: CustomThemeButton(
-        color: AppColors.primaryColor,
-        height: 56,
-        radius: 16,
-        isExpanded: false,
-        alignRight: true,
-        onTap: () {
-          if (formKeyCareer.currentState?.validate() == true) {
-            widget.onNext();
-          }
-        },
-        child: Text(
-          AppStrings.next,
-          style: context.textTheme.titleMedium?.copyWith(
-            color: context.theme.colorScheme.onPrimary,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomThemeButton(
+            color:Colors.white,
+            height: 56,
+            radius: 16,
+            isExpanded: false,
+            alignRight: false,
+            onTap: () {
+              widget.onSkip();
+            },
+            child: Text(
+              AppStrings.skip,
+              style: context.textTheme.titleMedium?.copyWith(
+                color: Colors.black,
+              ),
+            ),
           ),
-        ),
+          gapW16(),
+          CustomThemeButton(
+            color: AppColors.primaryColor,
+            height: 56,
+            radius: 16,
+            isExpanded: false,
+            alignRight: true,
+            onTap: () {
+              if (formKeyCareer.currentState?.validate() == true) {
+                widget.onNext();
+              }
+            },
+            child: Text(
+              AppStrings.next,
+              style: context.textTheme.titleMedium?.copyWith(
+                color: context.theme.colorScheme.onPrimary,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
+
 }

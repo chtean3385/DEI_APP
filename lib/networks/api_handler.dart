@@ -9,8 +9,8 @@ class ApiHandler {
   final Dio _dio;
 
   ApiHandler({Dio? dio})
-    : _dio =
-          dio ??
+      : _dio =
+      dio ??
           Dio(
             BaseOptions(
               baseUrl: ApiUrls.baseUrl,
@@ -42,8 +42,8 @@ class ApiHandler {
         queryParameters: queryParameters,
         options: Options(headers: requestHeaders),
       );
-      debugPrint("response --->> ${response.toString()}");
-      debugPrint("response --->> ${response.data.toString()}");
+      // debugPrint("response --->> ${response.toString()}");
+      // debugPrint("response --->> ${response.data.toString()}");
       return _handleResponse(response);
     } on DioException catch (e) {
       throw _handleDioException(e);
@@ -110,8 +110,8 @@ class ApiHandler {
         data: body,
         options: Options(headers: requestHeaders),
       );
-      print("body -- ${body.toString()}");
-      print("response -- ${response.data.toString()}");
+      // print("body -- ${body.toString()}");
+      // print("response -- ${response.data.toString()}");
       return _handleResponse(response);
     } on DioException catch (e) {
       throw _handleDioException(e);
@@ -145,6 +145,62 @@ class ApiHandler {
     }
   }
 
+  Future<dynamic> delete({
+    required String url,
+    Map<String, dynamic>? body,
+    bool includeAuthToken = true,
+  }) async {
+    Map<String, String>? requestHeaders;
+    if (includeAuthToken) {
+      final token = await SharedPreferenceRepository.getToken();
+      if (token.isNotEmpty) {
+        requestHeaders = {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        };
+      }
+    }
+    try {
+      final response = await _dio.delete(
+        url,
+        data: body,
+        options: Options(headers: requestHeaders),
+      );
+      print("body -- ${body.toString()}");
+      print("response -- ${response.data.toString()}");
+      return _handleResponse(response);
+    } on DioException catch (e) {
+      throw _handleDioException(e);
+    }
+  }
+
+  Future<dynamic> put({
+    required String url,
+    Map<String, dynamic>? body,
+    bool includeAuthToken = true,
+  }) async {
+    Map<String, String>? requestHeaders;
+    if (includeAuthToken) {
+      final token = await SharedPreferenceRepository.getToken();
+      if (token.isNotEmpty) {
+        requestHeaders = {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        };
+      }
+    }
+    try {
+      final response = await _dio.put(
+        url,
+        data: body,
+        options: Options(headers: requestHeaders),
+      );
+      return _handleResponse(response);
+    } on DioException catch (e) {
+      throw _handleDioException(e);
+    }
+  }
+
   dynamic _handleResponse(Response response) {
     final statusCode = response.statusCode ?? 0;
     if (statusCode == 204) return null;
@@ -166,8 +222,8 @@ class ApiHandler {
       case DioExceptionType.badResponse:
         final message =
             e.response?.data['message'] ??
-            e.response?.statusMessage ??
-            'Unexpected error';
+                e.response?.statusMessage ??
+                'Unexpected error';
         return AppException(message); // ✅ clean return
       case DioExceptionType.cancel:
         return AppException('Request was cancelled');

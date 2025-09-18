@@ -19,6 +19,7 @@ class AppStrings {
   static const resendOtp = 'Resend Otp';
   static const submit = 'Submit';
   static const next = 'Next';
+  static const skip = 'Skip';
   static const signupMsg = 'Dont have an account ? ';
   static const signupForFree = 'Signup up for free';
   static const getStarted = 'Get Started';

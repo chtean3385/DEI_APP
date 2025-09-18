@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/main.dart';
+import 'package:dei_champions/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
@@ -40,10 +41,13 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
     if (!state.isLast) {
       final next = state.currentStep + 1;
 
-      if (state.currentStep == 0) {
+      if (state.currentStep == 1) {
         // 👉 Only ask OTP if not verified already
         if (!state.otpVerified) {
-          final verified = await AppNavigator.loadOtpScreenForSignup(false);
+
+
+          final verified = await ref.read(registerProvider.notifier).signUpEmployee();
+          // final verified = await AppNavigator.loadOtpScreenForSignup(false);
 
           if (verified != true) return; // stop if not verified
 
@@ -70,6 +74,9 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
     } else {
       submitRegistration(navigatorKey.currentContext!);
     }
+  }
+  Future<void> skip() async {
+    AppNavigator.loadSignInScreen();
   }
 
 

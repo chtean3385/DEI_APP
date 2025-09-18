@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 
+import '../../constants/app_colors.dart';
 import '../../main.dart';
 
 showSnackBar(
-  final String? message, {
-  int? duration,
-  BuildContext? context,
-  SnackBarAction? action,
-  SnackBarBehavior behavior = SnackBarBehavior.fixed,
-}) {
-  ScaffoldMessenger.of(context ?? navigatorKey.currentContext!).showSnackBar(
+    final String? message, {
+      int? duration,
+      BuildContext? context,
+      SnackBarAction? action,
+      SnackBarBehavior behavior = SnackBarBehavior.fixed,
+    }) {
+  ScaffoldMessenger.of(context ?? navigatorKey.currentContext!)
+      .showSnackBar(
     SnackBar(
-      content: Text(message ?? ''),
-      duration: Duration(seconds: duration ?? 1),
+      content: Text(
+        message ?? '',
+        style: const TextStyle(color: Colors.white), // text color
+      ),
+      duration: Duration(seconds: duration ?? 2),
       action: action,
-      behavior: behavior,
+      backgroundColor:AppColors.primaryColor, // yellow background
+      behavior: SnackBarBehavior.fixed, // makes it float
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),   // round top-left
+          topRight: Radius.circular(16),  // round top-right
+          bottomLeft: Radius.zero,        // keep bottom square
+          bottomRight: Radius.zero,       // keep bottom square
+        ),
+      ),
     ),
   );
 }

@@ -11,8 +11,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers/providers.dart';
 
-class SignupScreen extends ConsumerWidget {
-  const SignupScreen({super.key});
+class EmployeeSignupScreen extends ConsumerWidget {
+  const EmployeeSignupScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,11 +30,11 @@ class SignupScreen extends ConsumerWidget {
             children: [
               BasicPersonalInfo(onNext: () => controller.nextStep()),
               OtherInfo(onNext: () => controller.nextStep()),
-              EmploymentScreen(onNext: () => controller.nextStep()),
-              KeySkills(onNext: () => controller.nextStep()),
-              Education(onNext: () => controller.nextStep()),
-              CareerPreferences(onNext: () => controller.nextStep()),
-              IntroductionToRecruiter(onNext: () => controller.nextStep()),
+              EmploymentScreen(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
+              KeySkills(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
+              Education(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
+              CareerPreferences(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
+              IntroductionToRecruiter(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
             ],
           ),
         ),

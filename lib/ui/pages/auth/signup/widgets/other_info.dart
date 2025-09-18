@@ -1,12 +1,15 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/ui/pages/auth/signup/components/work_status_view.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/signup_back_button.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/app_colors.dart';
 import '../../../../../constants/app_strings.dart';
 import '../../../../../constants/app_validators.dart';
+import '../../../../../providers/providers.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../components/registration_progress_bar.dart';
@@ -112,24 +115,24 @@ class _OtherInfoState extends State<OtherInfo> {
                           ),
                           gapH20(),
                           // Conditionally show location field
-                          if (selectedWorkStatus != null &&
-                              selectedWorkStatus!.isNotEmpty) ...[
-                            TransparentFormField(
-                              controller: _cityController,
-                              focusNode: _cityFocus,
-                              hint: AppStrings.city,
-                              label: AppStrings.city,
-                              icon: Icons.location_city_outlined,
-                              textInputAction: TextInputAction.done,
-                              validator: AppValidators.fieldEmpty(AppStrings.city),
-                              textCapitalization: TextCapitalization.words,
-                              // onFieldSubmitted: (_) {
-                              //   FocusScope.of(context).requestFocus();
-                              // },
-                            ),
-
-                            gapH20(),
-                          ],
+                          // if (selectedWorkStatus != null &&
+                          //     selectedWorkStatus!.isNotEmpty) ...[
+                          //   TransparentFormField(
+                          //     controller: _cityController,
+                          //     focusNode: _cityFocus,
+                          //     hint: AppStrings.city,
+                          //     label: AppStrings.city,
+                          //     icon: Icons.location_city_outlined,
+                          //     textInputAction: TextInputAction.done,
+                          //     validator: AppValidators.fieldEmpty(AppStrings.city),
+                          //     textCapitalization: TextCapitalization.words,
+                          //     // onFieldSubmitted: (_) {
+                          //     //   FocusScope.of(context).requestFocus();
+                          //     // },
+                          //   ),
+                          //
+                          //   gapH20(),
+                          // ],
 
                         ],
                       ),
@@ -154,26 +157,58 @@ class _OtherInfoState extends State<OtherInfo> {
   }
 
   Widget _nextButton() {
-    return SafeArea(
-      child: CustomThemeButton(
-        color: AppColors.primaryColor,
-        height: 56,
-        radius: 16,
-        isExpanded: false,
-        alignRight: true,
-        onTap: () {
-          if (otherInfoFormKey.currentState?.validate() == true) {
-            print("otherInfoFormKey.currentState?.validate() -- ${otherInfoFormKey.currentState?.validate()}");
-            widget.onNext();
-          }
-        },
-        child: Text(
-          AppStrings.next,
-          style: context.textTheme.titleMedium?.copyWith(
-            color: context.theme.colorScheme.onPrimary,
+    return Consumer(
+        builder: (context, ref, _) {
+          final regController = ref.read(registerProvider.notifier);
+          final state = ref.watch(registerProvider);
+          final skip = ref.watch(signupFlowControllerProvider);
+          return SafeArea(
+          child: Row(
+            mainAxisAlignment: skip.otpVerified ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+            children: [
+            if(skip.otpVerified)  CustomThemeButton(
+                color:Colors.white,
+                height: 56,
+                radius: 16,
+                isExpanded: false,
+                alignRight: false,
+                onTap: () {
+                  widget.onNext();
+                },
+                child: Text(
+                  AppStrings.skip,
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+            if(skip.otpVerified)  gapW16(),
+              CustomThemeButton(
+                color: AppColors.primaryColor,
+                height: 56,
+                radius: 16,
+                isExpanded: false,
+                alignRight: true,
+                isLoading:state.pageState == PageState.loading ,
+                onTap: () {
+                  if (otherInfoFormKey.currentState?.validate() == true) {
+                    print("otherInfoFormKey.currentState?.validate() -- ${otherInfoFormKey.currentState?.validate()}");
+                    regController.setPassword(_confirmPasswordController.text.trim());
+                    regController.setWorkStatus(selectedWorkStatus ?? "");
+                    widget.onNext();
+                  }
+                },
+                child: Text(
+                  AppStrings.next,
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: context.theme.colorScheme.onPrimary,
+                  ),
+                ),
+              ),
+            ],
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }

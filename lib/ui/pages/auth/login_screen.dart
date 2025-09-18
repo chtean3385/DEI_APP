@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_validators.dart';
 import '../../../constants/enums.dart';
-import '../../../providers/controllers/auth_controller.dart';
+import '../../../providers/controllers/login_controller.dart';
 import '../../../providers/providers.dart';
 import '../../../utils/app_textformfield.dart';
 import '../../../utils/widget_utils.dart';
@@ -22,13 +22,13 @@ class SignInScreen extends ConsumerStatefulWidget {
 }
 
 class _SignUpScreenState extends ConsumerState<SignInScreen> {
-  late final AuthController controller;
+  late final LoginController controller;
   final _formKey = GlobalKey<FormState>();
   bool _rememberMe = false;
   @override
   void initState() {
     super.initState();
-    controller = ref.read(authProvider.notifier);
+    controller = ref.read(loginProvider.notifier);
   }
 
 
@@ -157,7 +157,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
   }
 
   Widget _signInButton() {
-    final pageState = ref.watch(authProvider).pageState;
+    final pageState = ref.watch(loginProvider).pageState;
     return CustomThemeButton(
       isLoading: pageState == PageState.loading,
       color: AppColors.primaryColor,
