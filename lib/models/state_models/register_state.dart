@@ -1,8 +1,6 @@
 import '../../constants/enums.dart';
 
 class RegisterState {
-  final bool? isOtpValid;
-  final String otp;
   final String? name;
   final String? email;
   final String? password;
@@ -14,8 +12,6 @@ class RegisterState {
   final PageState pageState;
 
   const RegisterState({
-    this.isOtpValid,
-    this.otp = '',
     this.name,
     this.email,
     this.password,
@@ -39,8 +35,6 @@ class RegisterState {
     PageState? pageState,
   }) {
     return RegisterState(
-      isOtpValid: isOtpValid ?? this.isOtpValid,
-      otp: otp ?? this.otp,
       name: name ?? this.name,
       email: email ?? this.email,
       password: password ?? this.password,
@@ -69,8 +63,6 @@ class RegisterState {
       identical(this, other) ||
           other is RegisterState &&
               runtimeType == other.runtimeType &&
-              isOtpValid == other.isOtpValid &&
-              otp == other.otp &&
               name == other.name &&
               email == other.email &&
               password == other.password &&
@@ -82,8 +74,6 @@ class RegisterState {
 
   @override
   int get hashCode =>
-      isOtpValid.hashCode ^
-      otp.hashCode ^
       name.hashCode ^
       email.hashCode ^
       password.hashCode ^

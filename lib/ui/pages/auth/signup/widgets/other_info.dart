@@ -183,25 +183,28 @@ class _OtherInfoState extends State<OtherInfo> {
                 ),
               ),
             if(skip.otpVerified)  gapW16(),
-              CustomThemeButton(
-                color: AppColors.primaryColor,
-                height: 56,
-                radius: 16,
-                isExpanded: false,
-                alignRight: true,
-                isLoading:state.pageState == PageState.loading ,
-                onTap: () {
-                  if (otherInfoFormKey.currentState?.validate() == true) {
-                    print("otherInfoFormKey.currentState?.validate() -- ${otherInfoFormKey.currentState?.validate()}");
-                    regController.setPassword(_confirmPasswordController.text.trim());
-                    regController.setWorkStatus(selectedWorkStatus ?? "");
-                    widget.onNext();
-                  }
-                },
-                child: Text(
-                  AppStrings.next,
-                  style: context.textTheme.titleMedium?.copyWith(
-                    color: context.theme.colorScheme.onPrimary,
+              SizedBox(
+                width: 80,
+                child: CustomThemeButton(
+                  color: AppColors.primaryColor,
+                  height: 56,
+                  radius: 16,
+                  isExpanded: true,
+                  alignRight: true,
+                  isLoading:state.pageState == PageState.loading ,
+                  onTap: () {
+                    if (otherInfoFormKey.currentState?.validate() == true) {
+                      print("otherInfoFormKey.currentState?.validate() -- ${otherInfoFormKey.currentState?.validate()}");
+                      regController.setPassword(_confirmPasswordController.text.trim());
+                      regController.setWorkStatus(selectedWorkStatus ?? "");
+                      widget.onNext();
+                    }
+                  },
+                  child: Text(
+                    AppStrings.next,
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: context.theme.colorScheme.onPrimary,
+                    ),
                   ),
                 ),
               ),

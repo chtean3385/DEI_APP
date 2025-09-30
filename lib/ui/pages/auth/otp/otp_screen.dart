@@ -1,6 +1,9 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/providers/controllers/employee_login_controller.dart';
+import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // Import the component files
 import '../../../../constants/app_navigator.dart';
@@ -9,13 +12,11 @@ import 'components/otp_floating_background.dart';
 import 'components/otp_main_card.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
-  final String emailOrMobile;
   final bool isFromSignup;
   final bool isEmployer;
 
   const OTPVerificationScreen({
     super.key,
-    this.emailOrMobile =  "user@example.com",
     this.isFromSignup = true,
      this.isEmployer = true,
   });
@@ -28,6 +29,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
     with TickerProviderStateMixin {
 
   late OTPAnimationController _animationController;
+  late final EmployeeLoginController controller;
   List<TextEditingController> otpControllers = List.generate(6, (_) => TextEditingController());
   List<FocusNode> focusNodes = List.generate(6, (_) => FocusNode());
   int resendTimer = 120;
@@ -65,38 +67,10 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
 
   void _verifyOTP() {
     String otp = otpControllers.map((controller) => controller.text).join();
+    ProviderScope.containerOf(
+      context,
+    ).read(registerProvider.notifier).verifyEmailOtp(otp,isFromSignup: widget.isFromSignup);
 
-    // Show loading state
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF667eea)),
-        ),
-      ),
-    );
-
-
-    // Simulate API call
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(context).pop(); // Remove loading dialog
-
-      if (otp == "123456") {
-        // ✅ OTP correct
-        showSnackBar('OTP Verified Successfully: $otp');
-        if(widget.isFromSignup){
-          Navigator.pop(context, true); // return true to caller
-        } else{
-          AppNavigator.toBottomBar();
-        }
-
-      } else {
-        // ❌ OTP wrong
-        showSnackBar('Invalid OTP. Please try again.');
-        // do not pop the OTP screen
-      }
-    });
   }
 
   void _resendCode() {
@@ -148,8 +122,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.all(24),
                           child: OTPMainCard(
-                            email: widget.emailOrMobile,
-                            isEmail: widget.isEmployer,
+                            isEmployer: widget.isEmployer,
                             otpControllers: otpControllers,
                             focusNodes: focusNodes,
                             resendTimer: resendTimer,

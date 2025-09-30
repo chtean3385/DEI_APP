@@ -39,8 +39,8 @@ class AuthService {
     }
   }
 
-  Future<BaseModel> verifyOtp({required String phone, required int otp}) async {
-    final body = {'phone_number': phone, 'otp': otp};
+  Future<BaseModel> verifyEmailOtp({required String email, required String otp}) async {
+    final body = {'email': email, 'otp': otp};
 
     final result = await _apiHandler.post(
       url: ApiUrls.verifyOtp,

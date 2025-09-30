@@ -46,8 +46,10 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
         if (!state.otpVerified) {
 
 
-          final verified = await ref.read(registerProvider.notifier).signUpEmployee();
+          final registerDetails =   await ref.read(registerProvider.notifier).signUpEmployee();
+          if (registerDetails != true) return; // stop if not verified
           // final verified = await AppNavigator.loadOtpScreenForSignup(false);
+         final verified =   await AppNavigator.loadOtpScreenForSignup(false); /// need to change bool value as per mobile otp or email otp
 
           if (verified != true) return; // stop if not verified
 

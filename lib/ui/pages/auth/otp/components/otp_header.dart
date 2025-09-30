@@ -1,18 +1,18 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class OTPHeader extends StatelessWidget {
-  final String email;
-  final bool isEmail;
+  final bool isEmployer;
   final Animation<double> pulseAnimation;
   final Animation<double> shineAnimation;
 
   const OTPHeader({
     super.key,
-    required this.email,
     required this.pulseAnimation,
-    required this.shineAnimation,  this.isEmail = true,
+    required this.shineAnimation,  this.isEmployer = true,
   });
 
   @override
@@ -28,20 +28,25 @@ class OTPHeader extends StatelessWidget {
 
         // Title
          Text(
-           isEmail ?  'Verify Email':'Verify Mobile Number',
+           // isEmployer ?
+           'Verify Email',
+           // :
+           // 'Verify Mobile Number',
           style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 12),
 
         // Subtitle
         Text(
-          isEmail ?   'We\'ve sent a verification code to' : "Enter the 6-digit OTP send to",
+          // isEmployer ?
+          'We\'ve sent a verification code to' ,
+              // : "Enter the 6-digit OTP send to",
           style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
         ),
         const SizedBox(height: 8),
 
         // Email container
-        _EmailContainer(email:   email  ),
+        _EmailContainer(isEmployer:   isEmployer  ),
       ],
     );
   }
@@ -128,16 +133,16 @@ class _ShineEffect extends StatelessWidget {
   }
 }
 
-class _EmailContainer extends StatelessWidget {
-  final String email;
-
-  const _EmailContainer({
-    Key? key,
-    required this.email,
-  }) : super(key: key);
+class _EmailContainer extends ConsumerWidget {
+  final bool isEmployer;
+  const _EmailContainer({Key? key,this.isEmployer = true}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    // 👇 Watch your provider (replace registerProvider with your actual provider)
+    final employeeState = ref.watch(registerProvider);
+
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -145,8 +150,11 @@ class _EmailContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
-        email,
-        style: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600,color: AppColors.primaryColor),
+        isEmployer ? "employer email " : employeeState.email ?? "",
+        style: context.textTheme.bodySmall?.copyWith(
+          fontWeight: FontWeight.w600,
+          color: AppColors.primaryColor,
+        ),
       ),
     );
   }

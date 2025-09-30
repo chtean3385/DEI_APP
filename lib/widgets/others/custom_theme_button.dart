@@ -5,6 +5,7 @@ import '../../constants/app_colors.dart';
 class CustomThemeButton extends StatelessWidget {
   final Widget child;
   final Color? color;
+  final Color? borderColor;
   final double radius;
   final double? height;
   final bool isExpanded;
@@ -17,6 +18,7 @@ class CustomThemeButton extends StatelessWidget {
     super.key,
     required this.child,
     this.color,
+    this.borderColor,
     this.radius = 12,
     this.height ,
     this.isExpanded = false,
@@ -36,7 +38,7 @@ class CustomThemeButton extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: color,
-            border: Border.all(width: 1, color: AppColors.primaryColor),
+            border: Border.all(width: 1, color: borderColor ??  AppColors.primaryColor),
             borderRadius: BorderRadius.all(Radius.circular(radius)),
           ),
           child: SizedBox(

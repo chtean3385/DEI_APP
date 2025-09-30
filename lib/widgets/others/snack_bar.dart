@@ -19,16 +19,16 @@ showSnackBar(
       ),
       duration: Duration(seconds: duration ?? 2),
       action: action,
-      backgroundColor:AppColors.primaryColor, // yellow background
+      backgroundColor:Colors.black, // yellow background
       behavior: SnackBarBehavior.fixed, // makes it float
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),   // round top-left
-          topRight: Radius.circular(16),  // round top-right
-          bottomLeft: Radius.zero,        // keep bottom square
-          bottomRight: Radius.zero,       // keep bottom square
-        ),
-      ),
+      // shape: const RoundedRectangleBorder(
+      //   borderRadius: BorderRadius.only(
+      //     topLeft: Radius.circular(16),   // round top-left
+      //     topRight: Radius.circular(16),  // round top-right
+      //     bottomLeft: Radius.zero,        // keep bottom square
+      //     bottomRight: Radius.zero,       // keep bottom square
+      //   ),
+      // ),
     ),
   );
 }

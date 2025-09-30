@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -40,10 +41,7 @@ class EmployeeRegisterController extends StateNotifier<RegisterState> {
 
       /// If OTP required, you can redirect here
       // AppNavigator.loadSignInScreen();
-
-
     } catch (e) {
-
       setPageState(PageState.error);
       showSnackBar(e.toString());
       debugPrint("catch - signup");
@@ -52,20 +50,48 @@ class EmployeeRegisterController extends StateNotifier<RegisterState> {
     }
   }
 
+  ///verifyEmailOtp
+  Future<void> verifyEmailOtp(String otp, {bool isFromSignup = false}) async {
+    setPageState(PageState.loading);
+    try {
+      final BaseModel result = await _authService.verifyEmailOtp(
+        email: state.email ?? "",
+        otp: otp,
+      );
+
+      setPageState(PageState.success);
+      if (isFromSignup) {
+        Navigator.pop(navigatorKey.currentContext!, true);
+      } else {
+        showSnackBar(result.message, duration: 3);
+        AppNavigator.toBottomBar();
+      }
+      debugPrint("success - verifyEmailOtp");
+    } catch (e) {
+      setPageState(PageState.error);
+      showSnackBar(e.toString());
+      debugPrint("catch - verifyEmailOtp");
+      debugPrint(e.toString());
+    }
+  }
+
   /// 🔹 Update fields from screens
   void setName(String val) => state = state.copyWith(name: val);
+
   void setEmail(String val) => state = state.copyWith(email: val);
+
   void setPassword(String val) => state = state.copyWith(password: val);
+
   void setMobile(String val) => state = state.copyWith(mobile: val);
+
   void setWorkStatus(String val) => state = state.copyWith(workStatus: val);
+
   void setAcceptTerms(bool val) => state = state.copyWith(acceptTerms: val);
+
   void setRoleId(int val) => state = state.copyWith(roleId: val);
-
-
 
   /// 🔹 Page state
   void setPageState(PageState newState) {
     state = state.copyWith(pageState: newState);
   }
-
 }

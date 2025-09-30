@@ -95,12 +95,18 @@ class AppNavigator {
       MaterialPageRoute(
         builder: (_) => OTPVerificationScreen(
           isEmployer: isEmployer,
-          emailOrMobile: isEmployer ? "user@example.com" : "1234567890",
+          isFromSignup: true,
         ),
       ),
     );
 
     return result ?? false; // default false if user backs out
+  }
+  static  loadOtpScreenForLogin() async {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => OTPVerificationScreen()),
+    );
   }
 
   static loadForgotPasswordScreen({bool isFromLogout = false}) {
