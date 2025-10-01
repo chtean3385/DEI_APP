@@ -22,7 +22,7 @@ class SignInScreen extends ConsumerStatefulWidget {
 }
 
 class _SignUpScreenState extends ConsumerState<SignInScreen> {
-  late final EmployeeLoginController controller;
+  late final LoginController controller;
   final _formKey = GlobalKey<FormState>();
   bool _rememberMe = false;
   @override
@@ -166,7 +166,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       isExpanded: true,
       onTap: () {
         if (_formKey.currentState?.validate() == true) {
-          controller.signInEmployee();
+          controller.signIn();
         }
       },
       child:  Text(

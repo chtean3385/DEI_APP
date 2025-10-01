@@ -9,10 +9,10 @@ import '../../../models/state_models/auth_state.dart';
 import '../../../service/auth_service.dart';
 import '../../../widgets/others/snack_bar.dart';
 
-class EmployeeLoginController extends StateNotifier<AuthState> {
+class LoginController extends StateNotifier<AuthState> {
   final Ref ref;
 
-  EmployeeLoginController(this.ref) : super(const AuthState());
+  LoginController(this.ref) : super(const AuthState());
 
   final AuthService _authService = AuthService();
   final emailNameController = TextEditingController();
@@ -31,7 +31,7 @@ class EmployeeLoginController extends StateNotifier<AuthState> {
 
   ///Sign In ///
   /// 🔹 Trigger Signup API using state data
-  Future<void> signInEmployee() async {
+  Future<void> signIn() async {
     setPageState(PageState.loading);
     try {
       final BaseModel result = await _authService.employeeSignIn(

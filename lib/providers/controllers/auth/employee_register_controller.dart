@@ -1,5 +1,3 @@
-import 'package:dei_champions/constants/app_navigator.dart';
-import 'package:dei_champions/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

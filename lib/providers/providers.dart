@@ -23,8 +23,8 @@ final appProvider =
 
 /// login controller
 
-final loginProvider  = StateNotifierProvider.autoDispose<EmployeeLoginController, AuthState>((ref) {
-  return EmployeeLoginController(ref);
+final loginProvider  = StateNotifierProvider.autoDispose<LoginController, AuthState>((ref) {
+  return LoginController(ref);
 });
 
 /// registration controller
