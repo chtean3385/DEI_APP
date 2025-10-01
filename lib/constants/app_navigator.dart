@@ -2,7 +2,9 @@ import 'package:dei_champions/ui/pages/auth/signup/employee_signup_screen.dart';
 import 'package:dei_champions/ui/pages/home/components/top_companies/top_companies_list_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
+import '../models/auth/auth_model.dart';
 import '../models/job/job_model.dart';
+import '../repo/shared_preference_repository.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
@@ -19,6 +21,18 @@ import '../ui/pages/search/job_search_result_screen.dart';
 import '../ui/pages/search/job_search_screen.dart';
 
 class AppNavigator {
+  static Future<void> saveAuthDataAndLoadBottomBar({
+    AuthModel? authModel,
+  }) async {
+    await SharedPreferenceRepository.setToken(authModel!.token);
+    await SharedPreferenceRepository.setUserId(authModel.userId);
+    Navigator.pushAndRemoveUntil(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => BottomBar()),
+      (route) => false,
+    );
+  }
+
   static void toBottomBar({int initialPage = 0, bool showAppliedList = false}) {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
@@ -31,29 +45,6 @@ class AppNavigator {
       (route) => false,
     );
   }
-
-  //
-  // static void toLoginScreen() {
-  //   Navigator.pushAndRemoveUntil(
-  //     navigatorKey.currentContext!,
-  //     MaterialPageRoute(builder: (_) => const LoginScreen()),
-  //     (route) => false,
-  //   );
-  // }
-  //
-  // static void pushAndRemoveAll(Widget page) {
-  //   Navigator.pushAndRemoveUntil(
-  //     navigatorKey.currentContext!,
-  //     MaterialPageRoute(builder: (_) => page),
-  //     (route) => false,
-  //   );
-  // }
-  // static void toMyAccountScreen() {
-  //   Navigator.push(
-  //     navigatorKey.currentContext!,
-  //     MaterialPageRoute(builder: (_) => const MyAccountScreen()),
-  //   );
-  // }
 
   static loadSignInScreen({bool isFromLogout = false}) {
     Navigator.pushAndRemoveUntil(
@@ -89,13 +80,17 @@ class AppNavigator {
     );
   }
 
-  static Future<bool> loadOtpScreenForSignup({bool isFromEmployeeSignup = false,bool isFromEmployerSignup = false,required String email}) async {
+  static Future<bool> loadOtpScreenForSignup({
+    bool isFromEmployeeSignup = false,
+    bool isFromEmployerSignup = false,
+    required String email,
+  }) async {
     final result = await Navigator.push<bool>(
       navigatorKey.currentContext!,
       MaterialPageRoute(
         builder: (_) => OTPVerificationScreen(
-       isFromEmployeeSignup: isFromEmployeeSignup,
-          isFromEmployerSignup:isFromEmployerSignup ,
+          isFromEmployeeSignup: isFromEmployeeSignup,
+          isFromEmployerSignup: isFromEmployerSignup,
           email: email,
         ),
       ),
@@ -103,10 +98,13 @@ class AppNavigator {
 
     return result ?? false; // default false if user backs out
   }
-  static  loadOtpScreen(String email) async {
+
+  static loadOtpScreen(String email) async {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => OTPVerificationScreen(isFromLogin: true,email:email)),
+      MaterialPageRoute(
+        builder: (_) => OTPVerificationScreen(isFromLogin: true, email: email),
+      ),
     );
   }
 
@@ -180,6 +178,7 @@ class AppNavigator {
       MaterialPageRoute(builder: (_) => SimilarJobsListScreen()),
     );
   }
+
   static loadCompanyProfileScreen() {
     Navigator.push(
       navigatorKey.currentContext!,

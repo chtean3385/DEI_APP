@@ -2,9 +2,10 @@ import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import '../../../../../models/auth/auth_model.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 
-void submitRegistration(BuildContext context) {
+void submitRegistration(BuildContext context,{AuthModel? authModel}) {
   // Show success dialog
   showDialog(
     context: context,
@@ -30,13 +31,13 @@ void submitRegistration(BuildContext context) {
             fontSize: 13,
           ), // make content readable
         ),
-        actions: [_nextButton(context)],
+        actions: [_nextButton(context,authModel: authModel)],
       );
     },
   );
 }
 
-Widget _nextButton(BuildContext context) {
+Widget _nextButton(BuildContext context,{AuthModel? authModel}) {
   return CustomThemeButton(
     color: AppColors.primaryColor,
     height: 30,
@@ -46,7 +47,7 @@ Widget _nextButton(BuildContext context) {
     alignRight: true,
     onTap: () {
       Navigator.of(context).pop();
-      AppNavigator.toBottomBar();
+      AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
       // Navigate to dashboard or login
     },
     child: Text(

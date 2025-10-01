@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/enums.dart';
+import '../../../models/auth/auth_model.dart';
 import '../../../models/common/base_model.dart';
 import '../../../models/state_models/otp_state.dart';
 import '../../../models/state_models/register_state.dart';
@@ -39,11 +40,13 @@ class VerifyOtpController extends StateNotifier<OtpState> {
       }
       if (isEmployerSignup) {
         //save user data/token
-        submitRegistration(navigatorKey.currentContext!);
+        final AuthModel authModel = AuthModel.fromJson(result.data);
+        submitRegistration(navigatorKey.currentContext!,authModel: authModel);
       } else {
         //save user data/token
         showSnackBar(result.message, duration: 3);
-        AppNavigator.toBottomBar();
+        final AuthModel authModel = AuthModel.fromJson(result.data);
+        AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
       }
       debugPrint("success - verifyEmailOtp");
     } catch (e) {
