@@ -139,18 +139,7 @@ class _EmailContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-
-    final employeeState = ref.watch(registerProvider);
-    final employerState = ref.watch(employerRegisterProvider);
     final verifyOtpState = ref.watch(verifyOtpProvider);
-    final verifyOtpController = ref.read(verifyOtpProvider.notifier);
-    final String? email =   isEmployer ? employerState.email : employeeState.email;
-    // ✅ call setEmail once after first frame
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(verifyOtpProvider.notifier).setEmail(email);
-    });
-
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
@@ -158,7 +147,7 @@ class _EmailContainer extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
-        email ?? "",
+        verifyOtpState.email ?? "",
         style: context.textTheme.bodySmall?.copyWith(
           fontWeight: FontWeight.w600,
           color: AppColors.primaryColor,

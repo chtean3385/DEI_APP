@@ -31,7 +31,7 @@ class EmployeeRegisterController extends StateNotifier<RegisterState> {
         roleId: 3,
       );
 
-      showSnackBar(result.message, duration: 3);
+      // showSnackBar(result.message, duration: 3);
       setPageState(PageState.success);
       if (result.success != true) {
         return false; // not registered yet
@@ -62,7 +62,8 @@ class EmployeeRegisterController extends StateNotifier<RegisterState> {
 
   void setWorkStatus(String val) => state = state.copyWith(workStatus: val);
 
-  void setAcceptTerms(bool val) => state = state.copyWith(acceptTerms: val); void toggleAcceptTerms() {
+  void setAcceptTerms(bool val) => state = state.copyWith(acceptTerms: val);
+  void toggleAcceptTerms() {
     state = state.copyWith(acceptTerms: !(state.acceptTerms ?? false));
   }
 

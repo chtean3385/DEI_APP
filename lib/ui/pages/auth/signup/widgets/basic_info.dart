@@ -33,7 +33,6 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _mobileController = TextEditingController();
-  bool _termsConditions = false;
 
   // Create FocusNodes
   final _nameFocus = FocusNode();
@@ -231,7 +230,6 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
               notifier.setName(_nameController.text.trim());
               notifier.setEmail(_emailController.text.trim());
               notifier.setMobile(_mobileController.text.trim());
-              notifier.setAcceptTerms(_termsConditions);
               widget.onNext();
             }
           },

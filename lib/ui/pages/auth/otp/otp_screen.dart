@@ -15,12 +15,14 @@ class OTPVerificationScreen extends StatefulWidget {
   final bool isFromEmployeeSignup;
   final bool isFromEmployerSignup;
   final bool isFromLogin;
+  final String email;
 
   const OTPVerificationScreen({
     super.key,
     this.isFromEmployeeSignup = false,
     this.isFromEmployerSignup = false,
     this.isFromLogin = false,
+    required this.email,
   });
 
   @override
@@ -41,6 +43,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
     _animationController = OTPAnimationController(this);
     _animationController.initializeAnimations();
     _startTimer();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ProviderScope.containerOf(
+        context,
+      ).read(verifyOtpProvider.notifier).setEmail(widget.email);
+    });
   }
 
   @override
