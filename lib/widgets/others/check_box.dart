@@ -25,6 +25,15 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
     super.initState();
     _selected = widget.initialValue;
   }
+  @override
+  void didUpdateWidget(covariant CustomCheckbox oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.initialValue != widget.initialValue) {
+      setState(() {
+        _selected = widget.initialValue;
+      });
+    }
+  }
 
   void _toggle(bool? value) {
     setState(() {

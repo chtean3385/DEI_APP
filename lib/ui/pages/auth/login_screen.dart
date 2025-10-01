@@ -24,7 +24,6 @@ class SignInScreen extends ConsumerStatefulWidget {
 class _SignUpScreenState extends ConsumerState<SignInScreen> {
   late final LoginController controller;
   final _formKey = GlobalKey<FormState>();
-  bool _rememberMe = false;
   @override
   void initState() {
     super.initState();
@@ -34,8 +33,11 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(loginProvider);
+    final controller = ref.read(loginProvider.notifier);
     final screenWidth = MediaQuery.of(context).size.width;
     double responsivePadding = screenWidth * 0.2;
+    print("statestate ${state.rememberMe}");
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -76,9 +78,10 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                         children: [
                           CustomCheckbox(
                             label: "Remember Me",
-                            initialValue: false,
+                            initialValue: state.rememberMe,
                             onChanged: (label, isSelected) {
                               print("$label changed to $isSelected");
+                              controller.toggleRememberMe(isSelected);
                             },
                           ),
                           GestureDetector(
