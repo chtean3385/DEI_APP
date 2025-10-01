@@ -10,6 +10,7 @@ import 'components/jobs_you_might_like/jobs_based_on_profile.dart';
 import 'components/noticing_you/recruiters_noticing.dart';
 import 'components/slider/home_top_slider.dart';
 import 'components/top_companies/top_companies.dart';
+import 'explore_job_category/job_categories_horizontal_scroll.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,6 +26,7 @@ class HomeScreen extends StatelessWidget {
             gapH16(),
             Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
             gapH16(),
+            JobsCategorySection(),
             JobsBasedOnProfile(),
             // gapH16(),
             JobsYouMightLike(),

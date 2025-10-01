@@ -1,5 +1,7 @@
 // providers.dart
+import 'package:dei_champions/models/state_models/job_category_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
+import 'package:dei_champions/providers/controllers/home/category/job_category_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
@@ -49,3 +51,9 @@ AutoDisposeNotifierProvider<SignupFlowController, SignupFlowState>(
 final employerSignupFlowControllerProvider =
 AutoDisposeNotifierProvider<EmployerSignupFlowController, SignupFlowState>(
     EmployerSignupFlowController.new);
+
+///job categories
+final jobCategoryProvider =
+StateNotifierProvider.autoDispose<JobCategoryController, JobCategoryState>((ref) {
+  return JobCategoryController(ref);
+});

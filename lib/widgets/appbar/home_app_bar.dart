@@ -8,9 +8,11 @@ AppBar appBarHome(BuildContext context, {bool isFromHome = false,String title = 
   return AppBar(
     elevation: 0,
     backgroundColor: isFromHome ? AppColors.bg : null,
+    centerTitle: true,
+    titleSpacing: 0,
     leading: Builder(
       builder: (context) => IconButton(
-        icon: const Icon(Icons.menu, size: 35),
+        icon: const Icon(Icons.menu, size: 30),
         onPressed: () {
           Scaffold.of(context).openDrawer(); // this will open CustomDrawer
         },
@@ -20,9 +22,9 @@ AppBar appBarHome(BuildContext context, {bool isFromHome = false,String title = 
     actions: isFromHome
         ? [
             Padding(
-              padding: const EdgeInsets.only(right: 12),
+              padding: const EdgeInsets.only(right: 8),
               child: IconButton(
-                icon: const Icon(Icons.notifications_none, size: 35),
+                icon: const Icon(Icons.notifications_none, size: 30),
                 onPressed: () {
                   // maybe show notifications later
                 },

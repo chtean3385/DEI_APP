@@ -9,8 +9,9 @@ class ApiUrls {
   static const employeeSignup = 'users/employee/register';
   static const employerSignup = 'users/employer/register';
 
+// home
 
-
+  static const jobCategoryData = 'home/exploreCategory/get-all';
 
 
 }
