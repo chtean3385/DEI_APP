@@ -1,14 +1,14 @@
+import 'package:dei_champions/providers/providers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants/app_navigator.dart';
-import '../../main.dart';
-import '../../models/state_models/signup_flow_state.dart';
-import '../../service/screen_shot_security_manager.dart';
-import '../../service/user_info_service.dart';
-import '../../ui/pages/auth/signup/widgets/registration_complete.dart';
+import '../../../constants/app_navigator.dart';
+import '../../../models/state_models/signup_flow_state.dart';
+import '../../../service/screen_shot_security_manager.dart';
+import '../../../service/user_info_service.dart';
 
-class EmployerSignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
+class EmployerSignupFlowController
+    extends AutoDisposeNotifier<SignupFlowState> {
   late final PageController pageController;
 
   @override
@@ -31,46 +31,42 @@ class EmployerSignupFlowController extends AutoDisposeNotifier<SignupFlowState> 
     });
 
     // Set your total steps here (or expose a setter).
-    return const SignupFlowState(currentStep: 0, totalSteps: 3, otpVerified: false);
+    return const SignupFlowState(
+      currentStep: 0,
+      totalSteps: 3,
+      otpVerified: false,
+    );
   }
 
   Future<void> nextStep({VoidCallback? onComplete}) async {
-    if (!state.isLast) {
-      final next = state.currentStep + 1;
-
-      if (state.currentStep == 0) {
-        // 👉 Only ask OTP if not verified already
-        if (!state.otpVerified) {
-          final verified = await AppNavigator.loadOtpScreenForSignup(true);
-
-          if (verified != true) return; // stop if not verified
-
-          // Save that OTP is verified
-          state = state.copyWith(otpVerified: true);
-        }
-
-        // Move to next step
-        await pageController.nextPage(
-          // next,
-          duration: const Duration(milliseconds: 900),
-          curve: Curves.fastOutSlowIn,
+    if (state.isLast) {
+      // 👉 Only ask OTP if not verified already
+      if (!state.otpVerified) {
+        final registerDetails = await ref
+            .read(employerRegisterProvider.notifier)
+            .signUpEmployer();
+        if (registerDetails != true) return; // stop if not verified
+        // final verified = await AppNavigator.loadOtpScreenForSignup(false);
+        final verified = await AppNavigator.loadOtpScreenForSignup(
+          isFromEmployerSignup: true,
         );
-        state = state.copyWith(currentStep: next);
-      } else {
-        // Normal step navigation
-       await pageController.nextPage(
-          // next,
-          duration: const Duration(milliseconds: 900),
-          curve: Curves.fastOutSlowIn,
-        );
-        state = state.copyWith(currentStep: next);
+
+        /// need to change bool value as per mobile otp or email otp
+
+        if (verified != true) return; // stop if not verified
+        state = state.copyWith(otpVerified: true);
       }
     } else {
-      submitRegistration(navigatorKey.currentContext!);
+      final next = state.currentStep + 1;
+      // Normal step navigation
+      await pageController.nextPage(
+        // next,
+        duration: const Duration(milliseconds: 900),
+        curve: Curves.fastOutSlowIn,
+      );
+      state = state.copyWith(currentStep: next);
     }
   }
-
-
 
   void previousStep() {
     if (!state.isFirst) {
@@ -93,11 +89,12 @@ class EmployerSignupFlowController extends AutoDisposeNotifier<SignupFlowState> 
     state = state.copyWith(totalSteps: total.clamp(1, 1000));
   }
 
-  iniController(){
+  iniController() {
     _autoFillUserData();
     ScreenShotProtector.enableScreenProtection();
   }
-  disposeValues(){
+
+  disposeValues() {
     ScreenShotProtector.disableScreenProtection();
   }
 
@@ -106,10 +103,6 @@ class EmployerSignupFlowController extends AutoDisposeNotifier<SignupFlowState> 
     final email = await UserInfoService.getUserEmail();
     final mobile = await MobileHelper.getMobileNumber();
 
-    state = state.copyWith(
-      email: email,
-      phone: mobile,
-    );
+    state = state.copyWith(email: email, phone: mobile);
   }
-
 }

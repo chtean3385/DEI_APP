@@ -3,8 +3,10 @@ import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_validators.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/app_colors.dart';
+import '../../../../../providers/providers.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../../common/email_suggestion_field.dart';
@@ -129,7 +131,8 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
                       icon: Icons.language,
                       textInputAction: TextInputAction.done,
                       keyboardType: TextInputType.url,
-                      textCapitalization: TextCapitalization.words,
+                      textCapitalization: TextCapitalization.none,
+                      validator: AppValidators.website,
                     ),
                     gapH20(),
                     _nextButton(),
@@ -148,23 +151,32 @@ class _EmployerCompanyDetailsState extends State<EmployerCompanyDetails>
   }
 
   Widget _nextButton() {
-    return CustomThemeButton(
-      color: AppColors.primaryColor,
-      height: 56,
-      radius: 16,
-      isExpanded: false,
-      alignRight: true,
-      onTap: () {
-        if (companyDetailsFormKey.currentState?.validate() == true) {
-        widget.onNext();
-        }
-      },
-      child: Text(
-        AppStrings.next,
-        style: context.textTheme.titleMedium?.copyWith(
-          color: context.theme.colorScheme.onPrimary,
-        ),
-      ),
+    return  Consumer(
+        builder: (context, ref, _) {
+          final notifier = ref.read(employerRegisterProvider.notifier);
+        return CustomThemeButton(
+          color: AppColors.primaryColor,
+          height: 56,
+          radius: 16,
+          isExpanded: false,
+          alignRight: true,
+          onTap: () {
+            if (companyDetailsFormKey.currentState?.validate() == true) {
+              notifier.setCompanyName(_companyNameController.text.trim());
+              notifier.setCompanyEmail(_companyEmailController.text.trim());
+              notifier.setDesignation(_designationController.text.trim());
+              notifier.setWebSite(_webSiteController.text.trim());
+            widget.onNext();
+            }
+          },
+          child: Text(
+            AppStrings.next,
+            style: context.textTheme.titleMedium?.copyWith(
+              color: context.theme.colorScheme.onPrimary,
+            ),
+          ),
+        );
+      }
     );
   }
 }

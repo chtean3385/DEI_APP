@@ -1,20 +1,17 @@
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/app_colors.dart';
+import '../../../../../providers/providers.dart';
 
-class BusinessType extends StatelessWidget {
-  final bool individual;
-  final Function(bool) onChanged;
-
-  const BusinessType({
-    Key? key,
-    required this.individual,
-    required this.onChanged,
-  }) : super(key: key);
+class BusinessType extends ConsumerWidget {
+  const BusinessType({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final individual = ref.watch(employerRegisterProvider).companyAccountType != false;
+    final controller = ref.read(employerRegisterProvider.notifier);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -30,7 +27,7 @@ class BusinessType extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             GestureDetector(
-              onTap: () => onChanged(true),
+              onTap: () => controller.setCompanyAccountType(true),
               behavior: HitTestBehavior.translucent,
               child: Row(
                 children: [
@@ -68,7 +65,7 @@ class BusinessType extends StatelessWidget {
               ),
             ),
             GestureDetector(
-              onTap: () => onChanged(false),
+              onTap: () => controller.setCompanyAccountType(false),
               behavior: HitTestBehavior.translucent,
               child: Row(
                 children: [

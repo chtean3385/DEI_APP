@@ -5,12 +5,16 @@ import 'package:dei_champions/ui/pages/auth/signup_employer/widgets/select_city.
 import 'package:dei_champions/ui/pages/auth/signup_employer/widgets/select_state.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/app_colors.dart';
+import '../../../../../constants/enums.dart';
+import '../../../../../providers/providers.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../../signup/components/registration_progress_bar.dart';
 import '../../signup/components/signup_header.dart';
+import '../../signup/components/update_check_box.dart';
 import '../../signup/widgets/signup_back_button.dart';
 
 class EmployerAddressDetails extends StatefulWidget {
@@ -117,6 +121,12 @@ class _EmployerAddressDetailsState extends State<EmployerAddressDetails>
                       maxLength: 6,
                     ),
                     gapH20(),
+                    // SMS/Email Updates Checkbox
+                    UpdatesCheckbox(
+                      formKey: addressDetailsFormKey,
+                      isEmployer: true,
+                    ),
+                    gapH20(),
                     _nextButton(),
                     gapH16(),
                   ],
@@ -132,23 +142,34 @@ class _EmployerAddressDetailsState extends State<EmployerAddressDetails>
   }
 
   Widget _nextButton() {
-    return CustomThemeButton(
-      color: AppColors.primaryColor,
-      height: 56,
-      radius: 16,
-      isExpanded: false,
-      alignRight: true,
-      onTap: () {
-        if (addressDetailsFormKey.currentState?.validate() == true) {
-          widget.onNext();
-        }
-      },
-      child: Text(
-        AppStrings.next,
-        style: context.textTheme.titleMedium?.copyWith(
-          color: context.theme.colorScheme.onPrimary,
-        ),
-      ),
+    return Consumer(
+        builder: (context, ref, _) {
+          final notifier = ref.read(employerRegisterProvider.notifier);
+          final state = ref.watch(employerRegisterProvider);
+        return CustomThemeButton(
+          color: AppColors.primaryColor,
+          height: 56,
+          radius: 16,
+          isExpanded: false,
+          alignRight: true,
+          isLoading:state.pageState == PageState.loading ,
+          onTap: () {
+            if (addressDetailsFormKey.currentState?.validate() == true) {
+              notifier.setAddress(_addressController.text.trim());
+              notifier.setState(_stateController.text.trim());
+              notifier.setCity(_cityController.text.trim());
+              notifier.setPinCode(_picCodeController.text.trim());
+              widget.onNext();
+            }
+          },
+          child: Text(
+            AppStrings.next,
+            style: context.textTheme.titleMedium?.copyWith(
+              color: context.theme.colorScheme.onPrimary,
+            ),
+          ),
+        );
+      }
     );
   }
 }

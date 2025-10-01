@@ -122,4 +122,18 @@ class AppValidators {
     return null;
   };
 
+  static FormFieldValidator<String> website = (value) {
+    const pattern =
+        r'^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(:\d+)?(\/.*)?$';
+    final regExp = RegExp(pattern);
+
+    if (value == null || value.isEmpty) {
+      return 'Please enter your website';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Please enter a valid website URL';
+    }
+    return null;
+  };
+
+
 }

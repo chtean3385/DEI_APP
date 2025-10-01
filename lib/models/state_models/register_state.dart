@@ -24,7 +24,6 @@ class RegisterState {
 
   RegisterState copyWith({
     bool? isOtpValid,
-    String? otp,
     String? name,
     String? email,
     String? password,
@@ -82,4 +81,86 @@ class RegisterState {
       acceptTerms.hashCode ^
       roleId.hashCode ^
       pageState.hashCode;
+}
+class EmployerRegisterState {
+  final String? name;
+  final String? email;
+  final String? password;
+  final String? mobile;
+  final bool? companyAccountType;
+  final String? companyName;
+  final String? companyEmail;
+  final String? companyDesignation;
+  final String? companySize;
+  final String? companyWebsite;
+  final String? address;
+  final String? city;
+  final String? state;
+  final String? pinCode;
+  final bool? acceptTerms;
+  final int? roleId;
+
+  final PageState pageState;
+
+  const EmployerRegisterState({
+    this.name,
+    this.email,
+    this.password,
+    this.mobile,
+    this.companyAccountType,
+    this.companyName,
+    this.companyEmail,
+    this.companyDesignation,
+    this.companySize,
+    this.companyWebsite,
+    this.address,
+    this.city,
+    this.state,
+    this.pinCode,
+    this.acceptTerms,
+    this.roleId,
+    this.pageState = PageState.initial,
+  });
+
+  EmployerRegisterState copyWith({
+    bool? isOtpValid,
+    String? otp,
+    String? name,
+    String? email,
+    String? password,
+    String? mobile,
+    bool? companyAccountType,
+    String? companyName,
+    String? companyEmail,
+    String? companyDesignation,
+    String? companySize,
+    String? companyWebsite,
+    String? address,
+    String? city,
+    String? state,
+    String? pinCode,
+    bool? acceptTerms,
+    int? roleId,
+    PageState? pageState,
+  }) {
+    return EmployerRegisterState(
+      name: name ?? this.name,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      mobile: mobile ?? this.mobile,
+      companyAccountType: companyAccountType ?? this.companyAccountType,
+      companyName: companyName ?? this.companyName,
+      companyEmail: companyEmail ?? this.companyEmail,
+      companyDesignation: companyDesignation ?? this.companyDesignation,
+      companySize: companySize ?? this.companySize,
+      companyWebsite: companyWebsite ?? this.companyWebsite,
+      address: address ?? this.address,
+      city: city ?? this.city,
+      state: state ?? this.state,
+      acceptTerms: acceptTerms ?? this.acceptTerms,
+      roleId: roleId ?? this.roleId,
+      pageState: pageState ?? this.pageState,
+    );
+  }
+
 }

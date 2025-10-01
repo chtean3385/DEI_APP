@@ -194,7 +194,6 @@ class _OtherInfoState extends State<OtherInfo> {
                   isLoading:state.pageState == PageState.loading ,
                   onTap: () {
                     if (otherInfoFormKey.currentState?.validate() == true) {
-                      print("otherInfoFormKey.currentState?.validate() -- ${otherInfoFormKey.currentState?.validate()}");
                       regController.setPassword(_confirmPasswordController.text.trim());
                       regController.setWorkStatus(selectedWorkStatus ?? "");
                       widget.onNext();

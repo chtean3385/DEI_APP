@@ -3,11 +3,11 @@ import 'package:dei_champions/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants/enums.dart';
-import '../../models/common/base_model.dart';
-import '../../models/state_models/register_state.dart';
-import '../../service/auth_service.dart';
-import '../../widgets/others/snack_bar.dart';
+import '../../../constants/enums.dart';
+import '../../../models/common/base_model.dart';
+import '../../../models/state_models/register_state.dart';
+import '../../../service/auth_service.dart';
+import '../../../widgets/others/snack_bar.dart';
 
 class EmployeeRegisterController extends StateNotifier<RegisterState> {
   final Ref ref;
@@ -50,30 +50,6 @@ class EmployeeRegisterController extends StateNotifier<RegisterState> {
     }
   }
 
-  ///verifyEmailOtp
-  Future<void> verifyEmailOtp(String otp, {bool isFromSignup = false}) async {
-    setPageState(PageState.loading);
-    try {
-      final BaseModel result = await _authService.verifyEmailOtp(
-        email: state.email ?? "",
-        otp: otp,
-      );
-
-      setPageState(PageState.success);
-      if (isFromSignup) {
-        Navigator.pop(navigatorKey.currentContext!, true);
-      } else {
-        showSnackBar(result.message, duration: 3);
-        AppNavigator.toBottomBar();
-      }
-      debugPrint("success - verifyEmailOtp");
-    } catch (e) {
-      setPageState(PageState.error);
-      showSnackBar(e.toString());
-      debugPrint("catch - verifyEmailOtp");
-      debugPrint(e.toString());
-    }
-  }
 
   /// 🔹 Update fields from screens
   void setName(String val) => state = state.copyWith(name: val);
@@ -86,9 +62,11 @@ class EmployeeRegisterController extends StateNotifier<RegisterState> {
 
   void setWorkStatus(String val) => state = state.copyWith(workStatus: val);
 
-  void setAcceptTerms(bool val) => state = state.copyWith(acceptTerms: val);
+  void setAcceptTerms(bool val) => state = state.copyWith(acceptTerms: val); void toggleAcceptTerms() {
+    state = state.copyWith(acceptTerms: !(state.acceptTerms ?? false));
+  }
 
-  void setRoleId(int val) => state = state.copyWith(roleId: val);
+
 
   /// 🔹 Page state
   void setPageState(PageState newState) {

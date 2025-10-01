@@ -4,10 +4,10 @@ import 'package:dei_champions/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
-import '../../models/state_models/signup_flow_state.dart';
-import '../../service/screen_shot_security_manager.dart';
-import '../../service/user_info_service.dart';
-import '../../ui/pages/auth/signup/widgets/registration_complete.dart';
+import '../../../models/state_models/signup_flow_state.dart';
+import '../../../service/screen_shot_security_manager.dart';
+import '../../../service/user_info_service.dart';
+import '../../../ui/pages/auth/signup/widgets/registration_complete.dart';
 
 
 
@@ -49,7 +49,7 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
           final registerDetails =   await ref.read(registerProvider.notifier).signUpEmployee();
           if (registerDetails != true) return; // stop if not verified
           // final verified = await AppNavigator.loadOtpScreenForSignup(false);
-         final verified =   await AppNavigator.loadOtpScreenForSignup(false); /// need to change bool value as per mobile otp or email otp
+         final verified =   await AppNavigator.loadOtpScreenForSignup(isFromEmployeeSignup: true); /// need to change bool value as per mobile otp or email otp
 
           if (verified != true) return; // stop if not verified
 

@@ -1,5 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/providers/controllers/employee_login_controller.dart';
+import 'package:dei_champions/providers/controllers/auth/employee_login_controller.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -12,13 +12,15 @@ import 'components/otp_floating_background.dart';
 import 'components/otp_main_card.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
-  final bool isFromSignup;
-  final bool isEmployer;
+  final bool isFromEmployeeSignup;
+  final bool isFromEmployerSignup;
+  final bool isFromLogin;
 
   const OTPVerificationScreen({
     super.key,
-    this.isFromSignup = true,
-     this.isEmployer = true,
+    this.isFromEmployeeSignup = false,
+    this.isFromEmployerSignup = false,
+    this.isFromLogin = false,
   });
 
   @override
@@ -29,7 +31,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
     with TickerProviderStateMixin {
 
   late OTPAnimationController _animationController;
-  late final EmployeeLoginController controller;
   List<TextEditingController> otpControllers = List.generate(6, (_) => TextEditingController());
   List<FocusNode> focusNodes = List.generate(6, (_) => FocusNode());
   int resendTimer = 120;
@@ -69,8 +70,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
     String otp = otpControllers.map((controller) => controller.text).join();
     ProviderScope.containerOf(
       context,
-    ).read(registerProvider.notifier).verifyEmailOtp(otp,isFromSignup: widget.isFromSignup);
-
+    ).read(verifyOtpProvider.notifier).verifyEmailOtp(otp,isEmployeeSignup: widget.isFromEmployeeSignup,isEmployerSignup: widget.isFromEmployerSignup,isLogin:widget.isFromLogin );
   }
 
   void _resendCode() {
@@ -122,13 +122,14 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.all(24),
                           child: OTPMainCard(
-                            isEmployer: widget.isEmployer,
+                            isFromLogin:widget.isFromLogin ,
+                            isFromEmployerSignup:widget.isFromEmployerSignup ,
+                            isFromEmployeeSignup: widget.isFromEmployeeSignup ,
                             otpControllers: otpControllers,
                             focusNodes: focusNodes,
                             resendTimer: resendTimer,
                             pulseAnimation: _animationController.pulseAnimation,
                             shineAnimation: _animationController.shineAnimation,
-                            onVerifyOTP: _verifyOTP,
                             onResendCode: _resendCode,
                             onOTPChanged: (index, value) {
                               if (value.isNotEmpty && index < 5) {
@@ -152,6 +153,12 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
                   );
                 },
               ),
+            ),
+
+            Positioned(
+              left: 10,
+              top: 40,
+              child: BackButton(),
             ),
           ],
         ),

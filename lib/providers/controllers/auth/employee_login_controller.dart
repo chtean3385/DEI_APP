@@ -3,11 +3,11 @@ import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../constants/enums.dart';
-import '../../models/common/base_model.dart';
-import '../../models/state_models/auth_state.dart';
-import '../../service/auth_service.dart';
-import '../../widgets/others/snack_bar.dart';
+import '../../../constants/enums.dart';
+import '../../../models/common/base_model.dart';
+import '../../../models/state_models/auth_state.dart';
+import '../../../service/auth_service.dart';
+import '../../../widgets/others/snack_bar.dart';
 
 class EmployeeLoginController extends StateNotifier<AuthState> {
   final Ref ref;
@@ -52,7 +52,7 @@ class EmployeeLoginController extends StateNotifier<AuthState> {
       );
       showSnackBar(result.message, duration: 3);
       setPageState(PageState.success);
-      AppNavigator.loadOtpScreenForLogin();
+      AppNavigator.loadOtpScreen();
       debugPrint("success - signInEmployee");
     } catch (e) {
       setPageState(PageState.error);

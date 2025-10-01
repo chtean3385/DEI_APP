@@ -64,6 +64,7 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
 
   @override
   Widget build(BuildContext context) {
+    print( "buillldd");
     return FocusTraversalGroup(
       child: Stack(
         children: [
@@ -100,14 +101,7 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
                     RegistrationProgressBar(isEmployer: true),
                     gapH16(),
                     gapH16(),
-                    BusinessType(
-                      individual: isIndividual,
-                      onChanged: (value) {
-                        setState(() {
-                          isIndividual = value;
-                        });
-                      },
-                    ),
+                    BusinessType(),
                     gapH20(),
                     // Confirm Password Field
                     TransparentFormField(
@@ -187,23 +181,32 @@ class _EmployerBasicPersonalInfoState extends State<EmployerBasicPersonalInfo>
   }
 
   Widget _nextButton() {
-    return CustomThemeButton(
-      color: AppColors.primaryColor,
-      height: 56,
-      radius: 16,
-      isExpanded: false,
-      alignRight: true,
-      onTap: () {
-        if (employerPersonalInfoFormKey.currentState?.validate() == true) {
-        widget.onNext();
-        }
-      },
-      child: Text(
-        AppStrings.next,
-        style: context.textTheme.titleMedium?.copyWith(
-          color: context.theme.colorScheme.onPrimary,
-        ),
-      ),
+    return Consumer(
+        builder: (context, ref, _) {
+          final notifier = ref.read(employerRegisterProvider.notifier);
+        return CustomThemeButton(
+          color: AppColors.primaryColor,
+          height: 56,
+          radius: 16,
+          isExpanded: false,
+          alignRight: true,
+          onTap: () {
+            if (employerPersonalInfoFormKey.currentState?.validate() == true) {
+              notifier.setName(_nameController.text.trim());
+              notifier.setEmail(_emailController.text.trim());
+              notifier.setMobile(_mobileController.text.trim());
+              notifier.setPassword(_passwordController.text.trim());
+              widget.onNext();
+            }
+          },
+          child: Text(
+            AppStrings.next,
+            style: context.textTheme.titleMedium?.copyWith(
+              color: context.theme.colorScheme.onPrimary,
+            ),
+          ),
+        );
+      }
     );
   }
 }

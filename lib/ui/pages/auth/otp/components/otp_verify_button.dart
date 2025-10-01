@@ -3,24 +3,27 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../constants/app_colors.dart';
 import '../../../../../constants/enums.dart';
-import '../../../../../widgets/others/custom_theme_button.dart';
 
 class OTPVerifyButton extends ConsumerWidget {
   final List<TextEditingController> otpControllers;
-  final VoidCallback onVerify;
+  final bool isFromEmployeeSignup;
+  final bool isFromEmployerSignup;
+  final bool isFromLogin;
+
 
   const OTPVerifyButton({
     super.key,
     required this.otpControllers,
-    required this.onVerify,
+    this.isFromEmployeeSignup = false,
+    this.isFromEmployerSignup = false,
+    this.isFromLogin = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(registerProvider);
-    final controller = ref.watch(registerProvider.notifier);
+    final authState = ref.watch(verifyOtpProvider);
+    final controller = ref.watch(verifyOtpProvider.notifier);
     bool isComplete = otpControllers.every((controller) => controller.text.isNotEmpty);
     String otp = otpControllers.map((controller) => controller.text).join();
     // return CustomThemeButton(
@@ -63,7 +66,7 @@ class OTPVerifyButton extends ConsumerWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: (isComplete && authState.pageState != PageState.loading)
-              ? () => controller.verifyEmailOtp(otp)
+              ? () => controller.verifyEmailOtp(otp,isEmployeeSignup: isFromEmployeeSignup,isEmployerSignup: isFromEmployerSignup,isLogin:isFromLogin )
               : null,
 
           child: Center(

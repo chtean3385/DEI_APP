@@ -89,23 +89,23 @@ class AppNavigator {
     );
   }
 
-  static Future<bool> loadOtpScreenForSignup(bool isEmployer) async {
+  static Future<bool> loadOtpScreenForSignup({bool isFromEmployeeSignup = false,bool isFromEmployerSignup = false}) async {
     final result = await Navigator.push<bool>(
       navigatorKey.currentContext!,
       MaterialPageRoute(
         builder: (_) => OTPVerificationScreen(
-          isEmployer: isEmployer,
-          isFromSignup: true,
+       isFromEmployeeSignup: isFromEmployeeSignup,
+          isFromEmployerSignup:isFromEmployerSignup ,
         ),
       ),
     );
 
     return result ?? false; // default false if user backs out
   }
-  static  loadOtpScreenForLogin() async {
+  static  loadOtpScreen() async {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => OTPVerificationScreen()),
+      MaterialPageRoute(builder: (_) => OTPVerificationScreen(isFromLogin: true)),
     );
   }
 

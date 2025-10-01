@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_validators.dart';
 import '../../../constants/enums.dart';
-import '../../../providers/controllers/employee_login_controller.dart';
+import '../../../providers/controllers/auth/employee_login_controller.dart';
 import '../../../providers/providers.dart';
 import '../../../utils/app_textformfield.dart';
 import '../../../utils/widget_utils.dart';
