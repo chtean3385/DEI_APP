@@ -116,4 +116,20 @@ class FriendlyIndustryController extends StateNotifier<FriendlyIndustryState> {
       showSnackBar(e.toString());
     }
   }
+  /// 🔹 Select filter
+  void selectFilter(String filter) {
+    state = state.copyWith(selectedFilter: filter);
+  }
+
+  List<FriendlyIndustry> get filteredIndustries {
+    final industries = state.data ?? [];
+    if (state.selectedFilter == "All") return industries;
+
+    return industries
+        .where((e) => e.alt.toLowerCase().contains(state.selectedFilter.toLowerCase()))
+        .toList();
+  }
+
+
+
 }

@@ -28,8 +28,9 @@ class HomeScreen extends StatelessWidget {
           children: [
             JobsCategorySection(),
             FeaturedEmployersSection(),
-            DeiFriendlyIndustrySection(),
+
             JobsServiceSection(),
+            DeiFriendlyIndustrySection(),
             gapH16(),
             Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
             gapH16(),

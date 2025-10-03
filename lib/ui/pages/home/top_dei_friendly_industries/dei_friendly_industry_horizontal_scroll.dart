@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_styles.dart';
 import 'dei_friendly_industry_card.dart';
+import 'freindly_industry_filter_option.dart';
 
 
 class DeiFriendlyIndustrySection extends ConsumerWidget {
@@ -22,7 +23,7 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
     }
     return state.pageState == PageState.loading
         ?_loadingUi():
-    _data(state, context);
+    _data(state, context,ref);
 
   }
 
@@ -66,7 +67,7 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
     );
   }
 
-  Widget _data(FriendlyIndustryState state, BuildContext context) {
+  Widget _data(FriendlyIndustryState state, BuildContext context,WidgetRef ref) {
     final theme = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.only(bottom: 24, top: 0),
@@ -98,11 +99,13 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
                 ),
 
                 const SizedBox(height: 8),
+                FriendlyIndustryFilterOptions(),
+                const SizedBox(height: 8),
               ],
             ),
           ),
           // horizontal list
-          _dataItems(state),
+          _dataItems(state,ref),
         ],
       ),
     );
@@ -122,23 +125,26 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
     );
   }
 
-  Widget _dataItems(FriendlyIndustryState state) {
-    return (state.data?.length ?? 0) > 0
-        ? SizedBox(
+  Widget _dataItems(FriendlyIndustryState state, WidgetRef ref) {
+    final controller = ref.read(friendlyIndustryProvider.notifier);
+    final industries = controller.filteredIndustries;
+
+    if (industries.isEmpty) return const SizedBox.shrink();
+
+    return SizedBox(
       height: 220,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: (state.data?.length ?? 0),
-        // add extra card for "View all"
+        itemCount: industries.length,
         itemBuilder: (context, index) {
           return DeiFriendlyIndustryCard(
-            employer:  state.data![index]
+            employer: industries[index],
           );
         },
         separatorBuilder: (c, v) => gapW16(),
       ),
-    )
-        : SizedBox.shrink();
+    );
   }
+
 }
