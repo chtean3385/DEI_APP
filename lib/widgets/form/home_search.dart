@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../widgets/others/search_form_common.dart';
+import '../../constants/app_navigator.dart';
 
 class HomeSearch extends StatelessWidget {
   const HomeSearch({super.key});
@@ -9,7 +10,7 @@ class HomeSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
-      // onTap: AppNavigator.loadSearchScreen,
+      onTap: AppNavigator.loadJobSearchResultScreen,
       child: AbsorbPointer(
         absorbing: true,
         child: SearchFormFieldCommon(

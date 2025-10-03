@@ -24,4 +24,18 @@ class AppDrawables {
   static const String allFilled = "assets/icon/bottom_bar/allFilled.jpeg";
   static const String hamburgerMenu = "assets/icon/bottom_bar/hamburger_menu.jpeg";
 
+  //featured employers home
+
+  static const String brand1 = "assets/drawables/featured_employers/brand-1.png";
+  static const String brand2 = "assets/drawables/featured_employers/brand-2.png";
+  static const String brand3 = "assets/drawables/featured_employers/brand-3.png";
+  static const String brand4 = "assets/drawables/featured_employers/brand-4.png";
+  static const String brand5 = "assets/drawables/featured_employers/brand-5.png";
+  static const String brand6 = "assets/drawables/featured_employers/brand-6.png";
+  static const String brand7 = "assets/drawables/featured_employers/brand-7.png";
+  static const String brand8 = "assets/drawables/featured_employers/brand-8.png";
+  static const String brand9 = "assets/drawables/featured_employers/brand-9.png";
+  static const String brand10 = "assets/drawables/featured_employers/brand-10.png";
+
+
 }

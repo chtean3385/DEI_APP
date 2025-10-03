@@ -11,6 +11,7 @@ import 'components/noticing_you/recruiters_noticing.dart';
 import 'components/slider/home_top_slider.dart';
 import 'components/top_companies/top_companies.dart';
 import 'explore_job_category/job_categories_horizontal_scroll.dart';
+import 'featured_empoyers/featured_employer_horizontal_scroll.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -24,9 +25,12 @@ class HomeScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             gapH16(),
+
+            JobsCategorySection(),
+            FeaturedEmployersSection(),
             Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
             gapH16(),
-            JobsCategorySection(),
+
             JobsBasedOnProfile(),
             // gapH16(),
             JobsYouMightLike(),

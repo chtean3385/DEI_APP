@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
 import '../../../../models/state_models/job_category_state.dart';
-import '../../../../service/job_category_service.dart';
+import '../../../../service/home/job_category_service.dart';
 import '../../../../widgets/others/snack_bar.dart';
 
 
@@ -39,15 +39,4 @@ class JobCategoryController extends StateNotifier<JobCategoryState> {
       showSnackBar(e.toString());
     }
   }
-
-
-  // void selectCategory(String id) {
-  //   final selected =
-  //   state.data?.firstWhere((c) => c.id == id, orElse: () => null);
-  //   state = state.copyWith(selectedCategory: selected);
-  // }
-  //
-  // void clearSelection() {
-  //   state = state.copyWith(selectedCategory: null);
-  // }
 }

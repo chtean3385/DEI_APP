@@ -1,6 +1,6 @@
-import '../models/common/base_model.dart';
-import '../networks/api_handler.dart';
-import '../networks/api_urls.dart';
+import '../../models/common/base_model.dart';
+import '../../networks/api_handler.dart';
+import '../../networks/api_urls.dart';
 
 class JobCategoryService {
   final ApiHandler _apiHandler;

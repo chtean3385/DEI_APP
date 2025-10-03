@@ -12,7 +12,7 @@ AppBar appBarHome(BuildContext context, {bool isFromHome = false,String title = 
     titleSpacing: 0,
     leading: Builder(
       builder: (context) => IconButton(
-        icon: const Icon(Icons.menu, size: 30),
+        icon: const Icon(Icons.menu,color: AppColors.primaryColor, size: 30),
         onPressed: () {
           Scaffold.of(context).openDrawer(); // this will open CustomDrawer
         },
@@ -24,7 +24,7 @@ AppBar appBarHome(BuildContext context, {bool isFromHome = false,String title = 
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: IconButton(
-                icon: const Icon(Icons.notifications_none, size: 30),
+                icon: const Icon(Icons.notifications_none,color: AppColors.primaryColor, size: 30),
                 onPressed: () {
                   // maybe show notifications later
                 },

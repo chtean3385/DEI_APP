@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
 import '../models/state_models/auth_state.dart';
+import '../models/state_models/featured_employers_state.dart';
 import '../models/state_models/otp_state.dart';
 import '../models/state_models/register_state.dart';
 import '../models/state_models/signup_flow_state.dart';
@@ -15,6 +16,7 @@ import 'controllers/auth/employer_register_controller.dart';
 import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
+import 'controllers/home/category/featured_employers_controller.dart';
 
 
 final appProvider =
@@ -56,4 +58,11 @@ AutoDisposeNotifierProvider<EmployerSignupFlowController, SignupFlowState>(
 final jobCategoryProvider =
 StateNotifierProvider.autoDispose<JobCategoryController, JobCategoryState>((ref) {
   return JobCategoryController(ref);
+});
+
+
+///featured employers
+final featuredEmployersProvider =
+StateNotifierProvider.autoDispose<FeaturedEmployersController, FeaturedEmployersState>((ref) {
+  return FeaturedEmployersController();
 });
