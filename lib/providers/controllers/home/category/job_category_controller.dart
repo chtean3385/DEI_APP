@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
-import '../../../../models/state_models/job_category_state.dart';
+import '../../../../models/state_models/home/job_category_state.dart';
 import '../../../../service/home/job_category_service.dart';
 import '../../../../widgets/others/snack_bar.dart';
 

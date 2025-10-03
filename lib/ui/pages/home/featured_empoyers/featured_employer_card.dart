@@ -54,8 +54,8 @@ class FeaturedEmployerCard extends StatelessWidget {
                             maxLines: 1,
                             softWrap: true,
                             overflow: TextOverflow.ellipsis,
-                            style: theme.bodyMedium?.copyWith(
-                              color: Colors.black, // text color for contrast
+                            style: theme.displaySmall?.copyWith(
+                                color: Colors.black, fontSize: 10// text color for contrast
                             ),
                           ),
                         ),
@@ -64,13 +64,6 @@ class FeaturedEmployerCard extends StatelessWidget {
 
                   ],
                 ),
-
-                // RoundedNetworkImage(
-                //   imageUrl: employer.logo ?? "",
-                //   width: 50,
-                //   height: 50,
-                //   borderRadius: 8,
-                // ),
                 const SizedBox(height: 12),
                 // Name
                 Text(
@@ -87,7 +80,7 @@ class FeaturedEmployerCard extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 2),
                       child: Text(
                         tag,
-                        style: theme.bodyMedium,
+                        style: theme.displaySmall,
                       ),
                     );
                   }).toList() ?? [],

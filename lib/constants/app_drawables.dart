@@ -37,5 +37,14 @@ class AppDrawables {
   static const String brand9 = "assets/drawables/featured_employers/brand-9.png";
   static const String brand10 = "assets/drawables/featured_employers/brand-10.png";
 
+  //friendly industries
+  static const String friendly1 = "assets/drawables/friendly_industries/education.png";
+  static const String friendly2 = "assets/drawables/friendly_industries/finance.png";
+  static const String friendly3 = "assets/drawables/friendly_industries/healthcare.png";
+  static const String friendly4 = "assets/drawables/friendly_industries/hr.png";
+  static const String friendly5 = "assets/drawables/friendly_industries/logistics.png";
+  static const String friendly6 = "assets/drawables/friendly_industries/manufacturing.png";
+  static const String friendly7 = "assets/drawables/friendly_industries/media.png";
+  static const String friendly8 = "assets/drawables/friendly_industries/tech.png";
 
 }

@@ -1,28 +1,28 @@
 import 'package:dei_champions/constants/enums.dart';
+import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_styles.dart';
-import '../../../../models/state_models/home/featured_employers_state.dart';
-import 'featured_employer_card.dart';
+import 'dei_friendly_industry_card.dart';
 
 
-class FeaturedEmployersSection extends ConsumerWidget {
-  const FeaturedEmployersSection({Key? key}) : super(key: key);
+class DeiFriendlyIndustrySection extends ConsumerWidget {
+  const DeiFriendlyIndustrySection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final featuredState = ref.watch(featuredEmployersProvider);
-    final hasData = (featuredState.data ?? []).isNotEmpty;
+    final state = ref.watch(friendlyIndustryProvider);
+    final hasData = (state.data ?? []).isNotEmpty;
 
-    if (!hasData && featuredState.pageState != PageState.loading) {
+    if (!hasData && state.pageState != PageState.loading) {
       return const SizedBox.shrink();
     }
-    return featuredState.pageState == PageState.loading
+    return state.pageState == PageState.loading
         ?_loadingUi():
-    _data(featuredState, context);
+    _data(state, context);
 
   }
 
@@ -66,7 +66,7 @@ class FeaturedEmployersSection extends ConsumerWidget {
     );
   }
 
-  Widget _data(FeaturedEmployersState state, BuildContext context) {
+  Widget _data(FriendlyIndustryState state, BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.only(bottom: 24, top: 0),
@@ -81,12 +81,12 @@ class FeaturedEmployersSection extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Featured Employers (Premium Partners)",
+                  "Top DEI-Friendly Industries Hiring Now",
                   style: theme.titleMedium,
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "Over 300 organizations certified for inclusive hiring — PWD accessibility, LGBTQ+ policies, flexible returnships, and more.",
+                  "Explore inclusive job opportunities across diverse industries that are championing equitable hiring.",
                   maxLines: 2,
                   textAlign: TextAlign.left,
                   overflow: TextOverflow.ellipsis,
@@ -115,14 +115,14 @@ class FeaturedEmployersSection extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         itemCount: 3,
         itemBuilder: (context, index) {
-          return ShimmerFeaturedEmployerCard();
+          return ShimmerDeiFriendlyIndustryCard();
         },
         separatorBuilder: (c, v) => gapW16(),
       ),
     );
   }
 
-  Widget _dataItems(FeaturedEmployersState state) {
+  Widget _dataItems(FriendlyIndustryState state) {
     return (state.data?.length ?? 0) > 0
         ? SizedBox(
       height: 220,
@@ -132,7 +132,7 @@ class FeaturedEmployersSection extends ConsumerWidget {
         itemCount: (state.data?.length ?? 0),
         // add extra card for "View all"
         itemBuilder: (context, index) {
-          return FeaturedEmployerCard(
+          return DeiFriendlyIndustryCard(
             employer:  state.data![index]
           );
         },

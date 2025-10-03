@@ -1,12 +1,14 @@
 // providers.dart
-import 'package:dei_champions/models/state_models/job_category_state.dart';
+import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
+import 'package:dei_champions/models/state_models/home/job_category_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
+import 'package:dei_champions/providers/controllers/home/category/friendly_industry_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/job_category_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
 import '../models/state_models/auth_state.dart';
-import '../models/state_models/featured_employers_state.dart';
+import '../models/state_models/home/featured_employers_state.dart';
 import '../models/state_models/otp_state.dart';
 import '../models/state_models/register_state.dart';
 import '../models/state_models/signup_flow_state.dart';
@@ -65,4 +67,10 @@ StateNotifierProvider.autoDispose<JobCategoryController, JobCategoryState>((ref)
 final featuredEmployersProvider =
 StateNotifierProvider.autoDispose<FeaturedEmployersController, FeaturedEmployersState>((ref) {
   return FeaturedEmployersController();
+});
+
+///friendly industries
+final friendlyIndustryProvider =
+StateNotifierProvider.autoDispose<FriendlyIndustryController, FriendlyIndustryState>((ref) {
+  return FriendlyIndustryController();
 });

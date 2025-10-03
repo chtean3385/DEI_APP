@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/ui/pages/home/top_dei_friendly_industries/dei_friendly_industry_horizontal_scroll.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_colors.dart';
@@ -28,6 +29,7 @@ class HomeScreen extends StatelessWidget {
 
             JobsCategorySection(),
             FeaturedEmployersSection(),
+            DeiFriendlyIndustrySection(),
             Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
             gapH16(),
 

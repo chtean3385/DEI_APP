@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_drawables.dart';
 import '../../../../models/home/featured_employer/employer_model.dart';
-import '../../../../models/state_models/featured_employers_state.dart';
+import '../../../../models/state_models/home/featured_employers_state.dart';
 import '../../../../widgets/others/snack_bar.dart';
 
 

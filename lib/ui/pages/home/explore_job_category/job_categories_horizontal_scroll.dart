@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_styles.dart';
-import '../../../../models/state_models/job_category_state.dart';
+import '../../../../models/state_models/home/job_category_state.dart';
 import 'job_category_card.dart';
 
 /// 📌 "Jobs categories based

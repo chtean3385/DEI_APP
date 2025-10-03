@@ -1,6 +1,6 @@
 import 'package:dei_champions/constants/enums.dart';
 
-import '../home/featured_employer/employer_model.dart';
+import '../../home/featured_employer/employer_model.dart';
 
 class FeaturedEmployersState {
   final PageState pageState;

@@ -1,5 +1,5 @@
-import '../../../constants/enums.dart';
-import '../home/job_category/job_category_group.dart';
+import '../../../../constants/enums.dart';
+import '../../home/job_category/job_category_group.dart';
 
 class JobCategoryState {
   final PageState pageState;
