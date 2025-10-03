@@ -20,6 +20,7 @@ class ViewAllButton extends StatelessWidget {
       onPressed: onPressed,
       style: TextButton.styleFrom(
         padding: EdgeInsets.zero,
+        visualDensity: VisualDensity.compact,
         minimumSize: const Size(0, 0), // avoid extra padding
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
