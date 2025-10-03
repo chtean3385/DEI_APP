@@ -13,6 +13,7 @@ import 'components/slider/home_top_slider.dart';
 import 'components/top_companies/top_companies.dart';
 import 'explore_job_category/job_categories_horizontal_scroll.dart';
 import 'featured_empoyers/featured_employer_horizontal_scroll.dart';
+import 'job_service_section/job_services_horizontal_scroll.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,11 +26,11 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            gapH16(),
-
             JobsCategorySection(),
             FeaturedEmployersSection(),
             DeiFriendlyIndustrySection(),
+            JobsServiceSection(),
+            gapH16(),
             Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
             gapH16(),
 

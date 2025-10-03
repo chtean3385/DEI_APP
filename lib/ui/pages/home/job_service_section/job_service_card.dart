@@ -1,0 +1,172 @@
+import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/models/home/job_services/job_service_model.dart';
+import 'package:dei_champions/widgets/others/shimmer_loader.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../widgets/others/rounded_network_image.dart';
+import '../../../../widgets/others/view_all_button.dart';
+
+class JobServiceCard extends StatelessWidget {
+  final JobServiceModel jobServiceModel;
+  final GestureTapCallback? onTap;
+  final Color color;
+
+  const JobServiceCard({
+    required this.jobServiceModel,
+    this.onTap,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+    return GestureDetector(
+      onTap: onTap,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(6),
+            bottomLeft: Radius.circular(6),
+            bottomRight: Radius.circular(16),
+          ),
+          border: Border.all(color: Colors.transparent, width: 1),
+        ),
+        child: SizedBox(
+          width: 280,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    RoundedNetworkImage(
+                      imageUrl: jobServiceModel.image,
+                      width: 50,
+                      height: 50,
+                      borderRadius: 8,
+                    ),
+                    gapW16(),
+                    Expanded(
+                      flex: 3,
+                      child: Text(
+                        jobServiceModel.title,
+                        style: theme.labelMedium,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
+                        maxLines: 1,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  jobServiceModel.description,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 5,
+                  textAlign: TextAlign.start,
+                  style: context.textTheme.displaySmall?.copyWith(
+                    color: Colors.black54,
+                  ),
+                ),
+                const SizedBox(height: 8),
+
+                ViewAllButton(
+                  text: 'Find Out More',
+                  isSmall: true,
+                  showArrow: true,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ShimmerJobServiceCard extends StatelessWidget {
+  const ShimmerJobServiceCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return ShimmerLoader(
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(6),
+            bottomLeft: Radius.circular(6),
+            bottomRight: Radius.circular(16),
+          ),
+          border: Border.all(color: Colors.white, width: 2),
+        ),
+        child: SizedBox(
+          width: 280,
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    RoundedNetworkImage(
+                      imageUrl: "",
+                      width: 50,
+                      height: 50,
+                      borderRadius: 8,
+                    ),
+                    gapW16(),
+                    Expanded(
+                      flex: 3,
+                      child: ColoredBox(
+                        color: Colors.white,
+                        child: SizedBox(height: 14),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                const SizedBox(height: 6),
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 10, width: 170),
+                ),
+                const SizedBox(height: 2),
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 10, width: 150),
+                ),
+                const SizedBox(height: 2),
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 10, width: 170),
+                ),
+                const SizedBox(height: 2),
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 10, width: 150),
+                ),
+                const SizedBox(height: 2),
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 10, width: 170),
+                ),
+                const SizedBox(height: 8),
+
+                ViewAllButton(text: 'Find Out More', isSmall: true),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

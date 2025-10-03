@@ -47,7 +47,7 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
                 Flexible(
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: getBadgeColor(employer.badge.color ), // function to map class to color
+                      color: getBootStrapColor(employer.badge.color ), // function to map class to color
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Padding(
@@ -194,7 +194,7 @@ class ShimmerDeiFriendlyIndustryCard extends StatelessWidget {
     );
   }
 }
-Color getBadgeColor(String? colorKey) {
+Color getBootStrapColor(String? colorKey) {
   return BootstrapColors.colors[colorKey] ?? Colors.grey;
 }
 

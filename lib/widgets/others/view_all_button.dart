@@ -6,6 +6,7 @@ class ViewAllButton extends StatelessWidget {
   final String text;
   final bool isSmall;
   final bool fillColor;
+  final bool showArrow;
   final double radius;
 
   const ViewAllButton({
@@ -14,6 +15,7 @@ class ViewAllButton extends StatelessWidget {
     this.text = "View all",
     this.isSmall = false,
     this.fillColor = false,
+    this.showArrow = false,
     this.radius = 8,
   });
 
@@ -43,9 +45,22 @@ class ViewAllButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(radius),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(2.0),
-        child: Text(text, style: textStyle),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(2.0),
+            child: Text(text, style: textStyle),
+          ),
+          if (showArrow) ...[
+            const SizedBox(width: 4),
+            Icon(
+              Icons.arrow_forward_ios,
+              size: isSmall ? 12 : 16,
+              color: fillColor ? Colors.white : AppColors.primaryColor,
+            ),
+          ]
+        ],
       ),
     );
   }

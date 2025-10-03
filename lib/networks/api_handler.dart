@@ -14,8 +14,8 @@ class ApiHandler {
           Dio(
             BaseOptions(
               baseUrl: ApiUrls.baseUrl,
-              connectTimeout: const Duration(seconds: 10),
-              receiveTimeout: const Duration(seconds: 10),
+              connectTimeout: const Duration(seconds: 20),
+              receiveTimeout: const Duration(seconds: 20),
             ),
           ) {
     _dio.interceptors.add(LogInterceptor(responseBody: true));

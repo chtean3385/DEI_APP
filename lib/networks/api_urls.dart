@@ -12,6 +12,7 @@ class ApiUrls {
 // home
 
   static const jobCategoryData = 'home/exploreCategory/get-all';
+  static const jobServicesData = 'home/jobServicesSection/get-all';
 
 
 }
