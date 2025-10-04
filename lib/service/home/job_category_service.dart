@@ -29,5 +29,12 @@ class JobCategoryService {
     );
     return result;
   }
+  Future<dynamic> getHowItWorks() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.howItWorksData,
+      includeAuthToken: true,
+    );
+    return result;
+  }
 
 }
