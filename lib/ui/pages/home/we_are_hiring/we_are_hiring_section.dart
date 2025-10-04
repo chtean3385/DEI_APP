@@ -55,7 +55,7 @@ class WeAreHiringBanner extends ConsumerWidget {
                 overflow: TextOverflow.ellipsis,
                 softWrap: true,
                 textAlign: TextAlign.center,
-                style: navigatorKey.currentContext!.textTheme.titleLarge,
+                style: navigatorKey.currentContext!.textTheme.titleMedium,
               ),
               const SizedBox(height: 8),
               Text(
@@ -64,18 +64,18 @@ class WeAreHiringBanner extends ConsumerWidget {
                 overflow: TextOverflow.ellipsis,
                 softWrap: true,
                 textAlign: TextAlign.center,
-                style: navigatorKey.currentContext!.textTheme.bodySmall
+                style: navigatorKey.currentContext!.textTheme.bodyMedium
                     ?.copyWith(color: Colors.black45),
               ),
               const SizedBox(height: 8),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(AppDrawables.hiring1, width: 50, height: 50),
+                  Expanded(child: SvgPicture.asset(AppDrawables.hiring1, width: 50, height: 50)),
                   CustomThemeButton(
                     child: Text(
                       'Apply Now',
-                      style: navigatorKey.currentContext!.textTheme.bodyMedium
+                      style: navigatorKey.currentContext!.textTheme.displaySmall
                           ?.copyWith(color: Colors.white),
                     ),
                     color: AppColors.primaryColor,
@@ -83,7 +83,7 @@ class WeAreHiringBanner extends ConsumerWidget {
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     onTap: () {},
                   ),
-                  SvgPicture.asset(AppDrawables.hiring2, width: 50, height: 50),
+                  Expanded(child: SvgPicture.asset(AppDrawables.hiring2, width: 50, height: 50)),
                 ],
               ),
             ],
