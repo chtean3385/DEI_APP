@@ -29,7 +29,7 @@ class JobsCategorySection extends ConsumerWidget {
   Widget _loadingUi() {
     return ShimmerLoader(
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 24, top: 24),
+        padding: const EdgeInsets.only(bottom: 24, top: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -82,7 +82,7 @@ class JobsCategorySection extends ConsumerWidget {
   Widget _data(JobCategoryState categoryState, BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24, top: 24),
+      padding: const EdgeInsets.only(bottom: 24, top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

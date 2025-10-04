@@ -36,5 +36,12 @@ class JobCategoryService {
     );
     return result;
   }
+  Future<dynamic> getChampionCandidates() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.championCandidatesData,
+      includeAuthToken: true,
+    );
+    return result;
+  }
 
 }

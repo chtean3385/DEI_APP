@@ -32,7 +32,7 @@ class HowItWorksSection extends ConsumerWidget {
   Widget _loadingUi() {
     return ShimmerLoader(
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 24, top: 24),
+        padding: const EdgeInsets.only(bottom: 24, top: 0),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
           child: Column(
@@ -73,7 +73,7 @@ class HowItWorksSection extends ConsumerWidget {
   Widget _data(HowItWorkState state, BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24, top: 24),
+      padding: const EdgeInsets.only(bottom: 24, top: 0),
       child: ColoredBox(
         color: BootstrapColors.colors["navy"] ?? Colors.white,
         child: Padding(

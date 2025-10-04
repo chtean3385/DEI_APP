@@ -12,6 +12,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
 import '../models/state_models/auth_state.dart';
+import '../models/state_models/home/champion_candidates_state.dart';
 import '../models/state_models/home/featured_employers_state.dart';
 import '../models/state_models/home/how_it_works_state.dart';
 import '../models/state_models/home/job_service_state.dart';
@@ -24,6 +25,7 @@ import 'controllers/auth/employer_register_controller.dart';
 import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
+import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
 
 
@@ -94,4 +96,10 @@ StateNotifierProvider.autoDispose<WeAreHiringController, WeAreHiringState>((ref)
 final howItWorksProvider =
 StateNotifierProvider.autoDispose<HowItWorksController, HowItWorkState>((ref) {
   return HowItWorksController(ref);
+});
+
+///championCandidates
+final championCandidatesProvider =
+StateNotifierProvider.autoDispose<ChampionCandidatesController, ChampionCandidatesState>((ref) {
+  return ChampionCandidatesController(ref);
 });
