@@ -38,6 +38,8 @@ class BootstrapColors {
     "danger": Color(0xFFdc3545),
     "light": Color(0xFFf8f9fa),
     "dark": Color(0xFF212529),
+    "navy": Color(0xFF0d2a66),
+    "lightNavy": Color(0xFF26457d),
   };
 }
 
