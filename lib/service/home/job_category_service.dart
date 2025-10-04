@@ -22,5 +22,12 @@ class JobCategoryService {
     );
     return result;
   }
+  Future<dynamic> getHiringBanner() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.weAreHiringData,
+      includeAuthToken: true,
+    );
+    return result;
+  }
 
 }

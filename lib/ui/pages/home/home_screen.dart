@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/ui/pages/home/top_dei_friendly_industries/dei_friendly_industry_horizontal_scroll.dart';
+import 'package:dei_champions/ui/pages/home/we_are_hiring/we_are_hiring_section.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_colors.dart';
@@ -26,27 +27,28 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            WeAreHiringBanner(),
             JobsCategorySection(),
             FeaturedEmployersSection(),
-
             JobsServiceSection(),
+            gapH24(),
             DeiFriendlyIndustrySection(),
-            gapH16(),
-            Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
-            gapH16(),
-
-            JobsBasedOnProfile(),
+            gapH24(),
+            // Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
             // gapH16(),
-            JobsYouMightLike(),
-            gapH16(),
-            ExploreMoreJobs(),
-            gapH16(),
-            TopCompaniesSection(),
-            gapH16(),
-            RecruitersNoticingWidget(
-              recruiters: ["01", "02", "03", "04"], // sample data
-            ),
-            HiringInfoWidget(),
+            //
+            // JobsBasedOnProfile(),
+            // // gapH16(),
+            // JobsYouMightLike(),
+            // gapH16(),
+            // ExploreMoreJobs(),
+            // gapH16(),
+            // TopCompaniesSection(),
+            // gapH16(),
+            // RecruitersNoticingWidget(
+            //   recruiters: ["01", "02", "03", "04"], // sample data
+            // ),
+            // HiringInfoWidget(),
           ],
         ),
       ),

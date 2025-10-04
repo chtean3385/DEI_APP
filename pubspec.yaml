@@ -40,6 +40,7 @@ dependencies:
   firebase_messaging: ^16.0.0
   flutter_local_notifications: ^19.3.0
   flutter_riverpod: ^2.6.1
+  flutter_svg: ^2.2.1
   google_fonts: 6.2.1
   google_sign_in: ^7.1.1
   intl:
@@ -52,6 +53,7 @@ dependencies:
   screen_protector: ^1.4.2+1
   shared_preferences: ^2.5.3
   shimmer: ^3.0.0
+
 
 
 dev_dependencies:
@@ -90,3 +92,4 @@ flutter:
     - assets/icon/bottom_bar/
     - assets/drawables/featured_employers/
     - assets/drawables/friendly_industries/
+    - assets/drawables/hiring/

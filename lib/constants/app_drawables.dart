@@ -46,5 +46,7 @@ class AppDrawables {
   static const String friendly6 = "assets/drawables/friendly_industries/manufacturing.png";
   static const String friendly7 = "assets/drawables/friendly_industries/media.png";
   static const String friendly8 = "assets/drawables/friendly_industries/tech.png";
-
+//hiring
+  static const String hiring1 = "assets/drawables/hiring/bg-left-hiring.svg";
+  static const String hiring2 = "assets/drawables/hiring/bg-right-hiring.svg";
 }

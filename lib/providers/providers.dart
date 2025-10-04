@@ -1,10 +1,12 @@
 // providers.dart
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
+import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/friendly_industry_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/job_category_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/job_service_controller.dart';
+import 'package:dei_champions/providers/controllers/home/category/we_are_hiring_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
@@ -80,4 +82,9 @@ StateNotifierProvider.autoDispose<FriendlyIndustryController, FriendlyIndustrySt
 final jobServiceProvider =
 StateNotifierProvider.autoDispose<JobServiceController, JobServiceState>((ref) {
   return JobServiceController(ref);
+});
+///hiring banner
+final hiringBannerProvider =
+StateNotifierProvider.autoDispose<WeAreHiringController, WeAreHiringState>((ref) {
+  return WeAreHiringController(ref);
 });

@@ -1,0 +1,158 @@
+import 'package:dei_champions/constants/app_drawables.dart';
+import 'package:dei_champions/main.dart';
+import 'package:dei_champions/providers/providers.dart';
+import 'package:dei_champions/widgets/others/shimmer_loader.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import '../../../../constants/app_colors.dart';
+import '../../../../constants/enums.dart';
+import '../../../../models/state_models/home/we_are_hiring_state.dart';
+import '../../../../widgets/others/custom_theme_button.dart';
+import '../../../../widgets/others/view_all_button.dart';
+
+class WeAreHiringBanner extends ConsumerWidget {
+  const WeAreHiringBanner({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final hiringState = ref.watch(hiringBannerProvider);
+    final hasData = (hiringState.data ?? []).isNotEmpty;
+
+    if (!hasData && hiringState.pageState != PageState.loading) {
+      return const SizedBox.shrink();
+    }
+    return hiringState.pageState == PageState.loading
+        ? _shimmerView()
+        : _data(hiringState);
+  }
+
+  Widget _data(WeAreHiringState state) {
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(6),
+            bottomLeft: Radius.circular(6),
+            bottomRight: Radius.circular(16),
+          ),
+          border: Border.all(color: Colors.white, width: 1),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                state.data?.first.text1 ?? "",
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: navigatorKey.currentContext!.textTheme.titleLarge,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                state.data?.first.text2 ?? "",
+                maxLines: 3,
+                overflow: TextOverflow.ellipsis,
+                softWrap: true,
+                textAlign: TextAlign.center,
+                style: navigatorKey.currentContext!.textTheme.bodySmall
+                    ?.copyWith(color: Colors.black45),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SvgPicture.asset(AppDrawables.hiring1, width: 50, height: 50),
+                  CustomThemeButton(
+                    child: Text(
+                      'Apply Now',
+                      style: navigatorKey.currentContext!.textTheme.bodyMedium
+                          ?.copyWith(color: Colors.white),
+                    ),
+                    color: AppColors.primaryColor,
+                    radius: 30,
+                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                    onTap: () {},
+                  ),
+                  SvgPicture.asset(AppDrawables.hiring2, width: 50, height: 50),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _shimmerView() {
+    return ShimmerLoader(
+      child: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(6),
+              bottomLeft: Radius.circular(6),
+              bottomRight: Radius.circular(16),
+            ),
+            border: Border.all(color: Colors.white, width: 1),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 22, width: 150),
+                ),
+                const SizedBox(height: 8),
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 10, width: 200),
+                ),
+                const SizedBox(height: 2),
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 10, width: 150),
+                ),
+
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ColoredBox(
+                      color: Colors.white,
+                      child: SizedBox(height: 50, width: 50),
+                    ),
+
+                    ViewAllButton(
+                      text: 'Apply Now',
+                      isSmall: false,
+                      fillColor: true,
+                      radius: 30,
+                    ),
+                    ColoredBox(
+                      color: Colors.white,
+                      child: SizedBox(height: 50, width: 50),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
