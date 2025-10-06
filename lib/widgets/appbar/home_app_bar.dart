@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../form/home_search.dart';
 
-AppBar appBarHome(BuildContext context, {bool isFromHome = false,String title = ""}) {
+AppBar appBarHome(BuildContext context, {bool isFromHome = false,String title = "",VoidCallback? onPressed}) {
   return AppBar(
     elevation: 0,
     backgroundColor: isFromHome ? AppColors.bg : null,
@@ -13,9 +13,7 @@ AppBar appBarHome(BuildContext context, {bool isFromHome = false,String title = 
     leading: Builder(
       builder: (context) => IconButton(
         icon: const Icon(Icons.menu,color: AppColors.primaryColor, size: 30),
-        onPressed: () {
-          Scaffold.of(context).openDrawer(); // this will open CustomDrawer
-        },
+        onPressed: onPressed
       ),
     ),
     title: isFromHome ? HomeSearch() : title.isNotEmpty ? Text(title,style: context.textTheme.headlineMedium) :null,
