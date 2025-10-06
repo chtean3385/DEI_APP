@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_drawables.dart';
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -37,41 +38,30 @@ class WeAreHiringBanner extends ConsumerWidget {
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
-            topRight: Radius.circular(6),
-            bottomLeft: Radius.circular(6),
+            topRight: Radius.circular(16),
+            bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16),
           ),
-          border: Border.all(color: Colors.white, width: 1),
+          border: Border.all(color: Colors.black12, width: 1),
         ),
         child: Padding(
           padding: const EdgeInsets.all(12),
-          child: Column(
+          child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                state.data?.first.text1 ?? "",
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: navigatorKey.currentContext!.textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              Text(
-                state.data?.first.text2 ?? "",
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: navigatorKey.currentContext!.textTheme.bodyMedium
-                    ?.copyWith(color: Colors.black45),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Expanded(child: SvgPicture.asset(AppDrawables.hiring1, width: 50, height: 50)),
+              Column(
                 children: [
-                  Expanded(child: SvgPicture.asset(AppDrawables.hiring1, width: 50, height: 50)),
+                  Text(
+                    state.data?.first.text1 ?? "",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                    textAlign: TextAlign.center,
+                    style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                  gapH8(),
                   CustomThemeButton(
                     child: Text(
                       'Apply Now',
@@ -83,9 +73,46 @@ class WeAreHiringBanner extends ConsumerWidget {
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     onTap: () {},
                   ),
-                  Expanded(child: SvgPicture.asset(AppDrawables.hiring2, width: 50, height: 50)),
                 ],
               ),
+              Expanded(child: SvgPicture.asset(AppDrawables.hiring2, width: 50, height: 50)),
+              // Text(
+              //   state.data?.first.text1 ?? "",
+              //   maxLines: 1,
+              //   overflow: TextOverflow.ellipsis,
+              //   softWrap: true,
+              //   textAlign: TextAlign.center,
+              //   style: navigatorKey.currentContext!.textTheme.titleMedium,
+              // ),
+              // const SizedBox(height: 8),
+              // Text(
+              //   state.data?.first.text2 ?? "",
+              //   maxLines: 3,
+              //   overflow: TextOverflow.ellipsis,
+              //   softWrap: true,
+              //   textAlign: TextAlign.center,
+              //   style: navigatorKey.currentContext!.textTheme.bodyMedium
+              //       ?.copyWith(color: Colors.black45),
+              // ),
+              // const SizedBox(height: 8),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     Expanded(child: SvgPicture.asset(AppDrawables.hiring1, width: 50, height: 50)),
+              //     CustomThemeButton(
+              //       child: Text(
+              //         'Apply Now',
+              //         style: navigatorKey.currentContext!.textTheme.displaySmall
+              //             ?.copyWith(color: Colors.white),
+              //       ),
+              //       color: AppColors.primaryColor,
+              //       radius: 30,
+              //       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              //       onTap: () {},
+              //     ),
+              //     Expanded(child: SvgPicture.asset(AppDrawables.hiring2, width: 50, height: 50)),
+              //   ],
+              // ),
             ],
           ),
         ),

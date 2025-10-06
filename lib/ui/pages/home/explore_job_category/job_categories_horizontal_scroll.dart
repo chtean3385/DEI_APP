@@ -29,7 +29,7 @@ class JobsCategorySection extends ConsumerWidget {
   Widget _loadingUi() {
     return ShimmerLoader(
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 24, top: 12),
+        padding: const EdgeInsets.only( top: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,36 +43,13 @@ class JobsCategorySection extends ConsumerWidget {
                     color: Colors.white,
                     child: SizedBox(height: 14, width: 200),
                   ),
-                  const SizedBox(height: 4),
-                  ColoredBox(
-                    color: Colors.white,
-                    child: SizedBox(height: 10, width: 400),
-                  ),
-                  const SizedBox(height: 2),
-                  ColoredBox(
-                    color: Colors.white,
-                    child: SizedBox(height: 10, width: 50),
-                  ),
                   const SizedBox(height: 8),
                 ],
               ),
             ),
             // horizontal list
             _loadingItems(),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ColoredBox(
-                      color: Colors.white,child: SizedBox(height: 8, width: double.infinity)),
-                  const SizedBox(height: 2),
-                  ColoredBox(
-                      color: Colors.white,child: SizedBox(height: 8, width: double.infinity)),
-                ],
-              ),
-            ),
+
           ],
         ),
       ),
@@ -82,7 +59,7 @@ class JobsCategorySection extends ConsumerWidget {
   Widget _data(JobCategoryState categoryState, BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24, top: 12),
+      padding: const EdgeInsets.only( top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -93,69 +70,31 @@ class JobsCategorySection extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      categoryState.data?.title ?? "",
-                      style: theme.titleMedium,
-                    ),
-                    const SizedBox(width: 6),
-                    if ((categoryState.data?.categories.length ?? 0) > 0)
-                      Text(
-                        "(${categoryState.data!.categories.length.toString()})",
-                        style: theme.titleMedium?.copyWith(
-                          color: Colors.black45,
-                        ),
-                      ),
-                    const Spacer(),
-                  ],
-                ),
-                const SizedBox(height: 4),
                 Text(
-                  categoryState.data?.subtitle ?? "",
-                  maxLines: 2,
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: true,
-                  style: theme.displaySmall?.copyWith(
-                    color: Colors.black45,
-                    fontSize: 11,
-                  ),
+                  categoryState.data?.title ?? "",
+                  style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
                 ),
-
                 const SizedBox(height: 8),
               ],
             ),
           ),
           // horizontal list
           _dataItems(categoryState),
-          const SizedBox(height: 8),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Text(
-              categoryState.data?.description ?? "",
-              style: theme.displaySmall?.copyWith(
-                color: Colors.black38,
-                fontSize: 10,
-              ),
-            ),
-          ),
         ],
       ),
     );
   }
   Widget _loadingItems() {
     return SizedBox(
-      height: 180,
+      height: 90,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: 3,
+        itemCount: 4,
         itemBuilder: (context, index) {
           return ShimmerJobCategoryCard();
         },
-        separatorBuilder: (c, v) => gapW16(),
+        separatorBuilder: (c, v) => gapW8(),
       ),
     );
   }
@@ -163,7 +102,7 @@ class JobsCategorySection extends ConsumerWidget {
   Widget _dataItems(JobCategoryState categoryState) {
     return (categoryState.data?.categories.length ?? 0) > 0
         ? SizedBox(
-      height: 180,
+      height: 90,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -174,7 +113,7 @@ class JobsCategorySection extends ConsumerWidget {
             categoryModel: categoryState.data!.categories[index],
           );
         },
-        separatorBuilder: (c, v) => gapW16(),
+        separatorBuilder: (c, v) => gapW2(),
       ),
     )
         : SizedBox.shrink();

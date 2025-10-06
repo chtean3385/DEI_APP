@@ -3,7 +3,6 @@ import 'package:dei_champions/models/home/friendly_industries/friendly_industry_
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_styles.dart';
-import '../../../../../widgets/others/view_all_button.dart';
 
 class DeiFriendlyIndustryCard extends StatelessWidget {
   final FriendlyIndustry employer;
@@ -22,77 +21,41 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
-            topRight: Radius.circular(6),
-            bottomLeft: Radius.circular(6),
+            topRight: Radius.circular(16),
+            bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16),
           ),
           border: Border.all(color: Colors.white, width: 1),
         ),
         child: SizedBox(
-          width: 250,
+          width: 130,
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(employer.icon, width: 30, height: 30),
-                gapH8(),
+                Image.asset(employer.icon, width: 50, height: 50),
+                gapH4(),
                 Text(
                   employer.name,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: theme.labelMedium,
-                ),
-                gapH4(),
-                Flexible(
-                  child: DecoratedBox(
-                    decoration: BoxDecoration(
-                      color: getBootStrapColor(employer.badge.color ), // function to map class to color
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 2),
-                      child: Text(
-                        employer.badge.text,
-                        maxLines: 1,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.displaySmall?.copyWith(
-                          color: Colors.white, fontSize: 10// text color for contrast
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  employer.description,
-                  style: theme.displaySmall?.copyWith( color: Colors.black45,),
-                  textAlign: TextAlign.center,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
+                  softWrap: true,
+                  style: theme.displaySmall,
+                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 8),
-
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.location_city_outlined, size: 14,
-                      color: Colors.grey.shade600,),
-                    gapW6(),
-                    Text(
-                      employer.location,
-                      style: theme.displaySmall?.copyWith( color: Colors.black45),
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+                gapH4(),
+                Text(
+                  employer.jobs,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
+                  style: theme.displaySmall?.copyWith(
+                    fontSize: 9,
+                    color: AppColors.primaryColor,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 8),
-                // View jobs button
-                ViewAllButton(text: employer.jobs,isSmall: true,),
               ],
             ),
           ),
@@ -101,9 +64,8 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
     );
   }
 }
+
 class ShimmerDeiFriendlyIndustryCard extends StatelessWidget {
-
-
   const ShimmerDeiFriendlyIndustryCard();
 
   @override
@@ -112,81 +74,38 @@ class ShimmerDeiFriendlyIndustryCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
-          topRight: Radius.circular(6),
-          bottomLeft: Radius.circular(6),
+          topRight: Radius.circular(16),
+          bottomLeft: Radius.circular(16),
           bottomRight: Radius.circular(16),
         ),
         border: Border.all(color: Colors.white, width: 2),
       ),
       child: SizedBox(
-        width: 250,
+        width: 130,
         child: Padding(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Logo
               ColoredBox(
                 color: Colors.white,
-                child: SizedBox(
-                  height:30,width: 30,
-                ),
+                child: SizedBox(height: 50, width: 50),
               ),
-
-              gapH8(),
+              gapH4(),
               ColoredBox(
                 color: Colors.white,
-                child: SizedBox(
-                  height:14,width: 200,
-                ),
+                child: SizedBox(height: 10, width: 100),
               ),
-              gapH8(),
-              Flexible(
-                child: DecoratedBox(
-                  decoration: BoxDecoration(
-                    color: Colors.white, // function to map class to color
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 2),
-                      child:  ColoredBox(
-                        color: Colors.white,
-                        child: SizedBox(
-                          height:10,width: 100,
-                        ),
-                      )
-                  ),
-                ),
-              ),
-              const SizedBox(height: 8),
+              SizedBox(height: 2),
               ColoredBox(
                 color: Colors.white,
-                child: SizedBox(
-                  height: 10,
-                  width: 150,
-                ),
+                child: SizedBox(height: 10, width: 50),
               ),
-              const SizedBox(height: 8),
+              gapH4(),
               ColoredBox(
                 color: Colors.white,
-                child: SizedBox(
-                  height: 10,
-                  width: 150,
-                ),
+                child: SizedBox(height: 8, width: 40),
               ),
-              const SizedBox(height: 8),
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(
-                  height: 10,
-                  width: 150,
-                ),
-              ),
-              const SizedBox(height: 10),
-
-              gapH20(),
-              // View jobs button
-              ViewAllButton(text: 'xxxx+ Open jobs'),
             ],
           ),
         ),
@@ -194,7 +113,7 @@ class ShimmerDeiFriendlyIndustryCard extends StatelessWidget {
     );
   }
 }
+
 Color getBootStrapColor(String? colorKey) {
   return BootstrapColors.colors[colorKey] ?? Colors.grey;
 }
-

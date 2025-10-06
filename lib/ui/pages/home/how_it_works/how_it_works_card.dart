@@ -3,38 +3,41 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
-import '../../../../widgets/others/rounded_network_image.dart';
-import '../../../../widgets/others/view_all_button.dart';
 
 class HowItWorkCard extends StatelessWidget {
   final HowItsWorkModel item;
+  final int length;
+  final int currentPage;
 
-  const HowItWorkCard({required this.item});
+  const HowItWorkCard({
+    required this.item,
+    required this.length,
+    required this.currentPage,
+  });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+    return Container(
+      padding: const EdgeInsets.all(8),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color:  (BootstrapColors.colors["lightNavy"] ?? Colors.white),
+          color: BootstrapColors.colors["navy"] ?? Colors.white,
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(6),
-            bottomLeft: Radius.circular(6),
-            bottomRight: Radius.circular(16),
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
+            bottomLeft: Radius.circular(12),
+            bottomRight: Radius.circular(12),
           ),
-          border: Border.all(color: Colors.white24, width: 1),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
                 item.title ?? "",
-                style: theme.bodyMedium?.copyWith(color: Colors.white),
+                style: theme.bodyMedium?.copyWith(color: Colors.white,fontWeight: FontWeight.w600),
                 softWrap: true,
                 overflow: TextOverflow.ellipsis,
                 textAlign: TextAlign.center,
@@ -52,6 +55,31 @@ class HowItWorkCard extends StatelessWidget {
                   color: Colors.white70,
                 ),
               ),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(length, (index) {
+                  final isActive = currentPage == index;
+
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    child: CircleAvatar(
+                      radius: 12,
+                      backgroundColor: isActive
+                          ? (BootstrapColors.colors["orange"] ?? Colors.orange)
+                          : Colors.grey.shade300,
+                      child: Text(
+                        (index + 1).toString(),
+                        style: Theme.of(context).textTheme.displaySmall
+                            ?.copyWith(
+                              color: isActive ? Colors.white : Colors.black87,
+                              fontWeight: FontWeight.w600,
+                            ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
             ],
           ),
         ),
@@ -65,17 +93,17 @@ class ShimmerHowItWorkCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+    return Container(
+      padding: const EdgeInsets.all(8),
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(6),
-            bottomLeft: Radius.circular(6),
-            bottomRight: Radius.circular(16),
+            topLeft: Radius.circular(12),
+            topRight: Radius.circular(12),
+            bottomLeft: Radius.circular(12),
+            bottomRight: Radius.circular(12),
           ),
-          border: Border.all(color: Colors.white24, width: 1),
+          border: Border.all(color: Colors.white, width: 2),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -84,85 +112,41 @@ class ShimmerHowItWorkCard extends StatelessWidget {
             children: [
               ColoredBox(
                 color: Colors.white,
-                child: SizedBox(
-                  height:14,width: 150,
-                ),
+                child: SizedBox(height: 14, width: 200),
               ),
               const SizedBox(height: 6),
               ColoredBox(
                 color: Colors.white,
-                child: SizedBox(
-                  height:10,width: 200,
-                ),
+                child: SizedBox(height: 10, width: 300),
               ),
               const SizedBox(height: 2),
               ColoredBox(
                 color: Colors.white,
-                child: SizedBox(
-                  height:10,width: 100,
-                ),
+                child: SizedBox(height: 10, width: 300),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(6),
-          bottomLeft: Radius.circular(6),
-          bottomRight: Radius.circular(16),
-        ),
-        border: Border.all(color: Colors.white, width: 2),
-      ),
-      child: SizedBox(
-        width: 180,
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              RoundedNetworkImage(
-                imageUrl: "",
-                width: 50,
-                height: 50,
-                borderRadius: 8,
-              ),
-              const SizedBox(height: 12),
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(
-                  height:14,width: 100,
-                ),
-              ),
-
               const SizedBox(height: 6),
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(
-                  height:10,width: 170,
-                ),
-              ),
-              const SizedBox(height: 2),
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(
-                  height:10,width: 150,
-                ),
-              ),
-              const SizedBox(height: 2),
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(
-                  height:10,width: 170,
-                ),
-              ),
-              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(3, (index) {
 
-              ViewAllButton(text: 'View jobs', isSmall: true),
+
+                  return Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 4),
+                    child: CircleAvatar(
+                      radius: 12,
+                      backgroundColor:  Colors.grey.shade300,
+                      child: Text(
+                        (index + 1).toString(),
+                        style: Theme.of(context).textTheme.displaySmall
+                            ?.copyWith(
+                          color:  Colors.white ,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
             ],
           ),
         ),

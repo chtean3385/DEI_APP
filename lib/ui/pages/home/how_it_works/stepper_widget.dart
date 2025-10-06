@@ -65,7 +65,7 @@ class HowItWorkTimeline extends StatelessWidget {
                     ],
                   ),
                   const SizedBox(width: 12),
-                  Expanded(child: HowItWorkCard(item: howItWork[index])),
+                  // Expanded(child: HowItWorkCard(item: howItWork[index])),
                 ],
               ),
             );
@@ -81,6 +81,8 @@ class ShimmerHowItWorkTimeline extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,

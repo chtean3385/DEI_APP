@@ -24,16 +24,21 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: AppColors.bg,
+      color: Colors.white,
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             WeAreHiringBanner(),
             JobsCategorySection(),
+
             HowItWorksSection(),
+            gapH8(),
+
             FeaturedEmployersSection(),
+
             JobsServiceSection(),
+
             gapH24(),
             ChampionCandidatesSection(),
             gapH24(),

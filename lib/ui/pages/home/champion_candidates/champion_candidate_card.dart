@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../widgets/others/rounded_network_image.dart';
-import '../../../../widgets/pickers/star_rating.dart';
 
 /// 📌 Individual Job category Card
 class ChampionCandidateCard extends StatelessWidget {
@@ -32,23 +31,26 @@ class ChampionCandidateCard extends StatelessWidget {
           border: Border.all(color: Colors.white, width: 1),
         ),
         child: SizedBox(
-          width: 280,
+          width: 300,
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     RoundedNetworkImage(
                       imageUrl: categoryModel.profilePhotoUrl ?? "",
-                      width: 60,
-                      height: 60,
-                      borderRadius: 30,
+                      width: 50,
+                      height: 50,
+                      borderRadius: 25,
                     ),
-                    const SizedBox(width: 12),
-                    Flexible(
+                    const SizedBox(width: 8),
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -80,96 +82,96 @@ class ChampionCandidateCard extends StatelessWidget {
                               color: Colors.black54,
                             ),
                           ),
+
+
                           // ⭐ Star rating
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              StarRatingDisplay(
-                                size: 15,
-                                rating: 4.5,
-                                starCount: 5,
-                              ),
-                              gapW8(),
-                              Text(
-                                "(50)",
-                                softWrap: true,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                                textAlign: TextAlign.center,
-                                style: context.textTheme.displaySmall?.copyWith(
-                                  color: Colors.black54,
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Row(
+                          //   mainAxisSize: MainAxisSize.min,
+                          //   mainAxisAlignment: MainAxisAlignment.start,
+                          //   children: [
+                          //     StarRatingDisplay(
+                          //       size: 15,
+                          //       rating: 4.5,
+                          //       starCount: 5,
+                          //     ),
+                          //     gapW8(),
+                          //     Text(
+                          //       "(50)",
+                          //       softWrap: true,
+                          //       overflow: TextOverflow.ellipsis,
+                          //       maxLines: 1,
+                          //       textAlign: TextAlign.center,
+                          //       style: context.textTheme.displaySmall?.copyWith(
+                          //         color: Colors.black54,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),
+                    const SizedBox(width: 4),
+                    SizedBox(
+                      height: 50,
+                      child: const VerticalDivider(
+                        color: Colors.grey,
+                        thickness: 1,
+                        width: 1, // space around divider
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.location_on_outlined,
+                              size: 14,
+                              color: Colors.black54,
+                            ),
+                            gapW2(),
+                            Text(
+                              categoryModel.city ?? categoryModel.country ?? "India",
+                              style: theme.displaySmall?.copyWith(
+                                color: Colors.black45,
+                              ),
+                              maxLines: 1,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Icon(
+                              Icons.timelapse_sharp,
+                              size: 14,
+                              color: Colors.black54,
+                            ),
+                            gapW2(),
+                            Text(
+                              "1500/hr",
+                              style: theme.displaySmall?.copyWith(
+                                color: Colors.black,
+                              ),
+                              maxLines: 1,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
                   ],
                 ),
                 const SizedBox(height: 12),
-                Text(
-                  "Excels in pattern recognition, data visualization, and detailed reporting. Thrives in structured, calm environments.",
-                  softWrap: true,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
-                  textAlign: TextAlign.start,
-                  style: context.textTheme.displaySmall?.copyWith(
-                    color: Colors.black54,
-                  ),
-                ),
-                const SizedBox(height: 12),
-
                 _skillsRow(categoryModel.skills),
-                gapH8(),
-                Divider(color: Colors.black12, thickness: 1),
-                gapH8(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          size: 20,
-                          color: Colors.black54,
-                        ),
-                        gapW8(),
-                        Text(
-                          categoryModel.city ?? categoryModel.country ?? "",
-                          style: theme.bodyMedium?.copyWith(
-                            color: Colors.black45,
-                          ),
-                          maxLines: 1,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.timelapse_sharp,
-                          size: 20,
-                          color: Colors.black54,
-                        ),
-                        gapW8(),
-                        Text(
-                          "1500/hr",
-                          style: theme.bodyMedium?.copyWith(
-                            color: Colors.black,
-                          ),
-                          maxLines: 1,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
@@ -179,31 +181,35 @@ class ChampionCandidateCard extends StatelessWidget {
   }
 
   Widget _skillsRow(List<String>? skills) {
-    if (skills == null || skills.isEmpty) {
-      return const SizedBox.shrink(); // nothing if null/empty
-    }
+    if (skills == null || skills.isEmpty) return const SizedBox.shrink();
 
-    return Wrap(
-      // better than Row (handles overflow by wrapping)
-      spacing: 8, // horizontal space
-      runSpacing: 6, // vertical space if wrapped
-      children: skills.map((s) => _tagChip(s)).toList(),
+    return SizedBox(
+      height: 20, // fixed height for chips
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        children: skills.map((s) => Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: _tagChip(s),
+        )).toList(),
+      ),
     );
   }
+
 
   Widget _tagChip(String tag) {
     return // Tag chip
     Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       decoration: BoxDecoration(
         color: AppColors.bg,
-        borderRadius: BorderRadius.circular(6),
+        borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
         tag,
-        maxLines: 1,
+        maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,textAlign: TextAlign.center,
         style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w400,fontSize: 10,
           color: Colors.black,
         ),
       ),
@@ -216,7 +222,6 @@ class ShimmerChampionCandidateCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context).textTheme;
     return DecoratedBox(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -228,150 +233,118 @@ class ShimmerChampionCandidateCard extends StatelessWidget {
         border: Border.all(color: Colors.white, width: 1),
       ),
       child: SizedBox(
-        width: 280,
+        width: 300,
         child: Padding(
           padding: const EdgeInsets.all(12),
           child: Column(
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   RoundedNetworkImage(
                     imageUrl:  "",
-                    width: 60,
-                    height: 60,
-                    borderRadius: 30,
+                    width: 50,
+                    height: 50,
+                    borderRadius: 25,
                   ),
-                  const SizedBox(width: 12),
-                  Flexible(
+                  const SizedBox(width: 6),
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         ColoredBox(
                           color: Colors.white,
                           child: SizedBox(height: 14, width: 100),
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         ColoredBox(
                           color: Colors.white,
-                          child: SizedBox(height: 10, width: 150),
+                          child: SizedBox(height: 10, width: 50),
                         ),
-                        const SizedBox(height: 2),
+                        SizedBox(height: 2),
                         ColoredBox(
                           color: Colors.white,
-                          child: SizedBox(height: 10, width: 170),
+                          child: SizedBox(height: 10, width: 50),
                         ),
-                        // ⭐ Star rating
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            StarRatingDisplay(
-                              size: 15,
-                              rating: 4.5,
-                              starCount: 5,
-                            ),
-                            gapW8(),
-                            Text(
-                              "(50)",
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              textAlign: TextAlign.center,
-                              style: context.textTheme.displaySmall?.copyWith(
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ],
-                        ),
+                        SizedBox(height: 2),
                       ],
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              const SizedBox(height: 2),
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(height: 10, width: 150),
-              ),
-              const SizedBox(height: 2),
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(height: 10, width: 170),
-              ),
-              const SizedBox(height: 2),
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(height: 10, width: 170),
-              ),
-              const SizedBox(height: 12),
-
-              _dummyTagsRow(4),
-              gapH8(),
-              Divider(color: Colors.white, thickness: 1),
-              gapH8(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                  const SizedBox(width: 4),
+                  SizedBox(
+                    height: 50,
+                    child: const VerticalDivider(
+                      color: Colors.white,
+                      thickness: 1,
+                      width: 1, // space around divider
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        size: 20,
-                        color: Colors.black54,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.location_on_outlined,
+                            size: 14,
+                            color: Colors.white,
+                          ),
+                          gapW2(),
+                          ColoredBox(
+                            color: Colors.white,
+                            child: SizedBox(height: 10, width: 50),
+                          ),
+                        ],
                       ),
-                      gapW8(),
-                      Text(
-                         "location",
-                        style: theme.bodyMedium?.copyWith(
-                          color: Colors.black45,
-                        ),
-                        maxLines: 1,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
+                      const SizedBox(height: 4),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.timelapse_sharp,
+                            size: 14,
+                            color: Colors.white,
+                          ),
+                          gapW2(),
+                          ColoredBox(
+                            color: Colors.white,
+                            child: SizedBox(height: 10, width: 50),
+                          ),
+                        ],
                       ),
                     ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(
-                        Icons.timelapse_sharp,
-                        size: 20,
-                        color: Colors.black54,
-                      ),
-                      gapW8(),
-                      Text(
-                        "    ",
-                        style: theme.bodyMedium?.copyWith(
-                          color: Colors.black,
-                        ),
-                        maxLines: 1,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
-                  ),
+                  )
                 ],
               ),
+              const SizedBox(height: 10),
+              _skillsRow()
             ],
           ),
         ),
       ),
     );
   }
-  Widget _dummyTagsRow(int count) {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 6,
-      children: List.generate(
-        count,
-            (index) => _tagChip('xxxx'), // empty string for dummy
-      ),
-    );
+
+  Widget _skillsRow() {
+    return SizedBox(
+      height: 20, // fixed height for chips
+      child: ListView(
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+        children: List.generate(4, (index) => Padding(
+          padding: const EdgeInsets.only(right: 8),
+          child: _tagChip("xxxx"),
+        )).toList(),
+      ));
   }
 
 
@@ -386,6 +359,8 @@ class ShimmerChampionCandidateCard extends StatelessWidget {
         child: Text(
           tag,
           maxLines: 1,
+          softWrap: true,
+          overflow: TextOverflow.ellipsis,
           style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
             fontWeight: FontWeight.w400,
             color: Colors.black,

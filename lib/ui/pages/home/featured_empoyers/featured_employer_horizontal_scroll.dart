@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -7,7 +8,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../models/state_models/home/featured_employers_state.dart';
 import 'featured_employer_card.dart';
-
 
 class FeaturedEmployersSection extends ConsumerWidget {
   const FeaturedEmployersSection({Key? key}) : super(key: key);
@@ -20,16 +20,19 @@ class FeaturedEmployersSection extends ConsumerWidget {
     if (!hasData && featuredState.pageState != PageState.loading) {
       return const SizedBox.shrink();
     }
-    return featuredState.pageState == PageState.loading
-        ?_loadingUi():
-    _data(featuredState, context);
-
+    return ColoredBox(
+      color: AppColors.bg,
+      child: featuredState.pageState == PageState.loading
+          ? _loadingUi()
+          // : _loadingUi()
+          : _data(featuredState, context),
+    );
   }
 
   Widget _loadingUi() {
     return ShimmerLoader(
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 24, top: 0),
+        padding: const EdgeInsets.only(top: 12,bottom: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,23 +46,12 @@ class FeaturedEmployersSection extends ConsumerWidget {
                     color: Colors.white,
                     child: SizedBox(height: 14, width: 200),
                   ),
-                  const SizedBox(height: 4),
-                  ColoredBox(
-                    color: Colors.white,
-                    child: SizedBox(height: 10, width: 400),
-                  ),
-                  const SizedBox(height: 2),
-                  ColoredBox(
-                    color: Colors.white,
-                    child: SizedBox(height: 10, width: 50),
-                  ),
                   const SizedBox(height: 8),
                 ],
               ),
             ),
             // horizontal list
             _loadingItems(),
-
           ],
         ),
       ),
@@ -69,7 +61,7 @@ class FeaturedEmployersSection extends ConsumerWidget {
   Widget _data(FeaturedEmployersState state, BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24, top: 0),
+      padding: const EdgeInsets.only(top: 12,bottom: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -81,22 +73,9 @@ class FeaturedEmployersSection extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Featured Employers (Premium Partners)",
-                  style: theme.titleMedium,
+                  "Explore Featured Employers",
+                  style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
                 ),
-                const SizedBox(height: 4),
-                Text(
-                  "Over 300 organizations certified for inclusive hiring — PWD accessibility, LGBTQ+ policies, flexible returnships, and more.",
-                  maxLines: 2,
-                  textAlign: TextAlign.left,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: true,
-                  style: theme.displaySmall?.copyWith(
-                    color: Colors.black45,
-                    fontSize: 11,
-                  ),
-                ),
-
                 const SizedBox(height: 8),
               ],
             ),
@@ -107,17 +86,18 @@ class FeaturedEmployersSection extends ConsumerWidget {
       ),
     );
   }
+
   Widget _loadingItems() {
     return SizedBox(
-      height: 220,
+      height: 60,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: 3,
+        itemCount: 5,
         itemBuilder: (context, index) {
           return ShimmerFeaturedEmployerCard();
         },
-        separatorBuilder: (c, v) => gapW16(),
+        separatorBuilder: (c, v) => gapW8(),
       ),
     );
   }
@@ -125,20 +105,18 @@ class FeaturedEmployersSection extends ConsumerWidget {
   Widget _dataItems(FeaturedEmployersState state) {
     return (state.data?.length ?? 0) > 0
         ? SizedBox(
-      height: 220,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: (state.data?.length ?? 0),
-        // add extra card for "View all"
-        itemBuilder: (context, index) {
-          return FeaturedEmployerCard(
-            employer:  state.data![index]
-          );
-        },
-        separatorBuilder: (c, v) => gapW16(),
-      ),
-    )
+            height: 60,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: (state.data?.length ?? 0),
+              // add extra card for "View all"
+              itemBuilder: (context, index) {
+                return FeaturedEmployerCard(employer: state.data![index]);
+              },
+              separatorBuilder: (c, v) => gapW8(),
+            ),
+          )
         : SizedBox.shrink();
   }
 }

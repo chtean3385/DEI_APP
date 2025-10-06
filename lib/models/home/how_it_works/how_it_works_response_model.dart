@@ -24,22 +24,24 @@ class HowItWorksResponse {
   });
 
   factory HowItWorksResponse.fromJson(Map<String, dynamic> json) {
+    final rawList = json['howItsWorks'];
+
+    List<HowItsWorkModel>? parsedList;
+    if (rawList is List) {
+      parsedList = rawList
+          .map((e) => HowItsWorkModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+    } else {
+      parsedList = []; // or null if you prefer
+    }
+
     return HowItWorksResponse(
       id: json['_id'] as String?,
       heading: json['heading'] as String?,
       subheading: json['subheading'] as String?,
       buttonLink: json['buttonLink'] as String?,
-      howItsWorks: (json['howItsWorks'] as List<dynamic>?)
-          ?.map((e) => HowItsWorkModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      howItsWorks: parsedList,
       status: json['status'] as String?,
-      createdAt: json['createdAt'] != null
-          ? DateTime.tryParse(json['createdAt'])
-          : null,
-      updatedAt: json['updatedAt'] != null
-          ? DateTime.tryParse(json['updatedAt'])
-          : null,
-      v: json['__v'] as int?,
     );
   }
 
@@ -51,9 +53,6 @@ class HowItWorksResponse {
       'buttonLink': buttonLink,
       'howItsWorks': howItsWorks?.map((e) => e.toJson()).toList(),
       'status': status,
-      'createdAt': createdAt?.toIso8601String(),
-      'updatedAt': updatedAt?.toIso8601String(),
-      '__v': v,
     };
   }
 }
