@@ -2,27 +2,23 @@ import 'package:dei_champions/constants/app_validators.dart';
 import 'package:flutter/material.dart';
 import '../signup/components/auto_sugstion_form_field.dart';
 
-class EmailSuggestionField extends StatefulWidget {
+class EmailSuggestionFieldLogin extends StatefulWidget {
   final TextEditingController controller;
-  final FocusNode focusNode;
-  final FocusNode nextFocus;
   final String hint;
   final String label;
 
-  const EmailSuggestionField({
+  const EmailSuggestionFieldLogin({
     super.key,
     required this.controller,
-    required this.focusNode,
-    required this.nextFocus,
     required this.hint,
     required this.label,
   });
 
   @override
-  State<EmailSuggestionField> createState() => _EmailSuggestionFieldState();
+  State<EmailSuggestionFieldLogin> createState() => _EmailSuggestionFieldLoginState();
 }
 
-class _EmailSuggestionFieldState extends State<EmailSuggestionField> {
+class _EmailSuggestionFieldLoginState extends State<EmailSuggestionFieldLogin> {
   final List<String> _commonDomains = [
     'gmail.com',
     'yahoo.com',
@@ -55,12 +51,12 @@ class _EmailSuggestionFieldState extends State<EmailSuggestionField> {
   Widget build(BuildContext context) {
     return AutoSuggestionDropdownField(
       controller: widget.controller,
-      focusNode: widget.focusNode,
       hint: widget.hint,
       label: widget.label,
       icon: Icons.email_outlined,
       suggestions: _suggestions,
       maxSuggestions: 5,
+      radius: 30,
       caseSensitive: false,
       showAbove: true,
       onChanged: _updateSuggestions,
@@ -75,7 +71,7 @@ class _EmailSuggestionFieldState extends State<EmailSuggestionField> {
         );
       },
       onFieldSubmitted: (_) {
-        FocusScope.of(context).requestFocus(widget.nextFocus);
+        FocusScope.of(context).nextFocus();
       },
     );
   }

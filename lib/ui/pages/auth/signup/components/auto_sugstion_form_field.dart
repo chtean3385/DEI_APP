@@ -21,6 +21,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
   final bool caseSensitive;
   final bool showAbove;
   final FocusNode? focusNode;
+  final double? radius;
 
 
   const AutoSuggestionDropdownField({
@@ -42,6 +43,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
      this.focusNode,
     this.label,
     this.onChanged,
+    this.radius,
   });
 
   @override
@@ -263,7 +265,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
           DecoratedBox(
             decoration: BoxDecoration(
               color: AppColors.primaryColor.withValues(alpha: 0.15),
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(widget.radius ?? 12),
               border: Border.all(
                 color: AppColors.primaryColor.withValues(alpha: 0.13),
                 width: 1,

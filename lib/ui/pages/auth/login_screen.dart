@@ -8,11 +8,12 @@ import '../../../constants/app_validators.dart';
 import '../../../constants/enums.dart';
 import '../../../providers/controllers/auth/employee_login_controller.dart';
 import '../../../providers/providers.dart';
-import '../../../utils/app_textformfield.dart';
 import '../../../utils/widget_utils.dart';
 import '../../../constants/app_strings.dart';
+import '../../../widgets/form/transparent_form_field.dart';
 import '../../../widgets/others/check_box.dart';
 import '../../../widgets/others/custom_theme_button.dart';
+import 'common/email_suggestion_field_login.dart';
 
 class SignInScreen extends ConsumerStatefulWidget {
   const SignInScreen({super.key});
@@ -37,7 +38,6 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
     final controller = ref.read(loginProvider.notifier);
     final screenWidth = MediaQuery.of(context).size.width;
     double responsivePadding = screenWidth * 0.2;
-    print("statestate ${state.rememberMe}");
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -137,25 +137,26 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
 
 
   Widget _emailField() {
-    return AppTextFormField(
-      controller: controller.emailNameController,
-      label: AppStrings.email,
-      validator: AppValidators.email,
-      textInputType: TextInputType.emailAddress,
-      autofillHints: [AutofillHints.email],
-      textInputAction: TextInputAction.next,
 
+    return  EmailSuggestionFieldLogin(
+      controller:controller.emailNameController,
+      hint: AppStrings.email,
+      label: AppStrings.email,
     );
   }
 
   Widget _passwordField() {
-    return AppTextFormField(
+
+   return TransparentFormField(
       controller: controller.passwordController,
+      hint: AppStrings.password,
       label: AppStrings.password,
-      validator: AppValidators.password,
-      textInputType: TextInputType.text,
-      autofillHints: [AutofillHints.password],
+      icon: Icons.lock_outline,
       textInputAction: TextInputAction.next,
+      isPassword: true,
+      radius: 30,
+      validator: AppValidators.password,
+     autofillHints: [AutofillHints.password],
     );
   }
 

@@ -22,6 +22,7 @@ class TransparentFormField extends StatefulWidget {
   final TextInputType? keyboardType;
   final int? minLines;
   final int? maxLength;
+  final double? radius;
 
   TransparentFormField({
     super.key,
@@ -43,6 +44,7 @@ class TransparentFormField extends StatefulWidget {
     this.minLines,
     this.maxLength,
     this.nextFocusNode,
+    this.radius,
   });
 
   @override
@@ -71,7 +73,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
         DecoratedBox(
           decoration: BoxDecoration(
             color: AppColors.primaryColor.withValues(alpha: 0.15),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(widget.radius ?? 16),
             border: Border.all(
               color: AppColors.primaryColor.withValues(alpha: 0.13),
               width: 1,
