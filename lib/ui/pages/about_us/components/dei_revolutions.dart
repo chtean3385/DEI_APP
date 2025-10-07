@@ -1,18 +1,20 @@
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/providers/providers.dart';
+import 'package:dei_champions/widgets/others/rounded_network_image.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:dei_champions/widgets/others/view_all_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
 
-class WhatWeDo extends ConsumerWidget {
-  const WhatWeDo({super.key});
+class DeiRevolutions extends ConsumerWidget {
+  const DeiRevolutions({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(whatWeDoProvider);
+    final state = ref.watch(aboutUsRevolutionProvider);
 
     // Handle loading, error, and data states
     if (state.pageState == PageState.loading) {
@@ -37,27 +39,50 @@ class WhatWeDo extends ConsumerWidget {
     final item = data.first;
 
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+      padding: const EdgeInsets.all(16.0),
+      child: Stack(
+        alignment: AlignmentGeometry.center,
         children: [
-          Text(
-            item.title ?? '',
-            style: context.textTheme.labelMedium,
-            softWrap: true,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.center,
-            maxLines: 1,
+          RoundedNetworkImage(
+            imageUrl: item.backgroundImage ?? "",
+            width: double.infinity,
+            height: 100,
+            borderRadius: 16,
           ),
-          gapH8(),
-          Text(
-            item.description ?? '',
-            style: context.textTheme.displaySmall?.copyWith(
-              color: Colors.black87,
-            ),
-            textAlign: TextAlign.left,
-          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                item.heading ?? '',
+                style: context.textTheme.labelMedium?.copyWith(color: Colors.white),
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                maxLines: 1,
+              ),
+              gapH8(),
+              Text(
+                item.description ?? '',
+                style: context.textTheme.displaySmall?.copyWith(
+                  color: Colors.white,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              gapH8(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ViewAllButton(text: "Register",isSmall: true,fillColor:true,),
+                  gapW16(),
+                  ViewAllButton(text: "Contact Us",isSmall: true,fillColor:true,),
+                ],
+              )
+            ],
+          )
+
         ],
       ),
     );

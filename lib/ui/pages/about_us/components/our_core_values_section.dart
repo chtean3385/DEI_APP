@@ -6,7 +6,6 @@ import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../constants/app_styles.dart';
 import '../../../../models/state_models/about_us/core_value_state.dart';
 import 'core_value_card.dart';
 
@@ -56,8 +55,7 @@ class _JobsServiceSectionState extends ConsumerState<OurCoreValuesSection> {
         padding: const EdgeInsets.only(top: 12),
         child: state.pageState == PageState.loading
             ? _loadingItems()
-            :
-        _dataItems(state),
+            : _dataItems(state),
       ),
     );
   }

@@ -37,5 +37,12 @@ class AboutUsService {
     );
     return result;
   }
+  Future<dynamic> getRevolutionData() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.revolutionData,
+      includeAuthToken: true,
+    );
+    return result;
+  }
 
 }

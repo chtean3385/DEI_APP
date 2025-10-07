@@ -24,7 +24,7 @@ class AboutUsHeader extends ConsumerWidget {
         padding: const EdgeInsets.all(16),
         child: Text(
           state.errorMessage ?? 'Something went wrong.',
-          style: TextStyle(color: Colors.grey.shade600),
+          style: TextStyle(color: Colors.black54),
         ),
       );
     }
