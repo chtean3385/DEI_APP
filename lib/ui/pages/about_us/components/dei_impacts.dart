@@ -38,11 +38,7 @@ class DeiImpacts extends StatelessWidget {
                 ],
               ),
             ),
-            WhatWeDo(
-              title: "What We Do",
-              details:
-                  "We connect diverse talent — from women returnees to neurodiverse professionals — with companies that care about building inclusive teams. Our platform curates DEI-certified jobs, offers tools like resume optimization, and creates a safe space for equitable hiring journeys. We connect diverse talent — from women returnees to neurodiverse professionals — with companies that care about building inclusive teams. Our platform curates DEI-certified jobs, offers tools like resume optimization, and creates a safe space for equitable hiring journeys. We connect diverse talent — from women returnees to neurodiverse professionals — with companies that care about building inclusive teams. Our platform curates DEI-certified jobs, offers tools like resume optimization, and creates a safe space for equitable hiring journeys.",
-            ),
+            WhatWeDo(),
           ],
         ),
       ),

@@ -11,7 +11,7 @@ class ImpactCard extends StatelessWidget {
   final String title;
   final String value;
 
-  const ImpactCard({ required this.title, required this.value});
+  const ImpactCard({required this.title, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,6 @@ class ImpactCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-
             Text(
               title,
               softWrap: true,
@@ -44,7 +43,6 @@ class ImpactCard extends StatelessWidget {
               style: context.textTheme.displaySmall?.copyWith(
                 color: Colors.black54,
               ),
-
             ),
             gapH4(),
 
@@ -70,32 +68,38 @@ class ImpactCard extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        children: skills.map((s) => Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: _tagChip(s),
-        )).toList(),
+        children: skills
+            .map(
+              (s) => Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: _tagChip(s),
+              ),
+            )
+            .toList(),
       ),
     );
   }
 
-
   Widget _tagChip(String tag) {
     return // Tag chip
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-        decoration: BoxDecoration(
-          color: AppColors.bg,
-          borderRadius: BorderRadius.circular(4),
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+        color: AppColors.bg,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        tag,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        softWrap: true,
+        textAlign: TextAlign.center,
+        style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 10,
+          color: Colors.black,
         ),
-        child: Text(
-          tag,
-          maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,textAlign: TextAlign.center,
-          style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
-            fontWeight: FontWeight.w400,fontSize: 10,
-            color: Colors.black,
-          ),
-        ),
-      );
+      ),
+    );
   }
 }
-

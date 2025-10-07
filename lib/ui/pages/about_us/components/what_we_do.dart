@@ -1,24 +1,49 @@
-
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/providers/providers.dart';
+import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class WhatWeDo extends StatelessWidget {
-  final String title;
-  final String details;
+import '../../../../constants/enums.dart';
 
-  const WhatWeDo({ required this.title, required this.details});
+class WhatWeDo extends ConsumerWidget {
+  const WhatWeDo({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return  Padding(
-      padding: const EdgeInsets.only(left: 16,right: 16,top: 0,bottom: 16),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(whatWeDoProvider);
+
+    // Handle loading, error, and data states
+    if (state.pageState == PageState.loading) {
+      return _loading();
+    }
+
+    if (state.pageState == PageState.error) {
+      return Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text(
+          state.errorMessage ?? 'Something went wrong.',
+          style: TextStyle(color: Colors.red.shade600),
+        ),
+      );
+    }
+
+    final data = state.data;
+    if (data == null || data.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final item = data.first;
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            title,
+            item.title ?? '',
             style: context.textTheme.labelMedium,
             softWrap: true,
             overflow: TextOverflow.ellipsis,
@@ -27,11 +52,77 @@ class WhatWeDo extends StatelessWidget {
           ),
           gapH8(),
           Text(
-            details,
-          style: context.textTheme.displaySmall?.copyWith(color: Colors.black87),
+            item.description ?? '',
+            style: context.textTheme.displaySmall?.copyWith(
+              color: Colors.black87,
+            ),
             textAlign: TextAlign.left,
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _loading() {
+    return ShimmerLoader(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: 100, height: 14),
+            ),
+            gapH8(),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: double.infinity, height: 8),
+            ),
+            SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: double.infinity, height: 8),
+            ),
+            SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: double.infinity, height: 8),
+            ),
+            SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: double.infinity, height: 8),
+            ),
+            SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: double.infinity, height: 8),
+            ),
+            SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: double.infinity, height: 8),
+            ),
+            SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: double.infinity, height: 8),
+            ),
+            SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: double.infinity, height: 8),
+            ),
+            SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(width: double.infinity, height: 8),
+            ),
+            SizedBox(height: 2),
+          ],
+        ),
       ),
     );
   }

@@ -8,8 +8,8 @@ class AboutUsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: appBarCommon(title: "About Us",arrowLeft: true,),
+    return Scaffold(
+      appBar: appBarCommon(title: "About Us", arrowLeft: true),
       body: DeiImpacts(),
     );
   }
