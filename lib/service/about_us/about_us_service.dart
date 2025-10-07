@@ -30,5 +30,12 @@ class AboutUsService {
     );
     return result;
   }
+  Future<dynamic> getCoreValueData() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.aboutCoreValues,
+      includeAuthToken: true,
+    );
+    return result;
+  }
 
 }

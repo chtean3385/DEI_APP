@@ -1,6 +1,7 @@
 // providers.dart
 import 'package:dei_champions/models/state_models/about_us/about_us_state.dart';
 import 'package:dei_champions/models/state_models/about_us/about_vision_state.dart';
+import 'package:dei_champions/models/state_models/about_us/core_value_state.dart';
 import 'package:dei_champions/models/state_models/about_us/what_we_do_state.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
@@ -24,6 +25,7 @@ import '../models/state_models/register_state.dart';
 import '../models/state_models/signup_flow_state.dart';
 import 'controllers/about_us/about_us_controller.dart';
 import 'controllers/about_us/about_vision_controller.dart';
+import 'controllers/about_us/core_value_controller.dart';
 import 'controllers/about_us/what_we_do_controller.dart';
 import 'controllers/app_controller.dart';
 import 'controllers/auth/employee_login_controller.dart';
@@ -127,5 +129,10 @@ StateNotifierProvider.autoDispose<AboutVisionController, AboutVisionState>((ref)
   return AboutVisionController();
 });
 
+///core values
+final coreValuesProvider =
+StateNotifierProvider.autoDispose<CoreValueController, CoreValueState>((ref) {
+  return CoreValueController();
+});
 
 
