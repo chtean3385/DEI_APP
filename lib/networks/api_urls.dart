@@ -20,5 +20,6 @@ class ApiUrls {
   // about us
 
   static const whatWeDoData = 'about-us/what-we-do/get-all';
+  static const aboutUs = 'about-us/about-hero/get-all';
 
 }

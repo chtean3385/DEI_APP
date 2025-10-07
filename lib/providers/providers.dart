@@ -1,4 +1,5 @@
 // providers.dart
+import 'package:dei_champions/models/state_models/about_us/about_us_state.dart';
 import 'package:dei_champions/models/state_models/about_us/what_we_do_state.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
@@ -20,6 +21,7 @@ import '../models/state_models/home/job_service_state.dart';
 import '../models/state_models/otp_state.dart';
 import '../models/state_models/register_state.dart';
 import '../models/state_models/signup_flow_state.dart';
+import 'controllers/about_us/about_us_controller.dart';
 import 'controllers/about_us/what_we_do_controller.dart';
 import 'controllers/app_controller.dart';
 import 'controllers/auth/employee_login_controller.dart';
@@ -111,4 +113,12 @@ final whatWeDoProvider =
 StateNotifierProvider.autoDispose<WhatWeDoController, WhatWeDoState>((ref) {
   return WhatWeDoController();
 });
+
+///what we do -about us
+final aboutUsProvider =
+StateNotifierProvider.autoDispose<AboutUsController, AboutUsState>((ref) {
+  return AboutUsController();
+});
+
+
 

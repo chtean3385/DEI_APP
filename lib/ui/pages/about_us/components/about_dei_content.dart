@@ -3,7 +3,8 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 class AboutDeiContent extends StatelessWidget {
-  const AboutDeiContent({super.key});
+  final String description;
+  const AboutDeiContent({super.key, required this.description});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class AboutDeiContent extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Text(
-          "DEI Champion is India’s pioneering platform championing inclusive hiring. We collaborate with top companies committed to diversity, equity, and inclusion, offering equal opportunities across gender, disability, neurodiversity, and LGBTQ+ communities. lol it wokrs",
+          description,
           style: context.textTheme.displaySmall?.copyWith(
             color: Colors.black87,
           ),

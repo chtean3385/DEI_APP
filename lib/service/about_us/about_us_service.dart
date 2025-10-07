@@ -16,5 +16,12 @@ class AboutUsService {
     );
     return result;
   }
+  Future<dynamic> getAboutUsData() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.aboutUs,
+      includeAuthToken: true,
+    );
+    return result;
+  }
 
 }
