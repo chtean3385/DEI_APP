@@ -11,11 +11,13 @@ class JobServiceCard extends StatelessWidget {
   final JobServiceModel jobServiceModel;
   final GestureTapCallback? onTap;
   final Color color;
+  final double width;
 
   const JobServiceCard({
     required this.jobServiceModel,
     this.onTap,
     required this.color,
+    required this.width,
   });
 
   @override
@@ -25,12 +27,12 @@ class JobServiceCard extends StatelessWidget {
       onTap: onTap,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: color,
+          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.transparent, width: 1),
         ),
         child: SizedBox(
-          width: 170,
+          width: width,
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(

@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
             gapH8(),
 
             FeaturedEmployersSection(),
-
+            gapH24(),
             JobsServiceSection(),
 
             gapH24(),
