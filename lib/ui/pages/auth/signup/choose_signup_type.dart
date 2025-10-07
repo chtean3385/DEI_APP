@@ -34,47 +34,49 @@ class _ChooseSignupTypeState extends State<ChooseSignupType> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Form(
-        key: otherInfoFormKey,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: EdgeInsets.all(responsivePadding.clamp(16.0, 50.0)),
-                child: WidgetUtils.logoWidget(),
-              ),
-              Text(
-                "Sign Up as",
-                textAlign: TextAlign.center,
-                style: context.textTheme.titleLarge?.copyWith(
-                  color: Colors.black,
-                  fontWeight: FontWeight.w600,
+      body: SafeArea(
+        child: Form(
+          key: otherInfoFormKey,
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 200,height: 200,
+                  child: WidgetUtils.logoWidget(),
                 ),
-              ),
+                Text(
+                  "Sign Up as",
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.titleLarge?.copyWith(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
 
-              const SizedBox(height: 8),
-              Text(
-                "Are you an Employee or an Employer?",
-                textAlign: TextAlign.center,
-                style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
-              ),
+                const SizedBox(height: 8),
+                Text(
+                  "Are you an Employee or an Employer?",
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
+                ),
 
-              gapH16(),
-              gapH16(),
-              RoleSelectionView(
-                formKey: otherInfoFormKey,
-                onRoleChanged: (value) {
-                  setState(() {
-                    selectedRole = value;
-                    debugPrint("Selected Role: $selectedRole");
-                  });
-                },
-              ),
-              gap100(),
-              _nextButton(),
-            ],
+                gapH16(),
+                gapH16(),
+                RoleSelectionView(
+                  formKey: otherInfoFormKey,
+                  onRoleChanged: (value) {
+                    setState(() {
+                      selectedRole = value;
+                      debugPrint("Selected Role: $selectedRole");
+                    });
+                  },
+                ),
+                Spacer(),
+                _nextButton(),
+              ],
+            ),
           ),
         ),
       ),

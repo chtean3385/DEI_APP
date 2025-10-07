@@ -37,8 +37,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
           ),
         ),
         child: Center(
-          child: Padding(
-            padding: EdgeInsets.all(responsivePadding.clamp(16.0, 50.0)),
+          child: SizedBox(
+            height: 200,width: 200,
             child: WidgetUtils.logoWidget(),
           ),
         ),

@@ -36,8 +36,6 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(loginProvider);
     final controller = ref.read(loginProvider.notifier);
-    final screenWidth = MediaQuery.of(context).size.width;
-    double responsivePadding = screenWidth * 0.2;
     return Scaffold(
       body: Stack(
         alignment: Alignment.bottomCenter,
@@ -47,8 +45,8 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
             key: _formKey,
             child: Column(
               children: [
-                Expanded(child: Center(child: Padding(
-                  padding: EdgeInsets.all(responsivePadding.clamp(16.0, 50.0)),
+                Expanded(child: Center(child: SizedBox(
+                height: 200,width: 200,
                   child: WidgetUtils.logoWidget(),
                 ))),
                 Container(
