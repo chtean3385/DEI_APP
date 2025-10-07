@@ -1,11 +1,7 @@
 import 'package:dei_champions/constants/app_styles.dart';
-import 'package:dei_champions/main.dart';
-import 'package:dei_champions/models/home/dei_champion_candidates/champion_list_model.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../constants/app_colors.dart';
-import '../../../../widgets/others/rounded_network_image.dart';
 
 class ImpactCard extends StatelessWidget {
   final String title;
@@ -55,49 +51,6 @@ class ImpactCard extends StatelessWidget {
               maxLines: 1,
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  Widget _skillsRow(List<String>? skills) {
-    if (skills == null || skills.isEmpty) return const SizedBox.shrink();
-
-    return SizedBox(
-      height: 20, // fixed height for chips
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        children: skills
-            .map(
-              (s) => Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: _tagChip(s),
-              ),
-            )
-            .toList(),
-      ),
-    );
-  }
-
-  Widget _tagChip(String tag) {
-    return // Tag chip
-    Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-      decoration: BoxDecoration(
-        color: AppColors.bg,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        tag,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
-          fontWeight: FontWeight.w400,
-          fontSize: 10,
-          color: Colors.black,
         ),
       ),
     );

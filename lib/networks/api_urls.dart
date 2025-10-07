@@ -21,5 +21,6 @@ class ApiUrls {
 
   static const whatWeDoData = 'about-us/what-we-do/get-all';
   static const aboutUs = 'about-us/about-hero/get-all';
+  static const aboutVisionMission = 'about-us/mission-vision/get-all';
 
 }

@@ -23,5 +23,12 @@ class AboutUsService {
     );
     return result;
   }
+  Future<dynamic> getAboutVisionMissionData() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.aboutVisionMission,
+      includeAuthToken: true,
+    );
+    return result;
+  }
 
 }

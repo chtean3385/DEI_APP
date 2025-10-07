@@ -1,3 +1,4 @@
+import 'package:dei_champions/ui/pages/about_us/components/vision_mission_section.dart';
 import 'package:dei_champions/ui/pages/about_us/components/what_we_do.dart';
 import 'package:flutter/material.dart';
 import 'about_us_header.dart';
@@ -11,7 +12,7 @@ class DeiImpacts extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [AboutUsHeader(), WhatWeDo()],
+          children: [AboutUsHeader(), WhatWeDo(),VisionMissionSection()],
         ),
       ),
     );
