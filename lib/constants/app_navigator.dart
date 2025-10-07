@@ -1,3 +1,4 @@
+import 'package:dei_champions/ui/pages/about_us/about_us.dart';
 import 'package:dei_champions/ui/pages/auth/signup/employee_signup_screen.dart';
 import 'package:dei_champions/ui/pages/home/components/top_companies/top_companies_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -183,6 +184,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => CompanyProfileScreen()),
+    );
+  }
+  static loadAboutUsScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => AboutUsScreen()),
     );
   }
 }

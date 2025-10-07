@@ -93,7 +93,9 @@ class CustomDrawer extends StatelessWidget {
             // _drawerItem(Icons.article_outlined, "DEi blog"),
             // _drawerItem(Icons.help_outline, "How DEI works"),
             // _drawerItem(Icons.mail_outline, "Write to us"),
-            _drawerItem(Icons.info_outline, "About us"),
+            _drawerItem(Icons.info_outline, "About us", false, // bold
+              null,  // badge
+                  () =>AppNavigator.loadAboutUsScreen()),
             _drawerItem(
               Icons.logout,
               "Logout",
