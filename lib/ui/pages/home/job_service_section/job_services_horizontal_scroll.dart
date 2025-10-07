@@ -65,7 +65,7 @@ class _JobsServiceSectionState extends ConsumerState<JobsServiceSection> {
     }
 
     return ColoredBox(
-      color: AppColors.primaryColor.withValues(alpha: .4),
+      color: AppColors.primaryColor.withValues(alpha: .5),
       child: Padding(
         padding: const EdgeInsets.only(top: 12),
         child: state.pageState == PageState.loading
@@ -98,7 +98,7 @@ class _JobsServiceSectionState extends ConsumerState<JobsServiceSection> {
               separatorBuilder: (_, __) => gapW16(),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 14),
         ],
       ),
     );
