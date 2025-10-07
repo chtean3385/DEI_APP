@@ -56,7 +56,8 @@ class _JobsServiceSectionState extends ConsumerState<OurCoreValuesSection> {
         padding: const EdgeInsets.only(top: 12),
         child: state.pageState == PageState.loading
             ? _loadingItems()
-            : _dataItems(state),
+            :
+        _dataItems(state),
       ),
     );
   }
@@ -74,16 +75,21 @@ class _JobsServiceSectionState extends ConsumerState<OurCoreValuesSection> {
             ),
           ),
           const SizedBox(height: 8),
-          SizedBox(
-            height: 110,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              itemCount: 3,
-              itemBuilder: (_, __) => const ShimmerCoreValueCard(),
-              separatorBuilder: (_, __) => gapW16(),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            controller: _scrollController,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: List.generate(
+                3,
+                    (index) => Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: ShimmerCoreValueCard(),
+                ),
+              ),
             ),
           ),
+
           const SizedBox(height: 14),
         ],
       ),
