@@ -17,6 +17,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
 import '../models/state_models/auth_state.dart';
+import '../models/state_models/empower_women/empower_women_program_state.dart';
+import '../models/state_models/empower_women/empower_women_quote_state.dart';
+import '../models/state_models/empower_women/empower_women_workforce_state.dart';
 import '../models/state_models/home/champion_candidates_state.dart';
 import '../models/state_models/home/featured_employers_state.dart';
 import '../models/state_models/home/how_it_works_state.dart';
@@ -35,6 +38,9 @@ import 'controllers/auth/employer_register_controller.dart';
 import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
+import 'controllers/empower_women/empower_women_program_controller.dart';
+import 'controllers/empower_women/empower_women_quote_controller.dart';
+import 'controllers/empower_women/empower_women_workforce_controller.dart';
 import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
 
@@ -141,6 +147,19 @@ StateNotifierProvider.autoDispose<CoreValueController, CoreValueState>((ref) {
 final aboutUsRevolutionProvider =
 StateNotifierProvider.autoDispose<AboutUsRevolutionController, RevolutionState>((ref) {
   return AboutUsRevolutionController();
+});
+///empower women
+final womenWorkForceProvider =
+StateNotifierProvider.autoDispose<EmpowerWomenWorkForceController, EmpowerWomenWorkforceState>((ref) {
+  return EmpowerWomenWorkForceController();
+});
+final womenQuoteControllerProvider =
+StateNotifierProvider.autoDispose<EmpowerWomenQuoteController, EmpowerWomenQuoteState>((ref) {
+  return EmpowerWomenQuoteController();
+});
+final womenProgramControllerProvider =
+StateNotifierProvider.autoDispose<EmpowerWomenProgramController, EmpowerWomenProgramState>((ref) {
+  return EmpowerWomenProgramController();
 });
 
 

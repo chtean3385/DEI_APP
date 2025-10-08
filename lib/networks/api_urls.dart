@@ -25,4 +25,9 @@ class ApiUrls {
   static const aboutCoreValues = 'about-us/core-value-section/get-all';
   static const revolutionData = 'about-us/dei-revolution/get-all';
 
+  // empower women
+
+  static const empowerWomenImpact = 'empower-women/impact/get-all';
+  static const empowerWomenHero = 'empower-women/emp-women-hero/get-all';
+  static const empowerWomenWorkForce = 'empower-women/emp-women-Workforce/get-all';
 }

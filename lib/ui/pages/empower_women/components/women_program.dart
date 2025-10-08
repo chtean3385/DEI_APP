@@ -1,0 +1,133 @@
+
+import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/providers/providers.dart';
+import 'package:dei_champions/widgets/others/rounded_network_image.dart';
+import 'package:dei_champions/widgets/others/shimmer_loader.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../constants/enums.dart';
+
+class WomenPrograms extends ConsumerWidget {
+  const WomenPrograms({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(womenProgramControllerProvider);
+    // Handle loading, error, and data states
+    if (state.pageState == PageState.loading) {
+      return _loading();
+    }
+
+    if (state.pageState == PageState.error) {
+      return Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text(
+          state.errorMessage ?? 'Something went wrong.',
+          style: TextStyle(color: Colors.black54),
+        ),
+      );
+    }
+
+    final data = state.data;
+    if (data == null || data.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final item = data.first;
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Stack(
+        alignment: AlignmentGeometry.center,
+        children: [
+          RoundedNetworkImage(
+            imageUrl: item.image ?? "",
+            width: double.infinity,
+            height: 100,
+            borderRadius: 16,
+          ),
+          // Overlay
+          Container(
+            width: double.infinity,
+            height: 100,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.black.withValues(alpha: 0.5), // Adjust opacity as needed
+            ),
+          ),
+
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                item.title ?? '',
+                style: context.textTheme.labelSmall?.copyWith(color: Colors.white),
+                softWrap: true,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+              ),
+              gapH8(),
+              Text(
+                item.subtitle ?? '',
+                style: context.textTheme.displaySmall?.copyWith(
+                  color: Colors.white,fontSize: 10
+                ),
+                textAlign: TextAlign.center,
+              ),
+              gapH8(),
+              // ViewAllButton(
+              //   text: "Explore Women Focused Jobs",
+              //   fillColor: true,
+              //   isSmall: true,
+              //   radius: 4,
+              //   showArrow: true,
+              // )
+              // CustomThemeButton(
+              //   child: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     mainAxisAlignment: MainAxisAlignment.start,
+              //     children: [
+              //       Text(
+              //         "Explore Women Focused Jobs",
+              //         style: context.textTheme.displaySmall?.copyWith(color: Colors.white),
+              //       ),
+              //       gapW16(),
+              //       Icon(Icons.arrow_forward_ios,color: Colors.white,size: 10,)
+              //     ],
+              //   ),
+              //   color: AppColors.primaryColor,
+              //   radius: 8,
+              //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+              //   onTap: () {},
+              // ),
+            ],
+          )
+
+        ],
+      ),
+    );
+  }
+
+  Widget _loading() {
+    return ShimmerLoader(
+      child: Padding(
+        padding: const EdgeInsets.only( bottom: 16),
+        child:  ClipRRect(
+          borderRadius: BorderRadiusGeometry.circular(16),
+          child: ColoredBox(
+            color: Colors.white,
+            child: SizedBox(
+              width: double.infinity,
+              height: 100,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
