@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// Centralized icon lookup map
+final Map<String, IconData> fontAwesomeMap = {
+  'FaAssistiveListeningSystems': FontAwesomeIcons.assistiveListeningSystems,
+  'FaExclamationTriangle': FontAwesomeIcons.exclamationTriangle,
+  'FaBalanceScale': FontAwesomeIcons.balanceScale,
+  'FaUserTie': FontAwesomeIcons.userTie,
+  'FaClipboardCheck': FontAwesomeIcons.clipboardCheck,
+  'FaClock': FontAwesomeIcons.clock,
+  'FaGraduationCap': FontAwesomeIcons.graduationCap,
+  'FaHeart': FontAwesomeIcons.heart,
+  // 👇 Optional: add fallback or frequently reused icons
+  'FaCircle': FontAwesomeIcons.circle,
+  'FaUsers': FontAwesomeIcons.users,
+  // 'FaHandshake': FontAwesomeIcons.handshake,
+  // 'FaLightbulb': FontAwesomeIcons.lightbulb,
+};
+
 IconData getFontAwesomeIcon(String? iconName) {
-  switch (iconName) {
-    case 'FaClipboardCheck':
-      return FontAwesomeIcons.clipboardCheck;
-    case 'FaClock':
-      return FontAwesomeIcons.clock;
-    case 'FaGraduationCap':
-      return FontAwesomeIcons.graduationCap;
-    case 'FaBalanceScale':
-      return FontAwesomeIcons.balanceScale;
-    case 'FaHeart':
-      return FontAwesomeIcons.heart;
-    default:
-      return Icons.help_outline; // fallback icon if not matched
-  }
+  return fontAwesomeMap[iconName] ?? Icons.circle;
 }

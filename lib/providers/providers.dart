@@ -24,6 +24,11 @@ import '../models/state_models/home/champion_candidates_state.dart';
 import '../models/state_models/home/featured_employers_state.dart';
 import '../models/state_models/home/how_it_works_state.dart';
 import '../models/state_models/home/job_service_state.dart';
+import '../models/state_models/men_alias/ally_ship_men_state.dart';
+import '../models/state_models/men_alias/allyship_matter_state.dart';
+import '../models/state_models/men_alias/champion_diversity_state.dart';
+import '../models/state_models/men_alias/men_as_alias_title_state.dart';
+import '../models/state_models/men_alias/organizational_benefit_state.dart';
 import '../models/state_models/otp_state.dart';
 import '../models/state_models/register_state.dart';
 import '../models/state_models/signup_flow_state.dart';
@@ -43,6 +48,11 @@ import 'controllers/empower_women/empower_women_quote_controller.dart';
 import 'controllers/empower_women/empower_women_workforce_controller.dart';
 import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
+import 'controllers/men_alias/ally_ship_men_controller.dart';
+import 'controllers/men_alias/allyship_matter_controller.dart';
+import 'controllers/men_alias/champion_diversity_controller.dart';
+import 'controllers/men_alias/men_as_alias_title_controller.dart';
+import 'controllers/men_alias/organizational_benefit_controller.dart';
 
 
 final appProvider =
@@ -160,6 +170,28 @@ StateNotifierProvider.autoDispose<EmpowerWomenQuoteController, EmpowerWomenQuote
 final womenProgramControllerProvider =
 StateNotifierProvider.autoDispose<EmpowerWomenProgramController, EmpowerWomenProgramState>((ref) {
   return EmpowerWomenProgramController();
+});
+
+///men alias
+final menAllyShipProvider =
+StateNotifierProvider.autoDispose<AllyShipMenController, AllyShipMenState>((ref) {
+  return AllyShipMenController();
+});
+final allyShipMatterProvider =
+StateNotifierProvider.autoDispose<AllyShipMatterController, AllyShipMatterState>((ref) {
+  return AllyShipMatterController();
+});
+final championDiversityProvider =
+StateNotifierProvider.autoDispose<MenChampionDiversityController, ChampionDiversityState>((ref) {
+  return MenChampionDiversityController();
+});
+final menAliasTitleProvider =
+StateNotifierProvider.autoDispose<MenAsAliasTitleController, MenAsAliasTitleState>((ref) {
+  return MenAsAliasTitleController();
+});
+final organizationalBenefitProvider =
+StateNotifierProvider.autoDispose<OrganizationalBenefitController, OrganizationalBenefitState>((ref) {
+  return OrganizationalBenefitController();
 });
 
 

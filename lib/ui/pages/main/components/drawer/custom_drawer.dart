@@ -96,6 +96,9 @@ class CustomDrawer extends StatelessWidget {
             _drawerItem(Icons.woman_outlined, "Empower Women", false, // bold
                 null,  // badge
                     () =>AppNavigator.loadEmpowerWomenScreen()),
+            _drawerItem(Icons.man, "Men as Allies", false, // bold
+                null,  // badge
+                    () =>AppNavigator.loadMenAsAliasScreen()),
             _drawerItem(Icons.info_outline, "About us", false, // bold
               null,  // badge
                   () =>AppNavigator.loadAboutUsScreen()),

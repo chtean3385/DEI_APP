@@ -30,4 +30,12 @@ class ApiUrls {
   static const empowerWomenImpact = 'empower-women/impact/get-all';
   static const empowerWomenHero = 'empower-women/emp-women-hero/get-all';
   static const empowerWomenWorkForce = 'empower-women/emp-women-Workforce/get-all';
+
+  // men alias
+  static const allyShipMan = 'men-as-allies/ally-ship-man-as-allies/get-all';
+  static const heroManAsAlies = 'men-as-allies/hero-man-as-allies/get-all';
+  static const championDiversityMan = 'men-as-allies/champion-diversity-man-as-allies/get-all';
+  static const organizationalBenefits = 'men-as-allies/organizational-benefits-man-as-allies/get-all';
+  static const whyAllShipMan = 'men-as-allies/why-allShip-man-as-allies/get-all';
+
 }
