@@ -3,7 +3,7 @@
 class OrganizationalBenefitModel {
   final String id;
   final String? title;
-  final List<Benefit>? benefits;
+  final List<BenefitModel>? benefits;
 
   OrganizationalBenefitModel({
     required this.id,
@@ -18,7 +18,7 @@ class OrganizationalBenefitModel {
       title: json['title'] as String?,
       benefits: json['benefits'] != null
           ? (json['benefits'] as List)
-          .map((e) => Benefit.fromJson(e as Map<String, dynamic>))
+          .map((e) => BenefitModel.fromJson(e as Map<String, dynamic>))
           .toList()
           : null,
     );
@@ -33,21 +33,21 @@ class OrganizationalBenefitModel {
   }
 }
 
-class Benefit {
+class BenefitModel {
   final String id;
   final String? icon;
   final String? heading;
   final String? description;
 
-  Benefit({
+  BenefitModel({
     required this.id,
     this.icon,
     this.heading,
     this.description,
   });
 
-  factory Benefit.fromJson(Map<String, dynamic> json) {
-    return Benefit(
+  factory BenefitModel.fromJson(Map<String, dynamic> json) {
+    return BenefitModel(
       id: json['_id'] as String,
       icon: json['icon'] as String?,
       heading: json['heading'] as String?,

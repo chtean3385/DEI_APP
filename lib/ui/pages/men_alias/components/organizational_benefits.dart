@@ -6,21 +6,21 @@ import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../models/state_models/men_alias/champion_diversity_state.dart';
-import '../../about_us/components/core_value_card.dart';
-import 'champion_diversity_card.dart';
+import '../../../../models/state_models/men_alias/organizational_benefit_state.dart';
+import 'oraganizational_benefit_card.dart';
 
-class MenChampionDiversity extends ConsumerStatefulWidget {
-  const MenChampionDiversity({Key? key}) : super(key: key);
+class OrganizationalBenefits extends ConsumerStatefulWidget {
+  const OrganizationalBenefits({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<MenChampionDiversity> createState() => _JobsServiceSectionState();
+  ConsumerState<OrganizationalBenefits> createState() =>
+      _JobsServiceSectionState();
 }
 
-class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
+class _JobsServiceSectionState extends ConsumerState<OrganizationalBenefits> {
   final ScrollController _scrollController = ScrollController();
   int _currentIndex = 0;
-  double _itemWidth = 300; // estimated width of each JobServiceCard + spacing
+  double _itemWidth = 150; // estimated width of each JobServiceCard + spacing
 
   @override
   void initState() {
@@ -29,7 +29,7 @@ class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
   }
 
   void _onScroll() {
-    final index = (_scrollController.offset / (_itemWidth-20)).round();
+    final index = (_scrollController.offset / (_itemWidth - 70)).round();
     if (index != _currentIndex) {
       setState(() => _currentIndex = index);
     }
@@ -43,20 +43,23 @@ class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(championDiversityProvider);
+    final state = ref.watch(organizationalBenefitProvider);
     final hasData = (state.data ?? []).isNotEmpty;
 
     if (!hasData && state.pageState != PageState.loading) {
       return const SizedBox.shrink();
     }
 
-    return ColoredBox(
-      color: AppColors.bg,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 12),
-        child: state.pageState == PageState.loading
-            ? _loadingItems()
-            : _dataItems(state),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: ColoredBox(
+        color: AppColors.bg,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: state.pageState == PageState.loading
+              ? _loadingItems()
+              : _dataItems(state),
+        ),
       ),
     );
   }
@@ -81,9 +84,9 @@ class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
             child: Row(
               children: List.generate(
                 3,
-                    (index) => Padding(
+                (index) => Padding(
                   padding: const EdgeInsets.only(right: 16),
-                  child: ShimmerCoreValueCard(),
+                  child: ShimmerOrganizationalBenefitCard(),
                 ),
               ),
             ),
@@ -95,8 +98,8 @@ class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
     );
   }
 
-  Widget _dataItems(ChampionDiversityState state) {
-    final data = state.data?.first.points ?? [];
+  Widget _dataItems(OrganizationalBenefitState state) {
+    final data = state.data?.first.benefits ?? [];
     if (data.isEmpty) return const SizedBox.shrink();
 
     return Column(
@@ -106,8 +109,9 @@ class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             state.data?.first.title ?? "",
-            style: navigatorKey.currentContext!.textTheme.bodySmall
-                ?.copyWith(fontWeight: FontWeight.w600),
+            style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
         const SizedBox(height: 8),
@@ -117,7 +121,12 @@ class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: data.map((item) => ChampionDiversityCard(item: item,width: _itemWidth,)).toList(),
+            children: data
+                .map(
+                  (item) =>
+                      OrganizationalBenefitCard(item: item, width: _itemWidth),
+                )
+                .toList(),
           ),
         ),
 
@@ -125,7 +134,7 @@ class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
         // 🔹 Indicator Row
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: List.generate(data.length , (index) {
+          children: List.generate(data.length, (index) {
             final isActive = _currentIndex == index;
             return AnimatedContainer(
               duration: const Duration(milliseconds: 300),
@@ -145,4 +154,3 @@ class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
     );
   }
 }
-

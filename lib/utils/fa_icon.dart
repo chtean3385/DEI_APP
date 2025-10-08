@@ -11,11 +11,14 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaClock': FontAwesomeIcons.clock,
   'FaGraduationCap': FontAwesomeIcons.graduationCap,
   'FaHeart': FontAwesomeIcons.heart,
+  // --- Organizational Benefits of Male Allyship ---
+  'FaUsers': FontAwesomeIcons.users,
+  'FaUsersCog': FontAwesomeIcons.usersCog,
+  'FaChartLine': FontAwesomeIcons.chartLine,
   // 👇 Optional: add fallback or frequently reused icons
   'FaCircle': FontAwesomeIcons.circle,
-  'FaUsers': FontAwesomeIcons.users,
-  // 'FaHandshake': FontAwesomeIcons.handshake,
-  // 'FaLightbulb': FontAwesomeIcons.lightbulb,
+  'FaHandshake': FontAwesomeIcons.handshake,
+  'FaLightbulb': FontAwesomeIcons.lightbulb,
 };
 
 IconData getFontAwesomeIcon(String? iconName) {
