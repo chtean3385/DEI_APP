@@ -1,4 +1,5 @@
 
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
@@ -40,72 +41,75 @@ class WomenPrograms extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16),
       child: Stack(
-        alignment: AlignmentGeometry.center,
+        alignment: AlignmentGeometry.bottomCenter,
         children: [
           RoundedNetworkImage(
             imageUrl: item.image ?? "",
             width: double.infinity,
-            height: 100,
-            borderRadius: 16,
+            height: 250,
+            borderRadius: 0,
           ),
           // Overlay
           Container(
             width: double.infinity,
-            height: 100,
+            height: 250,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Colors.black.withValues(alpha: 0.5), // Adjust opacity as needed
+              borderRadius: BorderRadius.circular(0),
+              color:(BootstrapColors.colors["indigo"] ?? AppColors.primaryColor).withValues(alpha: 0.4), // Adjust opacity as needed
             ),
           ),
 
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                item.title ?? '',
-                style: context.textTheme.labelSmall?.copyWith(color: Colors.white),
-                softWrap: true,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-              ),
-              gapH8(),
-              Text(
-                item.subtitle ?? '',
-                style: context.textTheme.displaySmall?.copyWith(
-                  color: Colors.white,fontSize: 10
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Text(
+                //   item.title ?? '',
+                //   style: context.textTheme.labelSmall?.copyWith(color: Colors.white),
+                //   softWrap: true,
+                //   overflow: TextOverflow.ellipsis,
+                //   textAlign: TextAlign.center,
+                //   maxLines: 2,
+                // ),
+                // gapH8(),
+                Text(
+                  "${item.title ?? ""}\n${item.subtitle ?? ''}",
+                  style: context.textTheme.displaySmall?.copyWith(
+                    color: Colors.white,fontSize: 10
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-                textAlign: TextAlign.center,
-              ),
-              gapH8(),
-              // ViewAllButton(
-              //   text: "Explore Women Focused Jobs",
-              //   fillColor: true,
-              //   isSmall: true,
-              //   radius: 4,
-              //   showArrow: true,
-              // )
-              // CustomThemeButton(
-              //   child: Row(
-              //     mainAxisSize: MainAxisSize.min,
-              //     mainAxisAlignment: MainAxisAlignment.start,
-              //     children: [
-              //       Text(
-              //         "Explore Women Focused Jobs",
-              //         style: context.textTheme.displaySmall?.copyWith(color: Colors.white),
-              //       ),
-              //       gapW16(),
-              //       Icon(Icons.arrow_forward_ios,color: Colors.white,size: 10,)
-              //     ],
-              //   ),
-              //   color: AppColors.primaryColor,
-              //   radius: 8,
-              //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-              //   onTap: () {},
-              // ),
-            ],
+                gapH8(),
+                // ViewAllButton(
+                //   text: "Explore Women Focused Jobs",
+                //   fillColor: true,
+                //   isSmall: true,
+                //   radius: 4,
+                //   showArrow: true,
+                // )
+                // CustomThemeButton(
+                //   child: Row(
+                //     mainAxisSize: MainAxisSize.min,
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [
+                //       Text(
+                //         "Explore Women Focused Jobs",
+                //         style: context.textTheme.displaySmall?.copyWith(color: Colors.white),
+                //       ),
+                //       gapW16(),
+                //       Icon(Icons.arrow_forward_ios,color: Colors.white,size: 10,)
+                //     ],
+                //   ),
+                //   color: AppColors.primaryColor,
+                //   radius: 8,
+                //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                //   onTap: () {},
+                // ),
+              ],
+            ),
           )
 
         ],

@@ -10,17 +10,14 @@ class EmpowerWomenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            WomenPrograms(),
-            EmpowerWomenWorkForce(),
-            WomenQuotes(),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          WomenPrograms(),
+          EmpowerWomenWorkForce(),
+          WomenQuotes(),
+        ],
       ),
     );
   }

@@ -40,7 +40,7 @@ class MenAliasTitle extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 0),
       child: Stack(
-        // alignment: AlignmentGeometry.bottomCenter,
+        alignment: AlignmentGeometry.bottomCenter,
         children: [
           RoundedNetworkImage(
             imageUrl: item.backgroundImage ?? "",
@@ -58,61 +58,56 @@ class MenAliasTitle extends ConsumerWidget {
             ),
           ),
           // appBarCommon(title: "Men as Allies",arrowLeft: true, bgColor: Colors.transparent, titleIconColor: Colors.white),
-          Positioned.fill(
-            child: Align(
-              alignment: AlignmentGeometry.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // Text(
-                    //   item.title ?? '',
-                    //   style: context.textTheme.labelSmall?.copyWith(color: Colors.white),
-                    //   softWrap: true,
-                    //   overflow: TextOverflow.ellipsis,
-                    //   textAlign: TextAlign.left,
-                    //   maxLines: 2,
-                    // ),
-                    gapH8(),
-                    Text(
-                      item.subtitle ?? '',
-                      style: context.textTheme.displaySmall?.copyWith(
-                        color: Colors.white,fontSize: 10
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                    // gapH8(),
-                    // ViewAllButton(
-                    //   text: "Explore Women Focused Jobs",
-                    //   fillColor: true,
-                    //   isSmall: true,
-                    //   radius: 4,
-                    //   showArrow: true,
-                    // )
-                    // CustomThemeButton(
-                    //   child: Row(
-                    //     mainAxisSize: MainAxisSize.min,
-                    //     mainAxisAlignment: MainAxisAlignment.start,
-                    //     children: [
-                    //       Text(
-                    //         "Explore Women Focused Jobs",
-                    //         style: context.textTheme.displaySmall?.copyWith(color: Colors.white),
-                    //       ),
-                    //       gapW16(),
-                    //       Icon(Icons.arrow_forward_ios,color: Colors.white,size: 10,)
-                    //     ],
-                    //   ),
-                    //   color: AppColors.primaryColor,
-                    //   radius: 8,
-                    //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    //   onTap: () {},
-                    // ),
-                  ],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // Text(
+                //   item.title ?? '',
+                //   style: context.textTheme.labelSmall?.copyWith(color: Colors.white),
+                //   softWrap: true,
+                //   overflow: TextOverflow.ellipsis,
+                //   textAlign: TextAlign.left,
+                //   maxLines: 2,
+                // ),
+                gapH8(),
+                Text(
+                  item.subtitle ?? '',
+                  style: context.textTheme.displaySmall?.copyWith(
+                    color: Colors.white,fontSize: 10
+                  ),
+                  textAlign: TextAlign.left,
                 ),
-              ),
+                // gapH8(),
+                // ViewAllButton(
+                //   text: "Explore Women Focused Jobs",
+                //   fillColor: true,
+                //   isSmall: true,
+                //   radius: 4,
+                //   showArrow: true,
+                // )
+                // CustomThemeButton(
+                //   child: Row(
+                //     mainAxisSize: MainAxisSize.min,
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [
+                //       Text(
+                //         "Explore Women Focused Jobs",
+                //         style: context.textTheme.displaySmall?.copyWith(color: Colors.white),
+                //       ),
+                //       gapW16(),
+                //       Icon(Icons.arrow_forward_ios,color: Colors.white,size: 10,)
+                //     ],
+                //   ),
+                //   color: AppColors.primaryColor,
+                //   radius: 8,
+                //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                //   onTap: () {},
+                // ),
+              ],
             ),
           ),
         ],

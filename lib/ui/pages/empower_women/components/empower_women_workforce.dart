@@ -1,83 +1,157 @@
+import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/main.dart';
+import 'package:dei_champions/providers/providers.dart';
+import 'package:dei_champions/widgets/others/shimmer_loader.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_styles.dart';
-import '../../../../constants/enums.dart';
 import '../../../../models/empower_women/empower_women_workforce_model.dart';
-import '../../../../providers/providers.dart';
+import '../../../../models/state_models/empower_women/empower_women_workforce_state.dart';
 import '../../../../utils/fa_icon.dart';
-import '../../../../widgets/others/custom_theme_button.dart';
-import '../../../../widgets/others/shimmer_loader.dart';
+import '../../about_us/components/core_value_card.dart';
 
-class EmpowerWomenWorkForce extends ConsumerWidget {
-  const EmpowerWomenWorkForce({super.key});
+class EmpowerWomenWorkForce extends ConsumerStatefulWidget {
+  const EmpowerWomenWorkForce({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<EmpowerWomenWorkForce> createState() =>
+      _JobsServiceSectionState();
+}
+
+class _JobsServiceSectionState extends ConsumerState<EmpowerWomenWorkForce> {
+  final ScrollController _scrollController = ScrollController();
+  int _currentIndex = 0;
+  double _itemWidth = 300; // estimated width of each JobServiceCard + spacing
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    final index = (_scrollController.offset / (_itemWidth + 30)).round();
+    if (index != _currentIndex) {
+      setState(() => _currentIndex = index);
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(womenWorkForceProvider);
-    // Handle loading, error, and data states
-    if (state.pageState == PageState.loading) {
-      return _loading();
-    }
+    final hasData = (state.data ?? []).isNotEmpty;
 
-    if (state.pageState == PageState.error) {
-      return Padding(
-        padding: const EdgeInsets.all(16),
-        child: Text(
-          state.errorMessage ?? 'Something went wrong.',
-          style: TextStyle(color: Colors.black54),
-        ),
-      );
-    }
-
-    final data = state.data;
-    if (data == null || data.isEmpty) {
+    if (!hasData && state.pageState != PageState.loading) {
       return const SizedBox.shrink();
     }
 
-    final item = data.first;
-    final theme = Theme.of(context).textTheme;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: ColoredBox(
+        color: AppColors.bg,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: state.pageState == PageState.loading
+              ? _loadingItems()
+              : _dataItems(state),
+        ),
+      ),
+    );
+  }
+
+  Widget _loadingItems() {
+    return ShimmerLoader(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 16),
+            child: ColoredBox(
+              color: Colors.white,
+              child: SizedBox(height: 14, width: 160),
+            ),
+          ),
+          const SizedBox(height: 8),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            controller: _scrollController,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: List.generate(
+                3,
+                (index) => Padding(
+                  padding: const EdgeInsets.only(right: 16),
+                  child: ShimmerCoreValueCard(),
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 14),
+        ],
+      ),
+    );
+  }
+
+  Widget _dataItems(EmpowerWomenWorkforceState state) {
+    final data = state.data?.first.cards ?? [];
+    if (data.isEmpty) return const SizedBox.shrink();
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          item.sectionTitle ?? "",
-          style: theme.displaySmall?.copyWith(fontWeight: FontWeight.w600),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            state.data?.first.sectionTitle ?? "",
+            style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+            ),
+          ),
         ),
         const SizedBox(height: 8),
-        if (item.cards?.isNotEmpty == true)
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: List.generate(item.cards?.length ?? 0, (index) {
-              return buildCard(item.cards![index]);
-            }),
-          ),
-        gapH8(),
-        CustomThemeButton(
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          controller: _scrollController,
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                "Explore Women Focused Jobs",
-                style: theme.displaySmall?.copyWith(color: Colors.white),
-              ),
-              gapW16(),
-              Icon(Icons.arrow_forward_ios, color: Colors.white, size: 10),
-            ],
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: data.map((item) => buildCard(item)).toList(),
           ),
-          color: AppColors.primaryColor,
-          radius: 8,
-          padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-          onTap: () {},
         ),
+
+        const SizedBox(height: 12),
+        // 🔹 Indicator Row
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(data.length, (index) {
+            final isActive = _currentIndex == index;
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              child: CircleAvatar(
+                radius: isActive ? 5 : 3,
+                backgroundColor: isActive
+                    ? AppColors.primaryColor
+                    : Colors.grey,
+              ),
+            );
+          }),
+        ),
+
+        const SizedBox(height: 12),
       ],
     );
   }
 
-  // assuming you have your model and API data parsed already
   Widget buildCard(CardData card) {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
     return Card(
@@ -86,71 +160,41 @@ class EmpowerWomenWorkForce extends ConsumerWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  getFontAwesomeIcon(card.icon),
-                  color:
-                      BootstrapColors.colors["lightNavy"] ??
-                      AppColors.primaryColor,
-                  size: 20,
-                ),
-                gapW16(),
-                Expanded(
-                  child: Text(
-                    card.title ?? "",
-                    style: theme.labelMedium,
-                    maxLines: 2,
-                    softWrap: true,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Text(
-              card.description ?? '',
-              style: theme.displaySmall?.copyWith(color: Colors.black54),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildShimmerCard() {
-    return Card(
-      elevation: 3,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: SizedBox(height: 100, width: double.infinity),
-    );
-  }
-
-  Widget _loading() {
-    return ShimmerLoader(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 4),
-            child: ColoredBox(
-              color: Colors.white,
-              child: SizedBox(width: double.infinity, height: 14),
-            ),
-          ),
-          SizedBox(height: 2),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+        child: SizedBox(
+          width: _itemWidth,
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: List.generate(4, (index) {
-              return buildShimmerCard();
-            }),
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    getFontAwesomeIcon(card.icon),
+                    color:
+                        BootstrapColors.colors["lightNavy"] ??
+                        AppColors.primaryColor,
+                    size: 20,
+                  ),
+                  gapW16(),
+                  Expanded(
+                    child: Text(
+                      card.title ?? "",
+                      style: theme.labelMedium,
+                      maxLines: 2,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              Text(
+                card.description ?? '',
+                style: theme.displaySmall?.copyWith(color: Colors.black54),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
