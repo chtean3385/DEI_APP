@@ -18,12 +18,10 @@ class AllyShipMenController extends StateNotifier<AllyShipMenState> {
     state = state.copyWith(pageState: PageState.loading);
     try {
       final result = await _service.getAllyShipMan();
-      // ✅ Correct extraction
-      final list = result['data'] as List<dynamic>?;
-      final data = list
-          ?.map((e) => AllyShipMenModel.fromJson(e as Map<String, dynamic>))
+      final Data = (result as List)
+          .map((e) => AllyShipMenModel.fromJson(e))
           .toList();
-      state = state.copyWith(pageState: PageState.success, data: data ?? []);
+      state = state.copyWith(pageState: PageState.success, data: Data);
     } catch (e) {
       state = state.copyWith(
         pageState: PageState.error,

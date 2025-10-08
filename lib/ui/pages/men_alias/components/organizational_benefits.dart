@@ -50,16 +50,13 @@ class _JobsServiceSectionState extends ConsumerState<OrganizationalBenefits> {
       return const SizedBox.shrink();
     }
 
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16),
-      child: ColoredBox(
-        color: AppColors.bg,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 12),
-          child: state.pageState == PageState.loading
-              ? _loadingItems()
-              : _dataItems(state),
-        ),
+    return ColoredBox(
+      color: AppColors.bg,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 20),
+        child: state.pageState == PageState.loading
+            ? _loadingItems()
+            : _dataItems(state),
       ),
     );
   }

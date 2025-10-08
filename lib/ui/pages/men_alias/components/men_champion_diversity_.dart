@@ -50,13 +50,16 @@ class _JobsServiceSectionState extends ConsumerState<MenChampionDiversity> {
       return const SizedBox.shrink();
     }
 
-    return ColoredBox(
-      color: AppColors.bg,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 12),
-        child: state.pageState == PageState.loading
-            ? _loadingItems()
-            : _dataItems(state),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: ColoredBox(
+        color: AppColors.bg,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: state.pageState == PageState.loading
+              ? _loadingItems()
+              : _dataItems(state),
+        ),
       ),
     );
   }

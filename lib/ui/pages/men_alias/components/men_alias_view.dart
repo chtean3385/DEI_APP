@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'become_an_ally.dart';
 import 'men_alias_title.dart';
 import 'men_champion_diversity_.dart';
+import 'organizational_benefits.dart';
 
 
 class MenAliasView extends StatelessWidget {
@@ -9,16 +11,18 @@ class MenAliasView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MenAliasTitle(),
-            // EmpowerWomenWorkForce(),
-            MenChampionDiversity(),
-          ],
-        ),
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          MenAliasTitle(),
+          OrganizationalBenefits(),
+          BecomeAnAlly(),
+          MenChampionDiversity(),
+
+
+
+        ],
       ),
     );
   }
