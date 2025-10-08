@@ -1,5 +1,6 @@
 import 'package:dei_champions/ui/pages/about_us/about_us.dart';
 import 'package:dei_champions/ui/pages/auth/signup/employee_signup_screen.dart';
+import 'package:dei_champions/ui/pages/empower_women/empower_women_screen.dart';
 import 'package:dei_champions/ui/pages/home/components/top_companies/top_companies_list_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
@@ -190,6 +191,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => AboutUsScreen()),
+    );
+  }
+  static loadEmpowerWomenScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => EmpowerWomenScreen()),
     );
   }
 }

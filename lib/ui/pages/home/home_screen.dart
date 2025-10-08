@@ -33,17 +33,11 @@ class HomeScreen extends StatelessWidget {
             JobsCategorySection(),
 
             HowItWorksSection(),
-            gapH8(),
 
             FeaturedEmployersSection(),
-            gapH24(),
             JobsServiceSection(),
-
-            gapH24(),
             ChampionCandidatesSection(),
-            gapH24(),
             DeiFriendlyIndustrySection(),
-            gapH24(),
             // Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
             // gapH16(),
             //

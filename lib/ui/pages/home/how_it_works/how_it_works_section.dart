@@ -19,8 +19,11 @@ class HowItWorksSection extends ConsumerWidget {
     if (!hasData && state.pageState != PageState.loading) {
       return const SizedBox.shrink();
     }
-    return state.pageState == PageState.loading ? _loadingUi() :
-    _data(state, context);
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: state.pageState == PageState.loading ? _loadingUi() :
+      _data(state, context),
+    );
   }
 
   Widget _loadingUi() {

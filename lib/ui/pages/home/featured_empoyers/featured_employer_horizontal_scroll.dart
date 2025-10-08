@@ -20,12 +20,15 @@ class FeaturedEmployersSection extends ConsumerWidget {
     if (!hasData && featuredState.pageState != PageState.loading) {
       return const SizedBox.shrink();
     }
-    return ColoredBox(
-      color: AppColors.bg,
-      child: featuredState.pageState == PageState.loading
-          ? _loadingUi()
-          // : _loadingUi()
-          : _data(featuredState, context),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: ColoredBox(
+        color: AppColors.bg,
+        child: featuredState.pageState == PageState.loading
+            ? _loadingUi()
+            // : _loadingUi()
+            : _data(featuredState, context),
+      ),
     );
   }
 

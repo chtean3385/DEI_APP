@@ -20,12 +20,15 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
     if (!hasData && state.pageState != PageState.loading) {
       return const SizedBox.shrink();
     }
-    return ColoredBox(
-      color: AppColors.bg,
-      child: state.pageState == PageState.loading
-          ? _loadingUi()
-      //: _loadingUi()
-          : _data(state, context, ref),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: ColoredBox(
+        color: AppColors.bg,
+        child: state.pageState == PageState.loading
+            ? _loadingUi()
+        //: _loadingUi()
+            : _data(state, context, ref),
+      ),
     );
   }
 

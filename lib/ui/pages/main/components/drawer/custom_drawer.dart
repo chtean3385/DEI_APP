@@ -68,31 +68,34 @@ class CustomDrawer extends StatelessWidget {
             const Divider(color: Colors.black12),
 
             // 🔹 Job Actions
-            _drawerItem(Icons.visibility, "Actively searching jobs", true),
-            _drawerItem(Icons.search, "Search jobs"),
-            _drawerItem(Icons.work_outline, "Recommended jobs"),
-            _drawerItem(Icons.bookmark_border, "Saved jobs"),
-            _drawerItem(Icons.bar_chart, "Profile performance"),
-
-            const Divider(color: Colors.black12),
-
-            // 🔹 Preferences & Help
-            _drawerItem(Icons.remove_red_eye_outlined, "Display preferences"),
-            _drawerItem(Icons.chat_outlined, "Chat for help", false, "New"),
-            _drawerItem(Icons.settings, "Settings"),
-
-            const Divider(color: Colors.black12),
-
-            // 🔹 Paid Services
-            _drawerItem(Icons.card_membership, "Jobseeker services", false, "Paid"),
-            _drawerItem(Icons.workspace_premium, "DEI Pro", false, "Paid"),
-
-            const Divider(color: Colors.black12),
+            // _drawerItem(Icons.visibility, "Actively searching jobs", true),
+            // _drawerItem(Icons.search, "Search jobs"),
+            // _drawerItem(Icons.work_outline, "Recommended jobs"),
+            // _drawerItem(Icons.bookmark_border, "Saved jobs"),
+            // _drawerItem(Icons.bar_chart, "Profile performance"),
+            //
+            // const Divider(color: Colors.black12),
+            //
+            // // 🔹 Preferences & Help
+            // // _drawerItem(Icons.remove_red_eye_outlined, "Display preferences"),
+            // _drawerItem(Icons.chat_outlined, "Chat for help", false, "New"),
+            // _drawerItem(Icons.settings, "Settings"),
+            //
+            // const Divider(color: Colors.black12),
+            //
+            // // 🔹 Paid Services
+            // _drawerItem(Icons.card_membership, "Jobseeker services", false, "Paid"),
+            // _drawerItem(Icons.workspace_premium, "DEI Pro", false, "Paid"),
+            //
+            // const Divider(color: Colors.black12),
 
             // 🔹 Info & Support
             // _drawerItem(Icons.article_outlined, "DEi blog"),
             // _drawerItem(Icons.help_outline, "How DEI works"),
             // _drawerItem(Icons.mail_outline, "Write to us"),
+            _drawerItem(Icons.woman_outlined, "Empower Women", false, // bold
+                null,  // badge
+                    () =>AppNavigator.loadEmpowerWomenScreen()),
             _drawerItem(Icons.info_outline, "About us", false, // bold
               null,  // badge
                   () =>AppNavigator.loadAboutUsScreen()),

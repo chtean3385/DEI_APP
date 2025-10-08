@@ -64,13 +64,16 @@ class _JobsServiceSectionState extends ConsumerState<JobsServiceSection> {
       return const SizedBox.shrink();
     }
 
-    return ColoredBox(
-      color: AppColors.primaryColor.withValues(alpha: .5),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 12),
-        child: state.pageState == PageState.loading
-            ? _loadingItems()
-            : _dataItems(state),
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: ColoredBox(
+        color: AppColors.primaryColor.withValues(alpha: .5),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: state.pageState == PageState.loading
+              ? _loadingItems()
+              : _dataItems(state),
+        ),
       ),
     );
   }
