@@ -25,56 +25,64 @@ class DisabilityInclusionStepsModel {
 
 class InclusionRow {
   final String? id;
-  final LeftContent? left;
-  final RightContent? right;
+  final RowContentModel? left;
+  final RowContentModel? right;
 
-  InclusionRow({this.id, this.left, this.right});
+  InclusionRow({
+    this.id,
+    this.left,
+    this.right,
+  });
 
   factory InclusionRow.fromJson(Map<String, dynamic> json) {
     return InclusionRow(
       id: json['_id'] as String?,
       left: json['left'] != null
-          ? LeftContent.fromJson(json['left'] as Map<String, dynamic>)
+          ? RowContentModel.fromJson(json['left'] as Map<String, dynamic>)
           : null,
       right: json['right'] != null
-          ? RightContent.fromJson(json['right'] as Map<String, dynamic>)
+          ? RowContentModel.fromJson(json['right'] as Map<String, dynamic>)
           : null,
     );
   }
 }
 
-class LeftContent {
+class RowContentModel {
   final String? id;
-  final String? icon;
+  final String? icon;  // Only for 'left' side
+  final String? step;  // Only for 'right' side
   final String? title;
   final String? text;
+  final String? aux;   // Optional field, for 'right' side extra info
 
-  LeftContent({this.id, this.icon, this.title, this.text});
+  RowContentModel({
+    this.id,
+    this.icon,
+    this.step,
+    this.title,
+    this.text,
+    this.aux,
+  });
 
-  factory LeftContent.fromJson(Map<String, dynamic> json) {
-    return LeftContent(
+  factory RowContentModel.fromJson(Map<String, dynamic> json) {
+    return RowContentModel(
       id: json['_id'] as String?,
       icon: json['icon'] as String?,
-      title: json['title'] as String?,
-      text: json['text'] as String?,
-    );
-  }
-}
-
-class RightContent {
-  final String? id;
-  final String? step;
-  final String? title;
-  final String? aux;
-
-  RightContent({this.id, this.step, this.title, this.aux});
-
-  factory RightContent.fromJson(Map<String, dynamic> json) {
-    return RightContent(
-      id: json['_id'] as String?,
       step: json['step'] as String?,
       title: json['title'] as String?,
+      text: json['text'] as String?,
       aux: json['aux'] as String?,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'icon': icon,
+      'step': step,
+      'title': title,
+      'text': text,
+      'aux': aux,
+    };
   }
 }

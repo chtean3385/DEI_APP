@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'disability_inclusion_stesps_section.dart';
 import 'disability_title_section.dart';
-
-
 
 class NotDefinedByView extends StatelessWidget {
   const NotDefinedByView({super.key});
@@ -12,9 +11,7 @@ class NotDefinedByView extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [
-          DisabilityTitleSection(),
-        ],
+        children: [DisabilityTitleSection(), DisabilityInclusionStepsSection()],
       ),
     );
   }

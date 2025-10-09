@@ -15,6 +15,11 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaUsers': FontAwesomeIcons.users,
   'FaUsersCog': FontAwesomeIcons.usersCog,
   'FaChartLine': FontAwesomeIcons.chartLine,
+  // --- JSON Data Icons ---
+  'FaRegLightbulb': FontAwesomeIcons.solidLightbulb,
+  'FaUserFriends': FontAwesomeIcons.userFriends,
+  'FaRegStar': FontAwesomeIcons.solidStar,
+  'FaShieldAlt': FontAwesomeIcons.shieldAlt,
   // 👇 Optional: add fallback or frequently reused icons
   'FaCircle': FontAwesomeIcons.circle,
   'FaHandshake': FontAwesomeIcons.handshake,
