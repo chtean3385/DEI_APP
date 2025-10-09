@@ -46,42 +46,31 @@ class ExploreWomenJobs extends ConsumerWidget {
         child:  Stack(
           alignment: AlignmentGeometry.bottomCenter,
           children: [
-            RoundedNetworkImage(
-              imageUrl: item.image ?? "",
-              width: double.infinity,
-              height: 150,
-              borderRadius: 16,
+            Positioned.fill(
+              child: RoundedNetworkImage(
+                imageUrl: item.image ?? "",
+                width: double.infinity,
+                // height: 150,
+                borderRadius: 16,
+              ),
             ),
-            // Overlay
             Container(
+              padding: const EdgeInsets.all(16.0),
               width: double.infinity,
-              height: 150,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
                 color:(BootstrapColors.colors["indigo"] ?? AppColors.primaryColor).withValues(alpha: 0.3), // Adjust opacity as needed
               ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+              alignment: AlignmentGeometry.bottomCenter,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Text(
-                  //   item.title ?? '',
-                  //   style: context.textTheme.labelSmall?.copyWith(color: Colors.white),
-                  //   softWrap: true,
-                  //   overflow: TextOverflow.ellipsis,
-                  //   textAlign: TextAlign.center,
-                  //   maxLines: 2,
-                  // ),
-                  // gapH8(),
                   Text(
-                    item.sectionSubtitle ?? '',
+              item.sectionSubtitle ?? '',
                     style: context.textTheme.displaySmall?.copyWith(
-                        color: Colors.white,fontSize: 10
+                        color: Colors.white,fontSize: 10,
                     ),
                     textAlign: TextAlign.left,
                   ),
@@ -112,25 +101,6 @@ class ExploreWomenJobs extends ConsumerWidget {
                       ),
                     ),
                   ),
-
-                  // CustomThemeButton(
-                  //   child: Row(
-                  //     mainAxisSize: MainAxisSize.min,
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       Text(
-                  //         "Explore Women Focused Jobs",
-                  //         style: context.textTheme.displaySmall?.copyWith(color: Colors.white),
-                  //       ),
-                  //       gapW16(),
-                  //       Icon(Icons.arrow_forward_ios,color: Colors.white,size: 10,)
-                  //     ],
-                  //   ),
-                  //   color: AppColors.primaryColor,
-                  //   radius: 8,
-                  //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  //   onTap: () {},
-                  // ),
                 ],
               ),
             )
