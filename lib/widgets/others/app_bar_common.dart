@@ -10,6 +10,7 @@ AppBar appBarCommon({
   Color? titleIconColor,
   bool arrowLeft = true,
   List<Widget>? actions,
+  bool? titleStyleSmall
 
 }) {
   final theme = Theme.of(navigatorKey.currentContext!);
@@ -18,7 +19,7 @@ AppBar appBarCommon({
     backgroundColor:bgColor  ,
     leading:arrowLeft ?  BackButton(color:titleIconColor ??  Colors.black54,) : null,
     title: title != null
-        ? Text(title, style: theme.textTheme.headlineSmall?.copyWith(color: titleIconColor))
+        ? Text(title, style: titleStyleSmall == true ? theme.textTheme.bodySmall?.copyWith(color: titleIconColor)  : theme.textTheme.headlineSmall?.copyWith(color: titleIconColor))
         : null,
     actions: actions,
   );

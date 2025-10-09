@@ -11,7 +11,7 @@ class EmpowerWomenScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg,
-      appBar: appBarCommon(title: "Empower Women",arrowLeft: true),
+      appBar: appBarCommon(title: "Empower Women",arrowLeft: true,titleStyleSmall: true),
       body: EmpowerWomenView(),
     );
   }

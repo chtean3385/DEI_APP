@@ -1,4 +1,3 @@
-
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/providers/providers.dart';
@@ -43,14 +42,13 @@ class ExploreWomenJobs extends ConsumerWidget {
       color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child:  Stack(
+        child: Stack(
           alignment: AlignmentGeometry.bottomCenter,
           children: [
             Positioned.fill(
               child: RoundedNetworkImage(
                 imageUrl: item.image ?? "",
                 width: double.infinity,
-                // height: 150,
                 borderRadius: 16,
               ),
             ),
@@ -59,7 +57,9 @@ class ExploreWomenJobs extends ConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                color:(BootstrapColors.colors["indigo"] ?? AppColors.primaryColor).withValues(alpha: 0.3), // Adjust opacity as needed
+                color:
+                    (BootstrapColors.colors["indigo"] ?? AppColors.primaryColor)
+                        .withValues(alpha: 0.3), // Adjust opacity as needed
               ),
               alignment: AlignmentGeometry.bottomCenter,
               child: Column(
@@ -68,11 +68,12 @@ class ExploreWomenJobs extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-              item.sectionSubtitle ?? '',
+                    item.sectionSubtitle ?? '',
                     style: context.textTheme.displaySmall?.copyWith(
-                        color: Colors.white,fontSize: 10,
+                      color: Colors.white,
+                      fontSize: 10,
                     ),
-                    textAlign: TextAlign.left,
+                    textAlign: TextAlign.center,
                   ),
                   gapH8(),
                   ElevatedButton.icon(
@@ -95,7 +96,10 @@ class ExploreWomenJobs extends ConsumerWidget {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
                       visualDensity: VisualDensity.compact,
-                      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25),
                       ),
@@ -103,8 +107,7 @@ class ExploreWomenJobs extends ConsumerWidget {
                   ),
                 ],
               ),
-            )
-
+            ),
           ],
         ),
       ),
@@ -117,14 +120,11 @@ class ExploreWomenJobs extends ConsumerWidget {
       child: ShimmerLoader(
         child: Padding(
           padding: const EdgeInsets.all(16),
-          child:  ClipRRect(
+          child: ClipRRect(
             borderRadius: BorderRadiusGeometry.circular(16),
             child: ColoredBox(
               color: Colors.white,
-              child: SizedBox(
-                width: double.infinity,
-                height: 100,
-              ),
+              child: SizedBox(width: double.infinity, height: 100),
             ),
           ),
         ),

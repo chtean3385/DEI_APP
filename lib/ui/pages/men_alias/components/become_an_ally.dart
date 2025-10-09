@@ -43,13 +43,14 @@ class BecomeAnAlly extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.only(bottom: 16,left: 16,right: 16, top: 16),
         child: Stack(
-          alignment: AlignmentGeometry.center,
+          alignment: AlignmentGeometry.bottomCenter,
           children: [
-            RoundedNetworkImage(
-              imageUrl: item.backgroundImage ?? "",
-              width: double.infinity,
-              height: 120,
-              borderRadius: 16,
+            Positioned.fill(
+              child: RoundedNetworkImage(
+                imageUrl: item.backgroundImage ?? "",
+                width: double.infinity,
+                borderRadius: 16,
+              ),
             ),
 
             Padding(
@@ -59,54 +60,13 @@ class BecomeAnAlly extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Text(
-                  //   item.firstParagraph ?? '',
-                  //   style: context.textTheme.displaySmall?.copyWith(color: Colors.white),
-                  //   softWrap: true,
-                  //   overflow: TextOverflow.ellipsis,
-                  //   textAlign: TextAlign.center,
-                  //   maxLines: 2,
-                  // ),
-                  // gapH8(),
                   Text(
                     item.secondParagraph ?? "",
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    softWrap: true,
                     style: context.textTheme.bodyMedium?.copyWith(
                         color: Colors.yellow,fontSize: 12,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  // gapH8(),
-                  // ViewAllButton(
-                  //   text: "Explore Women Focused Jobs",
-                  //   fillColor: true,
-                  //   isSmall: true,
-                  //   radius: 4,
-                  //   showArrow: true,
-                  // )
-                  // CustomThemeButton(
-                  //   child: Row(
-                  //     mainAxisSize: MainAxisSize.min,
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       Icon(
-                  //         Icons.group_add,
-                  //         color: Color(0xFF1a237e),
-                  //         size: 18,
-                  //       ),
-                  //       Text(
-                  //         "Become an Ally",
-                  //         style: context.textTheme.bodyMedium?.copyWith(color: Color(0xFF1a237e),),
-                  //       ),
-                  //     ],
-                  //   ),
-                  //   color: Colors.white,
-                  //   radius: 30,
-                  //   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  //   onTap: () {},
-                  // ),
                   gapH8(),
                   ElevatedButton.icon(
                     onPressed: () {

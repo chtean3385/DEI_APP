@@ -11,7 +11,7 @@ class MenAliasScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarCommon(title: "Men as Allies",arrowLeft: true),
+      appBar: appBarCommon(title: "Men as Allies",arrowLeft: true,titleStyleSmall: true),
       backgroundColor: AppColors.bg,
       body: MenAliasView(),
     );

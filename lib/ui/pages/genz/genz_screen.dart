@@ -11,7 +11,7 @@ class GenZScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg,
-      appBar: appBarCommon(title: "Gen Z",arrowLeft: true),
+      appBar: appBarCommon(title: "Gen Z",arrowLeft: true,titleStyleSmall: true),
       body: GenZView(),
     );
   }

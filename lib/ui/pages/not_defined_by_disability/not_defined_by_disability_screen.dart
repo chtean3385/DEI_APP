@@ -11,7 +11,7 @@ class NotDefinedByDisabilityScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.bg,
-      appBar: appBarCommon(title: "Not defined by Disability",arrowLeft: true),
+      appBar: appBarCommon(title: "Not defined by Disability",arrowLeft: true,titleStyleSmall: true),
       body: NotDefinedByView(),
     );
   }
