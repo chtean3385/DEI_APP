@@ -18,7 +18,7 @@ class GenZBottomButtonSectionController extends StateNotifier<GenZBottomButtonSt
     state = state.copyWith(pageState: PageState.loading);
     try {
       final result = await _service.genZBottomButtons();
-      final Data = (result as List)
+      final Data = (result["data"] as List)
           .map((e) => GenZBottomButtonModel.fromJson(e))
           .toList();
       state = state.copyWith(pageState: PageState.success, data: Data);

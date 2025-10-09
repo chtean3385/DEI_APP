@@ -39,21 +39,6 @@ class CtaGenzButtonModel {
     this.id,
   });
 
-  CtaGenzButtonModel copyWith({
-    String? href,
-    String? icon,
-    String? label,
-    bool? primary,
-    String? id,
-  }) {
-    return CtaGenzButtonModel(
-      href: href ?? this.href,
-      icon: icon ?? this.icon,
-      label: label ?? this.label,
-      primary: primary ?? this.primary,
-      id: id ?? this.id,
-    );
-  }
 
   factory CtaGenzButtonModel.fromJson(Map<String, dynamic>? json) {
     if (json == null) return CtaGenzButtonModel();

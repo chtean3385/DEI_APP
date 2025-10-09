@@ -29,6 +29,11 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaGlobe': FontAwesomeIcons.globe,
   'FaTree': FontAwesomeIcons.tree,
   'FaSyncAlt': FontAwesomeIcons.syncAlt,
+  'FaTransgender': FontAwesomeIcons.transgender,
+  'FaRocketchat': FontAwesomeIcons.rocketchat,
+  'FaRegHeart': FontAwesomeIcons.solidHeart,
+  'FaRocket': FontAwesomeIcons.rocket,
+  'FaFileDownload': FontAwesomeIcons.fileDownload,
 
 };
 

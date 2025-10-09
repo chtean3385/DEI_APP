@@ -18,7 +18,7 @@ class GenZAdvantagesSectionController extends StateNotifier<GenZAdvantagesState>
     state = state.copyWith(pageState: PageState.loading);
     try {
       final result = await _service.genZAdvantages();
-      final Data = (result as List)
+      final Data = (result["data"] as List)
           .map((e) => GenZAdvantageModel.fromJson(e))
           .toList();
       state = state.copyWith(pageState: PageState.success, data: Data);

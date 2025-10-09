@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'genz_bottom_buttons.dart';
 import 'genz_growth_points.dart';
 import 'genz_title_section.dart';
 
@@ -12,7 +13,7 @@ class GenZView extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [GenZTitleSection(),GenZGrowthPoints()],
+        children: [GenZTitleSection(),GenZGrowthPoints(),GenZButtonSection()],
       ),
     );
   }
