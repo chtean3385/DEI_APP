@@ -43,4 +43,16 @@ class ApiUrls {
   static const disabilityInclusionSteps = 'not-defined-by-disability/inclusion-ndpd/get-all';
   static const disabilityBottomDetails = 'not-defined-by-disability/parallax-ndpd/get-all';
 
+  // Gen Z
+  static const genZTitleDetails = 'gen-z-debutant/gen-z-debutant-hero/get-all';
+  static const  genZGrowthPoints = 'gen-z-debutant/gen-z-debutant-growth/get-all';
+  static const genZAdvantages = 'gen-z-debutant/gen-z-debutant-parallax/get-all';
+  static const genZBottomButtons = 'gen-z-debutant/gen-z-debutant-closing/get-all';
+
+
+
+
+
+
+
 }
