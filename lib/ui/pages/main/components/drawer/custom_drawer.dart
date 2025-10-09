@@ -102,6 +102,13 @@ class CustomDrawer extends StatelessWidget {
             _drawerItem(Icons.accessible_forward, "Not Defined by Disability", false,
                 null,
                     () => AppNavigator.loadNotDefinedByDisabilityScreen()),
+            _drawerItem(
+              Icons.auto_awesome,
+              "Gen Z",
+              false,
+              null,
+                  () => AppNavigator.loadGenZScreen(),
+            ),
             _drawerItem(Icons.info_outline, "About us", false, // bold
               null,  // badge
                   () =>AppNavigator.loadAboutUsScreen()),

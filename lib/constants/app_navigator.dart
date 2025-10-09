@@ -13,6 +13,7 @@ import '../ui/pages/auth/otp/otp_screen.dart';
 import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 import '../ui/pages/company/company_profile_screen.dart';
+import '../ui/pages/genz/genz_screen.dart';
 import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
 import '../ui/pages/invites/job_invite_details_screen.dart';
 import '../ui/pages/job/job_details_screen.dart';
@@ -211,6 +212,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => NotDefinedByDisabilityScreen()),
+    );
+  }
+  static loadGenZScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => GenZScreen()),
     );
   }
 }
