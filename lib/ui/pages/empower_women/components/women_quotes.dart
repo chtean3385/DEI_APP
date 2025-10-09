@@ -12,7 +12,6 @@ class WomenQuotes extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(womenQuoteControllerProvider);
-
     // Handle loading, error, and data states
     if (state.pageState == PageState.loading) {
       return _loading();
@@ -40,6 +39,7 @@ class WomenQuotes extends ConsumerWidget {
 
     return  SingleChildScrollView(
       scrollDirection: Axis.horizontal,
+      padding: EdgeInsets.all(16),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,30 +65,22 @@ class WomenQuotes extends ConsumerWidget {
       elevation: 3,
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: SizedBox(height: 100, width: double.infinity),
+      child: SizedBox(height: 100, width: 300),
     );
   }
 
   Widget _loading() {
-    return ShimmerLoader(
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: ColoredBox(
-              color: Colors.white,
-              child: SizedBox(width: double.infinity, height: 14),
-            ),
-          ),
-          SizedBox(height: 2),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: List.generate(4, (index) {
-              return buildShimmerCard();
-            }),
-          ),
-        ],
+    return  ShimmerLoader(
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        padding: EdgeInsets.all(16),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List.generate(2, (index) {
+            return buildShimmerCard();
+          }),
+        ),
       ),
     );
   }
