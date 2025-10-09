@@ -43,13 +43,13 @@ class OrganizationalBenefitCard extends StatelessWidget {
                   color:
                   BootstrapColors.colors["lightNavy"] ??
                       AppColors.primaryColor,
-                  size: 15,
+                  size: 18,
                 ),
                 gapH8(),
                 Flexible(
                   child: Text(
                     item.heading ?? "",
-                    style: theme.labelSmall,
+                    style: theme.displaySmall?.copyWith(fontSize: 13),
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,

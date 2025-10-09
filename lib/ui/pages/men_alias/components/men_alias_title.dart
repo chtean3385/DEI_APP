@@ -118,15 +118,12 @@ class MenAliasTitle extends ConsumerWidget {
   Widget _loading() {
     return ShimmerLoader(
       child: Padding(
-        padding: const EdgeInsets.only( bottom: 16,left: 16,right: 16,top: 16),
-        child:  ClipRRect(
-          borderRadius: BorderRadiusGeometry.circular(16),
-          child: ColoredBox(
-            color: Colors.white,
-            child: SizedBox(
-              width: double.infinity,
-              height: 100,
-            ),
+        padding: const EdgeInsets.only( bottom: 16),
+        child:  ColoredBox(
+          color: Colors.white,
+          child: SizedBox(
+            width: double.infinity,
+            height: 250,
           ),
         ),
       ),
