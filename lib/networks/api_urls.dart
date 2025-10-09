@@ -38,4 +38,9 @@ class ApiUrls {
   static const organizationalBenefits = 'men-as-allies/organizational-benefits-man-as-allies/get-all';
   static const whyAllShipMan = 'men-as-allies/why-allShip-man-as-allies/get-all';
 
+ // Not defined by Disability
+  static const disabilityTitleDetails = 'not-defined-by-disability/hero-ndpd/get-all';
+  static const disabilityInclusionSteps = 'not-defined-by-disability/inclusion-ndpd/get-all';
+  static const disabilityBottomDetails = 'not-defined-by-disability/parallax-ndpd/get-all';
+
 }

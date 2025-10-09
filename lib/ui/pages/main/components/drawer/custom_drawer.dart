@@ -99,6 +99,9 @@ class CustomDrawer extends StatelessWidget {
             _drawerItem(Icons.man, "Men as Allies", false, // bold
                 null,  // badge
                     () =>AppNavigator.loadMenAsAliasScreen()),
+            _drawerItem(Icons.accessible_forward, "Not Defined by Disability", false,
+                null,
+                    () => AppNavigator.loadNotDefinedByDisabilityScreen()),
             _drawerItem(Icons.info_outline, "About us", false, // bold
               null,  // badge
                   () =>AppNavigator.loadAboutUsScreen()),

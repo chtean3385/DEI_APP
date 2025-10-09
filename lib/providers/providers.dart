@@ -17,6 +17,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
 import '../models/state_models/auth_state.dart';
+import '../models/state_models/disability/disability_bottom_state.dart';
+import '../models/state_models/disability/disability_inclusion_steps_state.dart';
+import '../models/state_models/disability/disability_title_state.dart';
 import '../models/state_models/empower_women/empower_women_program_state.dart';
 import '../models/state_models/empower_women/empower_women_quote_state.dart';
 import '../models/state_models/empower_women/empower_women_workforce_state.dart';
@@ -43,6 +46,9 @@ import 'controllers/auth/employer_register_controller.dart';
 import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
+import 'controllers/disability/disability_bottom_section_controller.dart';
+import 'controllers/disability/disability_inclusion_setps_controller.dart';
+import 'controllers/disability/disability_title_section_controller.dart';
 import 'controllers/empower_women/empower_women_program_controller.dart';
 import 'controllers/empower_women/empower_women_quote_controller.dart';
 import 'controllers/empower_women/empower_women_workforce_controller.dart';
@@ -194,4 +200,16 @@ StateNotifierProvider.autoDispose<OrganizationalBenefitController, Organizationa
   return OrganizationalBenefitController();
 });
 
-
+///not defined by disability
+final disabilityTitleSectionProvider =
+StateNotifierProvider.autoDispose<DisabilityTitleSectionController, DisabilityTitleState>((ref) {
+  return DisabilityTitleSectionController();
+});
+final disabilityBottomSectionProvider =
+StateNotifierProvider.autoDispose<DisabilityBottomSectionController, DisabilityBottomState>((ref) {
+  return DisabilityBottomSectionController();
+});
+final disabilityInclusionStepsProvider =
+StateNotifierProvider.autoDispose<DisabilityInclusionStepsController, DisabilityInclusionStepsState>((ref) {
+  return DisabilityInclusionStepsController();
+});
