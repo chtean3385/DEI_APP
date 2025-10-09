@@ -1,6 +1,6 @@
 class DisabilityBottomDetailModel {
   final String? id;
-  final List<SectionCard>? sectionCards;
+  final List<SectionCardModel>? sectionCards;
   final String? quote;
   final String? ctaText;
   final String? ctaLink;
@@ -19,7 +19,7 @@ class DisabilityBottomDetailModel {
     return DisabilityBottomDetailModel(
       id: json['_id'] as String?,
       sectionCards: (json['sectionCards'] as List?)
-          ?.map((e) => SectionCard.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => SectionCardModel.fromJson(e as Map<String, dynamic>))
           .toList(),
       quote: json['quote'] as String?,
       ctaText: json['ctaText'] as String?,
@@ -29,19 +29,19 @@ class DisabilityBottomDetailModel {
   }
 }
 
-class SectionCard {
+class SectionCardModel {
   final String? id;
   final String? title;
   final String? description;
 
-  SectionCard({
+  SectionCardModel({
     this.id,
     this.title,
     this.description,
   });
 
-  factory SectionCard.fromJson(Map<String, dynamic> json) {
-    return SectionCard(
+  factory SectionCardModel.fromJson(Map<String, dynamic> json) {
+    return SectionCardModel(
       id: json['_id'] as String?,
       title: json['title'] as String?,
       description: json['description'] as String?,

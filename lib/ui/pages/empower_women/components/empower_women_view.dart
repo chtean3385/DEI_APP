@@ -1,4 +1,3 @@
-import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/ui/pages/empower_women/components/women_program.dart';
 import 'package:dei_champions/ui/pages/empower_women/components/women_quotes.dart';
 import 'package:flutter/material.dart';
