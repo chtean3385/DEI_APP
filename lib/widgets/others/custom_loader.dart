@@ -1,3 +1,4 @@
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_drawables.dart';
@@ -31,9 +32,16 @@ class SomethingWentWrong extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text ?? "Sorry.. Something went wrong. try again",
-      maxLines: 3,
+    return Align(
+      alignment: AlignmentGeometry.center,
+      child:Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text(
+          text ?? "Sorry.. Something went wrong. try again",
+          maxLines: 3,
+          style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
+        ),
+      ),
     );
   }
 }

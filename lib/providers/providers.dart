@@ -23,6 +23,10 @@ import '../models/state_models/disability/disability_title_state.dart';
 import '../models/state_models/empower_women/empower_women_program_state.dart';
 import '../models/state_models/empower_women/empower_women_quote_state.dart';
 import '../models/state_models/empower_women/empower_women_workforce_state.dart';
+import '../models/state_models/genz/genz_advantages_state.dart';
+import '../models/state_models/genz/genz_bottom_buttons_state.dart';
+import '../models/state_models/genz/genz_growth_state.dart';
+import '../models/state_models/genz/genz_title_state.dart';
 import '../models/state_models/home/champion_candidates_state.dart';
 import '../models/state_models/home/featured_employers_state.dart';
 import '../models/state_models/home/how_it_works_state.dart';
@@ -52,6 +56,10 @@ import 'controllers/disability/disability_title_section_controller.dart';
 import 'controllers/empower_women/empower_women_program_controller.dart';
 import 'controllers/empower_women/empower_women_quote_controller.dart';
 import 'controllers/empower_women/empower_women_workforce_controller.dart';
+import 'controllers/genz/genz_advantages_section_controller.dart';
+import 'controllers/genz/genz_bottom_buttons_section_controller.dart';
+import 'controllers/genz/genz_growth_section_controller.dart';
+import 'controllers/genz/genz_title_section_controller.dart';
 import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
 import 'controllers/men_alias/ally_ship_men_controller.dart';
@@ -212,4 +220,22 @@ StateNotifierProvider.autoDispose<DisabilityBottomSectionController, DisabilityB
 final disabilityInclusionStepsProvider =
 StateNotifierProvider.autoDispose<DisabilityInclusionStepsController, DisabilityInclusionStepsState>((ref) {
   return DisabilityInclusionStepsController();
+});
+
+///gen z
+final genZTitleSectionProvider =
+StateNotifierProvider.autoDispose<GenZTitleSectionController, GenZTitleState>((ref) {
+  return GenZTitleSectionController();
+});
+final genZGrowthSectionProvider =
+StateNotifierProvider.autoDispose<GenZGrowthSectionController, GenZGrowthState>((ref) {
+  return GenZGrowthSectionController();
+});
+final genZBottomButtonSectionProvider =
+StateNotifierProvider.autoDispose<GenZBottomButtonSectionController, GenZBottomButtonState>((ref) {
+  return GenZBottomButtonSectionController();
+});
+final genZAdvantagesSectionControllerProvider =
+StateNotifierProvider.autoDispose<GenZAdvantagesSectionController, GenZAdvantagesState>((ref) {
+  return GenZAdvantagesSectionController();
 });

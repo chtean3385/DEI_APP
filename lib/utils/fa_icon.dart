@@ -24,6 +24,12 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaCircle': FontAwesomeIcons.circle,
   'FaHandshake': FontAwesomeIcons.handshake,
   'FaLightbulb': FontAwesomeIcons.lightbulb,
+  // --- Gen Z JSON Data Icons ---
+  'FaCarAlt': FontAwesomeIcons.carAlt,
+  'FaGlobe': FontAwesomeIcons.globe,
+  'FaTree': FontAwesomeIcons.tree,
+  'FaSyncAlt': FontAwesomeIcons.syncAlt,
+
 };
 
 IconData getFontAwesomeIcon(String? iconName) {
