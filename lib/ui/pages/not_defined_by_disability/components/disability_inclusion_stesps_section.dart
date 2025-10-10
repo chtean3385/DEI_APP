@@ -54,7 +54,7 @@ class DisabilityInclusionStepsSection extends ConsumerWidget {
             },
           ),
 
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
 
           ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
