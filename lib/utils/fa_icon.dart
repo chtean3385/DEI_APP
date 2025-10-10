@@ -34,6 +34,9 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaRegHeart': FontAwesomeIcons.solidHeart,
   'FaRocket': FontAwesomeIcons.rocket,
   'FaFileDownload': FontAwesomeIcons.fileDownload,
+  // --- Veteran JSON Data Icons ---
+  'FaSearch': FontAwesomeIcons.search,
+  'FaRecordVinyl': FontAwesomeIcons.recordVinyl,
 
 };
 

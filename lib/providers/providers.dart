@@ -39,6 +39,11 @@ import '../models/state_models/men_alias/organizational_benefit_state.dart';
 import '../models/state_models/otp_state.dart';
 import '../models/state_models/register_state.dart';
 import '../models/state_models/signup_flow_state.dart';
+import '../models/state_models/veteran/veteran_advantag_state.dart';
+import '../models/state_models/veteran/veteran_future_state.dart';
+import '../models/state_models/veteran/veteran_organizational_benefit_state.dart';
+import '../models/state_models/veteran/veteran_quote_state.dart';
+import '../models/state_models/veteran/veteran_title_state.dart';
 import 'controllers/about_us/about_us_controller.dart';
 import 'controllers/about_us/about_vision_controller.dart';
 import 'controllers/about_us/core_value_controller.dart';
@@ -67,6 +72,11 @@ import 'controllers/men_alias/allyship_matter_controller.dart';
 import 'controllers/men_alias/champion_diversity_controller.dart';
 import 'controllers/men_alias/men_as_alias_title_controller.dart';
 import 'controllers/men_alias/organizational_benefit_controller.dart';
+import 'controllers/veteran/veteran_advantage_controller.dart';
+import 'controllers/veteran/veteran_organizational_gorwth_controller.dart';
+import 'controllers/veteran/veteran_quote_section_controller.dart';
+import 'controllers/veteran/veteran_role_controller.dart';
+import 'controllers/veteran/veteran_title_section_controller.dart';
 
 
 final appProvider =
@@ -238,4 +248,27 @@ StateNotifierProvider.autoDispose<GenZBottomButtonSectionController, GenZBottomB
 final genZAdvantagesSectionControllerProvider =
 StateNotifierProvider.autoDispose<GenZAdvantagesSectionController, GenZAdvantagesState>((ref) {
   return GenZAdvantagesSectionController();
+});
+
+/// veteran
+final veteranTitleSectionProvider =
+StateNotifierProvider.autoDispose<VeteranTitleSectionController, VeteranTitleState>((ref) {
+  return VeteranTitleSectionController();
+});
+final veteranRoleSectionProvider =
+StateNotifierProvider.autoDispose<VeteranRoleSectionController, VeteranRoleState>((ref) {
+  return VeteranRoleSectionController();
+});
+
+final veteranOrganizationalBenefitSectionProvider =
+StateNotifierProvider.autoDispose<VeteranOrganizationalBenefitSectionController, VeteranOrganizationalBenefitState>((ref) {
+  return VeteranOrganizationalBenefitSectionController();
+});
+final veteranAdvantageSectionProvider =
+StateNotifierProvider.autoDispose<VeteranAdvantageSectionController, VeteranAdvantageState>((ref) {
+return VeteranAdvantageSectionController();
+});
+final veteranQuoteSectionProvider =
+StateNotifierProvider.autoDispose<VeteranQuoteSectionController, VeteranQuoteState>((ref) {
+  return VeteranQuoteSectionController();
 });
