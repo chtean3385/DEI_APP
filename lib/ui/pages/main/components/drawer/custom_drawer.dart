@@ -14,7 +14,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color:AppColors.bg,
+        color:Colors.white,
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 20),
           children: [
@@ -34,9 +34,9 @@ class CustomDrawer extends StatelessWidget {
                         child: CircularProgressIndicator(
                           value: 0.65,
                           strokeWidth: 5,
-                          backgroundColor: Colors.grey,
+                          backgroundColor: Colors.black12,
                           valueColor:
-                          const AlwaysStoppedAnimation(AppColors.bg),
+                          const AlwaysStoppedAnimation(AppColors.primaryColor),
                         ),
                       ),
                       const CircleAvatar(
@@ -55,7 +55,7 @@ class CustomDrawer extends StatelessWidget {
                       Text(
                         "Update profile",
                         style: context.textTheme.bodyMedium?.copyWith(
-                          color: Colors.black45,
+                          color: Colors.black54,
                         ),
                       ),
                     ],

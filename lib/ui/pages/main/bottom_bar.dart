@@ -45,7 +45,7 @@ class _BottomBarState extends State<BottomBar> {
       backdrop: Container(
         width: double.infinity,
         height: double.infinity,
-        color:AppColors.bg,
+        color:Colors.white,
       ),
       controller: _advancedDrawerController,
       animationCurve: Curves.easeInOut,
@@ -54,7 +54,7 @@ class _BottomBarState extends State<BottomBar> {
       rtlOpening: false,
       // openScale: 1.0,
       disabledGestures: false,
-      childDecoration: const BoxDecoration(
+      childDecoration:  BoxDecoration(
         // NOTICE: Uncomment if you want to add shadow behind the page.
         // Keep in mind that it may cause animation jerks.
         // boxShadow: <BoxShadow>[
@@ -63,7 +63,9 @@ class _BottomBarState extends State<BottomBar> {
         //     blurRadius: 0.0,
         //   ),
         // ],
-        borderRadius: const BorderRadius.all(Radius.circular(16)),
+        border: Border.all(color: Colors.black26,width: 1),
+
+        borderRadius: const BorderRadius.all(Radius.circular(0)),
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
