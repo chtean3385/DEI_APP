@@ -109,6 +109,14 @@ class CustomDrawer extends StatelessWidget {
               null,
                   () => AppNavigator.loadGenZScreen(),
             ),
+            _drawerItem(
+              Icons.military_tech,
+              "Defense Veteran",
+              false,
+              null,
+                  () => AppNavigator.loadVeteranScreen(),
+            ),
+
             _drawerItem(Icons.info_outline, "About us", false, // bold
               null,  // badge
                   () =>AppNavigator.loadAboutUsScreen()),

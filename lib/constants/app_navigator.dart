@@ -24,6 +24,7 @@ import '../ui/pages/not_defined_by_disability/not_defined_by_disability_screen.d
 import '../ui/pages/profile/upload_profile_pic.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
 import '../ui/pages/search/job_search_screen.dart';
+import '../ui/pages/veteran/veteran_screen.dart';
 
 class AppNavigator {
   static Future<void> saveAuthDataAndLoadBottomBar({
@@ -218,6 +219,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => GenZScreen()),
+    );
+  }
+  static loadVeteranScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => VeteranScreen()),
     );
   }
 }
