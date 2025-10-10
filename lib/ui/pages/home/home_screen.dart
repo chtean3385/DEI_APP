@@ -14,6 +14,7 @@ import 'components/noticing_you/recruiters_noticing.dart';
 import 'components/slider/home_top_slider.dart';
 import 'components/top_companies/top_companies.dart';
 import 'explore_job_category/job_categories_horizontal_scroll.dart';
+import 'explore_our_services/explore_our_services.dart';
 import 'featured_empoyers/featured_employer_horizontal_scroll.dart';
 import 'how_it_works/how_it_works_section.dart';
 import 'job_service_section/job_services_horizontal_scroll.dart';
@@ -31,9 +32,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             WeAreHiringBanner(),
             JobsCategorySection(),
-
-            HowItWorksSection(),
-
+            ExploreOurServices(),
             FeaturedEmployersSection(),
             JobsServiceSection(),
             ChampionCandidatesSection(),

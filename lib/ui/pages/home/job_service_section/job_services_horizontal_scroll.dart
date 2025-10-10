@@ -83,13 +83,13 @@ class _JobsServiceSectionState extends ConsumerState<JobsServiceSection> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 16),
-            child: ColoredBox(
-              color: Colors.white,
-              child: SizedBox(height: 14, width: 160),
-            ),
-          ),
+          // const Padding(
+          //   padding: EdgeInsets.only(left: 16),
+          //   child: ColoredBox(
+          //     color: Colors.white,
+          //     child: SizedBox(height: 14, width: 160),
+          //   ),
+          // ),
           const SizedBox(height: 8),
           SizedBox(
             height: 110,
@@ -114,14 +114,14 @@ class _JobsServiceSectionState extends ConsumerState<JobsServiceSection> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            "Explore Our Services",
-            style: navigatorKey.currentContext!.textTheme.bodySmall
-                ?.copyWith(fontWeight: FontWeight.w600),
-          ),
-        ),
+        // Padding(
+        //   padding: const EdgeInsets.symmetric(horizontal: 16),
+        //   child: Text(
+        //     "Explore Our Services",
+        //     style: navigatorKey.currentContext!.textTheme.bodySmall
+        //         ?.copyWith(fontWeight: FontWeight.w600),
+        //   ),
+        // ),
         const SizedBox(height: 8),
         SizedBox(
           height: 110,
