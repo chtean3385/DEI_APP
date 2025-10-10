@@ -115,6 +115,13 @@ class CustomDrawer extends StatelessWidget {
               null,
                   () => AppNavigator.loadVeteranScreen(),
             ),
+            _drawerItem(
+              Icons.diversity_3,
+              "Shine with Pride",
+              false,
+              null,
+                  () => AppNavigator.loadLgbtqScreen(),
+            ),
 
             _drawerItem(Icons.info_outline, "About us", false, // bold
               null,  // badge
