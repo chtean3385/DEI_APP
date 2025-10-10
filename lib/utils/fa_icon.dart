@@ -50,7 +50,7 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaFileAlt': FontAwesomeIcons.fileAlt,
   'FaBuilding': FontAwesomeIcons.building,
   'FaGolfBall': FontAwesomeIcons.golfBall,
-
+  'FaCheckCircle': FontAwesomeIcons.checkCircle,
 };
 
 IconData getFontAwesomeIcon(String? iconName) {

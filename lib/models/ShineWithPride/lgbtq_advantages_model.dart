@@ -1,5 +1,7 @@
 
 
+import '../defense_veteran/dv_advantages_model.dart';
+
 class LgbtqAdvantageModel {
   final String? id;
   final String? sectionTitle;
@@ -24,26 +26,3 @@ class LgbtqAdvantageModel {
 
 }
 
-class VeteranAsset {
-  final String? id;
-  final String? icon;
-  final String? title;
-  final String? description;
-
-  VeteranAsset({
-    this.id,
-    this.icon,
-    this.title,
-    this.description,
-  });
-
-  factory VeteranAsset.fromJson(Map<String, dynamic> json) {
-    return VeteranAsset(
-      id: json['_id'] as String?,
-      icon: json['icon'] as String?,
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-    );
-  }
-
-}
