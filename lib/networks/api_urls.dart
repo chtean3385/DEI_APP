@@ -49,6 +49,13 @@ class ApiUrls {
   static const genZAdvantages = 'gen-z-debutant/gen-z-debutant-parallax/get-all';
   static const genZBottomButtons = 'gen-z-debutant/gen-z-debutant-closing/get-all';
 
+  // Defense Veteran
+  static const veteranAdvantages = 'defense-veteran/vetx-assets/get-all';
+  static const veteranQuotes = 'defense-veteran/vetx-quote/get-all';
+  static const  veteranOrganizationalBenefits = 'defense-veteran/vetx-organizational/get-all';
+  static const veteranTitleDetails = 'defense-veteran/vetx-hero/get-all';
+  static const veteranRoles = 'defense-veteran/vetx-organizational/get-all';
+
 
 
 
