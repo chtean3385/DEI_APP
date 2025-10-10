@@ -58,7 +58,7 @@ class VeteranRolesSection extends ConsumerWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(10.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,7 +71,7 @@ class VeteranRolesSection extends ConsumerWidget {
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  gapH8(),
+                  gapH4(),
                   Text(
                     item.lead ?? "",
                     style: context.textTheme.bodyMedium?.copyWith(

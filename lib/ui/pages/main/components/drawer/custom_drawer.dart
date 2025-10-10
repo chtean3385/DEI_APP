@@ -14,8 +14,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color:AppColors.primaryColor,
-        width: double.infinity,
+        color:AppColors.bg,
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 20),
           children: [
@@ -52,11 +51,11 @@ class CustomDrawer extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Gree", style: context.textTheme.labelMedium?.copyWith(color: Colors.white)),
+                      Text("Gree", style: context.textTheme.labelMedium),
                       Text(
                         "Update profile",
                         style: context.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.bg,
+                          color: Colors.black45,
                         ),
                       ),
                     ],
@@ -148,7 +147,7 @@ class CustomDrawer extends StatelessWidget {
       ]) {
     final theme = Theme.of(navigatorKey.currentContext!);
     return ListTile(
-      leading: Icon(icon, color: Colors.white, size: 20),
+      leading: Icon(icon, color: Colors.black87, size: 20),
       visualDensity: VisualDensity.compact,
       title: Row(
         children: [
@@ -156,7 +155,7 @@ class CustomDrawer extends StatelessWidget {
             text,
             style: theme.textTheme.bodyMedium?.copyWith(
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-              color: Colors.white
+              color: Colors.black
             ),
           ),
           if (badge != null) ...[

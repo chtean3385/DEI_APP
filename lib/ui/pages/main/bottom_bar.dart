@@ -45,13 +45,7 @@ class _BottomBarState extends State<BottomBar> {
       backdrop: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [AppColors.primaryColor, AppColors.primaryColor],
-          ),
-        ),
+        color:AppColors.bg,
       ),
       controller: _advancedDrawerController,
       animationCurve: Curves.easeInOut,
