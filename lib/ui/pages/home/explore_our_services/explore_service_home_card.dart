@@ -7,8 +7,9 @@ import '../../../../constants/app_colors.dart';
 class HomeExploreServiceCard extends StatelessWidget {
   final ExploreServiceModel item;
   final double width;
+  final GestureTapCallback? onTap;
 
-  const HomeExploreServiceCard({required this.item,required this.width});
+  const HomeExploreServiceCard({required this.item,required this.width, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +55,7 @@ class HomeExploreServiceCard extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
+                onTap: onTap,
                 padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 radius: 8,
                 borderColor: (BootstrapColors.colors["orange"] ?? Colors.orange),

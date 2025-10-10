@@ -1,77 +1,9 @@
 import 'package:dei_champions/models/home/explore_our_services/explore_service_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
-import '../../../../constants/app_styles.dart';
+import '../../../../constants/app_navigator.dart';
 import 'explore_service_home_card.dart';
-import 'explore_service_slider.dart';
-
-// class ExploreOurServices extends ConsumerWidget {
-//   ExploreOurServices({Key? key}) : super(key: key);
-//
-//   final List<ExploreServiceModel> sliderItems = [
-//     ExploreServiceModel(
-//       id: "1",
-//       icon: Icons.woman_outlined,
-//       title: "Empower Women",
-//     ),
-//     ExploreServiceModel(id: "2", icon: Icons.man, title: "Men as Allies"),
-//     ExploreServiceModel(
-//       id: "3",
-//       icon: Icons.accessible_forward,
-//       title: "Not Defined by Disability",
-//     ),
-//     ExploreServiceModel(id: "4", icon: Icons.auto_awesome, title: "Gen Z"),
-//     ExploreServiceModel(
-//       id: "5",
-//       icon: Icons.military_tech,
-//       title: "Defense Veteran",
-//     ),
-//     ExploreServiceModel(
-//       id: "6",
-//       icon: Icons.diversity_3,
-//       title: "Shine with Pride",
-//     ),
-//   ];
-//
-//   @override
-//   Widget build(BuildContext context, WidgetRef ref) {
-//     return Padding(
-//       padding: const EdgeInsets.only(bottom: 8),
-//       child: _data(context),
-//     );
-//   }
-//
-//   Widget _data(BuildContext context) {
-//     final theme = Theme.of(context).textTheme;
-//     return Padding(
-//       padding: const EdgeInsets.only(top: 12),
-//       child: Column(
-//         crossAxisAlignment: CrossAxisAlignment.start,
-//         children: [
-//           // header row
-//           Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 16),
-//             child: Text(
-//               "Explore Our Services",
-//               style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
-//               maxLines: 1,
-//               softWrap: true,
-//               overflow: TextOverflow.ellipsis,
-//             ),
-//           ),
-//           const SizedBox(height: 4),
-//           // horizontal list
-//           ExploreServiceSlider(itemList: sliderItems),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-
-
 
 class ExploreOurServices extends StatefulWidget {
   const ExploreOurServices({Key? key}) : super(key: key);
@@ -83,15 +15,40 @@ class ExploreOurServices extends StatefulWidget {
 class _ExploreOurServicesState extends State<ExploreOurServices> {
   final ScrollController _scrollController = ScrollController();
   int _currentIndex = 0;
-  double _itemWidth = 150; // estimated width of each HomeExploreServiceCard + spacing
+  double _itemWidth =
+      150; // estimated width of each HomeExploreServiceCard + spacing
 
   final List<ExploreServiceModel> sliderItems = [
-    ExploreServiceModel(id: "1", icon: Icons.woman_outlined, title: "Empower Women"),
+    ExploreServiceModel(
+      id: "1",
+      icon: Icons.woman_outlined,
+      title: "Empower Women",
+    ),
     ExploreServiceModel(id: "2", icon: Icons.man, title: "Men as Allies"),
-    ExploreServiceModel(id: "3", icon: Icons.accessible_forward, title: "Not Defined by Disability"),
+    ExploreServiceModel(
+      id: "3",
+      icon: Icons.accessible_forward,
+      title: "Not Defined by Disability",
+    ),
     ExploreServiceModel(id: "4", icon: Icons.auto_awesome, title: "Gen Z"),
-    ExploreServiceModel(id: "5", icon: Icons.military_tech, title: "Defense Veteran"),
-    ExploreServiceModel(id: "6", icon: Icons.diversity_3, title: "Shine with Pride"),
+    ExploreServiceModel(
+      id: "5",
+      icon: Icons.military_tech,
+      title: "Defense Veteran",
+    ),
+    ExploreServiceModel(
+      id: "6",
+      icon: Icons.diversity_3,
+      title: "Shine with Pride",
+    ),
+  ];
+  final List<VoidCallback> _drawerCallbacks = [
+        () => AppNavigator.loadEmpowerWomenScreen(),
+        () => AppNavigator.loadMenAsAliasScreen(),
+        () => AppNavigator.loadNotDefinedByDisabilityScreen(),
+        () => AppNavigator.loadGenZScreen(),
+        () => AppNavigator.loadVeteranScreen(),
+        () => AppNavigator.loadLgbtqScreen(),
   ];
 
   @override
@@ -118,7 +75,7 @@ class _ExploreOurServicesState extends State<ExploreOurServices> {
     final theme = Theme.of(context).textTheme;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24,top: 24),
+      padding: const EdgeInsets.only(bottom: 24, top: 24),
       child: ColoredBox(
         color: AppColors.bg,
         child: Column(
@@ -126,7 +83,7 @@ class _ExploreOurServicesState extends State<ExploreOurServices> {
           children: [
             // Header
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Text(
                 "Explore Our Services",
                 style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
@@ -144,7 +101,11 @@ class _ExploreOurServicesState extends State<ExploreOurServices> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemCount: sliderItems.length,
                 itemBuilder: (context, index) {
-                  return HomeExploreServiceCard(item: sliderItems[index],width: _itemWidth);
+                  return HomeExploreServiceCard(
+                    item: sliderItems[index],
+                    width: _itemWidth,
+                    onTap: _drawerCallbacks[index],
+                  );
                 },
                 separatorBuilder: (_, __) => const SizedBox(width: 16),
               ),
@@ -162,7 +123,9 @@ class _ExploreOurServicesState extends State<ExploreOurServices> {
                   margin: const EdgeInsets.symmetric(horizontal: 4),
                   child: CircleAvatar(
                     radius: isActive ? 5 : 3,
-                    backgroundColor: isActive ? AppColors.primaryColor : Colors.grey.shade600,
+                    backgroundColor: isActive
+                        ? AppColors.primaryColor
+                        : Colors.grey.shade600,
                   ),
                 );
               }),
