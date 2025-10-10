@@ -18,7 +18,7 @@ class LgbtqInclusionPointsController extends StateNotifier<LgbtqInclusionPointSt
     state = state.copyWith(pageState: PageState.loading);
     try {
       final result = await _service.lgbtqInclusionPoints();
-      final Data = (result["data"] as List)
+      final Data = (result as List)
           .map((e) => InclusionPointsModel.fromJson(e))
           .toList();
       state = state.copyWith(pageState: PageState.success, data: Data);

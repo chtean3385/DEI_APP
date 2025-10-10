@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'lgbtq_advantages.dart';
+import 'lgbtq_inclusion_section.dart';
+import 'lgbtq_quote_section.dart';
 import 'lgbtq_title_section.dart';
 
 class LgbtqView extends StatelessWidget {
@@ -12,7 +14,7 @@ class LgbtqView extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [LgbtqTitleSection(),LgbtqAdvantages()],
+        children: [LgbtqTitleSection(),LgbtqAdvantages(),LgbtqQuoteSection(),LgbtqInclusionSection()],
       ),
     );
   }
