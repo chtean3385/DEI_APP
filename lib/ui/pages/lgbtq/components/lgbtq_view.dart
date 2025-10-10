@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'lgbtq_title_section.dart';
+
 class LgbtqView extends StatelessWidget {
   const LgbtqView({super.key});
 
@@ -9,7 +11,7 @@ class LgbtqView extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [],
+        children: [LgbtqTitleSection()],
       ),
     );
   }
