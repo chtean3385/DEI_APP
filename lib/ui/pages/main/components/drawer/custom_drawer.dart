@@ -51,7 +51,7 @@ class CustomDrawer extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Gree", style: context.textTheme.labelMedium),
+                      Text("John Deo", style: context.textTheme.labelMedium),
                       Text(
                         "Update profile",
                         style: context.textTheme.bodyMedium?.copyWith(
