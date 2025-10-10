@@ -41,6 +41,10 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaRegCompass': FontAwesomeIcons.compass, // Regular compass
   'FaTools': FontAwesomeIcons.tools,
   'FaBolt': FontAwesomeIcons.bolt,
+  'FaSitemap': FontAwesomeIcons.sitemap,
+  'FaRegCheckCircle': FontAwesomeIcons.solidCheckCircle,
+  'FaCheckSquare': FontAwesomeIcons.solidSquareCheck,
+  'FaExchangeAlt': FontAwesomeIcons.exchangeAlt,
 
 };
 

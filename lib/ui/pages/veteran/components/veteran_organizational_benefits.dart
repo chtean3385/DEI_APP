@@ -1,24 +1,24 @@
 import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/models/defense_veteran/dv_advantages_model.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/enums.dart';
 import '../../../../main.dart';
-import '../../../../models/state_models/veteran/veteran_advantag_state.dart';
+import '../../../../models/men_alias/organizational_benefit_model.dart';
+import '../../../../models/state_models/veteran/veteran_organizational_benefit_state.dart';
 import '../../../../providers/providers.dart';
 import '../../../../utils/fa_icon.dart';
 import '../../../../widgets/others/shimmer_loader.dart';
 import '../../about_us/components/core_value_card.dart';
 
-class VeteranAdvantages extends ConsumerStatefulWidget {
-  const VeteranAdvantages({Key? key}) : super(key: key);
+class VeteranOrganizationalBenefits extends ConsumerStatefulWidget {
+  const VeteranOrganizationalBenefits({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<VeteranAdvantages> createState() => _JobsServiceSectionState();
+  ConsumerState<VeteranOrganizationalBenefits> createState() => _JobsServiceSectionState();
 }
 
-class _JobsServiceSectionState extends ConsumerState<VeteranAdvantages> {
+class _JobsServiceSectionState extends ConsumerState<VeteranOrganizationalBenefits> {
   final ScrollController _scrollController = ScrollController();
   int _currentIndex = 0;
   double _itemWidth = 300; // estimated width of each JobServiceCard + spacing
@@ -44,7 +44,7 @@ class _JobsServiceSectionState extends ConsumerState<VeteranAdvantages> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(veteranAdvantageSectionProvider);
+    final state = ref.watch(veteranOrganizationalBenefitSectionProvider);
     final hasData = (state.data ?? []).isNotEmpty;
 
     if (!hasData && state.pageState != PageState.loading) {
@@ -65,8 +65,8 @@ class _JobsServiceSectionState extends ConsumerState<VeteranAdvantages> {
     );
   }
 
-  Widget _dataItems(VeteranAdvantageState state) {
-    final data = state.data?.first.assets ?? [];
+  Widget _dataItems(VeteranOrganizationalBenefitState state) {
+    final data = state.data?.first.benefits ?? [];
     if (data.isEmpty) return const SizedBox.shrink();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +115,7 @@ class _JobsServiceSectionState extends ConsumerState<VeteranAdvantages> {
     );
   }
 
-  Widget _buildCard(VeteranAsset card) {
+  Widget _buildCard(BenefitModel card) {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
     return Padding(
       padding: const EdgeInsets.only(right: 12),
@@ -139,7 +139,7 @@ class _JobsServiceSectionState extends ConsumerState<VeteranAdvantages> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            card.title ?? "",
+                            card.heading ?? "",
                             style: theme.labelMedium,
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,

@@ -17,13 +17,6 @@ class OrganizationalBenefitModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      '_id': id,
-      'title': title,
-      'benefits': benefits?.map((e) => e.toJson()).toList(),
-    };
-  }
 }
 
 class BenefitModel {
@@ -38,17 +31,9 @@ class BenefitModel {
     return BenefitModel(
       id: json['_id'] as String,
       icon: json['icon'] as String?,
-      heading: json['heading'] as String?,
+      heading: json['heading'] as String? ?? json['title'] as String? ,
       description: json['description'] as String?,
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      '_id': id,
-      'icon': icon,
-      'heading': heading,
-      'description': description,
-    };
-  }
 }
