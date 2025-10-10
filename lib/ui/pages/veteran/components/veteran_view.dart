@@ -1,3 +1,4 @@
+import 'package:dei_champions/ui/pages/veteran/components/veteran_advantages.dart';
 import 'package:dei_champions/ui/pages/veteran/components/veteran_title_section.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,7 @@ class VeteranView extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [VeteranTitleSection()],
+        children: [VeteranTitleSection(),VeteranAdvantages()],
       ),
     );
   }

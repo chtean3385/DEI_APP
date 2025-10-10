@@ -37,6 +37,10 @@ final Map<String, IconData> fontAwesomeMap = {
   // --- Veteran JSON Data Icons ---
   'FaSearch': FontAwesomeIcons.search,
   'FaRecordVinyl': FontAwesomeIcons.recordVinyl,
+  'FaMedal': FontAwesomeIcons.medal,
+  'FaRegCompass': FontAwesomeIcons.compass, // Regular compass
+  'FaTools': FontAwesomeIcons.tools,
+  'FaBolt': FontAwesomeIcons.bolt,
 
 };
 
