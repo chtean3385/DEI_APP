@@ -54,7 +54,7 @@ class ApiUrls {
   static const veteranQuotes = 'defense-veteran/vetx-quote/get-all';
   static const  veteranOrganizationalBenefits = 'defense-veteran/vetx-organizational/get-all';
   static const veteranTitleDetails = 'defense-veteran/vetx-hero/get-all';
-  static const veteranRoles = 'defense-veteran/vetx-organizational/get-all';
+  static const veteranRoles = 'defense-veteran/vetx-roles/get-all';
 
 
 

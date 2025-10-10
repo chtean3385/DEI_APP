@@ -126,7 +126,7 @@ class _JobsServiceSectionState extends ConsumerState<VeteranAdvantages> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: 100, maxWidth: _itemWidth),
+            constraints: BoxConstraints(minHeight: 80, maxWidth: _itemWidth),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
