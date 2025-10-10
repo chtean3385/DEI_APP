@@ -45,6 +45,11 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaRegCheckCircle': FontAwesomeIcons.solidCheckCircle,
   'FaCheckSquare': FontAwesomeIcons.solidSquareCheck,
   'FaExchangeAlt': FontAwesomeIcons.exchangeAlt,
+  // --- LQBTQ JSON Data Icons ---
+  'FaRainbow': FontAwesomeIcons.rainbow,
+  'FaFileAlt': FontAwesomeIcons.fileAlt,
+  'FaBuilding': FontAwesomeIcons.building,
+  'FaGolfBall': FontAwesomeIcons.golfBall,
 
 };
 

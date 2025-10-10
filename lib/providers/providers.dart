@@ -31,6 +31,10 @@ import '../models/state_models/home/champion_candidates_state.dart';
 import '../models/state_models/home/featured_employers_state.dart';
 import '../models/state_models/home/how_it_works_state.dart';
 import '../models/state_models/home/job_service_state.dart';
+import '../models/state_models/lgbtq/lgbtq_advantages_state.dart';
+import '../models/state_models/lgbtq/lgbtq_inclusion_point_state.dart';
+import '../models/state_models/lgbtq/lgbtq_quote_state.dart';
+import '../models/state_models/lgbtq/lgbtq_title_state.dart';
 import '../models/state_models/men_alias/ally_ship_men_state.dart';
 import '../models/state_models/men_alias/allyship_matter_state.dart';
 import '../models/state_models/men_alias/champion_diversity_state.dart';
@@ -67,6 +71,11 @@ import 'controllers/genz/genz_growth_section_controller.dart';
 import 'controllers/genz/genz_title_section_controller.dart';
 import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
+import 'controllers/lgbtq/lgbtq_advantage_section_controller.dart';
+import 'controllers/lgbtq/lgbtq_inclusion_section_controller.dart';
+import 'controllers/lgbtq/lgbtq_quotes_section1_controller.dart';
+import 'controllers/lgbtq/lgbtq_quotes_section2_controller.dart';
+import 'controllers/lgbtq/lgbtq_title_section_controller.dart';
 import 'controllers/men_alias/ally_ship_men_controller.dart';
 import 'controllers/men_alias/allyship_matter_controller.dart';
 import 'controllers/men_alias/champion_diversity_controller.dart';
@@ -271,4 +280,28 @@ return VeteranAdvantageSectionController();
 final veteranQuoteSectionProvider =
 StateNotifierProvider.autoDispose<VeteranQuoteSectionController, VeteranQuoteState>((ref) {
   return VeteranQuoteSectionController();
+});
+
+/// LGBTQ
+final lgbtqTitleSectionProvider =
+StateNotifierProvider.autoDispose<LgbtqTitleSectionController, LgbtqTitleState>((ref) {
+  return LgbtqTitleSectionController();
+});
+final lgbtqAdvantagesController =
+StateNotifierProvider.autoDispose<LgbtqAdvantagesSectionController, LgbtqAdvantagesState>((ref) {
+  return LgbtqAdvantagesSectionController();
+});
+
+final lgbtqQuoteSection1Provider =
+StateNotifierProvider.autoDispose<LgbtqQuoteSection1Controller, LgbtqQuoteState>((ref) {
+  return LgbtqQuoteSection1Controller();
+});
+
+final lgbtqQuoteSection2Provider =
+StateNotifierProvider.autoDispose<LgbtqQuoteSection2Controller, LgbtqQuoteState>((ref) {
+  return LgbtqQuoteSection2Controller();
+});
+final lgbtqInclusionPointsProvider =
+StateNotifierProvider.autoDispose<LgbtqInclusionPointsController, LgbtqInclusionPointState>((ref) {
+  return LgbtqInclusionPointsController();
 });

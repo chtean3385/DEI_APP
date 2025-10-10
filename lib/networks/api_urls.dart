@@ -56,6 +56,13 @@ class ApiUrls {
   static const veteranTitleDetails = 'defense-veteran/vetx-hero/get-all';
   static const veteranRoles = 'defense-veteran/vetx-roles/get-all';
 
+  // LGBTQ
+  static const lgbtqAdvantages = 'shine-with-pride/why-it-matters/get-all';
+  static const lgbtqQuotes = 'shine-with-pride/people-pride/get-all';
+  static const  lgbtqInclusionPoints = 'shine-with-pride/inclusion-wrap/get-all';
+  static const lgbtqTitleDetails = 'shine-with-pride/hero/get-all';
+  static const lgbtqQuotes2 = 'shine-with-pride/colsing-pride/get-all';
+
 
 
 
