@@ -1,7 +1,9 @@
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:flutter/material.dart';
 
 import 'edit_profile_components/edit_basic_information.dart';
+import 'edit_profile_components/edit_location_information.dart';
 
 
 class EditProfileScreen extends StatelessWidget {
@@ -17,7 +19,9 @@ class EditProfileScreen extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              EditBasicInformation()
+              EditBasicInformation(),
+              gapH16(),
+              EditLocationInformation()
             ],
           ),
         ),
