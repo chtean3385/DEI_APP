@@ -36,6 +36,7 @@ dependencies:
   device_info_plus:
   dio: ^5.8.0+1
   font_awesome_flutter: ^10.10.0
+  file_picker: ^10.3.3
   firebase_analytics:
   firebase_core: ^4.0.0
   firebase_messaging: ^16.0.0

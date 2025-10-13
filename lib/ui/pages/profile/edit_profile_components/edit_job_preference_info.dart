@@ -23,7 +23,7 @@ class EditJobPreferenceInfo extends ConsumerWidget {
         initiallyExpanded: false, // collapsed by default
         title: Text(
           " Job Preferences",
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: Colors.black87,
           ),

@@ -6,6 +6,7 @@ import 'package:image_cropper/image_cropper.dart';
 import '../../../models/profile/edit_profile/profile_model.dart';
 import '../../../models/state_models/profile/profile_state.dart';
 import '../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
+import '../../../widgets/pickers/file_picker.dart';
 import '../../../widgets/pickers/image_picker.dart';
 
 class EditProfileController extends StateNotifier<ProfileState> {
@@ -242,4 +243,31 @@ class EditProfileController extends StateNotifier<ProfileState> {
       state = state.copyWith(profileFile: picked);
     }
   }
+
+  /// Pick resume from storage
+  Future<void> pickResume() async {
+    final file = await pickResumeFile();
+    if (file != null) {
+      state = state.copyWith(resumeFile: file);
+    }
+  }
+
+  /// Simulate upload to backend (replace with API later)
+  Future<void> uploadResume() async {
+    if (state.resumeFile == null) return;
+
+    state = state.copyWith(isUploading: true);
+    await Future.delayed(const Duration(seconds: 2)); // simulate upload delay
+    debugPrint('Uploaded resume: ${state.resumeFile!.name}');
+    state = state.copyWith(isUploading: false);
+  }
+
+  /// View resume — open PDF/doc viewer (implement later)
+  void viewResume() {
+    if (state.resumeFile != null) {
+      debugPrint('Viewing: ${state.resumeFile!.name}');
+      // You can use `open_filex` or any viewer here.
+    }
+  }
+
 }

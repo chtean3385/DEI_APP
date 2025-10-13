@@ -26,7 +26,7 @@ class EditEducationInformation extends ConsumerWidget {
         // collapsed by default
         title: Text(
           "Education",
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: Colors.black87,
           ),

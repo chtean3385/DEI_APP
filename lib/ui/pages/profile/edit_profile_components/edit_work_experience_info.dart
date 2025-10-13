@@ -25,7 +25,7 @@ class EditWorkExpInformation extends ConsumerWidget {
         initiallyExpanded: false,
         title: Text(
           "Work Experience",
-          style: Theme.of(context).textTheme.titleMedium?.copyWith(
+          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: Colors.black87,
           ),

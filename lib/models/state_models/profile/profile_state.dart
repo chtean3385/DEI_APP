@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/enums.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
@@ -14,12 +15,17 @@ class ProfileState {
   final PageState pageState;
   final PageState updateState;
   final XFile? profileFile;
+  final PlatformFile? resumeFile;
+  final bool isUploading;
+
 
   ProfileState({
     this.profileData,
     this.educationEntries,
     this.workExpEntries,
     this.profileFile,
+    this.resumeFile,
+    this.isUploading = false,
     this.pageState = PageState.initial,
     this.updateState = PageState.initial,
   });
@@ -32,16 +38,20 @@ class ProfileState {
     List<EducationEntryControllers>? educationEntries,
     List<WorkExperienceEntryControllers>? workExpEntries,
     XFile? profileFile,
+    PlatformFile? resumeFile,
     PageState? pageState,
     PageState? updateState,
+    bool? isUploading,
   }) {
     return ProfileState(
       profileData: profileData ?? this.profileData,
       educationEntries: educationEntries ?? this.educationEntries,
       workExpEntries: workExpEntries ?? this.workExpEntries,
       profileFile: profileFile ?? this.profileFile,
+      resumeFile: resumeFile ?? this.resumeFile,
       pageState: pageState ?? this.pageState,
       updateState: updateState ?? this.updateState,
+      isUploading: isUploading ?? this.isUploading,
     );
   }
 }

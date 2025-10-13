@@ -36,7 +36,8 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text(requestMessage,textScaleFactor: 1),
+                  child: Text(requestMessage,textScaleFactor: 1,style:Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white) ,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -50,7 +51,7 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                               horizontal: 8, vertical: 8),
                           child: Text(
                             "CANCEL",textScaleFactor: 1,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
                           )),
                     ),
                     const SizedBox(
@@ -67,7 +68,7 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                               horizontal: 8, vertical: 8),
                           child: Text(
                             "CONTINUE",textScaleFactor: 1,
-                            style: Theme.of(context).textTheme.bodyMedium,
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
                           )),
                     ),
                     const SizedBox(
