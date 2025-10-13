@@ -3,6 +3,7 @@ import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:flutter/material.dart';
 
 import 'edit_profile_components/edit_basic_information.dart';
+import 'edit_profile_components/edit_education_info.dart';
 import 'edit_profile_components/edit_location_information.dart';
 import 'edit_profile_components/edit_skill_info.dart';
 
@@ -24,7 +25,9 @@ class EditProfileScreen extends StatelessWidget {
               gapH16(),
               EditLocationInformation(),
               gapH16(),
-              EditSkillInformation()
+              EditSkillInformation(),
+              gapH16(),
+              EditEducationInformation(),
             ],
           ),
         ),

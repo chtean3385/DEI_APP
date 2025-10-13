@@ -43,10 +43,10 @@ class SelectedKeySkills extends StatelessWidget {
                   return GestureDetector(
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: AppColors.primaryColor.withValues(alpha: 0.15),
+                        color: AppColors.primaryColor.withValues(alpha: 0.10),
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
-                          width: 2,
+                          width: 1,
                           color: const Color(0xFF4285F4),
                         ),
                       ),
@@ -74,7 +74,7 @@ class SelectedKeySkills extends StatelessWidget {
                               },
                               child: const Icon(
                                 Icons.close,
-                                size: 18,
+                                size: 16,
                                 color: Colors.black,
                               ),
                             ),

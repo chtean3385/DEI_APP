@@ -4,11 +4,13 @@ import 'package:image_cropper/image_cropper.dart';
 
 import '../../../models/profile/edit_profile/profile_model.dart';
 import '../../../models/state_models/profile/profile_state.dart';
+import '../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
 import '../../../widgets/pickers/image_picker.dart';
 
 class EditProfileController extends StateNotifier<ProfileState> {
   EditProfileController() : super(ProfileState.initial()) {
     // getChefData();
+    addEducationEntry();
   }
 
   // final ChefService _chefService = ChefService();
@@ -27,9 +29,11 @@ class EditProfileController extends StateNotifier<ProfileState> {
   final stateController = TextEditingController();
   final countryController = TextEditingController();
   final pinCodeController = TextEditingController();
+
   /// skill info
   final skillController = TextEditingController();
 
+  /// Education entries
   @override
   void dispose() {
     debugPrint("🔥 ChefProfileController disposed");
@@ -47,9 +51,14 @@ class EditProfileController extends StateNotifier<ProfileState> {
     countryController.dispose();
     pinCodeController.dispose();
 
+    if (state.educationEntries != null) {
+      for (var entry in state.educationEntries!) {
+        entry.dispose();
+      }
+    }
+
     super.dispose();
   }
-
 
   // Get selected skills directly from the model
   List<String> get selectedSkills => state.profileData?.skillsInfo ?? [];
@@ -64,8 +73,9 @@ class EditProfileController extends StateNotifier<ProfileState> {
       currentSkills.add(skill);
 
       state = state.copyWith(
-        profileData: (state.profileData ?? ProfileModel())
-            .copyWith(skillsInfo: currentSkills),
+        profileData: (state.profileData ?? ProfileModel()).copyWith(
+          skillsInfo: currentSkills,
+        ),
       );
     }
 
@@ -79,9 +89,26 @@ class EditProfileController extends StateNotifier<ProfileState> {
     currentSkills.remove(skill);
 
     state = state.copyWith(
-      profileData: (state.profileData ?? ProfileModel())
-          .copyWith(skillsInfo: currentSkills),
+      profileData: (state.profileData ?? ProfileModel()).copyWith(
+        skillsInfo: currentSkills,
+      ),
     );
+  }
+
+  void addEducationEntry() {
+    final newList = List<EducationEntryControllers>.from(
+      state.educationEntries ?? [],
+    )..add(EducationEntryControllers());
+
+    state = state.copyWith(educationEntries: newList);
+  }
+
+  void removeEducationEntry(int index) {
+    final newList = List<EducationEntryControllers>.from(
+      state.educationEntries ?? [],
+    )..removeAt(index);
+
+    state = state.copyWith(educationEntries: newList);
   }
 
   /// 🔹 Call this to update chef data locally from anywhere
