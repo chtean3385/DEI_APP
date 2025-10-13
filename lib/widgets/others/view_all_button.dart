@@ -8,6 +8,7 @@ class ViewAllButton extends StatelessWidget {
   final bool fillColor;
   final bool showArrow;
   final double radius;
+  final  EdgeInsetsGeometry? padding;
 
 
   const ViewAllButton({
@@ -18,6 +19,7 @@ class ViewAllButton extends StatelessWidget {
     this.fillColor = false,
     this.showArrow = false,
     this.radius = 8,
+    this.padding ,
   });
 
   @override
@@ -37,7 +39,7 @@ class ViewAllButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        padding:padding ?? const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         visualDensity: VisualDensity.compact,
         minimumSize: const Size(0, 0),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,

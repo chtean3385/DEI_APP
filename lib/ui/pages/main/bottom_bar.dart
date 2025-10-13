@@ -70,7 +70,7 @@ class _BottomBarState extends State<BottomBar> {
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: appBarHome(context,isFromHome: _currentIndex == 0,title: _currentIndex == 2 ?"NVites" :  "",  onPressed: _handleMenuButtonPressed, ),
+        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,title: _currentIndex == 2 ?"NVites" :  "",  onPressed: _handleMenuButtonPressed, ),
         // drawer: CustomDrawer(),
         body: _buildScreen(_currentIndex),
         bottomNavigationBar: SafeArea(

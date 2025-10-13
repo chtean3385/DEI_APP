@@ -22,6 +22,7 @@ import '../ui/pages/main/bottom_bar.dart';
 import '../ui/pages/main/similar_jobs_list_screen.dart';
 import '../ui/pages/men_alias/men_alias_screen.dart';
 import '../ui/pages/not_defined_by_disability/not_defined_by_disability_screen.dart';
+import '../ui/pages/profile/edit_profile_screen.dart';
 import '../ui/pages/profile/upload_profile_pic.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
 import '../ui/pages/search/job_search_screen.dart';
@@ -232,6 +233,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => LgbtqScreen()),
+    );
+  }
+  static loadEditProfileScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => EditProfileScreen()),
     );
   }
 }

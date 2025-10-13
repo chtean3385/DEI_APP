@@ -8,7 +8,7 @@ class TransparentFormField extends StatefulWidget {
   final TextEditingController controller;
   final String hint;
   final String? label;
-  final IconData icon;
+  final IconData? icon;
   final bool isPassword;
   final VoidCallback? onTogglePassword;
   final FormFieldValidator<String>? validator;
@@ -23,12 +23,14 @@ class TransparentFormField extends StatefulWidget {
   final int? minLines;
   final int? maxLength;
   final double? radius;
+  final bool readOnly ;
+  final Color? fillColor;
 
   TransparentFormField({
     super.key,
     required this.controller,
     required this.hint,
-    required this.icon,
+     this.icon,
 
     this.isPassword = false,
     this.onTogglePassword,
@@ -45,6 +47,8 @@ class TransparentFormField extends StatefulWidget {
     this.maxLength,
     this.nextFocusNode,
     this.radius,
+    this.readOnly = false,
+    this.fillColor,
   });
 
   @override
@@ -72,7 +76,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
         if (widget.label != null) gapH4(),
         DecoratedBox(
           decoration: BoxDecoration(
-            color: AppColors.primaryColor.withValues(alpha: 0.15),
+            color:widget.fillColor ?? AppColors.primaryColor.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(widget.radius ?? 16),
             border: Border.all(
               color: AppColors.primaryColor.withValues(alpha: 0.13),
@@ -96,6 +100,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
               maxLength: widget.maxLength,
               maxLines: widget.isPassword ? 1 : null,
               minLines: widget.isPassword ? 1 : widget.minLines,
+              readOnly: widget.readOnly,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
@@ -124,7 +129,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
                   fontWeight: FontWeight.normal,
                   fontSize: 10,
                 ),
-                prefixIcon: Icon(widget.icon, color: Colors.black54, size: 22),
+                prefixIcon:widget.icon != null ? Icon(widget.icon, color: Colors.black54, size: 22) : null,
                 suffixIcon: widget.isPassword
                     ? IconButton(
                         icon: Icon(

@@ -41,6 +41,7 @@ import '../models/state_models/men_alias/champion_diversity_state.dart';
 import '../models/state_models/men_alias/men_as_alias_title_state.dart';
 import '../models/state_models/men_alias/organizational_benefit_state.dart';
 import '../models/state_models/otp_state.dart';
+import '../models/state_models/profile/profile_state.dart';
 import '../models/state_models/register_state.dart';
 import '../models/state_models/signup_flow_state.dart';
 import '../models/state_models/veteran/veteran_advantag_state.dart';
@@ -81,6 +82,7 @@ import 'controllers/men_alias/allyship_matter_controller.dart';
 import 'controllers/men_alias/champion_diversity_controller.dart';
 import 'controllers/men_alias/men_as_alias_title_controller.dart';
 import 'controllers/men_alias/organizational_benefit_controller.dart';
+import 'controllers/profile/edit_profile_controller.dart';
 import 'controllers/veteran/veteran_advantage_controller.dart';
 import 'controllers/veteran/veteran_organizational_gorwth_controller.dart';
 import 'controllers/veteran/veteran_quote_section_controller.dart';
@@ -304,4 +306,8 @@ StateNotifierProvider.autoDispose<LgbtqQuoteSection2Controller, LgbtqQuoteState>
 final lgbtqInclusionPointsProvider =
 StateNotifierProvider.autoDispose<LgbtqInclusionPointsController, LgbtqInclusionPointState>((ref) {
   return LgbtqInclusionPointsController();
+});
+/// edit profile
+final editProfileProvider =StateNotifierProvider.autoDispose<EditProfileController, ProfileState>((ref) {
+  return EditProfileController();
 });

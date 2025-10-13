@@ -1,4 +1,5 @@
 import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:dei_champions/widgets/others/view_all_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
@@ -29,12 +30,7 @@ class ContactDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                "View Resume",
-                style: context.textTheme.labelLarge?.copyWith(
-                  color: AppColors.primaryColor,
-                ),
-              ),
+              ViewAllButton(showArrow: true,text:"View Resume" ,isSmall: true,padding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),),
             ],
           ),
           const SizedBox(height: 12),
