@@ -7,6 +7,7 @@ import '../../../widgets/appbar/home_app_bar.dart';
 import '../apply/apply_screen.dart';
 import '../home/home_screen.dart';
 import '../invites/invites_screen.dart';
+import '../profile/profile_details_view.dart';
 import 'components/drawer/custom_drawer.dart';
 
 class BottomBar extends StatefulWidget {
@@ -155,7 +156,7 @@ class _BottomBarState extends State<BottomBar> {
       case 2:
         return const InvitesScreen();
       case 3:
-        return const SizedBox();
+        return const ProfileDetailsView();
       case 4:
         return const SizedBox();
       default:
