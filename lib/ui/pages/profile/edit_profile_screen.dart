@@ -6,6 +6,7 @@ import 'edit_profile_components/edit_basic_information.dart';
 import 'edit_profile_components/edit_education_info.dart';
 import 'edit_profile_components/edit_location_information.dart';
 import 'edit_profile_components/edit_skill_info.dart';
+import 'edit_profile_components/edit_work_experience_info.dart';
 
 
 class EditProfileScreen extends StatelessWidget {
@@ -28,6 +29,8 @@ class EditProfileScreen extends StatelessWidget {
               EditSkillInformation(),
               gapH16(),
               EditEducationInformation(),
+              gapH16(),
+              EditWorkExpInformation(),
             ],
           ),
         ),

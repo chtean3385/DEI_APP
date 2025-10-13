@@ -1,3 +1,4 @@
+import 'package:dei_champions/ui/pages/profile/edit_profile_components/edit_work_experience_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -33,7 +34,7 @@ class EditProfileController extends StateNotifier<ProfileState> {
   /// skill info
   final skillController = TextEditingController();
 
-  /// Education entries
+
   @override
   void dispose() {
     debugPrint("🔥 ChefProfileController disposed");
@@ -53,6 +54,11 @@ class EditProfileController extends StateNotifier<ProfileState> {
 
     if (state.educationEntries != null) {
       for (var entry in state.educationEntries!) {
+        entry.dispose();
+      }
+    }
+    if (state.workExpEntries != null) {
+      for (var entry in state.workExpEntries!) {
         entry.dispose();
       }
     }
@@ -109,6 +115,21 @@ class EditProfileController extends StateNotifier<ProfileState> {
     )..removeAt(index);
 
     state = state.copyWith(educationEntries: newList);
+  }
+  void addWorkExpEntry() {
+    final newList = List<WorkExperienceEntryControllers>.from(
+      state.workExpEntries ?? [],
+    )..add(WorkExperienceEntryControllers());
+
+    state = state.copyWith(workExpEntries: newList);
+  }
+
+  void removeWorkExpEntry(int index) {
+    final newList = List<WorkExperienceEntryControllers>.from(
+      state.workExpEntries ?? [],
+    )..removeAt(index);
+
+    state = state.copyWith(workExpEntries: newList);
   }
 
   /// 🔹 Call this to update chef data locally from anywhere

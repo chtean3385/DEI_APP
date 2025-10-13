@@ -6,11 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
+import '../../../../widgets/form/transparant_date_picker.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
-import '../../auth/signup/widgets/education/year_selector.dart';
 
-class EditEducationInformation extends ConsumerWidget {
-  const EditEducationInformation({super.key});
+class EditWorkExpInformation extends ConsumerWidget {
+  const EditWorkExpInformation({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,28 +23,28 @@ class EditEducationInformation extends ConsumerWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
         initiallyExpanded: false,
-        // collapsed by default
         title: Text(
-          "Education",
+          "Work Experience",
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
             fontWeight: FontWeight.bold,
             color: Colors.black87,
           ),
         ),
         visualDensity: VisualDensity.compact,
-
         iconColor: Colors.black54,
         collapsedIconColor: Colors.black54,
         childrenPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         children: [
-          ...state.educationEntries!.asMap().entries.map((entry) {
+          ...state.workExpEntries!.asMap().entries.map((entry) {
             final index = entry.key;
-            final edu = entry.value;
+            final workExp = entry.value;
             return _item(
-              edu.degreeController,
-              edu.institutionController,
-              edu.graduationYearController,
-              () => controller.removeEducationEntry(index),
+              workExp.companyController,
+              workExp.positionController,
+              workExp.startDateController,
+              workExp.endDateController,
+              workExp.descriptionController,
+                  () => controller.removeWorkExpEntry(index),
             );
           }).toList(),
           gapH16(),
@@ -52,20 +52,21 @@ class EditEducationInformation extends ConsumerWidget {
             isExpanded: false,
             color: AppColors.primaryColor,
             radius: 8,
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Icon(Icons.add, color: Colors.white, size: 20),
+                const SizedBox(width: 4),
                 Text(
-                  "Add Education",
+                  "Add Experience",
                   style: context.textTheme.displaySmall?.copyWith(
                     color: Colors.white,
                   ),
                 ),
               ],
             ),
-            onTap: () => controller.addEducationEntry(),
+            onTap: () => controller.addWorkExpEntry(),
           ),
           gapH16(),
         ],
@@ -74,11 +75,13 @@ class EditEducationInformation extends ConsumerWidget {
   }
 
   Widget _item(
-    TextEditingController ctr1,
-    TextEditingController ctr2,
-    TextEditingController ctr3,
-    VoidCallback onRemove,
-  ) {
+      TextEditingController companyCtr,
+      TextEditingController positionCtr,
+      TextEditingController startCtr,
+      TextEditingController endCtr,
+      TextEditingController descCtr,
+      VoidCallback onRemove,
+      ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Card(
@@ -90,36 +93,52 @@ class EditEducationInformation extends ConsumerWidget {
           child: Column(
             children: [
               TransparentFormField(
-                controller: ctr1,
-                hint: "Enter your degree",
-                label: "Degree",
-                icon: Icons.school_outlined,
-                // 🎓 suitable icon for degree
+                controller: companyCtr,
+                hint: "Enter company name",
+                label: "Company",
+                icon: Icons.business_outlined,
                 textInputAction: TextInputAction.next,
-                validator: AppValidators.fieldEmpty("Degree"),
+                validator: AppValidators.fieldEmpty("Company"),
                 textCapitalization: TextCapitalization.words,
               ),
               gapH16(),
-
               TransparentFormField(
-                controller: ctr2,
-                hint: "Enter your institution name",
-                label: "Institution",
-                icon: Icons.account_balance_outlined,
-                // 🏫 suitable icon for institution
+                controller: positionCtr,
+                hint: "Enter position",
+                label: "Position",
+                icon: Icons.badge_outlined,
                 textInputAction: TextInputAction.next,
-                validator: AppValidators.fieldEmpty("Institution"),
+                validator: AppValidators.fieldEmpty("Position"),
                 textCapitalization: TextCapitalization.words,
               ),
               gapH16(),
+              TransparentDatePickerField(
+                hint: "Start Date",
+                label: "Start Date",
+                icon: Icons.calendar_today_outlined,
+                controller: startCtr,
+                initialDate: DateTime.now(),
+                validator: AppValidators.fieldEmpty("Start Date"),
+              ),
+              gapH16(),
+              TransparentDatePickerField(
+                hint: "End Date",
+                label: "End Date",
+                icon: Icons.calendar_today_outlined,
+                controller: endCtr,
+                initialDate: DateTime.now(),
+                validator: AppValidators.fieldEmpty("End Date"),
+              ),
 
-              YearSelector(
-                title: "Graduation Year",
-                selectedYear: ctr3.text,
-                onChanged: (year) {
-                  ctr3.text = year;
-                  print("Selected Graduation Year: $year");
-                },
+              gapH16(),
+              TransparentFormField(
+                controller: descCtr,
+                hint: "short description",
+                label: "Description",
+                textInputAction: TextInputAction.next,
+                validator: AppValidators.fieldEmpty("Description"),
+                textCapitalization: TextCapitalization.words,
+                minLines: 3,
               ),
               gapH16(),
               Align(
@@ -141,15 +160,18 @@ class EditEducationInformation extends ConsumerWidget {
   }
 }
 
-class EducationEntryControllers {
-  final TextEditingController degreeController = TextEditingController();
-  final TextEditingController institutionController = TextEditingController();
-  final TextEditingController graduationYearController =
-      TextEditingController();
+class WorkExperienceEntryControllers {
+  final TextEditingController companyController = TextEditingController();
+  final TextEditingController positionController = TextEditingController();
+  final TextEditingController startDateController = TextEditingController();
+  final TextEditingController endDateController = TextEditingController();
+  final TextEditingController descriptionController = TextEditingController();
 
   void dispose() {
-    degreeController.dispose();
-    institutionController.dispose();
-    graduationYearController.dispose();
+    companyController.dispose();
+    positionController.dispose();
+    startDateController.dispose();
+    endDateController.dispose();
+    descriptionController.dispose();
   }
 }
