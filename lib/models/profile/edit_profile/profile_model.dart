@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:dei_champions/models/profile/edit_profile/skills_info_model.dart';
 import 'package:dei_champions/models/profile/edit_profile/work_experience_model.dart';
 
 import 'basic_profile_details_model.dart';
@@ -9,7 +8,7 @@ import 'job_preference_model.dart';
 import 'location_info_model.dart';
 
 class ProfileModel {
-  final List<SkillsInfoModel>? skillsInfo;
+  final List<String>? skillsInfo;
   final List<EducationInfoModel>? education;
   final List<WorkExperienceInfoModel>? workExperience;
   final JobPreferenceModel? jobPreference;
@@ -25,6 +24,26 @@ class ProfileModel {
     this.skillsInfo,
   });
 
+  // copyWith method
+  ProfileModel copyWith({
+    final List<String>? skillsInfo,
+    List<EducationInfoModel>? education,
+    List<WorkExperienceInfoModel>? workExperience,
+    JobPreferenceModel? jobPreference,
+    BasicProfileDetailsModel? basicProfileDetailsModel,
+    LocationInfoModel? locationInfoModel,
+  }) {
+    return ProfileModel(
+      skillsInfo: skillsInfo ?? this.skillsInfo,
+      education: education ?? this.education,
+      workExperience: workExperience ?? this.workExperience,
+      jobPreference: jobPreference ?? this.jobPreference,
+      basicProfileDetailsModel:
+      basicProfileDetailsModel ?? this.basicProfileDetailsModel,
+      locationInfoModel: locationInfoModel ?? this.locationInfoModel,
+    );
+  }
+
   factory ProfileModel.fromJson(Map<String, dynamic> json) => ProfileModel(
     education: json['education'] != null
         ? List<EducationInfoModel>.from(
@@ -32,11 +51,13 @@ class ProfileModel {
         : [],
     workExperience: json['workExperience'] != null
         ? List<WorkExperienceInfoModel>.from(
-        json['workExperience'].map((e) => WorkExperienceInfoModel.fromJson(e)))
+        json['workExperience']
+            .map((e) => WorkExperienceInfoModel.fromJson(e)))
         : [],
     jobPreference: json['jobPreference'] != null
         ? JobPreferenceModel.fromJson(json['jobPreference'])
         : null,
+
   );
 
   Map<String, dynamic> toJson() => {

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'edit_profile_components/edit_basic_information.dart';
 import 'edit_profile_components/edit_location_information.dart';
+import 'edit_profile_components/edit_skill_info.dart';
 
 
 class EditProfileScreen extends StatelessWidget {
@@ -21,7 +22,9 @@ class EditProfileScreen extends StatelessWidget {
             children: [
               EditBasicInformation(),
               gapH16(),
-              EditLocationInformation()
+              EditLocationInformation(),
+              gapH16(),
+              EditSkillInformation()
             ],
           ),
         ),

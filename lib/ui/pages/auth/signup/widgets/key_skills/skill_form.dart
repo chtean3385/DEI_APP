@@ -4,7 +4,7 @@ import '../../components/auto_sugstion_form_field.dart';
 class KeyForm extends StatelessWidget {
   final TextEditingController controller;
   final Function(String)? onSkillSelected;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final String label;
   final String hint;
 
@@ -12,7 +12,7 @@ class KeyForm extends StatelessWidget {
    KeyForm({
     super.key,
     required this.controller,
-    this.onSkillSelected, required this.focusNode,
+    this.onSkillSelected,  this.focusNode,
       this.label = "Key Skill",
       this.hint = "Enter your key skill",
   });

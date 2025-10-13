@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 
+import '../../../models/profile/edit_profile/profile_model.dart';
 import '../../../models/state_models/profile/profile_state.dart';
 import '../../../widgets/pickers/image_picker.dart';
 
@@ -26,6 +27,8 @@ class EditProfileController extends StateNotifier<ProfileState> {
   final stateController = TextEditingController();
   final countryController = TextEditingController();
   final pinCodeController = TextEditingController();
+  /// skill info
+  final skillController = TextEditingController();
 
   @override
   void dispose() {
@@ -45,6 +48,40 @@ class EditProfileController extends StateNotifier<ProfileState> {
     pinCodeController.dispose();
 
     super.dispose();
+  }
+
+
+  // Get selected skills directly from the model
+  List<String> get selectedSkills => state.profileData?.skillsInfo ?? [];
+
+  // Add skill
+  void addSkill(String skill) {
+    if (skill.isEmpty) return;
+
+    final currentSkills = List<String>.from(selectedSkills);
+
+    if (!currentSkills.contains(skill)) {
+      currentSkills.add(skill);
+
+      state = state.copyWith(
+        profileData: (state.profileData ?? ProfileModel())
+            .copyWith(skillsInfo: currentSkills),
+      );
+    }
+
+    skillController.clear();
+  }
+
+  // Remove skill
+  void removeSkill(String skill) {
+    final currentSkills = List<String>.from(selectedSkills);
+
+    currentSkills.remove(skill);
+
+    state = state.copyWith(
+      profileData: (state.profileData ?? ProfileModel())
+          .copyWith(skillsInfo: currentSkills),
+    );
   }
 
   /// 🔹 Call this to update chef data locally from anywhere
