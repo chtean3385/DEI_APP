@@ -33,6 +33,10 @@ class EditProfileController extends StateNotifier<ProfileState> {
 
   /// skill info
   final skillController = TextEditingController();
+  /// job preference info
+  final jobTypeController = TextEditingController();
+  final salaryExpectedController = TextEditingController();
+  final preferredLocationController = TextEditingController();
 
 
   @override
@@ -51,6 +55,10 @@ class EditProfileController extends StateNotifier<ProfileState> {
     stateController.dispose();
     countryController.dispose();
     pinCodeController.dispose();
+
+    jobTypeController.dispose();
+    salaryExpectedController.dispose();
+    preferredLocationController.dispose();
 
     if (state.educationEntries != null) {
       for (var entry in state.educationEntries!) {

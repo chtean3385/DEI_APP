@@ -4,12 +4,12 @@ import '../../components/auto_sugstion_form_field.dart';
 
 class WorkLocationField extends StatefulWidget {
   final TextEditingController controller;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final String? label;
   final String hint;
 
 
-  const WorkLocationField({super.key, required this.controller, required this.focusNode,
+  const WorkLocationField({super.key, required this.controller,  this.focusNode,
      this.label,
      this.hint = "Preferred Work Location"});
 
