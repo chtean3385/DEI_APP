@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
+import '../All/dashboard_all_section_screen.dart';
 import '../apply/apply_screen.dart';
 import '../home/home_screen.dart';
 import '../invites/invites_screen.dart';
@@ -154,7 +155,7 @@ class _BottomBarState extends State<BottomBar> {
       case 3:
         return const ProfileDetailsView();
       case 4:
-        return const SizedBox();
+        return  DashBoardAllScreen();
       default:
         return SizedBox();
     }

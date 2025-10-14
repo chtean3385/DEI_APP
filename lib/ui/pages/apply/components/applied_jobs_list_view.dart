@@ -9,8 +9,6 @@ import 'applied_job_card.dart';
 
 class AppliedJobListView  extends ConsumerWidget {
   AppliedJobListView({super.key});
-
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(appliedJobsProvider);
