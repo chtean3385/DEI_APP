@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 
+import '../../../models/profile/edit_profile/education_info_model.dart';
 import '../../../models/profile/edit_profile/profile_model.dart';
 import '../../../models/profile/edit_profile/work_experience_model.dart';
 import '../../../models/state_models/profile/profile_state.dart';
@@ -206,12 +207,39 @@ class EditProfileController extends StateNotifier<ProfileState> {
 
       return controller;
     }).toList();
+    final List<EducationInfoModel> educationData = [
+      EducationInfoModel(
+        degree: 'Bachelor of Computer Science',
+        institution: 'Stanford University',
+        graduationYear: 2018,
+      ),
+      EducationInfoModel(
+        degree: 'Master of Information Technology',
+        institution: 'Massachusetts Institute of Technology',
+        graduationYear: 2020,
+      ),
+      EducationInfoModel(
+        degree: 'PhD in Artificial Intelligence',
+        institution: 'Carnegie Mellon University',
+        graduationYear: 2024,
+      ),
+    ];
+    final educationControllers = educationData.map((edu) {
+      final controller = EducationEntryControllers();
+      controller.degreeController.text = edu.degree ?? '';
+      controller.institutionController.text = edu.institution ?? '';
+      controller.graduationYearController.text =
+          edu.graduationYear?.toString() ?? '';
+      return controller;
+    }).toList();
+
 
     state = state.copyWith(
       profileData: (state.profileData ?? ProfileModel()).copyWith(
-        skillsInfo: initialSkills,workExperience: workExperiences
+        skillsInfo: initialSkills,workExperience: workExperiences,education: educationData
       ),
       workExpEntries: workExpControllers,
+      educationEntries: educationControllers,
     );
   }
 

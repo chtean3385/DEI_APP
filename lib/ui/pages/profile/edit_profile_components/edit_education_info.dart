@@ -10,7 +10,8 @@ import '../../../../widgets/form/transparent_form_field.dart';
 import '../../auth/signup/widgets/education/year_selector.dart';
 
 class EditEducationInformation extends ConsumerWidget {
-  const EditEducationInformation({super.key});
+  final bool isFromCommonEdit;
+  const EditEducationInformation({super.key,this.isFromCommonEdit= true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,9 +21,10 @@ class EditEducationInformation extends ConsumerWidget {
     return Card(
       elevation: 2,
       color: Colors.white,
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
-        initiallyExpanded: false,
+        initiallyExpanded: isFromCommonEdit!= true,
         // collapsed by default
         title: Text(
           "Education",
@@ -35,6 +37,8 @@ class EditEducationInformation extends ConsumerWidget {
 
         iconColor: Colors.black54,
         collapsedIconColor: Colors.black54,
+        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+        onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         children: [
           ...state.educationEntries!.asMap().entries.map((entry) {

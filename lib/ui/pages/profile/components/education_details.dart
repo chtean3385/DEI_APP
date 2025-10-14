@@ -1,13 +1,18 @@
+import 'package:dei_champions/models/profile/edit_profile/education_info_model.dart';
+import 'package:dei_champions/ui/pages/profile/edit_profile_components/edit_education_info.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../providers/providers.dart';
 
-class EducationDetails extends StatelessWidget {
+class EducationDetails extends ConsumerWidget {
   const EducationDetails({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(editProfileProvider);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -19,30 +24,43 @@ class EducationDetails extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Education",
-            style: context.textTheme.bodySmall?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                "Education",
+                style: context.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              GestureDetector(
+                  behavior: HitTestBehavior.translucent,
+                  onTap:() => openEditExperience(context),
+                  child: Icon(Icons.edit_outlined,color: AppColors.primaryColor,size: 15))
+
+            ],
           ),
           ListView.separated(
             padding: EdgeInsets.only(top: 12),
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
-              return item(context);
+              return item(context,
+
+                state.profileData?.education![index] ??
+                    EducationInfoModel(),);
             },
             separatorBuilder: (BuildContext context, int index) {
               return Divider(color: Colors.black12, height: 48);
             },
-            itemCount: 2,
+            itemCount: state.profileData?.education?.length ?? 0,
           ),
         ],
       ),
     );
   }
 
-  Widget item(BuildContext context) {
+  Widget item(BuildContext context,EducationInfoModel data) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -51,7 +69,7 @@ class EducationDetails extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                "Electronics and Communication Engineering",
+                data.degree ?? "",
                 style: context.textTheme.labelLarge?.copyWith(
                   color: AppColors.primaryColor,
                 ),
@@ -59,7 +77,7 @@ class EducationDetails extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              "2013 - 2017",
+              data.graduationYear?.toString() ?? "",
               style: context.textTheme.displaySmall?.copyWith(
                 color: Colors.black54,
               ),
@@ -68,10 +86,37 @@ class EducationDetails extends StatelessWidget {
         ),
         const SizedBox(height: 2),
         Text(
-          "ABC College of Technology",
+          data.institution ?? "",
           style: context.textTheme.labelLarge?.copyWith(color: Colors.black54),
         ),
       ],
     );
   }
+}
+Future<void> openEditExperience(BuildContext context) {
+  return showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (ctx) {
+      return DraggableScrollableSheet(
+        initialChildSize: 0.85,
+        minChildSize: 0.5,
+        maxChildSize: 0.95,
+        expand: false,
+        builder: (context, scrollController) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+            ),
+            child: SingleChildScrollView(
+              controller: scrollController,
+              child: EditEducationInformation(isFromCommonEdit: false),
+            ),
+          );
+        },
+      );
+    },
+  );
 }
