@@ -156,6 +156,7 @@ class AppliedJobCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 CustomDecoratedBox(
+                  color: AppColors.bg,
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -167,7 +168,7 @@ class AppliedJobCard extends StatelessWidget {
                         "Applied on:  ${jobModel.postedTime}",
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
-                        style: theme.bodyMedium,
+                        style: theme.displaySmall?.copyWith(color: Colors.black54),
                       ),
                     ],
                   ),

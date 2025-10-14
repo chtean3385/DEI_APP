@@ -39,8 +39,8 @@ class FilterOptionsBar extends StatelessWidget {
           GestureDetector(
             onTap: () => _openFilterModal(context),
             child: Container(
-              height: 40,
-              width: 40,
+              height: 35,
+              width: 35,
               decoration: BoxDecoration(
                 border: Border.all(color: AppColors.primaryColor),
                 shape: BoxShape.circle,
@@ -65,9 +65,10 @@ class FilterOptionsBar extends StatelessWidget {
                       onPressed: () =>
                           _openFilterModal(context, initialFilter: f),
                       style: OutlinedButton.styleFrom(
+                        visualDensity: VisualDensity.compact,
                         padding: const EdgeInsets.symmetric(
                           horizontal: 14,
-                          vertical: 10,
+                          vertical: 4,
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),

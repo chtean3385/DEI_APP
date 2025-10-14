@@ -6,18 +6,17 @@ import 'components/dashboard_item_card.dart';
 class DashBoardAllScreen extends StatelessWidget {
   DashBoardAllScreen({super.key});
 
-  final List<DashboardItem> items = [
-    DashboardItem("Interview Schedules", "1568", 25, AppDrawables.bank),
-    DashboardItem("Applied Jobs", "284", 5, AppDrawables.computer),
-    DashboardItem("Saved Jobs", "2", 7, AppDrawables.save),
-    DashboardItem("Task Bids Won", "136", 12, AppDrawables.doc),
-    DashboardItem("Application Sent", "985", 5, AppDrawables.headphone),
-    DashboardItem("Profile Viewed", "165", 15, AppDrawables.lamp),
-    DashboardItem("New Messages", "2356", -2, AppDrawables.look),
-    DashboardItem("Articles Added", "254", 2, AppDrawables.man),
-    DashboardItem("CV Added", "548", 48, AppDrawables.open),
+  final List<DashboardItemModel> items = [
+    DashboardItemModel("Interview Schedules", "1568", 25, AppDrawables.bank, "interview"),
+    DashboardItemModel("Applied Jobs", "284", 5, AppDrawables.computer, "applied"),
+    DashboardItemModel("Saved Jobs", "2", 7, AppDrawables.save, "saved"),
+    DashboardItemModel("Task Bids Won", "136", 12, AppDrawables.doc, "bids"),
+    DashboardItemModel("Application Sent", "985", 5, AppDrawables.headphone, "application"),
+    DashboardItemModel("Profile Viewed", "165", 15, AppDrawables.lamp, "profile"),
+    DashboardItemModel("New Messages", "2356", -2, AppDrawables.look, "messages"),
+    DashboardItemModel("Articles Added", "254", 2, AppDrawables.man, "articles"),
+    DashboardItemModel("CV Added", "548", 48, AppDrawables.open, "cv"),
   ];
-
   @override
   Widget build(BuildContext context) {
     return ListView.separated(

@@ -8,6 +8,7 @@ import '../main.dart';
 import '../models/auth/auth_model.dart';
 import '../models/job/job_model.dart';
 import '../repo/shared_preference_repository.dart';
+import '../ui/pages/All/sections/saved_jobs/saved_jobs_screen.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
@@ -240,4 +241,22 @@ class AppNavigator {
       MaterialPageRoute(builder: (_) => EditProfileScreen()),
     );
   }
+  static loadSavedJobsScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => SavedJobsScreen()),
+    );
+  }
+  static Map<String, VoidCallback> routeMap = {
+    "saved": AppNavigator.loadSavedJobsScreen,
+    // "applied": AppNavigator.loadAppliedJobsScreen,
+    // "cv": AppNavigator.loadCvScreen,
+    // "bids": AppNavigator.loadBidsScreen,
+    // "interview": AppNavigator.loadInterviewSchedulesScreen,
+    // "application": AppNavigator.loadApplicationSentScreen,
+    // "profile": AppNavigator.loadProfileViewsScreen,
+    // "messages": AppNavigator.loadMessagesScreen,
+    // "articles": AppNavigator.loadArticlesScreen,
+  };
+
 }
