@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_drawables.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/ui/pages/job/components/review_section.dart';
@@ -13,6 +14,7 @@ import '../../../../models/job/job_model.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
 import 'awards_timeline.dart';
 import 'benefits.dart';
+import 'company_gallery_slider.dart';
 
 class JobDetailsView extends StatelessWidget {
   final ScrollController scrollController;
@@ -24,6 +26,7 @@ class JobDetailsView extends StatelessWidget {
   final GlobalKey reviewsKey;
   final GlobalKey benefitsKey;
   final GlobalKey salaryInsightsKey;
+  final GlobalKey companyGalleryKey;
   final JobModel jobModel;
 
   const JobDetailsView({
@@ -37,6 +40,7 @@ class JobDetailsView extends StatelessWidget {
     required this.reviewsKey,
     required this.benefitsKey,
     required this.salaryInsightsKey,
+    required this.companyGalleryKey,
     required this.jobModel,
   });
 
@@ -223,16 +227,17 @@ class JobDetailsView extends StatelessWidget {
           _buildJobDetailsTab(context),
           _buildAboutCompanyTab(),
           gapH16(),
-          AwardsTimeline(key: awardsKey,),
-          SizedBox(height: 18),
-          VerifiedBenefits(key:verifiedBenefitsKey ,),
-          SizedBox(height: 18),
-         ReviewsCarousel(key: reviewsKey,),
-         SizedBox(height: 18),
-           BenefitsGrid(key: benefitsKey,),
-          SizedBox(height: 18),
-         SalaryInsightsCard(key: salaryInsightsKey,),
-          SizedBox(height: 18),
+          _buildCompanyGallery(),
+         //  AwardsTimeline(key: awardsKey,),
+         //  SizedBox(height: 18),
+         //  VerifiedBenefits(key:verifiedBenefitsKey ,),
+         //  SizedBox(height: 18),
+         // ReviewsCarousel(key: reviewsKey,),
+         // SizedBox(height: 18),
+         //   BenefitsGrid(key: benefitsKey,),
+         //  SizedBox(height: 18),
+         // SalaryInsightsCard(key: salaryInsightsKey,),
+         //  SizedBox(height: 18),
           // if (jobModel.hasAwards) AwardsTimeline(),
           // if (jobModel.hasAwards) SizedBox(height: 18),
           // if (jobModel.hasVerifiedBenefits) VerifiedBenefits(),
@@ -322,6 +327,21 @@ class JobDetailsView extends StatelessWidget {
               _buildInfoSection('Company Name', 'NVS Travels'),
             ],
           ),
+        ),
+
+      ],
+    );
+  }
+  Widget _buildCompanyGallery() {
+    final theme = Theme.of(navigatorKey.currentContext!).textTheme;
+    return Column(
+      key: companyGalleryKey,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Company Gallery', style: theme.titleMedium),
+        gapH16(),
+        CustomDecoratedBox(
+          child: CompanyGallerySlider(items: ["https://res.cloudinary.com/dv4aury9e/image/upload/v1755079508/blogs/szose5lsflyu8jhadcks.png","https://res.cloudinary.com/dv4aury9e/image/upload/v1755079773/blogs/shvioyrmukgh4gbqa824.png","https://res.cloudinary.com/dv4aury9e/image/upload/v1755083343/blogs/jkp1efnarxmnnnusarve.png",],)
         ),
 
       ],

@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 
 class SaveHideButton extends StatefulWidget {
   final bool showSave;
+  final bool isSmaller;
   final VoidCallback? onPressed;
 
   const SaveHideButton({
     super.key,
     required this.showSave,
     this.onPressed,
+    this.isSmaller = true,
   });
 
   @override
@@ -37,16 +39,88 @@ class _SaveHideButtonState extends State<SaveHideButton> {
             widget.showSave
                 ? (isActive ? Icons.bookmark : Icons.bookmark_border_outlined)
                 : (isActive ? Icons.visibility_off : Icons.remove_red_eye),
-            size: 20,
-            color: isActive ?AppColors.primaryColor : Colors.black54,
+            size: widget.isSmaller ? 20 : 30,
+            color: isActive ? AppColors.primaryColor : Colors.black54,
           ),
           const SizedBox(width: 4),
           Text(
-            widget.showSave ?(isActive ?"Saved" :  "Save") : "Hide",
-            style: theme.labelSmall?.copyWith(
-              color: isActive ? AppColors.primaryColor : Colors.black54,
-              fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
-            ),
+            widget.showSave ? (isActive ? "Saved" : "Save") : "Hide",
+            style: widget.isSmaller
+                ? theme.labelSmall?.copyWith(
+                    color: isActive ? AppColors.primaryColor : Colors.black54,
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+                  )
+                : theme.labelMedium?.copyWith(
+                    color: isActive ? AppColors.primaryColor : Colors.black54,
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+////
+class CustomDynamicButton extends StatefulWidget {
+  final IconData activeIcon;
+  final IconData inActiveIcon;
+  final String activeTitle;
+  final String inActiveTitle;
+  final double size;
+  final bool smaller;
+  final VoidCallback? onPressed;
+
+  const CustomDynamicButton({
+    super.key,
+    this.onPressed,
+    this.size = 20,
+    this.smaller = true,
+    required this.activeIcon,
+    required this.inActiveIcon,
+    required this.activeTitle,
+    required this.inActiveTitle,
+  });
+
+  @override
+  State<CustomDynamicButton> createState() => _CustomDynamicButtonState();
+}
+
+class _CustomDynamicButtonState extends State<CustomDynamicButton> {
+  bool isActive = false;
+
+  void _toggle() {
+    setState(() {
+      isActive = !isActive;
+    });
+    widget.onPressed?.call(); // trigger parent action if provided
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+    return InkWell(
+      onTap: _toggle,
+      borderRadius: BorderRadius.circular(8),
+      child: Row(
+        children: [
+          Icon(
+            isActive ? widget.activeIcon : widget.inActiveIcon,
+            size: widget.size,
+            color: isActive ? AppColors.primaryColor : Colors.black54,
+          ),
+          const SizedBox(width: 4),
+          Text(
+            isActive ? widget.activeTitle : widget.inActiveTitle,
+            style: widget.smaller
+                ? theme.labelSmall?.copyWith(
+                    color: isActive ? AppColors.primaryColor : Colors.black54,
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+                  )
+                : theme.labelMedium?.copyWith(
+                    color: isActive ? AppColors.primaryColor : Colors.black54,
+                    fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
+                  ),
           ),
         ],
       ),

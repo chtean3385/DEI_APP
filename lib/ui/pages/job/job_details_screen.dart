@@ -36,6 +36,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   final _reviewsKey = GlobalKey();
   final _benefitsKey = GlobalKey();
   final _salaryInsightsKey = GlobalKey();
+  final _companyGalleryKey = GlobalKey();
   final GlobalKey _similarJobsKey = GlobalKey();
   bool _showApplyButton = true;
 
@@ -72,7 +73,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         final screenHeight = MediaQuery.of(context).size.height;
 
         // Hide button when About Company section reaches middle of screen
-        bool shouldShowButton = position.dy > screenHeight * 0.9;
+        bool shouldShowButton = position.dy > screenHeight * 0.95;
 
         if (shouldShowButton != _showApplyButton) {
           setState(() {
@@ -88,11 +89,12 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
     final categories = [
       {"id": 1, "title": 'Job Details'},
       {"id": 2, "title": 'About Company'},
-      {"id": 3, "title": 'Awards'},
-      {"id": 4, "title": 'Verified benefits'},
-      {"id": 5, "title": 'Reviews'},
-       {"id": 6, "title": 'Benefits'},
-      {"id": 7, "title": 'Salary '},
+      // {"id": 3, "title": 'Awards'},
+      // {"id": 4, "title": 'Verified benefits'},
+      // {"id": 5, "title": 'Reviews'},
+      //  {"id": 6, "title": 'Benefits'},
+      // {"id": 7, "title": 'Salary '},
+      {"id": 8, "title": 'Company Gallery '},
       // if (widget.jobModel.hasAwards) {"id": 3, "title": 'Awards'},
       // if (widget.jobModel.hasVerifiedBenefits) {"id": 4, "title": 'Verified benefits'},
       // if (widget.jobModel.hasReviews) {"id": 5, "title": 'Reviews'},
@@ -199,6 +201,9 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                                 else if (item['id'] == 7) {
                                   _scrollToSection(_salaryInsightsKey);
                                 }
+                                else if (item['id'] == 8) {
+                                  _scrollToSection(_companyGalleryKey);
+                                }
                               },
                             ),
                             gapH16(),
@@ -217,6 +222,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
                         // We're using CustomScrollView now
                         jobDetailsKey: _jobDetailsKey,
                         aboutCompanyKey: _aboutCompanyKey,
+                        companyGalleryKey: _companyGalleryKey,
                         similarJobsKey: _similarJobsKey,
                         awardsKey: _awardsKey,
                         benefitsKey:_benefitsKey ,

@@ -54,19 +54,21 @@ class RecommendedJobCard extends StatelessWidget {
                           },
                         ),
 
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(jobModel.title, style: theme.labelMedium),
-                            const SizedBox(height: 6),
-                            Text(
-                              jobModel.companyName,
-                              style: theme.displaySmall?.copyWith(
-                                color: Colors.black54,
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(jobModel.title, style: theme.labelMedium),
+                              const SizedBox(height: 6),
+                              Text(
+                                jobModel.companyName,
+                                style: theme.displaySmall?.copyWith(
+                                  color: Colors.black54,
+                                ),
                               ),
-                            ),
-                            const SizedBox(height: 6),
-                          ],
+                              const SizedBox(height: 6),
+                            ],
+                          ),
                         ),
                       ],
                     ),
