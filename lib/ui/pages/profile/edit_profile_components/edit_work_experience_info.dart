@@ -10,7 +10,8 @@ import '../../../../widgets/form/transparant_date_picker.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
 
 class EditWorkExpInformation extends ConsumerWidget {
-  const EditWorkExpInformation({super.key});
+  final bool isFromCommonEdit;
+  const EditWorkExpInformation({super.key,this.isFromCommonEdit = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -20,9 +21,10 @@ class EditWorkExpInformation extends ConsumerWidget {
     return Card(
       elevation: 2,
       color: Colors.white,
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
-        initiallyExpanded: false,
+        initiallyExpanded: isFromCommonEdit!= true,
         title: Text(
           "Work Experience",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -33,6 +35,8 @@ class EditWorkExpInformation extends ConsumerWidget {
         visualDensity: VisualDensity.compact,
         iconColor: Colors.black54,
         collapsedIconColor: Colors.black54,
+        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+        onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         children: [
           ...state.workExpEntries!.asMap().entries.map((entry) {

@@ -2,13 +2,16 @@ import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../providers/providers.dart';
 import '../edit_profile_components/edit_skill_info.dart';
-class MyKeySkill extends StatelessWidget {
+class MyKeySkill extends  ConsumerWidget {
   const MyKeySkill({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(editProfileProvider);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -36,18 +39,7 @@ class MyKeySkill extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          _skillChips([
-            "php",
-            "html",
-            "Mobile",
-            "Web",
-            "API",
-            "Firebase",
-            "Design Systems",
-            "Typography",
-            "Color Theory",
-            "Accessibility (a11y)",
-          ]),
+          _skillChips(state.profileData?.skillsInfo ?? []),
         ],
       ),
     );

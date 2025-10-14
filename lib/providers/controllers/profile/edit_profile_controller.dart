@@ -2,8 +2,10 @@ import 'package:dei_champions/ui/pages/profile/edit_profile_components/edit_work
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:intl/intl.dart';
 
 import '../../../models/profile/edit_profile/profile_model.dart';
+import '../../../models/profile/edit_profile/work_experience_model.dart';
 import '../../../models/state_models/profile/profile_state.dart';
 import '../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
 import '../../../widgets/pickers/file_picker.dart';
@@ -156,11 +158,60 @@ class EditProfileController extends StateNotifier<ProfileState> {
       "Color Theory",
       "Accessibility (a11y)",
     ];
+    final List<WorkExperienceInfoModel> workExperiences = [
+      WorkExperienceInfoModel(
+        companyName: 'Google',
+        position: 'Software Engineer',
+        startDate: DateTime(2020, 5, 1),
+        endDate: DateTime(2022, 8, 31),
+        isCurrentlyWorking: false,
+        description: 'Worked on scalable backend services and cloud infrastructure.',
+      ),
+      WorkExperienceInfoModel(
+        companyName: 'Amazon',
+        position: 'Backend Developer',
+        startDate: DateTime(2018, 2, 15),
+        endDate: DateTime(2020, 4, 30),
+        isCurrentlyWorking: false,
+        description: 'Maintained microservices and improved API performance.',
+      ),
+      WorkExperienceInfoModel(
+        companyName: 'Meta',
+        position: 'Senior Software Engineer',
+        startDate: DateTime(2022, 9, 1),
+        endDate: null,
+        isCurrentlyWorking: true,
+        description: 'Leading a team building AI-powered social media tools.',
+      ),
+    ];
+    // Generate corresponding controllers list
+    final workExpControllers = workExperiences.map((exp) {
+      final controller = WorkExperienceEntryControllers();
+      controller.companyController.text = exp.companyName ?? '';
+      controller.positionController.text = exp.position ?? '';
+      controller.descriptionController.text = exp.description ?? '';
+
+      // Format the date to "MMM - yyyy" if needed
+      if (exp.startDate != null) {
+        controller.startDateController.text =
+            DateFormat('MMM - yyyy').format(exp.startDate!);
+      }
+
+      if (exp.endDate != null) {
+        controller.endDateController.text =
+            DateFormat('MMM - yyyy').format(exp.endDate!);
+      } else if (exp.isCurrentlyWorking == true) {
+        controller.endDateController.text = 'Present';
+      }
+
+      return controller;
+    }).toList();
 
     state = state.copyWith(
       profileData: (state.profileData ?? ProfileModel()).copyWith(
-        skillsInfo: initialSkills,
+        skillsInfo: initialSkills,workExperience: workExperiences
       ),
+      workExpEntries: workExpControllers,
     );
   }
 
