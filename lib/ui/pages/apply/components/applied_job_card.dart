@@ -1,5 +1,6 @@
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/models/job/job_model.dart';
+import 'package:dei_champions/ui/pages/job/components/save_hide_button.dart';
 import 'package:dei_champions/widgets/others/custom_decorated_box.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -226,29 +227,19 @@ class AppliedJobCard extends StatelessWidget {
                   ),
                   onTap: onTap,
                 ),
-                CustomThemeButton(
-                  child: Row(
-                    children: [
-                      Icon(Icons.cancel, size: 15, color: Colors.red),
-                      gapW6(),
-                      Text(
-                        "Unapply",
-                        style: navigatorKey
-                            .currentContext!
-                            .textTheme
-                            .displaySmall
-                            ?.copyWith(color: Colors.red),
-                      ),
-                    ],
-                  ),
-                  // color: Colors.red.withValues(alpha: .1),
-                  borderColor: Colors.red,
-                  radius: 8,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  onTap: () {}, // disable tap for accepted/pending
+
+                CustomDynamicButton(
+                  activeIcon: Icons.check_circle,
+                  inActiveIcon: Icons.send,
+                  activeTitle: "Applied",
+                  inActiveTitle: "Apply",
+                  size: 20,
+                  smaller: true,
+                  initialValue: true,
+                  onPressed: () {
+                    // 🔹 Add apply logic/API call here
+                    print("Apply tapped!");
+                  },
                 ),
               ],
             ),

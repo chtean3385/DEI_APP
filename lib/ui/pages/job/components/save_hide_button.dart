@@ -69,6 +69,7 @@ class CustomDynamicButton extends StatefulWidget {
   final String inActiveTitle;
   final double size;
   final bool smaller;
+  final bool initialValue;
   final VoidCallback? onPressed;
 
   const CustomDynamicButton({
@@ -76,6 +77,7 @@ class CustomDynamicButton extends StatefulWidget {
     this.onPressed,
     this.size = 20,
     this.smaller = true,
+    this.initialValue = false,
     required this.activeIcon,
     required this.inActiveIcon,
     required this.activeTitle,
@@ -88,6 +90,13 @@ class CustomDynamicButton extends StatefulWidget {
 
 class _CustomDynamicButtonState extends State<CustomDynamicButton> {
   bool isActive = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    isActive = widget.initialValue;
+  }
 
   void _toggle() {
     setState(() {
