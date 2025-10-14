@@ -57,6 +57,7 @@ class AppDrawables {
   static const String look = "assets/drawables/all/look.svg";
   static const String man = "assets/drawables/all/man.svg";
   static const String open = "assets/drawables/all/open-file.svg";
+  static const String save = "assets/drawables/all/save.svg";
 
 
 

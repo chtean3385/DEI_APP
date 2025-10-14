@@ -9,6 +9,7 @@ class DashBoardAllScreen extends StatelessWidget {
   final List<DashboardItem> items = [
     DashboardItem("Interview Schedules", "1568", 25, AppDrawables.bank),
     DashboardItem("Applied Jobs", "284", 5, AppDrawables.computer),
+    DashboardItem("Saved Jobs", "2", 7, AppDrawables.save),
     DashboardItem("Task Bids Won", "136", 12, AppDrawables.doc),
     DashboardItem("Application Sent", "985", 5, AppDrawables.headphone),
     DashboardItem("Profile Viewed", "165", 15, AppDrawables.lamp),
