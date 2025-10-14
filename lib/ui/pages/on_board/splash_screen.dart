@@ -23,18 +23,12 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-
-    double responsivePadding = screenWidth * 0.1; // 10% of screen width
     return Scaffold(
       backgroundColor: AppColors.secondaryColor,
       resizeToAvoidBottomInset: false,
       body: DecoratedBox(
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(AppDrawables.splash), // your bg image
-            fit: BoxFit.cover, // cover / contain / fill depending on need
-          ),
+          color: Colors.white
         ),
         child: Center(
           child: SizedBox(

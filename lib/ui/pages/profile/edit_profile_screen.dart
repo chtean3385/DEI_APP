@@ -64,7 +64,7 @@ class EditProfileScreen extends StatelessWidget {
           children: [
             Expanded(
               child:   CustomThemeButton(
-                onTap: (){},
+                onTap: ()=>Navigator.pop(navigatorKey.currentContext!),
                 padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,

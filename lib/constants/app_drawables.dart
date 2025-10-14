@@ -58,6 +58,9 @@ class AppDrawables {
   static const String man = "assets/drawables/all/man.svg";
   static const String open = "assets/drawables/all/open-file.svg";
   static const String save = "assets/drawables/all/save.svg";
+// on board
+  static const String onBoard1 = "assets/drawables/on_boarding/onBoard1.jpeg";
+  static const String onBoard2 = "assets/drawables/on_boarding/onBoard2.jpeg";
 
 
 

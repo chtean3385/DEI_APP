@@ -7,6 +7,8 @@ class SharedPreferenceRepository {
   static const String KEY_EMAIL = "KEY_EMAIL";
   static const String KEY_PASSWORD = "KEY_PASSWORD";
   static const String KEY_REMEMBER_ME = "KEY_REMEMBER_ME";
+  static const String HAS_SEEN_ON_BOARDING = "HAS_SEEN_ON_BOARDING";
+
 
   static Future<void> setToken(String token) async {
     debugPrint("set token -- $token");
@@ -65,6 +67,16 @@ class SharedPreferenceRepository {
     String password = preferences.getString("$userId-$KEY_PASSWORD") ?? "";
     return password;
   }
-
+  static Future<void> setHasSeenOnboarding(bool hasSeenOnboarding) async {
+    debugPrint("Set hasSeenOnboarding -- $hasSeenOnboarding");
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setBool(HAS_SEEN_ON_BOARDING, hasSeenOnboarding);
+  }
+  static Future<bool> getHasSeenOnboarding() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool hasSeenOnboarding = preferences.getBool(HAS_SEEN_ON_BOARDING) ?? false;
+    debugPrint("hasSeenOnboarding -- $hasSeenOnboarding");
+    return hasSeenOnboarding;
+  }
 
 }

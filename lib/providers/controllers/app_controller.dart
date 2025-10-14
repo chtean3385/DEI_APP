@@ -16,7 +16,10 @@ class AppController extends AutoDisposeNotifier<PageState> {
   }
 
   Future<void> fetchAppDetails() async {
-    await checkUserToken() ;
+    final hasSeenOnboarding =
+    await SharedPreferenceRepository.getHasSeenOnboarding();
+    hasSeenOnboarding ? await checkUserToken() : AppNavigator.loadOnBoarding();
+    SharedPreferenceRepository.setHasSeenOnboarding(true);
   }
 
   Future<void> checkUserToken() async {
