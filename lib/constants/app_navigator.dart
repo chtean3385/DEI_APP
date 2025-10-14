@@ -41,13 +41,12 @@ class AppNavigator {
     );
   }
 
-  static void toBottomBar({int initialPage = 0, bool showAppliedList = false}) {
+  static void toBottomBar({int initialPage = 0}) {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
       MaterialPageRoute(
         builder: (_) => BottomBar(
           initialPage: initialPage,
-          showAppliedList: showAppliedList,
         ),
       ),
       (route) => false,

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 
-import 'applied_jobs_screen.dart';
-import 'apply_empty.dart';
+import 'components/applied_fitler_options.dart';
+import 'components/applied_jobs_list_view.dart';
 
 class ApplyScreen extends StatelessWidget {
-  final bool showAppliedList;
-  const ApplyScreen({super.key,this.showAppliedList = false});
+  const ApplyScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return showAppliedList  ? AppliedJobsScreen()   :  ApplyEmptyScreen();
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        AppliedFilterOptions(),
+        Expanded(child: AppliedJobListView()),
+      ],
+    );
   }
 }

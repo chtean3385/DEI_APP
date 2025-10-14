@@ -17,6 +17,7 @@ class JobModel {
   final String? reviews;
   final String? postedDate;
   final bool? isWalkIn;
+  final String? status;
 
   JobModel({
     required this.title,
@@ -37,5 +38,6 @@ class JobModel {
      this.reviews,
      this.postedDate,
      this.isWalkIn,
+     this.status,
   });
 }

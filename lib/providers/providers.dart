@@ -16,6 +16,7 @@ import 'package:dei_champions/providers/controllers/home/category/we_are_hiring_
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
+import '../models/state_models/applied/applied_job_state.dart';
 import '../models/state_models/auth_state.dart';
 import '../models/state_models/disability/disability_bottom_state.dart';
 import '../models/state_models/disability/disability_inclusion_steps_state.dart';
@@ -55,6 +56,7 @@ import 'controllers/about_us/core_value_controller.dart';
 import 'controllers/about_us/revolution_controller.dart';
 import 'controllers/about_us/what_we_do_controller.dart';
 import 'controllers/app_controller.dart';
+import 'controllers/applied/applied_jobs_controller.dart';
 import 'controllers/auth/employee_login_controller.dart';
 import 'controllers/auth/employer_register_controller.dart';
 import 'controllers/auth/employer_register_page_view_controller.dart';
@@ -310,4 +312,9 @@ StateNotifierProvider.autoDispose<LgbtqInclusionPointsController, LgbtqInclusion
 /// edit profile
 final editProfileProvider =StateNotifierProvider.autoDispose<EditProfileController, ProfileState>((ref) {
   return EditProfileController();
+});
+
+/// applied jobs
+final appliedJobsProvider =StateNotifierProvider.autoDispose<AppliedJobsController, AppliedJobState>((ref) {
+  return AppliedJobsController();
 });

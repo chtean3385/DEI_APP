@@ -274,7 +274,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
       ),
       radius: 30,
       onTap: (){
-        if(widget.isFromSearch)AppNavigator.toBottomBar(initialPage: 1,showAppliedList: true);
+        if(widget.isFromSearch)AppNavigator.toBottomBar(initialPage: 1);
       },
       isExpanded: true,
       color: AppColors.primaryColor,

@@ -12,9 +12,8 @@ import 'components/drawer/custom_drawer.dart';
 
 class BottomBar extends StatefulWidget {
   final int initialPage;
-  final bool showAppliedList;
 
-  const BottomBar({super.key, this.initialPage = 0,this.showAppliedList = false});
+  const BottomBar({super.key, this.initialPage = 0});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -22,18 +21,15 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 0;
-  bool _showAppliedList = false;
   final _advancedDrawerController = AdvancedDrawerController();
   @override
   void initState() {
     super.initState();
     _currentIndex = widget.initialPage;
-    _showAppliedList = widget.showAppliedList;
   }
 
   void _onTap(int index) {
     setState(() => _currentIndex = index);
-    _showAppliedList = false;
   }
 
   @override
@@ -112,7 +108,7 @@ class _BottomBarState extends State<BottomBar> {
                 ),
                 BottomNavigationBarItem(
                   icon: _navIcon(Icons.send_outlined, Icons.send, 1),
-                  label: "Apply",
+                  label: "Applied",
                 ),
                 BottomNavigationBarItem(
                   icon: _navIcon(Icons.event_outlined, Icons.event, 2),
@@ -152,7 +148,7 @@ class _BottomBarState extends State<BottomBar> {
       case 0:
         return HomeScreen();
       case 1:
-        return  ApplyScreen(showAppliedList: _showAppliedList);
+        return  ApplyScreen();
       case 2:
         return const InvitesScreen();
       case 3:

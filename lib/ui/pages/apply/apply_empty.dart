@@ -61,6 +61,7 @@ class ApplyEmptyScreen extends StatelessWidget {
               ),
               color: AppColors.primaryColor,
               radius: 30,
+              padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
               onTap: AppNavigator.loadJobSearchScreen,
 
             ),

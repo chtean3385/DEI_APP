@@ -47,4 +47,15 @@ class AppDrawables {
 //hiring
   static const String hiring1 = "assets/drawables/hiring/bg-left-hiring.svg";
   static const String hiring2 = "assets/drawables/hiring/bg-right-hiring.svg";
+
+  //All
+  static const String bank = "assets/drawables/all/bank.svg";
+  static const String computer = "assets/drawables/all/computer.svg";
+  static const String doc = "assets/drawables/all/doc.svg";
+  static const String headphone = "assets/drawables/all/headphone.svg";
+  static const String lamp = "assets/drawables/all/lamp.svg";
+  static const String look = "assets/drawables/all/look.svg";
+  static const String man = "assets/drawables/all/man.svg";
+  static const String open = "assets/drawables/all/open-file.svg";
+
 }
