@@ -5,6 +5,7 @@ import 'components/basic_details.dart';
 import 'components/contact_details.dart';
 import 'components/education_details.dart';
 import 'components/experience_details.dart';
+import 'components/key_skills.dart';
 
 class ProfileDetailsView extends StatelessWidget {
   const ProfileDetailsView({super.key});
@@ -16,7 +17,7 @@ class ProfileDetailsView extends StatelessWidget {
         padding: EdgeInsets.only(bottom: 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [BasicDetails(), ContactDetails(), AboutMe(),ExperienceDetails(), EducationDetails()],
+          children: [BasicDetails(), ContactDetails(), AboutMe(),MyKeySkill(),ExperienceDetails(), EducationDetails()],
         ),
       ),
     );

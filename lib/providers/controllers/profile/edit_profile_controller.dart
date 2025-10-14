@@ -12,6 +12,7 @@ import '../../../widgets/pickers/image_picker.dart';
 class EditProfileController extends StateNotifier<ProfileState> {
   EditProfileController() : super(ProfileState.initial()) {
     // getChefData();
+    fetchInitialProfileData();
     addEducationEntry();
   }
 
@@ -140,6 +141,29 @@ class EditProfileController extends StateNotifier<ProfileState> {
 
     state = state.copyWith(workExpEntries: newList);
   }
+
+  void fetchInitialProfileData() {
+    // Sample initial skill list
+    final initialSkills = [
+      "php",
+      "html",
+      "Mobile",
+      "Web",
+      "API",
+      "Firebase",
+      "Design Systems",
+      "Typography",
+      "Color Theory",
+      "Accessibility (a11y)",
+    ];
+
+    state = state.copyWith(
+      profileData: (state.profileData ?? ProfileModel()).copyWith(
+        skillsInfo: initialSkills,
+      ),
+    );
+  }
+
 
   /// 🔹 Call this to update chef data locally from anywhere
   // void setChefData(ChefModel updatedChef) {

@@ -6,12 +6,16 @@ class SelectedKeySkills extends StatelessWidget {
   final List<String> selectedSkill;
   final Function(String) onRemove;
   final GlobalKey<FormState>? formKey;
+  final bool showRemoveOption;
+  final Color? borderColor;
 
   const SelectedKeySkills({
     Key? key,
     required this.selectedSkill,
     required this.onRemove,
     this.formKey,
+    this.showRemoveOption = true,
+    this.borderColor ,
   }) : super(key: key);
 
   @override
@@ -47,7 +51,7 @@ class SelectedKeySkills extends StatelessWidget {
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
                           width: 1,
-                          color: const Color(0xFF4285F4),
+                          color:  borderColor ?? const Color(0xFF4285F4),
                         ),
                       ),
                       child: Padding(
@@ -65,8 +69,8 @@ class SelectedKeySkills extends StatelessWidget {
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
-                            const SizedBox(width: 4),
-                            GestureDetector(
+                         if(showRemoveOption)   const SizedBox(width: 4),
+                            if(showRemoveOption)      GestureDetector(
                               onTap: () {
                                 onRemove(skill);
                                 field.didChange(selectedSkill);

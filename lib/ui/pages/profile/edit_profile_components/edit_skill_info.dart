@@ -6,7 +6,8 @@ import '../../auth/signup/widgets/key_skills/selected_key_skills.dart';
 import '../../auth/signup/widgets/key_skills/skill_form.dart';
 
 class EditSkillInformation extends ConsumerWidget {
-  const EditSkillInformation({super.key});
+  final bool isFromCommonEdit;
+  const EditSkillInformation({super.key,this.isFromCommonEdit = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -15,43 +16,51 @@ class EditSkillInformation extends ConsumerWidget {
 
     return Card(
       elevation: 2,
-      color: Colors.white,
+      color: Colors.white,clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: ExpansionTile(
-        initiallyExpanded: false, // collapsed by default
-        title: Text(
-          "Skills",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: Colors.black87,
+      child: SafeArea(
+        child: ExpansionTile(
+          initiallyExpanded: isFromCommonEdit!= true, // collapsed by default
+          title: Text(
+            "Skills",
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: Colors.black87,
+            ),
           ),
+          visualDensity: VisualDensity.compact,
+
+          iconColor: Colors.black54,
+          collapsedIconColor: Colors.black54,
+          // 👇 Hides the expand/collapse icon
+          trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+
+          // 👇 Prevent collapsing by making it non-interactive if not from common edit
+          onExpansionChanged: isFromCommonEdit ? null : (_) {},
+          childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          children: [
+            /// 🔽 Skill Input
+            KeyForm(
+              controller:controller.skillController,
+              onSkillSelected: controller.addSkill,
+              hint:"Enter your key skills",
+              label: "Your Skills",
+            ),
+
+            gapH16(),
+
+            /// 🔽 Show selected skills
+
+            SelectedKeySkills(
+              selectedSkill: state.profileData?.skillsInfo ?? [],
+              onRemove: controller.removeSkill,
+            ),
+          ],
         ),
-        visualDensity: VisualDensity.compact,
-
-        iconColor: Colors.black54,
-        collapsedIconColor: Colors.black54,
-        childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        children: [
-          /// 🔽 Skill Input
-          KeyForm(
-            controller:controller.skillController,
-            onSkillSelected: controller.addSkill,
-            hint:"Enter your key skills",
-            label: "Your Skills",
-          ),
-
-          gapH16(),
-
-          /// 🔽 Show selected skills
-
-          SelectedKeySkills(
-            selectedSkill: state.profileData?.skillsInfo ?? [],
-            onRemove: controller.removeSkill,
-          ),
-        ],
       ),
     );
   }
 }
+

@@ -65,6 +65,7 @@ class EditProfileScreen extends StatelessWidget {
             Expanded(
               child:   CustomThemeButton(
                 onTap: (){},
+                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -77,7 +78,7 @@ class EditProfileScreen extends StatelessWidget {
                     Text('Cancel',style: navigatorKey.currentContext!.textTheme.titleMedium?.copyWith(color: AppColors.primaryColor)),
                   ],
                 ),
-                radius: 8,
+                radius: 12,
                 color: Colors.white,
                 borderColor:AppColors.primaryColor,
                 // padding: EdgeInsets.symmetric(vertical: 4,horizontal: 8),
@@ -87,6 +88,8 @@ class EditProfileScreen extends StatelessWidget {
             Expanded(
               child:   CustomThemeButton(
                 onTap: (){},
+                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
+
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -99,7 +102,7 @@ class EditProfileScreen extends StatelessWidget {
                     Text('Save',style: navigatorKey.currentContext!.textTheme.titleMedium?.copyWith(color: Colors.white)),
                   ],
                 ),
-                radius: 8,
+                radius: 12,
                 color: AppColors.primaryColor,
                 borderColor:AppColors.primaryColor,
                 // padding: EdgeInsets.symmetric(vertical: 4,horizontal: 8),
