@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/app_colors.dart';
 import '../../../constants/enums.dart';
 import '../../../repo/shared_preference_repository.dart';
+import '../../../utils/widget_utils.dart';
 import '../../../widgets/others/custom_theme_button.dart';
 
 class OnBoardScreen extends ConsumerStatefulWidget {
@@ -48,9 +49,19 @@ class _OnBoardScreenState extends ConsumerState<OnBoardScreen> {
   Widget _view(){
     final state = ref.watch(onBoardingProvider);
     final hasData = (state.data ?? []).isNotEmpty;
-
     if (!hasData && state.pageState != PageState.loading) {
-      return const SizedBox.shrink();
+      return Center(
+        child: SizedBox(
+          height: 200,width: 200,
+          child: WidgetUtils.logoWidget(),
+        ),
+      );
+    }
+    if ( state.pageState == PageState.error) {
+      return SizedBox(
+        height: 200,width: 200,
+        child: WidgetUtils.logoWidget(),
+      );
     }
     return  state.pageState == PageState.loading ? _loading()  :
     Column(
