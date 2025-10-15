@@ -62,6 +62,7 @@ class _AnimatedSignupWrapperState extends State<AnimatedSignupWrapper>
   @override
   void dispose() {
     _controller.dispose();
+    debugPrint("AnimatedSignupWrapper disposed");
     super.dispose();
   }
 
