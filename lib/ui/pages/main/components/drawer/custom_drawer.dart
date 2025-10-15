@@ -129,6 +129,13 @@ class CustomDrawer extends StatelessWidget {
               null,
                   () => AppNavigator.loadCareerExplorersScreen(),
             ),
+            _drawerItem(
+              Icons.corporate_fare,
+              "Corporates Championing",
+              false,
+              null,
+                  () => AppNavigator.loadCorporatesChampioningScreen(),
+            ),
 
             _drawerItem(Icons.info_outline, "About us", false, // bold
               null,  // badge

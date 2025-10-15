@@ -2,17 +2,17 @@ import 'package:dei_champions/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
-import '../../../../models/explore_career/explore_service_program_model.dart';
+import '../../../../models/corporate_championing/dei_corporates_model.dart';
 import '../../../../utils/fa_icon.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
 
 
-class ExploreServiceProgramCard extends StatelessWidget {
-  final ExploreServiceProgramModel item;
+class DeiCorporateSolutionCard extends StatelessWidget {
+  final DeiSolutionCardModel item;
   final double width;
 
 
-  const ExploreServiceProgramCard({required this.item, required this.width,});
+  const DeiCorporateSolutionCard({required this.item, required this.width,});
 
   @override
   Widget build(BuildContext context) {
@@ -39,18 +39,12 @@ class ExploreServiceProgramCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: item.backgroundColor != null
-                      ? HexColor(item.backgroundColor!) // Convert hex to Color
-                      : null, // fallback color
-                  child: Icon(
-                    getFontAwesomeIcon(item.icon),
-                    color:Colors.white,
-                    size: 18,
-                  ),
+                Icon(
+                  getFontAwesomeIcon(item.icon),
+                  color:AppColors.primaryColor,
+                  size:30,
                 ),
-                gapH8(),
+                gapH16(),
                 Flexible(
                   child: Text(
                     item.title ?? "",
@@ -67,6 +61,7 @@ class ExploreServiceProgramCard extends StatelessWidget {
                   softWrap: true,
                   maxLines: 3,
                   textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                   style: theme.displaySmall?.copyWith(
                     color: Colors.black54,fontSize: 11
                   ),
@@ -129,14 +124,4 @@ class ShimmerExploreServiceProgramCard extends StatelessWidget {
   }
 }
 
-class HexColor extends Color {
-  HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 
-  static int _getColorFromHex(String hexColor) {
-    String formatted = hexColor.toUpperCase().replaceAll("#", "");
-    if (formatted.length == 6) {
-      formatted = "FF$formatted"; // add alpha if missing
-    }
-    return int.parse(formatted, radix: 16);
-  }
-}
