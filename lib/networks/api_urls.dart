@@ -2,6 +2,9 @@ class ApiUrls {
   static const baseUrl = 'https://dei-backend.onrender.com/api/';
 
 
+  //on board
+  static const onBoarding = 'onboarding-screen/get-all';
+
   //auth
   static const verifyOtp = 'users/employee/verify-otp';
   static const resendOtp = 'resend-otp';

@@ -40,7 +40,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          backgroundImage(),
+          // backgroundImage(),
           Form(
             key: _formKey,
             child: Column(
@@ -57,6 +57,14 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                       topLeft: Radius.circular(50),
                       topRight: Radius.circular(50),
                     ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black45, // subtle shadow color
+                        offset: Offset(0, -4), // negative Y offset = shadow on top
+                        blurRadius: 8, // softness of shadow
+                        spreadRadius: 1, // optional: how much the shadow spreads
+                      ),
+                    ],
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,

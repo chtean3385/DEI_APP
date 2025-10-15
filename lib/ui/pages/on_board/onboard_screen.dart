@@ -1,20 +1,23 @@
-import 'package:dei_champions/constants/app_drawables.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/providers/providers.dart';
+import 'package:dei_champions/widgets/others/rounded_network_image.dart';
+import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/app_colors.dart';
-import '../../../models/on_board/on_board_model.dart';
+import '../../../constants/enums.dart';
 import '../../../repo/shared_preference_repository.dart';
 import '../../../widgets/others/custom_theme_button.dart';
 
-class OnBoardScreen extends StatefulWidget {
-  const OnBoardScreen({super.key});
+class OnBoardScreen extends ConsumerStatefulWidget {
+  const OnBoardScreen({Key? key}) : super(key: key);
 
   @override
-  State<OnBoardScreen> createState() => _OnBoardScreenState();
+  ConsumerState<OnBoardScreen> createState() => _OnBoardScreenState();
 }
 
-class _OnBoardScreenState extends State<OnBoardScreen> {
+class _OnBoardScreenState extends ConsumerState<OnBoardScreen> {
   late final PageController _controller;
   double _currentPage = 0;
 
@@ -35,57 +38,81 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
     super.dispose();
   }
 
-  static List<OnBoardModel> items = [
-    OnBoardModel(
-      title: "India’s Most Inclusive Job Platform",
-      subTitle:
-          "Join a trusted space where diversity, equity, and inclusion drive every opportunity — connecting skilled professionals with forward-thinking employers.",
-      buttonText: "Next",
-      image: AppDrawables.onBoard1,
-    ),
-    OnBoardModel(
-      title: "Opportunities That Value You",
-      subTitle:
-          "Explore jobs with organizations that prioritize fair hiring, equal growth, and inclusive workplace cultures built on respect and representation.",
-      buttonText: "Next",
-      image: AppDrawables.onBoard2,
-    ),
-    OnBoardModel(
-      title: "Empowering Diverse Talent to Thrive",
-      subTitle:
-          "Build a career that aligns with your values. Together, we’re shaping India’s future workforce — inclusive, equitable, and full of possibilities.",
-      buttonText: "Get Started",
-      image: AppDrawables.onBoard3,
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _controller,
-              itemCount: items.length,
-              itemBuilder: (context, index) {
-                final actualIndex = index % items.length;
-                final item = items[actualIndex];
-                return Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    backgroundImage(item.image),
-                    textView(item.title, item.subTitle),
-                  ],
-                );
-              },
-            ),
+      body: _view(),
+    );
+  }
+  Widget _view(){
+    final state = ref.watch(onBoardingProvider);
+    final hasData = (state.data ?? []).isNotEmpty;
+
+    if (!hasData && state.pageState != PageState.loading) {
+      return const SizedBox.shrink();
+    }
+    return  state.pageState == PageState.loading ? _loading()  :
+    Column(
+      children: [
+        Expanded(
+          child: PageView.builder(
+            controller: _controller,
+            itemCount: state.data!.length,
+            itemBuilder: (context, index) {
+              final actualIndex = index % state.data!.length;
+              final item = state.data![actualIndex];
+              return Stack(
+                alignment: Alignment.bottomCenter,
+                children: [
+                  backgroundImage(item.image ?? ""),
+                  textView(item.title ?? "", item.subTitle ?? ""),
+                ],
+              );
+            },
           ),
-          const SizedBox(height: 8),
-          Row(
+        ),
+        const SizedBox(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(state.data!.length, (index) {
+            final isActive = (_currentPage % state.data!.length).round() == index;
+
+            return Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              child: CircleAvatar(
+                radius: isActive ? 6 : 3,
+                backgroundColor: isActive
+                    ? AppColors.primaryColor
+                    : Colors.grey.shade300,
+              ),
+            );
+          }),
+        ),
+        const SizedBox(height: 20),
+        _button(state.data![_currentPage.round()].buttonText ?? "",state.data!.length),
+        const SizedBox(height: 30),
+      ],
+    );
+  }
+  Widget _loading(){
+    return   Column(
+      children: [
+        Expanded(
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              _shimmerImage(),
+              shimmerTextView(),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        ShimmerLoader(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(items.length, (index) {
-              final isActive = (_currentPage % items.length).round() == index;
+            children: List.generate(3, (index) {
+              final isActive = index == 0;
 
               return Container(
                 margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -98,20 +125,32 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
               );
             }),
           ),
-          const SizedBox(height: 20),
-          _button(items[_currentPage.round()].buttonText),
-          const SizedBox(height: 30),
-        ],
-      ),
+        ),
+        const SizedBox(height: 20),
+        ShimmerLoader(child: _button("Next",0)),
+        const SizedBox(height: 30),
+      ],
     );
   }
 
   Widget backgroundImage(String image) {
-    return Image.asset(
-      image,
+    return RoundedNetworkImage(
+     imageUrl:image,
+      borderRadius: 0,
       fit: BoxFit.cover,
       height: double.infinity,
       width: double.infinity,
+    );
+  }
+  Widget _shimmerImage() {
+    return ShimmerLoader(
+      child: ColoredBox(
+        color: Colors.white,
+        child: SizedBox(
+          height: double.infinity,
+          width: double.infinity,
+        ),
+      ),
     );
   }
 
@@ -158,8 +197,65 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
       ),
     );
   }
+  Widget shimmerTextView() {
+    return Container(
+      padding: const EdgeInsets.fromLTRB(24, 40, 24, 40),
+      width: double.infinity,
+      clipBehavior: Clip.antiAlias,
+      constraints: BoxConstraints(minHeight: 280),
+      decoration:  BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
+        ),
+        border: Border.all(color:Colors.white,width: 2 ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black45, // subtle shadow color
+            offset: Offset(0, -4), // negative Y offset = shadow on top
+            blurRadius: 8, // softness of shadow
+            spreadRadius: 1, // optional: how much the shadow spreads
+          ),
+        ],
+      ),
+      child: ShimmerLoader(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(height: 28, width: 300),
+            ),
+            const SizedBox(height: 4),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(height: 28, width: 300),
+            ),
 
-  Widget _button(String buttonText) {
+            const SizedBox(height: 30),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(height: 12, width: 300),
+            ),
+            const SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(height: 12, width: 300),
+            ),
+            const SizedBox(height: 2),
+            ColoredBox(
+              color: Colors.white,
+              child: SizedBox(height: 12, width: 300),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _button(String buttonText,int listLength) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: CustomThemeButton(
@@ -168,17 +264,19 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
         height: 56,
         isExpanded: true,
         onTap: () async {
-          // Check if current page is the last one
-          if (_currentPage.round() == items.length - 1) {
-            // 👉 Navigate to login screen
-           AppNavigator.loadSignInScreen();
-           SharedPreferenceRepository.setHasSeenOnboarding(true);
-          } else {
-            // 👉 Go to next page
-            await _controller.nextPage(
-              duration: const Duration(milliseconds: 900),
-              curve: Curves.fastOutSlowIn,
-            );
+          if(listLength>0){
+            // Check if current page is the last one
+            if (_currentPage.round() == listLength - 1) {
+              // 👉 Navigate to login screen
+              AppNavigator.loadSignInScreen();
+              SharedPreferenceRepository.setHasSeenOnboarding(true);
+            } else {
+              // 👉 Go to next page
+              await _controller.nextPage(
+                duration: const Duration(milliseconds: 900),
+                curve: Curves.fastOutSlowIn,
+              );
+            }
           }
         },
         child: Text(
