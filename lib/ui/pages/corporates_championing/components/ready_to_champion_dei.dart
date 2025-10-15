@@ -11,8 +11,8 @@ import '../../../../constants/enums.dart';
 import '../../../../models/explore_career/career_explorer_bottom_model.dart';
 import '../../../../utils/fa_icon.dart';
 
-class StartYourJourney extends ConsumerWidget {
-  const StartYourJourney({super.key});
+class ReadyToJoinChampion extends ConsumerWidget {
+  const ReadyToJoinChampion({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,8 +40,8 @@ class StartYourJourney extends ConsumerWidget {
 
     // final item = data.first;
     final item = CareerExplorerBottomModel(
-      title:"Start Your Inclusive Career Journey Today",
-        subtitle:"Join Career Explorers and unlock opportunities tailored for you.",
+      title:"Ready to Champion DEI?",
+        subtitle:"Join us and unlock opportunities tailored for you.",
       buttonIcon:"FaStar",
      buttonText:"Get Started",
     );

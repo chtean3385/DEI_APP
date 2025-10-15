@@ -64,6 +64,8 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaChessQueen': FontAwesomeIcons.chessQueen,
   'FaBullhorn': FontAwesomeIcons.bullhorn,
   'FaChartPie': FontAwesomeIcons.chartPie,
+  'FaUserMinus': FontAwesomeIcons.userMinus,
+  'FaHandHoldingHeart': FontAwesomeIcons.handHoldingHeart,
 };
 
 IconData getFontAwesomeIcon(String? iconName) {

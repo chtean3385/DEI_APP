@@ -1,7 +1,8 @@
-import 'package:dei_champions/ui/pages/career_explorers/components/start_your_journey.dart';
+import 'package:dei_champions/ui/pages/corporates_championing/components/ready_to_champion_dei.dart';
 import 'package:flutter/material.dart';
 
 import 'corporate_championing_title.dart';
+import 'dei_corporates_partner.dart';
 import 'dei_for_corporates.dart';
 
 
@@ -17,7 +18,8 @@ class CorporatesChampioningView extends StatelessWidget {
         children: [
           CorporatesChampioningTitle(),
           DeiForCorporates(),
-          StartYourJourney(),
+          ReadyToJoinChampion(),
+          DeiCorporatesPartner()
 
 
 
