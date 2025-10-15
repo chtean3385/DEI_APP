@@ -4,6 +4,7 @@ import '../../../../constants/app_styles.dart';
 import '../../../../providers/providers.dart';
 import '../../auth/signup/widgets/key_skills/selected_key_skills.dart';
 import '../../auth/signup/widgets/key_skills/skill_form.dart';
+import 'edit_profile_action_button.dart';
 
 class EditSkillInformation extends ConsumerWidget {
   final bool isFromCommonEdit;
@@ -57,6 +58,18 @@ class EditSkillInformation extends ConsumerWidget {
               selectedSkill: state.profileData?.skillsInfo ?? [],
               onRemove: controller.removeSkill,
             ),
+
+          if(isFromCommonEdit!= true)  Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: EditProfileActionButtons(
+                onCancel: () {
+                  Navigator.pop(context);
+                },
+                onSave: () {
+                  // Implement your save logic here
+                },
+              ),
+            )
           ],
         ),
       ),

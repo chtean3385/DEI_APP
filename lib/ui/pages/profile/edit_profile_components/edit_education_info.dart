@@ -8,6 +8,7 @@ import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
 import '../../auth/signup/widgets/education/year_selector.dart';
+import 'edit_profile_action_button.dart';
 
 class EditEducationInformation extends ConsumerWidget {
   final bool isFromCommonEdit;
@@ -72,6 +73,17 @@ class EditEducationInformation extends ConsumerWidget {
             onTap: () => controller.addEducationEntry(),
           ),
           gapH16(),
+          if(isFromCommonEdit!= true)  Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: EditProfileActionButtons(
+              onCancel: () {
+                Navigator.pop(context);
+              },
+              onSave: () {
+                // Implement your save logic here
+              },
+            ),
+          )
         ],
       ),
     );

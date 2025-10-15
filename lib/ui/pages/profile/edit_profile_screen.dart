@@ -10,6 +10,7 @@ import 'edit_profile_components/edit_basic_information.dart';
 import 'edit_profile_components/edit_education_info.dart';
 import 'edit_profile_components/edit_job_preference_info.dart';
 import 'edit_profile_components/edit_location_information.dart';
+import 'edit_profile_components/edit_profile_action_button.dart';
 import 'edit_profile_components/edit_resume.dart';
 import 'edit_profile_components/edit_skill_info.dart';
 import 'edit_profile_components/edit_work_experience_info.dart';
@@ -48,69 +49,20 @@ class EditProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            _bottomButtons(), // 👈 stays visible always
+            EditProfileActionButtons(
+              onCancel: () {
+                Navigator.pop(context);
+              },
+              onSave: () {
+                // Implement your save logic here
+              },
+            )
+            // 👈 stays visible always
           ],
         ),
       ),
     );
 
   }
-  Widget _bottomButtons(){
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(
-              child:   CustomThemeButton(
-                onTap: ()=>Navigator.pop(navigatorKey.currentContext!),
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.close_rounded,
-                      size: 20,
-                      color: AppColors.primaryColor,
-                    ),
-                    gapW6(),
-                    Text('Cancel',style: navigatorKey.currentContext!.textTheme.titleMedium?.copyWith(color: AppColors.primaryColor)),
-                  ],
-                ),
-                radius: 12,
-                color: Colors.white,
-                borderColor:AppColors.primaryColor,
-                // padding: EdgeInsets.symmetric(vertical: 4,horizontal: 8),
-              ),
-            ),
-            gapW16(),
-            Expanded(
-              child:   CustomThemeButton(
-                onTap: (){},
-                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
 
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.check_circle_outline_sharp,
-                      size: 20,
-                      color: Colors.white,
-                    ),
-                    gapW6(),
-                    Text('Save',style: navigatorKey.currentContext!.textTheme.titleMedium?.copyWith(color: Colors.white)),
-                  ],
-                ),
-                radius: 12,
-                color: AppColors.primaryColor,
-                borderColor:AppColors.primaryColor,
-                // padding: EdgeInsets.symmetric(vertical: 4,horizontal: 8),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

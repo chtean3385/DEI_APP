@@ -8,6 +8,7 @@ import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_date_picker.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
+import 'edit_profile_action_button.dart';
 
 class EditWorkExpInformation extends ConsumerWidget {
   final bool isFromCommonEdit;
@@ -73,6 +74,17 @@ class EditWorkExpInformation extends ConsumerWidget {
             onTap: () => controller.addWorkExpEntry(),
           ),
           gapH16(),
+          if(isFromCommonEdit!= true)  Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: EditProfileActionButtons(
+              onCancel: () {
+                Navigator.pop(context);
+              },
+              onSave: () {
+                // Implement your save logic here
+              },
+            ),
+          )
         ],
       ),
     );
