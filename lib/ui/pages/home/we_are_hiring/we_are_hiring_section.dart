@@ -12,7 +12,6 @@ import '../../../../constants/app_colors.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/state_models/home/we_are_hiring_state.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
-import '../../../../widgets/others/view_all_button.dart';
 
 class WeAreHiringBanner extends ConsumerWidget {
   const WeAreHiringBanner({Key? key}) : super(key: key);
