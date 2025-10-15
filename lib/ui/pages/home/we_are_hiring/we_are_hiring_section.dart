@@ -49,33 +49,36 @@ class WeAreHiringBanner extends ConsumerWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(child: SvgPicture.asset(AppDrawables.hiring1, width: 50, height: 50)),
-              Column(
-                children: [
-                  Text(
-                    state.data?.first.text1 ?? "",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    softWrap: true,
-                    textAlign: TextAlign.center,
-                    style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
-                  ),
-                  gapH8(),
-                  CustomThemeButton(
-                    child: Text(
-                      'Apply Now',
-                      style: navigatorKey.currentContext!.textTheme.displaySmall
-                          ?.copyWith(color: Colors.white),
+              SvgPicture.asset(AppDrawables.hiring1, width: 50, height: 50),
+              Expanded(
+                child: Column(
+                  children: [
+                    Text(
+                      state.data?.first.text1 ?? "",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
                     ),
-                    color: AppColors.primaryColor,
-                    radius: 30,
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                    onTap: () {},
-                  ),
-                ],
+                    gapH8(),
+                    CustomThemeButton(
+                      child: Text(
+                        'Apply Now',
+                        style: navigatorKey.currentContext!.textTheme.displaySmall
+                            ?.copyWith(color: Colors.white),
+                      ),
+                      color: AppColors.primaryColor,
+                      radius: 30,
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
               ),
-              Expanded(child: SvgPicture.asset(AppDrawables.hiring2, width: 50, height: 50)),
+              SvgPicture.asset(AppDrawables.hiring2, width: 50, height: 50),
               // Text(
               //   state.data?.first.text1 ?? "",
               //   maxLines: 1,
@@ -128,53 +131,39 @@ class WeAreHiringBanner extends ConsumerWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(16),
-              topRight: Radius.circular(6),
-              bottomLeft: Radius.circular(6),
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
               bottomRight: Radius.circular(16),
             ),
             border: Border.all(color: Colors.white, width: 1),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12),
-            child: Column(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                ColoredBox(
-                  color: Colors.white,
-                  child: SizedBox(height: 22, width: 150),
-                ),
-                const SizedBox(height: 8),
-                ColoredBox(
-                  color: Colors.white,
-                  child: SizedBox(height: 10, width: 200),
-                ),
-                const SizedBox(height: 2),
-                ColoredBox(
-                  color: Colors.white,
-                  child: SizedBox(height: 10, width: 150),
-                ),
-
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Expanded(child: SvgPicture.asset(AppDrawables.hiring1, width: 50, height: 50)),
+                Column(
                   children: [
                     ColoredBox(
                       color: Colors.white,
-                      child: SizedBox(height: 50, width: 50),
+                      child: SizedBox(height: 22, width: 150),
                     ),
-
-                    ViewAllButton(
-                      text: 'Apply Now',
-                      isSmall: false,
-                      fillColor: true,
+                    gapH8(),
+                    CustomThemeButton(
+                      child: Text(
+                        'Apply Now',
+                        style: navigatorKey.currentContext!.textTheme.displaySmall
+                            ?.copyWith(color: Colors.white),
+                      ),
+                      color: AppColors.primaryColor,
                       radius: 30,
-                    ),
-                    ColoredBox(
-                      color: Colors.white,
-                      child: SizedBox(height: 50, width: 50),
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                      onTap: () {},
                     ),
                   ],
                 ),
+                Expanded(child: SvgPicture.asset(AppDrawables.hiring2, width: 50, height: 50)),
               ],
             ),
           ),
