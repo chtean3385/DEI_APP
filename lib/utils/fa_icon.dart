@@ -51,6 +51,14 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaBuilding': FontAwesomeIcons.building,
   'FaGolfBall': FontAwesomeIcons.golfBall,
   'FaCheckCircle': FontAwesomeIcons.checkCircle,
+  //  ExploreServiceProgramModel JSON
+  'FaUserPlus': FontAwesomeIcons.userPlus,
+  'FaBriefcase': FontAwesomeIcons.briefcase,
+  'FaFunnelDollar': FontAwesomeIcons.funnelDollar,
+  'FaAccessibleIcon': FontAwesomeIcons.accessibleIcon,
+  'FaStar': FontAwesomeIcons.star,
+  'FaBell': FontAwesomeIcons.bell,
+  'FaHandsHelping': FontAwesomeIcons.handsHelping,
 };
 
 IconData getFontAwesomeIcon(String? iconName) {

@@ -14,6 +14,7 @@ import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
 import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
+import '../ui/pages/career_explorers/career_explorers_screen.dart';
 import '../ui/pages/company/company_profile_screen.dart';
 import '../ui/pages/genz/genz_screen.dart';
 import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
@@ -234,6 +235,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => LgbtqScreen()),
+    );
+  }
+  static loadCareerExplorersScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => CareerExplorersScreen()),
     );
   }
   static loadEditProfileScreen() {
