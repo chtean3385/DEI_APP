@@ -4,8 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../widgets/appbar/home_app_bar.dart';
-import '../../home/home_screen.dart';
 import '../employer_home/employer_home_screen.dart';
+import '../manage_jobs/manage_jobs_screen.dart';
 import 'components/drawer/employer_custom_drawer.dart';
 
 
@@ -65,7 +65,7 @@ class _EmployerBottomBarState extends State<EmployerBottomBar> {
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,title: _currentIndex == 2 ?"NVites" :  "",  onPressed: _handleMenuButtonPressed, ),
+        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,title: _currentIndex == 2 ?"Your Job Listings" :  "",  onPressed: _handleMenuButtonPressed, ),
         // drawer: CustomDrawer(),
         body: _buildScreen(_currentIndex),
         bottomNavigationBar: SafeArea(
@@ -149,7 +149,7 @@ class _EmployerBottomBarState extends State<EmployerBottomBar> {
       case 1:
         return  SizedBox();
       case 2:
-        return const SizedBox();
+        return const ManageJobsScreen();
       case 3:
         return const SizedBox();
       case 4:

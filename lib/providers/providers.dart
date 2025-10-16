@@ -52,6 +52,7 @@ import '../models/state_models/veteran/veteran_future_state.dart';
 import '../models/state_models/veteran/veteran_organizational_benefit_state.dart';
 import '../models/state_models/veteran/veteran_quote_state.dart';
 import '../models/state_models/veteran/veteran_title_state.dart';
+import 'controllers/Employer/manage_jobs/employer_manage_jobs_controller.dart';
 import 'controllers/about_us/about_us_controller.dart';
 import 'controllers/about_us/about_vision_controller.dart';
 import 'controllers/about_us/core_value_controller.dart';
@@ -329,4 +330,11 @@ final appliedJobsProvider =StateNotifierProvider.autoDispose<AppliedJobsControll
 /// saved jobs
 final savedJobsProvider =StateNotifierProvider.autoDispose<SavedJobsController, SavedJobState>((ref) {
   return SavedJobsController();
+});
+
+//////*****///////////******* EMPLOYER //////*****///////////*******
+
+/// manage jobs
+final manageJobsProvider =StateNotifierProvider.autoDispose<EmployerManageJobsController, AppliedJobState>((ref) {
+  return EmployerManageJobsController();
 });
