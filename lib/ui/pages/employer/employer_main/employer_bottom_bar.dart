@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../widgets/appbar/home_app_bar.dart';
 import '../../home/home_screen.dart';
+import '../employer_home/employer_home_screen.dart';
 import 'components/drawer/employer_custom_drawer.dart';
 
 
@@ -144,7 +145,7 @@ class _EmployerBottomBarState extends State<EmployerBottomBar> {
   Widget _buildScreen(int index) {
     switch (index) {
       case 0:
-        return HomeScreen();
+        return EmployerHomeScreen();
       case 1:
         return  SizedBox();
       case 2:
