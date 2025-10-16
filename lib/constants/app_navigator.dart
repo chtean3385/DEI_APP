@@ -17,6 +17,7 @@ import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 import '../ui/pages/career_explorers/career_explorers_screen.dart';
 import '../ui/pages/company/company_profile_screen.dart';
+import '../ui/pages/employer/employer_main/employer_bottom_bar.dart';
 import '../ui/pages/genz/genz_screen.dart';
 import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
 import '../ui/pages/invites/job_invite_details_screen.dart';
@@ -38,23 +39,39 @@ class AppNavigator {
   }) async {
     await SharedPreferenceRepository.setToken(authModel!.token);
     await SharedPreferenceRepository.setUserId(authModel.userId);
-    Navigator.pushAndRemoveUntil(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => BottomBar()),
-      (route) => false,
-    );
+    await SharedPreferenceRepository.setRoleId(authModel.roleId);
+    if (authModel.roleId == 2) {
+      Navigator.pushAndRemoveUntil(
+        navigatorKey.currentContext!,
+        MaterialPageRoute(builder: (_) => EmployerBottomBar()),
+        (route) => false,
+      );
+    } else {
+      Navigator.pushAndRemoveUntil(
+        navigatorKey.currentContext!,
+        MaterialPageRoute(builder: (_) => BottomBar()),
+        (route) => false,
+      );
+    }
   }
 
-  static void toBottomBar({int initialPage = 0}) {
-    Navigator.pushAndRemoveUntil(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(
-        builder: (_) => BottomBar(
-          initialPage: initialPage,
+  static Future<void> toBottomBar({int initialPage = 0}) async {
+    final roleId = await SharedPreferenceRepository.getRoleId();
+    if (roleId == 2) {
+      Navigator.pushAndRemoveUntil(
+        navigatorKey.currentContext!,
+        MaterialPageRoute(
+          builder: (_) => EmployerBottomBar(initialPage: initialPage),
         ),
-      ),
-      (route) => false,
-    );
+        (route) => false,
+      );
+    } else {
+      Navigator.pushAndRemoveUntil(
+        navigatorKey.currentContext!,
+        MaterialPageRoute(builder: (_) => BottomBar(initialPage: initialPage)),
+        (route) => false,
+      );
+    }
   }
 
   static loadSignInScreen({bool isFromLogout = false}) {
@@ -196,72 +213,84 @@ class AppNavigator {
       MaterialPageRoute(builder: (_) => CompanyProfileScreen()),
     );
   }
+
   static loadAboutUsScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => AboutUsScreen()),
     );
   }
+
   static loadEmpowerWomenScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => EmpowerWomenScreen()),
     );
   }
+
   static loadMenAsAliasScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => MenAliasScreen()),
     );
   }
+
   static loadNotDefinedByDisabilityScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => NotDefinedByDisabilityScreen()),
     );
   }
+
   static loadGenZScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => GenZScreen()),
     );
   }
+
   static loadVeteranScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => VeteranScreen()),
     );
   }
+
   static loadLgbtqScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => LgbtqScreen()),
     );
   }
+
   static loadCareerExplorersScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => CareerExplorersScreen()),
     );
   }
+
   static loadCorporatesChampioningScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => CorporatesChampioningScreen()),
     );
   }
+
   static loadEditProfileScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => EditProfileScreen()),
     );
   }
+
   static loadSavedJobsScreen() {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => SavedJobsScreen()),
     );
   }
+
   static Map<String, VoidCallback> routeMap = {
     "saved": AppNavigator.loadSavedJobsScreen,
     // "applied": AppNavigator.loadAppliedJobsScreen,
@@ -273,11 +302,12 @@ class AppNavigator {
     // "messages": AppNavigator.loadMessagesScreen,
     // "articles": AppNavigator.loadArticlesScreen,
   };
+
   static loadOnBoarding() {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => OnBoardScreen()),
-          (route) => false,
+      (route) => false,
     );
   }
 }

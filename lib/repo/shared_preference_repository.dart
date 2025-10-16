@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SharedPreferenceRepository {
   static const String KEY_TOKEN = "KEY_TOKEN";
   static const String KEY_USER_ID = "KEY_USER_ID";
+  static const String KEY_ROLE_ID = "KEY_ROLE_ID";
   static const String KEY_EMAIL = "KEY_EMAIL";
   static const String KEY_PASSWORD = "KEY_PASSWORD";
   static const String KEY_REMEMBER_ME = "KEY_REMEMBER_ME";
@@ -35,6 +36,11 @@ class SharedPreferenceRepository {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(KEY_USER_ID, userId);
   }
+  static Future<void> setRoleId(int roleId) async {
+    debugPrint("setRoleId -- $roleId");
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setInt(KEY_ROLE_ID, roleId);
+  }
 
   static Future<String> getToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
@@ -47,6 +53,12 @@ class SharedPreferenceRepository {
     String userId = preferences.getString(KEY_USER_ID) ?? "";
     debugPrint("getUserId -- $userId");
     return userId;
+  }
+  static Future<int> getRoleId() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    int roleId = preferences.getInt(KEY_ROLE_ID) ?? 0;
+    debugPrint("getRoleId -- $roleId");
+    return roleId;
   }
   static Future<bool> getRememberMe() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
