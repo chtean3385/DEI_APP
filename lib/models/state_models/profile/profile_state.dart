@@ -17,6 +17,7 @@ class ProfileState {
   final XFile? profileFile;
   final XFile? coverFile;
   final PlatformFile? resumeFile;
+  final List<XFile>? galleryLocalImages;
   final bool isUploading;
 
 
@@ -27,6 +28,7 @@ class ProfileState {
     this.profileFile,
     this.coverFile,
     this.resumeFile,
+    this.galleryLocalImages,
     this.isUploading = false,
     this.pageState = PageState.initial,
     this.updateState = PageState.initial,
@@ -45,6 +47,7 @@ class ProfileState {
     PageState? pageState,
     PageState? updateState,
     bool? isUploading,
+    List<XFile>? galleryLocalImages
   }) {
     return ProfileState(
       profileData: profileData ?? this.profileData,
@@ -56,6 +59,7 @@ class ProfileState {
       pageState: pageState ?? this.pageState,
       updateState: updateState ?? this.updateState,
       isUploading: isUploading ?? this.isUploading,
+      galleryLocalImages: galleryLocalImages ?? this.galleryLocalImages,
     );
   }
 }

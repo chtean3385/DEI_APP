@@ -84,7 +84,8 @@ Future<XFile?> cropImage(
             context: navigatorKey.currentContext!,)
       ],
     );
-    return XFile(croppedFile!.path);
+    if (croppedFile == null) return null;
+    return XFile(croppedFile.path);
   } catch (e) {
     debugPrint('crop error $e ');
     return null;
