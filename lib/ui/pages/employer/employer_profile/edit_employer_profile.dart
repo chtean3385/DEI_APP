@@ -2,15 +2,13 @@ import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:flutter/material.dart';
 
-import '../../profile/edit_profile_components/edit_cover_image.dart';
 import '../../profile/edit_profile_components/edit_profile_action_button.dart';
+import 'edit_employer_profile_components/edit_cover_image.dart';
 import 'edit_employer_profile_components/edit_employer_about_company_info.dart';
 import 'edit_employer_profile_components/edit_employer_basic_information.dart';
 import 'edit_employer_profile_components/edit_employer_contact_details.dart';
 import 'edit_employer_profile_components/edit_employer_people_culture.dart';
 import 'edit_employer_profile_components/edit_employer_recruitment_info.dart';
-
-
 
 class EditEmployerProfileScreen extends StatelessWidget {
   const EditEmployerProfileScreen({super.key});
@@ -18,7 +16,10 @@ class EditEmployerProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarCommon(title: "Edit Profile Details", titleStyleSmall: true),
+      appBar: appBarCommon(
+        title: "Edit Profile Details",
+        titleStyleSmall: true,
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -29,34 +30,27 @@ class EditEmployerProfileScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     // Basic Information
-                    // Contact Information
-                    // Company Image Gallery
-                    // About Us
-                    // Recruitments
-                    // People
-                    // Banner Image
                     EditEmployerBasicInformation(),
                     gapH16(),
+                    // Contact Information
                     EditEmployerContactInformation(),
                     gapH16(),
+                    // Company Image Gallery
+
+                    // About Us
                     EditEmployerAboutCompany(),
                     gapH16(),
+                    // Recruitments
                     EditEmployerRecruitmentInfo(),
                     gapH16(),
+                    // People
                     EditEmployerPeopleAndCulture(),
                     gapH16(),
+                    // Banner Image
                     EditEmployerCoverImage(),
-                    // EditLocationInformation(),
-                    // gapH16(),
-                    // EditSkillInformation(),
-                    // gapH16(),
-                    // EditEducationInformation(),
-                    // gapH16(),
-                    // EditWorkExpInformation(),
-                    // gapH16(),
-                    // EditJobPreferenceInfo(),
-                    // gapH16(),
-                    // EditResumeInformation(),
+                    gapH16(),
+
+
                   ],
                 ),
               ),
@@ -68,12 +62,10 @@ class EditEmployerProfileScreen extends StatelessWidget {
               onSave: () {
                 // Implement your save logic here
               },
-            )
+            ),
           ],
         ),
       ),
     );
-
   }
-
 }

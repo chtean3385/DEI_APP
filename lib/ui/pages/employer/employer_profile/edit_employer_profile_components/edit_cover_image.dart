@@ -2,7 +2,8 @@ import 'package:dei_champions/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../widgets/pickers/profile_pic_edit_widget.dart';
+import '../../../../../widgets/pickers/profile_pic_edit_widget.dart';
+
 
 class EditEmployerCoverImage extends ConsumerWidget {
   const EditEmployerCoverImage({super.key});
