@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../models/profile/edit_profile/work_experience_model.dart';
 import '../../../../providers/providers.dart';
+import '../../../../widgets/others/open_bottom_sheet.dart';
 import '../edit_profile_components/edit_work_experience_info.dart';
 
 class ExperienceDetails extends ConsumerWidget {
@@ -36,7 +37,11 @@ class ExperienceDetails extends ConsumerWidget {
               ),
               GestureDetector(
                   behavior: HitTestBehavior.translucent,
-                  onTap:() => openEditExperience(context),
+                  onTap:() => openEditBottomSheet(
+                    context:context,
+                    isDraggable: true,
+                    content: const EditWorkExpInformation(isFromCommonEdit: false),
+                  ),
                   child: Icon(Icons.edit_outlined,color: AppColors.primaryColor,size: 15))
             ],
           ),
@@ -112,30 +117,4 @@ String _formatDate(DateTime? date) {
   if (date == null) return '';
   return DateFormat('MMM - yyyy').format(date); // e.g., Jul - 2025
 }
-Future<void> openEditExperience(BuildContext context) {
-  return showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    builder: (ctx) {
-      return DraggableScrollableSheet(
-        initialChildSize: 0.85,
-        minChildSize: 0.5,
-        maxChildSize: 0.95,
-        expand: false,
-        builder: (context, scrollController) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-            ),
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: EditWorkExpInformation(isFromCommonEdit: false),
-            ),
-          );
-        },
-      );
-    },
-  );
-}
+

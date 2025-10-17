@@ -6,7 +6,12 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
+import '../../../../../widgets/others/open_bottom_sheet.dart';
 import '../../../job/components/company_gallery_slider.dart';
+import '../edit_employer_profile_components/edit_employer_about_company_info.dart';
+import '../edit_employer_profile_components/edit_employer_basic_information.dart';
+import '../edit_employer_profile_components/edit_employer_people_culture.dart';
+import '../edit_employer_profile_components/edit_employer_recruitment_info.dart';
 import 'current_job_openings.dart';
 
 class EmployerDetailsView extends StatelessWidget {
@@ -28,11 +33,6 @@ class EmployerDetailsView extends StatelessWidget {
     required this.companyDetailsKey,
     required this.aboutCompanyKey,
     required this.currentJobsKey,
-    // required this.awardsKey,
-    // required this.verifiedBenefitsKey,
-    // required this.reviewsKey,
-    // required this.benefitsKey,
-    // required this.salaryInsightsKey,
     required this.companyGalleryKey,
   });
 
@@ -47,27 +47,6 @@ class EmployerDetailsView extends StatelessWidget {
           _buildCompanyDetailsTab(context),
           _buildAboutCompanyTab(),
           _buildCompanyGallery(),
-
-          //  AwardsTimeline(key: awardsKey,),
-          //  SizedBox(height: 18),
-          //  VerifiedBenefits(key:verifiedBenefitsKey ,),
-          //  SizedBox(height: 18),
-          // ReviewsCarousel(key: reviewsKey,),
-          // SizedBox(height: 18),
-          //   BenefitsGrid(key: benefitsKey,),
-          //  SizedBox(height: 18),
-          // SalaryInsightsCard(key: salaryInsightsKey,),
-          //  SizedBox(height: 18),
-          // if (jobModel.hasAwards) AwardsTimeline(),
-          // if (jobModel.hasAwards) SizedBox(height: 18),
-          // if (jobModel.hasVerifiedBenefits) VerifiedBenefits(),
-          // if (jobModel.hasVerifiedBenefits) SizedBox(height: 18),
-          // if (jobModel.hasReviews) ReviewsCarousel(),
-          // if (jobModel.hasReviews) SizedBox(height: 18),
-          // if (jobModel.hasBenefits) BenefitsGrid(),
-          // if (jobModel.hasBenefits) SizedBox(height: 18),
-          // if (jobModel.hasSalaryInsights) SalaryInsightsCard(),
-          // if (jobModel.hasSalaryInsights) SizedBox(height: 18),
           SizedBox(key: currentJobsKey, height: 16),
 
           Text('Current Job Openings', style: context.textTheme.titleMedium),
@@ -128,13 +107,38 @@ class EmployerDetailsView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'About Us',
-                style: theme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'About Us',
+                    style: theme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () => openEditBottomSheet(
+                      context: navigatorKey.currentContext!,
+                      isDraggable: false,
+                      initialChildSize: 0.5,
+                      content: const EditEmployerAboutCompany(
+                        isFromCommonEdit: false,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.edit_outlined,
+                        color: AppColors.primaryColor,
+                        size: 15,
+                      ),
+                    ),
+                  ),
+                ],
               ),
+
               gapH8(),
               // About Text
               Text(
@@ -167,13 +171,36 @@ class EmployerDetailsView extends StatelessWidget {
               gapH16(),
 
               // Our People Section
-              Text(
-                'Our People',
-                style: theme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Our People',
+                    style: theme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () => openEditBottomSheet(
+                      context: navigatorKey.currentContext!,
+                      content: const EditEmployerPeopleAndCulture(
+                        isFromCommonEdit: false,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.edit_outlined,
+                        color: AppColors.primaryColor,
+                        size: 15,
+                      ),
+                    ),
+                  ),
+                ],
               ),
+
               gapH8(),
               _buildBulletPoint(
                 'Ut odit delectus animi — our team thrives on collaboration and creativity.',
@@ -188,12 +215,34 @@ class EmployerDetailsView extends StatelessWidget {
               gapH16(),
 
               // Recruitment Approach Section
-              Text(
-                'Recruitment Approach',
-                style: theme.bodyMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Recruitment Approach',
+                    style: theme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () => openEditBottomSheet(
+                      context: navigatorKey.currentContext!,
+                      content: const EditEmployerRecruitmentInfo(
+                        isFromCommonEdit: false,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.edit_outlined,
+                        color: AppColors.primaryColor,
+                        size: 15,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               gapH8(),
               _buildBulletPoint(
@@ -254,9 +303,34 @@ class EmployerDetailsView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Company Overview',
-            style: theme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Company Overview',
+                style: context.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () => openEditBottomSheet(
+                  context: context,
+                  content: const EditEmployerBasicInformation(
+                    isFromCommonEdit: false,
+                  ),
+                  isDraggable: true,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Icon(
+                    Icons.edit_outlined,
+                    color: AppColors.primaryColor,
+                    size: 15,
+                  ),
+                ),
+              ),
+            ],
           ),
 
           gapH16(),

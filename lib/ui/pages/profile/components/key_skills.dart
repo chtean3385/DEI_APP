@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers/providers.dart';
+import '../../../../widgets/others/open_bottom_sheet.dart';
 import '../edit_profile_components/edit_skill_info.dart';
 class MyKeySkill extends  ConsumerWidget {
   const MyKeySkill({super.key});
@@ -34,7 +35,11 @@ class MyKeySkill extends  ConsumerWidget {
               ),
               GestureDetector(
                   behavior: HitTestBehavior.translucent,
-                  onTap:() => openEditSkill(context),
+                  onTap:() => openEditBottomSheet(
+                    context:context,
+                    isDraggable: false,
+                    content: const EditSkillInformation(isFromCommonEdit: false),
+                  ),
                   child: Icon(Icons.edit_outlined,color: AppColors.primaryColor,size: 15))
             ],
           ),
@@ -89,3 +94,4 @@ Future<void> openEditSkill(BuildContext context) {
     },
   );
 }
+

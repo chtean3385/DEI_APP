@@ -1,15 +1,10 @@
-import 'package:dei_champions/ui/pages/profile/edit_profile_components/edit_work_experience_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
-import '../../../../models/profile/edit_profile/education_info_model.dart';
 import '../../../../models/profile/edit_profile/profile_model.dart';
-import '../../../../models/profile/edit_profile/work_experience_model.dart';
 import '../../../../models/state_models/profile/profile_state.dart';
-import '../../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
 import '../../../../widgets/pickers/image_picker.dart';
 
 
@@ -43,12 +38,6 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
   final recruitmentsController = TextEditingController();
   /// about company
   final aboutCompanyController = TextEditingController();
-  /// skill info
-  final skillController = TextEditingController();
-  /// job preference info
-  final jobTypeController = TextEditingController();
-  final salaryExpectedController = TextEditingController();
-  final preferredLocationController = TextEditingController();
 
 
   @override
@@ -73,20 +62,7 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
     recruitmentsController.dispose();
     aboutCompanyController.dispose();
 
-    jobTypeController.dispose();
-    salaryExpectedController.dispose();
-    preferredLocationController.dispose();
 
-    if (state.educationEntries != null) {
-      for (var entry in state.educationEntries!) {
-        entry.dispose();
-      }
-    }
-    if (state.workExpEntries != null) {
-      for (var entry in state.workExpEntries!) {
-        entry.dispose();
-      }
-    }
 
     super.dispose();
   }
@@ -118,101 +94,146 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
 
 
   void fetchInitialProfileData() {
-    // Sample initial skill list
-    final initialSkills = [
-      "php",
-      "html",
-      "Mobile",
-      "Web",
-      "API",
-      "Firebase",
-      "Design Systems",
-      "Typography",
-      "Color Theory",
-      "Accessibility (a11y)",
-    ];
-    final List<WorkExperienceInfoModel> workExperiences = [
-      WorkExperienceInfoModel(
-        companyName: 'Google',
-        position: 'Software Engineer',
-        startDate: DateTime(2020, 5, 1),
-        endDate: DateTime(2022, 8, 31),
-        isCurrentlyWorking: false,
-        description: 'Worked on scalable backend services and cloud infrastructure.',
-      ),
-      WorkExperienceInfoModel(
-        companyName: 'Amazon',
-        position: 'Backend Developer',
-        startDate: DateTime(2018, 2, 15),
-        endDate: DateTime(2020, 4, 30),
-        isCurrentlyWorking: false,
-        description: 'Maintained microservices and improved API performance.',
-      ),
-      WorkExperienceInfoModel(
-        companyName: 'Meta',
-        position: 'Senior Software Engineer',
-        startDate: DateTime(2022, 9, 1),
-        endDate: null,
-        isCurrentlyWorking: true,
-        description: 'Leading a team building AI-powered social media tools.',
-      ),
-    ];
-    // Generate corresponding controllers list
-    final workExpControllers = workExperiences.map((exp) {
-      final controller = WorkExperienceEntryControllers();
-      controller.companyController.text = exp.companyName ?? '';
-      controller.positionController.text = exp.position ?? '';
-      controller.descriptionController.text = exp.description ?? '';
 
-      // Format the date to "MMM - yyyy" if needed
-      if (exp.startDate != null) {
-        controller.startDateController.text =
-            DateFormat('MMM - yyyy').format(exp.startDate!);
-      }
+    /// basic info
 
-      if (exp.endDate != null) {
-        controller.endDateController.text =
-            DateFormat('MMM - yyyy').format(exp.endDate!);
-      } else if (exp.isCurrentlyWorking == true) {
-        controller.endDateController.text = 'Present';
-      }
+    nameController.text = "Vedhasekaran and Akalya Inc 123";
+    contactPersonController.text = "Riyaz Dhayalan";
+    joinedDateController.text = "01/02/2000";
+    companySizeController.text = "51-200 employees";
+    websiteController.text = "https://www.rozecifexacavu.ws";
+    tagController.text = "Corrupti est qui c";
 
-      return controller;
-    }).toList();
-    final List<EducationInfoModel> educationData = [
-      EducationInfoModel(
-        degree: 'Bachelor of Computer Science',
-        institution: 'Stanford University',
-        graduationYear: 2018,
-      ),
-      EducationInfoModel(
-        degree: 'Master of Information Technology',
-        institution: 'Massachusetts Institute of Technology',
-        graduationYear: 2020,
-      ),
-      EducationInfoModel(
-        degree: 'PhD in Artificial Intelligence',
-        institution: 'Carnegie Mellon University',
-        graduationYear: 2024,
-      ),
-    ];
-    final educationControllers = educationData.map((edu) {
-      final controller = EducationEntryControllers();
-      controller.degreeController.text = edu.degree ?? '';
-      controller.institutionController.text = edu.institution ?? '';
-      controller.graduationYearController.text =
-          edu.graduationYear?.toString() ?? '';
-      return controller;
-    }).toList();
+
+    addressController.text = "Corrupti est qui c";
+    emailController.text = "Corrupti est qui c";
+    mobileController.text = "Corrupti est qui c";
+    cityController.text = "Corrupti est qui c";
+    stateController.text = "Corrupti est qui c";
+    countryController.text = "Corrupti est qui c";
+    pinCodeController.text = "Corrupti est qui c";
+
+
+    final singleTextRecruitments =
+        "We focus on hiring individuals with both technical excellence and cultural alignment.\n"
+        "Our recruitment process ensures transparency, fairness, and opportunity for all.\n"
+        "We invest in long-term employee growth through mentorship and skill development.";
+    final cultureText =
+        "Ut odit delectus animi — our team thrives on collaboration and creativity.\n"
+        "We foster an inclusive work environment that values every individual’s contribution.\n"
+        "Continuous learning and mutual respect form the backbone of our culture.";
+    final aboutUsText =
+        "Vedhasekaran and Akalya Inc 123 is a dynamic organization headquartered in Dhanbad, Jharkhand.\n"
+        "We specialize in providing innovative business solutions across multiple industries,\n"
+        "helping clients optimize operations and achieve sustainable growth.";
+
+    recruitmentsController.text = singleTextRecruitments;
+    peopleCultureController.text = cultureText;
+    aboutCompanyController.text =   aboutUsText;
+
 
 
     state = state.copyWith(
       profileData: (state.profileData ?? ProfileModel()).copyWith(
-        skillsInfo: initialSkills,workExperience: workExperiences,education: educationData
+
       ),
-      workExpEntries: workExpControllers,
       // educationEntries: educationControllers,
     );
+    // // Sample initial skill list
+    // final initialSkills = [
+    //   "php",
+    //   "html",
+    //   "Mobile",
+    //   "Web",
+    //   "API",
+    //   "Firebase",
+    //   "Design Systems",
+    //   "Typography",
+    //   "Color Theory",
+    //   "Accessibility (a11y)",
+    // ];
+    // final List<WorkExperienceInfoModel> workExperiences = [
+    //   WorkExperienceInfoModel(
+    //     companyName: 'Google',
+    //     position: 'Software Engineer',
+    //     startDate: DateTime(2020, 5, 1),
+    //     endDate: DateTime(2022, 8, 31),
+    //     isCurrentlyWorking: false,
+    //     description: 'Worked on scalable backend services and cloud infrastructure.',
+    //   ),
+    //   WorkExperienceInfoModel(
+    //     companyName: 'Amazon',
+    //     position: 'Backend Developer',
+    //     startDate: DateTime(2018, 2, 15),
+    //     endDate: DateTime(2020, 4, 30),
+    //     isCurrentlyWorking: false,
+    //     description: 'Maintained microservices and improved API performance.',
+    //   ),
+    //   WorkExperienceInfoModel(
+    //     companyName: 'Meta',
+    //     position: 'Senior Software Engineer',
+    //     startDate: DateTime(2022, 9, 1),
+    //     endDate: null,
+    //     isCurrentlyWorking: true,
+    //     description: 'Leading a team building AI-powered social media tools.',
+    //   ),
+    // ];
+    // // Generate corresponding controllers list
+    // final workExpControllers = workExperiences.map((exp) {
+    //   final controller = WorkExperienceEntryControllers();
+    //   controller.companyController.text = exp.companyName ?? '';
+    //   controller.positionController.text = exp.position ?? '';
+    //   controller.descriptionController.text = exp.description ?? '';
+    //
+    //   // Format the date to "MMM - yyyy" if needed
+    //   if (exp.startDate != null) {
+    //     controller.startDateController.text =
+    //         DateFormat('MMM - yyyy').format(exp.startDate!);
+    //   }
+    //
+    //   if (exp.endDate != null) {
+    //     controller.endDateController.text =
+    //         DateFormat('MMM - yyyy').format(exp.endDate!);
+    //   } else if (exp.isCurrentlyWorking == true) {
+    //     controller.endDateController.text = 'Present';
+    //   }
+    //
+    //   return controller;
+    // }).toList();
+    // final List<EducationInfoModel> educationData = [
+    //   EducationInfoModel(
+    //     degree: 'Bachelor of Computer Science',
+    //     institution: 'Stanford University',
+    //     graduationYear: 2018,
+    //   ),
+    //   EducationInfoModel(
+    //     degree: 'Master of Information Technology',
+    //     institution: 'Massachusetts Institute of Technology',
+    //     graduationYear: 2020,
+    //   ),
+    //   EducationInfoModel(
+    //     degree: 'PhD in Artificial Intelligence',
+    //     institution: 'Carnegie Mellon University',
+    //     graduationYear: 2024,
+    //   ),
+    // ];
+    // final educationControllers = educationData.map((edu) {
+    //   final controller = EducationEntryControllers();
+    //   controller.degreeController.text = edu.degree ?? '';
+    //   controller.institutionController.text = edu.institution ?? '';
+    //   controller.graduationYearController.text =
+    //       edu.graduationYear?.toString() ?? '';
+    //   return controller;
+    // }).toList();
+
+    //
+    // state = state.copyWith(
+    //   profileData: (state.profileData ?? ProfileModel()).copyWith(
+    //     skillsInfo: initialSkills,workExperience: workExperiences,education: educationData
+    //   ),
+    //   workExpEntries: workExpControllers,
+    //   // educationEntries: educationControllers,
+    // );
   }
 
   Future<void> pickProfileImage() async {

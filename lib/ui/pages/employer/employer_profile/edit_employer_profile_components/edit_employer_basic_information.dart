@@ -1,4 +1,3 @@
-import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,9 +11,11 @@ import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../../../../../widgets/pickers/profile_pic_edit_widget.dart';
 import '../../../auth/signup_employer/widgets/company_employee_size.dart';
+import '../../../profile/edit_profile_components/edit_profile_action_button.dart';
 
 class EditEmployerBasicInformation extends ConsumerWidget {
-  const EditEmployerBasicInformation({super.key});
+  final bool isFromCommonEdit;
+  const EditEmployerBasicInformation({super.key,this.isFromCommonEdit = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +29,7 @@ class EditEmployerBasicInformation extends ConsumerWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: ExpansionTile(
-        initiallyExpanded: false, // collapsed by default
+        initiallyExpanded: isFromCommonEdit!= true,
         title: Text(
           "Basic Information",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -40,6 +41,11 @@ class EditEmployerBasicInformation extends ConsumerWidget {
 
         iconColor: Colors.black54,
         collapsedIconColor: Colors.black54,
+        // 👇 Hides the expand/collapse icon
+        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+
+        // 👇 Prevent collapsing by making it non-interactive if not from common edit
+        onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
           _profileImage(ref),
@@ -168,6 +174,17 @@ class EditEmployerBasicInformation extends ConsumerWidget {
               ],
             ),
           ),
+          if(isFromCommonEdit!= true)  Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: EditProfileActionButtons(
+              onCancel: () {
+                Navigator.pop(context);
+              },
+              onSave: () {
+                // Implement your save logic here
+              },
+            ),
+          )
         ],
       ),
     );
@@ -176,9 +193,8 @@ class EditEmployerBasicInformation extends ConsumerWidget {
   Widget _profileImage(WidgetRef ref) {
     final state = ref.watch(editEmployerProfileProvider);
     final controller = ref.read(editEmployerProfileProvider.notifier);
-
     return ImageViewPicker(
-      formKey: GlobalKey(), // Provide a form key if needed
+      formKey: GlobalKey(),
       imageUrl: state.profileData?.profileImageUrl,
       imageFile: state.profileFile,
       height: 100,
@@ -186,7 +202,6 @@ class EditEmployerBasicInformation extends ConsumerWidget {
       radius: 50,
       editAction: () async {
         await controller.pickProfileImage();
-        // No setState needed; widget rebuilds automatically due to `ref.watch`
       },
     );
   }

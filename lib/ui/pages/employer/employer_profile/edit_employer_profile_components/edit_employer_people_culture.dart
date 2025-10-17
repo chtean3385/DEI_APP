@@ -4,10 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/app_validators.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
+import '../../../profile/edit_profile_components/edit_profile_action_button.dart';
 
 
 class EditEmployerPeopleAndCulture extends ConsumerWidget {
-  const EditEmployerPeopleAndCulture({super.key});
+  final bool isFromCommonEdit;
+  const EditEmployerPeopleAndCulture({super.key,this.isFromCommonEdit = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,7 +20,7 @@ class EditEmployerPeopleAndCulture extends ConsumerWidget {
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
-        initiallyExpanded: false,
+        initiallyExpanded: isFromCommonEdit!= true,
         // collapsed by default
         title: Text(
           "People",
@@ -31,6 +33,11 @@ class EditEmployerPeopleAndCulture extends ConsumerWidget {
 
         iconColor: Colors.black54,
         collapsedIconColor: Colors.black54,
+        // 👇 Hides the expand/collapse icon
+        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+
+        // 👇 Prevent collapsing by making it non-interactive if not from common edit
+        onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 12,
@@ -44,7 +51,19 @@ class EditEmployerPeopleAndCulture extends ConsumerWidget {
             validator: AppValidators.fieldEmpty("People & Culture"),
             textCapitalization: TextCapitalization.sentences,
             minLines: 3,
-          ),],
+          ),
+          if(isFromCommonEdit!= true)  Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: EditProfileActionButtons(
+              onCancel: () {
+                Navigator.pop(context);
+              },
+              onSave: () {
+                // Implement your save logic here
+              },
+            ),
+          )
+        ],
       ),
     );
   }

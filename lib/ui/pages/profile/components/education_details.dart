@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../providers/providers.dart';
+import '../../../../widgets/others/open_bottom_sheet.dart';
 
 class EducationDetails extends ConsumerWidget {
   const EducationDetails({super.key});
@@ -35,7 +36,11 @@ class EducationDetails extends ConsumerWidget {
               ),
               GestureDetector(
                   behavior: HitTestBehavior.translucent,
-                  onTap:() => openEditExperience(context),
+                  onTap:() => openEditBottomSheet(
+                    context:context,
+                    isDraggable: true,
+                    content: const EditEducationInformation(isFromCommonEdit: false),
+                  ),
                   child: Icon(Icons.edit_outlined,color: AppColors.primaryColor,size: 15))
 
             ],
@@ -92,31 +97,4 @@ class EducationDetails extends ConsumerWidget {
       ],
     );
   }
-}
-Future<void> openEditExperience(BuildContext context) {
-  return showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    builder: (ctx) {
-      return DraggableScrollableSheet(
-        initialChildSize: 0.85,
-        minChildSize: 0.5,
-        maxChildSize: 0.95,
-        expand: false,
-        builder: (context, scrollController) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
-            ),
-            child: SingleChildScrollView(
-              controller: scrollController,
-              child: EditEducationInformation(isFromCommonEdit: false),
-            ),
-          );
-        },
-      );
-    },
-  );
 }

@@ -20,8 +20,8 @@ class EditEmployerImageGallery extends ConsumerWidget {
     final controller = ref.read(editEmployerProfileProvider.notifier);
     final state = ref.watch(editEmployerProfileProvider);
 
-    final List<String> urlImages = state.profileData?.galleryImageUrls ?? []; // Existing images
-    final List<XFile> localImages = state.galleryLocalImages ?? []; // Newly added
+    final List<String> urlImages = state.profileData?.galleryImageUrls ?? [];
+    final List<XFile> localImages = state.galleryLocalImages ?? [];
 
     return Card(
       elevation: 2,
