@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import '../../../../../constants/app_colors.dart';
 import '../../../../../widgets/others/open_bottom_sheet.dart';
 import '../../../job/components/company_gallery_slider.dart';
+import '../edit_employer_profile_components/edit_company_gallery_images.dart';
 import '../edit_employer_profile_components/edit_employer_about_company_info.dart';
 import '../edit_employer_profile_components/edit_employer_basic_information.dart';
 import '../edit_employer_profile_components/edit_employer_people_culture.dart';
@@ -80,14 +81,44 @@ class EmployerDetailsView extends StatelessWidget {
         SizedBox(key: companyGalleryKey, height: 16),
         Text('Company Gallery', style: theme.titleMedium),
         gapH16(),
-        CustomDecoratedBox(
-          child: CompanyGallerySlider(
-            items: [
-              "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079508/blogs/szose5lsflyu8jhadcks.png",
-              "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079773/blogs/shvioyrmukgh4gbqa824.png",
-              "https://res.cloudinary.com/dv4aury9e/image/upload/v1755083343/blogs/jkp1efnarxmnnnusarve.png",
-            ],
-          ),
+        Stack(
+          alignment: AlignmentGeometry.topRight,
+          children: [
+            CustomDecoratedBox(
+              child: CompanyGallerySlider(
+                items: [
+                  "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079508/blogs/szose5lsflyu8jhadcks.png",
+                  "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079773/blogs/shvioyrmukgh4gbqa824.png",
+                  "https://res.cloudinary.com/dv4aury9e/image/upload/v1755083343/blogs/jkp1efnarxmnnnusarve.png",
+                ],
+              ),
+            ),
+            Positioned(
+              top: 5,right: 10,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () => openEditBottomSheet(
+                  context: navigatorKey.currentContext!,
+                  content: const EditEmployerImageGallery(
+                    isFromCommonEdit: false,
+                  ),
+                  isDraggable: false,
+                ),
+                child: CircleAvatar(
+                  radius: 15,
+                  backgroundColor: AppColors.bg,
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Icon(
+                      Icons.edit_outlined,
+                      color: AppColors.primaryColor,
+                      size: 15,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

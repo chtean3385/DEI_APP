@@ -28,7 +28,7 @@ class EditEmployerImageGallery extends ConsumerWidget {
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
-        initiallyExpanded: false,
+        initiallyExpanded: isFromCommonEdit!= true,
         title: Text(
           "Company Image Gallery",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
