@@ -7,6 +7,7 @@ import '../../../../../constants/app_styles.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../../../../../widgets/others/rounded_network_image.dart';
+import '../../../../../widgets/others/show_image_detail_dialog.dart';
 import '../../../../../widgets/others/theme_extension.dart';
 import '../../../profile/edit_profile_components/edit_profile_action_button.dart';
 
@@ -28,7 +29,7 @@ class EditEmployerImageGallery extends ConsumerWidget {
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
-        initiallyExpanded: isFromCommonEdit!= true,
+        initiallyExpanded: isFromCommonEdit != true,
         title: Text(
           "Company Image Gallery",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -41,39 +42,52 @@ class EditEmployerImageGallery extends ConsumerWidget {
         collapsedIconColor: Colors.black54,
         trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
         onExpansionChanged: isFromCommonEdit ? null : (_) {},
-        childrenPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 12),
+        childrenPadding: const EdgeInsets.symmetric(
+          horizontal: 8,
+          vertical: 12,
+        ),
         children: [
           // Display existing images (URLs)
           if (urlImages.isNotEmpty)
             Wrap(
-              spacing: 12,
-              runSpacing: 12,
+              spacing: 20,
+              runSpacing: 20,
+              alignment: WrapAlignment.spaceAround,
+              runAlignment: WrapAlignment.spaceAround,
+
               children: urlImages
                   .asMap()
                   .entries
-                  .map((entry) => _galleryNetworkImage(
-                context,
-                entry.key,
-                entry.value,
-                    () => controller.removeUrlGalleryImage(entry.key),
-              ))
+                  .map(
+                    (entry) => _galleryNetworkImage(
+                      context,
+                      entry.key,
+                      entry.value,
+                      () => controller.removeUrlGalleryImage(entry.key),
+                    ),
+                  )
                   .toList(),
             ),
-
+          gapH16(),
           // Display local images
           if (localImages.isNotEmpty)
             Wrap(
-              spacing: 12,
-              runSpacing: 12,
+              spacing: 20,
+              runSpacing: 20,
+              alignment: WrapAlignment.spaceAround,
+              runAlignment: WrapAlignment.spaceAround,
+
               children: localImages
                   .asMap()
                   .entries
-                  .map((entry) => _galleryLocalImage(
-                context,
-                entry.key,
-                entry.value.path,
-                    () => controller.removeLocalGalleryImage(entry.key),
-              ))
+                  .map(
+                    (entry) => _galleryLocalImage(
+                      context,
+                      entry.key,
+                      entry.value.path,
+                      () => controller.removeLocalGalleryImage(entry.key),
+                    ),
+                  )
                   .toList(),
             ),
 
@@ -126,17 +140,24 @@ class EditEmployerImageGallery extends ConsumerWidget {
   }
 
   Widget _galleryNetworkImage(
-      BuildContext context, int index, String url, VoidCallback onRemove) {
+    BuildContext context,
+    int index,
+    String url,
+    VoidCallback onRemove,
+  ) {
     return Stack(
       alignment: Alignment.topRight,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: RoundedNetworkImage(
-            imageUrl: url,
-            width: 120,
-            height: 120,
-            borderRadius: 12,
+        GestureDetector(
+          onTap: () => showImageDialog(context, url),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: RoundedNetworkImage(
+              imageUrl: url,
+              width: 120,
+              height: 120,
+              borderRadius: 12,
+            ),
           ),
         ),
         _removeButton(onRemove),
@@ -145,17 +166,24 @@ class EditEmployerImageGallery extends ConsumerWidget {
   }
 
   Widget _galleryLocalImage(
-      BuildContext context, int index, String path, VoidCallback onRemove) {
+    BuildContext context,
+    int index,
+    String path,
+    VoidCallback onRemove,
+  ) {
     return Stack(
       alignment: Alignment.topRight,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.file(
-            File(path),
-            height: 120,
-            width: 120,
-            fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () => showImageDialog(context, path, isLocal: true),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.file(
+              File(path),
+              height: 120,
+              width: 120,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         _removeButton(onRemove),

@@ -127,6 +127,11 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
         "We specialize in providing innovative business solutions across multiple industries,\n"
         "helping clients optimize operations and achieve sustainable growth.";
 
+    final galleryImages =  [
+      "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079508/blogs/szose5lsflyu8jhadcks.png",
+      "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079773/blogs/shvioyrmukgh4gbqa824.png",
+      "https://res.cloudinary.com/dv4aury9e/image/upload/v1755083343/blogs/jkp1efnarxmnnnusarve.png",
+    ];
     recruitmentsController.text = singleTextRecruitments;
     peopleCultureController.text = cultureText;
     aboutCompanyController.text =   aboutUsText;
@@ -135,7 +140,7 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
 
     state = state.copyWith(
       profileData: (state.profileData ?? ProfileModel()).copyWith(
-
+        galleryImageUrls: galleryImages,
       ),
       // educationEntries: educationControllers,
     );
