@@ -100,37 +100,40 @@ class _EmployerProfileScreenState extends State<EmployerProfileScreen> {
                         color: Colors.white,
                         child: Column(
                           children: [
-                            CustomTabBar(
-                              filterItems: categories,
-                              initialId: 0,
-                              onItemSelected: (item) {
-                                if (item['id'] == 1) {
-                                  _scrollToSection(_companyDetailsKey);
-                                } else if (item['id'] == 2) {
-                                  _scrollToSection(_aboutCompanyKey);
-                                }
-                                else if (item['id'] == 3) {
-                                  _scrollToSection(_awardsKey);
-                                }
-                                else if (item['id'] == 4) {
-                                  _scrollToSection(_verifiedBenefitsKey);
-                                }
-                                else if (item['id'] == 5) {
-                                  _scrollToSection(_reviewsKey);
-                                }
-                                else if (item['id'] == 6) {
-                                  _scrollToSection(_benefitsKey);
-                                }
-                                else if (item['id'] == 7) {
-                                  _scrollToSection(_salaryInsightsKey);
-                                }
-                                else if (item['id'] == 8) {
-                                  _scrollToSection(_companyGalleryKey);
-                                }
-                                else if (item['id'] == 9) {
-                                  _scrollToSection(_currentOpeningsKey);
-                                }
-                              },
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: CustomTabBar(
+                                filterItems: categories,
+                                initialId: 0,
+                                onItemSelected: (item) {
+                                  if (item['id'] == 1) {
+                                    _scrollToSection(_companyDetailsKey);
+                                  } else if (item['id'] == 2) {
+                                    _scrollToSection(_aboutCompanyKey);
+                                  }
+                                  else if (item['id'] == 3) {
+                                    _scrollToSection(_awardsKey);
+                                  }
+                                  else if (item['id'] == 4) {
+                                    _scrollToSection(_verifiedBenefitsKey);
+                                  }
+                                  else if (item['id'] == 5) {
+                                    _scrollToSection(_reviewsKey);
+                                  }
+                                  else if (item['id'] == 6) {
+                                    _scrollToSection(_benefitsKey);
+                                  }
+                                  else if (item['id'] == 7) {
+                                    _scrollToSection(_salaryInsightsKey);
+                                  }
+                                  else if (item['id'] == 8) {
+                                    _scrollToSection(_companyGalleryKey);
+                                  }
+                                  else if (item['id'] == 9) {
+                                    _scrollToSection(_currentOpeningsKey);
+                                  }
+                                },
+                              ),
                             ),
                           ],
                         ),

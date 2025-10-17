@@ -177,7 +177,7 @@ class ManageJobCard extends StatelessWidget {
                       Icon(
                         Icons.remove_red_eye,
                         size: 15,
-                        color: Colors.green,
+                        color: Colors.black,
                       ),
                       gapW4(),
                       Text(
@@ -186,12 +186,12 @@ class ManageJobCard extends StatelessWidget {
                             .currentContext!
                             .textTheme
                             .displaySmall
-                            ?.copyWith(color: Colors.green),
+                            ?.copyWith(color: Colors.black),
                       ),
                     ],
                   ),
-                  color: Colors.green.withValues(alpha: .1),
-                  borderColor: Colors.green.withValues(alpha: .5),
+                  color: AppColors.bg,
+                  borderColor: AppColors.bg,
                   radius: 8,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -199,14 +199,14 @@ class ManageJobCard extends StatelessWidget {
                   ),
                   onTap: onTap,
                 ),
-                gapW6(),
+                gapW8(),
                 CustomThemeButton(
                   child: Row(
                     children: [
                       Icon(
-                        Icons.edit_outlined,
-                        size: 15,
-                        color: AppColors.primaryColor,
+                        Icons.edit,
+                        size: 14,
+                        color: Colors.black,
                       ),
                       gapW4(),
                       Text(
@@ -215,12 +215,12 @@ class ManageJobCard extends StatelessWidget {
                             .currentContext!
                             .textTheme
                             .displaySmall
-                            ?.copyWith(color: AppColors.primaryColor),
+                            ?.copyWith(color: Colors.black),
                       ),
                     ],
                   ),
-                  color: AppColors.primaryColor.withValues(alpha: .1),
-                  borderColor: AppColors.primaryColor.withValues(alpha: .1),
+                  color: AppColors.bg,
+                  borderColor: AppColors.bg,
                   radius: 8,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
@@ -228,14 +228,14 @@ class ManageJobCard extends StatelessWidget {
                   ),
                   onTap: onTap,
                 ),
-                gapW6(),
+                gapW8(),
                 CustomThemeButton(
                   child: Row(
                     children: [
                       Icon(
                         Icons.delete,
                         size: 15,
-                        color: Colors.red,
+                        color: Colors.black,
                       ),
                       gapW4(),
                       Text(
@@ -244,12 +244,12 @@ class ManageJobCard extends StatelessWidget {
                             .currentContext!
                             .textTheme
                             .displaySmall
-                            ?.copyWith(color: Colors.red),
+                            ?.copyWith(color: Colors.black),
                       ),
                     ],
                   ),
-                  color: Colors.red.withValues(alpha: .1),
-                  borderColor: Colors.red.withValues(alpha: .5),
+                  color: AppColors.bg,
+                  borderColor:AppColors.bg,
                   radius: 8,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 8,
