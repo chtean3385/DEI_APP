@@ -7,11 +7,8 @@ import '../../../../models/profile/edit_profile/profile_model.dart';
 import '../../../../models/state_models/profile/profile_state.dart';
 import '../../../../widgets/pickers/image_picker.dart';
 
-
-
 class EditEmployerProfileController extends StateNotifier<ProfileState> {
   EditEmployerProfileController() : super(ProfileState.initial()) {
-    // getChefData();
     fetchInitialProfileData();
   }
 
@@ -32,13 +29,15 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
   final stateController = TextEditingController();
   final countryController = TextEditingController();
   final pinCodeController = TextEditingController();
+
   /// People & Culture
   final peopleCultureController = TextEditingController();
+
   /// Recruitments
   final recruitmentsController = TextEditingController();
+
   /// about company
   final aboutCompanyController = TextEditingController();
-
 
   @override
   void dispose() {
@@ -62,13 +61,8 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
     recruitmentsController.dispose();
     aboutCompanyController.dispose();
 
-
-
     super.dispose();
   }
-
-
-
 
   void removeUrlGalleryImage(int index) {
     final currentProfile = state.profileData;
@@ -79,22 +73,23 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
       updatedUrls.removeAt(index);
 
       // update ProfileModel with new list
-      final updatedProfile = currentProfile.copyWith(galleryImageUrls: updatedUrls);
+      final updatedProfile = currentProfile.copyWith(
+        galleryImageUrls: updatedUrls,
+      );
       state = state.copyWith(profileData: updatedProfile);
     }
   }
 
   void removeLocalGalleryImage(int index) {
-    if (state.galleryLocalImages != null && index < state.galleryLocalImages!.length) {
+    if (state.galleryLocalImages != null &&
+        index < state.galleryLocalImages!.length) {
       final updatedLocal = List<XFile>.from(state.galleryLocalImages!);
       updatedLocal.removeAt(index);
       state = state.copyWith(galleryLocalImages: updatedLocal);
     }
   }
 
-
   void fetchInitialProfileData() {
-
     /// basic info
 
     nameController.text = "Vedhasekaran and Akalya Inc 123";
@@ -104,7 +99,6 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
     websiteController.text = "https://www.rozecifexacavu.ws";
     tagController.text = "Corrupti est qui c";
 
-
     addressController.text = "Corrupti est qui c";
     emailController.text = "Corrupti est qui c";
     mobileController.text = "Corrupti est qui c";
@@ -112,7 +106,6 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
     stateController.text = "Corrupti est qui c";
     countryController.text = "Corrupti est qui c";
     pinCodeController.text = "Corrupti est qui c";
-
 
     final singleTextRecruitments =
         "We focus on hiring individuals with both technical excellence and cultural alignment.\n"
@@ -127,118 +120,27 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
         "We specialize in providing innovative business solutions across multiple industries,\n"
         "helping clients optimize operations and achieve sustainable growth.";
 
-    final galleryImages =  [
+    final galleryImages = [
       "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079508/blogs/szose5lsflyu8jhadcks.png",
       "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079773/blogs/shvioyrmukgh4gbqa824.png",
       "https://res.cloudinary.com/dv4aury9e/image/upload/v1755083343/blogs/jkp1efnarxmnnnusarve.png",
     ];
+    final coverImage =
+        "https://res.cloudinary.com/dv4aury9e/image/upload/v1756120309/DEICHAMP/n1sby4rpjlz5lciwej85.jpg";
+    final profileImage =
+        "https://res.cloudinary.com/dv4aury9e/image/upload/v1756120375/DEICHAMP/oh6xk6yndlo1ievdxi3y.jpg";
+
     recruitmentsController.text = singleTextRecruitments;
     peopleCultureController.text = cultureText;
-    aboutCompanyController.text =   aboutUsText;
-
-
+    aboutCompanyController.text = aboutUsText;
 
     state = state.copyWith(
       profileData: (state.profileData ?? ProfileModel()).copyWith(
         galleryImageUrls: galleryImages,
+        profileImageUrl: profileImage,
+        coverImageUrl: coverImage,
       ),
-      // educationEntries: educationControllers,
     );
-    // // Sample initial skill list
-    // final initialSkills = [
-    //   "php",
-    //   "html",
-    //   "Mobile",
-    //   "Web",
-    //   "API",
-    //   "Firebase",
-    //   "Design Systems",
-    //   "Typography",
-    //   "Color Theory",
-    //   "Accessibility (a11y)",
-    // ];
-    // final List<WorkExperienceInfoModel> workExperiences = [
-    //   WorkExperienceInfoModel(
-    //     companyName: 'Google',
-    //     position: 'Software Engineer',
-    //     startDate: DateTime(2020, 5, 1),
-    //     endDate: DateTime(2022, 8, 31),
-    //     isCurrentlyWorking: false,
-    //     description: 'Worked on scalable backend services and cloud infrastructure.',
-    //   ),
-    //   WorkExperienceInfoModel(
-    //     companyName: 'Amazon',
-    //     position: 'Backend Developer',
-    //     startDate: DateTime(2018, 2, 15),
-    //     endDate: DateTime(2020, 4, 30),
-    //     isCurrentlyWorking: false,
-    //     description: 'Maintained microservices and improved API performance.',
-    //   ),
-    //   WorkExperienceInfoModel(
-    //     companyName: 'Meta',
-    //     position: 'Senior Software Engineer',
-    //     startDate: DateTime(2022, 9, 1),
-    //     endDate: null,
-    //     isCurrentlyWorking: true,
-    //     description: 'Leading a team building AI-powered social media tools.',
-    //   ),
-    // ];
-    // // Generate corresponding controllers list
-    // final workExpControllers = workExperiences.map((exp) {
-    //   final controller = WorkExperienceEntryControllers();
-    //   controller.companyController.text = exp.companyName ?? '';
-    //   controller.positionController.text = exp.position ?? '';
-    //   controller.descriptionController.text = exp.description ?? '';
-    //
-    //   // Format the date to "MMM - yyyy" if needed
-    //   if (exp.startDate != null) {
-    //     controller.startDateController.text =
-    //         DateFormat('MMM - yyyy').format(exp.startDate!);
-    //   }
-    //
-    //   if (exp.endDate != null) {
-    //     controller.endDateController.text =
-    //         DateFormat('MMM - yyyy').format(exp.endDate!);
-    //   } else if (exp.isCurrentlyWorking == true) {
-    //     controller.endDateController.text = 'Present';
-    //   }
-    //
-    //   return controller;
-    // }).toList();
-    // final List<EducationInfoModel> educationData = [
-    //   EducationInfoModel(
-    //     degree: 'Bachelor of Computer Science',
-    //     institution: 'Stanford University',
-    //     graduationYear: 2018,
-    //   ),
-    //   EducationInfoModel(
-    //     degree: 'Master of Information Technology',
-    //     institution: 'Massachusetts Institute of Technology',
-    //     graduationYear: 2020,
-    //   ),
-    //   EducationInfoModel(
-    //     degree: 'PhD in Artificial Intelligence',
-    //     institution: 'Carnegie Mellon University',
-    //     graduationYear: 2024,
-    //   ),
-    // ];
-    // final educationControllers = educationData.map((edu) {
-    //   final controller = EducationEntryControllers();
-    //   controller.degreeController.text = edu.degree ?? '';
-    //   controller.institutionController.text = edu.institution ?? '';
-    //   controller.graduationYearController.text =
-    //       edu.graduationYear?.toString() ?? '';
-    //   return controller;
-    // }).toList();
-
-    //
-    // state = state.copyWith(
-    //   profileData: (state.profileData ?? ProfileModel()).copyWith(
-    //     skillsInfo: initialSkills,workExperience: workExperiences,education: educationData
-    //   ),
-    //   workExpEntries: workExpControllers,
-    //   // educationEntries: educationControllers,
-    // );
   }
 
   Future<void> pickProfileImage() async {
@@ -246,29 +148,30 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
       isCircleShape: false,
       isSquareCrop: true,
       ratio: CropAspectRatioPreset.square,
-
     );
     if (picked != null) {
       state = state.copyWith(profileFile: picked);
     }
   }
+
   Future<void> pickCoverImage() async {
     final picked = await pickImageFromGalleryOrCamera(
       isCircleShape: false,
       isSquareCrop: true,
       ratio: CropAspectRatioPreset.ratio16x9,
-        isLockAspectRatio: false
+      isLockAspectRatio: false,
     );
     if (picked != null) {
       state = state.copyWith(coverFile: picked);
     }
   }
+
   Future<void> pickGalleryImage() async {
     final picked = await pickImageFromGalleryOrCamera(
       isCircleShape: false,
       isSquareCrop: false,
       ratio: CropAspectRatioPreset.ratio16x9,
-      isLockAspectRatio: false
+      isLockAspectRatio: false,
     );
     if (picked != null) {
       final List<XFile> updatedLocalImages = [
@@ -278,6 +181,4 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
       state = state.copyWith(galleryLocalImages: updatedLocalImages);
     }
   }
-
-
 }
