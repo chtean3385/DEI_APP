@@ -38,7 +38,12 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
   final stateController = TextEditingController();
   final countryController = TextEditingController();
   final pinCodeController = TextEditingController();
-
+  /// People & Culture
+  final peopleCultureController = TextEditingController();
+  /// Recruitments
+  final recruitmentsController = TextEditingController();
+  /// about company
+  final aboutCompanyController = TextEditingController();
   /// skill info
   final skillController = TextEditingController();
   /// job preference info
@@ -49,7 +54,7 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
 
   @override
   void dispose() {
-    debugPrint("🔥 ChefProfileController disposed");
+    debugPrint("🔥 EditEmployerProfileController disposed");
     nameController.dispose();
     emailController.dispose();
     mobileController.dispose();
@@ -64,6 +69,10 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
     stateController.dispose();
     countryController.dispose();
     pinCodeController.dispose();
+
+    peopleCultureController.dispose();
+    recruitmentsController.dispose();
+    aboutCompanyController.dispose();
 
     jobTypeController.dispose();
     salaryExpectedController.dispose();

@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 
 import '../../profile/edit_profile_components/edit_cover_image.dart';
 import '../../profile/edit_profile_components/edit_profile_action_button.dart';
+import 'edit_employer_profile_components/edit_employer_about_company_info.dart';
 import 'edit_employer_profile_components/edit_employer_basic_information.dart';
 import 'edit_employer_profile_components/edit_employer_contact_details.dart';
+import 'edit_employer_profile_components/edit_employer_people_culture.dart';
+import 'edit_employer_profile_components/edit_employer_recruitment_info.dart';
 
 
 
@@ -36,7 +39,13 @@ class EditEmployerProfileScreen extends StatelessWidget {
                     gapH16(),
                     EditEmployerContactInformation(),
                     gapH16(),
-                    EditEmployerCoverImage()
+                    EditEmployerAboutCompany(),
+                    gapH16(),
+                    EditEmployerRecruitmentInfo(),
+                    gapH16(),
+                    EditEmployerPeopleAndCulture(),
+                    gapH16(),
+                    EditEmployerCoverImage(),
                     // EditLocationInformation(),
                     // gapH16(),
                     // EditSkillInformation(),
