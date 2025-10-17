@@ -8,7 +8,6 @@ import '../../../../models/profile/edit_profile/education_info_model.dart';
 import '../../../../models/profile/edit_profile/profile_model.dart';
 import '../../../../models/profile/edit_profile/work_experience_model.dart';
 import '../../../../models/state_models/profile/profile_state.dart';
-import '../../../../ui/pages/employer/employer_profile/edit_employer_profile_components/edit_education_info.dart';
 import '../../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
 import '../../../../widgets/pickers/file_picker.dart';
 import '../../../../widgets/pickers/image_picker.dart';
@@ -25,15 +24,16 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
   // final ChefService _chefService = ChefService();
   /// basic info
   final nameController = TextEditingController();
+  final joinedDateController = TextEditingController();
+  final contactPersonController = TextEditingController();
+  final websiteController = TextEditingController();
+  final tagController = TextEditingController();
+  final companySizeController = TextEditingController();
+
+  /// contact info
+  final addressController = TextEditingController();
   final emailController = TextEditingController();
   final mobileController = TextEditingController();
-  final dobController = TextEditingController();
-  final genderController = TextEditingController();
-  final workStatusController = TextEditingController();
-  final descriptionController = TextEditingController();
-
-  /// location info
-  final addressController = TextEditingController();
   final cityController = TextEditingController();
   final stateController = TextEditingController();
   final countryController = TextEditingController();
@@ -53,10 +53,11 @@ class EditEmployerProfileController extends StateNotifier<ProfileState> {
     nameController.dispose();
     emailController.dispose();
     mobileController.dispose();
-    dobController.dispose();
-    genderController.dispose();
-    workStatusController.dispose();
-    descriptionController.dispose();
+    joinedDateController.dispose();
+    contactPersonController.dispose();
+    websiteController.dispose();
+    tagController.dispose();
+    companySizeController.dispose();
 
     addressController.dispose();
     cityController.dispose();

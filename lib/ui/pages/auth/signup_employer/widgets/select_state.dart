@@ -8,13 +8,13 @@ import '../../signup/components/auto_sugstion_form_field.dart';
 
 class SelectState extends StatelessWidget {
   final TextEditingController controller;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final FocusNode? nextFocus;
 
   const SelectState({
     super.key,
     required this.controller,
-    required this.focusNode,
+     this.focusNode,
     this.nextFocus,
   });
 

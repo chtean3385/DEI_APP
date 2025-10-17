@@ -1,21 +1,25 @@
+import 'package:dei_champions/main.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../constants/app_strings.dart';
-import '../../../../constants/app_styles.dart';
-import '../../../../constants/app_validators.dart';
-import '../../../../providers/providers.dart';
-import '../../../../widgets/form/transparant_date_picker.dart';
-import '../../../../widgets/form/transparant_drop_down.dart';
-import '../../../../widgets/form/transparent_form_field.dart';
-import '../../auth/common/email_suggestion_field.dart';
+import '../../../../../constants/app_colors.dart';
+import '../../../../../constants/app_strings.dart';
+import '../../../../../constants/app_styles.dart';
+import '../../../../../constants/app_validators.dart';
+import '../../../../../providers/providers.dart';
+import '../../../../../widgets/form/transparant_date_picker.dart';
+import '../../../../../widgets/form/transparent_form_field.dart';
+import '../../../../../widgets/others/custom_theme_button.dart';
+import '../../../../../widgets/pickers/profile_pic_edit_widget.dart';
+import '../../../auth/signup_employer/widgets/company_employee_size.dart';
 
-class EditBasicInformation extends ConsumerWidget {
-  const EditBasicInformation({super.key});
+class EditEmployerBasicInformation extends ConsumerWidget {
+  const EditEmployerBasicInformation({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editProfileProvider);
-    final controller = ref.read(editProfileProvider.notifier);
+    final state = ref.watch(editEmployerProfileProvider);
+    final controller = ref.read(editEmployerProfileProvider.notifier);
 
     return Card(
       elevation: 2,
@@ -38,81 +42,171 @@ class EditBasicInformation extends ConsumerWidget {
         collapsedIconColor: Colors.black54,
         childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
-          CircleAvatar(
+          _profileImage(ref),
+          gapH16(),
+          CustomThemeButton(
+            color:BootstrapColors.colors["yellow"] ??
+                AppColors.primaryColor,
+            borderColor:BootstrapColors.colors["yellow"] ??
+                AppColors.primaryColor,
             radius: 30,
-            backgroundColor: Colors.black12,
-            child: Icon(
-              Icons.person_add,
-              size: 30,
-              color: Colors.grey.shade600,
+            isExpanded: false,
+            alignRight: false,
+            padding: EdgeInsets.symmetric(vertical: 6,horizontal: 12),
+            onTap: () {
+            },
+            child: Text(
+              "Unverified",
+              style: context.textTheme.labelMedium?.copyWith(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          gapH16(),
+          CustomThemeButton(
+            color:
+                AppColors.bg,
+            borderColor:
+                AppColors.bg,
+            radius: 30,
+            isExpanded: false,
+            alignRight: false,
+            padding: EdgeInsets.symmetric(vertical: 6,horizontal: 12),
+            onTap: () {
+            },
+            child: Text(
+              "Member Since: 01/02/2000",
+              style: context.textTheme.labelMedium?.copyWith(
+                color: AppColors.primaryColor,
+              ),
             ),
           ),
           gapH16(),
           TransparentFormField(
             controller: controller.nameController,
-            hint: AppStrings.name,
-            label: AppStrings.name,
-            icon: Icons.person_outline,
+            hint: AppStrings.enterCompanyName,
+            label: AppStrings.companyName,
+            icon: Icons.apartment,
             textInputAction: TextInputAction.next,
-            validator: AppValidators.fieldEmpty(AppStrings.name),
+            validator: AppValidators.fieldEmpty(AppStrings.companyName),
             textCapitalization: TextCapitalization.words,
           ),
           gapH16(),
           TransparentFormField(
-            controller: controller.emailController,
-            hint: AppStrings.email,
-            label: AppStrings.email,
-            icon: Icons.email_outlined,
-            readOnly: true,
-            fillColor: Colors.black12,
-          ),
-          gapH16(),
-          TransparentFormField(
-            controller: controller.mobileController,
-            hint: AppStrings.mobile,
-            label: AppStrings.mobile,
-            autofillHints: [AutofillHints.telephoneNumber],
+            controller: controller.contactPersonController,
+            hint: "Enter contact person name",
+            label:"Contact Person",
+            icon: Icons.person,
             textInputAction: TextInputAction.next,
-            icon: Icons.phone_android,
-            validator: AppValidators.phone,
-            keyboardType: TextInputType.phone,
-            maxLength: 10,
+            validator: AppValidators.fieldEmpty("Contact Person"),
+            textCapitalization: TextCapitalization.words,
           ),
           gapH16(),
           TransparentDatePickerField(
-            label: "Date of Birth",
-            hint: "Select your date of birth",
+            label: "Member Since",
+            hint: "Select date you joined",
             icon: Icons.calendar_today_outlined,
-            controller: controller.dobController,
+            controller: controller.joinedDateController,
             initialDate: DateTime.now(),
           ),
           gapH16(),
-          TransparentDropdownField(
-            label: "Gender",
-            hint: "Select your gender",
-            icon: Icons.person_outline,
-            items: ["Male", "Female", "Other", "Prefer not to say"],
-            onChanged: (value) {},
+          TransparentFormField(
+            controller: controller.websiteController,
+            hint: AppStrings.enterWebsite,
+            label: AppStrings.website,
+            icon: Icons.language,
+            textInputAction: TextInputAction.next,
+            keyboardType: TextInputType.url,
+            textCapitalization: TextCapitalization.none,
+            validator: AppValidators.website,
           ),
           gapH16(),
-          TransparentDropdownField(
-            label: "Work Status",
-            hint: "Select your current work status",
-            icon: Icons.work_outline,
-            items: ["Student", "Employed", "Un-Employed", "Self-Employed"],
-            onChanged: (value) {},
-          ),
+
+          CompanyEmployeeSize(controller:controller.companySizeController),
+
+
           gapH16(),
           TransparentFormField(
-            controller: controller.descriptionController,
-            hint: "short description",
-            label: "Description",
-            textInputAction: TextInputAction.next,
-            validator: AppValidators.fieldEmpty("Description"),
+            controller: controller.tagController,
+            hint: "enter short tagline",
+            label: "Tagline",
+            validator: AppValidators.fieldEmpty("Tagline"),
             textCapitalization: TextCapitalization.words,
-            minLines: 3,
+            textInputAction: TextInputAction.done,
+
+          ),
+          gapH16(),
+          Text(
+            "Account Status",
+            style: context.textTheme.bodyMedium?.copyWith(
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+          gapH4(),
+          CustomThemeButton(
+            color:Colors.green.shade100,
+            borderColor:Colors.green.shade100,
+            radius: 30,
+            isExpanded: false,
+            alignRight: false,
+            padding: EdgeInsets.symmetric(vertical: 6,horizontal: 12),
+            onTap: () {
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Icon(Icons.check_circle,color: Colors.green,),
+                gapW6(),
+                Text(
+                  "Active",
+                  style: context.textTheme.titleMedium?.copyWith(
+                    color: Colors.green,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
+      ),
+    );
+  }
+  /// Profile image widget that listens to state changes
+  Widget _profileImage(WidgetRef ref) {
+    final state = ref.watch(editEmployerProfileProvider);
+    final controller = ref.read(editEmployerProfileProvider.notifier);
+
+    return ImageViewPicker(
+      formKey: GlobalKey(), // Provide a form key if needed
+      imageUrl: state.profileData?.profileImageUrl,
+      imageFile: state.profileFile,
+      height: 100,
+      width: 100,
+      radius: 50,
+      editAction: () async {
+        await controller.pickProfileImage();
+        // No setState needed; widget rebuilds automatically due to `ref.watch`
+      },
+    );
+  }
+  Widget _coverImage(WidgetRef ref) {
+    final state = ref.watch(editEmployerProfileProvider);
+    final controller = ref.read(editEmployerProfileProvider.notifier);
+    double width = MediaQuery.of(navigatorKey.currentContext!).size.width;
+    // Height a bit more than profile image (profile ~150, cover ~200-250)
+    return SizedBox(
+      height: 250,
+      child: ImageViewPicker(
+        // formKey: _formKey,
+        imageUrl: state.profileData?.coverImageUrl,
+        imageFile: state.coverFile,
+        height: 200,
+        width: width,
+        noPadding: true,
+        editAction: () async {
+          controller.pickCoverImage();
+        },
       ),
     );
   }

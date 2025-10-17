@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../profile/edit_profile_components/edit_profile_action_button.dart';
 import 'edit_employer_profile_components/edit_employer_basic_information.dart';
+import 'edit_employer_profile_components/edit_employer_contact_details.dart';
 
 
 
@@ -31,7 +32,8 @@ class EditEmployerProfileScreen extends StatelessWidget {
                     // People
                     // Banner Image
                     EditEmployerBasicInformation(),
-                    // gapH16(),
+                    gapH16(),
+                    EditEmployerContactInformation()
                     // EditLocationInformation(),
                     // gapH16(),
                     // EditSkillInformation(),
