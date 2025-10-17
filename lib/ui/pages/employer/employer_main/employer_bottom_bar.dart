@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../widgets/appbar/home_app_bar.dart';
+import '../employer_all/employer_dashboard_all_screen.dart';
 import '../employer_home/employer_home_screen.dart';
 import '../employer_profile/employer_profile_screen.dart';
 import '../manage_jobs/manage_jobs_screen.dart';
@@ -154,7 +155,7 @@ class _EmployerBottomBarState extends State<EmployerBottomBar> {
       case 3:
         return const EmployerProfileScreen();
       case 4:
-        return  SizedBox();
+        return  EmployerDashBoardAllScreen();
       default:
         return SizedBox();
     }
