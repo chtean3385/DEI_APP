@@ -190,24 +190,4 @@ class EditEmployerBasicInformation extends ConsumerWidget {
       },
     );
   }
-  Widget _coverImage(WidgetRef ref) {
-    final state = ref.watch(editEmployerProfileProvider);
-    final controller = ref.read(editEmployerProfileProvider.notifier);
-    double width = MediaQuery.of(navigatorKey.currentContext!).size.width;
-    // Height a bit more than profile image (profile ~150, cover ~200-250)
-    return SizedBox(
-      height: 250,
-      child: ImageViewPicker(
-        // formKey: _formKey,
-        imageUrl: state.profileData?.coverImageUrl,
-        imageFile: state.coverFile,
-        height: 200,
-        width: width,
-        noPadding: true,
-        editAction: () async {
-          controller.pickCoverImage();
-        },
-      ),
-    );
-  }
 }

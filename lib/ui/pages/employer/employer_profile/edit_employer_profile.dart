@@ -2,6 +2,7 @@ import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:flutter/material.dart';
 
+import '../../profile/edit_profile_components/edit_cover_image.dart';
 import '../../profile/edit_profile_components/edit_profile_action_button.dart';
 import 'edit_employer_profile_components/edit_employer_basic_information.dart';
 import 'edit_employer_profile_components/edit_employer_contact_details.dart';
@@ -33,7 +34,9 @@ class EditEmployerProfileScreen extends StatelessWidget {
                     // Banner Image
                     EditEmployerBasicInformation(),
                     gapH16(),
-                    EditEmployerContactInformation()
+                    EditEmployerContactInformation(),
+                    gapH16(),
+                    EditEmployerCoverImage()
                     // EditLocationInformation(),
                     // gapH16(),
                     // EditSkillInformation(),

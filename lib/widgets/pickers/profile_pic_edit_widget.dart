@@ -1,11 +1,8 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../constants/app_styles.dart';
-import '../others/app_card.dart';
 
 class ImageViewPicker extends StatelessWidget {
   final bool hideAddButton;
@@ -153,44 +150,42 @@ class ImageUrlViewer extends StatelessWidget {
       child: SizedBox(
         width: width,
         height: height,
-        child: FittedBox(
+        child: url != null
+            ? ClipRRect(
           clipBehavior: Clip.antiAlias,
-          child: url != null
-              ? ClipRRect(
-            borderRadius: BorderRadius.all(Radius.circular(radius)),
-            child: CachedNetworkImage(
-              fit: BoxFit.cover,
-              height: height,
-              width: width,
-              imageUrl: url!,
-              placeholder: (context, url) => Shimmer.fromColors(
-                baseColor: Colors.grey.shade300,
-                highlightColor: Colors.grey.shade100,
-                child: SizedBox(
-                  height: height,
-                  width: width,
-                  child: ColoredBox(color: Colors.white),
-                ),
-              ),
-              errorWidget: (context, url, error) => Container(
-                height: height,
-                width: width,
-                color: Colors.grey[300],
-                child: const Icon(Icons.broken_image),
-              ),
-            ),
-          )
-              : Container(
+          borderRadius: BorderRadius.all(Radius.circular(radius)),
+          child: CachedNetworkImage(
+            fit: BoxFit.cover,
             height: height,
             width: width,
-
-            decoration: BoxDecoration(
-              color: Colors.grey[300],
-              borderRadius: BorderRadius.all(Radius.circular(radius))
-
+            imageUrl: url!,
+            placeholder: (context, url) => Shimmer.fromColors(
+              baseColor: Colors.grey.shade300,
+              highlightColor: Colors.grey.shade100,
+              child: SizedBox(
+                height: height,
+                width: width,
+                child: ColoredBox(color: Colors.white),
+              ),
             ),
-            child: const Icon(Icons.broken_image),
+            errorWidget: (context, url, error) => Container(
+              height: height,
+              width: width,
+              color: Colors.grey[300],
+              child: const Icon(Icons.broken_image),
+            ),
           ),
+        )
+            : Container(
+          height: height,
+          width: width,
+          clipBehavior: Clip.antiAlias,
+          decoration: BoxDecoration(
+            color: Colors.grey[300],
+            borderRadius: BorderRadius.all(Radius.circular(radius))
+
+          ),
+          child: const Icon(Icons.broken_image),
         ),
       ),
     );
