@@ -14,7 +14,8 @@ class ProfileModel {
   final JobPreferenceModel? jobPreference;
   final BasicProfileDetailsModel? basicProfileDetailsModel;
   final LocationInfoModel? locationInfoModel;
-
+  final String? profileImageUrl;
+  final String? coverImageUrl;
   ProfileModel({
     this.education,
     this.workExperience,
@@ -22,6 +23,8 @@ class ProfileModel {
     this.basicProfileDetailsModel,
     this.locationInfoModel,
     this.skillsInfo,
+    this.profileImageUrl,
+    this.coverImageUrl,
   });
 
   // copyWith method
@@ -32,6 +35,8 @@ class ProfileModel {
     JobPreferenceModel? jobPreference,
     BasicProfileDetailsModel? basicProfileDetailsModel,
     LocationInfoModel? locationInfoModel,
+    String? profileImageUrl,
+    String? coverImageUrl,
   }) {
     return ProfileModel(
       skillsInfo: skillsInfo ?? this.skillsInfo,
@@ -41,6 +46,8 @@ class ProfileModel {
       basicProfileDetailsModel:
       basicProfileDetailsModel ?? this.basicProfileDetailsModel,
       locationInfoModel: locationInfoModel ?? this.locationInfoModel,
+      profileImageUrl: profileImageUrl ?? this.profileImageUrl,
+      coverImageUrl: coverImageUrl ?? this.coverImageUrl,
     );
   }
 

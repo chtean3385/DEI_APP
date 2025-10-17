@@ -15,6 +15,7 @@ class ProfileState {
   final PageState pageState;
   final PageState updateState;
   final XFile? profileFile;
+  final XFile? coverFile;
   final PlatformFile? resumeFile;
   final bool isUploading;
 
@@ -24,6 +25,7 @@ class ProfileState {
     this.educationEntries,
     this.workExpEntries,
     this.profileFile,
+    this.coverFile,
     this.resumeFile,
     this.isUploading = false,
     this.pageState = PageState.initial,
@@ -38,6 +40,7 @@ class ProfileState {
     List<EducationEntryControllers>? educationEntries,
     List<WorkExperienceEntryControllers>? workExpEntries,
     XFile? profileFile,
+    XFile? coverFile,
     PlatformFile? resumeFile,
     PageState? pageState,
     PageState? updateState,
@@ -48,6 +51,7 @@ class ProfileState {
       educationEntries: educationEntries ?? this.educationEntries,
       workExpEntries: workExpEntries ?? this.workExpEntries,
       profileFile: profileFile ?? this.profileFile,
+      coverFile: coverFile ?? this.coverFile,
       resumeFile: resumeFile ?? this.resumeFile,
       pageState: pageState ?? this.pageState,
       updateState: updateState ?? this.updateState,

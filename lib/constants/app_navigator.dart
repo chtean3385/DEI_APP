@@ -18,6 +18,7 @@ import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 import '../ui/pages/career_explorers/career_explorers_screen.dart';
 import '../ui/pages/company/company_profile_screen.dart';
 import '../ui/pages/employer/employer_main/employer_bottom_bar.dart';
+import '../ui/pages/employer/employer_profile/edit_employer_profile.dart';
 import '../ui/pages/genz/genz_screen.dart';
 import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
 import '../ui/pages/invites/job_invite_details_screen.dart';
@@ -277,8 +278,11 @@ class AppNavigator {
     );
   }
 
-  static loadEditProfileScreen() {
-    Navigator.push(
+  static loadEditProfileScreen({bool isEmployer = false}) {
+    isEmployer ? Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => EditEmployerProfileScreen()),
+    )  :   Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => EditProfileScreen()),
     );
@@ -310,4 +314,8 @@ class AppNavigator {
       (route) => false,
     );
   }
+
+  /////////***********employer**********////////
+
+
 }

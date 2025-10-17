@@ -9,10 +9,13 @@ import '../others/app_card.dart';
 
 class ImageViewPicker extends StatelessWidget {
   final bool hideAddButton;
+  final bool noPadding;
   final XFile? imageFile;
   final String? imageUrl;
   final Function editAction;
   final double radius;
+  final double height;
+  final double width;
   final GlobalKey<FormState>? formKey;
 
   const ImageViewPicker({
@@ -21,12 +24,16 @@ class ImageViewPicker extends StatelessWidget {
     this.imageUrl,
     required this.editAction,
     this.hideAddButton = false,
+    this.noPadding = false,
     this.radius = 50,
     this.formKey,
+    required this.height,
+    required this.width,
   });
 
   @override
   Widget build(BuildContext context) {
+
     bool isImageEmpty =
         imageFile == null && (imageUrl == null || imageUrl!.isEmpty);
     return FormField<String>(
@@ -38,33 +45,62 @@ class ImageViewPicker extends StatelessWidget {
         return Stack(
           alignment: Alignment.topRight,
           children: [
-            Card(
+            if(!noPadding)   Card(
               color: Colors.white,
               elevation: 4,
               semanticContainer: true,
               borderOnForeground: true,
+              margin: noPadding ? EdgeInsets.zero : null,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(radius),
                 side: field.hasError
                     ? BorderSide(color: Colors.red)
                     : BorderSide.none,
               ),
               child: imageFile != null
                   ? Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                        child: Image.file(
-                          File(imageFile!.path),
-                          fit: BoxFit.cover,
-                          height: 150,
-                          width: 150,
-                        ),
-                      ),
-                    )
-                  : ImageUrlViewer(url: imageUrl, size: 150),
+                padding: noPadding
+                    ? EdgeInsets.zero
+                    : EdgeInsets.all( 4.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(radius)),
+                  child: Image.file(
+                    File(imageFile!.path),
+                    fit: BoxFit.cover,
+                    height: height,
+                    width: width,
+                  ),
+                ),
+              )
+                  : ImageUrlViewer(
+                url: imageUrl,
+                width: width,
+                height: height,
+                noPadding: noPadding,
+                radius: radius,
+              ),
             ),
-            if (!isImageEmpty)
+            if(noPadding)   imageFile != null
+                ? Padding(
+              padding: noPadding
+                  ? EdgeInsets.zero
+                  : EdgeInsets.all( 4.0),
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(radius)),
+                child: Image.file(
+                  File(imageFile!.path),
+                  fit: BoxFit.cover,
+                  height: height,
+                  width: width,
+                ),
+              ),
+            )
+                : ImageUrlViewer(
+              url: imageUrl,
+              width: width,
+              height: height,
+              noPadding: noPadding,
+            ),
               Padding(
                 padding: const EdgeInsets.only(right: 12, top: 10),
                 child: GestureDetector(
@@ -76,37 +112,12 @@ class ImageViewPicker extends StatelessWidget {
                   behavior: HitTestBehavior.translucent,
                   child: CircleAvatar(
                     backgroundColor: Colors.white,
-                    radius: 12,
-                    child: Icon(Icons.edit, size: 16, color: Colors.black),
-                  ),
-                ),
-              ),
-            if (isImageEmpty)
-              Positioned(
-                bottom: 40,
-                left: 35,
-                child: AppCard(
-                  onTap: () {
-                    editAction();
-                    field.didChange(imageFile?.path ?? imageUrl);
-                    field.validate();
-                  },
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                  margin: EdgeInsets.zero,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Icon(Icons.add, size: 16, color: Colors.black38),
-                      gapW8(),
-                      Text(
-                        "Tap to upload",
-                        textAlign: TextAlign.center,
-                        style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black38,
-                        ),
-                      ),
-                    ],
+                    radius:  12,
+                    child: Icon(
+                      Icons.edit,
+                      size:  16,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ),
@@ -118,51 +129,68 @@ class ImageViewPicker extends StatelessWidget {
 }
 
 class ImageUrlViewer extends StatelessWidget {
-  final double size;
+  final double width;
+  final double height;
   final String? url;
+  final bool noPadding;
+  final double radius;
 
-  const ImageUrlViewer({super.key, this.size = 32, this.url});
+  const ImageUrlViewer({
+    super.key,
+    this.url,
+    required this.height,
+    required this.width,
+    this.noPadding = false,
+    this.radius = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(4.0),
+      padding: noPadding
+          ? EdgeInsets.zero
+          : EdgeInsets.all( 4.0),
       child: SizedBox(
-        width: size,
-        height: size,
+        width: width,
+        height: height,
         child: FittedBox(
           clipBehavior: Clip.antiAlias,
           child: url != null
               ? ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                  child: CachedNetworkImage(
-                    fit: BoxFit.cover,
-                    height: size,
-                    width: size,
-                    imageUrl: url!,
-                    placeholder: (context, url) => Shimmer.fromColors(
-                      baseColor: Colors.grey.shade300,
-                      highlightColor: Colors.grey.shade100,
-                      child: SizedBox(
-                        height: size,
-                        width: size,
-                        child: ColoredBox(color: Colors.white),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
-                      height: size,
-                      width: size,
-                      color: Colors.grey[300],
-                      child: const Icon(Icons.broken_image),
-                    ),
-                  ),
-                )
-              : Container(
-                  height: size,
-                  width: size,
-                  color: Colors.grey[300],
-                  child: const Icon(Icons.broken_image),
+            borderRadius: BorderRadius.all(Radius.circular(radius)),
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              height: height,
+              width: width,
+              imageUrl: url!,
+              placeholder: (context, url) => Shimmer.fromColors(
+                baseColor: Colors.grey.shade300,
+                highlightColor: Colors.grey.shade100,
+                child: SizedBox(
+                  height: height,
+                  width: width,
+                  child: ColoredBox(color: Colors.white),
                 ),
+              ),
+              errorWidget: (context, url, error) => Container(
+                height: height,
+                width: width,
+                color: Colors.grey[300],
+                child: const Icon(Icons.broken_image),
+              ),
+            ),
+          )
+              : Container(
+            height: height,
+            width: width,
+
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.all(Radius.circular(radius))
+
+            ),
+            child: const Icon(Icons.broken_image),
+          ),
         ),
       ),
     );

@@ -66,7 +66,7 @@ class _EmployerBottomBarState extends State<EmployerBottomBar> {
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,title: _currentIndex == 2 ?"Your Job Listings" :  "",  onPressed: _handleMenuButtonPressed, ),
+        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,title: _currentIndex == 2 ?"Your Job Listings" :  "",  onPressed: _handleMenuButtonPressed,isEmployer: true ),
         // drawer: CustomDrawer(),
         body: _buildScreen(_currentIndex),
         bottomNavigationBar: SafeArea(

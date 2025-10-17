@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../form/home_search.dart';
 
-AppBar appBarHome(BuildContext context, {bool isFromHome = false,bool isFromProfile = false,String title = "",VoidCallback? onPressed}) {
+AppBar appBarHome(BuildContext context, {bool isFromHome = false,bool isFromProfile = false,String title = "",VoidCallback? onPressed,bool isEmployer = false}) {
   return AppBar(
     elevation: 0,
     backgroundColor: isFromHome ? AppColors.bg : null,
@@ -37,7 +37,7 @@ AppBar appBarHome(BuildContext context, {bool isFromHome = false,bool isFromProf
         padding: const EdgeInsets.only(right: 8),
         child: IconButton(
           icon: const Icon(Icons.edit,color: Colors.black54, size: 25),
-          onPressed:()=> AppNavigator.loadEditProfileScreen(),
+          onPressed:()=> AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
         ),
       ),
     ]

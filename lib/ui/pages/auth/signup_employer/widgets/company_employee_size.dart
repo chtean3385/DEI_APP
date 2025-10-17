@@ -8,10 +8,10 @@ import '../../signup/components/auto_sugstion_form_field.dart';
 
 class CompanyEmployeeSize extends StatelessWidget {
   final TextEditingController controller;
-  final FocusNode focusNode;
+  final FocusNode? focusNode;
   final FocusNode? nextFocus;
 
-  CompanyEmployeeSize({super.key, required this.controller, required this.focusNode, this.nextFocus});
+  CompanyEmployeeSize({super.key, required this.controller,  this.focusNode, this.nextFocus});
 
 
 

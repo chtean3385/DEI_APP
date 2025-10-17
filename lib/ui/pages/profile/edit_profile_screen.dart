@@ -1,11 +1,7 @@
-import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_styles.dart';
-import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/app_bar_common.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../widgets/others/custom_theme_button.dart';
 import 'edit_profile_components/edit_basic_information.dart';
 import 'edit_profile_components/edit_education_info.dart';
 import 'edit_profile_components/edit_job_preference_info.dart';
@@ -57,7 +53,6 @@ class EditProfileScreen extends StatelessWidget {
                 // Implement your save logic here
               },
             )
-            // 👈 stays visible always
           ],
         ),
       ),
