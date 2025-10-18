@@ -3,7 +3,6 @@ import 'package:dei_champions/ui/pages/employer/post_job/components/job_category
 import 'package:flutter/material.dart';
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
@@ -27,7 +26,10 @@ class PostJobScreen extends ConsumerWidget {
     final theme = Theme.of(context).textTheme;
     QuillController _controller = QuillController.basic();
 
-    return SafeArea(
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom, // pushes content above keyboard
+      ),
       child: AnimatedSignupWrapper(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16),
@@ -62,7 +64,7 @@ class PostJobScreen extends ConsumerWidget {
               gapH16(),
 
               TransparentFormField(
-                controller: controller.areaController,
+                controller: controller.tagsController,
                 hint: "Enter Tags",
                 label: "Tags",
                 icon: Icons.public_outlined,
@@ -86,7 +88,7 @@ class PostJobScreen extends ConsumerWidget {
               SelectCity(controller: controller.cityController),
               gapH16(),
               TransparentFormField(
-                controller: controller.areaController,
+                controller: controller.countryController,
                 hint: "Enter Country",
                 label: "Country",
                 icon: Icons.public_outlined,
