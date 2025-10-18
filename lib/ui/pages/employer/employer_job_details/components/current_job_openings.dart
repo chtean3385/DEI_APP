@@ -7,19 +7,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
-class ManageJobListView  extends ConsumerWidget {
-  ManageJobListView({super.key});
+class CurrentJobOpenings  extends ConsumerWidget {
+  CurrentJobOpenings({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(manageJobsProvider);
+    final state = ref.watch(currentJobOpeningsProvider);
     return  state.data?.isNotEmpty == true ? ListView.separated(
       itemCount: state.data?.length ?? 0,
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: EdgeInsets.zero,
       shrinkWrap: true,
-      physics: AlwaysScrollableScrollPhysics(),
+      physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return ManageJobCard(jobModel: state.data![index],
-           onTap: ()=>AppNavigator.loadEmployerJobDetailsScreen(),
+          onTap: ()=>AppNavigator.loadJobDetailsScreen(state.data![index]),
         );
       },
       separatorBuilder: (context, index) => gapH16(),
