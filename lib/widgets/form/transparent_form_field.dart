@@ -109,8 +109,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
                 if (widget.nextFocusNode != null) {
                   // Safe check: only move if nextNode is attached
                   if (widget.nextFocusNode!.hasFocus == false && widget.nextFocusNode!.context != null) {
-                    // FocusScope.of(context).requestFocus(widget.nextFocusNode);
-                    widget.nextFocusNode!.requestFocus();
+                    FocusScope.of(context).requestFocus(widget.nextFocusNode);
                   } else {
                     FocusScope.of(context).unfocus();
                   }
