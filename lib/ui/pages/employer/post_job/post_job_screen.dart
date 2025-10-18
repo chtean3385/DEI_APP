@@ -15,7 +15,7 @@ import '../../auth/signup_employer/widgets/select_state.dart';
 import 'components/job_department_selector.dart';
 import 'components/job_salary_selector.dart';
 import 'components/job_type_selector.dart';
-
+final hasFetchedInitialDataProvider = StateProvider<bool>((ref) => false);
 class PostJobScreen extends ConsumerWidget {
   final bool isEditJobPost;
 
@@ -26,9 +26,13 @@ class PostJobScreen extends ConsumerWidget {
     final state = ref.watch(addEditJobProvider);
     final controller = ref.read(addEditJobProvider.notifier);
     // Run only once after the first frame
-    if (isEditJobPost) {
+    final hasFetched = ref.watch(hasFetchedInitialDataProvider);
+
+    if (isEditJobPost && !hasFetched) {
+      // Run only once
       WidgetsBinding.instance.addPostFrameCallback((_) {
         controller.fetchInitialProfileData();
+        ref.read(hasFetchedInitialDataProvider.notifier).state = true;
       });
     }
     final theme = Theme.of(context).textTheme;

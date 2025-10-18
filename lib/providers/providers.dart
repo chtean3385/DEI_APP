@@ -358,6 +358,6 @@ final employerApplicationsProvider =StateNotifierProvider.autoDispose<EmployerAp
   return EmployerApplicationsController();
 });
 final addEditJobProvider =StateNotifierProvider.autoDispose<EmployerPostNewJobController, AddEditJobState>((ref) {
-  return EmployerPostNewJobController();
+  return EmployerPostNewJobController(ref);
 });
 
