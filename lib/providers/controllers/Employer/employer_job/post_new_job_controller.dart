@@ -71,34 +71,40 @@ class EmployerPostNewJobController extends StateNotifier<AddEditJobState> {
   }
 
   void fetchInitialProfileData() {
-    /// basic info
+    print("fetchInitialProfileDatafetchInitialProfileData");
+    /// Basic info
+    titleController.text = "UI/UX Designer";
+    departmentController.text = "Advertising & Marketing";
+    typeController.text = "Full-Time";
+    descriptionController.text =
+    "We’re seeking a creative UI/UX Designer to craft intuitive, visually appealing, "
+        "and user-centered digital experiences. The ideal candidate should have experience "
+        "in wireframing, prototyping, and collaborating closely with product and development teams.";
+    tagsController.text = "Figma, Adobe XD, Sketch, User Research, Prototyping";
+    salaryController.text = "8 - 12 Lacs PA";
+    categoryController.text = "Gen Z";
 
-    titleController.text = "Vedhasekaran and Akalya Inc 123";
-    departmentController.text = "Riyaz Dhayalan";
-    descriptionController.text = "01/02/2000";
-    tagsController.text = "51-200 employees";
-    salaryController.text = "https://www.rozecifexacavu.ws";
-    categoryController.text = "Corrupti est qui c";
+    /// Location
+    areaController.text = "Indiranagar";
+    cityController.text = "Bengaluru";
+    stateController.text = "Karnataka";
+    countryController.text = "India";
 
-    areaController.text = "Corrupti est qui c";
-    cityController.text = "Corrupti est qui c";
-    stateController.text = "Corrupti est qui c";
-    countryController.text = "Corrupti est qui c";
-
-
+    /// Dummy gallery images
     final galleryImages = [
-      "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079508/blogs/szose5lsflyu8jhadcks.png",
-      "https://res.cloudinary.com/dv4aury9e/image/upload/v1755079773/blogs/shvioyrmukgh4gbqa824.png",
-      "https://res.cloudinary.com/dv4aury9e/image/upload/v1755083343/blogs/jkp1efnarxmnnnusarve.png",
+      "https://res.cloudinary.com/demo/image/upload/v1700000101/jobs/uiux_workspace.png",
+      "https://res.cloudinary.com/demo/image/upload/v1700000102/jobs/design_team.png",
+      "https://res.cloudinary.com/demo/image/upload/v1700000103/jobs/prototype_mockup.png",
     ];
 
-
+    /// Update job data in state
     state = state.copyWith(
       jobData: (state.jobData ?? JobPostModel()).copyWith(
         jobImageUrls: galleryImages,
       ),
     );
   }
+
 
   Future<void> pickGalleryImage() async {
     final picked = await pickImageFromGalleryOrCamera(

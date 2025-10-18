@@ -57,13 +57,13 @@ class AppNavigator {
     }
   }
 
-  static Future<void> toBottomBar({int initialPage = 0}) async {
+  static Future<void> toBottomBar({int initialPage = 0,bool isEditJobPost = false}) async {
     final roleId = await SharedPreferenceRepository.getRoleId();
     if (roleId == 2) {
       Navigator.pushAndRemoveUntil(
         navigatorKey.currentContext!,
         MaterialPageRoute(
-          builder: (_) => EmployerBottomBar(initialPage: initialPage),
+          builder: (_) => EmployerBottomBar(initialPage: initialPage,isEditJobPost: isEditJobPost),
         ),
         (route) => false,
       );

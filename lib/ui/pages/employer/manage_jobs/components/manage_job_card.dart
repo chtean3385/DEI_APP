@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/models/job/job_model.dart';
 import 'package:dei_champions/widgets/others/custom_decorated_box.dart';
@@ -197,7 +198,7 @@ class ManageJobCard extends StatelessWidget {
                     horizontal: 8,
                     vertical: 4,
                   ),
-                  onTap: onTap,
+                  onTap: ()=>AppNavigator.loadEmployerJobDetailsScreen(),
                 ),
                 gapW8(),
                 CustomThemeButton(
@@ -226,7 +227,7 @@ class ManageJobCard extends StatelessWidget {
                     horizontal: 8,
                     vertical: 4,
                   ),
-                  onTap: onTap,
+                  onTap: ()=>AppNavigator.toBottomBar(initialPage: 1,isEditJobPost: true),
                 ),
                 gapW8(),
                 CustomThemeButton(

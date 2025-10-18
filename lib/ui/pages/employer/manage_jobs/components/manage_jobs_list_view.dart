@@ -19,7 +19,6 @@ class ManageJobListView  extends ConsumerWidget {
       physics: AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return ManageJobCard(jobModel: state.data![index],
-           onTap: ()=>AppNavigator.loadEmployerJobDetailsScreen(),
         );
       },
       separatorBuilder: (context, index) => gapH16(),

@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_drawables.dart';
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:flutter/material.dart';
 
@@ -61,7 +62,7 @@ class ManageJobsEmptyScreen extends StatelessWidget {
               color: AppColors.primaryColor,
               radius: 30,
               padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-              onTap: (){},
+              onTap: ()=>AppNavigator.toBottomBar(initialPage: 1),
 
             ),
           ],

@@ -5,6 +5,7 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
+import '../../../../../constants/app_navigator.dart';
 import '../../../../../widgets/others/open_bottom_sheet.dart';
 import 'employer_application_status_progress_bar.dart';
 import 'employer_job_application_filter_options.dart';
@@ -69,7 +70,6 @@ class EmployerJobDetailsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-
           SizedBox(key: jobStatisticsKey, height: 16),
           Text('Job Statistics', style: theme.titleMedium),
           gapH16(),
@@ -108,9 +108,12 @@ class EmployerJobDetailsView extends StatelessWidget {
                 gapH16(),
                 Text(
                   'Application Status',
-                  style: theme.bodyMedium?.copyWith(fontWeight: FontWeight.bold,fontSize: 16),
+                  style: theme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
-                ApplicationStatusProgressBars()
+                ApplicationStatusProgressBars(),
               ],
             ),
           ),
@@ -150,11 +153,7 @@ class EmployerJobDetailsView extends StatelessWidget {
               ),
               GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () => openEditBottomSheet(
-                  context: context,
-                  content: const SizedBox(),
-                  isDraggable: true,
-                ),
+                onTap: () => AppNavigator.toBottomBar(initialPage: 1,isEditJobPost: true),
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Icon(

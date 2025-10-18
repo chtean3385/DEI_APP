@@ -17,14 +17,26 @@ import 'components/job_salary_selector.dart';
 import 'components/job_type_selector.dart';
 
 class PostJobScreen extends ConsumerWidget {
-  const PostJobScreen({super.key});
+  final bool isEditJobPost;
+
+  const PostJobScreen({super.key,this.isEditJobPost = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(addEditJobProvider);
     final controller = ref.read(addEditJobProvider.notifier);
+    // Run only once after the first frame
+    if (isEditJobPost) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        controller.fetchInitialProfileData();
+      });
+    }
     final theme = Theme.of(context).textTheme;
-    QuillController _controller = QuillController.basic();
+    // QuillController _controller = QuillController.basic();
+    final _controller = QuillController(
+      document: Document()..insert(0, controller.descriptionController.text),
+      selection: const TextSelection.collapsed(offset: 0),
+    );
 
     return Padding(
       padding: EdgeInsets.only(
@@ -196,6 +208,8 @@ class PostJobScreen extends ConsumerWidget {
                         config: QuillEditorConfig(
                           minHeight: 100,
                           placeholder: "Add your job description...",
+
+
                           customStyles: DefaultStyles(placeHolder:
                           DefaultTextBlockStyle(
                             TextStyle(fontSize: 14,fontWeight: FontWeight.normal,color: Colors.black54,fontFamily:  'Poppins'),
