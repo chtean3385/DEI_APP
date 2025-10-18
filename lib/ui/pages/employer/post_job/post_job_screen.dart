@@ -26,6 +26,19 @@ class PostJobScreen extends ConsumerWidget {
     final theme = Theme.of(context).textTheme;
     QuillController _controller = QuillController.basic();
 
+    // Create FocusNodes
+    final _titleFocus = FocusNode();
+    final _departmentFocus = FocusNode();
+    final _salaryFocus = FocusNode();
+    final _categoryFocus = FocusNode();
+    final _typeFocus = FocusNode();
+    final _tagFocus = FocusNode();
+    final _areaFocus = FocusNode();
+    final _stataFocus = FocusNode();
+    final _cityFocus = FocusNode();
+    final _countryFocus = FocusNode();
+    final _descriptionFocus = FocusNode();
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom, // pushes content above keyboard
@@ -41,6 +54,8 @@ class PostJobScreen extends ConsumerWidget {
               gapH16(),
               TransparentFormField(
                 controller: controller.titleController,
+                focusNode: _titleFocus,
+                nextFocusNode:_departmentFocus ,
                 hint: "e.g. Senior Product Designer",
                 label: "Job title",
                 icon: Icons.work_outline,
@@ -51,20 +66,32 @@ class PostJobScreen extends ConsumerWidget {
               gapH16(),
               JobDepartmentSelector(
                 controller: controller.departmentController,
+                focusNode: _departmentFocus,
+                nextFocus:_salaryFocus ,
               ),
               gapH16(),
 
-              JobSalaryField(controller: controller.salaryController),
+              JobSalaryField(controller: controller.salaryController,
+                focusNode: _salaryFocus,
+                nextFocus:_categoryFocus ,
+              ),
               gapH16(),
 
-              JobCategorySelector(controller: controller.categoryController),
+              JobCategorySelector(controller: controller.categoryController,
+                focusNode: _categoryFocus,
+                nextFocus:_typeFocus ,),
               gapH16(),
 
-              JobTypeSelector(controller: controller.typeController),
+              JobTypeSelector(controller: controller.typeController,
+                focusNode: _typeFocus,
+                nextFocus:_tagFocus
+                ,),
               gapH16(),
 
               TransparentFormField(
                 controller: controller.tagsController,
+                focusNode: _tagFocus,
+                nextFocusNode:_areaFocus,
                 hint: "Enter Tags",
                 label: "Tags",
                 icon: Icons.public_outlined,
@@ -75,6 +102,8 @@ class PostJobScreen extends ConsumerWidget {
               gapH16(),
               TransparentFormField(
                 controller: controller.areaController,
+                focusNode: _areaFocus,
+                nextFocusNode:_stataFocus,
                 hint: "Enter Area",
                 label: "Area",
                 icon: Icons.home_outlined,
@@ -83,12 +112,21 @@ class PostJobScreen extends ConsumerWidget {
                 textCapitalization: TextCapitalization.words,
               ),
               gapH16(),
-              SelectState(controller: controller.stateController),
+              SelectState(controller: controller.stateController,
+
+                focusNode: _stataFocus,
+                nextFocus:_cityFocus
+                ,),
               gapH16(),
-              SelectCity(controller: controller.cityController),
+              SelectCity(controller: controller.cityController,
+                  focusNode: _cityFocus,
+                  nextFocus:_countryFocus
+              ),
               gapH16(),
               TransparentFormField(
                 controller: controller.countryController,
+                focusNode: _countryFocus,
+                nextFocusNode:_descriptionFocus,
                 hint: "Enter Country",
                 label: "Country",
                 icon: Icons.public_outlined,
@@ -193,6 +231,7 @@ class PostJobScreen extends ConsumerWidget {
                       color: AppColors.primaryColor.withValues(alpha: .15),
                       child: QuillEditor.basic(
                         controller: _controller,
+                        focusNode: _descriptionFocus,
                         config: QuillEditorConfig(
                           minHeight: 100,
                           placeholder: "Add your job description...",
