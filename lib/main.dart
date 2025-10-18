@@ -1,4 +1,3 @@
-
 import 'package:dei_champions/providers/theme_controller.dart';
 import 'package:dei_champions/service/notification_service.dart';
 import 'package:dei_champions/ui/pages/main/bottom_bar.dart';
@@ -9,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'constants/app_strings.dart';
 import 'constants/app_theme.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -48,13 +49,19 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeNotifierProvider);
     return MaterialApp(
-        navigatorKey: navigatorKey,
-        title: AppStrings.appName,
-        theme: lightTheme(context),
-        darkTheme: darkTheme(context),
-        themeMode: themeMode,
-        debugShowCheckedModeBanner: false,
-        home: const SplashScreen()
+      navigatorKey: navigatorKey,
+      title: AppStrings.appName,
+      theme: lightTheme(context),
+      darkTheme: darkTheme(context),
+      themeMode: themeMode,
+      debugShowCheckedModeBanner: false,
+      home: const SplashScreen(),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        FlutterQuillLocalizations.delegate,
+      ],
     );
   }
 }
