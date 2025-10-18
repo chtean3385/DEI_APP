@@ -4,6 +4,7 @@ import 'package:dei_champions/models/state_models/about_us/about_vision_state.da
 import 'package:dei_champions/models/state_models/about_us/core_value_state.dart';
 import 'package:dei_champions/models/state_models/about_us/revolution_state.dart';
 import 'package:dei_champions/models/state_models/about_us/what_we_do_state.dart';
+import 'package:dei_champions/models/state_models/employer/emplyer_applications_state.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
 import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart';
@@ -52,6 +53,7 @@ import '../models/state_models/veteran/veteran_future_state.dart';
 import '../models/state_models/veteran/veteran_organizational_benefit_state.dart';
 import '../models/state_models/veteran/veteran_quote_state.dart';
 import '../models/state_models/veteran/veteran_title_state.dart';
+import 'controllers/Employer/employer_job/employer_application_controller.dart';
 import 'controllers/Employer/employer_profile/edit_employer_profile_controller.dart';
 import 'controllers/Employer/manage_jobs/current_jobs_controller.dart';
 import 'controllers/Employer/manage_jobs/employer_manage_jobs_controller.dart';
@@ -349,5 +351,8 @@ final currentJobOpeningsProvider =StateNotifierProvider.autoDispose<CurrentJobOp
 /// edit employer profile
 final editEmployerProfileProvider =StateNotifierProvider.autoDispose<EditEmployerProfileController, ProfileState>((ref) {
   return EditEmployerProfileController();
+});
+final employerApplicationsProvider =StateNotifierProvider.autoDispose<EmployerApplicationsController, EmployerApplicationState>((ref) {
+  return EmployerApplicationsController();
 });
 

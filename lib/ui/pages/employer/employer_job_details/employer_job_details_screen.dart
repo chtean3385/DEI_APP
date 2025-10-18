@@ -64,6 +64,7 @@ class _EmployerJobDetailsScreenState extends State<EmployerJobDetailsScreen> {
                     child: CustomTabBar(
                       filterItems: categories,
                       initialId: 0,
+                      // horizontalPadding: 16,
                       onItemSelected: (item) {
                         if (item['id'] == 1) {
                           _scrollToSection(_jobDetailsKey);

@@ -45,3 +45,23 @@ class SomethingWentWrong extends StatelessWidget {
     );
   }
 }
+class EmptyWidget extends StatelessWidget {
+  final String? text;
+
+  const EmptyWidget({super.key, this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: AlignmentGeometry.center,
+      child:Padding(
+        padding: const EdgeInsets.all(16),
+        child: Text(
+          text ?? "Sorry.. No data found",
+          maxLines: 3,
+          style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
+        ),
+      ),
+    );
+  }
+}

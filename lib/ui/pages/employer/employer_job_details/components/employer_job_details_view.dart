@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
 import '../../../../../widgets/others/open_bottom_sheet.dart';
-import 'current_job_openings.dart';
 import 'employer_application_status_progress_bar.dart';
+import 'employer_job_application_filter_options.dart';
+import 'job_applicants.dart';
 
 class EmployerJobDetailsView extends StatelessWidget {
   final ScrollController scrollController;
@@ -27,7 +28,7 @@ class EmployerJobDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       controller: scrollController,
-      padding: EdgeInsets.all(16),
+      padding: EdgeInsets.symmetric(vertical: 16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -35,79 +36,86 @@ class EmployerJobDetailsView extends StatelessWidget {
           _jobDetailsTab(context),
           _jobStaticsTab(),
           SizedBox(key: applicantsKey, height: 16),
-          Text('Applicants (2)', style: context.textTheme.titleMedium),
+          EmployerApplicationFilterOptions(),
           gapH16(),
-          CurrentJobOpenings(),
+          JobApplicants(),
         ],
       ),
     );
   }
 
   Widget _jobDetailsTab(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(key: jobDetailsKey, height: 16),
-        Text('Job Details', style: context.textTheme.titleMedium),
-        gapH16(),
-        _detailsCard1(context),
-        gapH16(),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(key: jobDetailsKey, height: 16),
+          Text('Job Details', style: context.textTheme.titleMedium),
+          gapH16(),
+          _detailsCard1(context),
+          gapH16(),
+        ],
+      ),
     );
   }
 
   Widget _jobStaticsTab() {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
 
-        SizedBox(key: jobStatisticsKey, height: 16),
-        Text('Job Statistics', style: theme.titleMedium),
-        gapH16(),
-        CustomDecoratedBox(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _detailItem(
-                    Icons.remove_red_eye_outlined,
-                    'Views',
-                    '1245',
-                    false,
-                    center: true,
-                  ),
-                  gapH8(),
-                  _detailItem(
-                    Icons.group_outlined,
-                    'Applicants',
-                    '4',
-                    false,
-                    center: true,
-                  ),
-                  gapH8(),
-                  _detailItem(
-                    Icons.share_outlined,
-                    'Shares',
-                    '87',
-                    false,
-                    center: true,
-                  ),
-                ],
-              ),
-              gapH16(),
-              Text(
-                'Application Status',
-                style: theme.bodyMedium?.copyWith(fontWeight: FontWeight.bold,fontSize: 16),
-              ),
-              ApplicationStatusProgressBars()
-            ],
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+
+          SizedBox(key: jobStatisticsKey, height: 16),
+          Text('Job Statistics', style: theme.titleMedium),
+          gapH16(),
+          CustomDecoratedBox(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    _detailItem(
+                      Icons.remove_red_eye_outlined,
+                      'Views',
+                      '1245',
+                      false,
+                      center: true,
+                    ),
+                    gapH8(),
+                    _detailItem(
+                      Icons.group_outlined,
+                      'Applicants',
+                      '4',
+                      false,
+                      center: true,
+                    ),
+                    gapH8(),
+                    _detailItem(
+                      Icons.share_outlined,
+                      'Shares',
+                      '87',
+                      false,
+                      center: true,
+                    ),
+                  ],
+                ),
+                gapH16(),
+                Text(
+                  'Application Status',
+                  style: theme.bodyMedium?.copyWith(fontWeight: FontWeight.bold,fontSize: 16),
+                ),
+                ApplicationStatusProgressBars()
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -304,33 +312,6 @@ class EmployerJobDetailsView extends StatelessWidget {
             ),
           ),
         ],
-
-        // Column(
-        //   crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     Row(
-        //       children: [
-        //         Expanded(flex:3,child: _detailItem(Icons.apartment_outlined, 'Department', 'Accounting & Finance')),
-        //         Expanded(flex: 2,child: _detailItem(Icons.work_outline, 'Job Type', 'Contract')),
-        //       ],
-        //     ),
-        //     gapH8(),
-        //     Row(
-        //       children: [
-        //         Expanded(flex:3 ,child:  _detailItem(Icons.location_on_outlined, 'Location', 'Kharagpur'),),
-        //         Expanded(flex: 2,child: _detailItem(Icons.currency_rupee, 'Salary', '10–20 lac')),
-        //       ],
-        //     ),
-        //     gapH8(),
-        //
-        //     Row(
-        //       children: [
-        //         Expanded(flex:3 ,child:   _detailItem(Icons.people_alt_outlined, 'Applicants', '2 candidates')),
-        //         Expanded(flex: 2,child: _detailItem(Icons.work_history_outlined, 'Experience', '0-2 yrs')),
-        //       ],
-        //     ),
-        //   ],
-        // )
       ),
     );
   }
