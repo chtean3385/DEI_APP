@@ -8,6 +8,7 @@ import '../employer_all/employer_dashboard_all_screen.dart';
 import '../employer_home/employer_home_screen.dart';
 import '../employer_profile/employer_profile_screen.dart';
 import '../manage_jobs/manage_jobs_screen.dart';
+import '../post_job/post_job_screen.dart';
 import 'components/drawer/employer_custom_drawer.dart';
 
 
@@ -149,7 +150,7 @@ class _EmployerBottomBarState extends State<EmployerBottomBar> {
       case 0:
         return EmployerHomeScreen();
       case 1:
-        return  SizedBox();
+        return  PostJobScreen();
       case 2:
         return const ManageJobsScreen();
       case 3:

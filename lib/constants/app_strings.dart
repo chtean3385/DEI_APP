@@ -212,5 +212,61 @@ class AppStrings {
     "Warangal",
   ];
 
+  static const List<String> jobDepartments = [
+    "Accounting & Finance",
+    "Administration",
+    "Advertising & Marketing",
+    "Architecture & Design",
+    "Arts & Media",
+    "Business Development",
+    "Customer Service",
+    "Data & Analytics",
+    "Education & Training",
+    "Engineering",
+    "Healthcare & Medical",
+    "Hospitality & Tourism",
+    "Human Resources",
+    "Information Technology",
+    "Legal & Compliance",
+    "Logistics & Supply Chain",
+    "Manufacturing & Production",
+    "Operations",
+    "Product Management",
+    "Project Management",
+    "Public Relations",
+    "Quality Assurance",
+    "Research & Development",
+    "Sales & Business Development",
+    "Software Development",
+    "Support & Maintenance",
+    "Technical Support",
+    "Writing & Editing",
+    "Others",
+  ];
+  static const List<String> JobSalaryRange = [
+    "1 - 3 Lacs PA",
+    "3 - 5 Lacs PA",
+    "5 - 8 Lacs PA",
+    "8 - 12 Lacs PA",
+    "12 - 20 Lacs PA",
+    "20+ Lacs PA",
+  ];
+  static const List<String> JobType = [
+    "Full-Time",
+    "Part-Time",
+    "Internship",
+    "Freelance",
+    "Remote",
+    "Contract",
+    "Temporary",
+  ];
+  static const List<String> JobCategories = [
+    "All Inclusive",
+    "PWD",
+    "Gen Z",
+    "Multi-Generation",
+    "LGBTQIA+",
+    "Women",
+  ];
 
 }

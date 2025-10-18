@@ -72,7 +72,7 @@ class EditEmployerContactInformation extends ConsumerWidget {
           ),
           gapH16(),
           SelectState(controller: controller.stateController),
-          gapH20(),
+          gapH16(),
           SelectCity(controller: controller.cityController),
           gapH16(),
           TransparentFormField(

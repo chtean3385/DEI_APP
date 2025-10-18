@@ -23,6 +23,7 @@ import '../models/state_models/auth_state.dart';
 import '../models/state_models/disability/disability_bottom_state.dart';
 import '../models/state_models/disability/disability_inclusion_steps_state.dart';
 import '../models/state_models/disability/disability_title_state.dart';
+import '../models/state_models/employer/add_edit_job_state.dart';
 import '../models/state_models/empower_women/empower_women_program_state.dart';
 import '../models/state_models/empower_women/empower_women_quote_state.dart';
 import '../models/state_models/empower_women/empower_women_workforce_state.dart';
@@ -54,6 +55,7 @@ import '../models/state_models/veteran/veteran_organizational_benefit_state.dart
 import '../models/state_models/veteran/veteran_quote_state.dart';
 import '../models/state_models/veteran/veteran_title_state.dart';
 import 'controllers/Employer/employer_job/employer_application_controller.dart';
+import 'controllers/Employer/employer_job/post_new_job_controller.dart';
 import 'controllers/Employer/employer_profile/edit_employer_profile_controller.dart';
 import 'controllers/Employer/manage_jobs/current_jobs_controller.dart';
 import 'controllers/Employer/manage_jobs/employer_manage_jobs_controller.dart';
@@ -354,5 +356,8 @@ final editEmployerProfileProvider =StateNotifierProvider.autoDispose<EditEmploye
 });
 final employerApplicationsProvider =StateNotifierProvider.autoDispose<EmployerApplicationsController, EmployerApplicationState>((ref) {
   return EmployerApplicationsController();
+});
+final addEditJobProvider =StateNotifierProvider.autoDispose<EmployerPostNewJobController, AddEditJobState>((ref) {
+  return EmployerPostNewJobController();
 });
 
