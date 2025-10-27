@@ -55,29 +55,26 @@ class _EmployerJobDetailsScreenState extends State<EmployerJobDetailsScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            ColoredBox(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 10),
-                    child: CustomTabBar(
-                      filterItems: categories,
-                      initialId: 0,
-                      // horizontalPadding: 16,
-                      onItemSelected: (item) {
-                        if (item['id'] == 1) {
-                          _scrollToSection(_jobDetailsKey);
-                        } else if (item['id'] == 2) {
-                          _scrollToSection(_jobStatisticsKey);
-                        } else if (item['id'] == 3) {
-                          _scrollToSection(_applicantsKey);
-                        }
-                      },
-                    ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: CustomTabBar(
+                    filterItems: categories,
+                    initialId: 0,
+                    // horizontalPadding: 16,
+                    onItemSelected: (item) {
+                      if (item['id'] == 1) {
+                        _scrollToSection(_jobDetailsKey);
+                      } else if (item['id'] == 2) {
+                        _scrollToSection(_jobStatisticsKey);
+                      } else if (item['id'] == 3) {
+                        _scrollToSection(_applicantsKey);
+                      }
+                    },
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
             // Expandable content with custom sliver scroll
             Expanded(

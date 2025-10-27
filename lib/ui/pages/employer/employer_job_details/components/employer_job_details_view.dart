@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_colors.dart';
 import '../../../../../constants/app_navigator.dart';
-import '../../../../../widgets/others/open_bottom_sheet.dart';
 import 'employer_application_status_progress_bar.dart';
 import 'employer_job_application_filter_options.dart';
 import 'job_applicants.dart';
