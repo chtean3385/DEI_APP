@@ -16,13 +16,44 @@ import 'job_department_selector.dart';
 import 'job_salary_selector.dart';
 import 'job_type_selector.dart';
 
-class JobPostFormView extends ConsumerWidget {
+class JobPostFormView extends ConsumerStatefulWidget {
   const JobPostFormView({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(addEditJobProvider);
+  ConsumerState<JobPostFormView> createState() => _JobPostFormViewState();
+}
+
+class _JobPostFormViewState extends ConsumerState<JobPostFormView> {
+  final _titleFocus = FocusNode();
+  final _departmentFocus = FocusNode();
+  final _salaryFocus = FocusNode();
+  final _categoryFocus = FocusNode();
+  final _typeFocus = FocusNode();
+  final _tagsFocus = FocusNode();
+  final _areaFocus = FocusNode();
+  final _stateFocus = FocusNode();
+  final _cityFocus = FocusNode();
+  final _countryFocus = FocusNode();
+
+  @override
+  void dispose() {
+    _titleFocus.dispose();
+    _departmentFocus.dispose();
+    _salaryFocus.dispose();
+    _categoryFocus.dispose();
+    _typeFocus.dispose();
+    _tagsFocus.dispose();
+    _areaFocus.dispose();
+    _stateFocus.dispose();
+    _cityFocus.dispose();
+    _countryFocus.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final controller = ref.read(addEditJobProvider.notifier);
+    final state = ref.watch(addEditJobProvider);
 
     final theme = Theme.of(context).textTheme;
     final _controller = QuillController(
@@ -53,21 +84,31 @@ class JobPostFormView extends ConsumerWidget {
                 textInputAction: TextInputAction.next,
                 validator: AppValidators.fieldEmpty("Job title"),
                 textCapitalization: TextCapitalization.words,
+                focusNode: _titleFocus,
+                nextFocusNode: _departmentFocus,
               ),
 
               gapH16(),
               JobDepartmentSelector(
                 controller: controller.departmentController,
+                focusNode: _departmentFocus,
+                nextFocus: _salaryFocus,
               ),
               gapH16(),
 
-              JobSalaryField(controller: controller.salaryController),
+              JobSalaryField(controller: controller.salaryController, focusNode: _salaryFocus,
+                nextFocus: _categoryFocus,),
               gapH16(),
 
-              JobCategorySelector(controller: controller.categoryController),
+              JobCategorySelector(controller: controller.categoryController, focusNode: _categoryFocus,
+                nextFocus: _typeFocus,),
               gapH16(),
 
-              JobTypeSelector(controller: controller.typeController),
+              JobTypeSelector(
+                controller: controller.typeController,
+                focusNode: _typeFocus,
+                nextFocus: _tagsFocus,
+              ),
               gapH16(),
               Text(
                 "job description",
@@ -199,6 +240,8 @@ class JobPostFormView extends ConsumerWidget {
                 textInputAction: TextInputAction.next,
                 validator: AppValidators.fieldEmpty("Country"),
                 textCapitalization: TextCapitalization.words,
+                focusNode: _tagsFocus,
+                nextFocusNode: _areaFocus,
               ),
               gapH16(),
               TransparentFormField(
@@ -209,20 +252,31 @@ class JobPostFormView extends ConsumerWidget {
                 textInputAction: TextInputAction.next,
                 validator: AppValidators.fieldEmpty("Area"),
                 textCapitalization: TextCapitalization.words,
+                focusNode: _areaFocus,
+                nextFocusNode: _stateFocus,
               ),
               gapH16(),
-              SelectState(controller: controller.stateController),
+              SelectState(
+                controller: controller.stateController,
+                focusNode: _stateFocus,
+                nextFocus: _cityFocus,
+              ),
               gapH16(),
-              SelectCity(controller: controller.cityController),
+              SelectCity(
+                controller: controller.cityController,
+                focusNode: _cityFocus,
+                nextFocus: _countryFocus,
+              ),
               gapH16(),
               TransparentFormField(
                 controller: controller.countryController,
                 hint: "Enter Country",
                 label: "Country",
                 icon: Icons.public_outlined,
-                textInputAction: TextInputAction.next,
                 validator: AppValidators.fieldEmpty("Country"),
                 textCapitalization: TextCapitalization.words,
+                focusNode: _countryFocus,
+                textInputAction: TextInputAction.done,
               ),
             ],
           ),
