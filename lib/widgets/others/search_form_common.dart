@@ -4,6 +4,8 @@ import '../../constants/app_colors.dart';
 
 class SearchFormFieldCommon extends StatefulWidget {
   final String hint;
+  final Color? hintColor;
+  final double? radius;
   final EdgeInsetsGeometry? padding;
   final TextEditingController? controller;
   final ValueChanged<String>? onChanged;
@@ -14,6 +16,8 @@ class SearchFormFieldCommon extends StatefulWidget {
     this.padding,
     this.controller,
     this.onChanged,
+    this.hintColor,
+    this.radius,
   });
 
   @override
@@ -62,8 +66,12 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
           fontWeight: FontWeight.w500,
         ),
         decoration: InputDecoration(
-          isDense: true, // helps reduce height
-          prefixIconConstraints: const BoxConstraints(minHeight: 20, minWidth: 20),
+          isDense: true,
+          // helps reduce height
+          prefixIconConstraints: const BoxConstraints(
+            minHeight: 20,
+            minWidth: 20,
+          ),
           prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 12, right: 6),
             child: Image.asset(
@@ -75,28 +83,34 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
           ),
           suffixIcon: _showClear
               ? GestureDetector(
-            onTap: () {
-              _controller.clear();
-              FocusScope.of(context).requestFocus(FocusNode());
-            },
-            child: const Icon(Icons.clear, size: 20, color: Colors.black),
-          )
+                  onTap: () {
+                    _controller.clear();
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  },
+                  child: const Icon(Icons.clear, size: 20, color: Colors.black),
+                )
               : null,
           hintText: widget.hint,
-          hintStyle: theme.textTheme.displaySmall?.copyWith(fontSize: 14),
+          hintStyle: theme.textTheme.displaySmall?.copyWith(
+            fontSize: 14,
+            color: widget.hintColor,
+          ),
           filled: true,
           fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+          contentPadding: const EdgeInsets.symmetric(
+            vertical: 10,
+            horizontal: 12,
+          ),
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(widget.radius ?? 24),
             borderSide: const BorderSide(color: Colors.grey, width: .5),
           ),
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(widget.radius ??24),
             borderSide: const BorderSide(color: Colors.grey, width: .5),
           ),
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24),
+            borderRadius: BorderRadius.circular(widget.radius ??24),
             borderSide: BorderSide(color: Colors.grey.shade600, width: .5),
           ),
         ),

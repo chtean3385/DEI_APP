@@ -1,0 +1,40 @@
+import 'package:dei_champions/widgets/others/app_bar_common.dart';
+import 'package:flutter/material.dart';
+import '../../../../widgets/others/search_form_common.dart';
+import 'candidates_components/candidates_list.dart';
+
+
+class CandidatesScreen extends StatelessWidget {
+  const CandidatesScreen({Key? key}) : super(key: key);
+  static const List<String> filters = [
+    "Title",
+    "Date",
+    "Salary",
+  ];
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: appBarCommon(title: "Candidates",titleStyleSmall: true),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SearchFormFieldCommon(
+              hint: "Search jobs by title, skills or company...",
+              padding: EdgeInsets.all(16),
+              hintColor: Colors.black54,
+              radius: 8,
+            ),
+            // Job list
+            Expanded(
+              child: CandidatesListView(),
+            ),
+
+          ],
+        ),
+      ),
+    );
+  }
+}

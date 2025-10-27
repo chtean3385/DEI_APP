@@ -17,6 +17,7 @@ import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 import '../ui/pages/career_explorers/career_explorers_screen.dart';
 import '../ui/pages/company/company_profile_screen.dart';
+import '../ui/pages/employer/candidate/candidate_list_screen.dart';
 import '../ui/pages/employer/candidate/candidate_profile_details_screen.dart';
 import '../ui/pages/employer/employer_job_details/employer_job_details_screen.dart';
 import '../ui/pages/employer/employer_main/employer_bottom_bar.dart';
@@ -339,6 +340,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => EditJobPostScreen()),
+    );
+  }
+  static loadCandidatesScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => CandidatesScreen()),
     );
   }
 }

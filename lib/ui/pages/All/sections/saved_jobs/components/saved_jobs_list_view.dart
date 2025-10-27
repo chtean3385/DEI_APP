@@ -4,7 +4,6 @@ import 'package:dei_champions/ui/pages/All/sections/saved_jobs/components/saved_
 import 'package:dei_champions/ui/pages/All/sections/saved_jobs/components/saved_jobs_empty.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import '../../../../../../providers/providers.dart';
 
 
@@ -14,7 +13,8 @@ class SavedJobListView  extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(savedJobsProvider);
-    return  state.data?.isNotEmpty == true ? ListView.separated(
+    return  state.data?.isNotEmpty == true ?
+    ListView.separated(
       itemCount: state.data?.length ?? 0,
       padding: EdgeInsets.symmetric(horizontal: 16),
       shrinkWrap: true,
