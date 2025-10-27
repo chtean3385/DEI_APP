@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../../../constants/app_styles.dart';
 import '../../../../../constants/app_colors.dart';
+import '../../../../../constants/app_navigator.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../../../../../widgets/others/rounded_network_image.dart';
 
@@ -174,7 +175,7 @@ class EmployerApplicationCard extends StatelessWidget {
                     horizontal: 8,
                     vertical: 4,
                   ),
-                  onTap: (){},
+                    onTap: ()=>AppNavigator.loadCandidateProfileDetailsScreen()
                 ),
                 gapW8(),
                 CustomThemeButton(
