@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -46,7 +47,7 @@ class CandidateBasicDetails extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomThemeButton(
                 color:BootstrapColors.colors["green"] ??
@@ -66,6 +67,7 @@ class CandidateBasicDetails extends StatelessWidget {
                   ),
                 ),
               ),
+              gapW16(),
               CustomThemeButton(
                 color:
                 AppColors.bg,
@@ -79,7 +81,7 @@ class CandidateBasicDetails extends StatelessWidget {
                 },
                 child: Text(
                   "Not Verified",
-                  style: context.textTheme.displaySmall?.copyWith(
+                  style: context.textTheme.bodyMedium?.copyWith(
                     color: AppColors.primaryColor,
                   ),
                 ),

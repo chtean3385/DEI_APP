@@ -14,10 +14,10 @@ class AddUpdatePostButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).textTheme;
     return Padding(
-      padding: const EdgeInsets.only(top: 12, bottom: 12),
+      padding:  EdgeInsets.symmetric(vertical: isEdit ? 16:12),
       child: CustomThemeButton(
         child: Text(
-          isEdit ? "Update" : "Post Job",
+          isEdit ? "Update Post" : "Post Job",
           style: theme.labelMedium?.copyWith(color: Colors.white),
         ),
         radius: 30,
@@ -28,6 +28,7 @@ class AddUpdatePostButton extends ConsumerWidget {
               : AppNavigator.toBottomBar(initialPage: 2);
         },
         isExpanded: false,
+        padding: EdgeInsets.symmetric(horizontal: 16,vertical: 12),
         color: AppColors.primaryColor,
       ),
     );
