@@ -92,36 +92,36 @@ class CustomDrawer extends StatelessWidget {
             // _drawerItem(Icons.article_outlined, "DEi blog"),
             // _drawerItem(Icons.help_outline, "How DEI works"),
             // _drawerItem(Icons.mail_outline, "Write to us"),
-            _drawerItem(Icons.woman_outlined, "Empower Women", false, // bold
-                null,  // badge
-                    () =>AppNavigator.loadEmpowerWomenScreen()),
-            _drawerItem(Icons.man, "Men as Allies", false, // bold
-                null,  // badge
-                    () =>AppNavigator.loadMenAsAliasScreen()),
-            _drawerItem(Icons.accessible_forward, "Not Defined by Disability", false,
-                null,
-                    () => AppNavigator.loadNotDefinedByDisabilityScreen()),
-            _drawerItem(
-              Icons.auto_awesome,
-              "Gen Z",
-              false,
-              null,
-                  () => AppNavigator.loadGenZScreen(),
-            ),
-            _drawerItem(
-              Icons.military_tech,
-              "Defense Veteran",
-              false,
-              null,
-                  () => AppNavigator.loadVeteranScreen(),
-            ),
-            _drawerItem(
-              Icons.diversity_3,
-              "Shine with Pride",
-              false,
-              null,
-                  () => AppNavigator.loadLgbtqScreen(),
-            ),
+            // _drawerItem(Icons.woman_outlined, "Empower Women", false, // bold
+            //     null,  // badge
+            //         () =>AppNavigator.loadEmpowerWomenScreen()),
+            // _drawerItem(Icons.man, "Men as Allies", false, // bold
+            //     null,  // badge
+            //         () =>AppNavigator.loadMenAsAliasScreen()),
+            // _drawerItem(Icons.accessible_forward, "Not Defined by Disability", false,
+            //     null,
+            //         () => AppNavigator.loadNotDefinedByDisabilityScreen()),
+            // _drawerItem(
+            //   Icons.auto_awesome,
+            //   "Gen Z",
+            //   false,
+            //   null,
+            //       () => AppNavigator.loadGenZScreen(),
+            // ),
+            // _drawerItem(
+            //   Icons.military_tech,
+            //   "Defense Veteran",
+            //   false,
+            //   null,
+            //       () => AppNavigator.loadVeteranScreen(),
+            // ),
+            // _drawerItem(
+            //   Icons.diversity_3,
+            //   "Shine with Pride",
+            //   false,
+            //   null,
+            //       () => AppNavigator.loadLgbtqScreen(),
+            // ),
             _drawerItem(
               Icons.explore,
               "Career Explorers",

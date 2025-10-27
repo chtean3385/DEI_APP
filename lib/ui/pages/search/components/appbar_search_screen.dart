@@ -8,8 +8,11 @@ AppBar appBarSearch(BuildContext context, {String? query,bool showSearchField = 
     automaticallyImplyLeading: true,
     leadingWidth: 30,
     title:showSearchField ? SearchFormFieldCommon(
-      hint: "Search result for ${query ?? ""} ",
+      hint: "Search... ",
       padding: EdgeInsets.zero,
+      hintColor:
+      Colors.black54,
+      radius: 10,
     ) :null,
   );
 }

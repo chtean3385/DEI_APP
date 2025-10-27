@@ -6,6 +6,8 @@ import '../../../models/job/job_model.dart';
 import '../job/components/similar_jobs.dart';
 import 'components/appbar_search_screen.dart';
 import 'components/bottom_filter_options.dart';
+import 'components/category_state_dropdown.dart';
+import 'components/sort_by_job.dart';
 
 class JobSearchResultScreen extends StatelessWidget {
   const JobSearchResultScreen({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class JobSearchResultScreen extends StatelessWidget {
   ];
   static final List<JobModel> jobs = [
     JobModel(
-      title: "45days WFH Malayalam, Telugu",
+      title: "45days WFH Hindi, Telugu",
       companyName: "Teleperformance (TP)",
       location: "Remote",
       experience: "0-1 yrs",
@@ -202,9 +204,18 @@ class JobSearchResultScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            CategoryStateDropdownRow(),
             Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text("59 results ", style: context.textTheme.displaySmall),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("59 results ", style: context.textTheme.displaySmall),
+
+                  SortByDropdown(),
+
+                ],
+              ),
             ),
             // Job list
             Expanded(

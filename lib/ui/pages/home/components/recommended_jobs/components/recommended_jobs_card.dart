@@ -1,8 +1,10 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/models/job/job_model.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../constants/app_styles.dart';
-import '../../../../../../widgets/others/check_box.dart';
+import '../../../../../../main.dart';
 import '../../../../../../widgets/others/rounded_network_image.dart';
 import '../../../../job/components/save_hide_button.dart';
 
@@ -46,14 +48,6 @@ class RecommendedJobCard extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        CustomCheckbox(
-                          label: "",
-                          initialValue: false,
-                          onChanged: (label, isSelected) {
-                            print("$label changed to $isSelected");
-                          },
-                        ),
-
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +57,7 @@ class RecommendedJobCard extends StatelessWidget {
                               Text(
                                 jobModel.companyName,
                                 style: theme.displaySmall?.copyWith(
-                                  color: Colors.black54,
+                                  color: AppColors.primaryColor
                                 ),
                               ),
                               const SizedBox(height: 6),
@@ -129,10 +123,14 @@ class RecommendedJobCard extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 6),
+              _skillsRow(jobModel.skills),
+              const SizedBox(height: 6),
+
               Text(
-                jobModel.skills.join(","),
+                "A company description is a concise overview that summarizes your business's key aspects, such as its history, legal structure, products or services, t...",
                 overflow: TextOverflow.ellipsis,
                 softWrap: true,
+                maxLines: 3,
                 style: theme.displaySmall?.copyWith(color: Colors.black54),
               ),
               const SizedBox(height: 6),
@@ -187,5 +185,38 @@ class RecommendedJobCard extends StatelessWidget {
         ),
       ),
     );
+  }
+  Widget _skillsRow(List<String>? skills) {
+    if (skills == null || skills.isEmpty) return const SizedBox.shrink();
+
+    return Wrap(
+      spacing: 8, // horizontal space between chips
+      runSpacing: 8, // vertical space between lines
+      children: skills.map((s) => _tagChip(s)).toList(),
+    );
+  }
+
+
+  Widget _tagChip(String tag) {
+    return // Tag chip
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+        decoration: BoxDecoration(
+          color: AppColors.bg,
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: Text(
+          tag,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          softWrap: true,
+          textAlign: TextAlign.center,
+          style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
+            fontWeight: FontWeight.w400,
+            fontSize: 12,
+            color: Colors.black,
+          ),
+        ),
+      );
   }
 }
