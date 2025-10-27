@@ -5,7 +5,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../models/employer/job_post_model.dart';
-import '../../../../ui/pages/employer/post_job/post_job_screen.dart';
 import '../../../../widgets/pickers/image_picker.dart';
 
 class EmployerPostNewJobController extends StateNotifier<AddEditJobState> {
@@ -31,7 +30,6 @@ class EmployerPostNewJobController extends StateNotifier<AddEditJobState> {
 
   @override
   void dispose() {
-    _ref.read(hasFetchedInitialDataProvider.notifier).state = false;
     debugPrint("🔥 EmployerPostNewJobController disposed");
     titleController.dispose();
     descriptionController.dispose();

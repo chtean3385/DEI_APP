@@ -227,7 +227,7 @@ class ManageJobCard extends StatelessWidget {
                     horizontal: 8,
                     vertical: 4,
                   ),
-                  onTap: ()=>AppNavigator.toBottomBar(initialPage: 1,isEditJobPost: true),
+                  onTap: ()=>AppNavigator.loadEditJobPostScreen(),
                 ),
                 gapW8(),
                 CustomThemeButton(

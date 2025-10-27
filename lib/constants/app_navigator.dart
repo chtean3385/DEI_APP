@@ -21,6 +21,7 @@ import '../ui/pages/employer/candidate/candidate_profile_details_screen.dart';
 import '../ui/pages/employer/employer_job_details/employer_job_details_screen.dart';
 import '../ui/pages/employer/employer_main/employer_bottom_bar.dart';
 import '../ui/pages/employer/employer_profile/edit_employer_profile.dart';
+import '../ui/pages/employer/post_job/edit_job_post_screen.dart';
 import '../ui/pages/genz/genz_screen.dart';
 import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
 import '../ui/pages/invites/job_invite_details_screen.dart';
@@ -58,13 +59,13 @@ class AppNavigator {
     }
   }
 
-  static Future<void> toBottomBar({int initialPage = 0,bool isEditJobPost = false}) async {
+  static Future<void> toBottomBar({int initialPage = 0}) async {
     final roleId = await SharedPreferenceRepository.getRoleId();
     if (roleId == 2) {
       Navigator.pushAndRemoveUntil(
         navigatorKey.currentContext!,
         MaterialPageRoute(
-          builder: (_) => EmployerBottomBar(initialPage: initialPage,isEditJobPost: isEditJobPost),
+          builder: (_) => EmployerBottomBar(initialPage: initialPage),
         ),
         (route) => false,
       );
@@ -330,6 +331,14 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => CandidateProfileDetailsScreen()),
+    );
+  }
+
+
+  static loadEditJobPostScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => EditJobPostScreen()),
     );
   }
 }

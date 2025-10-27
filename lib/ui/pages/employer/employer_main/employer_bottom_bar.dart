@@ -14,9 +14,8 @@ import 'components/drawer/employer_custom_drawer.dart';
 
 class EmployerBottomBar extends StatefulWidget {
   final int initialPage;
-  final bool isEditJobPost;
 
-  const EmployerBottomBar({super.key, this.initialPage = 0,this.isEditJobPost = false});
+  const EmployerBottomBar({super.key, this.initialPage = 0});
 
   @override
   State<EmployerBottomBar> createState() => _EmployerBottomBarState();
@@ -151,7 +150,7 @@ class _EmployerBottomBarState extends State<EmployerBottomBar> {
       case 0:
         return EmployerHomeScreen();
       case 1:
-        return  PostJobScreen(isEditJobPost: widget.isEditJobPost);
+        return  PostJobScreen();
       case 2:
         return const ManageJobsScreen();
       case 3:

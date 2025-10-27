@@ -152,7 +152,7 @@ class EmployerJobDetailsView extends StatelessWidget {
               ),
               GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () => AppNavigator.toBottomBar(initialPage: 1,isEditJobPost: true),
+                onTap: () => AppNavigator.loadEditJobPostScreen(),
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: Icon(
