@@ -1,6 +1,8 @@
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../constants/app_colors.dart';
+import '../../../../../widgets/others/custom_theme_button.dart';
 import '../../../../../widgets/others/rounded_network_image.dart';
 
 class CandidateBasicDetails extends StatelessWidget {
@@ -42,6 +44,50 @@ class CandidateBasicDetails extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomThemeButton(
+                color:BootstrapColors.colors["green"] ??
+                    AppColors.primaryColor,
+                borderColor:BootstrapColors.colors["green"] ??
+                    AppColors.primaryColor,
+                radius: 30,
+                isExpanded: false,
+                alignRight: false,
+                padding: EdgeInsets.symmetric(vertical: 6,horizontal: 12),
+                onTap: () {
+                },
+                child: Text(
+                  "Active",
+                  style: context.textTheme.labelMedium?.copyWith(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              CustomThemeButton(
+                color:
+                AppColors.bg,
+                borderColor:
+                AppColors.bg,
+                radius: 30,
+                isExpanded: false,
+                alignRight: false,
+                padding: EdgeInsets.symmetric(vertical: 6,horizontal: 12),
+                onTap: () {
+                },
+                child: Text(
+                  "Not Verified",
+                  style: context.textTheme.displaySmall?.copyWith(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+              ),
+            ],
+          )
+
+
         ],
       ),
     );
