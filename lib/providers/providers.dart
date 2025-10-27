@@ -4,6 +4,7 @@ import 'package:dei_champions/models/state_models/about_us/about_vision_state.da
 import 'package:dei_champions/models/state_models/about_us/core_value_state.dart';
 import 'package:dei_champions/models/state_models/about_us/revolution_state.dart';
 import 'package:dei_champions/models/state_models/about_us/what_we_do_state.dart';
+import 'package:dei_champions/models/state_models/employer/candidates_state.dart';
 import 'package:dei_champions/models/state_models/employer/emplyer_applications_state.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
@@ -55,6 +56,7 @@ import '../models/state_models/veteran/veteran_organizational_benefit_state.dart
 import '../models/state_models/veteran/veteran_quote_state.dart';
 import '../models/state_models/veteran/veteran_title_state.dart';
 import 'controllers/Employer/candidate/candidate_profile_controller.dart';
+import 'controllers/Employer/candidate/candidates_list_controller.dart';
 import 'controllers/Employer/employer_job/employer_application_controller.dart';
 import 'controllers/Employer/employer_job/post_new_job_controller.dart';
 import 'controllers/Employer/employer_profile/edit_employer_profile_controller.dart';
@@ -365,4 +367,8 @@ final addEditJobProvider =StateNotifierProvider.autoDispose<EmployerPostNewJobCo
 /// view candidate profile
 final candidateProfileProvider =StateNotifierProvider.autoDispose<CandidateProfileController, ProfileState>((ref) {
   return CandidateProfileController();
+});
+/// view all candidate list
+final candidatesListProvider =StateNotifierProvider.autoDispose<CandidatesController, CandidatesState>((ref) {
+  return CandidatesController();
 });
