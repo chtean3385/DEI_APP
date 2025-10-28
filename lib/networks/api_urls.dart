@@ -67,8 +67,17 @@ class ApiUrls {
   static const lgbtqQuotes2 = 'shine-with-pride/colsing-pride/get-all';
 
 
-// search job
+ // search job
   static const searchJob = 'job/filtered-searched-jobs';
+
+
+  //  job
+  static String applyJob(String id) => 'job/apply/$id';
+  static String unApplyJob(String id) => 'job/unapply/$id';
+  static String saveJob(String id) => 'job/save/$id';
+  static String unSaveJob(String id) => 'job/unsave/$id';
+
+
 
 
 

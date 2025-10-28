@@ -107,7 +107,7 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
           Icon(Icons.search_rounded, size: 64, color: Colors.grey.shade400),
           const SizedBox(height: 12),
           Text(
-            "Start typing to discover jobs",
+            "Start typing to search jobs",
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: Colors.grey.shade600,
               fontWeight: FontWeight.w500,

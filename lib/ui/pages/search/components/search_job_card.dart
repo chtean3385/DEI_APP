@@ -1,8 +1,10 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
+import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../../constants/app_styles.dart';
 import '../../../../../../main.dart';
@@ -178,10 +180,22 @@ class SearchJobCard extends StatelessWidget {
                     inActiveTitle:"Applied" ,
                     size:20 ,
                     smaller: true,
-                    initialValue: true,
-                    onPressed: () {
+                    initialValue: !jobModel.isApplied,
+                    onPressed: (isAppliedNow) {
                       // 🔹 Add API call here
-                      print("Apply/Applied tapped!");
+                      print("Apply/Applied tapped! -- $isAppliedNow");
+                      final jobId = jobModel.id ?? "";
+                      final notifier = ProviderScope.containerOf(context)
+                          .read(employeeManageJobProvider.notifier);
+
+                      if (isAppliedNow) {
+                        notifier.unApplyJob(jobId);
+                        print("❌ Unapplied from job $jobId");
+                      } else {
+                        notifier.applyJob(jobId);
+                        print("✅ Applied for job $jobId");
+
+                      }
                     },
                   ),
                   CustomDynamicButton(
@@ -191,10 +205,10 @@ class SearchJobCard extends StatelessWidget {
                     inActiveTitle:"Saved" ,
                     size:20 ,
                     smaller: true,
-                    initialValue: false,
-                    onPressed: () {
+                    initialValue: !jobModel.isSaved,
+                    onPressed: (isSavedNow) {
                       // 🔹 Add API call here
-                      print("Save/Hide tapped!");
+                      print("Save/Hide tapped!  -- $isSavedNow");
                     },
                   ),
                 ],

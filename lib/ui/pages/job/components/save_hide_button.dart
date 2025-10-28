@@ -70,7 +70,7 @@ class CustomDynamicButton extends StatefulWidget {
   final double size;
   final bool smaller;
   final bool initialValue;
-  final VoidCallback? onPressed;
+  final ValueChanged<bool>? onPressed;
 
   const CustomDynamicButton({
     super.key,
@@ -89,7 +89,7 @@ class CustomDynamicButton extends StatefulWidget {
 }
 
 class _CustomDynamicButtonState extends State<CustomDynamicButton> {
-  bool isActive = false;
+  late bool isActive = false;
 
   @override
   void initState() {
@@ -102,7 +102,7 @@ class _CustomDynamicButtonState extends State<CustomDynamicButton> {
     setState(() {
       isActive = !isActive;
     });
-    widget.onPressed?.call(); // trigger parent action if provided
+    widget.onPressed?.call(isActive); // trigger parent action if provided
   }
 
   @override

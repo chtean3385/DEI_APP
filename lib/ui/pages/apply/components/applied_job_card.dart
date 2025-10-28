@@ -237,7 +237,7 @@ class AppliedJobCard extends StatelessWidget {
                   size: 20,
                   smaller: true,
                   initialValue: true,
-                  onPressed: () {
+                  onPressed: (applied) {
                     // 🔹 Add apply logic/API call here
                     print("Apply tapped!");
                   },

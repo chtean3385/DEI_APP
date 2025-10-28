@@ -1,6 +1,7 @@
 import 'package:dei_champions/models/common/base_model.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
+import 'package:dei_champions/repo/shared_preference_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,7 +21,6 @@ class SearchJobController extends StateNotifier<JobListState> {
     super.dispose();
   }
 
-  /// Fetch dishes for get now/get later
 
   Future<void> fetchJobs({String? selectedState,String? query,String? sortBy,String? categoryId}) async {
     state = state.copyWith(
@@ -41,8 +41,9 @@ class SearchJobController extends StateNotifier<JobListState> {
         sortBy:  state.sortBy,
         state:  state.state,
       );
+      final userId = await SharedPreferenceRepository.getUserId();
       final Data = (result.data as List)
-          .map((e) => JobModelApi.fromJson(e))
+          .map((e) => JobModelApi.fromJson(e,currentUserId: userId))
           .toList();
       state = state.copyWith(
         pageState: PageState.success,

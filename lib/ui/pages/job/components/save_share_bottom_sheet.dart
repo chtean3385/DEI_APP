@@ -24,7 +24,7 @@ void showJobOptionsSheet(BuildContext context) {
                 inActiveTitle:"Save Job" ,
                 size:30 ,
                 smaller: false,
-                onPressed: () {
+                onPressed: (Saved) {
                   // 🔹 Add API call here
                   print("Save/Hide tapped!");
                 },
@@ -37,7 +37,7 @@ void showJobOptionsSheet(BuildContext context) {
                 inActiveTitle: "Apply Job",
                 size: 30,
                 smaller: false,
-                onPressed: () {
+                onPressed: (applied) {
                   // 🔹 Add apply logic/API call here
                   print("Apply tapped!");
                 },
@@ -52,7 +52,7 @@ void showJobOptionsSheet(BuildContext context) {
                 inActiveTitle:"Share Job" ,
                 size:30 ,
                 smaller: false,
-                onPressed: () {
+                onPressed: (shared) {
                   // 🔹 Add API call here
                   print("Share tapped!");
                 },

@@ -37,6 +37,7 @@ import '../models/state_models/home/champion_candidates_state.dart';
 import '../models/state_models/home/featured_employers_state.dart';
 import '../models/state_models/home/how_it_works_state.dart';
 import '../models/state_models/home/job_service_state.dart';
+import '../models/state_models/job/job_state.dart';
 import '../models/state_models/lgbtq/lgbtq_advantages_state.dart';
 import '../models/state_models/lgbtq/lgbtq_inclusion_point_state.dart';
 import '../models/state_models/lgbtq/lgbtq_quote_state.dart';
@@ -87,6 +88,7 @@ import 'controllers/genz/genz_growth_section_controller.dart';
 import 'controllers/genz/genz_title_section_controller.dart';
 import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
+import 'controllers/job/employee_job_controller.dart';
 import 'controllers/job/search_jobs_controller.dart';
 import 'controllers/lgbtq/lgbtq_advantage_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_inclusion_section_controller.dart';
@@ -342,6 +344,15 @@ final appliedJobsProvider =StateNotifierProvider.autoDispose<AppliedJobsControll
 final savedJobsProvider =StateNotifierProvider.autoDispose<SavedJobsController, SavedJobState>((ref) {
   return SavedJobsController();
 });
+/// search jobs list
+final searchJobListProvider =StateNotifierProvider.autoDispose<SearchJobController, JobListState>((ref) {
+  return SearchJobController();
+});
+
+/// employee manage job
+final employeeManageJobProvider =StateNotifierProvider<EmployeeManageJobController, JobState>((ref) {
+  return EmployeeManageJobController();
+});
 
 //////*****///////////******* EMPLOYER //////*****///////////*******
 
@@ -375,6 +386,3 @@ final candidatesListProvider =StateNotifierProvider.autoDispose<CandidatesContro
   return CandidatesController();
 });
 
-final searchJobListProvider =StateNotifierProvider.autoDispose<SearchJobController, JobListState>((ref) {
-  return SearchJobController();
-});

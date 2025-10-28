@@ -8,14 +8,6 @@ class SearchService {
   SearchService({ApiHandler? apiHandler})
     : _apiHandler = apiHandler ?? ApiHandler();
 
-  Future<dynamic> onBoarding() async {
-    final result = await _apiHandler.get(
-      url: ApiUrls.onBoarding,
-      includeAuthToken: false,
-    );
-    return result;
-  }
-  /// Get search filter dishes
   /// Get filtered & searched jobs
   Future<BaseModel> getSearchJobs({
     int page = 1,

@@ -15,6 +15,8 @@ class JobModelApi {
   bool? isApproved;
   DateTime? createdAt;
   DateTime? updatedAt;
+  bool isApplied = false;
+  bool isSaved = false;
 
   JobModelApi({
     this.id,
@@ -31,10 +33,28 @@ class JobModelApi {
     this.isApproved,
     this.createdAt,
     this.updatedAt,
+    this.isApplied = false,
+    this.isSaved = false,
   });
 
-  factory JobModelApi.fromJson(Map<String, dynamic> json) {
-   return JobModelApi(
+  factory JobModelApi.fromJson(Map<String, dynamic> json,{String? currentUserId}) {
+    final applicantsList = json["applicants"] == null
+        ? <Applicant>[]
+        : List<Applicant>.from(
+        json["applicants"].map((x) => Applicant.fromJson(x)));
+
+    final savedUsersList = json["savedBy"] == null
+        ? <SavedUser>[]
+        : List<SavedUser>.from(
+        json["savedBy"].map((x) => SavedUser.fromJson(x)));
+
+    // 🔹 Check if user has applied/saved
+    final hasApplied = currentUserId != null &&
+        applicantsList.any((app) => app.id == currentUserId);
+
+    final hasSaved = currentUserId != null &&
+        savedUsersList.any((saved) => saved.userId == currentUserId);
+    return JobModelApi(
       id: json["_id"],
       title: json["jobTitle"],
       description: json["jobDescription"],
@@ -48,21 +68,13 @@ class JobModelApi {
      skills: json["tags"] != null
          ? List<String>.from(json["tags"])
          : [],
-      // applicants: json["applicants"] == null
-      //     ? []
-      //     : List<Applicant>.from(
-      //     json["applicants"]!.map((x) => Applicant.fromJson(x))),
-      // savedUsers: json["savedUsers"] == null
-      //     ? []
-      //     : List<SavedUser>.from(
-      //     json["savedUsers"]!.map((x) => SavedUser.fromJson(x))),
       // isApproved: json["isApproved"],
       createdAt: json["createdAt"] != null
           ? DateTime.tryParse(json["createdAt"])
           : null,
-      // updatedAt: json["updatedAt"] != null
-      //     ? DateTime.tryParse(json["updatedAt"])
-      //     : null,
+     isApplied: hasApplied,
+     isSaved: hasSaved,
+
     );
   }
 
