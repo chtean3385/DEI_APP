@@ -9,6 +9,7 @@ import 'package:dei_champions/models/state_models/employer/emplyer_applications_
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
 import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart';
+import 'package:dei_champions/models/state_models/job/job_list_state.dart';
 import 'package:dei_champions/models/state_models/saved/saved_job_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/friendly_industry_controller.dart';
@@ -86,6 +87,7 @@ import 'controllers/genz/genz_growth_section_controller.dart';
 import 'controllers/genz/genz_title_section_controller.dart';
 import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
+import 'controllers/job/search_jobs_controller.dart';
 import 'controllers/lgbtq/lgbtq_advantage_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_inclusion_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_quotes_section1_controller.dart';
@@ -371,4 +373,8 @@ final candidateProfileProvider =StateNotifierProvider.autoDispose<CandidateProfi
 /// view all candidate list
 final candidatesListProvider =StateNotifierProvider.autoDispose<CandidatesController, CandidatesState>((ref) {
   return CandidatesController();
+});
+
+final searchJobListProvider =StateNotifierProvider.autoDispose<SearchJobController, JobListState>((ref) {
+  return SearchJobController();
 });

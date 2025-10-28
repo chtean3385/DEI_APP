@@ -1,25 +1,14 @@
-import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
-class CategoryStateDropdownRow extends StatefulWidget {
-  const CategoryStateDropdownRow({super.key});
+class StateDropdown extends StatefulWidget {
+  const StateDropdown({super.key});
 
   @override
-  State<CategoryStateDropdownRow> createState() => _CategoryStateDropdownRowState();
+  State<StateDropdown> createState() => _StateDropdownState();
 }
 
-class _CategoryStateDropdownRowState extends State<CategoryStateDropdownRow> {
-  final List<String> _categories = [
-    "All Categories",
-    "Multi-generation",
-    "Gen Z",
-    "PWD",
-    "All inclusive",
-    "LGBTQIA+",
-    "Women",
-  ];
-
+class _StateDropdownState extends State<StateDropdown> {
   final List<String> _states = [
     "All States",
     "Andhra Pradesh",
@@ -52,32 +41,23 @@ class _CategoryStateDropdownRowState extends State<CategoryStateDropdownRow> {
     "West Bengal",
   ];
 
-  late String _selectedCategory;
   late String _selectedState;
 
   @override
   void initState() {
     super.initState();
-    _selectedCategory = _categories.first;
     _selectedState = _states.first;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(child: _buildDropdown("Category", _categories, _selectedCategory, (val) {
-            if (val != null) setState(() => _selectedCategory = val);
-          })),
-          gapW16(),
-          Expanded(child: _buildDropdown("State", _states, _selectedState, (val) {
-            if (val != null) setState(() => _selectedState = val);
-          })),
-        ],
-      ),
+    return _buildDropdown(
+      "State",
+      _states,
+      _selectedState,
+          (val) {
+        if (val != null) setState(() => _selectedState = val);
+      },
     );
   }
 
