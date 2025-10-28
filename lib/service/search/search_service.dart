@@ -31,7 +31,7 @@ class SearchService {
       // Collect query parameters dynamically
       Map<String, String> queryParams = {};
       queryParams["page"] = page.toString();
-      queryParams["limit"] = "5";
+      queryParams["limit"] = "10";
 
       if (search?.isNotEmpty == true) {
         queryParams["keyword"] = search!;
