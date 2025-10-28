@@ -18,6 +18,7 @@ class SearchService {
   /// Get search filter dishes
   /// Get filtered & searched jobs
   Future<BaseModel> getSearchJobs({
+    int page = 1,
     String? search,
     String? state,
     String? categoryId,
@@ -25,10 +26,12 @@ class SearchService {
   }) async {
     try {
       // Start with base URL
-      String url = ApiUrls.searchJob;
+      String url = "${ApiUrls.searchJob}";
 
       // Collect query parameters dynamically
       Map<String, String> queryParams = {};
+      queryParams["page"] = page.toString();
+      queryParams["limit"] = "5";
 
       if (search?.isNotEmpty == true) {
         queryParams["keyword"] = search!;

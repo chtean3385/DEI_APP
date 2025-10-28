@@ -1,4 +1,3 @@
-import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,12 +24,12 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
     _scrollController.addListener(() {
       final state = ref.read(searchJobListProvider);
 
-      // if (_scrollController.position.pixels >=
-      //     _scrollController.position.maxScrollExtent - 200 &&
-      //     !state.isLoadingMore &&
-      //     state.currentPage < state.lastPage) {
-      //   ref.read(searchDishProvider.notifier).loadMore();
-      // }
+      if (_scrollController.position.pixels >=
+          _scrollController.position.maxScrollExtent - 200 &&
+          !state.isLoadingMore &&
+          state.currentPage < state.lastPage) {
+        ref.read(searchJobListProvider.notifier).loadMore();
+      }
     });
   }
 
@@ -59,13 +58,12 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
     return ListView.builder(
       controller: _scrollController,
       padding: EdgeInsets.symmetric(horizontal: 16),
-      itemCount: state.data!.length,
+      itemCount: state.data!.length + (state.isLoadingMore ? 1 : 0),
       itemBuilder: (context, index) {
         if (index < state.data!.length) {
           final item = state.data![index];
           return SearchJobCard(
             jobModel: item,
-            showSave: true,
             onTap: () {
               // Navigator.push(
               //   context,
@@ -82,7 +80,7 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
             child: Center(
               child: CircularProgressIndicator(
                 strokeWidth: 2,
-                color: AppColors.secondaryColor,
+                color: AppColors.primaryColor,
               ),
             ),
           );

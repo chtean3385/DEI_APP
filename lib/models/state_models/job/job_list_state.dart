@@ -9,6 +9,10 @@ class JobListState {
   final String? sortBy;
   final String? state;
   final String? categoryId;
+  final int currentPage;
+  final int lastPage;
+  final int? id;
+  final bool isLoadingMore;
 
   JobListState({
     required this.pageState,
@@ -18,6 +22,10 @@ class JobListState {
     this.sortBy,
     this.state,
     this.categoryId,
+    this.currentPage = 1,
+    this.lastPage = 1,
+    this.id ,
+    this.isLoadingMore = false,
   });
 
   factory JobListState.initial() => JobListState(
@@ -28,6 +36,8 @@ class JobListState {
     sortBy: null,
     state: null,
     categoryId: null,
+
+
   );
 
   JobListState copyWith({
@@ -38,6 +48,10 @@ class JobListState {
     String? sortBy,
     String? state,
     String? categoryId,
+    int? currentPage,
+    int? lastPage,
+    int? id,
+    bool? isLoadingMore,
   }) {
     return JobListState(
       pageState: pageState ?? this.pageState,
@@ -47,6 +61,10 @@ class JobListState {
       sortBy: sortBy ?? this.sortBy,
       state: state ?? this.state,
       categoryId: categoryId ?? this.categoryId,
+      currentPage: currentPage ?? this.currentPage,
+      lastPage: lastPage ?? this.lastPage,
+      id: id ?? this.id,
+      isLoadingMore: isLoadingMore ?? this.isLoadingMore,
     );
   }
 }

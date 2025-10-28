@@ -2,7 +2,8 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 class StateDropdown extends StatefulWidget {
-  const StateDropdown({super.key});
+  final ValueChanged<String>? onChanged;
+  const StateDropdown({super.key, this.onChanged});
 
   @override
   State<StateDropdown> createState() => _StateDropdownState();
@@ -10,7 +11,7 @@ class StateDropdown extends StatefulWidget {
 
 class _StateDropdownState extends State<StateDropdown> {
   final List<String> _states = [
-    "All States",
+    "Select State",
     "Andhra Pradesh",
     "Arunachal Pradesh",
     "Assam",
@@ -57,6 +58,7 @@ class _StateDropdownState extends State<StateDropdown> {
       _selectedState,
           (val) {
         if (val != null) setState(() => _selectedState = val);
+        widget.onChanged?.call(val ==  "Select State" ? "" : (val ?? ""));
       },
     );
   }

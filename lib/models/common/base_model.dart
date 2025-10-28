@@ -2,11 +2,17 @@ class BaseModel {
   final bool success;
   final String message;
   final dynamic data;
+  final int? currentPage;
+  final int? totalPages;
+  final int? count;
 
   BaseModel({
     required this.success,
     required this.message,
     this.data,
+    this.currentPage,
+    this.totalPages,
+    this.count,
   });
 
   bool get isSuccess => success;
@@ -16,6 +22,9 @@ class BaseModel {
       success: json['success'] ?? false,
       message: json['message'] ?? '',
       data: json['data'],
+      currentPage: json['currentPage'],
+      totalPages: json['totalPages'],
+      count: json['count'],
     );
   }
 }

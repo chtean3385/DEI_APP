@@ -29,11 +29,13 @@ class SearchJobController extends StateNotifier<JobListState> {
       sortBy: sortBy,
       state: selectedState,
       categoryId: categoryId,
+      currentPage: 1,
       data: [],
     );
 
     try {
       final BaseModel result = await _searchService.getSearchJobs(
+        page: 1,
        categoryId: state.categoryId,
         search:  state.query,
         sortBy:  state.sortBy,
@@ -45,6 +47,8 @@ class SearchJobController extends StateNotifier<JobListState> {
       state = state.copyWith(
         pageState: PageState.success,
         data: Data,
+        currentPage: result.currentPage,
+        lastPage: result.totalPages,
       );
     } catch (e) {
       state = state.copyWith(
@@ -57,31 +61,30 @@ class SearchJobController extends StateNotifier<JobListState> {
 
 
   /// Load more (pagination)
-  // Future<void> loadMore() async {
-  //   if (state.isLoadingMore || state.currentPage >= state.lastPage) return;
-  //
-  //   state = state.copyWith(isLoadingMore: true);
-  //
-  //   try {
-  //     final result = await _searchService.getSearchDishes(
-  //       status: state.selectedStatus,
-  //       search: state.searchQuery,
-  //       page: state.currentPage + 1,
-  //     );
-  //     final paginatedResponse = PaginatedResponse<SearchFoodModel>.fromJson(
-  //       result.data,
-  //           (json) => SearchFoodModel.fromJson(json),
-  //     );
-  //
-  //     final foodList = paginatedResponse.items ?? [];
-  //     state = state.copyWith(
-  //       foods: [...state.foods, ...foodList],
-  //       currentPage: paginatedResponse.currentPage,
-  //       lastPage: paginatedResponse.lastPage,
-  //       isLoadingMore: false,
-  //     );
-  //   } catch (e) {
-  //     state = state.copyWith(isLoadingMore: false);
-  //   }
-  // }
+  Future<void> loadMore() async {
+    if (state.isLoadingMore || state.currentPage >= state.lastPage) return;
+
+    state = state.copyWith(isLoadingMore: true);
+
+    try {
+      final result = await _searchService.getSearchJobs(
+        categoryId: state.categoryId,
+        search:  state.query,
+        sortBy:  state.sortBy,
+        state:  state.state,
+        page: state.currentPage + 1,
+      );
+      final Data = (result.data as List)
+          .map((e) => JobModelApi.fromJson(e))
+          .toList();
+      state = state.copyWith(
+        data: [...?state.data, ...Data],
+        currentPage: result.currentPage,
+        lastPage: result.totalPages,
+        isLoadingMore: false,
+      );
+    } catch (e) {
+      state = state.copyWith(isLoadingMore: false);
+    }
+  }
 }

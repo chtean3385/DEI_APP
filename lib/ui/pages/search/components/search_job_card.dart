@@ -11,14 +11,12 @@ import '../../job/components/save_hide_button.dart';
 
 class SearchJobCard extends StatelessWidget {
   final JobModelApi jobModel;
-  final bool showSave;
   final GestureTapCallback? onTap;
 
   const SearchJobCard({
     super.key,
     required this.jobModel,
     this.onTap,
-    this.showSave = false,
   });
 
   @override
@@ -118,16 +116,41 @@ class SearchJobCard extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SizedBox(width: 5),
-                  Text(
-                    "₹",
-                    style: theme.labelMedium?.copyWith(color: Colors.black54),
+                  Row(
+                    children: [
+                      SizedBox(width: 5),
+                      Text(
+                        "₹",
+                        style: theme.labelMedium?.copyWith(color: Colors.black54),
+                      ),
+                      SizedBox(width: 6),
+                      Text(
+                        jobModel.salary ?? "",
+                        style: theme.displaySmall?.copyWith(color: Colors.black54),
+                      ),
+                    ],
                   ),
-                  SizedBox(width: 6),
-                  Text(
-                    jobModel.salary ?? "",
-                    style: theme.displaySmall?.copyWith(color: Colors.black54),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Icon(
+                        Icons.calendar_month,
+                        size: 14,
+                        color: Colors.black54,
+                      ),
+                      gapW4(),
+                      Text(
+                        " ${getTimeAgo(jobModel.createdAt ?? DateTime.now())}",
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        style: theme.displaySmall?.copyWith(
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -143,33 +166,32 @@ class SearchJobCard extends StatelessWidget {
                 style: theme.displaySmall?.copyWith(color: Colors.black54),
               ),
               const SizedBox(height: 6),
+              const SizedBox(height: 6),
 
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.calendar_month,
-                          size: 14,
-                          color: Colors.black54,
-                        ),
-                        gapW4(),
-                        Text(
-                          " ${getTimeAgo(jobModel.createdAt ?? DateTime.now())}",
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: theme.displaySmall?.copyWith(
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ],
-                    ),
+                  CustomDynamicButton(
+                    activeIcon:  Icons.send_rounded,
+                    inActiveIcon:Icons.check_circle_rounded ,
+                    activeTitle:"Apply" ,
+                    inActiveTitle:"Applied" ,
+                    size:20 ,
+                    smaller: true,
+                    initialValue: true,
+                    onPressed: () {
+                      // 🔹 Add API call here
+                      print("Apply/Applied tapped!");
+                    },
                   ),
-                  SaveHideButton(
-                    showSave: showSave, // or false for Hide
+                  CustomDynamicButton(
+                    activeIcon:  Icons.bookmark_border,
+                    inActiveIcon:Icons.bookmark ,
+                    activeTitle:"Save" ,
+                    inActiveTitle:"Saved" ,
+                    size:20 ,
+                    smaller: true,
+                    initialValue: false,
                     onPressed: () {
                       // 🔹 Add API call here
                       print("Save/Hide tapped!");

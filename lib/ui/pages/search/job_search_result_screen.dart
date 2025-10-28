@@ -28,6 +28,7 @@ class JobSearchResultScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(searchJobListProvider);
+    final categoryState = ref.watch(jobCategoryProvider);
     final controller = ref.read(searchJobListProvider.notifier);
     return Scaffold(
       appBar: appBarSearch(
@@ -45,15 +46,22 @@ class JobSearchResultScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(child: SortByDropdown()),
-                  Expanded(child: StateDropdown()),
+                  Expanded(
+                    child: StateDropdown(
+                      onChanged: (state) =>
+                          controller.fetchJobs(selectedState: state),
+                    ),
+                  ),
                 ],
               ),
             ),
             // CategoryStateDropdownRow(),
             Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16.0,
-                vertical: 8,
+              padding: const EdgeInsets.only(
+                left: 16,
+                right: 16,
+                bottom: 8,
+                top: 4,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,14 +73,18 @@ class JobSearchResultScreen extends ConsumerWidget {
                     ),
                   ),
 
-                  Expanded(child: CategoryDropdown()),
+                  Expanded(
+                    child: CategoryDropdown(
+                      onChanged: (categoryId) =>
+                          controller.fetchJobs(categoryId: categoryId),
+                      categories: categoryState.data?.categories ?? [],
+                    ),
+                  ),
                 ],
               ),
             ),
             // Job list
-            Expanded(
-              child: SearchResultsView(),
-            ),
+            Expanded(child: SearchResultsView()),
 
             // Sticky bottom filter bar
             const FilterOptionsBar(filters: filters),
