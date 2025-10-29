@@ -1,13 +1,14 @@
-
-
 class JobModelApi {
   String? id;
   String? title;
   String? description;
   String? city;
   String? state;
+  String? country;
   String? salary;
+  String? category;
   String? jobType;
+  String? status;
   Employer? employer;
   List<String>? skills;
   List<Applicant>? applicants;
@@ -24,8 +25,11 @@ class JobModelApi {
     this.description,
     this.city,
     this.state,
+    this.country,
     this.salary,
+    this.category,
     this.jobType,
+    this.status,
     this.employer,
     this.skills,
     this.applicants,
@@ -37,75 +41,144 @@ class JobModelApi {
     this.isSaved = false,
   });
 
-  factory JobModelApi.fromJson(Map<String, dynamic> json,{String? currentUserId}) {
+  factory JobModelApi.fromJson(
+    Map<String, dynamic> json, {
+    String? currentUserId,
+  }) {
     final applicantsList = json["applicants"] == null
         ? <Applicant>[]
         : List<Applicant>.from(
-        json["applicants"].map((x) => Applicant.fromJson(x)));
+            json["applicants"].map((x) => Applicant.fromJson(x)),
+          );
 
     final savedUsersList = json["savedBy"] == null
         ? <SavedUser>[]
         : List<SavedUser>.from(
-        json["savedBy"].map((x) => SavedUser.fromJson(x)));
+            json["savedBy"].map((x) => SavedUser.fromJson(x)),
+          );
 
     // 🔹 Check if user has applied/saved
-    final hasApplied = currentUserId != null &&
+    final hasApplied =
+        currentUserId != null &&
         applicantsList.any((app) => app.id == currentUserId);
 
-    final hasSaved = currentUserId != null &&
+    final hasSaved =
+        currentUserId != null &&
         savedUsersList.any((saved) => saved.id == currentUserId);
     return JobModelApi(
       id: json["_id"],
       title: json["jobTitle"],
       description: json["jobDescription"],
       city: json["city"],
-     state: json["state"],
+      state: json["state"],
+      country: json["country"],
       salary: json["salary"],
-     jobType: json["jobType"] != null ? json["jobType"]["name"] : null,
-     employer: json["postedBy"] != null
+      status: json["status"],
+      jobType: json["jobType"] != null ? json["jobType"]["name"] : null,
+      category: json["category"] != null ? json["category"]["title"] : null,
+      employer: json["postedBy"] != null
           ? Employer.fromJson(json["postedBy"])
           : null,
-     skills: json["tags"] != null
-         ? List<String>.from(json["tags"])
-         : [],
+      skills: json["tags"] != null ? List<String>.from(json["tags"]) : [],
       // isApproved: json["isApproved"],
       createdAt: json["createdAt"] != null
           ? DateTime.tryParse(json["createdAt"])
           : null,
-     isApplied: hasApplied,
-     isSaved: hasSaved,
-
+      updatedAt: json["updatedAt"] != null
+          ? DateTime.tryParse(json["updatedAt"])
+          : null,
+      isApplied: hasApplied,
+      isSaved: hasSaved,
     );
   }
-
 }
 
 class Employer {
   String? id;
   String? name;
   String? email;
+  String? phone;
   String? company;
   String? companyLogo;
-  String? phone;
+  String? companyWebsite;
+  String? address;
+  String? city;
+  String? state;
+  String? pincode;
+  DateTime? memberSince;
+  bool? companyVerified;
+  String? companySize;
+  String? companyDesignation;
+  List<CertifiedTag>? certifiedTags;
+  List<CompanyGallery>? companyGallery;
 
   Employer({
     this.id,
     this.name,
     this.email,
+    this.phone,
     this.company,
     this.companyLogo,
-    this.phone,
+    this.companyWebsite,
+    this.address,
+    this.city,
+    this.state,
+    this.pincode,
+    this.memberSince,
+    this.companyVerified,
+    this.companySize,
+    this.companyDesignation,
+    this.certifiedTags,
+    this.companyGallery,
   });
 
-  factory Employer.fromJson(Map<String, dynamic> json) => Employer(
-    id: json["_id"],
-    name: json["name"],
-    email: json["email"],
-    company: json["companyName"],
-    companyLogo: json["profilePhotoUrl"],
-    phone: json["mobile"],
-  );
+  factory Employer.fromJson(Map<String, dynamic> json) {
+    return Employer(
+      id: json["_id"],
+      name: json["name"],
+      email: json["email"],
+      phone: json["mobile"],
+      company: json["companyName"],
+      companyLogo: json["profilePhotoUrl"],
+      companyWebsite: json["companyWebsite"],
+      address: json["address"],
+      city: json["city"],
+      state: json["state"],
+      pincode: json["pincode"],
+      memberSince: json["memberSince"] != null
+          ? DateTime.tryParse(json["memberSince"])
+          : null,
+      companyVerified: json["companyVerified"],
+      companySize: json["companySize"],
+      companyDesignation: json["companyDesignation"],
+      certifiedTags: json["certifiedTags"] != null
+          ? (json["certifiedTags"] as List)
+                .map((e) => CertifiedTag.fromJson(e))
+                .toList()
+          : [],
+      companyGallery: (json["companyGallery"] as List?)
+          ?.map((e) => CompanyGallery.fromJson(e))
+          .toList(),
+    );
+  }
 
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "name": name,
+    "email": email,
+    "mobile": phone,
+    "companyName": company,
+    "profilePhotoUrl": companyLogo,
+    "companyWebsite": companyWebsite,
+    "address": address,
+    "city": city,
+    "state": state,
+    "pincode": pincode,
+    "memberSince": memberSince,
+    "companyVerified": companyVerified,
+    "companySize": companySize,
+    "companyDesignation": companyDesignation,
+  };
 }
 
 class Applicant {
@@ -115,13 +188,7 @@ class Applicant {
   String? resumeUrl;
   DateTime? appliedAt;
 
-  Applicant({
-    this.id,
-    this.name,
-    this.email,
-    this.resumeUrl,
-    this.appliedAt,
-  });
+  Applicant({this.id, this.name, this.email, this.resumeUrl, this.appliedAt});
 
   factory Applicant.fromJson(Map<String, dynamic> json) => Applicant(
     id: json["_id"],
@@ -146,10 +213,7 @@ class SavedUser {
   String? id;
   DateTime? savedAt;
 
-  SavedUser({
-    this.id,
-    this.savedAt,
-  });
+  SavedUser({this.id, this.savedAt});
 
   factory SavedUser.fromJson(Map<String, dynamic> json) => SavedUser(
     id: json["_id"],
@@ -162,4 +226,38 @@ class SavedUser {
     "_id": id,
     "savedAt": savedAt?.toIso8601String(),
   };
+}
+
+/// ✅ Sub-model for Certified Tags
+class CertifiedTag {
+  String? id;
+  String? name;
+  String? image;
+  String? status;
+
+  CertifiedTag({this.id, this.name, this.image, this.status});
+
+  factory CertifiedTag.fromJson(Map<String, dynamic> json) => CertifiedTag(
+    id: json["_id"],
+    name: json["name"],
+    image: json["image"],
+    status: json["status"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "_id": id,
+    "name": name,
+    "image": image,
+    "status": status,
+  };
+}
+
+class CompanyGallery {
+  String? id;
+  String? imageUrl;
+
+  CompanyGallery({this.id, this.imageUrl});
+
+  factory CompanyGallery.fromJson(Map<String, dynamic> json) =>
+      CompanyGallery(id: json["_id"], imageUrl: json["imageUrl"]);
 }

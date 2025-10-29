@@ -6,6 +6,7 @@ import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../../../constants/app_styles.dart';
 import '../../../../../../main.dart';
@@ -18,11 +19,7 @@ class SearchJobCard extends StatelessWidget {
   final JobModelApi jobModel;
   final GestureTapCallback? onTap;
 
-  const SearchJobCard({
-    super.key,
-    required this.jobModel,
-    this.onTap,
-  });
+  const SearchJobCard({super.key, required this.jobModel, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -128,12 +125,16 @@ class SearchJobCard extends StatelessWidget {
                       SizedBox(width: 5),
                       Text(
                         "₹",
-                        style: theme.labelMedium?.copyWith(color: Colors.black54),
+                        style: theme.labelMedium?.copyWith(
+                          color: Colors.black54,
+                        ),
                       ),
                       SizedBox(width: 6),
                       Text(
                         jobModel.salary ?? "",
-                        style: theme.displaySmall?.copyWith(color: Colors.black54),
+                        style: theme.displaySmall?.copyWith(
+                          color: Colors.black54,
+                        ),
                       ),
                     ],
                   ),
@@ -177,19 +178,20 @@ class SearchJobCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   CustomDynamicButton(
-                    activeIcon:  Icons.send_rounded,
-                    inActiveIcon:Icons.check_circle_rounded ,
-                    activeTitle:"Apply" ,
-                    inActiveTitle:"Applied" ,
-                    size:20 ,
+                    activeIcon: Icons.send_rounded,
+                    inActiveIcon: Icons.check_circle_rounded,
+                    activeTitle: "Apply",
+                    inActiveTitle: "Applied",
+                    size: 20,
                     smaller: true,
                     initialValue: !jobModel.isApplied,
                     onPressed: (isAppliedNow) async {
                       // 🔹 Add API call here
                       print("Apply/Applied tapped! -- $isAppliedNow");
                       final jobId = jobModel.id ?? "";
-                      final notifier = ProviderScope.containerOf(context)
-                          .read(employeeManageJobProvider.notifier);
+                      final notifier = ProviderScope.containerOf(
+                        context,
+                      ).read(employeeManageJobProvider.notifier);
 
                       if (isAppliedNow) {
                         notifier.unApplyJob(jobId);
@@ -197,14 +199,14 @@ class SearchJobCard extends StatelessWidget {
                         return true;
                       } else {
                         final hasUploadedResume =
-                        await SharedPreferenceRepository.getHasUploadedResume();
+                            await SharedPreferenceRepository.getHasUploadedResume();
 
                         if (!hasUploadedResume) {
                           showCustomAlertDialog(
                             context: context,
                             title: "Please upload resume",
                             message:
-                            "You need to upload your resume before applying for this job.",
+                                "You need to upload your resume before applying for this job.",
                             primaryButtonText: "Upload",
                             onPrimaryPressed: () {
                               Navigator.pop(context); // ✅ close dialog first
@@ -220,24 +222,24 @@ class SearchJobCard extends StatelessWidget {
                         notifier.applyJob(jobId);
                         print("✅ Applied for job $jobId");
                         return true;
-
                       }
                     },
                   ),
                   CustomDynamicButton(
-                    activeIcon:  Icons.bookmark_border,
-                    inActiveIcon:Icons.bookmark ,
-                    activeTitle:"Save" ,
-                    inActiveTitle:"Saved" ,
-                    size:20 ,
+                    activeIcon: Icons.bookmark_border,
+                    inActiveIcon: Icons.bookmark,
+                    activeTitle: "Save",
+                    inActiveTitle: "Saved",
+                    size: 20,
                     smaller: true,
                     initialValue: !jobModel.isSaved,
                     onPressed: (isSavedNow) async {
                       // 🔹 Add API call here
                       print("Save/Hide tapped!  -- $isSavedNow");
                       final jobId = jobModel.id ?? "";
-                      final notifier = ProviderScope.containerOf(context)
-                          .read(employeeManageJobProvider.notifier);
+                      final notifier = ProviderScope.containerOf(
+                        context,
+                      ).read(employeeManageJobProvider.notifier);
 
                       if (isSavedNow) {
                         notifier.unSaveJob(jobId);
@@ -247,7 +249,6 @@ class SearchJobCard extends StatelessWidget {
                         notifier.saveJob(jobId);
                         print("✅ saveJob for job $jobId");
                         return true;
-
                       }
                     },
                   ),
@@ -314,6 +315,10 @@ String getTimeAgo(DateTime date) {
   }
 }
 
+String formatPostedDate(DateTime date) {
+  return DateFormat('MMMM d, y').format(date); // e.g., October 16, 2025
+}
+
 class ShimmerSearchJobCard extends StatelessWidget {
   const ShimmerSearchJobCard({super.key});
 
@@ -361,7 +366,11 @@ class ShimmerSearchJobCard extends StatelessWidget {
               // Location
               Row(
                 children: [
-                  Icon(Icons.location_on_outlined, size: 16, color: Colors.black26),
+                  Icon(
+                    Icons.location_on_outlined,
+                    size: 16,
+                    color: Colors.black26,
+                  ),
                   const SizedBox(width: 6),
                   _shimmerBox(height: 10, width: 80),
                 ],
@@ -371,7 +380,11 @@ class ShimmerSearchJobCard extends StatelessWidget {
               // Job type
               Row(
                 children: [
-                  Icon(Icons.work_history_outlined, size: 16, color: Colors.black26),
+                  Icon(
+                    Icons.work_history_outlined,
+                    size: 16,
+                    color: Colors.black26,
+                  ),
                   const SizedBox(width: 6),
                   _shimmerBox(height: 10, width: 60),
                 ],
@@ -395,7 +408,7 @@ class ShimmerSearchJobCard extends StatelessWidget {
                 runSpacing: 8,
                 children: List.generate(
                   3,
-                      (index) => _shimmerBox(height: 20, width: 60, radius: 6),
+                  (index) => _shimmerBox(height: 20, width: 60, radius: 6),
                 ),
               ),
               const SizedBox(height: 10),
@@ -440,10 +453,7 @@ class ShimmerSearchJobCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(radius),
       ),
-      child: SizedBox(
-        height: height,
-        width: width,
-      ),
+      child: SizedBox(height: height, width: width),
     );
   }
 }

@@ -5,11 +5,15 @@ import 'package:dei_champions/ui/pages/job/components/similar_jobs.dart';
 import 'package:dei_champions/widgets/others/custom_decorated_box.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../models/job/job_model.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
+import '../../../../widgets/others/rounded_network_image.dart';
+import '../../search/components/search_job_card.dart';
 import 'company_gallery_slider.dart';
+import 'company_info_card.dart';
 
 class JobDetailsView extends StatelessWidget {
   final ScrollController scrollController;
@@ -211,6 +215,7 @@ class JobDetailsView extends StatelessWidget {
       rating: 3.6,
     ),
   ];
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -223,16 +228,16 @@ class JobDetailsView extends StatelessWidget {
           _buildAboutCompanyTab(),
           gapH16(),
           _buildCompanyGallery(),
-         //  AwardsTimeline(key: awardsKey,),
-         //  SizedBox(height: 18),
-         //  VerifiedBenefits(key:verifiedBenefitsKey ,),
-         //  SizedBox(height: 18),
-         // ReviewsCarousel(key: reviewsKey,),
-         // SizedBox(height: 18),
-         //   BenefitsGrid(key: benefitsKey,),
-         //  SizedBox(height: 18),
-         // SalaryInsightsCard(key: salaryInsightsKey,),
-         //  SizedBox(height: 18),
+          //  AwardsTimeline(key: awardsKey,),
+          //  SizedBox(height: 18),
+          //  VerifiedBenefits(key:verifiedBenefitsKey ,),
+          //  SizedBox(height: 18),
+          // ReviewsCarousel(key: reviewsKey,),
+          // SizedBox(height: 18),
+          //   BenefitsGrid(key: benefitsKey,),
+          //  SizedBox(height: 18),
+          // SalaryInsightsCard(key: salaryInsightsKey,),
+          //  SizedBox(height: 18),
           // if (jobModel.hasAwards) AwardsTimeline(),
           // if (jobModel.hasAwards) SizedBox(height: 18),
           // if (jobModel.hasVerifiedBenefits) VerifiedBenefits(),
@@ -243,19 +248,6 @@ class JobDetailsView extends StatelessWidget {
           // if (jobModel.hasBenefits) SizedBox(height: 18),
           // if (jobModel.hasSalaryInsights) SalaryInsightsCard(),
           // if (jobModel.hasSalaryInsights) SizedBox(height: 18),
-          Center(
-            child: TextButton(
-              onPressed: () {},
-              child: Text(
-                'Send me jobs like this',
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ),
           gapH16(),
           _applyNow(),
           gapH32(),
@@ -282,10 +274,10 @@ class JobDetailsView extends StatelessWidget {
         gapH16(),
         _descriptionCard(context),
         gapH16(),
-        _industryCard(),
+        _tagsCard(context),
         gapH16(),
-        // Warning Message
-        _warning(),
+        _jobInfoCard(),
+        gapH16(),
       ],
     );
   }
@@ -299,34 +291,25 @@ class JobDetailsView extends StatelessWidget {
         Text('About company', style: theme.titleMedium),
         gapH16(),
         CustomDecoratedBox(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'NVS is a 65 crore 18-year-old people transportation firm that caters to over 30+ schools and corporations that include thousands o... ',
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
-              ),
-              gapH8(),
-              TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  minimumSize: Size.zero,
-                ),
-                child: Text(
-                  'read more',
-                  style: theme.bodyMedium?.copyWith(color: Colors.blue),
-                ),
-              ),
-              gapH8(),
-              _buildInfoSection('Company Name', 'NVS Travels'),
-            ],
+          child: CompanyInfoCard(
+            companyName: jobModel.employer?.company ?? "",
+            companyLogo: jobModel.employer?.companyLogo ?? "",
+            location: jobModel.employer?.city ?? "",
+            joinedText: jobModel.employer?.memberSince,
+            openJobsText: '02 Open Jobs',
+            address: jobModel.employer?.address ?? "",
+            phone: jobModel.employer?.phone ?? "",
+            email: jobModel.employer?.email ?? "",
+            website: jobModel.employer?.companyWebsite ?? "",
           ),
         ),
-
+        gapH16(),
+        _certificatesCard(),
+        gapH16(),
       ],
     );
   }
+
   Widget _buildCompanyGallery() {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
     return Column(
@@ -335,10 +318,20 @@ class JobDetailsView extends StatelessWidget {
       children: [
         Text('Company Gallery', style: theme.titleMedium),
         gapH16(),
-        CustomDecoratedBox(
-          child: CompanyGallerySlider(items: ["https://res.cloudinary.com/dv4aury9e/image/upload/v1755079508/blogs/szose5lsflyu8jhadcks.png","https://res.cloudinary.com/dv4aury9e/image/upload/v1755079773/blogs/shvioyrmukgh4gbqa824.png","https://res.cloudinary.com/dv4aury9e/image/upload/v1755083343/blogs/jkp1efnarxmnnnusarve.png",],)
-        ),
-
+        (jobModel.employer?.certifiedTags == null ||
+                jobModel.employer?.certifiedTags?.isEmpty == true)
+            ? SizedBox.shrink()
+            : // no tags, no widget
+              CustomDecoratedBox(
+                child: CompanyGallerySlider(
+                  items:
+                      jobModel.employer?.companyGallery
+                          ?.map((e) => e.imageUrl ?? '')
+                          .where((url) => url.isNotEmpty)
+                          .toList() ??
+                      [],
+                ),
+              ),
       ],
     );
   }
@@ -354,16 +347,6 @@ class JobDetailsView extends StatelessWidget {
       onTap: () {},
       isExpanded: true,
       color: AppColors.primaryColor,
-    );
-  }
-
-  Widget _buildJobPoint(String text) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 8),
-      child: Text(
-        text,
-        style: navigatorKey.currentContext!.textTheme.bodyMedium,
-      ),
     );
   }
 
@@ -390,18 +373,13 @@ class JobDetailsView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Job Summary Cards
           gapH8(),
           Row(
             children: [
-              Icon(
-                Icons.work_history_outlined,
-                size: 24,
-                color: Colors.black54,
-              ),
+              Icon(Icons.apartment_outlined, size: 24, color: Colors.black54),
               gapW16(),
               Text(
-                "jobModel.experience",
+                jobModel.category ?? "",
                 style: theme.bodyMedium?.copyWith(color: Colors.black54),
               ),
             ],
@@ -409,36 +387,20 @@ class JobDetailsView extends StatelessWidget {
           gapH8(),
           Row(
             children: [
-              Icon(Icons.people_outline, size: 24, color: Colors.black54),
+              Icon(Icons.badge_outlined, size: 24, color: Colors.black54),
+              // userTie
               gapW16(),
               Text(
-                "jobModel.vacancies",
+                "Experienced (Non - Manager)",
                 style: theme.bodyMedium?.copyWith(color: Colors.black54),
               ),
             ],
           ),
           gapH8(),
           Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Icon(Icons.location_on_outlined, size: 24, color: Colors.black54),
-              gapW16(),
-              Text(
-                jobModel.state ?? "",
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
-              ),
-            ],
-          ),
-
-          gapH8(),
-          Row(
-            children: [
-              Icon(
-                Icons.account_balance_wallet_outlined,
-                size: 24,
-                color: Colors.black54,
-              ),
+              Icon(Icons.currency_rupee, size: 24, color: Colors.black54),
+              // rupeeSign
               gapW16(),
               Text(
                 jobModel.salary ?? "",
@@ -447,23 +409,67 @@ class JobDetailsView extends StatelessWidget {
             ],
           ),
           gapH8(),
-          gapH8(),
-          // Skills Section
-          Text(
-            'Must have skills',
-            style: theme.bodyMedium?.copyWith(color: Colors.black54),
+          Row(
+            children: [
+              Icon(
+                Icons.business_center_outlined,
+                size: 24,
+                color: Colors.black54,
+              ), // briefcase
+              gapW16(),
+              Text(
+                "1 - 2 years",
+                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+              ),
+            ],
           ),
           gapH8(),
-          Text('Communication Skills', style: theme.bodyMedium),
-
-          SizedBox(height: 16),
-
-          Text(
-            'Good to have skills',
-            style: theme.bodyMedium?.copyWith(color: Colors.black54),
+          Row(
+            children: [
+              Icon(Icons.work_outline, size: 24, color: Colors.black54),
+              // mugSaucer
+              gapW16(),
+              Text(
+                jobModel.jobType ?? "",
+                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+              ),
+            ],
           ),
-          SizedBox(height: 8),
-          Text('English, Lead Generation, B2B Sales', style: theme.bodyMedium),
+          gapH8(),
+          Row(
+            children: [
+              Icon(Icons.access_time, size: 24, color: Colors.black54), // clock
+              gapW16(),
+              Text(
+                "Open until filled",
+                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+              ),
+            ],
+          ),
+          gapH8(),
+          Row(
+            children: [
+              Icon(Icons.update, size: 24, color: Colors.black54), // rotate
+              gapW16(),
+              Text(
+                '${getTimeAgo(jobModel.updatedAt ?? DateTime.now())}',
+                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+              ),
+            ],
+          ),
+          gapH8(),
+          Row(
+            children: [
+              Icon(Icons.location_on_outlined, size: 24, color: Colors.black54),
+              // locationDot
+              gapW16(),
+              Text(
+                "${jobModel.city ?? ""}, ${jobModel.state ?? ""}, ${jobModel.country ?? ""}",
+                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+              ),
+            ],
+          ),
+          gapH8(),
         ],
       ),
     );
@@ -483,31 +489,17 @@ class JobDetailsView extends StatelessWidget {
           ),
 
           gapH16(),
-
-          Text(
-            'What you\'ll do',
-            style: theme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
-          ),
-          gapH4(),
-          Text('The role involves:', style: theme.bodyMedium),
-          SizedBox(height: 12),
-          _buildJobPoint('Generating leads & managing them on Zoho CRM'),
-          _buildJobPoint(
-            'Enriching them by browsing the internet/ calling & field visit (Field visit is mandatory for twice a week)',
-          ),
-          _buildJobPoint('Coordinating with the sales team'),
-          _buildJobPoint('Making reports for weekly meetings'),
-
-          SizedBox(height: 24),
-
-          // Additional Info
-          Text('Health insurance', style: theme.bodyMedium),
+          JobDescriptionView(jobDescription: jobModel.description ?? ""),
         ],
       ),
     );
   }
 
-  Widget _industryCard() {
+  Widget _tagsCard(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+    if (jobModel.skills == null || jobModel.skills?.isEmpty == true) {
+      return const SizedBox.shrink(); // no tags, no widget
+    }
     return CustomDecoratedBox(
       child: SizedBox(
         width: double.infinity,
@@ -515,52 +507,86 @@ class JobDetailsView extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildInfoSection('Industry type', 'Travel & Tourism'),
-            _buildInfoSection('Department', 'Sales & Business Development'),
-            _buildInfoSection('Role', 'Business Development Executive (BDE)'),
-            _buildInfoSection('Employment type', 'Full Time, Permanent'),
-            _buildInfoSection('Education', 'Graduation Not Required'),
+            // Job Description
+            Text(
+              'Tags',
+              style: theme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
+            ),
+
+            gapH16(),
+            TagList(tags: jobModel.skills),
           ],
         ),
       ),
     );
   }
 
-  Widget _warning() {
+  Widget _jobInfoCard() {
+    return CustomDecoratedBox(
+      child: SizedBox(
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildInfoSection(
+              'Posted',
+              formatPostedDate(jobModel.createdAt ?? DateTime.now()),
+            ),
+            _buildInfoSection(
+              'Last Updated',
+              '${getTimeAgo(jobModel.updatedAt ?? DateTime.now())}',
+            ),
+            _buildInfoSection('Status', jobModel.status ?? ""),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _certificatesCard() {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
 
-    return Padding(
-      padding: EdgeInsets.all(12),
+    if (jobModel.employer?.certifiedTags == null ||
+        jobModel.employer?.certifiedTags?.isEmpty == true) {
+      return const SizedBox.shrink(); // no tags, no widget
+    }
+
+    return CustomDecoratedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Naukri does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, refundable fee etc.',
-            style: theme.displaySmall?.copyWith(color: Colors.black54),
+            "Certifications",
+            style: theme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 8),
-          Row(
-            children: [
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Learn more',
-                  style: theme.displaySmall?.copyWith(color: Colors.blue),
+          gapH8(),
+          Column(
+            children: jobModel.employer!.certifiedTags!.map((tag) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: Row(
+                  children: [
+                    RoundedNetworkImage(
+                      imageUrl: tag.image ?? "",
+                      width: 28,
+                      height: 28,
+                      borderRadius: 6,
+                    ),
+                    gapW16(),
+                    Expanded(
+                      child: Text(
+                        tag.name ?? "",
+                        style: theme.bodyMedium?.copyWith(
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              Text(
-                ' or ',
-                style: theme.displaySmall?.copyWith(color: Colors.black54),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Report this job',
-                  style: theme.displaySmall?.copyWith(color: Colors.blue),
-                ),
-              ),
-            ],
+              );
+            }).toList(),
           ),
         ],
       ),
@@ -568,7 +594,119 @@ class JobDetailsView extends StatelessWidget {
   }
 }
 
+class JobDescriptionView extends StatelessWidget {
+  final String jobDescription;
 
+  const JobDescriptionView({super.key, required this.jobDescription});
 
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Html(
+        data: jobDescription,
+        style: {
+          "body": Style(
+            fontSize: FontSize(14),
+            color: Colors.black87,
+            lineHeight: LineHeight(1.5),
+          ),
+          "p": Style(margin: Margins.only(bottom: 8)),
+          "ul": Style(
+            margin: Margins.only(left: 0, right: 0, top: 0, bottom: 0),
+          ),
+          "strong": Style(fontWeight: FontWeight.bold),
+        },
+        onLinkTap: (url, _, __) {
+          // Optional: handle links like mailto
+          if (url != null && url.startsWith("mailto:")) {
+            // Launch email app
+          }
+        },
+      ),
+    );
+  }
+}
 
+/// A reusable widget to display a list of tags or skills in a wrapped layout.
+class TagList extends StatelessWidget {
+  final List<String>? tags;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final double fontSize;
+  final EdgeInsetsGeometry padding;
+  final double borderRadius;
 
+  const TagList({
+    super.key,
+    required this.tags,
+    this.backgroundColor,
+    this.textColor,
+    this.fontSize = 12,
+    this.padding = const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+    this.borderRadius = 4,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (tags == null || tags!.isEmpty) return const SizedBox.shrink();
+
+    return Wrap(
+      spacing: 8,
+      runSpacing: 8,
+      children: tags!
+          .map(
+            (tag) => _TagChip(
+              tag: tag,
+              backgroundColor: backgroundColor ?? AppColors.bg,
+              textColor: textColor ?? Colors.black,
+              fontSize: fontSize,
+              padding: padding,
+              borderRadius: borderRadius,
+            ),
+          )
+          .toList(),
+    );
+  }
+}
+
+/// Internal single tag chip widget
+class _TagChip extends StatelessWidget {
+  final String tag;
+  final Color backgroundColor;
+  final Color textColor;
+  final double fontSize;
+  final EdgeInsetsGeometry padding;
+  final double borderRadius;
+
+  const _TagChip({
+    required this.tag,
+    required this.backgroundColor,
+    required this.textColor,
+    required this.fontSize,
+    required this.padding,
+    required this.borderRadius,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: padding,
+      decoration: BoxDecoration(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(borderRadius),
+      ),
+      child: Text(
+        tag,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        softWrap: true,
+        textAlign: TextAlign.center,
+        style: context.textTheme.displaySmall?.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: fontSize,
+          color: textColor,
+        ),
+      ),
+    );
+  }
+}
