@@ -24,9 +24,10 @@ void showJobOptionsSheet(BuildContext context) {
                 inActiveTitle:"Save Job" ,
                 size:30 ,
                 smaller: false,
-                onPressed: (Saved) {
+                onPressed: (Saved) async {
                   // 🔹 Add API call here
                   print("Save/Hide tapped!");
+                  return true;
                 },
               ),
               gapH16(),
@@ -37,9 +38,10 @@ void showJobOptionsSheet(BuildContext context) {
                 inActiveTitle: "Apply Job",
                 size: 30,
                 smaller: false,
-                onPressed: (applied) {
+                onPressed: (applied)  async {
                   // 🔹 Add apply logic/API call here
                   print("Apply tapped!");
+                  return true;
                 },
               ),
               gapH16(),
@@ -52,9 +54,10 @@ void showJobOptionsSheet(BuildContext context) {
                 inActiveTitle:"Share Job" ,
                 size:30 ,
                 smaller: false,
-                onPressed: (shared) {
+                onPressed: (shared) async {
                   // 🔹 Add API call here
                   print("Share tapped!");
+                  return true;
                 },
               ),
 

@@ -157,9 +157,10 @@ class SavedJobCard extends StatelessWidget {
                   size:20 ,
                   smaller: true,
                   initialValue: true,
-                  onPressed: (saved) {
+                  onPressed: (saved) async {
                     // 🔹 Add API call here
                     print("Save/Hide tapped!");
+                    return true;
                   },
                 ),
               ],

@@ -45,6 +45,7 @@ class AppNavigator {
     await SharedPreferenceRepository.setToken(authModel!.token);
     await SharedPreferenceRepository.setUserId(authModel.userId);
     await SharedPreferenceRepository.setRoleId(authModel.roleId);
+    await SharedPreferenceRepository.setHasUploadedResume(authModel.resumeUrl.isNotEmpty);
     if (authModel.roleId == 2) {
       Navigator.pushAndRemoveUntil(
         navigatorKey.currentContext!,

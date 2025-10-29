@@ -9,6 +9,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../../constants/app_styles.dart';
 import '../../../../../../main.dart';
 import '../../../../../../widgets/others/rounded_network_image.dart';
+import '../../../../repo/shared_preference_repository.dart';
+import '../../../../widgets/others/show_custom_alert_dialog.dart';
 import '../../job/components/save_hide_button.dart';
 
 class SearchJobCard extends StatelessWidget {
@@ -181,7 +183,7 @@ class SearchJobCard extends StatelessWidget {
                     size:20 ,
                     smaller: true,
                     initialValue: !jobModel.isApplied,
-                    onPressed: (isAppliedNow) {
+                    onPressed: (isAppliedNow) async {
                       // 🔹 Add API call here
                       print("Apply/Applied tapped! -- $isAppliedNow");
                       final jobId = jobModel.id ?? "";
@@ -191,9 +193,29 @@ class SearchJobCard extends StatelessWidget {
                       if (isAppliedNow) {
                         notifier.unApplyJob(jobId);
                         print("❌ Unapplied from job $jobId");
+                        return true;
                       } else {
+                        final hasUploadedResume =
+                        await SharedPreferenceRepository.getHasUploadedResume();
+
+                        if (!hasUploadedResume) {
+                          showCustomAlertDialog(
+                            context: context,
+                            title: "Please upload resume",
+                            message:
+                            "You need to upload your resume before applying for this job.",
+                            primaryButtonText: "Upload",
+                            onPrimaryPressed: () {
+                              Navigator.pop(context);
+                            },
+                            secondaryButtonText: "Cancel",
+                            onSecondaryPressed: () => Navigator.pop(context),
+                          );
+                          return false; // ❌ Don't toggle the button
+                        }
                         notifier.applyJob(jobId);
                         print("✅ Applied for job $jobId");
+                        return true;
 
                       }
                     },
@@ -206,9 +228,10 @@ class SearchJobCard extends StatelessWidget {
                     size:20 ,
                     smaller: true,
                     initialValue: !jobModel.isSaved,
-                    onPressed: (isSavedNow) {
+                    onPressed: (isSavedNow) async {
                       // 🔹 Add API call here
                       print("Save/Hide tapped!  -- $isSavedNow");
+                      return true;
                     },
                   ),
                 ],
