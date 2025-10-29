@@ -177,6 +177,54 @@ class SearchJobCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+                  // CustomDynamicButton(
+                  //   activeIcon: Icons.send_rounded,
+                  //   inActiveIcon: Icons.check_circle_rounded,
+                  //   activeTitle: "Apply",
+                  //   inActiveTitle: "Applied",
+                  //   size: 20,
+                  //   smaller: true,
+                  //   initialValue: !jobModel.isApplied,
+                  //   onPressed: (isAppliedNow) async {
+                  //     // 🔹 Add API call here
+                  //     print("Apply/Applied tapped! -- $isAppliedNow");
+                  //     final jobId = jobModel.id ?? "";
+                  //     final notifier = ProviderScope.containerOf(
+                  //       context,
+                  //     ).read(employeeManageJobProvider.notifier);
+                  //
+                  //     if (isAppliedNow) {
+                  //       notifier.unApplyJob(jobId);
+                  //       print("❌ Unapplied from job $jobId");
+                  //       return true;
+                  //     } else {
+                  //       final hasUploadedResume =
+                  //           await SharedPreferenceRepository.getHasUploadedResume();
+                  //
+                  //       if (!hasUploadedResume) {
+                  //         showCustomAlertDialog(
+                  //           context: context,
+                  //           title: "Please upload resume",
+                  //           message:
+                  //               "You need to upload your resume before applying for this job.",
+                  //           primaryButtonText: "Upload",
+                  //           onPrimaryPressed: () {
+                  //             Navigator.pop(context); // ✅ close dialog first
+                  //             Future.microtask(() {
+                  //               AppNavigator.loadEditEmployeeResumeScreen();
+                  //             });
+                  //           },
+                  //           secondaryButtonText: "Cancel",
+                  //           onSecondaryPressed: () => Navigator.pop(context),
+                  //         );
+                  //         return false; // ❌ Don't toggle the button
+                  //       }
+                  //       notifier.applyJob(jobId);
+                  //       print("✅ Applied for job $jobId");
+                  //       return true;
+                  //     }
+                  //   },
+                  // ),
                   CustomDynamicButton(
                     activeIcon: Icons.send_rounded,
                     inActiveIcon: Icons.check_circle_rounded,
@@ -186,45 +234,19 @@ class SearchJobCard extends StatelessWidget {
                     smaller: true,
                     initialValue: !jobModel.isApplied,
                     onPressed: (isAppliedNow) async {
-                      // 🔹 Add API call here
-                      print("Apply/Applied tapped! -- $isAppliedNow");
                       final jobId = jobModel.id ?? "";
-                      final notifier = ProviderScope.containerOf(
-                        context,
-                      ).read(employeeManageJobProvider.notifier);
+                      final notifier = ProviderScope.containerOf(context).read(employeeManageJobProvider.notifier);
 
                       if (isAppliedNow) {
-                        notifier.unApplyJob(jobId);
-                        print("❌ Unapplied from job $jobId");
-                        return true;
+                        final success = await notifier.unApplyJob(context, jobId);
+                        return success; // true = toggle, false = no change
                       } else {
-                        final hasUploadedResume =
-                            await SharedPreferenceRepository.getHasUploadedResume();
-
-                        if (!hasUploadedResume) {
-                          showCustomAlertDialog(
-                            context: context,
-                            title: "Please upload resume",
-                            message:
-                                "You need to upload your resume before applying for this job.",
-                            primaryButtonText: "Upload",
-                            onPrimaryPressed: () {
-                              Navigator.pop(context); // ✅ close dialog first
-                              Future.microtask(() {
-                                AppNavigator.loadEditEmployeeResumeScreen();
-                              });
-                            },
-                            secondaryButtonText: "Cancel",
-                            onSecondaryPressed: () => Navigator.pop(context),
-                          );
-                          return false; // ❌ Don't toggle the button
-                        }
-                        notifier.applyJob(jobId);
-                        print("✅ Applied for job $jobId");
-                        return true;
+                        final success = await notifier.applyJob(context, jobId);
+                        return success;
                       }
                     },
                   ),
+
                   CustomDynamicButton(
                     activeIcon: Icons.bookmark_border,
                     inActiveIcon: Icons.bookmark,

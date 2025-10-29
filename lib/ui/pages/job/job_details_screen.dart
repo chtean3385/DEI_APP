@@ -10,6 +10,7 @@ import '../../../providers/providers.dart';
 import '../../../widgets/others/custom_loader.dart';
 import '../../../widgets/others/custom_theme_button.dart';
 import '../home/components/recommended_jobs/components/custom_tab_bar.dart';
+import 'components/apply_job_button.dart';
 import 'components/job_detail_header.dart';
 import 'components/job_details_view.dart';
 import 'components/save_share_bottom_sheet.dart';
@@ -314,7 +315,7 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                           ),
                         ],
                       ),
-                      child: _applyNow(context),
+                      child:  ApplyJobButton(jobId: jobDetails.id ?? "",),
                     ),
                   ),
                 ),
@@ -326,19 +327,6 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
     );
   }
 
-  Widget _applyNow(BuildContext context) {
-    final theme = Theme.of(context).textTheme;
-    return CustomThemeButton(
-      child: Text(
-        "Apply now",
-        style: theme.labelMedium?.copyWith(color: Colors.white),
-      ),
-      radius: 30,
-      onTap: () {},
-      isExpanded: true,
-      color: AppColors.primaryColor,
-    );
-  }
 }
 
 // Custom delegate for sticky tab bar
@@ -367,3 +355,5 @@ class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
     return false;
   }
 }
+
+

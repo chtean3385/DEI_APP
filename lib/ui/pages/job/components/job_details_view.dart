@@ -1,6 +1,7 @@
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
+import 'package:dei_champions/ui/pages/job/components/apply_job_button.dart';
 import 'package:dei_champions/ui/pages/job/components/similar_jobs.dart';
 import 'package:dei_champions/widgets/others/custom_decorated_box.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -9,7 +10,6 @@ import 'package:flutter_html/flutter_html.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../models/job/job_model.dart';
-import '../../../../widgets/others/custom_theme_button.dart';
 import '../../../../widgets/others/rounded_network_image.dart';
 import '../../search/components/search_job_card.dart';
 import 'company_gallery_slider.dart';
@@ -249,7 +249,7 @@ class JobDetailsView extends StatelessWidget {
           // if (jobModel.hasSalaryInsights) SalaryInsightsCard(),
           // if (jobModel.hasSalaryInsights) SizedBox(height: 18),
           gapH16(),
-          _applyNow(),
+          ApplyJobButton(jobId: jobModel.id ?? "",),
           gapH32(),
 
           Text(
@@ -333,19 +333,6 @@ class JobDetailsView extends StatelessWidget {
     );
   }
 
-  Widget _applyNow() {
-    final theme = Theme.of(navigatorKey.currentContext!).textTheme;
-    return CustomThemeButton(
-      child: Text(
-        "Apply now",
-        style: theme.labelMedium?.copyWith(color: Colors.white),
-      ),
-      radius: 30,
-      onTap: () {},
-      isExpanded: true,
-      color: AppColors.primaryColor,
-    );
-  }
 
   Widget _buildInfoSection(String label, String value) {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;

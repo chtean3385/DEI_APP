@@ -91,6 +91,50 @@ class JobModelApi {
       isSaved: hasSaved,
     );
   }
+
+  JobModelApi copyWith({
+    String? id,
+    String? title,
+    String? description,
+    String? city,
+    String? state,
+    String? country,
+    String? salary,
+    String? category,
+    String? jobType,
+    String? status,
+    Employer? employer,
+    List<String>? skills,
+    List<Applicant>? applicants,
+    List<SavedUser>? savedUsers,
+    bool? isApproved,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    bool? isApplied,
+    bool? isSaved,
+  }) {
+    return JobModelApi(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      city: city ?? this.city,
+      state: state ?? this.state,
+      country: country ?? this.country,
+      salary: salary ?? this.salary,
+      category: category ?? this.category,
+      jobType: jobType ?? this.jobType,
+      status: status ?? this.status,
+      employer: employer ?? this.employer,
+      skills: skills ?? this.skills,
+      applicants: applicants ?? this.applicants,
+      savedUsers: savedUsers ?? this.savedUsers,
+      isApproved: isApproved ?? this.isApproved,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      isApplied: isApplied ?? this.isApplied,
+      isSaved: isSaved ?? this.isSaved,
+    );
+  }
 }
 
 class Employer {
