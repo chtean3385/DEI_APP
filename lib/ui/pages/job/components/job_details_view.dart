@@ -318,10 +318,7 @@ class JobDetailsView extends StatelessWidget {
       children: [
         Text('Company Gallery', style: theme.titleMedium),
         gapH16(),
-        (jobModel.employer?.certifiedTags == null ||
-                jobModel.employer?.certifiedTags?.isEmpty == true)
-            ? SizedBox.shrink()
-            : // no tags, no widget
+        // no tags, no widget
               CustomDecoratedBox(
                 child: CompanyGallerySlider(
                   items:
@@ -390,9 +387,11 @@ class JobDetailsView extends StatelessWidget {
               Icon(Icons.badge_outlined, size: 24, color: Colors.black54),
               // userTie
               gapW16(),
-              Text(
-                "Experienced (Non - Manager)",
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+              Expanded(
+                child: Text(
+                  "Experienced (Non - Manager)",
+                  style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                ),
               ),
             ],
           ),
@@ -463,9 +462,14 @@ class JobDetailsView extends StatelessWidget {
               Icon(Icons.location_on_outlined, size: 24, color: Colors.black54),
               // locationDot
               gapW16(),
-              Text(
-                "${jobModel.city ?? ""}, ${jobModel.state ?? ""}, ${jobModel.country ?? ""}",
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+              Expanded(
+                child: Text(
+                  "${jobModel.city ?? ""}, ${jobModel.state ?? ""}, ${jobModel.country ?? ""}",
+                  style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
+                  maxLines: 2,
+                ),
               ),
             ],
           ),

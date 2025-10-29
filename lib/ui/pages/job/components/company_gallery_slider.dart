@@ -5,7 +5,6 @@ import '../../../../constants/app_colors.dart';
 
 import 'dart:async';
 
-
 class CompanyGallerySlider extends StatefulWidget {
   final List<String> items;
   final Duration slideInterval;
@@ -25,8 +24,10 @@ class CompanyGallerySlider extends StatefulWidget {
 class _CompanyGallerySliderState extends State<CompanyGallerySlider> {
   late final PageController _controller;
   Timer? _autoSlideTimer;
-  static const int _initialPageOffset = 1000; // large offset for infinite effect
+  static const int _initialPageOffset =
+      1000; // large offset for infinite effect
   double _currentPage = 0;
+
   @override
   void initState() {
     super.initState();
@@ -59,6 +60,13 @@ class _CompanyGallerySliderState extends State<CompanyGallerySlider> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.items.isEmpty) {
+      return SizedBox(
+        height: 130,
+        child: const Center(child: Text('No images available')),
+      );
+    }
+
     return Column(
       children: [
         SizedBox(
@@ -81,22 +89,21 @@ class _CompanyGallerySliderState extends State<CompanyGallerySlider> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: List.generate(widget.items.length, (index) {
-            final isActive = (_currentPage % widget.items.length).round() == index;
+            final isActive =
+                (_currentPage % widget.items.length).round() == index;
 
             return Container(
               margin: const EdgeInsets.symmetric(horizontal: 4),
               child: CircleAvatar(
-                radius:  isActive ? 6 :3,
+                radius: isActive ? 6 : 3,
                 backgroundColor: isActive
                     ? (BootstrapColors.colors["orange"] ?? Colors.orange)
                     : Colors.grey.shade300,
               ),
             );
           }),
-        )
+        ),
       ],
     );
   }
 }
-
-
