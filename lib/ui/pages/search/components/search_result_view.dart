@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_navigator.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/state_models/job/job_list_state.dart';
 import '../../../../providers/providers.dart';
@@ -64,14 +65,7 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
           final item = state.data![index];
           return SearchJobCard(
             jobModel: item,
-            onTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (_) => ChefDetails(id: item.chef?.id ?? 0),
-              //   ),
-              // );
-            },
+            onTap: ()=>AppNavigator.loadJobDetailsScreen(jobId: item.id ?? "",),
           );
         } else {
           // bottom loader

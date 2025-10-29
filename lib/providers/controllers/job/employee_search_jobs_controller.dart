@@ -8,8 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/enums.dart';
 import '../../../service/search/search_service.dart';
 
-class SearchJobController extends StateNotifier<JobListState> {
-  SearchJobController() : super(JobListState.initial()) {
+class EmployeeSearchJobController extends StateNotifier<JobListState> {
+  EmployeeSearchJobController() : super(JobListState.initial()) {
     // fetchTopPicks();
   }
 
@@ -17,7 +17,7 @@ class SearchJobController extends StateNotifier<JobListState> {
 
   @override
   void dispose() {
-    debugPrint("🔥 SearchJobController disposed");
+    debugPrint("🔥 EmployeeSearchJobController disposed");
     super.dispose();
   }
 

@@ -76,6 +76,7 @@ class ApiUrls {
   static String unApplyJob(String id) => 'job/unapply/$id';
   static String saveJob(String id) => 'job/save/$id';
   static String unSaveJob(String id) => 'job/unsave/$id';
+  static String jobDetails(String id) => 'job/get-one-public/$id';
 
 
 

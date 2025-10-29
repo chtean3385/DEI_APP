@@ -1,33 +1,31 @@
-import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/app_colors.dart';
 import '../../../constants/app_styles.dart';
+import '../../../constants/enums.dart';
 import '../../../models/job/job_model.dart';
+import '../../../providers/providers.dart';
+import '../../../widgets/others/custom_loader.dart';
 import '../../../widgets/others/custom_theme_button.dart';
 import '../home/components/recommended_jobs/components/custom_tab_bar.dart';
 import 'components/job_detail_header.dart';
 import 'components/job_details_view.dart';
 import 'components/save_share_bottom_sheet.dart';
 
-class JobDetailsScreen extends StatefulWidget {
-  final JobModel jobModel;
-  final int initialCategoryId;
-  final bool isFromSearch;
+class JobDetailsScreen extends ConsumerStatefulWidget {
+  final JobModel? jobModel;
+  final String? jobId;
 
-  const JobDetailsScreen({
-    super.key,
-    this.initialCategoryId = 0,
-    this.isFromSearch = false,
-    required this.jobModel,
-  });
+  const JobDetailsScreen({super.key, this.jobId, required this.jobModel});
 
   @override
-  State<JobDetailsScreen> createState() => _JobDetailsScreenState();
+  ConsumerState<JobDetailsScreen> createState() => _JobDetailsScreenState();
 }
 
-class _JobDetailsScreenState extends State<JobDetailsScreen> {
+class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _jobDetailsKey = GlobalKey();
   final GlobalKey _aboutCompanyKey = GlobalKey();
@@ -55,6 +53,10 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
   void initState() {
     super.initState();
     _scrollController.addListener(_scrollListener);
+    final controller = ref.read(employeeJobDetailsProvider.notifier);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getJobDetails(widget.jobId ?? "");
+    });
   }
 
   @override
@@ -86,6 +88,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(employeeJobDetailsProvider);
     final categories = [
       {"id": 1, "title": 'Job Details'},
       {"id": 2, "title": 'About Company'},
@@ -104,169 +107,222 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            // Expandable content with custom sliver scroll
-            Expanded(
-              child: CustomScrollView(
-                controller: _scrollController,
-                slivers: [
-                  // Custom App Bar that hides on scroll
-                  SliverAppBar(
-                    expandedHeight: 0,
-                    floating: false,
-                    pinned: false,
-                    snap: false,
-                    backgroundColor: Colors.white,
-                    elevation: 0,
-                    leading: IconButton(
-                      icon: Icon(Icons.arrow_back, color: Colors.grey[600]),
-                      onPressed: () => Navigator.pop(context),
+      body: Builder(
+        builder: (context) {
+          if (state.pageState == PageState.loading) {
+            return Center(child: const CustomLoader());
+          }
+          if (state.pageState == PageState.error) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(state.errorMessage ?? "Something went wrong"),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor,
                     ),
-
-                    actions: [
-                      GestureDetector(
-                        onTap: () => _scrollToSection(_similarJobsKey),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(
-                              Icons.work_outline,
-                              color: AppColors.primaryColor,
-                              size: 20,
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              'Similar jobs',
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                color: AppColors.primaryColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.more_vert, color: Colors.grey[600]),
-                        onPressed: () => showJobOptionsSheet(context),
-                      ),
-                    ],
-                    centerTitle: true,
-                  ),
-
-                  // Job Detail Header that hides on scroll
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Column(
-                        children: [
-                          JobDetailHeader(jobModel: widget.jobModel),
-                          gapH16(),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  // Sticky Tab Bar
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: _StickyTabBarDelegate(
-                      child: Container(
+                    child: Text(
+                      "Go Back",
+                      style: context.textTheme.labelMedium?.copyWith(
                         color: Colors.white,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Column(
-                          children: [
-                            CustomTabBar(
-                              filterItems: categories,
-                              initialId: widget.initialCategoryId,
-                              onItemSelected: (item) {
-                                if (item['id'] == 1) {
-                                  _scrollToSection(_jobDetailsKey);
-                                } else if (item['id'] == 2) {
-                                  _scrollToSection(_aboutCompanyKey);
-                                }
-                                else if (item['id'] == 3) {
-                                  _scrollToSection(_awardsKey);
-                                }
-                                else if (item['id'] == 4) {
-                                  _scrollToSection(_verifiedBenefitsKey);
-                                }
-                                else if (item['id'] == 5) {
-                                  _scrollToSection(_reviewsKey);
-                                }
-                                else if (item['id'] == 6) {
-                                  _scrollToSection(_benefitsKey);
-                                }
-                                else if (item['id'] == 7) {
-                                  _scrollToSection(_salaryInsightsKey);
-                                }
-                                else if (item['id'] == 8) {
-                                  _scrollToSection(_companyGalleryKey);
-                                }
-                              },
-                            ),
-                            gapH16(),
-                          ],
-                        ),
                       ),
                     ),
-                  ),
-
-                  // Scrollable Content
-                  SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: JobDetailsView(
-                        scrollController: _scrollController,
-                        // We're using CustomScrollView now
-                        jobDetailsKey: _jobDetailsKey,
-                        aboutCompanyKey: _aboutCompanyKey,
-                        companyGalleryKey: _companyGalleryKey,
-                        similarJobsKey: _similarJobsKey,
-                        awardsKey: _awardsKey,
-                        benefitsKey:_benefitsKey ,
-                        reviewsKey:_reviewsKey,
-                        salaryInsightsKey: _salaryInsightsKey,
-                        verifiedBenefitsKey: _verifiedBenefitsKey,
-                        jobModel: widget.jobModel,
-                      ),
-                    ),
-                  ),
-
-                  // Bottom padding for apply button
-                  SliverToBoxAdapter(
-                    child: SizedBox(height: _showApplyButton ? 80 : 20),
                   ),
                 ],
               ),
-            ),
+            );
+          }
 
-            // Fixed Apply Button at bottom
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 300),
-              height: _showApplyButton ? 80 : 0,
-              child: AnimatedOpacity(
-                duration: const Duration(milliseconds: 300),
-                opacity: _showApplyButton ? 1.0 : 0.0,
-                child: Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.1),
-                        blurRadius: 8,
-                        offset: const Offset(0, -2),
+          if (state.data == null) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("No details found"),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () => Navigator.pop(context),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor,
+                    ),
+                    child: Text(
+                      "Go Back",
+                      style: context.textTheme.labelMedium?.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }
+
+          final jobDetails = state.data!;
+          return SafeArea(
+            child: Column(
+              children: [
+                // Expandable content with custom sliver scroll
+                Expanded(
+                  child: CustomScrollView(
+                    controller: _scrollController,
+                    slivers: [
+                      // Custom App Bar that hides on scroll
+                      SliverAppBar(
+                        expandedHeight: 0,
+                        floating: false,
+                        pinned: false,
+                        snap: false,
+                        backgroundColor: Colors.white,
+                        elevation: 0,
+                        leading: IconButton(
+                          icon: Icon(Icons.arrow_back, color: Colors.grey[600]),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+
+                        actions: [
+                          GestureDetector(
+                            onTap: () => _scrollToSection(_similarJobsKey),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.work_outline,
+                                  color: AppColors.primaryColor,
+                                  size: 20,
+                                ),
+                                SizedBox(width: 8),
+                                Text(
+                                  'Similar jobs',
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                            icon: Icon(
+                              Icons.more_vert,
+                              color: Colors.grey[600],
+                            ),
+                            onPressed: () => showJobOptionsSheet(context),
+                          ),
+                        ],
+                        centerTitle: true,
+                      ),
+
+                      // Job Detail Header that hides on scroll
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Column(
+                            children: [
+                              JobDetailHeader(jobModel: jobDetails),
+                              gapH16(),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                      // Sticky Tab Bar
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: _StickyTabBarDelegate(
+                          child: Container(
+                            color: Colors.white,
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: Column(
+                              children: [
+                                CustomTabBar(
+                                  filterItems: categories,
+                                  initialId: 0,
+                                  onItemSelected: (item) {
+                                    if (item['id'] == 1) {
+                                      _scrollToSection(_jobDetailsKey);
+                                    } else if (item['id'] == 2) {
+                                      _scrollToSection(_aboutCompanyKey);
+                                    } else if (item['id'] == 3) {
+                                      _scrollToSection(_awardsKey);
+                                    } else if (item['id'] == 4) {
+                                      _scrollToSection(_verifiedBenefitsKey);
+                                    } else if (item['id'] == 5) {
+                                      _scrollToSection(_reviewsKey);
+                                    } else if (item['id'] == 6) {
+                                      _scrollToSection(_benefitsKey);
+                                    } else if (item['id'] == 7) {
+                                      _scrollToSection(_salaryInsightsKey);
+                                    } else if (item['id'] == 8) {
+                                      _scrollToSection(_companyGalleryKey);
+                                    }
+                                  },
+                                ),
+                                gapH16(),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      // Scrollable Content
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: JobDetailsView(
+                            scrollController: _scrollController,
+                            // We're using CustomScrollView now
+                            jobDetailsKey: _jobDetailsKey,
+                            aboutCompanyKey: _aboutCompanyKey,
+                            companyGalleryKey: _companyGalleryKey,
+                            similarJobsKey: _similarJobsKey,
+                            awardsKey: _awardsKey,
+                            benefitsKey: _benefitsKey,
+                            reviewsKey: _reviewsKey,
+                            salaryInsightsKey: _salaryInsightsKey,
+                            verifiedBenefitsKey: _verifiedBenefitsKey,
+                            jobModel: jobDetails,
+                          ),
+                        ),
+                      ),
+
+                      // Bottom padding for apply button
+                      SliverToBoxAdapter(
+                        child: SizedBox(height: _showApplyButton ? 80 : 20),
                       ),
                     ],
                   ),
-                  child: _applyNow(context),
                 ),
-              ),
+
+                // Fixed Apply Button at bottom
+                AnimatedContainer(
+                  duration: const Duration(milliseconds: 300),
+                  height: _showApplyButton ? 80 : 0,
+                  child: AnimatedOpacity(
+                    duration: const Duration(milliseconds: 300),
+                    opacity: _showApplyButton ? 1.0 : 0.0,
+                    child: Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.1),
+                            blurRadius: 8,
+                            offset: const Offset(0, -2),
+                          ),
+                        ],
+                      ),
+                      child: _applyNow(context),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
@@ -279,9 +335,7 @@ class _JobDetailsScreenState extends State<JobDetailsScreen> {
         style: theme.labelMedium?.copyWith(color: Colors.white),
       ),
       radius: 30,
-      onTap: (){
-        if(widget.isFromSearch)AppNavigator.toBottomBar(initialPage: 1);
-      },
+      onTap: () {},
       isExpanded: true,
       color: AppColors.primaryColor,
     );

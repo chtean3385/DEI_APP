@@ -21,7 +21,7 @@ class SavedJobListView  extends ConsumerWidget {
       physics: AlwaysScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return SavedJobCard(jobModel: state.data![index],
-          onTap: ()=>AppNavigator.loadJobDetailsScreen(state.data![index]),
+          onTap: ()=>AppNavigator.loadJobDetailsScreen(jobModel: state.data![index]),
         );
       },
       separatorBuilder: (context, index) => gapH16(),

@@ -15,7 +15,7 @@ class RecommendedJobsListView extends StatelessWidget {
       itemCount: jobs.length,
       padding: const EdgeInsets.symmetric(horizontal: 12),
       itemBuilder: (context, index) {
-        return RecommendedJobCard(jobModel: jobs[index],onTap:()=> AppNavigator.loadJobDetailsScreen(jobs[index]));
+        return RecommendedJobCard(jobModel: jobs[index],onTap:()=> AppNavigator.loadJobDetailsScreen(jobModel: jobs[index]));
       },
     );
   }

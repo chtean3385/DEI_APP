@@ -142,7 +142,7 @@ class JobsBasedOnProfile extends StatelessWidget {
                     return JobCard(
                       jobModel: jobs[index],
                       onTap: () =>
-                          AppNavigator.loadJobDetailsScreen(jobs[index]),
+                          AppNavigator.loadJobDetailsScreen(jobModel: jobs[index]),
                     );
                   } else {
                     // special "View all jobs" card

@@ -88,8 +88,9 @@ import 'controllers/genz/genz_growth_section_controller.dart';
 import 'controllers/genz/genz_title_section_controller.dart';
 import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
-import 'controllers/job/employee_job_controller.dart';
-import 'controllers/job/search_jobs_controller.dart';
+import 'controllers/job/employee_job_details_controller.dart';
+import 'controllers/job/employee_manage_job_controller.dart';
+import 'controllers/job/employee_search_jobs_controller.dart';
 import 'controllers/lgbtq/lgbtq_advantage_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_inclusion_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_quotes_section1_controller.dart';
@@ -345,13 +346,17 @@ final savedJobsProvider =StateNotifierProvider.autoDispose<SavedJobsController, 
   return SavedJobsController();
 });
 /// search jobs list
-final searchJobListProvider =StateNotifierProvider.autoDispose<SearchJobController, JobListState>((ref) {
-  return SearchJobController();
+final searchJobListProvider =StateNotifierProvider.autoDispose<EmployeeSearchJobController, JobListState>((ref) {
+  return EmployeeSearchJobController();
 });
 
 /// employee manage job
 final employeeManageJobProvider =StateNotifierProvider<EmployeeManageJobController, JobState>((ref) {
   return EmployeeManageJobController();
+});
+/// employee get  job details
+final employeeJobDetailsProvider =StateNotifierProvider<EmployeeJobDetailsController, JobState>((ref) {
+  return EmployeeJobDetailsController();
 });
 
 //////*****///////////******* EMPLOYER //////*****///////////*******

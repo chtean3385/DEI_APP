@@ -188,12 +188,12 @@ class AppNavigator {
     );
   }
 
-  static loadJobDetailsScreen(JobModel jobModel, {bool isFromSearch = false}) {
+  static loadJobDetailsScreen( {JobModel? jobModel,String? jobId}) {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(
         builder: (_) =>
-            JobDetailsScreen(jobModel: jobModel, isFromSearch: isFromSearch),
+            JobDetailsScreen(jobModel: jobModel,jobId: jobId,),
       ),
     );
   }

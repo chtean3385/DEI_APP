@@ -21,7 +21,7 @@ class SimilarJobsListView extends StatelessWidget {
         return RecommendedJobCard(
           showSave: true,
           jobModel: jobs[index],
-          onTap: () => AppNavigator.loadJobDetailsScreen(jobs[index],isFromSearch: enableScroll),
+          onTap: () => AppNavigator.loadJobDetailsScreen(jobModel: jobs[index]),
         );
       },
     );

@@ -1,11 +1,12 @@
 import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/models/job/job_model.dart';
+import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../widgets/others/rounded_network_image.dart';
+import '../../search/components/search_job_card.dart';
 
 class JobDetailHeader extends StatelessWidget {
-  final JobModel jobModel;
+  final JobModelApi jobModel;
 
   const JobDetailHeader({
     Key? key,
@@ -21,8 +22,8 @@ class JobDetailHeader extends StatelessWidget {
         Row(
           children: [
             // Company Logo Placeholder
-            jobModel.logoUrl.isNotEmpty?  RoundedNetworkImage(
-              imageUrl: jobModel.logoUrl,
+            jobModel.employer?.companyLogo?.isNotEmpty == true?  RoundedNetworkImage(
+              imageUrl: jobModel.employer!.companyLogo!,
               width: 50,
               height: 50,
               borderRadius: 8,
@@ -36,7 +37,7 @@ class JobDetailHeader extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  jobModel.companyName[0].toUpperCase(),
+                    jobModel.employer?.company?[0].toUpperCase() ?? "",
                     style: theme.headlineMedium
                 ),
               ),
@@ -48,12 +49,12 @@ class JobDetailHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    jobModel.title,
+                    jobModel.title ?? "",
                       style: theme.headlineMedium
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    jobModel.companyName,
+                    jobModel.employer?.company ?? "",
                     style: theme.bodySmall?.copyWith(
                       color: Colors.black54,
                     ),
@@ -74,7 +75,7 @@ class JobDetailHeader extends StatelessWidget {
 
             ),
             Text(
-              'Posted ${jobModel.postedTime}',
+              'Posted ${getTimeAgo(jobModel.createdAt ?? DateTime.now())}',
               style: theme.bodyMedium?.copyWith(color: Colors.black54),
 
             ),

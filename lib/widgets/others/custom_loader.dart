@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,9 @@ class CustomLoader extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if(text?.isNotEmpty == true) Text(text !,style: theme.textTheme.bodyMedium),
-        Image.asset(AppDrawables.appLoader,
-            fit: BoxFit.contain),
+        // Image.asset(AppDrawables.appLoader,
+        //     fit: BoxFit.contain),
+        CircularProgressIndicator(color: AppColors.primaryColor)
 
       ],
     );

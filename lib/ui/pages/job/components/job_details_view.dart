@@ -1,10 +1,7 @@
-import 'package:dei_champions/constants/app_drawables.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/main.dart';
-import 'package:dei_champions/ui/pages/job/components/review_section.dart';
-import 'package:dei_champions/ui/pages/job/components/salaries.dart';
+import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/ui/pages/job/components/similar_jobs.dart';
-import 'package:dei_champions/ui/pages/job/components/verified_benefits.dart';
 import 'package:dei_champions/widgets/others/custom_decorated_box.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +9,6 @@ import 'package:flutter/material.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../models/job/job_model.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
-import 'awards_timeline.dart';
-import 'benefits.dart';
 import 'company_gallery_slider.dart';
 
 class JobDetailsView extends StatelessWidget {
@@ -27,7 +22,7 @@ class JobDetailsView extends StatelessWidget {
   final GlobalKey benefitsKey;
   final GlobalKey salaryInsightsKey;
   final GlobalKey companyGalleryKey;
-  final JobModel jobModel;
+  final JobModelApi jobModel;
 
   const JobDetailsView({
     super.key,
@@ -406,7 +401,7 @@ class JobDetailsView extends StatelessWidget {
               ),
               gapW16(),
               Text(
-                jobModel.experience,
+                "jobModel.experience",
                 style: theme.bodyMedium?.copyWith(color: Colors.black54),
               ),
             ],
@@ -417,7 +412,7 @@ class JobDetailsView extends StatelessWidget {
               Icon(Icons.people_outline, size: 24, color: Colors.black54),
               gapW16(),
               Text(
-                jobModel.vacancies,
+                "jobModel.vacancies",
                 style: theme.bodyMedium?.copyWith(color: Colors.black54),
               ),
             ],
@@ -430,7 +425,7 @@ class JobDetailsView extends StatelessWidget {
               Icon(Icons.location_on_outlined, size: 24, color: Colors.black54),
               gapW16(),
               Text(
-                jobModel.location,
+                jobModel.state ?? "",
                 style: theme.bodyMedium?.copyWith(color: Colors.black54),
               ),
             ],
@@ -446,7 +441,7 @@ class JobDetailsView extends StatelessWidget {
               ),
               gapW16(),
               Text(
-                jobModel.salary,
+                jobModel.salary ?? "",
                 style: theme.bodyMedium?.copyWith(color: Colors.black54),
               ),
             ],
