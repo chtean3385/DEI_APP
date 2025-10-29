@@ -2,6 +2,7 @@ import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../constants/app_styles.dart';
 import '../../../../widgets/others/rounded_network_image.dart';
 import '../../search/components/search_job_card.dart';
 
@@ -69,15 +70,33 @@ class JobDetailHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              '46 applicants',
-              style: theme.bodyMedium?.copyWith(color: Colors.black54),
-
+            Row(
+              children: [
+                Icon(
+                  Icons.work_outline_rounded,
+                  size: 24,
+                  color: Colors.black54,
+                ),
+                gapW8(),
+                Text(
+                  jobModel.jobType ?? "",
+                  style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                ),
+              ],
             ),
-            Text(
-              'Posted ${getTimeAgo(jobModel.createdAt ?? DateTime.now())}',
-              style: theme.bodyMedium?.copyWith(color: Colors.black54),
-
+            Row(
+              children: [
+                Icon(
+                  Icons.access_time,
+                  size: 24,
+                  color: Colors.black54,
+                ),
+                gapW8(),
+                Text(
+                  '${getTimeAgo(jobModel.createdAt ?? DateTime.now())}',
+                  style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                ),
+              ],
             ),
           ],
         ),
