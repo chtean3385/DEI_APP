@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -206,7 +207,10 @@ class SearchJobCard extends StatelessWidget {
                             "You need to upload your resume before applying for this job.",
                             primaryButtonText: "Upload",
                             onPrimaryPressed: () {
-                              Navigator.pop(context);
+                              Navigator.pop(context); // ✅ close dialog first
+                              Future.microtask(() {
+                                AppNavigator.loadEditEmployeeResumeScreen();
+                              });
                             },
                             secondaryButtonText: "Cancel",
                             onSecondaryPressed: () => Navigator.pop(context),

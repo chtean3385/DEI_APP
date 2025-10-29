@@ -5,9 +5,11 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/providers.dart';
+import 'edit_profile_action_button.dart';
 
 class EditResumeInformation extends ConsumerWidget {
-  const EditResumeInformation({super.key});
+  final bool isFromCommonEdit;
+  const EditResumeInformation({super.key,this.isFromCommonEdit= true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -22,7 +24,7 @@ class EditResumeInformation extends ConsumerWidget {
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
-        initiallyExpanded: false,
+        initiallyExpanded: isFromCommonEdit!= true,
         title: Text(
           "Resume",
           style: theme.bodyMedium?.copyWith(
@@ -30,8 +32,11 @@ class EditResumeInformation extends ConsumerWidget {
             color: Colors.black87,
           ),
         ),
+        visualDensity: VisualDensity.compact,
         iconColor: Colors.black54,
         collapsedIconColor: Colors.black54,
+        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+        onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
         children: [
           Column(
@@ -135,7 +140,23 @@ class EditResumeInformation extends ConsumerWidget {
                 ),
                 const SizedBox(height: 32),
 
+
               ],
+              gapH16(),
+              if(isFromCommonEdit!= true)  Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 20),
+                  child: EditProfileActionButtons(
+                    onCancel: () {
+                      Navigator.pop(context);
+                    },
+                    onSave: () {
+                      // Implement your save logic here
+                    },
+                  ),
+                ),
+              )
             ],
           ),
         ],

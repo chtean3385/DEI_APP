@@ -33,6 +33,7 @@ import '../ui/pages/men_alias/men_alias_screen.dart';
 import '../ui/pages/not_defined_by_disability/not_defined_by_disability_screen.dart';
 import '../ui/pages/on_board/onboard_screen.dart';
 import '../ui/pages/profile/edit_profile_screen.dart';
+import '../ui/pages/profile/employee_profile_details_screen.dart';
 import '../ui/pages/profile/upload_profile_pic.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
 import '../ui/pages/search/job_search_screen.dart';
@@ -293,6 +294,13 @@ class AppNavigator {
             navigatorKey.currentContext!,
             MaterialPageRoute(builder: (_) => EditProfileScreen()),
           );
+  }
+
+  static loadEditEmployeeResumeScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => EmployeeProfileDetailsScreen()),
+    );
   }
 
   static loadSavedJobsScreen() {

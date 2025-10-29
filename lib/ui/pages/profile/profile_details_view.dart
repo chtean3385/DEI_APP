@@ -6,9 +6,11 @@ import 'components/contact_details.dart';
 import 'components/education_details.dart';
 import 'components/experience_details.dart';
 import 'components/key_skills.dart';
+import 'components/resume_details.dart';
 
 class ProfileDetailsView extends StatelessWidget {
-  const ProfileDetailsView({super.key});
+  final bool openEditResume;
+  const ProfileDetailsView({super.key,  this.openEditResume = false});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class ProfileDetailsView extends StatelessWidget {
         padding: EdgeInsets.only(bottom: 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [BasicDetails(), ContactDetails(), AboutMe(),MyKeySkill(),ExperienceDetails(), EducationDetails()],
+          children: [BasicDetails(), ContactDetails(), AboutMe(),MyKeySkill(),ExperienceDetails(), EducationDetails(),ResumeDetails(openEditResume: openEditResume)],
         ),
       ),
     );
