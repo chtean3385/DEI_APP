@@ -40,4 +40,36 @@ class JobService {
       throw Exception('Invalid response format');
     }
   }
+  saveJob({required String jobId}) async {
+    final result = await _apiHandler.post(
+      url: ApiUrls.saveJob(jobId),
+      includeAuthToken: true,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
+  unSaveJob({required String jobId}) async {
+    final result = await _apiHandler.post(
+      url: ApiUrls.unSaveJob(jobId),
+      includeAuthToken: true,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
 }

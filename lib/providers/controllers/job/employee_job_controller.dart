@@ -43,4 +43,30 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
       );
     }
   }
+  saveJob(String jobId) async {
+    state = state.copyWith(pageState: PageState.loading);
+    try {
+      await _jobService.saveJob(jobId: jobId);
+      state = state.copyWith(pageState: PageState.success);
+    } catch (e) {
+      showSnackBar(e.toString());
+      state = state.copyWith(
+        pageState: PageState.error,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+  unSaveJob(String jobId) async {
+    state = state.copyWith(pageState: PageState.loading);
+    try {
+      await _jobService.unSaveJob(jobId: jobId);
+      state = state.copyWith(pageState: PageState.success);
+    } catch (e) {
+      showSnackBar(e.toString());
+      state = state.copyWith(
+        pageState: PageState.error,
+        errorMessage: e.toString(),
+      );
+    }
+  }
 }

@@ -53,7 +53,7 @@ class JobModelApi {
         applicantsList.any((app) => app.id == currentUserId);
 
     final hasSaved = currentUserId != null &&
-        savedUsersList.any((saved) => saved.userId == currentUserId);
+        savedUsersList.any((saved) => saved.id == currentUserId);
     return JobModelApi(
       id: json["_id"],
       title: json["jobTitle"],
@@ -144,18 +144,15 @@ class Applicant {
 
 class SavedUser {
   String? id;
-  String? userId;
   DateTime? savedAt;
 
   SavedUser({
     this.id,
-    this.userId,
     this.savedAt,
   });
 
   factory SavedUser.fromJson(Map<String, dynamic> json) => SavedUser(
     id: json["_id"],
-    userId: json["userId"],
     savedAt: json["savedAt"] != null
         ? DateTime.tryParse(json["savedAt"])
         : null,
@@ -163,7 +160,6 @@ class SavedUser {
 
   Map<String, dynamic> toJson() => {
     "_id": id,
-    "userId": userId,
     "savedAt": savedAt?.toIso8601String(),
   };
 }

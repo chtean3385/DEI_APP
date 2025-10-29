@@ -231,7 +231,20 @@ class SearchJobCard extends StatelessWidget {
                     onPressed: (isSavedNow) async {
                       // 🔹 Add API call here
                       print("Save/Hide tapped!  -- $isSavedNow");
-                      return true;
+                      final jobId = jobModel.id ?? "";
+                      final notifier = ProviderScope.containerOf(context)
+                          .read(employeeManageJobProvider.notifier);
+
+                      if (isSavedNow) {
+                        notifier.unSaveJob(jobId);
+                        print("❌ unSaveJob from job $jobId");
+                        return true;
+                      } else {
+                        notifier.saveJob(jobId);
+                        print("✅ saveJob for job $jobId");
+                        return true;
+
+                      }
                     },
                   ),
                 ],
