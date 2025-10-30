@@ -42,7 +42,7 @@ class EmployeeSavedJobController extends StateNotifier<JobListState> {
         data: Data,
         currentPage: result.currentPage,
         lastPage: result.totalPages,
-        totalCount: result.count
+        totalCount: result.totalJobs
       );
     } catch (e) {
       state = state.copyWith(
@@ -72,6 +72,7 @@ class EmployeeSavedJobController extends StateNotifier<JobListState> {
         currentPage: result.currentPage,
         lastPage: result.totalPages,
         isLoadingMore: false,
+        totalCount: result.totalJobs
       );
     } catch (e) {
       state = state.copyWith(isLoadingMore: false);

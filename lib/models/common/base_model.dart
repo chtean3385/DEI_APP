@@ -4,6 +4,7 @@ class BaseModel {
   final dynamic data;
   final int? currentPage;
   final int? totalPages;
+  final int? totalJobs;
   final int? count;
 
   BaseModel({
@@ -12,6 +13,7 @@ class BaseModel {
     this.data,
     this.currentPage,
     this.totalPages,
+    this.totalJobs,
     this.count,
   });
 
@@ -24,6 +26,7 @@ class BaseModel {
       data: json['data'],
       currentPage: json['currentPage'],
       totalPages: json['totalPages'],
+      totalJobs: json['totalJobs'],
       count: json['count'],
     );
   }

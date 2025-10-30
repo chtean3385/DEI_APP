@@ -43,7 +43,7 @@ class EmployeeAppliedJobsController extends StateNotifier<JobListState> {
         data: Data,
         currentPage: result.currentPage,
         lastPage: result.totalPages,
-        totalCount: result.count,
+        totalCount: result.totalJobs,
         status: state.status,
       );
     } catch (e) {
@@ -73,7 +73,7 @@ class EmployeeAppliedJobsController extends StateNotifier<JobListState> {
         currentPage: result.currentPage,
         lastPage: result.totalPages,
         isLoadingMore: false,
-        totalCount: result.count,
+        totalCount: result.totalJobs,
         status: state.status,
       );
     } catch (e) {
