@@ -150,6 +150,12 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
     final _employeeSearchJobListController = ref.read(
       searchJobListProvider.notifier,
     );
+    final _employeeSavedJobListController = ref.read(
+      employeeSavedJobsProvider.notifier,
+    );
+    final _employeeAppliedJobListController = ref.read(
+      employeeAppliedJobsProvider.notifier,
+    );
     if (_employeeJobDetailsController.mounted) {
       _employeeJobDetailsController.updateJobStatus(
         jobId: jobId,
@@ -164,5 +170,21 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
         isSaved: isSaved,
       );
     }
+    if (_employeeSavedJobListController.mounted) {
+      _employeeSavedJobListController.updateJobStatus(
+        jobId: jobId,
+        isApplied: isApplied,
+        isSaved: isSaved,
+      );
+    }
+    if (_employeeAppliedJobListController.mounted) {
+      _employeeAppliedJobListController.updateJobStatus(
+        jobId: jobId,
+        isApplied: isApplied,
+        isSaved: isSaved,
+      );
+    }
   }
+
+
 }

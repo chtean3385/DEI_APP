@@ -9,11 +9,13 @@ class JobListState {
   final String? sortBy;
   final String? state;
   final String? categoryId;
+  final String? status;
   final int currentPage;
   final int lastPage;
   final int? totalCount;
   final int? id;
   final bool isLoadingMore;
+
 
   JobListState({
     required this.pageState,
@@ -23,6 +25,7 @@ class JobListState {
     this.sortBy,
     this.state,
     this.categoryId,
+    this.status,
     this.currentPage = 1,
     this.lastPage = 1,
     this.totalCount = 1,
@@ -37,6 +40,7 @@ class JobListState {
     query: null,
     sortBy: null,
     state: null,
+    status: null,
     categoryId: null,
     totalCount: null,
 
@@ -51,6 +55,7 @@ class JobListState {
     String? sortBy,
     String? state,
     String? categoryId,
+    String? status,
     int? currentPage,
     int? lastPage,
     int? totalCount,
@@ -64,6 +69,7 @@ class JobListState {
       query: query ?? this.query,
       sortBy: sortBy ?? this.sortBy,
       state: state ?? this.state,
+      status: status ?? this.status,
       categoryId: categoryId ?? this.categoryId,
       currentPage: currentPage ?? this.currentPage,
       lastPage: lastPage ?? this.lastPage,

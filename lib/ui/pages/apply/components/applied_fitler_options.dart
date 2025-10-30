@@ -3,7 +3,6 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 
 class AppliedFilterOptions extends ConsumerWidget {
@@ -11,15 +10,10 @@ class AppliedFilterOptions extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(appliedJobsProvider);
-    final controller = ref.read(appliedJobsProvider.notifier);
+    final state = ref.watch(employeeAppliedJobsProvider);
+    final controller = ref.read(employeeAppliedJobsProvider.notifier);
 
-    final categories = ["All", "Pending", "Accepted", "Rejected"];
-
-    if (state.pageState == PageState.loading) {
-      return const Center(child: CircularProgressIndicator());
-    }
-
+    final categories = ["All", "Pending", "Accepted", "Interviewing","Negotiation","Hired","Rejected",];
     return    SizedBox(
       height: 48,
       child: ListView.builder(
@@ -28,7 +22,7 @@ class AppliedFilterOptions extends ConsumerWidget {
         padding: EdgeInsets.symmetric(horizontal: 16),
         itemBuilder: (_, i) {
           final option = categories[i];
-          final isSelected = state.selectedFilter == option;
+          final isSelected = (state.status??"All") == option;
 
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4),
@@ -39,7 +33,7 @@ class AppliedFilterOptions extends ConsumerWidget {
               padding: EdgeInsets.zero, // remove extra space
               label: Text(option),
               selected: isSelected,
-              onSelected: (_) => controller.selectFilter(option),
+              onSelected: (_) => controller.fetchJobs(status: option),
               selectedColor: AppColors.primaryColor,
               labelStyle: context.textTheme.bodyMedium?.copyWith(color:isSelected ? Colors.white :AppColors.primaryColor ),
               backgroundColor: Colors.white,

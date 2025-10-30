@@ -69,6 +69,8 @@ class CustomDynamicButton extends StatefulWidget {
   final double size;
   final bool smaller;
   final bool initialValue;
+  final Color activeColor;
+  final Color inActiveColor;
   final Future<bool> Function(bool)? onPressed; // ✅ callback returns whether to accept toggle
 
   const CustomDynamicButton({
@@ -77,6 +79,8 @@ class CustomDynamicButton extends StatefulWidget {
     this.size = 20,
     this.smaller = true,
     this.initialValue = false,
+    this.activeColor = AppColors.primaryColor,
+    this.inActiveColor =  Colors.black54,
     required this.activeIcon,
     required this.inActiveIcon,
     required this.activeTitle,
@@ -129,18 +133,18 @@ class _CustomDynamicButtonState extends State<CustomDynamicButton> {
             Icon(
               isActive ? widget.activeIcon : widget.inActiveIcon,
               size: widget.size,
-              color: isActive ? AppColors.primaryColor : Colors.black54,
+              color: isActive ? widget.activeColor : widget.inActiveColor ,
             ),
           const SizedBox(width: 4),
           Text(
             isActive ? widget.activeTitle : widget.inActiveTitle,
             style: widget.smaller
                 ? theme.labelSmall?.copyWith(
-              color: isActive ? AppColors.primaryColor : Colors.black54,
+              color: isActive ? widget.activeColor : widget.inActiveColor ,
               fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
             )
                 : theme.labelMedium?.copyWith(
-              color: isActive ? AppColors.primaryColor : Colors.black54,
+              color: isActive ? widget.activeColor : widget.inActiveColor ,
               fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
             ),
           ),

@@ -128,4 +128,47 @@ class JobService {
       rethrow;
     }
   }
+
+  /// Get AppliedJobs jobs
+  Future<BaseModel> getAppliedJobs({
+    int page = 1,
+    String? status,
+  }) async {
+    try {
+      // Start with base URL
+      String url = ApiUrls.appliedJobs;
+
+      // Collect query parameters dynamically
+      Map<String, String> queryParams = {};
+      queryParams["page"] = page.toString();
+      queryParams["limit"] = "10";
+
+      if (status?.isNotEmpty == true) {
+        queryParams["status"] = status!;
+      }
+
+      // Append query params if any
+      if (queryParams.isNotEmpty) {
+        final uri = Uri.parse(url).replace(queryParameters: queryParams);
+        url = uri.toString();
+      }
+
+      // Perform the GET request
+      final result = await _apiHandler.get(url: url, includeAuthToken: true);
+
+      // Handle the API response
+      if (result is Map<String, dynamic>) {
+        final base = BaseModel.fromJson(result);
+        if (base.isSuccess) {
+          return base;
+        } else {
+          throw base.message ?? 'Request failed';
+        }
+      } else {
+        throw Exception('Invalid response format');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

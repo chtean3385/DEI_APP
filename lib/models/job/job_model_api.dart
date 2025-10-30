@@ -9,6 +9,7 @@ class JobModelApi {
   String? category;
   String? jobType;
   String? status;
+  String? myStatus;
   Employer? employer;
   List<String>? skills;
   List<Applicant>? applicants;
@@ -30,6 +31,7 @@ class JobModelApi {
     this.category,
     this.jobType,
     this.status,
+    this.myStatus,
     this.employer,
     this.skills,
     this.applicants,
@@ -74,6 +76,7 @@ class JobModelApi {
       country: json["country"],
       salary: json["salary"],
       status: json["status"],
+      myStatus: json["myStatus"],
       jobType: json["jobType"] != null ? json["jobType"]["name"] : null,
       category: json["category"] != null ? json["category"]["title"] : null,
       employer: json["postedBy"] != null
@@ -103,6 +106,7 @@ class JobModelApi {
     String? category,
     String? jobType,
     String? status,
+    String? myStatus,
     Employer? employer,
     List<String>? skills,
     List<Applicant>? applicants,
@@ -124,6 +128,7 @@ class JobModelApi {
       category: category ?? this.category,
       jobType: jobType ?? this.jobType,
       status: status ?? this.status,
+      myStatus: myStatus ?? this.myStatus,
       employer: employer ?? this.employer,
       skills: skills ?? this.skills,
       applicants: applicants ?? this.applicants,

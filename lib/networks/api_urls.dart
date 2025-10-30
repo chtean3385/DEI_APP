@@ -71,6 +71,9 @@ class ApiUrls {
   static const searchJob = 'job/filtered-searched-jobs';
   // saved jobs
   static const savedJobs = 'job/my-saved';
+  // saved jobs
+  static const appliedJobs = 'job/my-applications';
+
 
 
   //  job

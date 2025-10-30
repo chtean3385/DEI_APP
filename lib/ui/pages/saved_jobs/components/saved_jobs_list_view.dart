@@ -33,7 +33,7 @@ class _SearchResultsViewState extends ConsumerState<EmployeeSavedJobListView> {
           _scrollController.position.maxScrollExtent - 200 &&
           !state.isLoadingMore &&
           state.currentPage < state.lastPage) {
-        ref.read(searchJobListProvider.notifier).loadMore();
+        ref.read(employeeSavedJobsProvider.notifier).loadMore();
       }
     });
   }

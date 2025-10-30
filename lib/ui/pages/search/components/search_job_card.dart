@@ -10,13 +10,26 @@ import 'package:intl/intl.dart';
 import '../../../../../../constants/app_styles.dart';
 import '../../../../../../main.dart';
 import '../../../../../../widgets/others/rounded_network_image.dart';
+import '../../../../widgets/others/custom_theme_button.dart';
 import '../../job/components/save_hide_button.dart';
 
 class SearchJobCard extends StatelessWidget {
   final JobModelApi jobModel;
   final GestureTapCallback? onTap;
+  final bool hideSaveButton;
+  final bool hideApplyButton;
+  final bool showWithdrawButton;
+  final bool showMyApplicationStatusButton;
 
-  const SearchJobCard({super.key, required this.jobModel, this.onTap});
+  const SearchJobCard({
+    super.key,
+    required this.jobModel,
+    this.onTap,
+    this.hideSaveButton = false,
+    this.hideApplyButton = false,
+    this.showWithdrawButton = false,
+    this.showMyApplicationStatusButton = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -174,108 +187,99 @@ class SearchJobCard extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // CustomDynamicButton(
-                  //   activeIcon: Icons.send_rounded,
-                  //   inActiveIcon: Icons.check_circle_rounded,
-                  //   activeTitle: "Apply",
-                  //   inActiveTitle: "Applied",
-                  //   size: 20,
-                  //   smaller: true,
-                  //   initialValue: !jobModel.isApplied,
-                  //   onPressed: (isAppliedNow) async {
-                  //     // 🔹 Add API call here
-                  //     print("Apply/Applied tapped! -- $isAppliedNow");
-                  //     final jobId = jobModel.id ?? "";
-                  //     final notifier = ProviderScope.containerOf(
-                  //       context,
-                  //     ).read(employeeManageJobProvider.notifier);
-                  //
-                  //     if (isAppliedNow) {
-                  //       notifier.unApplyJob(jobId);
-                  //       print("❌ Unapplied from job $jobId");
-                  //       return true;
-                  //     } else {
-                  //       final hasUploadedResume =
-                  //           await SharedPreferenceRepository.getHasUploadedResume();
-                  //
-                  //       if (!hasUploadedResume) {
-                  //         showCustomAlertDialog(
-                  //           context: context,
-                  //           title: "Please upload resume",
-                  //           message:
-                  //               "You need to upload your resume before applying for this job.",
-                  //           primaryButtonText: "Upload",
-                  //           onPrimaryPressed: () {
-                  //             Navigator.pop(context); // ✅ close dialog first
-                  //             Future.microtask(() {
-                  //               AppNavigator.loadEditEmployeeResumeScreen();
-                  //             });
-                  //           },
-                  //           secondaryButtonText: "Cancel",
-                  //           onSecondaryPressed: () => Navigator.pop(context),
-                  //         );
-                  //         return false; // ❌ Don't toggle the button
-                  //       }
-                  //       notifier.applyJob(jobId);
-                  //       print("✅ Applied for job $jobId");
-                  //       return true;
-                  //     }
-                  //   },
-                  // ),
-                  CustomDynamicButton(
-                    activeIcon: Icons.send_rounded,
-                    inActiveIcon: Icons.check_circle_rounded,
-                    activeTitle: "Apply",
-                    inActiveTitle: "Applied",
-                    size: 20,
-                    smaller: true,
-                    initialValue: !jobModel.isApplied,
-                    onPressed: (isAppliedNow) async {
-                      final jobId = jobModel.id ?? "";
-                      final notifier = ProviderScope.containerOf(
-                        context,
-                      ).read(employeeManageJobProvider.notifier);
-
-                      if (isAppliedNow) {
-                        final success = await notifier.unApplyJob(
+                  if (showWithdrawButton)
+                    CustomDynamicButton(
+                      activeIcon: Icons.send_rounded,
+                      inActiveIcon: Icons.cancel_outlined,
+                      activeTitle: "Apply",
+                      inActiveTitle: "Withdraw",
+                      activeColor: AppColors.primaryColor,
+                      inActiveColor: Colors.red.withValues(alpha: .8),
+                      size: 20,
+                      smaller: true,
+                      initialValue: !jobModel.isApplied,
+                      onPressed: (isWithdrawnNow) async {
+                        final jobId = jobModel.id ?? "";
+                        final notifier = ProviderScope.containerOf(
                           context,
-                          jobId,
-                        );
-                        return success; // true = toggle, false = no change
-                      } else {
-                        final success = await notifier.applyJob(context, jobId);
-                        return success;
-                      }
-                    },
-                  ),
+                        ).read(employeeManageJobProvider.notifier);
 
-                  CustomDynamicButton(
-                    activeIcon: Icons.bookmark_border,
-                    inActiveIcon: Icons.bookmark,
-                    activeTitle: "Save",
-                    inActiveTitle: "Saved",
-                    size: 20,
-                    smaller: true,
-                    initialValue: !jobModel.isSaved,
-                    onPressed: (isSavedNow) async {
-                      // 🔹 Add API call here
-                      print("Save/Hide tapped!  -- $isSavedNow");
-                      final jobId = jobModel.id ?? "";
-                      final notifier = ProviderScope.containerOf(
-                        context,
-                      ).read(employeeManageJobProvider.notifier);
+                        if (isWithdrawnNow) {
+                          final success = await notifier.unApplyJob(
+                            context,
+                            jobId,
+                          );
+                          return success; // true = toggle, false = no change
+                        } else {
+                          final success = await notifier.applyJob(
+                            context,
+                            jobId,
+                          );
+                          return success;
+                        }
+                      },
+                    ),
+                  if (!hideApplyButton)
+                    CustomDynamicButton(
+                      activeIcon: Icons.send_rounded,
+                      inActiveIcon: Icons.check_circle_rounded,
+                      activeTitle: "Apply",
+                      inActiveTitle: "Applied",
+                      size: 20,
+                      smaller: true,
+                      initialValue: !jobModel.isApplied,
+                      onPressed: (isAppliedNow) async {
+                        final jobId = jobModel.id ?? "";
+                        final notifier = ProviderScope.containerOf(
+                          context,
+                        ).read(employeeManageJobProvider.notifier);
 
-                      if (isSavedNow) {
-                        notifier.unSaveJob(jobId);
-                        print("❌ unSaveJob from job $jobId");
-                        return true;
-                      } else {
-                        notifier.saveJob(jobId);
-                        print("✅ saveJob for job $jobId");
-                        return true;
-                      }
-                    },
-                  ),
+                        if (isAppliedNow) {
+                          final success = await notifier.unApplyJob(
+                            context,
+                            jobId,
+                          );
+                          return success; // true = toggle, false = no change
+                        } else {
+                          final success = await notifier.applyJob(
+                            context,
+                            jobId,
+                          );
+                          return success;
+                        }
+                      },
+                    ),
+
+                  if (!hideSaveButton)
+                    CustomDynamicButton(
+                      activeIcon: Icons.bookmark_border,
+                      inActiveIcon: Icons.bookmark,
+                      activeTitle: "Save",
+                      inActiveTitle: "Saved",
+                      size: 20,
+                      smaller: true,
+                      initialValue: !jobModel.isSaved,
+                      onPressed: (isSavedNow) async {
+                        // 🔹 Add API call here
+                        print("Save/Hide tapped!  -- $isSavedNow");
+                        final jobId = jobModel.id ?? "";
+                        final notifier = ProviderScope.containerOf(
+                          context,
+                        ).read(employeeManageJobProvider.notifier);
+
+                        if (isSavedNow) {
+                          notifier.unSaveJob(jobId);
+                          print("❌ unSaveJob from job $jobId");
+                          return true;
+                        } else {
+                          notifier.saveJob(jobId);
+                          print("✅ saveJob for job $jobId");
+                          return true;
+                        }
+                      },
+                    ),
+                  if (showMyApplicationStatusButton)
+                    _buildStatusButton(jobModel.myStatus ?? ""),
                 ],
               ),
             ],
@@ -315,6 +319,79 @@ class SearchJobCard extends StatelessWidget {
           color: Colors.black,
         ),
       ),
+    );
+  }
+
+  Widget _buildStatusButton(String status) {
+    final theme = navigatorKey.currentContext!.textTheme;
+
+    // Normalize input
+    final s = status.toLowerCase().trim();
+    // Define color and text mapping
+    late final Color buttonColor;
+    late final String buttonText;
+
+    switch (s) {
+      case "pending":
+        buttonText = "Application Pending";
+        buttonColor = Colors.orange;
+        break;
+
+      case "accepted":
+        buttonText = "Application Accepted";
+        buttonColor = Colors.green;
+        break;
+
+      case "rejected":
+        buttonText = "Application Rejected";
+        buttonColor = Colors.red;
+        break;
+
+      case "interviewing":
+        buttonText = "Interview Scheduled";
+        buttonColor = Colors.blue;
+        break;
+
+      case "negotiation":
+        buttonText = "Under Discussion";
+        buttonColor = Colors.purple;
+        break;
+
+      case "hired":
+        buttonText = "Hired";
+        buttonColor = Colors.teal;
+        break;
+
+      default:
+        buttonText = "Status Unknown"; // optional helper if you have one
+        buttonColor = Colors.grey;
+    }
+
+    return CustomThemeButton(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+
+        children: [
+          Icon(
+            Icons.send_and_archive_outlined,
+            size: 20,
+            color: Colors.black54,
+          ),
+          gapW8(),
+          Text(
+            buttonText,
+            style: theme.labelSmall?.copyWith(
+              color: buttonColor,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
+      color: buttonColor.withValues(alpha: 0.1),
+      borderColor: buttonColor.withValues(alpha: 0.1),
+      radius: 30,
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      onTap: null, // disable tap, purely informational
     );
   }
 }
@@ -466,22 +543,23 @@ class ShimmerSearchJobCard extends StatelessWidget {
       ),
     );
   }
-
- 
 }
+
 class ShimmerBox extends StatelessWidget {
   final double height;
   final double width;
   final double radius;
-  
-  const ShimmerBox({super.key,
-    required  this.height,
-    required this. width,
-    this.radius = 4});
+
+  const ShimmerBox({
+    super.key,
+    required this.height,
+    required this.width,
+    this.radius = 4,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return   DecoratedBox(
+    return DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(radius),

@@ -10,7 +10,6 @@ import 'package:dei_champions/models/state_models/home/friendly_industries_state
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
 import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
-import 'package:dei_champions/models/state_models/saved/saved_job_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/friendly_industry_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/how_it_works_controller.dart';
@@ -88,6 +87,7 @@ import 'controllers/genz/genz_growth_section_controller.dart';
 import 'controllers/genz/genz_title_section_controller.dart';
 import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
+import 'controllers/job/employee_applied_jobs_controller.dart';
 import 'controllers/job/employee_job_details_controller.dart';
 import 'controllers/job/employee_manage_job_controller.dart';
 import 'controllers/job/employee_saved_jobs_controller.dart';
@@ -104,7 +104,6 @@ import 'controllers/men_alias/men_as_alias_title_controller.dart';
 import 'controllers/men_alias/organizational_benefit_controller.dart';
 import 'controllers/on_boarding/on_boarding_controller.dart';
 import 'controllers/profile/edit_profile_controller.dart';
-import 'controllers/saved/saved_jobs_controller.dart';
 import 'controllers/veteran/veteran_advantage_controller.dart';
 import 'controllers/veteran/veteran_organizational_gorwth_controller.dart';
 import 'controllers/veteran/veteran_quote_section_controller.dart';
@@ -341,11 +340,11 @@ final editProfileProvider =StateNotifierProvider.autoDispose<EditProfileControll
 final appliedJobsProvider =StateNotifierProvider.autoDispose<AppliedJobsController, AppliedJobState>((ref) {
   return AppliedJobsController();
 });
-
-/// saved jobs
-final savedJobsProvider =StateNotifierProvider.autoDispose<SavedJobsController, SavedJobState>((ref) {
-  return SavedJobsController();
+final employeeAppliedJobsProvider =StateNotifierProvider.autoDispose<EmployeeAppliedJobsController, JobListState>((ref) {
+  return EmployeeAppliedJobsController();
 });
+
+
 final employeeSavedJobsProvider =StateNotifierProvider.autoDispose<EmployeeSavedJobController, JobListState>((ref) {
   return EmployeeSavedJobController();
 });
