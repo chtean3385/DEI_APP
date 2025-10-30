@@ -14,7 +14,7 @@ class FilterOptionsBar extends StatelessWidget {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.transparent, // rounded corners in content
+      backgroundColor: Colors.transparent,
       builder: (ctx) {
         return FilterModal(
           categories: filters,

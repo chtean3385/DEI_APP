@@ -90,6 +90,7 @@ import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
 import 'controllers/job/employee_job_details_controller.dart';
 import 'controllers/job/employee_manage_job_controller.dart';
+import 'controllers/job/employee_saved_jobs_controller.dart';
 import 'controllers/job/employee_search_jobs_controller.dart';
 import 'controllers/lgbtq/lgbtq_advantage_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_inclusion_section_controller.dart';
@@ -344,6 +345,9 @@ final appliedJobsProvider =StateNotifierProvider.autoDispose<AppliedJobsControll
 /// saved jobs
 final savedJobsProvider =StateNotifierProvider.autoDispose<SavedJobsController, SavedJobState>((ref) {
   return SavedJobsController();
+});
+final employeeSavedJobsProvider =StateNotifierProvider.autoDispose<EmployeeSavedJobController, JobListState>((ref) {
+  return EmployeeSavedJobController();
 });
 /// search jobs list
 final searchJobListProvider =StateNotifierProvider.autoDispose<EmployeeSearchJobController, JobListState>((ref) {

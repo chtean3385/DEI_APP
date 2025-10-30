@@ -2,43 +2,36 @@ import 'package:dei_champions/models/common/base_model.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
 import 'package:dei_champions/repo/shared_preference_repository.dart';
+import 'package:dei_champions/service/job/job_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/enums.dart';
-import '../../../service/search/search_service.dart';
 
-class EmployeeSearchJobController extends StateNotifier<JobListState> {
-  EmployeeSearchJobController() : super(JobListState.initial()) {
+class EmployeeSavedJobController extends StateNotifier<JobListState> {
+  EmployeeSavedJobController() : super(JobListState.initial()) {
+    fetchJobs();
   }
 
-  final SearchService _searchService = SearchService();
+  final JobService _jobService = JobService();
 
   @override
   void dispose() {
-    debugPrint("🔥 EmployeeSearchJobController disposed");
+    debugPrint("🔥 EmployeeSavedJobController disposed");
     super.dispose();
   }
 
 
-  Future<void> fetchJobs({String? selectedState,String? query,String? sortBy,String? categoryId}) async {
+  Future<void> fetchJobs() async {
     state = state.copyWith(
       pageState: PageState.loading,
-      query : query,
-      sortBy: sortBy,
-      state: selectedState,
-      categoryId: categoryId,
       currentPage: 1,
       data: [],
     );
 
     try {
-      final BaseModel result = await _searchService.getSearchJobs(
+      final BaseModel result = await _jobService.getSavedJobs(
         page: 1,
-       categoryId: state.categoryId,
-        search:  state.query,
-        sortBy:  state.sortBy,
-        state:  state.state
       );
       final userId = await SharedPreferenceRepository.getUserId();
       final Data = (result.data as List)
@@ -68,11 +61,7 @@ class EmployeeSearchJobController extends StateNotifier<JobListState> {
     state = state.copyWith(isLoadingMore: true);
 
     try {
-      final result = await _searchService.getSearchJobs(
-        categoryId: state.categoryId,
-        search:  state.query,
-        sortBy:  state.sortBy,
-        state:  state.state,
+      final result = await _jobService.getSavedJobs(
         page: state.currentPage + 1,
       );
       final Data = (result.data as List)
@@ -83,7 +72,6 @@ class EmployeeSearchJobController extends StateNotifier<JobListState> {
         currentPage: result.currentPage,
         lastPage: result.totalPages,
         isLoadingMore: false,
-        totalCount: result.count
       );
     } catch (e) {
       state = state.copyWith(isLoadingMore: false);
@@ -100,7 +88,7 @@ class EmployeeSearchJobController extends StateNotifier<JobListState> {
     // Find job index by ID
     final index = state.data!.indexWhere((job) => job.id == jobId);
     if (index == -1) {
-      debugPrint("⚠️ Job not found in search list for ID: $jobId");
+      debugPrint("⚠️ Job not found in saved job  list for ID: $jobId");
       return;
     }
 
@@ -120,7 +108,7 @@ class EmployeeSearchJobController extends StateNotifier<JobListState> {
     state = state.copyWith(data: updatedList);
 
     debugPrint(
-      "✅ Job updated in search list — jobId: $jobId | "
+      "✅ Job updated in saved job list — jobId: $jobId | "
           "isApplied: ${updatedJob.isApplied} | isSaved: ${updatedJob.isSaved}",
     );
   }

@@ -9,6 +9,7 @@ import '../apply/apply_screen.dart';
 import '../home/home_screen.dart';
 import '../invites/invites_screen.dart';
 import '../profile/profile_details_view.dart';
+import '../saved_jobs/saved_jobs_view.dart';
 import 'components/drawer/custom_drawer.dart';
 
 class BottomBar extends StatefulWidget {
@@ -67,7 +68,7 @@ class _BottomBarState extends State<BottomBar> {
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,title: _currentIndex == 2 ?"NVites" :  "",  onPressed: _handleMenuButtonPressed, ),
+        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,isFromSavedJobs: _currentIndex == 2 ,  onPressed: _handleMenuButtonPressed, ),
         // drawer: CustomDrawer(),
         body: _buildScreen(_currentIndex),
         bottomNavigationBar: SafeArea(
@@ -112,8 +113,8 @@ class _BottomBarState extends State<BottomBar> {
                   label: "Applied",
                 ),
                 BottomNavigationBarItem(
-                  icon: _navIcon(Icons.event_outlined, Icons.event, 2),
-                  label: "NVites",
+                  icon: _navIcon(Icons.bookmark_border_outlined, Icons.bookmark, 2),
+                  label: "Saved",
                 ),
                 BottomNavigationBarItem(
                   icon: _navIcon(Icons.person_outline, Icons.person, 3),
@@ -151,7 +152,7 @@ class _BottomBarState extends State<BottomBar> {
       case 1:
         return  ApplyScreen();
       case 2:
-        return const InvitesScreen();
+        return const SavedJobsView();
       case 3:
         return const ProfileDetailsView();
       case 4:

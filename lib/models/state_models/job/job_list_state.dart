@@ -11,6 +11,7 @@ class JobListState {
   final String? categoryId;
   final int currentPage;
   final int lastPage;
+  final int? totalCount;
   final int? id;
   final bool isLoadingMore;
 
@@ -24,6 +25,7 @@ class JobListState {
     this.categoryId,
     this.currentPage = 1,
     this.lastPage = 1,
+    this.totalCount = 1,
     this.id ,
     this.isLoadingMore = false,
   });
@@ -36,6 +38,7 @@ class JobListState {
     sortBy: null,
     state: null,
     categoryId: null,
+    totalCount: null,
 
 
   );
@@ -50,6 +53,7 @@ class JobListState {
     String? categoryId,
     int? currentPage,
     int? lastPage,
+    int? totalCount,
     int? id,
     bool? isLoadingMore,
   }) {
@@ -63,6 +67,7 @@ class JobListState {
       categoryId: categoryId ?? this.categoryId,
       currentPage: currentPage ?? this.currentPage,
       lastPage: lastPage ?? this.lastPage,
+      totalCount: totalCount ?? this.totalCount,
       id: id ?? this.id,
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
     );

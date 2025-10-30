@@ -41,7 +41,7 @@ class SavedJobsEmptyScreen extends StatelessWidget {
 
             // Subtitle text
             Text(
-              "Search for jobs and start applying. You can track your applications here!",
+              "Start exploring and save jobs you like. You can view all your saved jobs here!",
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: Colors.black54,
@@ -63,7 +63,7 @@ class SavedJobsEmptyScreen extends StatelessWidget {
               color: AppColors.primaryColor,
               radius: 30,
               padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-              onTap: AppNavigator.loadJobSearchScreen,
+              onTap: AppNavigator.loadJobSearchResultScreen,
 
             ),
           ],

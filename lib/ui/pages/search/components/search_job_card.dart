@@ -374,15 +374,15 @@ class ShimmerSearchJobCard extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _shimmerBox(height: 14, width: 160),
+                        ShimmerBox(height: 14, width: 160),
                         const SizedBox(height: 6),
-                        _shimmerBox(height: 12, width: 100),
+                        ShimmerBox(height: 12, width: 100),
                         const SizedBox(height: 6),
                       ],
                     ),
                   ),
                   const SizedBox(width: 8),
-                  _shimmerBox(height: 50, width: 50, radius: 8),
+                  ShimmerBox(height: 50, width: 50, radius: 8),
                 ],
               ),
               const SizedBox(height: 10),
@@ -396,7 +396,7 @@ class ShimmerSearchJobCard extends StatelessWidget {
                     color: Colors.black26,
                   ),
                   const SizedBox(width: 6),
-                  _shimmerBox(height: 10, width: 80),
+                  ShimmerBox(height: 10, width: 80),
                 ],
               ),
               const SizedBox(height: 6),
@@ -410,7 +410,7 @@ class ShimmerSearchJobCard extends StatelessWidget {
                     color: Colors.black26,
                   ),
                   const SizedBox(width: 6),
-                  _shimmerBox(height: 10, width: 60),
+                  ShimmerBox(height: 10, width: 60),
                 ],
               ),
               const SizedBox(height: 6),
@@ -421,7 +421,7 @@ class ShimmerSearchJobCard extends StatelessWidget {
                   const SizedBox(width: 5),
                   Icon(Icons.currency_rupee, size: 14, color: Colors.black26),
                   const SizedBox(width: 6),
-                  _shimmerBox(height: 10, width: 50),
+                  ShimmerBox(height: 10, width: 50),
                 ],
               ),
               const SizedBox(height: 10),
@@ -432,7 +432,7 @@ class ShimmerSearchJobCard extends StatelessWidget {
                 runSpacing: 8,
                 children: List.generate(
                   3,
-                  (index) => _shimmerBox(height: 20, width: 60, radius: 6),
+                  (index) => ShimmerBox(height: 20, width: 60, radius: 6),
                 ),
               ),
               const SizedBox(height: 10),
@@ -441,11 +441,11 @@ class ShimmerSearchJobCard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _shimmerBox(height: 10, width: double.infinity),
+                  ShimmerBox(height: 10, width: double.infinity),
                   const SizedBox(height: 4),
-                  _shimmerBox(height: 10, width: double.infinity),
+                  ShimmerBox(height: 10, width: double.infinity),
                   const SizedBox(height: 4),
-                  _shimmerBox(height: 10, width: 150),
+                  ShimmerBox(height: 10, width: 150),
                 ],
               ),
               const SizedBox(height: 12),
@@ -455,9 +455,9 @@ class ShimmerSearchJobCard extends StatelessWidget {
                 children: [
                   Icon(Icons.calendar_month, size: 14, color: Colors.black26),
                   const SizedBox(width: 6),
-                  _shimmerBox(height: 10, width: 60),
+                  ShimmerBox(height: 10, width: 60),
                   const Spacer(),
-                  _shimmerBox(height: 26, width: 60, radius: 8),
+                  ShimmerBox(height: 26, width: 60, radius: 8),
                 ],
               ),
             ],
@@ -467,12 +467,21 @@ class ShimmerSearchJobCard extends StatelessWidget {
     );
   }
 
-  Widget _shimmerBox({
-    required double height,
-    required double width,
-    double radius = 4,
-  }) {
-    return DecoratedBox(
+ 
+}
+class ShimmerBox extends StatelessWidget {
+  final double height;
+  final double width;
+  final double radius;
+  
+  const ShimmerBox({super.key,
+    required  this.height,
+    required this. width,
+    this.radius = 4});
+
+  @override
+  Widget build(BuildContext context) {
+    return   DecoratedBox(
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(radius),

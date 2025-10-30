@@ -68,10 +68,11 @@ class JobSearchResultScreen extends ConsumerWidget {
                 children: [
                   Expanded(
                     child: Text(
-                      "${state.data?.length ?? 0} results ",
+                      "${state.totalCount ?? 0} results ",
                       style: context.textTheme.displaySmall,
                     ),
                   ),
+
 
                   Expanded(
                     child: CategoryDropdown(
