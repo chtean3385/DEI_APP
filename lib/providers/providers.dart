@@ -352,7 +352,7 @@ final searchJobListProvider =StateNotifierProvider.autoDispose<EmployeeSearchJob
 
 /// employee manage job
 final employeeManageJobProvider =StateNotifierProvider<EmployeeManageJobController, JobState>((ref) {
-  return EmployeeManageJobController();
+  return EmployeeManageJobController(ref);
 });
 /// employee get  job details
 final employeeJobDetailsProvider =StateNotifierProvider<EmployeeJobDetailsController, JobState>((ref) {

@@ -8,7 +8,6 @@ import '../../../constants/enums.dart';
 import '../../../models/job/job_model.dart';
 import '../../../providers/providers.dart';
 import '../../../widgets/others/custom_loader.dart';
-import '../../../widgets/others/custom_theme_button.dart';
 import '../home/components/recommended_jobs/components/custom_tab_bar.dart';
 import 'components/apply_job_button.dart';
 import 'components/job_detail_header.dart';

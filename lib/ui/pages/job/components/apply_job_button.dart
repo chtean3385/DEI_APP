@@ -15,9 +15,7 @@ class ApplyJobButton extends ConsumerWidget {
     final state = ref.watch(employeeJobDetailsProvider);
     final applyState = ref.watch(employeeManageJobProvider);
     final controller = ref.read(employeeManageJobProvider.notifier);
-    print("isApplied -- >  - ${state.data?.isApplied}");
     final bool isApplied = state.data?.isApplied ?? false;
-    print("isApplied -- >  - $isApplied");
     final theme = Theme.of(context).textTheme;
     return CustomThemeButton(
       onTap: () =>isApplied ? controller.unApplyJob(context, jobId):  controller.applyJob(context, jobId),

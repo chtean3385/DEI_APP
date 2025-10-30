@@ -88,4 +88,41 @@ class EmployeeSearchJobController extends StateNotifier<JobListState> {
       state = state.copyWith(isLoadingMore: false);
     }
   }
+
+  void updateJobStatus({
+    required String jobId,
+    bool? isApplied,
+    bool? isSaved,
+  }) {
+    if (state.data == null || state.data!.isEmpty) return;
+
+    // Find job index by ID
+    final index = state.data!.indexWhere((job) => job.id == jobId);
+    if (index == -1) {
+      debugPrint("⚠️ Job not found in search list for ID: $jobId");
+      return;
+    }
+
+    final job = state.data![index];
+
+    // Create a new job object with updated fields
+    final updatedJob = job.copyWith(
+      isApplied: isApplied ?? job.isApplied,
+      isSaved: isSaved ?? job.isSaved,
+    );
+
+    // Replace the old job with updated one
+    final updatedList = [...state.data!];
+    updatedList[index] = updatedJob;
+
+    // Update state
+    state = state.copyWith(data: updatedList);
+
+    debugPrint(
+      "✅ Job updated in search list — jobId: $jobId | "
+          "isApplied: ${updatedJob.isApplied} | isSaved: ${updatedJob.isSaved}",
+    );
+  }
+
+
 }

@@ -1,5 +1,4 @@
 import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -11,8 +10,6 @@ import 'package:intl/intl.dart';
 import '../../../../../../constants/app_styles.dart';
 import '../../../../../../main.dart';
 import '../../../../../../widgets/others/rounded_network_image.dart';
-import '../../../../repo/shared_preference_repository.dart';
-import '../../../../widgets/others/show_custom_alert_dialog.dart';
 import '../../job/components/save_hide_button.dart';
 
 class SearchJobCard extends StatelessWidget {
@@ -235,10 +232,15 @@ class SearchJobCard extends StatelessWidget {
                     initialValue: !jobModel.isApplied,
                     onPressed: (isAppliedNow) async {
                       final jobId = jobModel.id ?? "";
-                      final notifier = ProviderScope.containerOf(context).read(employeeManageJobProvider.notifier);
+                      final notifier = ProviderScope.containerOf(
+                        context,
+                      ).read(employeeManageJobProvider.notifier);
 
                       if (isAppliedNow) {
-                        final success = await notifier.unApplyJob(context, jobId);
+                        final success = await notifier.unApplyJob(
+                          context,
+                          jobId,
+                        );
                         return success; // true = toggle, false = no change
                       } else {
                         final success = await notifier.applyJob(context, jobId);

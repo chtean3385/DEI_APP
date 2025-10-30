@@ -1,4 +1,5 @@
 import 'package:dei_champions/models/common/base_model.dart';
+import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/service/job/job_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +12,9 @@ import '../../../widgets/others/show_custom_alert_dialog.dart';
 import '../../../widgets/others/snack_bar.dart';
 
 class EmployeeManageJobController extends StateNotifier<JobState> {
-  EmployeeManageJobController() : super(JobState.initial()) {}
+  final Ref ref;
+
+  EmployeeManageJobController(this.ref) : super(JobState.initial()) {}
 
   final JobService _jobService = JobService();
 
@@ -23,14 +26,13 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
 
   Future<bool> applyJob(BuildContext context, String jobId) async {
     final hasUploadedResume =
-    await SharedPreferenceRepository.getHasUploadedResume();
+        await SharedPreferenceRepository.getHasUploadedResume();
 
     if (!hasUploadedResume) {
       showCustomAlertDialog(
         context: context,
         title: "Please upload resume",
-        message:
-        "You need to upload your resume before applying for this job.",
+        message: "You need to upload your resume before applying for this job.",
         primaryButtonText: "Upload",
         onPrimaryPressed: () {
           Navigator.pop(context); // Close dialog
@@ -46,16 +48,18 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
 
     try {
       state = state.copyWith(pageState: PageState.loading);
-      final BaseModel result =   await _jobService.applyJob(jobId: jobId);
+      final BaseModel result = await _jobService.applyJob(jobId: jobId);
       // 🔹 Update local data — mark job as applied
-      final updatedJob = state.data?.copyWith(isApplied: true);
 
       // 🔹 Update state
-      state = state.copyWith(
-        pageState: PageState.success,
-        data: updatedJob,
-      );
+      state = state.copyWith(pageState: PageState.success);
       print("✅ Applied for job $jobId");
+      // 🔁 Sync  job details in other providers
+      updateJobDataLocallyInsideExternalControllers(
+        jobId: jobId,
+        isApplied: true,
+      );
+
       return true;
     } catch (e) {
       showSnackBar(e.toString());
@@ -70,18 +74,20 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
   Future<bool> unApplyJob(BuildContext context, String jobId) async {
     try {
       state = state.copyWith(pageState: PageState.loading);
-     final BaseModel result =   await _jobService.unApplyJob(jobId: jobId);
+      final BaseModel result = await _jobService.unApplyJob(jobId: jobId);
       // 🔹 Update local data — mark job as applied
       final updatedJob = state.data?.copyWith(isApplied: false);
 
       // 🔹 Update state
-      state = state.copyWith(
-        pageState: PageState.success,
-        data: updatedJob,
-      );
+      state = state.copyWith(pageState: PageState.success, data: updatedJob);
       state = state.copyWith(pageState: PageState.success);
       showSnackBar(result.message);
       print("❌ Unapplied from job $jobId");
+      // 🔁 Sync  job details in other providers
+      updateJobDataLocallyInsideExternalControllers(
+        jobId: jobId,
+        isApplied: false,
+      );
       return true;
     } catch (e) {
       showSnackBar(e.toString());
@@ -98,6 +104,12 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
     try {
       await _jobService.saveJob(jobId: jobId);
       state = state.copyWith(pageState: PageState.success);
+      print("✅ Saved for job $jobId");
+      // 🔁 Sync  job details in other providers
+      updateJobDataLocallyInsideExternalControllers(
+        jobId: jobId,
+        isSaved: true,
+      );
     } catch (e) {
       showSnackBar(e.toString());
       state = state.copyWith(
@@ -106,16 +118,50 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
       );
     }
   }
+
   unSaveJob(String jobId) async {
     state = state.copyWith(pageState: PageState.loading);
     try {
       await _jobService.unSaveJob(jobId: jobId);
       state = state.copyWith(pageState: PageState.success);
+      print("✅ UnSave for job $jobId");
+      // 🔁 Sync  job details in other providers
+      updateJobDataLocallyInsideExternalControllers(
+        jobId: jobId,
+        isSaved: false,
+      );
     } catch (e) {
       showSnackBar(e.toString());
       state = state.copyWith(
         pageState: PageState.error,
         errorMessage: e.toString(),
+      );
+    }
+  }
+
+  updateJobDataLocallyInsideExternalControllers({
+    required String jobId,
+    bool? isApplied,
+    bool? isSaved,
+  }) {
+    final _employeeJobDetailsController = ref.read(
+      employeeJobDetailsProvider.notifier,
+    );
+    final _employeeSearchJobListController = ref.read(
+      searchJobListProvider.notifier,
+    );
+    if (_employeeJobDetailsController.mounted) {
+      _employeeJobDetailsController.updateJobStatus(
+        jobId: jobId,
+        isApplied: isApplied,
+        isSaved: isSaved,
+      );
+    }
+    if (_employeeSearchJobListController.mounted) {
+      _employeeSearchJobListController.updateJobStatus(
+        jobId: jobId,
+        isApplied: isApplied,
+        isSaved: isSaved,
       );
     }
   }

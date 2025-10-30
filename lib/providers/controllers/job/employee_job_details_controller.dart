@@ -37,4 +37,29 @@ class EmployeeJobDetailsController extends StateNotifier<JobState> {
       );
     }
   }
+  /// ✅ Allow external controllers to update job data directly
+  /// ✅ Update job flags locally (isApplied, isSaved)
+  void updateJobStatus({
+    required String jobId,
+    bool? isApplied,
+    bool? isSaved,
+  }) {
+    final currentJob = state.data;
+    if (currentJob == null || currentJob.id != jobId) {
+      debugPrint("⚠️ Job not found or mismatched for ID: $jobId");
+      return;
+    }
+
+    final updatedJob = currentJob.copyWith(
+      isApplied: isApplied ?? currentJob.isApplied,
+      isSaved: isSaved ?? currentJob.isSaved,
+    );
+
+    state = state.copyWith(data: updatedJob);
+
+    debugPrint(
+      "✅ Job updated locally — jobId: $jobId | "
+          "isApplied: ${updatedJob.isApplied} | isSaved: ${updatedJob.isSaved}",
+    );
+  }
 }

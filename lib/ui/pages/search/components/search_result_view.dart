@@ -64,6 +64,7 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
         if (index < state.data!.length) {
           final item = state.data![index];
           return SearchJobCard(
+            key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
             jobModel: item,
             onTap: ()=>AppNavigator.loadJobDetailsScreen(jobId: item.id ?? "",),
           );
