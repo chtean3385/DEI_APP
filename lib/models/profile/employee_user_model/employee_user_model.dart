@@ -8,8 +8,8 @@ class EmployeeUserModel {
   final bool? status;
   final bool? companyVerified;
   final bool? acceptTerms;
-  final List<Education>? education;
-  final List<Experience>? experience;
+  final List<EducationModel>? education;
+  final List<ExperienceModel>? experience;
   final String? createdAt;
   final String? updatedAt;
   final int? v;
@@ -74,12 +74,12 @@ class EmployeeUserModel {
     companyVerified: json['companyVerified'],
     acceptTerms: json['acceptTerms'],
     education: json['education'] != null
-        ? List<Education>.from(
-        json['education'].map((e) => Education.fromJson(e)))
+        ? List<EducationModel>.from(
+        json['education'].map((e) => EducationModel.fromJson(e)))
         : [],
     experience: json['experience'] != null
-        ? List<Experience>.from(
-        json['experience'].map((e) => Experience.fromJson(e)))
+        ? List<ExperienceModel>.from(
+        json['experience'].map((e) => ExperienceModel.fromJson(e)))
         : [],
     createdAt: json['createdAt'],
     updatedAt: json['updatedAt'],
@@ -144,8 +144,8 @@ class EmployeeUserModel {
     bool? status,
     bool? companyVerified,
     bool? acceptTerms,
-    List<Education>? education,
-    List<Experience>? experience,
+    List<EducationModel>? education,
+    List<ExperienceModel>? experience,
     String? createdAt,
     String? updatedAt,
     int? v,
@@ -232,20 +232,20 @@ class Preferences {
   };
 }
 
-class Education {
+class EducationModel {
   final String? degree;
   final String? institution;
   final int? graduationYear;
   final String? id;
 
-  Education({
+  EducationModel({
     this.degree,
     this.institution,
     this.graduationYear,
     this.id,
   });
 
-  factory Education.fromJson(Map<String, dynamic> json) => Education(
+  factory EducationModel.fromJson(Map<String, dynamic> json) => EducationModel(
     degree: json['degree'],
     institution: json['institution'],
     graduationYear: json['graduationYear'],
@@ -260,28 +260,31 @@ class Education {
   };
 }
 
-class Experience {
+class ExperienceModel {
   final String? companyName;
   final String? position;
-  final String? startDate;
-  final String? endDate;
+  final DateTime? startDate;
+  final DateTime? endDate;
   final String? description;
   final String? id;
+  final bool? isCurrentlyWorking;
 
-  Experience({
+  ExperienceModel({
     this.companyName,
     this.position,
     this.startDate,
     this.endDate,
     this.description,
     this.id,
+    this.isCurrentlyWorking,
   });
 
-  factory Experience.fromJson(Map<String, dynamic> json) => Experience(
+  factory ExperienceModel.fromJson(Map<String, dynamic> json) => ExperienceModel(
     companyName: json['companyName'],
     position: json['position'],
-    startDate: json['startDate'],
-    endDate: json['endDate'],
+    startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+    endDate: json['endDate'] != null ? DateTime.parse(json['endDate']) : null,
+    isCurrentlyWorking: json['isCurrentlyWorking'] ?? false,
     description: json['description'],
     id: json['_id'],
   );
@@ -294,4 +297,22 @@ class Experience {
     'description': description,
     '_id': id,
   };
+
+  ExperienceModel copyWith({
+    String? companyName,
+    String? position,
+    DateTime? startDate,
+    DateTime? endDate,
+    bool? isCurrentlyWorking,
+    String? description,
+  }) {
+    return ExperienceModel(
+      companyName: companyName ?? this.companyName,
+      position: position ?? this.position,
+      startDate: startDate ?? this.startDate,
+      endDate: endDate ?? this.endDate,
+      isCurrentlyWorking: isCurrentlyWorking ?? this.isCurrentlyWorking,
+      description: description ?? this.description,
+    );
+  }
 }

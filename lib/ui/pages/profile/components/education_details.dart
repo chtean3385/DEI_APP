@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../models/profile/employee_user_model/employee_user_model.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/open_bottom_sheet.dart';
 
@@ -13,7 +14,7 @@ class EducationDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editProfileProvider);
+    final state = ref.watch(employeeProfileProvider);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -35,37 +36,51 @@ class EducationDetails extends ConsumerWidget {
                 ),
               ),
               GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap:() => openEditBottomSheet(
-                    context:context,
-                    isDraggable: true,
-                    content: const EditEducationInformation(isFromCommonEdit: false),
+                behavior: HitTestBehavior.translucent,
+                onTap: () => openEditBottomSheet(
+                  context: context,
+                  isDraggable: true,
+                  content: const EditEducationInformation(
+                    isFromCommonEdit: false,
                   ),
-                  child: Icon(Icons.edit_outlined,color: AppColors.primaryColor,size: 15))
-
+                ),
+                child: Icon(
+                  Icons.edit_outlined,
+                  color: AppColors.primaryColor,
+                  size: 15,
+                ),
+              ),
             ],
           ),
-          ListView.separated(
-            padding: EdgeInsets.only(top: 12),
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              return item(context,
+          state.profileData?.education?.isNotEmpty == true
+              ? ListView.separated(
+                  padding: EdgeInsets.only(top: 12),
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return item(
+                      context,
 
-                state.profileData?.education![index] ??
-                    EducationInfoModel(),);
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(color: Colors.black12, height: 48);
-            },
-            itemCount: state.profileData?.education?.length ?? 0,
-          ),
+                      state.profileData?.education![index] ?? EducationModel(),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider(color: Colors.black12, height: 48);
+                  },
+                  itemCount: state.profileData?.education?.length ?? 0,
+                )
+              : Text(
+                  "No education information available",
+                  style: context.textTheme.labelLarge?.copyWith(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
         ],
       ),
     );
   }
 
-  Widget item(BuildContext context,EducationInfoModel data) {
+  Widget item(BuildContext context, EducationModel data) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

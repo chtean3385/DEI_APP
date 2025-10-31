@@ -7,7 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/open_bottom_sheet.dart';
 import '../edit_profile_components/edit_skill_info.dart';
-class MyKeySkill extends  ConsumerWidget {
+
+class MyKeySkill extends ConsumerWidget {
   const MyKeySkill({super.key});
 
   @override
@@ -34,17 +35,29 @@ class MyKeySkill extends  ConsumerWidget {
                 ),
               ),
               GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap:() => openEditBottomSheet(
-                    context:context,
-                    isDraggable: false,
-                    content: const EditSkillInformation(isFromCommonEdit: false),
-                  ),
-                  child: Icon(Icons.edit_outlined,color: AppColors.primaryColor,size: 15))
+                behavior: HitTestBehavior.translucent,
+                onTap: () => openEditBottomSheet(
+                  context: context,
+                  isDraggable: false,
+                  content: const EditSkillInformation(isFromCommonEdit: false),
+                ),
+                child: Icon(
+                  Icons.edit_outlined,
+                  color: AppColors.primaryColor,
+                  size: 15,
+                ),
+              ),
             ],
           ),
           const SizedBox(height: 12),
-          _skillChips(state.profileData?.skills ?? []),
+          state.profileData?.skills?.isNotEmpty == true
+              ? _skillChips(state.profileData?.skills ?? [])
+              : Text(
+                  "No skills information available",
+                  style: context.textTheme.labelLarge?.copyWith(
+                    color: AppColors.primaryColor,
+                  ),
+                ),
         ],
       ),
     );
@@ -71,9 +84,8 @@ class MyKeySkill extends  ConsumerWidget {
                 children: [
                   Text(
                     skill,
-                    style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
-                      color: Colors.black54,
-                    ),
+                    style: navigatorKey.currentContext!.textTheme.displaySmall
+                        ?.copyWith(color: Colors.black54),
                   ),
                 ],
               ),
@@ -84,14 +96,14 @@ class MyKeySkill extends  ConsumerWidget {
     );
   }
 }
+
 Future<void> openEditSkill(BuildContext context) {
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     builder: (ctx) {
-      return EditSkillInformation(isFromCommonEdit: false,);
+      return EditSkillInformation(isFromCommonEdit: false);
     },
   );
 }
-

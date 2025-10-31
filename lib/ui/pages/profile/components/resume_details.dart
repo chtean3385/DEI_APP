@@ -15,7 +15,7 @@ class ResumeDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editProfileProvider);
+    final state = ref.watch(employeeProfileProvider);
     // 👇 Trigger bottom sheet automatically after first frame if flag is true
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (openEditResume) {
@@ -69,9 +69,10 @@ class ResumeDetails extends ConsumerWidget {
                 size: 20,
                 color: Colors.red.shade600,
               ),
+              gapW8(),
               Expanded(
                 child: Text(
-                  " resume resumeeee",
+                  state.profileData?.resume ?? "no resume added",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,

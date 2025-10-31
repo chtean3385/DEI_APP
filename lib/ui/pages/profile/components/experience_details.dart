@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../constants/app_colors.dart';
-import '../../../../models/profile/edit_profile/work_experience_model.dart';
+import '../../../../models/profile/employee_user_model/employee_user_model.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/open_bottom_sheet.dart';
 import '../edit_profile_components/edit_work_experience_info.dart';
@@ -14,7 +14,7 @@ class ExperienceDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editProfileProvider);
+    final state = ref.watch(employeeProfileProvider);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -45,28 +45,33 @@ class ExperienceDetails extends ConsumerWidget {
                   child: Icon(Icons.edit_outlined,color: AppColors.primaryColor,size: 15))
             ],
           ),
-          ListView.separated(
+        state.profileData?.experience?.isNotEmpty == true ?  ListView.separated(
             padding: EdgeInsets.only(top: 12),
             shrinkWrap: true,
             physics: NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context, int index) {
               return item(
                 context,
-                state.profileData?.workExperience![index] ??
-                    WorkExperienceInfoModel(),
+                state.profileData?.experience![index] ??
+                    ExperienceModel(),
               );
             },
             separatorBuilder: (BuildContext context, int index) {
               return Divider(color: Colors.black12, height: 48);
             },
-            itemCount: state.profileData?.workExperience?.length ?? 0,
+            itemCount: state.profileData?.experience?.length ?? 0,
+          ) :  Text(
+           "No experience information available",
+          style: context.textTheme.labelLarge?.copyWith(
+            color: AppColors.primaryColor,
           ),
+        ),
         ],
       ),
     );
   }
 
-  Widget item(BuildContext context, WorkExperienceInfoModel data) {
+  Widget item(BuildContext context, ExperienceModel data) {
 
     final end = data.isCurrentlyWorking == true
         ? 'Present'
