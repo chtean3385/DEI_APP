@@ -12,7 +12,7 @@ class MyKeySkill extends  ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editProfileProvider);
+    final state = ref.watch(employeeProfileProvider);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -44,7 +44,7 @@ class MyKeySkill extends  ConsumerWidget {
             ],
           ),
           const SizedBox(height: 12),
-          _skillChips(state.profileData?.skillsInfo ?? []),
+          _skillChips(state.profileData?.skills ?? []),
         ],
       ),
     );
