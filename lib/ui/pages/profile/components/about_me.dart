@@ -1,11 +1,15 @@
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AboutMe extends StatelessWidget {
+import '../../../../providers/providers.dart';
+
+class AboutMe extends ConsumerWidget {
   const AboutMe({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(employeeProfileProvider);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -25,10 +29,12 @@ class AboutMe extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            "Having more than 5 years of experience. A BCA graduate with a passion for developing scalable web applications and working on both the front-end andback-end of software projects. Completed several academic projects using mern technologies showcasing afoundational ",
+            state.profileData?.employeeDescription ?? "",
+
             style: context.textTheme.displaySmall?.copyWith(
               color: Colors.black54,
             ),
+            softWrap: true,textAlign: TextAlign.left,
           ),
         ],
       ),

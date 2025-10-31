@@ -83,6 +83,9 @@ class ApiUrls {
   static String unSaveJob(String id) => 'job/unsave/$id';
   static String jobDetails(String id) => 'job/get-one-public/$id';
 
+ //   employee profile
+  static String employeeProfileDetails = 'users/get-one-user';
+
 
 
 

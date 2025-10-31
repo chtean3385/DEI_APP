@@ -1,16 +1,32 @@
+import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BasicDetails extends StatelessWidget {
+import '../../../../widgets/others/rounded_network_image.dart';
+
+class BasicDetails extends ConsumerWidget {
   const BasicDetails({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(employeeProfileProvider);
+    String?  employeeCurrentPosition =
+    (state.profileData?.experience != null && state.profileData?.experience?.isNotEmpty == true)
+        ? state.profileData?.experience!.last.position
+        : null;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+
+         state.profileData?.profilePhotoUrl?.isNotEmpty == true ? RoundedNetworkImage(
+            imageUrl: state.profileData!.profilePhotoUrl!,
+            width: 60,
+            height: 60,
+            borderRadius: 30,
+          ):
           CircleAvatar(
             radius: 30,
             backgroundColor: Colors.black12,
@@ -22,27 +38,19 @@ class BasicDetails extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           Text(
-            "John Deo",
+            state.profileData?.name ?? "",
             style: context.textTheme.headlineLarge?.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
           const SizedBox(height: 4),
           Text(
-            "Software Engineer, Dreams Technology",
+            employeeCurrentPosition ?? "Profession not specified",
             style: context.textTheme.labelLarge?.copyWith(
               color: Colors.black54,
             ),
           ),
-          const SizedBox(height: 4),
-          Text(
-            "Having more than 10 years of experience. A BCA graduate with a passion for developing scalable web applications and working on both the front-end andback-end of software projects. Completed several academic projects using mern technologies showcasing afoundational ",
-            style: context.textTheme.displaySmall?.copyWith(
-              color: Colors.black54,
-            ),
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-          ),
+
         ],
       ),
     );

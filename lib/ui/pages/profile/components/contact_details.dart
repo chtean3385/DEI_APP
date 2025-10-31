@@ -1,14 +1,19 @@
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:dei_champions/widgets/others/view_all_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../providers/controllers/profile/employee_profile_controller.dart';
+import '../../../../providers/providers.dart';
 
-class ContactDetails extends StatelessWidget {
+class ContactDetails extends ConsumerWidget {
   const ContactDetails({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(employeeProfileProvider);
+    final controller = ref.read(employeeProfileProvider.notifier);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -30,7 +35,13 @@ class ContactDetails extends StatelessWidget {
                   ),
                 ),
               ),
-              ViewAllButton(showArrow: true,text:"View Resume" ,isSmall: true,padding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),),
+              ViewAllButton(
+                showArrow: true,
+                text: "View Resume",
+                isSmall: true,
+                onPressed: () => viewResumeFromUrl(state.profileData?.resume ?? ""),
+                padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -41,7 +52,7 @@ class ContactDetails extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  "Software Developer",
+                  state.profileData?.workStatus ?? "",
                   style: context.textTheme.displaySmall?.copyWith(
                     color: Colors.black54,
                   ),
@@ -57,7 +68,8 @@ class ContactDetails extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  "30-40 LPA",
+                  state.profileData?.preferences?.salaryRange ??
+                      'Not specified',
                   style: context.textTheme.displaySmall?.copyWith(
                     color: Colors.black54,
                   ),
@@ -73,7 +85,7 @@ class ContactDetails extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  "johndeo234@gmail.com",
+                  state.profileData?.email ??  'Not specified',
                   style: context.textTheme.displaySmall?.copyWith(
                     color: Colors.black54,
                   ),
@@ -89,7 +101,7 @@ class ContactDetails extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  "9876543210",
+                  state.profileData?.mobile ??  'Not specified',
                   style: context.textTheme.displaySmall?.copyWith(
                     color: Colors.black54,
                   ),
@@ -105,23 +117,7 @@ class ContactDetails extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  "ABC House, Vashi, CDB PO, Navi Mumbai, Maharashtra, India",
-                  style: context.textTheme.displaySmall?.copyWith(
-                    color: Colors.black54,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(Icons.star, color: Colors.black54, size: 16),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  "4.5 (69 reviews)",
+                  "${ state.profileData?.address ?? ""}, ${ state.profileData?.city ?? ""}, ${ state.profileData?.state ?? ""}, ${ state.profileData?.country ?? ""}",
                   style: context.textTheme.displaySmall?.copyWith(
                     color: Colors.black54,
                   ),

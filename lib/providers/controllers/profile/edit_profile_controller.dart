@@ -46,7 +46,7 @@ class EditProfileController extends StateNotifier<ProfileState> {
 
   @override
   void dispose() {
-    debugPrint("🔥 ChefProfileController disposed");
+    debugPrint("🔥 EditProfileController disposed");
     nameController.dispose();
     emailController.dispose();
     mobileController.dispose();
