@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/open_bottom_sheet.dart';
+import '../../../../widgets/others/shimmer_loader.dart';
+import '../../search/components/search_job_card.dart';
 
 class ResumeDetails extends ConsumerWidget {
   final bool openEditResume;
@@ -26,64 +29,104 @@ class ResumeDetails extends ConsumerWidget {
         );
       }
     });
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-        border: Border.all(color: Colors.black12, width: 1),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Resume",
-                style: context.textTheme.bodySmall?.copyWith(
-                  fontWeight: FontWeight.w600,
+    return state.pageState == PageState.loading
+        ? _loader()
+        : Container(
+            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              border: Border.all(color: Colors.black12, width: 1),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Resume",
+                      style: context.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    GestureDetector(
+                      behavior: HitTestBehavior.translucent,
+                      onTap: () => openEditBottomSheet(
+                        context: context,
+                        isDraggable: false,
+                        content: const EditResumeInformation(
+                          isFromCommonEdit: false,
+                        ),
+                      ),
+                      child: Icon(
+                        Icons.edit_outlined,
+                        color: AppColors.primaryColor,
+                        size: 15,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
-                onTap: () => openEditBottomSheet(
-                  context: context,
-                  isDraggable: false,
-                  content: const EditResumeInformation(isFromCommonEdit: false),
+                gapH16(),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.picture_as_pdf_sharp,
+                      size: 20,
+                      color: Colors.red.shade600,
+                    ),
+                    gapW8(),
+                    Expanded(
+                      child: Text(
+                        state.profileData?.resume ?? "no resume added",
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        style: context.textTheme.labelLarge?.copyWith(
+                          color: AppColors.primaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                child: Icon(
-                  Icons.edit_outlined,
-                  color: AppColors.primaryColor,
-                  size: 15,
-                ),
-              ),
-            ],
-          ),
-          gapH16(),
-          Row(
-            children: [
-              Icon(
-                Icons.picture_as_pdf_sharp,
-                size: 20,
-                color: Colors.red.shade600,
-              ),
-              gapW8(),
-              Expanded(
-                child: Text(
-                  state.profileData?.resume ?? "no resume added",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: true,
-                  style: context.textTheme.labelLarge?.copyWith(
-                    color: AppColors.primaryColor,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          );
+  }
+
+  Widget _loader() {
+    return ShimmerLoader(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          border: Border.all(color: Colors.white, width: 1),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ShimmerBox(height: 16, width: 100),
+                ShimmerBox(height: 14, width: 14),
+              ],
+            ),
+            gapH8(),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ShimmerBox(height: 14, width: 14),
+                gapW8(),
+                ShimmerBox(height: 10, width: 300),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

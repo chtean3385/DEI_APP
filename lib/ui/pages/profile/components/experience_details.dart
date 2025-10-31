@@ -1,12 +1,16 @@
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/enums.dart';
 import '../../../../models/profile/employee_user_model/employee_user_model.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/open_bottom_sheet.dart';
+import '../../../../widgets/others/shimmer_loader.dart';
+import '../../search/components/search_job_card.dart';
 import '../edit_profile_components/edit_work_experience_info.dart';
 
 class ExperienceDetails extends ConsumerWidget {
@@ -15,7 +19,8 @@ class ExperienceDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(employeeProfileProvider);
-    return Container(
+    return state.pageState == PageState.loading
+        ? _loader() :  Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -70,6 +75,32 @@ class ExperienceDetails extends ConsumerWidget {
       ),
     );
   }
+  Widget _loader(){
+    return ShimmerLoader(
+      child:  Container(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          border: Border.all(color: Colors.white, width: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ShimmerBox(height: 16, width: 200),
+                ShimmerBox(height: 14, width:14)
+              ],
+            ),
+            gapH8(),
+            itemLoading()
+          ],
+        ),
+      ),
+    );
+  }
 
   Widget item(BuildContext context, ExperienceModel data) {
 
@@ -113,6 +144,30 @@ class ExperienceDetails extends ConsumerWidget {
           maxLines: 2,
           overflow: TextOverflow.ellipsis,
         ),
+      ],
+    );
+  }
+  Widget itemLoading() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Expanded(child: ShimmerBox(height: 12, width: 200)),
+            gapW8(),
+            ShimmerBox(height: 10, width: 100),
+          ],
+        ),
+        const SizedBox(height: 2),
+        ShimmerBox(height: 12, width: 200),
+        const SizedBox(height: 2),
+        ShimmerBox(height: 10, width:double.infinity),
+        const SizedBox(height: 2),
+        ShimmerBox(height: 10, width:double.infinity),
+
       ],
     );
   }

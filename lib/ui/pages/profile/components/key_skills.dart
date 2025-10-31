@@ -4,8 +4,11 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/open_bottom_sheet.dart';
+import '../../../../widgets/others/shimmer_loader.dart';
+import '../../search/components/search_job_card.dart';
 import '../edit_profile_components/edit_skill_info.dart';
 
 class MyKeySkill extends ConsumerWidget {
@@ -14,7 +17,8 @@ class MyKeySkill extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(employeeProfileProvider);
-    return Container(
+    return state.pageState == PageState.loading
+        ? _loader() :  Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -59,6 +63,45 @@ class MyKeySkill extends ConsumerWidget {
                   ),
                 ),
         ],
+      ),
+    );
+  }
+  Widget _loader(){
+    return ShimmerLoader(
+      child:  Container(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          border: Border.all(color: Colors.white, width: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ShimmerBox(height: 16, width: 200),
+                ShimmerBox(height: 14, width:14)
+              ],
+            ),
+            const SizedBox(height: 12),
+            _loaderChips()
+
+          ],
+        ),
+      ),
+    );
+  }
+  Widget _loaderChips(){
+    return  SizedBox(
+      width: double.infinity,
+      child: Wrap(
+        spacing: 12,
+        runSpacing: 12,
+        children: List.generate(5, (index) {
+          return const ShimmerBox(height: 20, width: 60,radius: 24,);
+        }),
       ),
     );
   }

@@ -1,8 +1,12 @@
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
+import '../../../../widgets/others/shimmer_loader.dart';
+import '../../search/components/search_job_card.dart';
 
 class AboutMe extends ConsumerWidget {
   const AboutMe({super.key});
@@ -10,7 +14,8 @@ class AboutMe extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(employeeProfileProvider);
-    return Container(
+    return state.pageState == PageState.loading
+        ? _loader() : Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       width: double.infinity,
@@ -38,6 +43,30 @@ class AboutMe extends ConsumerWidget {
             softWrap: true,textAlign: TextAlign.left,
           ),
         ],
+      ),
+    );
+  }
+  Widget _loader(){
+    return ShimmerLoader(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        width: double.infinity,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          border: Border.all(color: Colors.white, width: 1),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ShimmerBox(height: 16, width: 200),
+            const SizedBox(height: 12),
+            ShimmerBox(height: 10, width: double.infinity),gapH4(),
+            ShimmerBox(height: 10, width: double.infinity),gapH4(),
+            ShimmerBox(height: 10, width: double.infinity),gapH4(),
+
+          ],
+        ),
       ),
     );
   }
