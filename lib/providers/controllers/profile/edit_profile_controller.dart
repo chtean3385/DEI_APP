@@ -4,19 +4,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 
-import '../../../models/profile/edit_profile/education_info_model.dart';
-import '../../../models/profile/edit_profile/profile_model.dart';
-import '../../../models/profile/edit_profile/work_experience_model.dart';
-import '../../../models/state_models/profile/profile_state.dart';
+import '../../../models/profile/employee_user_model/employee_user_model.dart';
+import '../../../models/state_models/profile/employee_profile_state.dart';
 import '../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
 import '../../../widgets/pickers/file_picker.dart';
 import '../../../widgets/pickers/image_picker.dart';
+import '../../providers.dart';
 
-class EditProfileController extends StateNotifier<ProfileState> {
-  EditProfileController() : super(ProfileState.initial()) {
-    // getChefData();
-    fetchInitialProfileData();
-    addEducationEntry();
+class EditEmployeeProfileController
+    extends StateNotifier<EmployeeProfileState> {
+  final Ref ref;
+  EditEmployeeProfileController(this.ref) : super(EmployeeProfileState.initial()) {
+    final profileDetails =  ref.watch(employeeProfileProvider).profileData;
+    initController(profileDetails);
+  }
+
+  initController(EmployeeUserModel? userData) {
+    fetchInitialProfileData(userData);
   }
 
   // final ChefService _chefService = ChefService();
@@ -25,7 +29,6 @@ class EditProfileController extends StateNotifier<ProfileState> {
   final emailController = TextEditingController();
   final mobileController = TextEditingController();
   final dobController = TextEditingController();
-  final genderController = TextEditingController();
   final workStatusController = TextEditingController();
   final descriptionController = TextEditingController();
 
@@ -38,11 +41,11 @@ class EditProfileController extends StateNotifier<ProfileState> {
 
   /// skill info
   final skillController = TextEditingController();
+
   /// job preference info
   final jobTypeController = TextEditingController();
   final salaryExpectedController = TextEditingController();
   final preferredLocationController = TextEditingController();
-
 
   @override
   void dispose() {
@@ -51,7 +54,6 @@ class EditProfileController extends StateNotifier<ProfileState> {
     emailController.dispose();
     mobileController.dispose();
     dobController.dispose();
-    genderController.dispose();
     workStatusController.dispose();
     descriptionController.dispose();
 
@@ -80,7 +82,7 @@ class EditProfileController extends StateNotifier<ProfileState> {
   }
 
   // Get selected skills directly from the model
-  List<String> get selectedSkills => state.profileData?.skillsInfo ?? [];
+  List<String> get selectedSkills => state.profileData?.skills ?? [];
 
   // Add skill
   void addSkill(String skill) {
@@ -92,8 +94,8 @@ class EditProfileController extends StateNotifier<ProfileState> {
       currentSkills.add(skill);
 
       state = state.copyWith(
-        profileData: (state.profileData ?? ProfileModel()).copyWith(
-          skillsInfo: currentSkills,
+        profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+          skills: currentSkills,
         ),
       );
     }
@@ -108,8 +110,8 @@ class EditProfileController extends StateNotifier<ProfileState> {
     currentSkills.remove(skill);
 
     state = state.copyWith(
-      profileData: (state.profileData ?? ProfileModel()).copyWith(
-        skillsInfo: currentSkills,
+      profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+        skills: currentSkills,
       ),
     );
   }
@@ -129,6 +131,7 @@ class EditProfileController extends StateNotifier<ProfileState> {
 
     state = state.copyWith(educationEntries: newList);
   }
+
   void addWorkExpEntry() {
     final newList = List<WorkExperienceEntryControllers>.from(
       state.workExpEntries ?? [],
@@ -145,46 +148,38 @@ class EditProfileController extends StateNotifier<ProfileState> {
     state = state.copyWith(workExpEntries: newList);
   }
 
-  void fetchInitialProfileData() {
+  void fetchInitialProfileData(EmployeeUserModel? userData) {
+
+    nameController.text = userData?.name ?? "";
+    emailController.text = userData?.email ?? "";
+    mobileController.text = userData?.mobile ?? "";
+    workStatusController.text = userData?.workStatus ?? "";
+    descriptionController.text = userData?.employeeDescription ?? "";
+    addressController.text = userData?.address ?? "";
+    cityController.text = userData?.city ?? "";
+    stateController.text = userData?.state ?? "";
+    countryController.text = userData?.country ?? "";
+    pinCodeController.text = userData?.pincode ?? "";
+    jobTypeController.text = userData?.jobType ?? "";
+    salaryExpectedController.text = userData?.salaryRange ?? "";
+    preferredLocationController.text =
+        userData?.preferredLocations?.join(",") ?? "";
+    if (userData?.dateOfBirth != null && userData!.dateOfBirth!.isNotEmpty) {
+      final parsedDate = DateTime.tryParse(userData.dateOfBirth!);
+      if (parsedDate != null) {
+        dobController.text = DateFormat('dd-MM-yyyy').format(parsedDate);
+      } else {
+        dobController.text = "";
+      }
+    } else {
+      dobController.text = "";
+    }
+
+
     // Sample initial skill list
-    final initialSkills = [
-      "php",
-      "html",
-      "Mobile",
-      "Web",
-      "API",
-      "Firebase",
-      "Design Systems",
-      "Typography",
-      "Color Theory",
-      "Accessibility (a11y)",
-    ];
-    final List<WorkExperienceInfoModel> workExperiences = [
-      WorkExperienceInfoModel(
-        companyName: 'Google',
-        position: 'Software Engineer',
-        startDate: DateTime(2020, 5, 1),
-        endDate: DateTime(2022, 8, 31),
-        isCurrentlyWorking: false,
-        description: 'Worked on scalable backend services and cloud infrastructure.',
-      ),
-      WorkExperienceInfoModel(
-        companyName: 'Amazon',
-        position: 'Backend Developer',
-        startDate: DateTime(2018, 2, 15),
-        endDate: DateTime(2020, 4, 30),
-        isCurrentlyWorking: false,
-        description: 'Maintained microservices and improved API performance.',
-      ),
-      WorkExperienceInfoModel(
-        companyName: 'Meta',
-        position: 'Senior Software Engineer',
-        startDate: DateTime(2022, 9, 1),
-        endDate: null,
-        isCurrentlyWorking: true,
-        description: 'Leading a team building AI-powered social media tools.',
-      ),
-    ];
+    final initialSkills = userData?.skills ?? [];
+    final List<ExperienceModel> workExperiences = userData?.experience ?? [];
+    final List<EducationModel> educationData = userData?.education ?? [];
     // Generate corresponding controllers list
     final workExpControllers = workExperiences.map((exp) {
       final controller = WorkExperienceEntryControllers();
@@ -194,36 +189,22 @@ class EditProfileController extends StateNotifier<ProfileState> {
 
       // Format the date to "MMM - yyyy" if needed
       if (exp.startDate != null) {
-        controller.startDateController.text =
-            DateFormat('MMM - yyyy').format(exp.startDate!);
+        controller.startDateController.text = DateFormat(
+          'dd-MM-yyyy',
+        ).format(exp.startDate!);
       }
 
       if (exp.endDate != null) {
-        controller.endDateController.text =
-            DateFormat('MMM - yyyy').format(exp.endDate!);
+        controller.endDateController.text = DateFormat(
+          'dd-MM-yyyy',
+        ).format(exp.endDate!);
       } else if (exp.isCurrentlyWorking == true) {
         controller.endDateController.text = 'Present';
       }
 
       return controller;
     }).toList();
-    final List<EducationInfoModel> educationData = [
-      EducationInfoModel(
-        degree: 'Bachelor of Computer Science',
-        institution: 'Stanford University',
-        graduationYear: 2018,
-      ),
-      EducationInfoModel(
-        degree: 'Master of Information Technology',
-        institution: 'Massachusetts Institute of Technology',
-        graduationYear: 2020,
-      ),
-      EducationInfoModel(
-        degree: 'PhD in Artificial Intelligence',
-        institution: 'Carnegie Mellon University',
-        graduationYear: 2024,
-      ),
-    ];
+
     final educationControllers = educationData.map((edu) {
       final controller = EducationEntryControllers();
       controller.degreeController.text = edu.degree ?? '';
@@ -233,108 +214,17 @@ class EditProfileController extends StateNotifier<ProfileState> {
       return controller;
     }).toList();
 
-
     state = state.copyWith(
-      profileData: (state.profileData ?? ProfileModel()).copyWith(
-        skillsInfo: initialSkills,workExperience: workExperiences,education: educationData
+      profileData: (userData ?? EmployeeUserModel()).copyWith(
+        skills: initialSkills,
+        experience: workExperiences,
+        education: educationData,
       ),
       workExpEntries: workExpControllers,
       educationEntries: educationControllers,
     );
+    // addEducationEntry();
   }
-
-
-  /// 🔹 Call this to update chef data locally from anywhere
-  // void setChefData(ChefModel updatedChef) {
-  //   state = state.copyWith(chefData: updatedChef);
-  // }
-  // void resetData() {
-  //   nameController.text = state.chefData?.name ?? '';
-  //   kitchenNameController.text = state.chefData?.kitchenName ?? '';
-  //   shopPlotController.text = state.chefData?.shopPlotNumber ?? '';
-  //   floorController.text = state.chefData?.floor ?? '';
-  //   buildingNameController.text = state.chefData?.buildingName ?? '';
-  //   cityController.text = state.chefData?.city ?? '';
-  //   aboutController.text = state.chefData?.aboutChef ?? '';
-  //   pinCodeController.text = state.chefData?.pincode?.toString() ?? '';
-  // }
-
-  /// 🔹 Call this to fetch chef data from API call
-  // Future<void> getChefData() async {
-  //   state = state.copyWith(pageState: PageState.loading);
-  //   try {
-  //     final BaseModel result = await _chefService.getData();
-  //     final ChefModel chefModel = await ChefModel.fromJson(result.data);
-  //     state = state.copyWith(pageState: PageState.success, chefData: chefModel);
-  //     resetData();
-  //     debugPrint("success - getChefData");
-  //   } catch (e) {
-  //     state = state.copyWith(pageState: PageState.error);
-  //     showSnackBar(e.toString());
-  //     debugPrint("catch - getChefData");
-  //     debugPrint(e.toString());
-  //   }
-  // }
-
-  /// 🔹 Call this to update chef details
-  // Future<void> updateChefDetails() async {
-  //   state = state.copyWith(updateState: PageState.loading);
-  //   try {
-  //     final chefData = ChefModel(
-  //       name: nameController.text.trim(),
-  //       kitchenName: kitchenNameController.text.trim(),
-  //       shopPlotNumber: shopPlotController.text.trim(),
-  //       floor: floorController.text.trim(),
-  //       buildingName: buildingNameController.text.trim(),
-  //       aboutChef: aboutController.text.trim(),
-  //       city: cityController.text.trim(),
-  //       pincode: int.tryParse(pinCodeController.text.trim()),
-  //       address: state.chefData?.address,
-  //       latitude:state.chefData?.latitude ,
-  //       longitude:state.chefData?.longitude ,
-  //       workingDays: state.chefData?.workingDays,
-  //       openingTime: state.chefData?.openingTime,
-  //       closingTime: state.chefData?.closingTime,
-  //     );
-  //     final BaseModel result = await _chefService.updateChefDetail(
-  //       chef: chefData,profileFile: state.profileFile,coverImageFile: state.coverFile,
-  //     );
-  //     showSnackBar(result.message, duration: 2);
-  //     state = state.copyWith(updateState: PageState.success);
-  //     Navigator.pop(navigatorKey.currentContext!);
-  //   } catch (e) {
-  //     state = state.copyWith(updateState: PageState.error);
-  //     showSnackBar(e.toString());
-  //     debugPrint("catch - updateChefDetails");
-  //     debugPrint(e.toString());
-  //   }
-  // }
-
-  // void updateWorkingDays(List<String> values) {
-  //   final currentChefData = state.chefData ?? ChefModel();
-  //   state = state.copyWith(
-  //     chefData: currentChefData.copyWith(workingDays: values),
-  //   );
-  // }
-  //
-  // void updateOpeningClosing(String opening, String closing) {
-  //   state = state.copyWith(
-  //     chefData: state.chefData?.copyWith(
-  //       openingTime: opening,
-  //       closingTime: closing,
-  //     ),
-  //   );
-  // }
-
-  // void updateAddress(PickedData address) {
-  //   state = state.copyWith(
-  //     chefData: state.chefData?.copyWith(
-  //       address: address.address,
-  //       latitude: address.latLong.latitude,
-  //       longitude: address.latLong.longitude,
-  //     ),
-  //   );
-  // }
 
   Future<void> pickProfileImage() async {
     final picked = await pickImageFromGalleryOrCamera(
@@ -372,5 +262,4 @@ class EditProfileController extends StateNotifier<ProfileState> {
       // You can use `open_filex` or any viewer here.
     }
   }
-
 }

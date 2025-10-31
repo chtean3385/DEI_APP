@@ -25,10 +25,19 @@ class TransparentDropdownField extends StatelessWidget {
     this.fillColor,
     this.validator,
   });
-
+  // Helper: Capitalize first letter for display
+  String _capitalize(String text) {
+    if (text.isEmpty) return text;
+    return text[0].toUpperCase() + text.substring(1).toLowerCase();
+  }
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+// Normalize current value (case-insensitive)
+    final normalizedValue = items.firstWhere(
+          (e) => e.toLowerCase() == value?.toLowerCase(),
+      orElse: () => '',
+    );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +95,7 @@ class TransparentDropdownField extends StatelessWidget {
                     (item) => DropdownMenuItem(
                   value: item,
                   child: Text(
-                    item,
+                    _capitalize(item),
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: Colors.white, // white inside dropdown list
                       fontWeight: FontWeight.normal,
@@ -100,7 +109,7 @@ class TransparentDropdownField extends StatelessWidget {
               selectedItemBuilder: (BuildContext context) {
                 return items.map((item) {
                   return Text(
-                    item,
+                    _capitalize(item),
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: Colors.black, // black only for selected value
                       fontWeight: FontWeight.normal,
@@ -109,7 +118,7 @@ class TransparentDropdownField extends StatelessWidget {
                 }).toList();
               },
 
-              onChanged: onChanged,
+              onChanged: (val) => onChanged(val?.toLowerCase()),
               icon: const Icon(
                 Icons.keyboard_arrow_down_rounded,
                 color: Colors.black54,

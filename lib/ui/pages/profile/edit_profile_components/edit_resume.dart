@@ -4,17 +4,19 @@ import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../providers/controllers/profile/employee_profile_controller.dart';
 import '../../../../providers/providers.dart';
 import 'edit_profile_action_button.dart';
 
 class EditResumeInformation extends ConsumerWidget {
   final bool isFromCommonEdit;
-  const EditResumeInformation({super.key,this.isFromCommonEdit= true});
+
+  const EditResumeInformation({super.key, this.isFromCommonEdit = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.read(editProfileProvider.notifier);
-    final state = ref.watch(editProfileProvider);
+    final controller = ref.read(editEmployeeProfileProvider.notifier);
+    final state = ref.watch(editEmployeeProfileProvider);
     final theme = context.textTheme;
 
     final fileName = state.resumeFile?.name;
@@ -24,7 +26,7 @@ class EditResumeInformation extends ConsumerWidget {
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
-        initiallyExpanded: isFromCommonEdit!= true,
+        initiallyExpanded: isFromCommonEdit != true,
         title: Text(
           "Resume",
           style: theme.bodyMedium?.copyWith(
@@ -37,7 +39,10 @@ class EditResumeInformation extends ConsumerWidget {
         collapsedIconColor: Colors.black54,
         trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
         onExpansionChanged: isFromCommonEdit ? null : (_) {},
-        childrenPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+        childrenPadding: const EdgeInsets.symmetric(
+          horizontal: 12,
+          vertical: 4,
+        ),
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,8 +80,11 @@ class EditResumeInformation extends ConsumerWidget {
                         ),
                         radius: 4,
                         color: Colors.black12,
-                        borderColor:Colors.black12,
-                        padding: EdgeInsets.symmetric(vertical: 4,horizontal: 8),
+                        borderColor: Colors.black12,
+                        padding: EdgeInsets.symmetric(
+                          vertical: 4,
+                          horizontal: 8,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -95,8 +103,35 @@ class EditResumeInformation extends ConsumerWidget {
                   ],
                 ),
               ),
-
+              gapH16(),
+              if (state.profileData?.resume?.isNotEmpty == true)
+                GestureDetector(
+                  onTap: () =>
+                      viewResumeFromUrl(state.profileData?.resume ?? ""),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.picture_as_pdf_sharp,
+                        size: 20,
+                        color: Colors.red.shade600,
+                      ),
+                      gapW8(),
+                      Expanded(
+                        child: Text(
+                          state.profileData?.resume ?? "no resume added",
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
+                          style: context.textTheme.labelLarge?.copyWith(
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               const SizedBox(height: 16),
+
               const Text(
                 'Accepted formats: PDF, DOC, DOCX (Max size: 5MB)',
                 style: TextStyle(fontSize: 12, color: Colors.black54),
@@ -128,35 +163,39 @@ class EditResumeInformation extends ConsumerWidget {
                             color: Colors.white,
                           ),
                           gapW6(),
-                          Text('View',style: theme.displaySmall?.copyWith(color: Colors.white)),
+                          Text(
+                            'View',
+                            style: theme.displaySmall?.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
                         ],
                       ),
                       radius: 8,
                       color: AppColors.primaryColor,
-                      borderColor:AppColors.primaryColor,
-                      padding: EdgeInsets.symmetric(vertical: 4,horizontal: 8),
+                      borderColor: AppColors.primaryColor,
+                      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                     ),
                   ],
                 ),
                 const SizedBox(height: 32),
-
-
               ],
               gapH16(),
-              if(isFromCommonEdit!= true)  Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: EditProfileActionButtons(
-                    onCancel: () {
-                      Navigator.pop(context);
-                    },
-                    onSave: () {
-                      // Implement your save logic here
-                    },
+              if (isFromCommonEdit != true)
+                Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: EditProfileActionButtons(
+                      onCancel: () {
+                        Navigator.pop(context);
+                      },
+                      onSave: () {
+                        // Implement your save logic here
+                      },
+                    ),
                   ),
                 ),
-              )
             ],
           ),
         ],

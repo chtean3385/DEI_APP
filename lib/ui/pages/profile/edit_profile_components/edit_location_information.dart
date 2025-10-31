@@ -10,8 +10,8 @@ class EditLocationInformation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editProfileProvider);
-    final controller = ref.read(editProfileProvider.notifier);
+    final state = ref.watch(editEmployeeProfileProvider);
+    final controller = ref.read(editEmployeeProfileProvider.notifier);
 
     return Card(
       elevation: 2,
@@ -57,7 +57,7 @@ class EditLocationInformation extends ConsumerWidget {
           ),
           gapH16(),
           TransparentFormField(
-            controller: controller.cityController,
+            controller: controller.stateController,
             label: "State",
             hint: "Select State",
             icon: Icons.map_outlined,
@@ -67,7 +67,7 @@ class EditLocationInformation extends ConsumerWidget {
           ),
           gapH16(),
           TransparentFormField(
-            controller: controller.cityController,
+            controller: controller.countryController,
             label: "Country",
             hint: "Select Country",
             icon: Icons.public_outlined,

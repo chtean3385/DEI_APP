@@ -162,13 +162,31 @@ class JobService {
         if (base.isSuccess) {
           return base;
         } else {
-          throw base.message ?? 'Request failed';
+          throw base.message;
         }
       } else {
         throw Exception('Invalid response format');
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+
+  getTypesData() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.jobTypes,
+      includeAuthToken: true,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
     }
   }
 }

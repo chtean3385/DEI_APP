@@ -10,6 +10,7 @@ import 'package:dei_champions/models/state_models/home/friendly_industries_state
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
 import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
+import 'package:dei_champions/models/state_models/job/job_type_list_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/friendly_industry_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/how_it_works_controller.dart';
@@ -93,6 +94,7 @@ import 'controllers/job/employee_job_details_controller.dart';
 import 'controllers/job/employee_manage_job_controller.dart';
 import 'controllers/job/employee_saved_jobs_controller.dart';
 import 'controllers/job/employee_search_jobs_controller.dart';
+import 'controllers/job/job_types_controller.dart';
 import 'controllers/lgbtq/lgbtq_advantage_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_inclusion_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_quotes_section1_controller.dart';
@@ -337,10 +339,16 @@ StateNotifierProvider.autoDispose<LgbtqInclusionPointsController, LgbtqInclusion
 final employeeProfileProvider =StateNotifierProvider.autoDispose<EmployeeProfileController, EmployeeProfileState>((ref) {
   return EmployeeProfileController();
 });
-/// edit profile
-final editProfileProvider =StateNotifierProvider.autoDispose<EditProfileController, ProfileState>((ref) {
-  return EditProfileController();
+/// edit employee profile
+final editEmployeeProfileProvider =StateNotifierProvider.autoDispose<EditEmployeeProfileController, EmployeeProfileState>((ref) {
+  return EditEmployeeProfileController(ref);
 });
+///job types
+final jobTypesProvider =
+StateNotifierProvider.autoDispose<JobTypesController, JobTypeListState>((ref) {
+  return JobTypesController(ref);
+});
+
 
 /// applied jobs
 final appliedJobsProvider =StateNotifierProvider.autoDispose<AppliedJobsController, AppliedJobState>((ref) {

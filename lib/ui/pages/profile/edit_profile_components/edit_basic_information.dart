@@ -14,8 +14,8 @@ class EditBasicInformation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editProfileProvider);
-    final controller = ref.read(editProfileProvider.notifier);
+    final state = ref.watch(editEmployeeProfileProvider);
+    final controller = ref.read(editEmployeeProfileProvider.notifier);
 
     return Card(
       elevation: 2,
@@ -91,7 +91,8 @@ class EditBasicInformation extends ConsumerWidget {
             label: "Gender",
             hint: "Select your gender",
             icon: Icons.person_outline,
-            items: ["Male", "Female", "Other", "Prefer not to say"],
+            items: ["male", "female", "other", "prefer not to say"],
+            value: state.profileData?.gender,
             onChanged: (value) {},
           ),
           gapH16(),
@@ -99,7 +100,8 @@ class EditBasicInformation extends ConsumerWidget {
             label: "Work Status",
             hint: "Select your current work status",
             icon: Icons.work_outline,
-            items: ["Student", "Employed", "Un-Employed", "Self-Employed"],
+            items: ["student", "employed", "un-employed", "self-employed"],
+            value: state.profileData?.workStatus,
             onChanged: (value) {},
           ),
           gapH16(),

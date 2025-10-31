@@ -1,11 +1,9 @@
 import 'package:dei_champions/ui/pages/profile/edit_profile_components/edit_work_experience_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../constants/enums.dart';
-import '../../../models/common/base_model.dart';
 import '../../../models/profile/edit_profile/education_info_model.dart';
 import '../../../models/profile/edit_profile/work_experience_model.dart';
 import '../../../models/profile/employee_user_model/employee_user_model.dart';

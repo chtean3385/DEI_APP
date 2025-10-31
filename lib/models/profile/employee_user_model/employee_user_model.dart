@@ -1,3 +1,4 @@
+
 class EmployeeUserModel {
   final Preferences? preferences;
   final String? id;
@@ -27,6 +28,12 @@ class EmployeeUserModel {
   final String? workStatus;
   final List<String>? certifiedTags;
   final String? employeeDescription;
+  final String? jobType;
+  final String? department;
+  final String? category;
+  final String? salaryRange;
+  final List<String>? preferredLocations;
+
 
   EmployeeUserModel({
     this.preferences,
@@ -57,6 +64,11 @@ class EmployeeUserModel {
     this.workStatus,
     this.certifiedTags,
     this.employeeDescription,
+    this.jobType,
+    this.department,
+    this.category,
+    this.salaryRange,
+    this.preferredLocations,
   });
 
   factory EmployeeUserModel.fromJson(Map<String, dynamic> json) => EmployeeUserModel(
@@ -103,35 +115,29 @@ class EmployeeUserModel {
   );
 
   Map<String, dynamic> toJson() => {
-    'preferences': preferences?.toJson(),
-    '_id': id,
-    'roleId': roleId,
     'name': name,
     'email': email,
-    'skills': skills,
-    'status': status,
-    'companyVerified': companyVerified,
-    'acceptTerms': acceptTerms,
-    'education': education?.map((e) => e.toJson()).toList(),
-    'experience': experience?.map((e) => e.toJson()).toList(),
-    'createdAt': createdAt,
-    'updatedAt': updatedAt,
-    '__v': v,
-    'memberSince': memberSince,
+    'mobile': mobile,
+    'dateOfBirth': dateOfBirth,
+    'employeeDescription': employeeDescription,
+    'gender': gender,
+    'workStatus': workStatus,
     'address': address,
     'city': city,
-    'country': country,
-    'dateOfBirth': dateOfBirth,
-    'gender': gender,
-    'mobile': mobile,
-    'pincode': pincode,
-    'profilePhotoUrl': profilePhotoUrl,
-    'resume': resume,
     'state': state,
-    'workStatus': workStatus,
-    'certifiedTags': certifiedTags,
-    'employeeDescription': employeeDescription,
+    'country': country,
+    'pincode': pincode,
+    'jobType': jobType,
+    'department': department,
+    'category': category,
+    'salaryRange': salaryRange,
+    'preferredLocations': preferredLocations,
+    'education': education?.map((e) => e.toJson()).toList(),
+    'experience': experience?.map((e) => e.toJson()).toList(),
+    'skills': skills,
   };
+
+
 
   /// ✅ CopyWith method
   EmployeeUserModel copyWith({
@@ -163,6 +169,11 @@ class EmployeeUserModel {
     String? workStatus,
     List<String>? certifiedTags,
     String? employeeDescription,
+    String? jobType,
+    String? department,
+    String? category,
+    String? salaryRange,
+    List<String>? preferredLocations,
   }) {
     return EmployeeUserModel(
       preferences: preferences ?? this.preferences,
@@ -193,6 +204,11 @@ class EmployeeUserModel {
       workStatus: workStatus ?? this.workStatus,
       certifiedTags: certifiedTags ?? this.certifiedTags,
       employeeDescription: employeeDescription ?? this.employeeDescription,
+      jobType: jobType ?? this.jobType,
+      department: department ?? this.department,
+      category: category ?? this.category,
+      salaryRange: salaryRange ?? this.salaryRange,
+      preferredLocations: preferredLocations ?? this.preferredLocations,
     );
   }
 }

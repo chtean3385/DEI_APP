@@ -16,8 +16,8 @@ class EditEducationInformation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controller = ref.read(editProfileProvider.notifier);
-    final state = ref.watch(editProfileProvider);
+    final controller = ref.read(editEmployeeProfileProvider.notifier);
+    final state = ref.watch(editEmployeeProfileProvider);
 
     return Card(
       elevation: 2,

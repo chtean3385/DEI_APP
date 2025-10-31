@@ -12,8 +12,8 @@ class EditSkillInformation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(editProfileProvider);
-    final controller = ref.read(editProfileProvider.notifier);
+    final state = ref.watch(editEmployeeProfileProvider);
+    final controller = ref.read(editEmployeeProfileProvider.notifier);
 
     return Card(
       elevation: 2,
@@ -55,7 +55,7 @@ class EditSkillInformation extends ConsumerWidget {
             /// 🔽 Show selected skills
 
             SelectedKeySkills(
-              selectedSkill: state.profileData?.skillsInfo ?? [],
+              selectedSkill: state.profileData?.skills ?? [],
               onRemove: controller.removeSkill,
             ),
 

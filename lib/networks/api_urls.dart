@@ -82,6 +82,7 @@ class ApiUrls {
   static String saveJob(String id) => 'job/save/$id';
   static String unSaveJob(String id) => 'job/unsave/$id';
   static String jobDetails(String id) => 'job/get-one-public/$id';
+  static const jobTypes = 'jobType/get-all';
 
  //   employee profile
   static String employeeProfileDetails = 'users/get-one-user';
