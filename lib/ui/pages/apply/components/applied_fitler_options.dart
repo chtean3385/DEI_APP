@@ -4,7 +4,10 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
+import '../../../../widgets/others/shimmer_loader.dart';
+import '../../search/components/search_job_card.dart';
 
 class AppliedFilterOptions extends ConsumerWidget {
   const AppliedFilterOptions({super.key});
@@ -67,7 +70,12 @@ class AppliedFilterOptions extends ConsumerWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 8,bottom: 12,left: 16,right: 16),
+          padding: const EdgeInsets.only(
+            top: 8,
+            bottom: 12,
+            left: 16,
+            right: 16,
+          ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -83,12 +91,16 @@ class AppliedFilterOptions extends ConsumerWidget {
               ),
               gapW8(),
               if (state.totalCount != null)
-                Text(
-                  "${state.totalCount ?? 0} applications",
-                  style: context.textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                state.pageState == PageState.loading
+                    ? ShimmerLoader(
+                        child: ShimmerBox(height: 12, width: 60, radius: 4),
+                      )
+                    : Text(
+                        "${state.totalCount ?? 0} Applications",
+                        style: context.textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
             ],
           ),
         ),
