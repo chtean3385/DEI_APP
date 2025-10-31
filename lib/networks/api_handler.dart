@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import '../repo/shared_preference_repository.dart';
+import '../ui/pages/main/components/drawer/custom_drawer.dart';
 import 'api_urls.dart';
 
 class ApiHandler {
@@ -203,6 +204,12 @@ class ApiHandler {
 
   dynamic _handleResponse(Response response) {
     final statusCode = response.statusCode ?? 0;
+    // ✅ Force logout on unauthorized responses
+    if (statusCode == 401 ||
+        (response.data is Map && response.data['message']?.toString().contains('Unauthorized') == true)) {
+      forceLogout(message: "Your session has expired. Please sign in again.");
+      throw AppException("Unauthorized");
+    }
     if (statusCode == 204) return null;
     if (statusCode >= 200 && statusCode < 300) {
       return response.data;
@@ -212,6 +219,16 @@ class ApiHandler {
   }
 
   Exception _handleDioException(DioException e) {
+    final response = e.response;
+    final message = response?.data?['message'] ??
+        response?.statusMessage ??
+        e.message ??
+        'Unexpected error';
+    // ✅ Handle Unauthorized globally
+    if (response?.statusCode == 401 || message.contains('Unauthorized')) {
+      forceLogout(message: "Your session has expired. Please log in again.");
+      return AppException("Unauthorized");
+    }
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
         return AppException('Connection timed out');
