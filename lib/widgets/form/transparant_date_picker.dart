@@ -13,6 +13,8 @@ class TransparentDatePickerField extends StatefulWidget {
   final double? radius;
   final Color? fillColor;
   final FormFieldValidator<String>? validator;
+  final bool isRequired ;
+  final bool enabled ;
 
   const TransparentDatePickerField({
     super.key,
@@ -26,6 +28,8 @@ class TransparentDatePickerField extends StatefulWidget {
     this.radius,
     this.fillColor,
     this.validator,
+    this.isRequired = false,
+    this.enabled = true,
   });
 
   @override
@@ -72,19 +76,37 @@ class _TransparentDatePickerFieldState extends State<TransparentDatePickerField>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.label != null)
-          Text(widget.label!,
-              style: theme.textTheme.bodyMedium?.copyWith(color: Colors.black)),
+          RichText(
+            text: TextSpan(
+              text: widget.label!,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              ),
+              children: widget.isRequired
+                  ? [
+                TextSpan(
+                  text: ' *',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]
+                  : [],
+            ),
+          ),
         if (widget.label != null) gapH4(),
         DecoratedBox(
           decoration: BoxDecoration(
-            color: widget.fillColor ?? AppColors.primaryColor.withValues(alpha: 0.15),
+            color: widget.enabled ?  (widget.fillColor ?? AppColors.primaryColor.withValues(alpha: 0.15)): Colors.grey,
             borderRadius: BorderRadius.circular(widget.radius ?? 16),
             border: Border.all(
               color: AppColors.primaryColor.withValues(alpha: 0.13),
             ),
           ),
           child: InkWell(
-            onTap: _pickDate,
+            onTap: widget.enabled? _pickDate :null,
             borderRadius: BorderRadius.circular(widget.radius ?? 16),
             child: IgnorePointer(
               child: TextFormField(

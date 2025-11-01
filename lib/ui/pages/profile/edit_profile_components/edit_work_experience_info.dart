@@ -8,6 +8,7 @@ import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_date_picker.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
+import '../../../../widgets/others/check_box.dart';
 import 'edit_profile_action_button.dart';
 
 class EditWorkExpInformation extends ConsumerWidget {
@@ -90,6 +91,103 @@ class EditWorkExpInformation extends ConsumerWidget {
     );
   }
 
+  // Widget _item(
+  //     TextEditingController companyCtr,
+  //     TextEditingController positionCtr,
+  //     TextEditingController startCtr,
+  //     TextEditingController endCtr,
+  //     TextEditingController descCtr,
+  //     VoidCallback onRemove,
+  //     ) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(bottom: 8),
+  //     child: Card(
+  //       elevation: 2,
+  //       color: AppColors.bg,
+  //       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  //       child: Padding(
+  //         padding: const EdgeInsets.all(8.0),
+  //         child: Column(
+  //           crossAxisAlignment: CrossAxisAlignment.start,
+  //           children: [
+  //             TransparentFormField(
+  //               controller: companyCtr,
+  //               isRequired: true,
+  //               hint: "Enter company name",
+  //               label: "Company",
+  //               icon: Icons.business_outlined,
+  //               textInputAction: TextInputAction.next,
+  //               validator: AppValidators.fieldEmpty("Company"),
+  //               textCapitalization: TextCapitalization.words,
+  //             ),
+  //             gapH16(),
+  //             TransparentFormField(
+  //               controller: positionCtr,
+  //               isRequired: true,
+  //               hint: "Enter position",
+  //               label: "Position",
+  //               icon: Icons.badge_outlined,
+  //               textInputAction: TextInputAction.next,
+  //               validator: AppValidators.fieldEmpty("Position"),
+  //               textCapitalization: TextCapitalization.words,
+  //             ),
+  //             gapH16(),
+  //             TransparentDatePickerField(
+  //               hint: "Start Date",
+  //               label: "Start Date",
+  //               isRequired: true,
+  //               icon: Icons.calendar_today_outlined,
+  //               controller: startCtr,
+  //               initialDate: DateTime.now(),
+  //               validator: AppValidators.fieldEmpty("Start Date"),
+  //             ),
+  //             gapH16(),
+  //             TransparentDatePickerField(
+  //               hint: "End Date",
+  //               label: "End Date",
+  //               isRequired: true,
+  //               icon: Icons.calendar_today_outlined,
+  //               controller: endCtr,
+  //               initialDate: DateTime.now(),
+  //               validator: AppValidators.fieldEmpty("End Date"),
+  //             ),
+  //             CustomCheckbox(
+  //               label: "I currently work here",
+  //               initialValue: false,
+  //               onChanged: (label, isSelected) {
+  //                 print("$label changed to $isSelected");
+  //                 // controller.toggleRememberMe(isSelected);
+  //               },
+  //             ),
+  //
+  //             gapH16(),
+  //             TransparentFormField(
+  //               controller: descCtr,
+  //               hint: "short description",
+  //               label: "Description",
+  //               textInputAction: TextInputAction.next,
+  //               validator: AppValidators.fieldEmpty("Description"),
+  //               textCapitalization: TextCapitalization.words,
+  //               minLines: 3,
+  //             ),
+  //             gapH16(),
+  //             Align(
+  //               alignment: Alignment.centerRight,
+  //               child: TextButton.icon(
+  //                 onPressed: onRemove,
+  //                 icon: const Icon(Icons.delete_forever, color: Colors.red),
+  //                 label: const Text(
+  //                   "Delete",
+  //                   style: TextStyle(color: Colors.red),
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ),
+  //   );
+  // }
   Widget _item(
       TextEditingController companyCtr,
       TextEditingController positionCtr,
@@ -98,6 +196,8 @@ class EditWorkExpInformation extends ConsumerWidget {
       TextEditingController descCtr,
       VoidCallback onRemove,
       ) {
+    final ValueNotifier<bool> isCurrentlyWorking = ValueNotifier(false);
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Card(
@@ -106,74 +206,105 @@ class EditWorkExpInformation extends ConsumerWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              TransparentFormField(
-                controller: companyCtr,
-                hint: "Enter company name",
-                label: "Company",
-                icon: Icons.business_outlined,
-                textInputAction: TextInputAction.next,
-                validator: AppValidators.fieldEmpty("Company"),
-                textCapitalization: TextCapitalization.words,
-              ),
-              gapH16(),
-              TransparentFormField(
-                controller: positionCtr,
-                hint: "Enter position",
-                label: "Position",
-                icon: Icons.badge_outlined,
-                textInputAction: TextInputAction.next,
-                validator: AppValidators.fieldEmpty("Position"),
-                textCapitalization: TextCapitalization.words,
-              ),
-              gapH16(),
-              TransparentDatePickerField(
-                hint: "Start Date",
-                label: "Start Date",
-                icon: Icons.calendar_today_outlined,
-                controller: startCtr,
-                initialDate: DateTime.now(),
-                validator: AppValidators.fieldEmpty("Start Date"),
-              ),
-              gapH16(),
-              TransparentDatePickerField(
-                hint: "End Date",
-                label: "End Date",
-                icon: Icons.calendar_today_outlined,
-                controller: endCtr,
-                initialDate: DateTime.now(),
-                validator: AppValidators.fieldEmpty("End Date"),
-              ),
-
-              gapH16(),
-              TransparentFormField(
-                controller: descCtr,
-                hint: "short description",
-                label: "Description",
-                textInputAction: TextInputAction.next,
-                validator: AppValidators.fieldEmpty("Description"),
-                textCapitalization: TextCapitalization.words,
-                minLines: 3,
-              ),
-              gapH16(),
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton.icon(
-                  onPressed: onRemove,
-                  icon: const Icon(Icons.delete_forever, color: Colors.red),
-                  label: const Text(
-                    "Delete",
-                    style: TextStyle(color: Colors.red),
+          child: ValueListenableBuilder<bool>(
+            valueListenable: isCurrentlyWorking,
+            builder: (context, currentlyWorking, _) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TransparentFormField(
+                    controller: companyCtr,
+                    isRequired: true,
+                    hint: "Enter company name",
+                    label: "Company",
+                    icon: Icons.business_outlined,
+                    textInputAction: TextInputAction.next,
+                    validator: AppValidators.fieldEmpty("Company"),
+                    textCapitalization: TextCapitalization.words,
                   ),
-                ),
-              ),
-            ],
+                  gapH16(),
+                  TransparentFormField(
+                    controller: positionCtr,
+                    isRequired: true,
+                    hint: "Enter position",
+                    label: "Position",
+                    icon: Icons.badge_outlined,
+                    textInputAction: TextInputAction.next,
+                    validator: AppValidators.fieldEmpty("Position"),
+                    textCapitalization: TextCapitalization.words,
+                  ),
+                  gapH16(),
+                  TransparentDatePickerField(
+                    hint: "Start Date",
+                    label: "Start Date",
+                    isRequired: true,
+                    icon: Icons.calendar_today_outlined,
+                    controller: startCtr,
+                    initialDate: DateTime.now(),
+                    validator: AppValidators.fieldEmpty("Start Date"),
+                  ),
+                  gapH16(),
+                  TransparentDatePickerField(
+                    hint: "End Date",
+                    label: "End Date",
+                    isRequired: !currentlyWorking,
+                    icon: Icons.calendar_today_outlined,
+                    controller: endCtr,
+                    initialDate: DateTime.now(),
+                    validator: currentlyWorking
+                        ? null
+                        : AppValidators.fieldEmpty("End Date"),
+                    enabled: !currentlyWorking,
+                  ),
+                  CustomCheckbox(
+                    label: "I currently work here",
+                    initialValue: currentlyWorking,
+                    onChanged: (label, isSelected) {
+                      isCurrentlyWorking.value = isSelected;
+
+                      if (isSelected) {
+                        final now = DateTime.now();
+                        final formattedDate =
+                            "${now.day.toString().padLeft(2, '0')}-${now.month.toString().padLeft(2, '0')}-${now.year}";
+                        endCtr.text = formattedDate;
+                      } else {
+
+                        endCtr.clear();
+                      }
+                    },
+                  ),
+
+                  gapH16(),
+                  TransparentFormField(
+                    controller: descCtr,
+                    hint: "Short description",
+                    label: "Description",
+                    textInputAction: TextInputAction.next,
+                    validator: AppValidators.fieldEmpty("Description"),
+                    textCapitalization: TextCapitalization.sentences,
+                    minLines: 3,
+                  ),
+                  gapH16(),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: TextButton.icon(
+                      onPressed: onRemove,
+                      icon: const Icon(Icons.delete_forever, color: Colors.red),
+                      label: const Text(
+                        "Delete",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
     );
   }
+
 }
 
 class WorkExperienceEntryControllers {

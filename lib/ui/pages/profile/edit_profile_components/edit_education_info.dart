@@ -106,6 +106,7 @@ class EditEducationInformation extends ConsumerWidget {
           child: Column(
             children: [
               TransparentFormField(
+                isRequired: true,
                 controller: ctr1,
                 hint: "Enter your degree",
                 label: "Degree",
@@ -118,6 +119,7 @@ class EditEducationInformation extends ConsumerWidget {
               gapH16(),
 
               TransparentFormField(
+                isRequired: true,
                 controller: ctr2,
                 hint: "Enter your institution name",
                 label: "Institution",
