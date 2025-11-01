@@ -85,92 +85,7 @@ class EditEmployeeProfileController
     super.dispose();
   }
 
-  void updateGender(String? gender) {
-    final updatedProfile = state.profileData?.copyWith(gender: gender);
-    state = state.copyWith(profileData: updatedProfile);
-  }
 
-
-  void updateWorkStatus(String workStatus) {
-    final updatedProfile = state.profileData?.copyWith(workStatus: workStatus);
-    state = state.copyWith(profileData: updatedProfile);
-  }
-
-  void updateJobType(String jobType) {
-    final updatedProfile = state.profileData?.copyWith(jobType: jobType);
-    state = state.copyWith(profileData: updatedProfile);
-  }
-  void updateSalary(String salary) {
-    final updatedProfile = state.profileData?.copyWith(salaryRange: salary);
-    state = state.copyWith(profileData: updatedProfile);
-  }
-
-  // Get selected skills directly from the model
-  List<String> get selectedSkills => state.profileData?.skills ?? [];
-
-  // Add skill
-  void addSkill(String skill) {
-    if (skill.isEmpty) return;
-
-    final currentSkills = List<String>.from(selectedSkills);
-
-    if (!currentSkills.contains(skill)) {
-      currentSkills.add(skill);
-
-      state = state.copyWith(
-        profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
-          skills: currentSkills,
-        ),
-      );
-    }
-
-    skillController.clear();
-  }
-
-  // Remove skill
-  void removeSkill(String skill) {
-    final currentSkills = List<String>.from(selectedSkills);
-
-    currentSkills.remove(skill);
-
-    state = state.copyWith(
-      profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
-        skills: currentSkills,
-      ),
-    );
-  }
-
-  void addEducationEntry() {
-    final newList = List<EducationEntryControllers>.from(
-      state.educationEntries ?? [],
-    )..add(EducationEntryControllers());
-
-    state = state.copyWith(educationEntries: newList);
-  }
-
-  void removeEducationEntry(int index) {
-    final newList = List<EducationEntryControllers>.from(
-      state.educationEntries ?? [],
-    )..removeAt(index);
-
-    state = state.copyWith(educationEntries: newList);
-  }
-
-  void addWorkExpEntry() {
-    final newList = List<WorkExperienceEntryControllers>.from(
-      state.workExpEntries ?? [],
-    )..add(WorkExperienceEntryControllers());
-
-    state = state.copyWith(workExpEntries: newList);
-  }
-
-  void removeWorkExpEntry(int index) {
-    final newList = List<WorkExperienceEntryControllers>.from(
-      state.workExpEntries ?? [],
-    )..removeAt(index);
-
-    state = state.copyWith(workExpEntries: newList);
-  }
 
   void fetchInitialProfileData(EmployeeUserModel? userData) {
     nameController.text = userData?.name ?? "";
@@ -182,7 +97,7 @@ class EditEmployeeProfileController
     stateController.text = userData?.state ?? "";
     countryController.text = userData?.country ?? "";
     pinCodeController.text = userData?.pincode ?? "";
-    preferredLocationController.text = (userData?.preferences?.jobTypes?.isNotEmpty ?? false) ?
+    preferredLocationController.text = (userData?.preferences?.preferredLocations?.isNotEmpty ?? false) ?
         userData?.preferences?.preferredLocations?.first ?? "" : "";
     if (userData?.dateOfBirth != null && userData!.dateOfBirth!.isNotEmpty) {
       final parsedDate = DateTime.tryParse(userData.dateOfBirth!);
@@ -238,51 +153,15 @@ class EditEmployeeProfileController
         skills: initialSkills,
         experience: workExperiences,
         education: educationData,
-        salaryRange: userData?.preferences?.salaryRange
+        salaryRange: userData?.preferences?.salaryRange,
+          jobType:(userData?.preferences?.jobTypes?.isNotEmpty ?? false) ? userData?.preferences?.jobTypes?.first ?? "":"",
+          preferredLocations: userData?.preferences?.preferredLocations,
       ),
       workExpEntries: workExpControllers,
       educationEntries: educationControllers,
     );
-    // addEducationEntry();
   }
 
-  Future<void> pickProfileImage() async {
-    final picked = await pickImageFromGalleryOrCamera(
-      isCircleShape: false,
-      isSquareCrop: true,
-      ratio: CropAspectRatioPreset.square,
-    );
-    if (picked != null) {
-      state = state.copyWith(profileFile: picked);
-    }
-  }
-
-
-  /// Pick resume from storage
-  Future<void> pickResume() async {
-    final file = await pickResumeFile();
-    if (file != null) {
-      state = state.copyWith(resumeFile: file);
-    }
-  }
-
-  /// Simulate upload to backend (replace with API later)
-  Future<void> uploadResume() async {
-    if (state.resumeFile == null) return;
-
-    state = state.copyWith(isUploading: true);
-    await Future.delayed(const Duration(seconds: 2)); // simulate upload delay
-    debugPrint('Uploaded resume: ${state.resumeFile!.name}');
-    state = state.copyWith(isUploading: false);
-  }
-
-  /// View resume — open PDF/doc viewer (implement later)
-  void viewResume() {
-    if (state.resumeFile != null) {
-      debugPrint('Viewing: ${state.resumeFile!.name}');
-      // You can use `open_filex` or any viewer here.
-    }
-  }
 
   /// 🔹 Call this to update chef details
   Future<void> updateEmployeeProfileDetails(BuildContext context) async {
@@ -356,6 +235,96 @@ class EditEmployeeProfileController
       debugPrint(e.toString());
     }
   }
+  void updateGender(String? gender) {
+    final updatedProfile = state.profileData?.copyWith(gender: gender);
+    state = state.copyWith(profileData: updatedProfile);
+  }
+
+
+  void updateWorkStatus(String workStatus) {
+    final updatedProfile = state.profileData?.copyWith(workStatus: workStatus);
+    state = state.copyWith(profileData: updatedProfile);
+  }
+
+  void updateJobType(String jobType) {
+    final updatedProfile = state.profileData?.copyWith(jobType: jobType);
+    state = state.copyWith(profileData: updatedProfile);
+  }
+  void updateSalary(String salary) {
+    final updatedProfile = state.profileData?.copyWith(salaryRange: salary);
+    state = state.copyWith(profileData: updatedProfile);
+  }
+  // void updateSalary(String salary) {
+  //   final updatedProfile = state.profileData?.copyWith(salaryRange: salary);
+  //   state = state.copyWith(profileData: updatedProfile);
+  // }
+
+  // Get selected skills directly from the model
+  List<String> get selectedSkills => state.profileData?.skills ?? [];
+
+  // Add skill
+  void addSkill(String skill) {
+    if (skill.isEmpty) return;
+
+    final currentSkills = List<String>.from(selectedSkills);
+
+    if (!currentSkills.contains(skill)) {
+      currentSkills.add(skill);
+
+      state = state.copyWith(
+        profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+          skills: currentSkills,
+        ),
+      );
+    }
+
+    skillController.clear();
+  }
+
+  // Remove skill
+  void removeSkill(String skill) {
+    final currentSkills = List<String>.from(selectedSkills);
+
+    currentSkills.remove(skill);
+
+    state = state.copyWith(
+      profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+        skills: currentSkills,
+      ),
+    );
+  }
+
+  void addEducationEntry() {
+    final newList = List<EducationEntryControllers>.from(
+      state.educationEntries ?? [],
+    )..add(EducationEntryControllers());
+
+    state = state.copyWith(educationEntries: newList);
+  }
+
+  void removeEducationEntry(int index) {
+    final newList = List<EducationEntryControllers>.from(
+      state.educationEntries ?? [],
+    )..removeAt(index);
+
+    state = state.copyWith(educationEntries: newList);
+  }
+
+  void addWorkExpEntry() {
+    final newList = List<WorkExperienceEntryControllers>.from(
+      state.workExpEntries ?? [],
+    )..add(WorkExperienceEntryControllers());
+
+    state = state.copyWith(workExpEntries: newList);
+  }
+
+  void removeWorkExpEntry(int index) {
+    final newList = List<WorkExperienceEntryControllers>.from(
+      state.workExpEntries ?? [],
+    )..removeAt(index);
+
+    state = state.copyWith(workExpEntries: newList);
+  }
 
   List<ExperienceModel> buildUpdatedExperienceList() {
     final experienceControllers = state.workExpEntries ?? [];
@@ -400,5 +369,42 @@ class EditEmployeeProfileController
     }).toList();
   }
 
+  Future<void> pickProfileImage() async {
+    final picked = await pickImageFromGalleryOrCamera(
+      isCircleShape: false,
+      isSquareCrop: true,
+      ratio: CropAspectRatioPreset.square,
+    );
+    if (picked != null) {
+      state = state.copyWith(profileFile: picked);
+    }
+  }
+
+
+  /// Pick resume from storage
+  Future<void> pickResume() async {
+    final file = await pickResumeFile();
+    if (file != null) {
+      state = state.copyWith(resumeFile: file);
+    }
+  }
+
+  /// Simulate upload to backend (replace with API later)
+  Future<void> uploadResume() async {
+    if (state.resumeFile == null) return;
+
+    state = state.copyWith(isUploading: true);
+    await Future.delayed(const Duration(seconds: 2)); // simulate upload delay
+    debugPrint('Uploaded resume: ${state.resumeFile!.name}');
+    state = state.copyWith(isUploading: false);
+  }
+
+  /// View resume — open PDF/doc viewer (implement later)
+  void viewResume() {
+    if (state.resumeFile != null) {
+      debugPrint('Viewing: ${state.resumeFile!.name}');
+      // You can use `open_filex` or any viewer here.
+    }
+  }
 
 }
