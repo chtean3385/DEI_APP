@@ -127,12 +127,7 @@ class EditEmployerImageGallery extends ConsumerWidget {
           if (!isFromCommonEdit)
             Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: EditProfileActionButtons(
-                onCancel: () => Navigator.pop(context),
-                onSave: () {
-                  // Implement save logic (e.g. upload local images)
-                },
-              ),
+              child: EditProfileActionButtons(),
             ),
         ],
       ),

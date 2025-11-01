@@ -8,16 +8,9 @@ import '../../../../providers/providers.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
 
 class EditProfileActionButtons extends ConsumerWidget {
-  final VoidCallback onCancel;
-  final VoidCallback onSave;
   final bool isEmployee;
 
-  const EditProfileActionButtons({
-    super.key,
-    required this.onCancel,
-    required this.onSave,
-     this.isEmployee = false,
-  });
+  const EditProfileActionButtons({super.key, this.isEmployee = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,10 +18,8 @@ class EditProfileActionButtons extends ConsumerWidget {
     final employeeController = ref.read(editEmployeeProfileProvider.notifier);
     final employerController = ref.read(editEmployerProfileProvider.notifier);
     final employerState = ref.watch(editEmployerProfileProvider);
-    print("isEmployee -->> $isEmployee");
-    print("loadingg statee -->> ${employeeState.pageState == PageState.loading}");
     final bool isLoading = isEmployee
-    ? employeeState.pageState == PageState.loading
+        ? employeeState.pageState == PageState.loading
         : employerState.pageState == PageState.loading;
     return SafeArea(
       child: Padding(
@@ -54,8 +45,9 @@ class EditProfileActionButtons extends ConsumerWidget {
                   const SizedBox(width: 6),
                   Text(
                     'Cancel',
-                    style: context.textTheme.titleMedium
-                        ?.copyWith(color: AppColors.primaryColor),
+                    style: context.textTheme.titleMedium?.copyWith(
+                      color: AppColors.primaryColor,
+                    ),
                   ),
                 ],
               ),
@@ -68,15 +60,15 @@ class EditProfileActionButtons extends ConsumerWidget {
 
             // Save Button
             CustomThemeButton(
-              onTap: (){
-                if(isEmployee){
+              onTap: () {
+                if (isEmployee) {
                   employeeController.updateEmployeeProfileDetails(context);
-                } else{
-
-                }
+                } else {}
               },
               isLoading: isLoading,
-              padding: isLoading ?const EdgeInsets.symmetric(horizontal: 50, vertical: 12) :  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: isLoading
+                  ? const EdgeInsets.symmetric(horizontal: 50, vertical: 12)
+                  : const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -90,8 +82,9 @@ class EditProfileActionButtons extends ConsumerWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Text(
                       'Save',
-                      style: context.textTheme.titleMedium
-                          ?.copyWith(color: Colors.white),
+                      style: context.textTheme.titleMedium?.copyWith(
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],
@@ -99,7 +92,6 @@ class EditProfileActionButtons extends ConsumerWidget {
               radius: 30,
               color: AppColors.primaryColor,
               borderColor: AppColors.primaryColor,
-
             ),
           ],
         ),

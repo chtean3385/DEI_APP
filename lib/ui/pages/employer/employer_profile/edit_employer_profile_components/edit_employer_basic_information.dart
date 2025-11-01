@@ -176,14 +176,7 @@ class EditEmployerBasicInformation extends ConsumerWidget {
           ),
           if(isFromCommonEdit!= true)  Padding(
             padding: const EdgeInsets.only(top: 20),
-            child: EditProfileActionButtons(
-              onCancel: () {
-                Navigator.pop(context);
-              },
-              onSave: () {
-                // Implement your save logic here
-              },
-            ),
+            child: EditProfileActionButtons( ),
           )
         ],
       ),

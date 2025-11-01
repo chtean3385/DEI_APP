@@ -61,15 +61,7 @@ class EditEmployerProfileScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              EditProfileActionButtons(
-
-
-                onCancel: () {
-                  Navigator.pop(context);
-                },
-                onSave: () {
-                },
-              ),
+              EditProfileActionButtons(),
             ],
           ),
         ),
