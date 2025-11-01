@@ -32,6 +32,11 @@ class EmployeeProfileService {
     final body = data.toJson();
     final encodedBody = body.map((key, value) {
       if (value == null) return MapEntry(key, '');
+      // 🟢 Special handling for preferred locations
+      if (key == 'preferredLocations' && value is List<String>) {
+        // Convert ["Delhi", "Bangalore"] → ["Delhi,Bangalore"]
+        return MapEntry(key, [value.join(',')]);
+      }
       if (value is List || value is Map) {
         return MapEntry(key, jsonEncode(value)); // ✅ encode only complex values
       }

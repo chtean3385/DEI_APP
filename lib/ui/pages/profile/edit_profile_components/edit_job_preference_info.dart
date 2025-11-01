@@ -50,13 +50,17 @@ class EditJobPreferenceInfo extends ConsumerWidget {
                 .toList() ??
                 [],
             // find selected job name (based on ID) and make it lowercase
-            value: jobTypeState.data
+
+            value: (state.profileData?.preferences?.jobTypes?.isNotEmpty ?? false)
+                ? jobTypeState.data
                 ?.firstWhere(
                   (type) => type.id == state.profileData?.preferences?.jobTypes?.first,
               orElse: () => JobTypeModel(),
             )
                 .name
-                ?.toLowerCase(),
+                ?.toLowerCase()
+                : null,
+
             onChanged: (selectedName) {
               // find the job type by lowercase name
               final selectedType = jobTypeState.data?.firstWhere(
@@ -65,7 +69,7 @@ class EditJobPreferenceInfo extends ConsumerWidget {
               );
 
               // store only the ID
-              controller.jobTypeController.text = selectedType?.id ?? '';
+              controller.updateJobType(selectedType?.id ?? '');
             },
           ),
 
@@ -77,13 +81,13 @@ class EditJobPreferenceInfo extends ConsumerWidget {
             items: ["10-20 lac", "20-30 lac", "30-40 lac", "40-50 lac"],
             value: state.profileData?.preferences?.salaryRange,
             onChanged: (value) {
-              controller.salaryExpectedController.text = value.toString();
+              controller.updateSalary( value.toString());
             },
           ),
           gapH16(),
           TransparentFormField(
             controller: controller.preferredLocationController,
-            hint: "Enter preferred locations separated by commas",
+            hint: "Locations separated by commas",
             label: "Preferred Locations",
             icon: Icons.location_on_outlined,
             textInputAction: TextInputAction.done,

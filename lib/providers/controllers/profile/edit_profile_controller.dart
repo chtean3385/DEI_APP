@@ -39,7 +39,6 @@ class EditEmployeeProfileController
   final emailController = TextEditingController();
   final mobileController = TextEditingController();
   final dobController = TextEditingController();
-  final workStatusController = TextEditingController();
   final descriptionController = TextEditingController();
 
   /// location info
@@ -53,8 +52,6 @@ class EditEmployeeProfileController
   final skillController = TextEditingController();
 
   /// job preference info
-  final jobTypeController = TextEditingController();
-  final salaryExpectedController = TextEditingController();
   final preferredLocationController = TextEditingController();
 
   @override
@@ -64,7 +61,6 @@ class EditEmployeeProfileController
     emailController.dispose();
     mobileController.dispose();
     dobController.dispose();
-    workStatusController.dispose();
     descriptionController.dispose();
 
     addressController.dispose();
@@ -73,8 +69,6 @@ class EditEmployeeProfileController
     countryController.dispose();
     pinCodeController.dispose();
 
-    jobTypeController.dispose();
-    salaryExpectedController.dispose();
     preferredLocationController.dispose();
 
     if (state.educationEntries != null) {
@@ -102,8 +96,12 @@ class EditEmployeeProfileController
     state = state.copyWith(profileData: updatedProfile);
   }
 
-  void updateCity(String city) {
-    final updatedProfile = state.profileData?.copyWith(city: city);
+  void updateJobType(String jobType) {
+    final updatedProfile = state.profileData?.copyWith(jobType: jobType);
+    state = state.copyWith(profileData: updatedProfile);
+  }
+  void updateSalary(String salary) {
+    final updatedProfile = state.profileData?.copyWith(salaryRange: salary);
     state = state.copyWith(profileData: updatedProfile);
   }
 
@@ -178,17 +176,14 @@ class EditEmployeeProfileController
     nameController.text = userData?.name ?? "";
     emailController.text = userData?.email ?? "";
     mobileController.text = userData?.mobile ?? "";
-    workStatusController.text = userData?.workStatus ?? "";
     descriptionController.text = userData?.employeeDescription ?? "";
     addressController.text = userData?.address ?? "";
     cityController.text = userData?.city ?? "";
     stateController.text = userData?.state ?? "";
     countryController.text = userData?.country ?? "";
     pinCodeController.text = userData?.pincode ?? "";
-    jobTypeController.text = userData?.jobType ?? "";
-    salaryExpectedController.text = userData?.salaryRange ?? "";
-    preferredLocationController.text =
-        userData?.preferredLocations?.join(",") ?? "";
+    preferredLocationController.text = (userData?.preferences?.jobTypes?.isNotEmpty ?? false) ?
+        userData?.preferences?.preferredLocations?.first ?? "" : "";
     if (userData?.dateOfBirth != null && userData!.dateOfBirth!.isNotEmpty) {
       final parsedDate = DateTime.tryParse(userData.dateOfBirth!);
       if (parsedDate != null) {
@@ -243,6 +238,7 @@ class EditEmployeeProfileController
         skills: initialSkills,
         experience: workExperiences,
         education: educationData,
+        salaryRange: userData?.preferences?.salaryRange
       ),
       workExpEntries: workExpControllers,
       educationEntries: educationControllers,
@@ -298,23 +294,28 @@ class EditEmployeeProfileController
     print('--- Employee Profile Form stattteee ---');
     print('gender: ${state.profileData?.gender}');
     print('workStatus: ${state.profileData?.workStatus}');
+    print('department: ${state.profileData?.department}');
+    print('category: ${state.profileData?.category}');
+    print('education: ${state.profileData?.education?.length}');
+    print('education: ${state.profileData?.education?.first.institution}');
+    print('education: ${state.profileData?.education?.last.institution}');
+    print('experience: ${state.profileData?.experience}');
+    print('skills: ${state.profileData?.skills}');
 
     print('--- Employee Profile Form Values ---');
     print('Name: ${nameController.text}');
     print('Email: ${emailController.text}');
     print('Mobile: ${mobileController.text}');
-    print('Work Status: ${workStatusController.text}');
     print('Description: ${descriptionController.text}');
     print('Address: ${addressController.text}');
     print('City: ${cityController.text}');
     print('State: ${stateController.text}');
     print('Country: ${countryController.text}');
     print('Pincode: ${pinCodeController.text}');
-    print('Job Type: ${jobTypeController.text}');
-    print('Salary Expected: ${salaryExpectedController.text}');
     print('Preferred Location: ${preferredLocationController.text}');
     print('------------------------------------');
-
+    final updatedExperience = buildUpdatedExperienceList();
+    final updatedEducation = buildUpdatedEducationList();
     try {
       final updateData = EmployeeUserModel(
         name: nameController.text.trim(),
@@ -329,15 +330,15 @@ class EditEmployeeProfileController
         state: stateController.text.trim(),
         country: countryController.text.trim(),
         pincode: pinCodeController.text.trim(),
-        jobType: jobTypeController.text.trim(),
+        jobType: state.profileData?.jobType,
         department: state.profileData?.department, // keep existing if not changed
         category: state.profileData?.category,
-        salaryRange: salaryExpectedController.text.trim(),
+        salaryRange: state.profileData?.salaryRange,
         preferredLocations: preferredLocationController.text.isNotEmpty
             ? preferredLocationController.text.split(',').map((e) => e.trim()).toList()
             : state.profileData?.preferredLocations,
-        education: state.profileData?.education,
-        experience: state.profileData?.experience,
+        education: updatedEducation,
+        experience: updatedExperience,
         skills: state.profileData?.skills,
       );
       final BaseModel result = await _employeeProfileService.updateEmployeeProfileDetails(
@@ -355,5 +356,49 @@ class EditEmployeeProfileController
       debugPrint(e.toString());
     }
   }
+
+  List<ExperienceModel> buildUpdatedExperienceList() {
+    final experienceControllers = state.workExpEntries ?? [];
+
+    return experienceControllers.map((e) {
+      DateTime? startDate;
+      DateTime? endDate;
+
+      // Parse start date
+      if (e.startDateController.text.isNotEmpty) {
+        try {
+          startDate = DateFormat('dd-MM-yyyy').parse(e.startDateController.text);
+        } catch (_) {}
+      }
+
+      // Parse end date (if not "Present")
+      if (e.endDateController.text.isNotEmpty && e.endDateController.text != 'Present') {
+        try {
+          endDate = DateFormat('dd-MM-yyyy').parse(e.endDateController.text);
+        } catch (_) {}
+      }
+
+      return ExperienceModel(
+        companyName: e.companyController.text.trim(),
+        position: e.positionController.text.trim(),
+        description: e.descriptionController.text.trim(),
+        startDate: startDate,
+        endDate: endDate,
+        isCurrentlyWorking: e.endDateController.text == 'Present',
+      );
+    }).toList();
+  }
+  List<EducationModel> buildUpdatedEducationList() {
+    final educationControllers = state.educationEntries ?? [];
+
+    return educationControllers.map((e) {
+      return EducationModel(
+        degree: e.degreeController.text.trim(),
+        institution: e.institutionController.text.trim(),
+        graduationYear: int.tryParse(e.graduationYearController.text.trim()),
+      );
+    }).toList();
+  }
+
 
 }
