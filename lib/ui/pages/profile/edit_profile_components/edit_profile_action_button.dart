@@ -1,21 +1,35 @@
+import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../providers/providers.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
 
-class EditProfileActionButtons extends StatelessWidget {
+class EditProfileActionButtons extends ConsumerWidget {
   final VoidCallback onCancel;
   final VoidCallback onSave;
+  final bool isEmployee;
 
   const EditProfileActionButtons({
     super.key,
     required this.onCancel,
     required this.onSave,
+     this.isEmployee = false,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final employeeState = ref.watch(editEmployeeProfileProvider);
+    final employeeController = ref.read(editEmployeeProfileProvider.notifier);
+    final employerController = ref.read(editEmployerProfileProvider.notifier);
+    final employerState = ref.watch(editEmployerProfileProvider);
+    print("isEmployee -->> $isEmployee");
+    print("loadingg statee -->> ${employeeState.pageState == PageState.loading}");
+    final bool isLoading = isEmployee
+    ? employeeState.pageState == PageState.loading
+        : employerState.pageState == PageState.loading;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -25,7 +39,9 @@ class EditProfileActionButtons extends StatelessWidget {
           children: [
             // Cancel Button
             CustomThemeButton(
-              onTap: onCancel,
+              onTap: () {
+                Navigator.pop(context);
+              },
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -52,8 +68,15 @@ class EditProfileActionButtons extends StatelessWidget {
 
             // Save Button
             CustomThemeButton(
-              onTap: onSave,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              onTap: (){
+                if(isEmployee){
+                  employeeController.updateEmployeeProfileDetails(context);
+                } else{
+
+                }
+              },
+              isLoading: isLoading,
+              padding: isLoading ?const EdgeInsets.symmetric(horizontal: 50, vertical: 12) :  const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -76,6 +99,7 @@ class EditProfileActionButtons extends StatelessWidget {
               radius: 30,
               color: AppColors.primaryColor,
               borderColor: AppColors.primaryColor,
+
             ),
           ],
         ),

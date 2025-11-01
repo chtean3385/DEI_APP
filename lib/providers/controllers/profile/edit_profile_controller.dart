@@ -4,9 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 
+import '../../../constants/enums.dart';
+import '../../../models/common/base_model.dart';
 import '../../../models/profile/employee_user_model/employee_user_model.dart';
 import '../../../models/state_models/profile/employee_profile_state.dart';
+import '../../../service/employee_profile/employee_profile_service.dart';
 import '../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
+import '../../../widgets/others/snack_bar.dart';
 import '../../../widgets/pickers/file_picker.dart';
 import '../../../widgets/pickers/image_picker.dart';
 import '../../providers.dart';
@@ -14,16 +18,22 @@ import '../../providers.dart';
 class EditEmployeeProfileController
     extends StateNotifier<EmployeeProfileState> {
   final Ref ref;
-  EditEmployeeProfileController(this.ref) : super(EmployeeProfileState.initial()) {
-    final profileDetails =  ref.watch(employeeProfileProvider).profileData;
+
+  EditEmployeeProfileController(this.ref)
+    : super(EmployeeProfileState.initial()) {
+    final profileDetails = ref.watch(employeeProfileProvider).profileData;
     initController(profileDetails);
   }
+
+
+  final EmployeeProfileService _employeeProfileService =
+  EmployeeProfileService();
 
   initController(EmployeeUserModel? userData) {
     fetchInitialProfileData(userData);
   }
 
-  // final ChefService _chefService = ChefService();
+  final formKey = GlobalKey<FormState>();
   /// basic info
   final nameController = TextEditingController();
   final emailController = TextEditingController();
@@ -49,7 +59,7 @@ class EditEmployeeProfileController
 
   @override
   void dispose() {
-    debugPrint("🔥 EditProfileController disposed");
+    debugPrint("🔥 EditEmployeeProfileController disposed");
     nameController.dispose();
     emailController.dispose();
     mobileController.dispose();
@@ -79,6 +89,22 @@ class EditEmployeeProfileController
     }
 
     super.dispose();
+  }
+
+  void updateGender(String? gender) {
+    final updatedProfile = state.profileData?.copyWith(gender: gender);
+    state = state.copyWith(profileData: updatedProfile);
+  }
+
+
+  void updateWorkStatus(String workStatus) {
+    final updatedProfile = state.profileData?.copyWith(workStatus: workStatus);
+    state = state.copyWith(profileData: updatedProfile);
+  }
+
+  void updateCity(String city) {
+    final updatedProfile = state.profileData?.copyWith(city: city);
+    state = state.copyWith(profileData: updatedProfile);
   }
 
   // Get selected skills directly from the model
@@ -149,7 +175,6 @@ class EditEmployeeProfileController
   }
 
   void fetchInitialProfileData(EmployeeUserModel? userData) {
-
     nameController.text = userData?.name ?? "";
     emailController.text = userData?.email ?? "";
     mobileController.text = userData?.mobile ?? "";
@@ -174,7 +199,6 @@ class EditEmployeeProfileController
     } else {
       dobController.text = "";
     }
-
 
     // Sample initial skill list
     final initialSkills = userData?.skills ?? [];
@@ -237,6 +261,7 @@ class EditEmployeeProfileController
     }
   }
 
+
   /// Pick resume from storage
   Future<void> pickResume() async {
     final file = await pickResumeFile();
@@ -262,4 +287,73 @@ class EditEmployeeProfileController
       // You can use `open_filex` or any viewer here.
     }
   }
+
+  /// 🔹 Call this to update chef details
+  Future<void> updateEmployeeProfileDetails(BuildContext context) async {
+    if (!(formKey.currentState?.validate() ?? false)) {
+      showSnackBar("Please fill all required fields");
+      return;
+    }
+    state = state.copyWith(pageState: PageState.loading);
+    print('--- Employee Profile Form stattteee ---');
+    print('gender: ${state.profileData?.gender}');
+    print('workStatus: ${state.profileData?.workStatus}');
+
+    print('--- Employee Profile Form Values ---');
+    print('Name: ${nameController.text}');
+    print('Email: ${emailController.text}');
+    print('Mobile: ${mobileController.text}');
+    print('Work Status: ${workStatusController.text}');
+    print('Description: ${descriptionController.text}');
+    print('Address: ${addressController.text}');
+    print('City: ${cityController.text}');
+    print('State: ${stateController.text}');
+    print('Country: ${countryController.text}');
+    print('Pincode: ${pinCodeController.text}');
+    print('Job Type: ${jobTypeController.text}');
+    print('Salary Expected: ${salaryExpectedController.text}');
+    print('Preferred Location: ${preferredLocationController.text}');
+    print('------------------------------------');
+
+    try {
+      final updateData = EmployeeUserModel(
+        name: nameController.text.trim(),
+        email: emailController.text.trim(),
+        mobile: mobileController.text.trim(),
+        dateOfBirth: dobController.text.trim(),
+        employeeDescription: descriptionController.text.trim(),
+        gender: state.profileData?.gender, // assuming selected via dropdown
+        workStatus: state.profileData?.workStatus,
+        address: addressController.text.trim(),
+        city: cityController.text.trim(),
+        state: stateController.text.trim(),
+        country: countryController.text.trim(),
+        pincode: pinCodeController.text.trim(),
+        jobType: jobTypeController.text.trim(),
+        department: state.profileData?.department, // keep existing if not changed
+        category: state.profileData?.category,
+        salaryRange: salaryExpectedController.text.trim(),
+        preferredLocations: preferredLocationController.text.isNotEmpty
+            ? preferredLocationController.text.split(',').map((e) => e.trim()).toList()
+            : state.profileData?.preferredLocations,
+        education: state.profileData?.education,
+        experience: state.profileData?.experience,
+        skills: state.profileData?.skills,
+      );
+      final BaseModel result = await _employeeProfileService.updateEmployeeProfileDetails(
+        data: updateData,
+        profileFile: state.profileFile,
+        resumeFile: state.resumeFile,
+      );
+      ref.refresh(employeeProfileProvider);
+      showSnackBar(result.message, duration: 2);
+      Navigator.pop(context);
+    } catch (e) {
+      state = state.copyWith(pageState: PageState.error);
+      showSnackBar(e.toString());
+      debugPrint("catch - updateEmployeeProfileDetails");
+      debugPrint(e.toString());
+    }
+  }
+
 }

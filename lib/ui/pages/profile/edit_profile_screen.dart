@@ -46,6 +46,7 @@ class EditProfileScreen extends StatelessWidget {
               ),
             ),
             EditProfileActionButtons(
+              isEmployee: true,
               onCancel: () {
                 Navigator.pop(context);
               },

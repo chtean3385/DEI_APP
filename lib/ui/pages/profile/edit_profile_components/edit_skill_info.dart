@@ -43,12 +43,17 @@ class EditSkillInformation extends ConsumerWidget {
           childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           children: [
             /// 🔽 Skill Input
-            KeyForm(
-              controller:controller.skillController,
+
+            TransparentAddFormField(
+              controller: controller.skillController,
+              hint: "Enter a skill",
+              label: "Skills",
+              icon: Icons.build_circle_outlined,
+              textCapitalization: TextCapitalization.words,
+              textInputAction: TextInputAction.done,
               onSkillSelected: controller.addSkill,
-              hint:"Enter your key skills",
-              label: "Your Skills",
             ),
+
 
             gapH16(),
 

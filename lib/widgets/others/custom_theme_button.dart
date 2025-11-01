@@ -34,7 +34,7 @@ class CustomThemeButton extends StatelessWidget {
       alignment: alignRight ?  AlignmentGeometry.centerRight : AlignmentGeometry.center,
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
-        onTap: onTap,
+        onTap: isLoading ? null :  onTap,
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: color,

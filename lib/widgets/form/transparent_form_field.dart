@@ -24,7 +24,9 @@ class TransparentFormField extends StatefulWidget {
   final int? maxLength;
   final double? radius;
   final bool readOnly ;
+  final bool isRequired ;
   final Color? fillColor;
+  final ValueChanged<String>? onFieldSubmitted;
 
   TransparentFormField({
     super.key,
@@ -48,7 +50,9 @@ class TransparentFormField extends StatefulWidget {
     this.nextFocusNode,
     this.radius,
     this.readOnly = false,
+    this.isRequired = false,
     this.fillColor,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -66,11 +70,24 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.label != null)
-          Text(
-            widget.label!,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
+          RichText(
+            text: TextSpan(
+              text: widget.label!,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              ),
+              children: widget.isRequired
+                  ? [
+                TextSpan(
+                  text: ' *',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]
+                  : [],
             ),
           ),
         if (widget.label != null) gapH4(),
@@ -105,7 +122,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
                 color: Colors.black,
                 fontWeight: FontWeight.normal,
               ),
-              onFieldSubmitted: (_) {
+              onFieldSubmitted: widget.onFieldSubmitted ??  (_) {
                 if (widget.nextFocusNode != null) {
                   // Safe check: only move if nextNode is attached
                   if (widget.nextFocusNode!.hasFocus == false && widget.nextFocusNode!.context != null) {

@@ -271,7 +271,7 @@ class EducationModel {
   Map<String, dynamic> toJson() => {
     'degree': degree,
     'institution': institution,
-    'graduationYear': graduationYear,
+    'graduationYear': graduationYear.toString(),
     '_id': id,
   };
 }
@@ -308,8 +308,8 @@ class ExperienceModel {
   Map<String, dynamic> toJson() => {
     'companyName': companyName,
     'position': position,
-    'startDate': startDate,
-    'endDate': endDate,
+    'startDate': startDate.toString(),
+    'endDate': endDate.toString(),
     'description': description,
     '_id': id,
   };

@@ -11,6 +11,7 @@ class TransparentDropdownField extends StatelessWidget {
   final ValueChanged<String?> onChanged;
   final double? radius;
   final Color? fillColor;
+  final bool isRequired;
   final FormFieldValidator<String>? validator;
 
   const TransparentDropdownField({
@@ -24,6 +25,7 @@ class TransparentDropdownField extends StatelessWidget {
     this.radius,
     this.fillColor,
     this.validator,
+    this.isRequired = false,
   });
   // Helper: Capitalize first letter for display
   String _capitalize(String text) {
@@ -42,11 +44,26 @@ class TransparentDropdownField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (label != null)
-          Text(
-            label!,
-            style: theme.textTheme.bodyMedium?.copyWith(color: Colors.black),
+        RichText(
+          text: TextSpan(
+            text: label!,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: Colors.black,
+              fontWeight: FontWeight.normal,
+            ),
+            children: isRequired
+                ? [
+              TextSpan(
+                text: ' *',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ]
+                : [],
           ),
+        ),
         if (label != null) gapH4(),
         DecoratedBox(
           decoration: BoxDecoration(
@@ -59,7 +76,17 @@ class TransparentDropdownField extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: DropdownButtonFormField<String>(
-              value: value,
+              value: (value != null && value?.trim().isNotEmpty == true)
+                  ? items.firstWhere(
+                    (e) => e.toLowerCase().trim() == value?.toLowerCase().trim(),
+                orElse: () => '', // return empty string
+              ).isEmpty
+                  ? null // if not found, return null so dropdown shows hint
+                  : items.firstWhere(
+                    (e) => e.toLowerCase().trim() == value?.toLowerCase().trim(),
+              )
+                  : null,
+
               validator: validator,
               isExpanded: true,
               dropdownColor: AppColors.primaryColor, // dropdown list bg

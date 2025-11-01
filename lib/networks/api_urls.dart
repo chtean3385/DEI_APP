@@ -86,6 +86,7 @@ class ApiUrls {
 
  //   employee profile
   static String employeeProfileDetails = 'users/get-one-user';
+  static String updateEmployeeProfileDetails = 'users/update-profile-with-resume';
 
 
 

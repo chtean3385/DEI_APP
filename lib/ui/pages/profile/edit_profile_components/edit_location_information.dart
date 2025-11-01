@@ -35,6 +35,7 @@ class EditLocationInformation extends ConsumerWidget {
         childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
           TransparentFormField(
+            isRequired: true,
             controller: controller.addressController,
             hint: "Enter Address",
             label: "Address",
@@ -47,6 +48,7 @@ class EditLocationInformation extends ConsumerWidget {
 
           // City Field
           TransparentFormField(
+            isRequired: true,
             controller: controller.cityController,
             hint: "Enter City",
             label: "City",
@@ -57,6 +59,7 @@ class EditLocationInformation extends ConsumerWidget {
           ),
           gapH16(),
           TransparentFormField(
+            isRequired: true,
             controller: controller.stateController,
             label: "State",
             hint: "Select State",
@@ -72,12 +75,12 @@ class EditLocationInformation extends ConsumerWidget {
             hint: "Select Country",
             icon: Icons.public_outlined,
             textInputAction: TextInputAction.next,
-            validator: AppValidators.fieldEmpty("Country"),
             textCapitalization: TextCapitalization.words,
           ),
 
           gapH16(),
           TransparentFormField(
+            isRequired: true,
             controller: controller.pinCodeController,
             hint: "Enter Pincode",
             label: "Pincode",

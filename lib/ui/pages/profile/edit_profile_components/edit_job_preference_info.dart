@@ -6,7 +6,6 @@ import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
-import '../../auth/signup/widgets/preference/work_location_field.dart';
 import '../../../../models/job/job_type_model.dart';
 
 class EditJobPreferenceInfo extends ConsumerWidget {

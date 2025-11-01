@@ -30,9 +30,9 @@ class BasicDetails extends ConsumerWidget {
                 state.profileData?.profilePhotoUrl?.isNotEmpty == true
                     ? RoundedNetworkImage(
                         imageUrl: state.profileData!.profilePhotoUrl!,
-                        width: 60,
-                        height: 60,
-                        borderRadius: 30,
+                        width: 70,
+                        height: 70,
+                        borderRadius: 35,
                       )
                     : CircleAvatar(
                         radius: 30,

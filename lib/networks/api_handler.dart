@@ -55,6 +55,9 @@ class ApiHandler {
     required String url,
     Map<String, dynamic>? body,
     File? file,
+    File? profileImg,
+    File? coverImage,
+    File? resumeFile,
   }) async {
     Map<String, String>? requestHeaders = {
       'Content-Type': 'application/json',
@@ -74,6 +77,27 @@ class ApiHandler {
           filename: file.path.toString(),
         );
         dataToSend.files.add(MapEntry("image", multipartFile));
+      }
+      if (profileImg != null) {
+        MultipartFile multipartFile = await MultipartFile.fromFile(
+          profileImg.path,
+          filename: profileImg.path.toString(),
+        );
+        dataToSend.files.add(MapEntry("photo", multipartFile));
+      }
+      if (coverImage != null) {
+        MultipartFile multipartFile = await MultipartFile.fromFile(
+          coverImage.path,
+          filename: coverImage.path.toString(),
+        );
+        dataToSend.files.add(MapEntry("cover_image", multipartFile));
+      }
+      if (resumeFile != null) {
+        MultipartFile multipartFile = await MultipartFile.fromFile(
+          resumeFile.path,
+          filename: resumeFile.path.toString(),
+        );
+        dataToSend.files.add(MapEntry("resume", multipartFile));
       }
 
       logFormData(dataToSend);
