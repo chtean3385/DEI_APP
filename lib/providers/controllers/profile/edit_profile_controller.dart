@@ -164,11 +164,13 @@ class EditEmployeeProfileController
 
 
   /// 🔹 Call this to update chef details
-  Future<void> updateEmployeeProfileDetails(BuildContext context) async {
-    if (!(formKey.currentState?.validate() ?? false)) {
-      showSnackBar("Please fill all required fields");
-      return;
-    }
+  Future<void> updateEmployeeProfileDetails(BuildContext context, {bool isFromCommonEdit = true}) async {
+   if(isFromCommonEdit){
+     if (!(formKey.currentState?.validate() ?? false)) {
+       showSnackBar("Please fill all required fields");
+       return;
+     }
+   }
     state = state.copyWith(pageState: PageState.loading);
     print('--- Employee Profile Form stattteee ---');
     print('gender: ${state.profileData?.gender}');

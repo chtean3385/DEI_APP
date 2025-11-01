@@ -9,8 +9,9 @@ import '../../../../widgets/others/custom_theme_button.dart';
 
 class EditProfileActionButtons extends ConsumerWidget {
   final bool isEmployee;
+  final bool isFromCommonEdit;
 
-  const EditProfileActionButtons({super.key, this.isEmployee = false});
+  const EditProfileActionButtons({super.key, this.isEmployee = false,this.isFromCommonEdit = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -61,8 +62,9 @@ class EditProfileActionButtons extends ConsumerWidget {
             // Save Button
             CustomThemeButton(
               onTap: () {
+                print("isEmployee -- $isEmployee");
                 if (isEmployee) {
-                  employeeController.updateEmployeeProfileDetails(context);
+                  employeeController.updateEmployeeProfileDetails(context,isFromCommonEdit:isFromCommonEdit );
                 } else {}
               },
               isLoading: isLoading,

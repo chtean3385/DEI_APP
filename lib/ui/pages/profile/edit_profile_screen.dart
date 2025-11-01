@@ -11,14 +11,16 @@ import 'edit_profile_components/edit_resume.dart';
 import 'edit_profile_components/edit_skill_info.dart';
 import 'edit_profile_components/edit_work_experience_info.dart';
 
-
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarCommon(title: "Edit Profile Details", titleStyleSmall: true),
+      appBar: appBarCommon(
+        title: "Edit Profile Details",
+        titleStyleSmall: true,
+      ),
       body: SafeArea(
         child: Column(
           children: [
@@ -45,20 +47,10 @@ class EditProfileScreen extends StatelessWidget {
                 ),
               ),
             ),
-            EditProfileActionButtons(
-              isEmployee: true,
-              onCancel: () {
-                Navigator.pop(context);
-              },
-              onSave: () {
-                // Implement your save logic here
-              },
-            )
+            EditProfileActionButtons(isEmployee: true),
           ],
         ),
       ),
     );
-
   }
-
 }

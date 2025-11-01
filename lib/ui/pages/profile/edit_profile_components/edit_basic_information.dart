@@ -1,5 +1,8 @@
+import 'package:dei_champions/widgets/others/custom_theme_button.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
@@ -17,7 +20,14 @@ class EditBasicInformation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(editEmployeeProfileProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
+    final Map<String, String> workStatusLabels = {
+      'employed': 'Employed',
+      'un-employed': 'Looking for a Job',
+      'student': 'Student / Intern',
+      'self-employed': 'Running Own Business',
+    };
 
+print("state.profileData?.workStatus -->> ${state.profileData?.workStatus}");
     return Form(
       key: controller.formKey,
       child: Card(
@@ -44,6 +54,75 @@ class EditBasicInformation extends ConsumerWidget {
           ),
           children: [
             _profileImage(ref),
+            gapH8(),
+            // "Active • Employed",
+            RichText(
+              text: TextSpan(
+                  text: "Active",
+                  style: context.textTheme.labelMedium?.copyWith(
+                    color: BootstrapColors.colors["green"] ??
+                        AppColors.primaryColor,
+                  ),
+                  children: [
+                    TextSpan(
+                        text: ' • ',
+                        style:  context.textTheme.labelMedium
+                    ),
+                    TextSpan(
+                      text: '${workStatusLabels[state.profileData?.workStatus] ?? 'Select Status'}',
+                      style: context.textTheme.labelMedium?.copyWith(
+                        color:AppColors.primaryColor,
+                      ),
+                    ),
+                  ]
+              ),
+            ),
+            // Column(
+            //   mainAxisSize: MainAxisSize.min,
+            //   mainAxisAlignment: MainAxisAlignment.start,
+            //   crossAxisAlignment: CrossAxisAlignment.center,
+            //   children: [
+            //
+            //
+            //
+            //
+            //     CustomThemeButton(
+            //       onTap: () {
+            //       },
+            //
+            //       padding:  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            //       child: Padding(
+            //         padding: const EdgeInsets.symmetric(horizontal: 10),
+            //         child: Text(
+            //           'Active',
+            //           style: context.textTheme.labelMedium?.copyWith(
+            //             color: Colors.white,
+            //           ),
+            //         ),
+            //       ),
+            //       radius: 30,
+            //       color: BootstrapColors.colors["green"] ??
+            //           AppColors.primaryColor,
+            //       borderColor:  BootstrapColors.colors["green"] ??
+            //           AppColors.primaryColor,
+            //     ),
+            //     const SizedBox(height: 8),
+            //     CustomThemeButton(
+            //       onTap: () {
+            //       },
+            //       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            //       child: Text(
+            //         workStatusLabels[state.profileData?.workStatus] ?? 'Select Status',
+            //         style: context.textTheme.labelMedium?.copyWith(
+            //           color: AppColors.primaryColor,
+            //         ),
+            //       ),
+            //       radius: 30,
+            //       color: AppColors.bg,
+            //       borderColor: AppColors.primaryColor,
+            //     ),
+            //   ],
+            // ),
             gapH16(),
             TransparentFormField(
               isRequired: true,

@@ -66,7 +66,7 @@ class EditSkillInformation extends ConsumerWidget {
 
           if(isFromCommonEdit!= true)  Padding(
               padding: const EdgeInsets.only(top: 20),
-              child: EditProfileActionButtons(),
+              child: EditProfileActionButtons(isEmployee: true,isFromCommonEdit: isFromCommonEdit),
             )
           ],
         ),
