@@ -9,6 +9,7 @@ import '../../../models/common/base_model.dart';
 import '../../../models/profile/employee_user_model/employee_user_model.dart';
 import '../../../models/state_models/profile/employee_profile_state.dart';
 import '../../../service/employee_profile/employee_profile_service.dart';
+import '../../../service/local_json_service.dart';
 import '../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
 import '../../../widgets/others/snack_bar.dart';
 import '../../../widgets/pickers/file_picker.dart';
@@ -23,17 +24,26 @@ class EditEmployeeProfileController
     : super(EmployeeProfileState.initial()) {
     final profileDetails = ref.watch(employeeProfileProvider).profileData;
     initController(profileDetails);
+    fetchDegrees();
+    fetchInstitutes();
+    fetchPositions();
   }
 
 
   final EmployeeProfileService _employeeProfileService =
   EmployeeProfileService();
+  final LocalJsonService _jsonService = LocalJsonService();
+
 
   initController(EmployeeUserModel? userData) {
     fetchInitialProfileData(userData);
   }
 
   final formKey = GlobalKey<FormState>();
+  final stateFocus = FocusNode();
+  final cityFocus = FocusNode();
+  final countryFocus = FocusNode();
+
   /// basic info
   final nameController = TextEditingController();
   final emailController = TextEditingController();
@@ -171,6 +181,10 @@ class EditEmployeeProfileController
        return;
      }
    }
+   if (!_validateEducationEntries()) {
+     debugPrint("Cannot update: Validation failed");
+     return;
+   }
     state = state.copyWith(pageState: PageState.loading);
     print('--- Employee Profile Form stattteee ---');
     print('gender: ${state.profileData?.gender}');
@@ -297,6 +311,18 @@ class EditEmployeeProfileController
   }
 
   void addEducationEntry() {
+    // Check if any existing entry is incomplete
+    final hasIncomplete = state.educationEntries?.any((entry) =>
+    entry.degreeController.text.isEmpty ||
+        entry.institutionController.text.isEmpty ||
+        entry.graduationYearController.text.isEmpty) ?? false;
+
+    if (hasIncomplete) {
+      debugPrint("Validation failed: Fill all existing education details before adding a new one.");
+      showSnackBar("Fill all existing education details before adding a new one.");
+      // You can show a snackbar in UI after this (if desired)
+      return;
+    }
     final newList = List<EducationEntryControllers>.from(
       state.educationEntries ?? [],
     )..add(EducationEntryControllers());
@@ -310,6 +336,19 @@ class EditEmployeeProfileController
     )..removeAt(index);
 
     state = state.copyWith(educationEntries: newList);
+  }
+  /// Validate all form fields before adding or updating
+  bool _validateEducationEntries() {
+    for (final entry in state.educationEntries!) {
+      if (entry.degreeController.text.isEmpty ||
+          entry.institutionController.text.isEmpty ||
+          entry.graduationYearController.text.isEmpty) {
+        debugPrint("Validation failed: Some fields are empty");
+        showSnackBar("Some fields are empty in  education details .");
+        return false;
+      }
+    }
+    return true;
   }
 
   void addWorkExpEntry() {
@@ -408,5 +447,19 @@ class EditEmployeeProfileController
       // You can use `open_filex` or any viewer here.
     }
   }
+  /// Load degrees and store locally
+  Future<void> fetchDegrees() async {
+  final  degrees = await _jsonService.loadDegrees();
+  state = state.copyWith(degrees: degrees);
+  }
+  Future<void> fetchInstitutes() async {
+   final institutes = await _jsonService.loadInstitutes();
+   state = state.copyWith(institutes: institutes);
+  }
+  Future<void> fetchPositions() async {
+   final positions = await _jsonService.loadPositions();
+   state = state.copyWith(positions: positions);
+  }
+
 
 }

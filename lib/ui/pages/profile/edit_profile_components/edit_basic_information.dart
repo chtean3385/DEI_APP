@@ -1,4 +1,3 @@
-import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +10,6 @@ import '../../../../widgets/form/transparant_date_picker.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
 import '../../../../widgets/pickers/profile_pic_edit_widget.dart';
-import '../../auth/common/email_suggestion_field.dart';
 
 class EditBasicInformation extends ConsumerWidget {
   const EditBasicInformation({super.key});

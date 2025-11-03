@@ -96,6 +96,7 @@ flutter:
     - assets/
     - assets/drawables/
     - assets/icon/
+    - assets/json/
     - assets/icon/bottom_bar/
     - assets/drawables/featured_employers/
     - assets/drawables/friendly_industries/

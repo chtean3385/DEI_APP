@@ -6,13 +6,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
-import '../../../../widgets/form/transparent_form_field.dart';
+import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../auth/signup/widgets/education/year_selector.dart';
 import 'edit_profile_action_button.dart';
 
 class EditEducationInformation extends ConsumerWidget {
   final bool isFromCommonEdit;
-  const EditEducationInformation({super.key,this.isFromCommonEdit= true});
+
+  const EditEducationInformation({super.key, this.isFromCommonEdit = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -25,7 +26,7 @@ class EditEducationInformation extends ConsumerWidget {
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
-        initiallyExpanded: isFromCommonEdit!= true,
+        initiallyExpanded: isFromCommonEdit != true,
         // collapsed by default
         title: Text(
           "Education",
@@ -50,6 +51,8 @@ class EditEducationInformation extends ConsumerWidget {
               edu.institutionController,
               edu.graduationYearController,
               () => controller.removeEducationEntry(index),
+              state.degrees?.map((e) => e.name).toList() ?? [],
+              state.institutes?.map((e) => e.name).toList() ?? [],
             );
           }).toList(),
           gapH16(),
@@ -73,10 +76,14 @@ class EditEducationInformation extends ConsumerWidget {
             onTap: () => controller.addEducationEntry(),
           ),
           gapH16(),
-          if(isFromCommonEdit!= true)  Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: EditProfileActionButtons(isEmployee: true,isFromCommonEdit: isFromCommonEdit),
-          )
+          if (isFromCommonEdit != true)
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: EditProfileActionButtons(
+                isEmployee: true,
+                isFromCommonEdit: isFromCommonEdit,
+              ),
+            ),
         ],
       ),
     );
@@ -87,6 +94,8 @@ class EditEducationInformation extends ConsumerWidget {
     TextEditingController ctr2,
     TextEditingController ctr3,
     VoidCallback onRemove,
+    List<String> degreeList,
+    List<String> instituteList,
   ) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -98,30 +107,32 @@ class EditEducationInformation extends ConsumerWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              TransparentFormField(
+              TransparentDropdownField(
                 isRequired: true,
-                controller: ctr1,
-                hint: "Enter your degree",
                 label: "Degree",
+                hint: "Select your degree",
                 icon: Icons.school_outlined,
-                // 🎓 suitable icon for degree
-                textInputAction: TextInputAction.next,
+                items: degreeList,
+                value: ctr1.text,
                 validator: AppValidators.fieldEmpty("Degree"),
-                textCapitalization: TextCapitalization.words,
+                onChanged: (value) {
+                  ctr1.text = value ?? "";
+                },
               ),
               gapH16(),
-
-              TransparentFormField(
+              TransparentDropdownField(
                 isRequired: true,
-                controller: ctr2,
-                hint: "Enter your institution name",
                 label: "Institution",
+                hint: "Select your institution",
                 icon: Icons.account_balance_outlined,
-                // 🏫 suitable icon for institution
-                textInputAction: TextInputAction.next,
+                items: instituteList,
+                value: ctr2.text,
                 validator: AppValidators.fieldEmpty("Institution"),
-                textCapitalization: TextCapitalization.words,
+                onChanged: (value) {
+                  ctr2.text = value ?? "";
+                },
               ),
+
               gapH16(),
 
               YearSelector(

@@ -4,6 +4,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
 import '../../../ui/pages/profile/edit_profile_components/edit_work_experience_info.dart';
+import '../../profile/edit_profile/json_item_model.dart';
 import '../../profile/employee_user_model/employee_user_model.dart';
 
 
@@ -19,6 +20,9 @@ class EmployeeProfileState {
   final PlatformFile? resumeFile;
   final List<XFile>? galleryLocalImages;
   final bool isUploading;
+ final List<LocalJsonItemModel>? degrees ;
+ final List<LocalJsonItemModel>? institutes ;
+ final List<LocalJsonItemModel>? positions ;
 
 
   EmployeeProfileState({
@@ -32,6 +36,9 @@ class EmployeeProfileState {
     this.isUploading = false,
     this.pageState = PageState.initial,
     this.updateState = PageState.initial,
+    this.degrees,
+    this.institutes,
+    this.positions,
   });
 
   factory EmployeeProfileState.initial() =>
@@ -47,7 +54,10 @@ class EmployeeProfileState {
     PageState? pageState,
     PageState? updateState,
     bool? isUploading,
-    List<XFile>? galleryLocalImages
+    List<XFile>? galleryLocalImages,
+    List<LocalJsonItemModel>? degrees ,
+    List<LocalJsonItemModel>? institutes ,
+    List<LocalJsonItemModel>? positions ,
   }) {
     return EmployeeProfileState(
       profileData: profileData ?? this.profileData,
@@ -60,6 +70,9 @@ class EmployeeProfileState {
       updateState: updateState ?? this.updateState,
       isUploading: isUploading ?? this.isUploading,
       galleryLocalImages: galleryLocalImages ?? this.galleryLocalImages,
+      degrees: degrees ?? this.degrees,
+      institutes: institutes ?? this.institutes,
+      positions: positions ?? this.positions,
     );
   }
 }
