@@ -27,7 +27,8 @@ class DashboardCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        AppNavigator.routeMap[item.routeId]?.call();
+        final params = {'status': item.routeId};
+        AppNavigator.routeMap[item.routeId]?.call(params);
       },
       child: Card(
         elevation: 2,

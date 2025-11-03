@@ -62,7 +62,7 @@ class AppNavigator {
     }
   }
 
-  static Future<void> toBottomBar({int initialPage = 0}) async {
+  static Future<void> toBottomBar({int initialPage = 0,Map<String, dynamic>? params}) async {
     final roleId = await SharedPreferenceRepository.getRoleId();
     if (roleId == 2) {
       Navigator.pushAndRemoveUntil(
@@ -75,7 +75,7 @@ class AppNavigator {
     } else {
       Navigator.pushAndRemoveUntil(
         navigatorKey.currentContext!,
-        MaterialPageRoute(builder: (_) => BottomBar(initialPage: initialPage)),
+        MaterialPageRoute(builder: (_) => BottomBar(initialPage: initialPage,params: params,)),
         (route) => false,
       );
     }
@@ -310,16 +310,15 @@ class AppNavigator {
     );
   }
 
-  static Map<String, VoidCallback> routeMap = {
-    "saved": AppNavigator.loadSavedJobsScreen,
-    // "applied": AppNavigator.loadAppliedJobsScreen,
-    // "cv": AppNavigator.loadCvScreen,
-    // "bids": AppNavigator.loadBidsScreen,
-    // "interview": AppNavigator.loadInterviewSchedulesScreen,
-    // "application": AppNavigator.loadApplicationSentScreen,
-    // "profile": AppNavigator.loadProfileViewsScreen,
-    // "messages": AppNavigator.loadMessagesScreen,
-    // "articles": AppNavigator.loadArticlesScreen,
+  static Map<String, Function(Map<String, dynamic>? params)> routeMap = {
+    "All": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "Saved": (params) => AppNavigator.toBottomBar(initialPage: 2),
+    "Pending": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "Accepted": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "Interviewing": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "Negotiation": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "Hired": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "Rejected": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
   };
 
   static loadOnBoarding() {

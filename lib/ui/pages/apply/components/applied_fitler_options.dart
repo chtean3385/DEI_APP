@@ -9,23 +9,48 @@ import '../../../../providers/providers.dart';
 import '../../../../widgets/others/shimmer_loader.dart';
 import '../../search/components/search_job_card.dart';
 
-class AppliedFilterOptions extends ConsumerWidget {
-  const AppliedFilterOptions({super.key});
+class AppliedFilterOptions extends ConsumerStatefulWidget {
+  final Map<String, dynamic>? params;
+
+  const AppliedFilterOptions(this.params, {super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<AppliedFilterOptions> createState() =>
+      _AppliedFilterOptionsState();
+}
+
+class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
+  final categories = [
+    "All",
+    "Pending",
+    "Accepted",
+    "Interviewing",
+    "Negotiation",
+    "Hired",
+    "Rejected",
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    /// Delay ensures provider is ready after widget binding
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final controller = ref.read(employeeAppliedJobsProvider.notifier);
+
+      // Determine which status to fetch — from params or default
+      final initialStatus =
+          widget.params?['status']?.toString() ?? "All";
+
+      controller.fetchJobs(status: initialStatus);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final state = ref.watch(employeeAppliedJobsProvider);
     final controller = ref.read(employeeAppliedJobsProvider.notifier);
 
-    final categories = [
-      "All",
-      "Pending",
-      "Accepted",
-      "Interviewing",
-      "Negotiation",
-      "Hired",
-      "Rejected",
-    ];
     return Column(
       children: [
         SizedBox(
@@ -33,7 +58,7 @@ class AppliedFilterOptions extends ConsumerWidget {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             itemCount: categories.length,
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             itemBuilder: (_, i) {
               final option = categories[i];
               final isSelected = (state.status ?? "All") == option;
@@ -41,23 +66,21 @@ class AppliedFilterOptions extends ConsumerWidget {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: ChoiceChip(
-                  visualDensity: const VisualDensity(
-                    horizontal: -4,
-                    vertical: -4,
-                  ),
-                  // tighter
+                  visualDensity:
+                  const VisualDensity(horizontal: -4, vertical: -4),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  // remove min size
-                  labelPadding: const EdgeInsets.symmetric(horizontal: 8),
-                  // reduce label gap
+                  labelPadding:
+                  const EdgeInsets.symmetric(horizontal: 8),
                   padding: EdgeInsets.zero,
-                  // remove extra space
                   label: Text(option),
                   selected: isSelected,
-                  onSelected: (_) => controller.fetchJobs(status: option),
+                  onSelected: (_) =>
+                      controller.fetchJobs(status: option),
                   selectedColor: AppColors.primaryColor,
                   labelStyle: context.textTheme.bodyMedium?.copyWith(
-                    color: isSelected ? Colors.white : AppColors.primaryColor,
+                    color: isSelected
+                        ? Colors.white
+                        : AppColors.primaryColor,
                   ),
                   backgroundColor: Colors.white,
                   shape: StadiumBorder(
@@ -81,8 +104,9 @@ class AppliedFilterOptions extends ConsumerWidget {
             children: [
               Expanded(
                 child: Text(
-                  "Track the status of all your job applications in one place ",
-                  style: context.textTheme.displaySmall?.copyWith(fontSize: 10),
+                  "Track the status of all your job applications in one place",
+                  style:
+                  context.textTheme.displaySmall?.copyWith(fontSize: 10),
                   textAlign: TextAlign.left,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -92,15 +116,16 @@ class AppliedFilterOptions extends ConsumerWidget {
               gapW8(),
               if (state.totalCount != null)
                 state.pageState == PageState.loading
-                    ? ShimmerLoader(
-                        child: ShimmerBox(height: 12, width: 60, radius: 4),
-                      )
+                    ? const ShimmerLoader(
+                  child: ShimmerBox(
+                      height: 12, width: 60, radius: 4),
+                )
                     : Text(
-                        "${state.totalCount ?? 0} Applications",
-                        style: context.textTheme.displaySmall?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                  "${state.totalCount ?? 0} Applications",
+                  style: context.textTheme.displaySmall?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
             ],
           ),
         ),

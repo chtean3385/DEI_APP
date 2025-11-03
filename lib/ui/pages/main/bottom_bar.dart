@@ -14,8 +14,9 @@ import 'components/drawer/custom_drawer.dart';
 
 class BottomBar extends StatefulWidget {
   final int initialPage;
+  final Map<String, dynamic>? params;
 
-  const BottomBar({super.key, this.initialPage = 0});
+  const BottomBar({super.key, this.initialPage = 0, this.params});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -150,7 +151,7 @@ class _BottomBarState extends State<BottomBar> {
       case 0:
         return HomeScreen();
       case 1:
-        return  ApplyScreen();
+        return  ApplyScreen(params: widget.params);
       case 2:
         return const SavedJobsView();
       case 3:

@@ -8,15 +8,14 @@ class DashBoardAllScreen extends StatelessWidget {
   DashBoardAllScreen({super.key});
 
   final List<DashboardItemModel> items = [
-    DashboardItemModel("Interview Schedules", "1568", 25, AppDrawables.computer, "interview"),
-    DashboardItemModel("Applied Jobs", "284", 5, AppDrawables.bank, "applied"),
-    DashboardItemModel("Saved Jobs", "2", 7, AppDrawables.save, "saved"),
-    DashboardItemModel("Task Bids Won", "136", 12, AppDrawables.lamp, "bids"),
-    DashboardItemModel("Application Sent", "985", 5, AppDrawables.headphone, "application"),
-    DashboardItemModel("Profile Viewed", "165", 15, AppDrawables.look, "profile"),
-    DashboardItemModel("New Messages", "2356", -2, AppDrawables.open, "messages"),
-    DashboardItemModel("Articles Added", "254", 2, AppDrawables.doc, "articles"),
-    DashboardItemModel("CV Added", "548", 48, AppDrawables.man, "cv"),
+    DashboardItemModel("All Applied Applications", "11", 25, AppDrawables.computer, "All"),
+    DashboardItemModel("All Saved Jobs", "4", 5, AppDrawables.bank, "Saved"),
+    DashboardItemModel("Pending ", "2", 7, AppDrawables.save, "Pending"),
+    DashboardItemModel("Accepted", "0", 12, AppDrawables.lamp, "Accepted"),
+    DashboardItemModel("Interviewing", "0", 5, AppDrawables.headphone, "Interviewing"),
+    DashboardItemModel("Negotiation", "0", 15, AppDrawables.look, "Negotiation"),
+    DashboardItemModel("Hired", "1", -2, AppDrawables.open, "Hired"),
+    DashboardItemModel("Rejected", "0", 2, AppDrawables.doc, "Rejected"),
   ];
   @override
   Widget build(BuildContext context) {
