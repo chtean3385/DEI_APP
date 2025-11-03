@@ -185,6 +185,10 @@ class EditEmployeeProfileController
      debugPrint("Cannot update: Validation failed");
      return;
    }
+   if (!_validateWorkExpEntries()) {
+     debugPrint("Cannot update: Validation failed");
+     return;
+   }
     state = state.copyWith(pageState: PageState.loading);
     print('--- Employee Profile Form stattteee ---');
     print('gender: ${state.profileData?.gender}');
@@ -350,8 +354,33 @@ class EditEmployeeProfileController
     }
     return true;
   }
+  /// Validate all work experience form fields before adding or updating
+  bool _validateWorkExpEntries() {
+    for (final entry in state.workExpEntries ?? []) {
+      if (entry.companyController.text.isEmpty ||
+          entry.positionController.text.isEmpty ||
+          entry.startDateController.text.isEmpty ||
+          entry.endDateController.text.isEmpty ) {
+        debugPrint("Validation failed: Some fields are empty in work experience details");
+        showSnackBar("Some fields are empty in work experience details.");
+        return false;
+      }
+    }
+    return true;
+  }
 
   void addWorkExpEntry() {
+    final hasIncomplete = state.workExpEntries?.any((entry) =>
+    entry.companyController.text.isEmpty ||
+        entry.positionController.text.isEmpty ||
+        entry.startDateController.text.isEmpty ||
+        entry.endDateController.text.isEmpty ) ?? false;
+
+    if (hasIncomplete) {
+      debugPrint("Validation failed: Fill all existing work experience details before adding a new one.");
+      showSnackBar("Fill all existing work experience details before adding a new one.");
+      return;
+    }
     final newList = List<WorkExperienceEntryControllers>.from(
       state.workExpEntries ?? [],
     )..add(WorkExperienceEntryControllers());

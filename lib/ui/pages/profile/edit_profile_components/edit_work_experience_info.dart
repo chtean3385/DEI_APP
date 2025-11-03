@@ -7,6 +7,7 @@ import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_date_picker.dart';
+import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
 import '../../../../widgets/others/check_box.dart';
 import 'edit_profile_action_button.dart';
@@ -51,6 +52,8 @@ class EditWorkExpInformation extends ConsumerWidget {
               workExp.endDateController,
               workExp.descriptionController,
                   () => controller.removeWorkExpEntry(index),
+                state.positions?.map((e) => e.name).toList() ?? [],
+
             );
           }).toList(),
           gapH16(),
@@ -188,6 +191,7 @@ class EditWorkExpInformation extends ConsumerWidget {
       TextEditingController endCtr,
       TextEditingController descCtr,
       VoidCallback onRemove,
+      List<String> positionList,
       ) {
     final ValueNotifier<bool> isCurrentlyWorking = ValueNotifier(false);
 
@@ -216,16 +220,28 @@ class EditWorkExpInformation extends ConsumerWidget {
                     textCapitalization: TextCapitalization.words,
                   ),
                   gapH16(),
-                  TransparentFormField(
-                    controller: positionCtr,
+                  TransparentDropdownField(
                     isRequired: true,
-                    hint: "Enter position",
                     label: "Position",
+                    hint: "Select your position",
                     icon: Icons.badge_outlined,
-                    textInputAction: TextInputAction.next,
+                    items: positionList,
+                    value: positionCtr.text,
                     validator: AppValidators.fieldEmpty("Position"),
-                    textCapitalization: TextCapitalization.words,
+                    onChanged: (value) {
+                      positionCtr.text = value ?? "";
+                    },
                   ),
+                  // TransparentFormField(
+                  //   controller: positionCtr,
+                  //   isRequired: true,
+                  //   hint: "Enter position",
+                  //   label: "Position",
+                  //   icon: Icons.badge_outlined,
+                  //   textInputAction: TextInputAction.next,
+                  //   validator: AppValidators.fieldEmpty("Position"),
+                  //   textCapitalization: TextCapitalization.words,
+                  // ),
                   gapH16(),
                   TransparentDatePickerField(
                     hint: "Start Date",
