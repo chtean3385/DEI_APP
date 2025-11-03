@@ -9,6 +9,7 @@ import 'package:dei_champions/models/state_models/employer/emplyer_applications_
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
 import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart';
+import 'package:dei_champions/models/state_models/html_page_data_state.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
 import 'package:dei_champions/models/state_models/job/job_type_list_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
@@ -77,6 +78,7 @@ import 'controllers/auth/employer_register_controller.dart';
 import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
+import 'controllers/common/html_page_data_list_controller.dart';
 import 'controllers/disability/disability_bottom_section_controller.dart';
 import 'controllers/disability/disability_inclusion_setps_controller.dart';
 import 'controllers/disability/disability_title_section_controller.dart';
@@ -124,6 +126,7 @@ StateNotifierProvider.autoDispose<OnBoardingController, OnBoardingState>((ref) {
   return OnBoardingController();
 });
 
+
 /// login controller
 
 final loginProvider  = StateNotifierProvider.autoDispose<LoginController, AuthState>((ref) {
@@ -152,6 +155,11 @@ AutoDisposeNotifierProvider<SignupFlowController, SignupFlowState>(
 final employerSignupFlowControllerProvider =
 AutoDisposeNotifierProvider<EmployerSignupFlowController, SignupFlowState>(
     EmployerSignupFlowController.new);
+
+final commonHtmlPageContentsProvider =
+StateNotifierProvider.autoDispose<HtmlPageDataListController, HtmlPageDataListState>((ref) {
+  return HtmlPageDataListController();
+});
 
 ///job categories
 final jobCategoryProvider =

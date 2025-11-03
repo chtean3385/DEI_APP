@@ -90,6 +90,9 @@ class ApiUrls {
   static String updateEmployeeProfileDetails = 'users/update-profile-with-resume';
 
 
+// common
+
+  static String commonFooterPageData = 'footer-page/get-all';
 
 
 
