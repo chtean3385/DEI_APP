@@ -39,4 +39,26 @@ class LocalJsonService {
       return [];
     }
   }
+  /// Load local JSON file and parse into country list
+  Future<List<LocalJsonItemModel>> loadCountries() async {
+    try {
+      final String response = await rootBundle.loadString('assets/json/countries.json');
+      final data = json.decode(response);
+      return LocalJsonItemModel.listFromJson(data);
+    } catch (e) {
+      print('Error loadPositions: $e');
+      return [];
+    }
+  }
+  /// Load local JSON file and parse into city state list
+  Future<List<StateModel>> loadCityState() async {
+    try {
+      final String response = await rootBundle.loadString('assets/json/city_state.json');
+      final data = json.decode(response);
+      return StateModel.listFromJson(data);
+    } catch (e) {
+      print('Error loadCityState: $e');
+      return [];
+    }
+  }
 }

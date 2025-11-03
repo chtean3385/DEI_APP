@@ -27,6 +27,8 @@ class EditEmployeeProfileController
     fetchDegrees();
     fetchInstitutes();
     fetchPositions();
+    fetchCountries();
+    fetchCityState();
   }
 
 
@@ -489,6 +491,17 @@ class EditEmployeeProfileController
    final positions = await _jsonService.loadPositions();
    state = state.copyWith(positions: positions);
   }
+  Future<void> fetchCountries() async {
+    final countries = await _jsonService.loadCountries();
+    state = state.copyWith(countries: countries);
+  }
+  Future<void> fetchCityState() async {
+    final stateCities = await _jsonService.loadCityState();
+    final states = stateCities;
+    final allCities = stateCities.expand((s) => s.cities).toList();
+    state = state.copyWith(cities: allCities,states: states);
+  }
+
 
 
 }

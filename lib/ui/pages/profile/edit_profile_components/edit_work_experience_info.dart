@@ -232,16 +232,6 @@ class EditWorkExpInformation extends ConsumerWidget {
                       positionCtr.text = value ?? "";
                     },
                   ),
-                  // TransparentFormField(
-                  //   controller: positionCtr,
-                  //   isRequired: true,
-                  //   hint: "Enter position",
-                  //   label: "Position",
-                  //   icon: Icons.badge_outlined,
-                  //   textInputAction: TextInputAction.next,
-                  //   validator: AppValidators.fieldEmpty("Position"),
-                  //   textCapitalization: TextCapitalization.words,
-                  // ),
                   gapH16(),
                   TransparentDatePickerField(
                     hint: "Start Date",

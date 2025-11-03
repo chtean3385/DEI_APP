@@ -230,8 +230,8 @@ class ApiHandler {
     final statusCode = response.statusCode ?? 0;
     // ✅ Force logout on unauthorized responses
     if (statusCode == 401 ||
-        (response.data is Map && response.data['message']?.toString().contains('Unauthorized') == true)) {
-      forceLogout(message: "Your session has expired. Please sign in again.");
+        (response.data is Map && response.data['message']?.toString().contains('Unauthorized') == true) || (response.data is Map && response.data['message']?.toString().contains('Token expired') == true)) {
+      forceLogout(message: "Your last session has expired. Please sign in again.");
       throw AppException("Unauthorized");
     }
     if (statusCode == 204) return null;
@@ -249,8 +249,8 @@ class ApiHandler {
         e.message ??
         'Unexpected error';
     // ✅ Handle Unauthorized globally
-    if (response?.statusCode == 401 || message.contains('Unauthorized')) {
-      forceLogout(message: "Your session has expired. Please log in again.");
+    if (response?.statusCode == 401 || message.contains('Unauthorized') || message.contains('Token expired')) {
+      forceLogout(message: "Your last session has expired. Please log in again.");
       return AppException("Unauthorized");
     }
     switch (e.type) {

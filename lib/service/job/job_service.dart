@@ -189,4 +189,11 @@ class JobService {
       throw Exception('Invalid response format');
     }
   }
+  getCountryListData() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.countryList,
+      includeAuthToken: true,
+    );
+    return result;
+  }
 }

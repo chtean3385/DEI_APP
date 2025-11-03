@@ -10,23 +10,26 @@ class SelectCity extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
+  final List<String>? cityList;
 
   const SelectCity({
     super.key,
     required this.controller,
     this.focusNode,
     this.nextFocus,
+    this.cityList,
   });
 
   @override
   Widget build(BuildContext context) {
+    final List<String> data = cityList ?? AppStrings.indianCities;
     return AutoSuggestionDropdownField(
       controller: controller,
       focusNode: focusNode,
       hint: AppStrings.selectCity,
       label:AppStrings.employerCity,
       icon: Icons.location_city_outlined,
-      suggestions: AppStrings.indianCities,
+      suggestions: data,
       maxSuggestions: 10,
       caseSensitive: false,
       showAbove: true,
@@ -41,7 +44,7 @@ class SelectCity extends StatelessWidget {
           return 'Please select a city';
         }
         // ✅ Check if input is in list
-        if (!AppStrings.indianCities.contains(value)) {
+        if (!data.contains(value)) {
           return 'Please select a valid option from the list';
         }
         return null;

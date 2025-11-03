@@ -23,6 +23,9 @@ class EmployeeProfileState {
  final List<LocalJsonItemModel>? degrees ;
  final List<LocalJsonItemModel>? institutes ;
  final List<LocalJsonItemModel>? positions ;
+ final List<LocalJsonItemModel>? countries ;
+ final List<LocalJsonItemModel>? cities ;
+ final List<StateModel>? states ;
 
 
   EmployeeProfileState({
@@ -39,6 +42,9 @@ class EmployeeProfileState {
     this.degrees,
     this.institutes,
     this.positions,
+    this.countries,
+    this.cities,
+    this.states,
   });
 
   factory EmployeeProfileState.initial() =>
@@ -58,6 +64,9 @@ class EmployeeProfileState {
     List<LocalJsonItemModel>? degrees ,
     List<LocalJsonItemModel>? institutes ,
     List<LocalJsonItemModel>? positions ,
+    List<LocalJsonItemModel>? countries ,
+    List<LocalJsonItemModel>? cities ,
+    List<StateModel>? states ,
   }) {
     return EmployeeProfileState(
       profileData: profileData ?? this.profileData,
@@ -73,6 +82,9 @@ class EmployeeProfileState {
       degrees: degrees ?? this.degrees,
       institutes: institutes ?? this.institutes,
       positions: positions ?? this.positions,
+      countries: countries ?? this.countries,
+      cities: cities ?? this.cities,
+      states: states ?? this.states,
     );
   }
 }

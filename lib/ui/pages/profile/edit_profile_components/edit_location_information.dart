@@ -3,15 +3,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
+import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
+import '../../auth/signup_employer/widgets/select_city.dart';
+import '../../auth/signup_employer/widgets/select_state.dart';
 
 class EditLocationInformation extends ConsumerWidget {
   const EditLocationInformation({super.key});
+
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(editEmployeeProfileProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
+
 
     return Card(
       elevation: 2,
@@ -45,38 +50,46 @@ class EditLocationInformation extends ConsumerWidget {
             textCapitalization: TextCapitalization.words,
           ),
           gapH16(),
-
-          // City Field
-          TransparentFormField(
+          TransparentDropdownField(
             isRequired: true,
-            controller: controller.cityController,
-            hint: "Enter City",
+            hint: "Select your city",
             label: "City",
             icon: Icons.location_city_outlined,
-            textInputAction: TextInputAction.next,
+            items: state.cities?.map((e)=>e.name).toList() ?? [],
+            value: controller.cityController.text,
             validator: AppValidators.fieldEmpty("City"),
-            textCapitalization: TextCapitalization.words,
+            onChanged: (value) {
+              controller.cityController.text = value ?? "";
+            },
           ),
           gapH16(),
-          TransparentFormField(
+          TransparentDropdownField(
             isRequired: true,
-            controller: controller.stateController,
+            hint: "Select your state",
             label: "State",
-            hint: "Select State",
             icon: Icons.map_outlined,
-            textInputAction: TextInputAction.next,
+            items: state.states?.map((e)=>e.name).toList() ?? [],
+            value: controller.stateController.text,
             validator: AppValidators.fieldEmpty("State"),
-            textCapitalization: TextCapitalization.words,
+            onChanged: (value) {
+              controller.stateController.text = value ?? "";
+            },
           ),
+
           gapH16(),
-          TransparentFormField(
-            controller: controller.countryController,
+          TransparentDropdownField(
+            isRequired: true,
+            hint: "Select your country",
             label: "Country",
-            hint: "Select Country",
             icon: Icons.public_outlined,
-            textInputAction: TextInputAction.next,
-            textCapitalization: TextCapitalization.words,
+            items: state.countries?.map((e)=>e.name).toList() ?? [],
+            value: controller.countryController.text,
+            validator: AppValidators.fieldEmpty("Country"),
+            onChanged: (value) {
+              controller.countryController.text = value ?? "";
+            },
           ),
+
 
           gapH16(),
           TransparentFormField(

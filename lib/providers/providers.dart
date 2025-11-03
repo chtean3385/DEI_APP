@@ -350,6 +350,8 @@ StateNotifierProvider.autoDispose<JobTypesController, JobTypeListState>((ref) {
 });
 
 
+
+
 /// applied jobs
 final appliedJobsProvider =StateNotifierProvider.autoDispose<AppliedJobsController, AppliedJobState>((ref) {
   return AppliedJobsController();
