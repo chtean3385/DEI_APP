@@ -30,20 +30,44 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
     "Rejected",
   ];
 
+  final _scrollController = ScrollController();
+
   @override
   void initState() {
     super.initState();
 
-    /// Delay ensures provider is ready after widget binding
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final controller = ref.read(employeeAppliedJobsProvider.notifier);
-
-      // Determine which status to fetch — from params or default
-      final initialStatus =
-          widget.params?['status']?.toString() ?? "All";
-
+      final initialStatus = widget.params?['status']?.toString() ?? "All";
       controller.fetchJobs(status: initialStatus);
+
+      _scrollToSelected(initialStatus);
     });
+  }
+
+  void _scrollToSelected(String status) {
+    final index = categories.indexOf(status);
+    if (index == -1 || !_scrollController.hasClients) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final screenWidth = MediaQuery.of(context).size.width;
+      const chipWidth = 90.0; // tweak this based on your actual chip width
+      final offset = (index * chipWidth) - (screenWidth / 2) + (chipWidth / 2);
+
+      // Smooth, decelerating scroll feel
+      _scrollController.animateTo(
+        offset.clamp(0, _scrollController.position.maxScrollExtent),
+        duration: const Duration(milliseconds: 800), // slightly longer for fluid motion
+        curve: Curves.easeOutCubic, // smoother deceleration curve
+      );
+    });
+  }
+
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,6 +80,7 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
         SizedBox(
           height: 48,
           child: ListView.builder(
+            controller: _scrollController, // ✅ attach controller
             scrollDirection: Axis.horizontal,
             itemCount: categories.length,
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -69,18 +94,18 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
                   visualDensity:
                   const VisualDensity(horizontal: -4, vertical: -4),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  labelPadding:
-                  const EdgeInsets.symmetric(horizontal: 8),
+                  labelPadding: const EdgeInsets.symmetric(horizontal: 8),
                   padding: EdgeInsets.zero,
                   label: Text(option),
                   selected: isSelected,
-                  onSelected: (_) =>
-                      controller.fetchJobs(status: option),
+                  onSelected: (_) {
+                    controller.fetchJobs(status: option);
+                    _scrollToSelected(option); // ✅ scroll on tap
+                  },
                   selectedColor: AppColors.primaryColor,
                   labelStyle: context.textTheme.bodyMedium?.copyWith(
-                    color: isSelected
-                        ? Colors.white
-                        : AppColors.primaryColor,
+                    color:
+                    isSelected ? Colors.white : AppColors.primaryColor,
                   ),
                   backgroundColor: Colors.white,
                   shape: StadiumBorder(
@@ -117,8 +142,8 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
               if (state.totalCount != null)
                 state.pageState == PageState.loading
                     ? const ShimmerLoader(
-                  child: ShimmerBox(
-                      height: 12, width: 60, radius: 4),
+                  child:
+                  ShimmerBox(height: 12, width: 60, radius: 4),
                 )
                     : Text(
                   "${state.totalCount ?? 0} Applications",
@@ -133,3 +158,4 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
     );
   }
 }
+
