@@ -8,6 +8,7 @@ class SelectedKeySkills extends StatelessWidget {
   final GlobalKey<FormState>? formKey;
   final bool showRemoveOption;
   final Color? borderColor;
+  final String? label;
 
   const SelectedKeySkills({
     Key? key,
@@ -15,7 +16,7 @@ class SelectedKeySkills extends StatelessWidget {
     required this.onRemove,
     this.formKey,
     this.showRemoveOption = true,
-    this.borderColor ,
+    this.borderColor, this.label ,
   }) : super(key: key);
 
   @override
@@ -23,7 +24,7 @@ class SelectedKeySkills extends StatelessWidget {
     return FormField<List<String>>(
       validator: (_) {
         if (selectedSkill.isEmpty) {
-          return "Please select at least one skill";
+          return "Please select at least one ${label?.toLowerCase() ?? "skill"}";
         }
         return null;
       },
@@ -34,7 +35,7 @@ class SelectedKeySkills extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (selectedSkill.isNotEmpty)    Text(
-                'Selected Skills',
+                'Selected ${label ?? "Skills"}',
                 style: context.textTheme.bodyMedium?.copyWith(
                   color: Colors.black54,
                 ),

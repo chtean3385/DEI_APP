@@ -235,9 +235,7 @@ class EditEmployeeProfileController
         department: state.profileData?.department, // keep existing if not changed
         category: state.profileData?.category,
         salaryRange: state.profileData?.salaryRange,
-        preferredLocations: preferredLocationController.text.isNotEmpty
-            ? preferredLocationController.text.split(',').map((e) => e.trim()).toList()
-            : state.profileData?.preferredLocations,
+        preferredLocations: state.profileData?.preferredLocations,
         education: updatedEducation,
         experience: updatedExperience,
         skills: state.profileData?.skills,
@@ -283,6 +281,7 @@ class EditEmployeeProfileController
 
   // Get selected skills directly from the model
   List<String> get selectedSkills => state.profileData?.skills ?? [];
+  List<String> get selectedLocations => state.profileData?.preferredLocations ?? [];
 
   // Add skill
   void addSkill(String skill) {
@@ -312,6 +311,35 @@ class EditEmployeeProfileController
     state = state.copyWith(
       profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
         skills: currentSkills,
+      ),
+    );
+  }
+  void addPreferredLocation(String location) {
+    if (location.isEmpty) return;
+
+    final currentLocations = List<String>.from(selectedLocations);
+
+    if (!currentLocations.contains(location)) {
+      currentLocations.add(location);
+
+      state = state.copyWith(
+        profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+          preferredLocations: currentLocations,
+        ),
+      );
+    }
+
+    skillController.clear();
+  }
+  // Remove skill
+  void removePreferredLocation(String location) {
+    final currentSelections = List<String>.from(selectedLocations);
+
+    currentSelections.remove(location);
+
+    state = state.copyWith(
+      profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+        preferredLocations: currentSelections,
       ),
     );
   }

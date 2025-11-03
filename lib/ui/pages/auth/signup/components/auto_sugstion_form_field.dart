@@ -219,19 +219,24 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: ListView.builder(
-            padding: EdgeInsets.zero,
-            itemCount: _filteredSuggestions.length,
-            itemBuilder: (context, index) {
-              final suggestion = _filteredSuggestions[index];
-              return _SuggestionTile(
-                suggestion: suggestion,
-                onTap: () => _onSuggestionTap(suggestion),
-                query: widget.controller.text.trim(),
-                caseSensitive: widget.caseSensitive,
-                isLast: index == _filteredSuggestions.length - 1,
-              );
-            },
+          child: Scrollbar( // ✅ Added Scrollbar
+            thumbVisibility: true, // always show scrollbar when scrollable
+            radius: const Radius.circular(8), // rounded scrollbar thumb
+            thickness: 10, // scrollbar width
+            child: ListView.builder(
+              padding: EdgeInsets.zero,
+              itemCount: _filteredSuggestions.length,
+              itemBuilder: (context, index) {
+                final suggestion = _filteredSuggestions[index];
+                return _SuggestionTile(
+                  suggestion: suggestion,
+                  onTap: () => _onSuggestionTap(suggestion),
+                  query: widget.controller.text.trim(),
+                  caseSensitive: widget.caseSensitive,
+                  isLast: index == _filteredSuggestions.length - 1,
+                );
+              },
+            ),
           ),
         ),
       ),

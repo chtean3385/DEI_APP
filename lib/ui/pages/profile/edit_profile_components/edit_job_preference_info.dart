@@ -7,6 +7,8 @@ import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
 import '../../../../models/job/job_type_model.dart';
+import '../../auth/signup/widgets/key_skills/selected_key_skills.dart';
+import '../components/set_prefered_locations.dart';
 
 class EditJobPreferenceInfo extends ConsumerWidget {
   const EditJobPreferenceInfo({super.key});
@@ -85,15 +87,30 @@ class EditJobPreferenceInfo extends ConsumerWidget {
             },
           ),
           gapH16(),
-          TransparentFormField(
+          SelectPreferredLocations(
             controller: controller.preferredLocationController,
-            hint: "Locations separated by commas",
-            label: "Preferred Locations",
-            icon: Icons.location_on_outlined,
-            textInputAction: TextInputAction.done,
-            validator: AppValidators.fieldEmpty("Preferred Locations"),
-            textCapitalization: TextCapitalization.words,
+            data:  state.cities?.map((e)=>e.name).toList() ?? [],
+            onSkillSelected: controller.addPreferredLocation,
+
           ),
+          gapH16(),
+
+          /// 🔽 Show selected skills
+
+          SelectedKeySkills(
+            selectedSkill: state.profileData?.preferredLocations ?? [],
+            onRemove: controller.removeSkill,
+            label: "Location",
+          ),
+          // TransparentFormField(
+          //   controller: controller.preferredLocationController,
+          //   hint: "Locations separated by commas",
+          //   label: "Preferred Locations",
+          //   icon: Icons.location_on_outlined,
+          //   textInputAction: TextInputAction.done,
+          //   validator: AppValidators.fieldEmpty("Preferred Locations"),
+          //   textCapitalization: TextCapitalization.words,
+          // ),
 
         ],
       ),
