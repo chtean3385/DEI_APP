@@ -63,7 +63,11 @@ class DashboardCard extends StatelessWidget {
                   ],
                 ),
                 child: Center(
-                  child: Icon(getDashboardIcon(item.key), size: 24,color: AppColors.primaryColor,),
+                  child: Icon(
+                    getDashboardIcon(item.key),
+                    size: 24,
+                    color: AppColors.primaryColor,
+                  ),
                 ),
               ),
               const SizedBox(width: 16),
@@ -115,7 +119,7 @@ class ShimmerDashboardCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white30,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(width: 1,color: Colors.white)
+          border: Border.all(width: 1, color: Colors.white),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),

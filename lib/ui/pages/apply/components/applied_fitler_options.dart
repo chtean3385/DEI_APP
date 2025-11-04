@@ -20,15 +20,29 @@ class AppliedFilterOptions extends ConsumerStatefulWidget {
 }
 
 class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
-  final categories = [
-    "All",
-    "Pending",
-    "Accepted",
-    "Interviewing",
-    "Negotiation",
-    "Hired",
-    "Rejected",
-  ];
+  // ✅ Map API keys to display labels
+  final Map<String, String> keyToLabelMap = {
+    "allApplications": "All",
+    "pending": "Pending",
+    "accepted": "Accepted",
+    "interviewing": "Interviewing",
+    "negotiation": "Negotiation",
+    "hired": "Hired",
+    "rejected": "Rejected",
+  };
+
+  // ✅ Reverse map to get API key from label
+  String getKeyFromLabel(String label) {
+    return keyToLabelMap.entries
+        .firstWhere(
+          (e) => e.value == label,
+          orElse: () => const MapEntry("allApplications", "All"),
+        )
+        .key;
+  }
+
+  // ✅ List of display labels (used for chips)
+  late final List<String> categories = keyToLabelMap.values.toList();
 
   final _scrollController = ScrollController();
 
@@ -38,31 +52,35 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final controller = ref.read(employeeAppliedJobsProvider.notifier);
-      final initialStatus = widget.params?['status']?.toString() ?? "All";
-      controller.fetchJobs(status: initialStatus);
 
-      _scrollToSelected(initialStatus);
+      // ✅ Get the API key from params
+      final apiKey = widget.params?['status']?.toString() ?? "allApplications";
+      final initialLabel =
+          keyToLabelMap[apiKey] ?? "All"; // map to display label
+      controller.resetState();
+      // ✅ Fetch using API key
+      controller.fetchJobs(status: apiKey);
+
+      _scrollToSelected(initialLabel);
     });
   }
 
-  void _scrollToSelected(String status) {
-    final index = categories.indexOf(status);
+  void _scrollToSelected(String label) {
+    final index = categories.indexOf(label);
     if (index == -1 || !_scrollController.hasClients) return;
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final screenWidth = MediaQuery.of(context).size.width;
-      const chipWidth = 90.0; // tweak this based on your actual chip width
+      const chipWidth = 90.0; // approximate width per chip
       final offset = (index * chipWidth) - (screenWidth / 2) + (chipWidth / 2);
 
-      // Smooth, decelerating scroll feel
       _scrollController.animateTo(
         offset.clamp(0, _scrollController.position.maxScrollExtent),
-        duration: const Duration(milliseconds: 800), // slightly longer for fluid motion
-        curve: Curves.easeOutCubic, // smoother deceleration curve
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeOutCubic,
       );
     });
   }
-
 
   @override
   void dispose() {
@@ -75,37 +93,42 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
     final state = ref.watch(employeeAppliedJobsProvider);
     final controller = ref.read(employeeAppliedJobsProvider.notifier);
 
+    final currentApiKey = state.status ?? "allApplications";
+    final currentLabel = keyToLabelMap[currentApiKey] ?? "All";
+
     return Column(
       children: [
         SizedBox(
           height: 48,
           child: ListView.builder(
-            controller: _scrollController, // ✅ attach controller
+            controller: _scrollController,
             scrollDirection: Axis.horizontal,
             itemCount: categories.length,
             padding: const EdgeInsets.symmetric(horizontal: 16),
             itemBuilder: (_, i) {
-              final option = categories[i];
-              final isSelected = (state.status ?? "All") == option;
+              final label = categories[i];
+              final isSelected = currentLabel == label;
 
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: ChoiceChip(
-                  visualDensity:
-                  const VisualDensity(horizontal: -4, vertical: -4),
+                  visualDensity: const VisualDensity(
+                    horizontal: -4,
+                    vertical: -4,
+                  ),
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   labelPadding: const EdgeInsets.symmetric(horizontal: 8),
                   padding: EdgeInsets.zero,
-                  label: Text(option),
+                  label: Text(label),
                   selected: isSelected,
                   onSelected: (_) {
-                    controller.fetchJobs(status: option);
-                    _scrollToSelected(option); // ✅ scroll on tap
+                    final apiKey = getKeyFromLabel(label);
+                    controller.fetchJobs(status: apiKey); // ✅ use API key
+                    _scrollToSelected(label);
                   },
                   selectedColor: AppColors.primaryColor,
                   labelStyle: context.textTheme.bodyMedium?.copyWith(
-                    color:
-                    isSelected ? Colors.white : AppColors.primaryColor,
+                    color: isSelected ? Colors.white : AppColors.primaryColor,
                   ),
                   backgroundColor: Colors.white,
                   shape: StadiumBorder(
@@ -130,8 +153,7 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
               Expanded(
                 child: Text(
                   "Track the status of all your job applications in one place",
-                  style:
-                  context.textTheme.displaySmall?.copyWith(fontSize: 10),
+                  style: context.textTheme.displaySmall?.copyWith(fontSize: 10),
                   textAlign: TextAlign.left,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -142,15 +164,14 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
               if (state.totalCount != null)
                 state.pageState == PageState.loading
                     ? const ShimmerLoader(
-                  child:
-                  ShimmerBox(height: 12, width: 60, radius: 4),
-                )
+                        child: ShimmerBox(height: 12, width: 60, radius: 4),
+                      )
                     : Text(
-                  "${state.totalCount ?? 0} Applications",
-                  style: context.textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
+                        "${state.totalCount ?? 0} Applications",
+                        style: context.textTheme.displaySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
             ],
           ),
         ),
@@ -158,4 +179,3 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
     );
   }
 }
-

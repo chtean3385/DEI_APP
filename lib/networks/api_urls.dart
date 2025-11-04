@@ -99,6 +99,7 @@ class ApiUrls {
   // DashBoard
 
   static String employeeDashBoardData = 'job/employee-dashboard-counts';
+  static String employerDashBoardData = 'job/employer-dashboard-counts';
 
 
 

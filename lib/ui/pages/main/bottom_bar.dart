@@ -24,14 +24,17 @@ class BottomBar extends StatefulWidget {
 
 class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 0;
+  Map<String, dynamic>? _params;
   final _advancedDrawerController = AdvancedDrawerController();
   @override
   void initState() {
     super.initState();
     _currentIndex = widget.initialPage;
+    _params = widget.params;
   }
 
   void _onTap(int index) {
+    _params = null;
     setState(() => _currentIndex = index);
   }
 
@@ -151,7 +154,7 @@ class _BottomBarState extends State<BottomBar> {
       case 0:
         return HomeScreen();
       case 1:
-        return  ApplyScreen(params: widget.params);
+        return  ApplyScreen(params: _params);
       case 2:
         return const SavedJobsView();
       case 3:

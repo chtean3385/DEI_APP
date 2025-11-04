@@ -10,7 +10,7 @@ import '../../../constants/enums.dart';
 
 class EmployeeAppliedJobsController extends StateNotifier<JobListState> {
   EmployeeAppliedJobsController() : super(JobListState.initial()) {
-    fetchJobs();
+    // fetchJobs();
   }
 
   final JobService _jobService = JobService();
@@ -19,6 +19,10 @@ class EmployeeAppliedJobsController extends StateNotifier<JobListState> {
   void dispose() {
     debugPrint("🔥 EmployeeAppliedJobsController disposed");
     super.dispose();
+  }
+
+  void resetState() {
+    state = state.copyWith(status: null, data: [], totalCount: 0);
   }
 
   Future<void> fetchJobs({String? status}) async {
@@ -32,7 +36,9 @@ class EmployeeAppliedJobsController extends StateNotifier<JobListState> {
     try {
       final BaseModel result = await _jobService.getAppliedJobs(
         page: 1,
-        status: state.status == "All" ? "" : state.status?.toLowerCase(),
+        status: state.status == "allApplications"
+            ? ""
+            : state.status?.toLowerCase(),
       );
       final userId = await SharedPreferenceRepository.getUserId();
       final Data = (result.data as List)
