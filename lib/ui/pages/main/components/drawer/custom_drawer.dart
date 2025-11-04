@@ -141,6 +141,46 @@ class CustomDrawer extends StatelessWidget {
             _drawerItem(Icons.info_outline, "About us", false, // bold
               null,  // badge
                   () =>AppNavigator.loadAboutUsScreen()),
+            Column(
+              children: [
+                _drawerItem(
+                  Icons.description_outlined,
+                  'Terms & Conditions',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Terms & Conditions'),
+                ),
+                _drawerItem(
+                  Icons.lock_clock_outlined,
+                  'Security',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Security'),
+                ),
+                _drawerItem(
+                  Icons.rule_rounded,
+                  'Terms of Use',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Terms of Use'),
+                ),
+                _drawerItem(
+                  Icons.accessibility_new_outlined,
+                  'Accessibility',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Accessibility'),
+                ),
+                _drawerItem(
+                  Icons.privacy_tip_outlined,
+                  'Privacy Policy',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Privacy Policy'),
+                ),
+              ],
+            ),
+
             _drawerItem(
               Icons.logout,
               "Logout",

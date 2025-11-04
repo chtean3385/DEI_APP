@@ -93,6 +93,7 @@ class ApiUrls {
 // common
 
   static String commonFooterPageData = 'footer-page/get-all';
+  static String getHtmlPageData(String pageName) => 'footer-page/get-by-name/$pageName';
 
 
 

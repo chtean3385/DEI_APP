@@ -10,8 +10,8 @@ class CommonService {
 
 
 
-  Future<BaseModel> getFooterPageDataData() async {
-    String url = await ApiUrls.commonFooterPageData;
+  Future<BaseModel> getHtmlPageContent(String pageName) async {
+    String url = await ApiUrls.getHtmlPageData(pageName);
     final result = await _apiHandler.get(
       url: url,
     );

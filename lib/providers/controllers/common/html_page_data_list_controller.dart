@@ -9,7 +9,6 @@ import '../../../widgets/others/snack_bar.dart';
 
 class HtmlPageDataListController extends StateNotifier<HtmlPageDataListState> {
   HtmlPageDataListController() : super(HtmlPageDataListState.initial()) {
-    fetchHtmlPagePageData();
   }
 
   final CommonService _commonService = CommonService();
@@ -22,13 +21,11 @@ class HtmlPageDataListController extends StateNotifier<HtmlPageDataListState> {
     super.dispose();
   }
 
-  Future<void> fetchHtmlPagePageData() async {
+  Future<void> fetchHtmlPageData({required String pageName}) async {
     state = state.copyWith(pageState: PageState.loading);
     try {
-      final result = await _commonService.getFooterPageDataData();
-      final Data = (result.data as List)
-          .map((e) => HtmlPagePageDataModel.fromJson(e))
-          .toList();
+      final result = await _commonService.getHtmlPageContent(pageName);
+      final HtmlPagePageDataModel Data = HtmlPagePageDataModel.fromJson(result.data);
       state = state.copyWith(pageState: PageState.success, data: Data);
     } catch (e) {
       state = state.copyWith(pageState: PageState.error);

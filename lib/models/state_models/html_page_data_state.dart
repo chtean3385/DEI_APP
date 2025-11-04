@@ -4,7 +4,7 @@ import '../on_board/on_board_model.dart';
 
 class HtmlPageDataListState {
   final PageState? pageState;
-  final List<HtmlPagePageDataModel>? data;
+  final HtmlPagePageDataModel? data;
   final String? errorMessage;
 
   HtmlPageDataListState({ this.pageState, this.data, this.errorMessage});
@@ -17,7 +17,7 @@ class HtmlPageDataListState {
 
   HtmlPageDataListState copyWith({
     PageState? pageState,
-    List<HtmlPagePageDataModel>? data,
+    HtmlPagePageDataModel? data,
     String? errorMessage,
   }) {
     return HtmlPageDataListState(
