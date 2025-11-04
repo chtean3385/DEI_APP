@@ -6,17 +6,15 @@ import '../../../../../../constants/app_colors.dart';
 import '../../../../../../constants/enums.dart';
 import '../../../../../../models/state_models/job/job_list_state.dart';
 import '../../../../../../providers/providers.dart';
+import '../../../../widgets/others/custom_loader.dart';
 import '../../search/components/search_job_card.dart';
-
-
-
-
 
 class EmployeeSavedJobListView extends ConsumerStatefulWidget {
   const EmployeeSavedJobListView();
 
   @override
-  ConsumerState<EmployeeSavedJobListView> createState() => _SearchResultsViewState();
+  ConsumerState<EmployeeSavedJobListView> createState() =>
+      _SearchResultsViewState();
 }
 
 class _SearchResultsViewState extends ConsumerState<EmployeeSavedJobListView> {
@@ -30,7 +28,7 @@ class _SearchResultsViewState extends ConsumerState<EmployeeSavedJobListView> {
       final state = ref.read(employeeSavedJobsProvider);
 
       if (_scrollController.position.pixels >=
-          _scrollController.position.maxScrollExtent - 200 &&
+              _scrollController.position.maxScrollExtent - 200 &&
           !state.isLoadingMore &&
           state.currentPage < state.lastPage) {
         ref.read(employeeSavedJobsProvider.notifier).loadMore();
@@ -50,7 +48,9 @@ class _SearchResultsViewState extends ConsumerState<EmployeeSavedJobListView> {
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();
-    }  else if (state.data?.isEmpty == true) {
+    } else if (state.pageState == PageState.error) {
+      return SomethingWentWrong();
+    } else if (state.data?.isEmpty == true) {
       return SavedJobsEmptyScreen();
     } else {
       return _data(state);
@@ -68,7 +68,8 @@ class _SearchResultsViewState extends ConsumerState<EmployeeSavedJobListView> {
           return SearchJobCard(
             key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
             jobModel: item,
-            onTap: ()=>AppNavigator.loadJobDetailsScreen(jobId: item.id ?? "",),
+            onTap: () =>
+                AppNavigator.loadJobDetailsScreen(jobId: item.id ?? ""),
           );
         } else {
           // bottom loader

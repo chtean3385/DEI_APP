@@ -96,6 +96,10 @@ class ApiUrls {
   static String getHtmlPageData(String pageName) => 'footer-page/get-by-name/$pageName';
 
 
+  // DashBoard
+
+  static String employeeDashBoardData = 'job/employee-dashboard-counts';
+
 
 
 }

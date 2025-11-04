@@ -23,6 +23,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/enums.dart';
 import '../models/state_models/applied/applied_job_state.dart';
 import '../models/state_models/auth_state.dart';
+import '../models/state_models/dash_board/dash_board_state.dart';
 import '../models/state_models/disability/disability_bottom_state.dart';
 import '../models/state_models/disability/disability_inclusion_steps_state.dart';
 import '../models/state_models/disability/disability_title_state.dart';
@@ -79,6 +80,7 @@ import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
 import 'controllers/common/html_page_data_list_controller.dart';
+import 'controllers/dash_board/dash_board_controller.dart';
 import 'controllers/disability/disability_bottom_section_controller.dart';
 import 'controllers/disability/disability_inclusion_setps_controller.dart';
 import 'controllers/disability/disability_title_section_controller.dart';
@@ -155,10 +157,15 @@ AutoDisposeNotifierProvider<SignupFlowController, SignupFlowState>(
 final employerSignupFlowControllerProvider =
 AutoDisposeNotifierProvider<EmployerSignupFlowController, SignupFlowState>(
     EmployerSignupFlowController.new);
-
+///common html content screens
 final commonHtmlPageContentsProvider =
 StateNotifierProvider.autoDispose<HtmlPageDataListController, HtmlPageDataListState>((ref) {
   return HtmlPageDataListController();
+});
+///dashboard dynamic counts
+final dashBoardProvider =
+StateNotifierProvider.autoDispose<DashBoardController, DashBoardState>((ref) {
+  return DashBoardController();
 });
 
 ///job categories

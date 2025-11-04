@@ -66,8 +66,33 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaChartPie': FontAwesomeIcons.chartPie,
   'FaUserMinus': FontAwesomeIcons.userMinus,
   'FaHandHoldingHeart': FontAwesomeIcons.handHoldingHeart,
+
+  // --- Dashboard Icons ---
+  'FaDashboardClipboardList': FontAwesomeIcons.clipboardList,
+  'FaDashboardClock': FontAwesomeIcons.clock,
+  'FaDashboardCheckCircle': FontAwesomeIcons.checkCircle,
+  'FaDashboardComments': FontAwesomeIcons.comments,
+  'FaDashboardHandshake': FontAwesomeIcons.handshake,
+  'FaDashboardUserTie': FontAwesomeIcons.userTie,
+  'FaDashboardTimesCircle': FontAwesomeIcons.timesCircle,
+  'FaDashboardBookmark': FontAwesomeIcons.bookmark,
+};
+/// Maps API "key" values to specific FontAwesome icons for dashboard items.
+final Map<String, IconData> dashboardIconMap = {
+  'allApplications': FontAwesomeIcons.clipboardList,
+  'savedJobs': FontAwesomeIcons.bookmark,
+  'pending': FontAwesomeIcons.clock,
+  'accepted': FontAwesomeIcons.checkCircle,
+  'interviewing': FontAwesomeIcons.comments,
+  'negotiation': FontAwesomeIcons.handshake,
+  'hired': FontAwesomeIcons.userTie,
+  'rejected': FontAwesomeIcons.timesCircle,
 };
 
 IconData getFontAwesomeIcon(String? iconName) {
   return fontAwesomeMap[iconName] ?? Icons.circle;
+}
+
+IconData getDashboardIcon(String? key) {
+  return dashboardIconMap[key] ?? Icons.circle;
 }

@@ -24,7 +24,7 @@ class EmployerDashBoardAllScreen extends StatelessWidget {
         itemCount: items.length,
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         itemBuilder: (context, index) {
-          return DashboardCard(item: items[index]);
+          // return DashboardCard(item: items[index]);
         },
         separatorBuilder: (c, s) => Divider(color: Colors.white70, height: 12),
       ),

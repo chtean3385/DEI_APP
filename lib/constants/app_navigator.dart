@@ -321,14 +321,14 @@ class AppNavigator {
   }
 
   static Map<String, Function(Map<String, dynamic>? params)> routeMap = {
-    "All": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
-    "Saved": (params) => AppNavigator.toBottomBar(initialPage: 2),
-    "Pending": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
-    "Accepted": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
-    "Interviewing": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
-    "Negotiation": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
-    "Hired": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
-    "Rejected": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "allApplications": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "savedJobs": (params) => AppNavigator.toBottomBar(initialPage: 2),
+    "pending": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "accepted": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "interviewing": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "negotiation": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "hired": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
+    "rejected": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),
   };
 
   static loadOnBoarding() {
