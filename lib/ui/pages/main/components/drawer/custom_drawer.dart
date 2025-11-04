@@ -15,11 +15,10 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color:Colors.white,
+        color: Colors.white,
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 20),
           children: [
-
             // 🔹 Profile Section
             Container(
               padding: const EdgeInsets.all(16),
@@ -36,15 +35,19 @@ class CustomDrawer extends StatelessWidget {
                           value: 0.65,
                           strokeWidth: 5,
                           backgroundColor: Colors.black12,
-                          valueColor:
-                          const AlwaysStoppedAnimation(AppColors.primaryColor),
+                          valueColor: const AlwaysStoppedAnimation(
+                            AppColors.primaryColor,
+                          ),
                         ),
                       ),
                       const CircleAvatar(
                         radius: 25,
                         backgroundColor: Colors.grey,
-                        child:
-                        Icon(Icons.person, size: 30, color: Colors.white),
+                        child: Icon(
+                          Icons.person,
+                          size: 30,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
@@ -128,56 +131,68 @@ class CustomDrawer extends StatelessWidget {
               "Career Explorers",
               false,
               null,
-                  () => AppNavigator.loadCareerExplorersScreen(),
+              () => AppNavigator.loadCareerExplorersScreen(),
             ),
             _drawerItem(
               Icons.corporate_fare,
               "Corporates Championing",
               false,
               null,
-                  () => AppNavigator.loadCorporatesChampioningScreen(),
+              () => AppNavigator.loadCorporatesChampioningScreen(),
             ),
 
-            _drawerItem(Icons.info_outline, "About us", false, // bold
-              null,  // badge
-                  () =>AppNavigator.loadAboutUsScreen()),
+            _drawerItem(
+              Icons.info_outline,
+              "About us",
+              false, // bold
+              null, // badge
+              () => AppNavigator.loadAboutUsScreen(),
+            ),
             Column(
               children: [
+                _drawerItem(
+                  Icons.privacy_tip_outlined,
+                  'Our Team',
+                  false,
+                  null,
+                      () => AppNavigator.loadOurTeams(),
+                ),
                 _drawerItem(
                   Icons.description_outlined,
                   'Terms & Conditions',
                   false,
                   null,
-                      () => AppNavigator.loadHtmlDetailPage('Terms & Conditions'),
+                  () => AppNavigator.loadHtmlDetailPage('Terms & Conditions'),
                 ),
                 _drawerItem(
                   Icons.lock_clock_outlined,
                   'Security',
                   false,
                   null,
-                      () => AppNavigator.loadHtmlDetailPage('Security'),
+                  () => AppNavigator.loadHtmlDetailPage('Security'),
                 ),
                 _drawerItem(
                   Icons.rule_rounded,
                   'Terms of Use',
                   false,
                   null,
-                      () => AppNavigator.loadHtmlDetailPage('Terms of Use'),
+                  () => AppNavigator.loadHtmlDetailPage('Terms of Use'),
                 ),
                 _drawerItem(
                   Icons.accessibility_new_outlined,
                   'Accessibility',
                   false,
                   null,
-                      () => AppNavigator.loadHtmlDetailPage('Accessibility'),
+                  () => AppNavigator.loadHtmlDetailPage('Accessibility'),
                 ),
                 _drawerItem(
                   Icons.privacy_tip_outlined,
                   'Privacy Policy',
                   false,
                   null,
-                      () => AppNavigator.loadHtmlDetailPage('Privacy Policy'),
+                  () => AppNavigator.loadHtmlDetailPage('Privacy Policy'),
                 ),
+
               ],
             ),
 
@@ -185,12 +200,11 @@ class CustomDrawer extends StatelessWidget {
               Icons.logout,
               "Logout",
               false, // bold
-              null,  // badge
-                  () {
+              null, // badge
+              () {
                 logoutAlertBox();
               },
             ),
-
 
             const SizedBox(height: 20),
           ],
@@ -199,14 +213,13 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-
   Widget _drawerItem(
-      IconData icon,
-      String text, [
-        bool bold = false,
-        String? badge,
-        VoidCallback? onTap, // ✅ added as optional positional param
-      ]) {
+    IconData icon,
+    String text, [
+    bool bold = false,
+    String? badge,
+    VoidCallback? onTap, // ✅ added as optional positional param
+  ]) {
     final theme = Theme.of(navigatorKey.currentContext!);
     return ListTile(
       leading: Icon(icon, color: Colors.black87, size: 20),
@@ -217,7 +230,7 @@ class CustomDrawer extends StatelessWidget {
             text,
             style: theme.textTheme.bodyMedium?.copyWith(
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-              color: Colors.black
+              color: Colors.black,
             ),
           ),
           if (badge != null) ...[
@@ -238,8 +251,6 @@ class CustomDrawer extends StatelessWidget {
       onTap: onTap, // ✅ use it here
     );
   }
-
-
 }
 
 void logoutAlertBox() {
@@ -248,6 +259,7 @@ void logoutAlertBox() {
     sBtnFunction: () => signOut(),
   );
 }
+
 Future<void> signOut() async {
   await SharedPreferenceRepository.setToken("");
   await SharedPreferenceRepository.setUserId("");
@@ -255,6 +267,7 @@ Future<void> signOut() async {
   await SharedPreferenceRepository.setHasUploadedResume(false);
   AppNavigator.loadSignInScreen();
 }
+
 Future<void> forceLogout({String? message}) async {
   await SharedPreferenceRepository.setToken("");
   await SharedPreferenceRepository.setUserId("");
@@ -263,7 +276,7 @@ Future<void> forceLogout({String? message}) async {
   WidgetsBinding.instance.addPostFrameCallback((_) {
     AppNavigator.loadSignInScreen();
     if (message != null) {
-      showSnackBar(message,duration: 3);
+      showSnackBar(message, duration: 3);
     }
   });
   await Future.delayed(Duration(seconds: 1));

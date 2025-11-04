@@ -104,7 +104,7 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
 
           // Heading 1
           "h1": Style(
-            fontSize: FontSize(22),
+            fontSize: FontSize(16),
             fontFamily: GoogleFonts.poppins().fontFamily,
             fontWeight: FontWeight.w700,
             color: Colors.black,
@@ -117,7 +117,7 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
 
           // Heading 2
           "h2": Style(
-            fontSize: FontSize(18),
+            fontSize: FontSize(16),
             fontWeight: FontWeight.w600,
             color: Colors.black,
             fontFamily: GoogleFonts.poppins().fontFamily,

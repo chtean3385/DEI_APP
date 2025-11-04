@@ -12,25 +12,14 @@ class HtmlDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: appBarCommon(title: title),
+      appBar: appBarCommon(title: title,arrowLeft: true,titleStyleSmall: true),
       body: SafeArea(child: HtmlContentVIew(pageName: title)),
     );
   }
 }
 
 
-IconData _getIconForPage(String title) {
-  switch (title) {
-    case 'Privacy Policy':
-      return Icons.privacy_tip_rounded;
-    case 'About Us':
-      return Icons.info_rounded;
-    case 'Terms & Conditions':
-      return Icons.description_rounded;
-    default:
-      return Icons.article_rounded;
-  }
-}
+
 
 
 

@@ -6,15 +6,26 @@ class CommonService {
   final ApiHandler _apiHandler;
 
   CommonService({ApiHandler? apiHandler})
-      : _apiHandler = apiHandler ?? ApiHandler();
-
-
+    : _apiHandler = apiHandler ?? ApiHandler();
 
   Future<BaseModel> getHtmlPageContent(String pageName) async {
     String url = await ApiUrls.getHtmlPageData(pageName);
-    final result = await _apiHandler.get(
-      url: url,
-    );
+    final result = await _apiHandler.get(url: url);
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
+
+  Future<BaseModel> getOurTeamData() async {
+    String url = await ApiUrls.employeeOurTeam;
+    final result = await _apiHandler.get(url: url);
     if (result is Map<String, dynamic>) {
       final base = BaseModel.fromJson(result);
       if (base.isSuccess) {

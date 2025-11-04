@@ -91,13 +91,12 @@ class ApiUrls {
 
 
 // common
-
   static String commonFooterPageData = 'footer-page/get-all';
   static String getHtmlPageData(String pageName) => 'footer-page/get-by-name/$pageName';
+  static String employeeOurTeam = 'our-team/get-all';
 
 
   // DashBoard
-
   static String employeeDashBoardData = 'job/employee-dashboard-counts';
   static String employerDashBoardData = 'job/employer-dashboard-counts';
 
