@@ -1,5 +1,7 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
+import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart' as html_parser;
@@ -8,6 +10,7 @@ import 'package:intl/intl.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../main.dart';
 import '../../../../models/common/blog_model.dart';
+import '../../../../widgets/others/custom_theme_button.dart';
 
 class BlogCard extends StatelessWidget {
   final BlogModel item;
@@ -82,6 +85,8 @@ class BlogCard extends StatelessWidget {
                                     color: Colors.black54,
                                   ),
                                 ),
+                                gapH4(),
+
                                 Text(
                                   DateFormat(
                                     'MMMM d, yyyy',
@@ -100,14 +105,50 @@ class BlogCard extends StatelessWidget {
                       ),
                     ),
                     gapW16(),
-                    Text(
-                      "1 mins to read",
-                      maxLines: 1,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.displaySmall?.copyWith(
-                        color: Colors.black54,
-                      ),
+                    Column(
+                      children: [
+                        CustomThemeButton(
+                          child: Row(
+                            children: [
+
+
+                              Text(
+                                "View More",
+                                style: navigatorKey
+                                    .currentContext!
+                                    .textTheme
+                                    .displaySmall
+                                    ?.copyWith(color: AppColors.primaryColor),
+                              ),
+                              gapW6(),
+                              Icon(
+                                Icons.arrow_forward_ios,
+                                size: 12,
+                                color: AppColors.primaryColor,
+                              ),
+                            ],
+                          ),
+                          color: AppColors.primaryColor.withValues(alpha: .1),
+                          borderColor: AppColors.primaryColor.withValues(alpha: .1),
+                          radius: 30,
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 8,
+                            vertical: 4,
+                          ),
+                          onTap: null
+                        ),
+                        gapH4(),
+                        Text(
+                          "1 mins to read",
+                          maxLines: 1,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.displaySmall?.copyWith(
+                            color: Colors.black54,
+                            fontSize: 10
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -141,4 +182,86 @@ Widget commonChip(String tag) {
       ),
     ),
   );
+}
+
+class ShimmerBlogCard extends StatelessWidget {
+  const ShimmerBlogCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return ShimmerLoader(
+      child: Card(
+        elevation: 2,
+        color: Colors.transparent,
+        margin: EdgeInsets.zero,
+        shadowColor: Colors.black,
+        // surfaceTintColor: AppColors.primaryColor,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+        child: Column(
+          children: [
+            ShimmerBox(height: 250, width: double.infinity, radius: 0),
+
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ShimmerBox(height: 24, width: 100, radius: 8),
+                  gapH8(),
+                  ShimmerBox(height: 16, width: double.infinity, radius: 0),
+                  gapH4(),
+                  ShimmerBox(height: 12, width: 250, radius: 8),
+                  gapH8(),
+                  ShimmerBox(height: 12, width: double.infinity, radius: 0),
+                  gapH4(),
+                  ShimmerBox(height: 12, width: double.infinity, radius: 0),
+                  gapH4(),
+                  ShimmerBox(height: 12, width: 250, radius: 8),
+
+                  gapH16(),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      // 🟩 Wrap these in an inner Row to center them together
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // center vertically
+                          children: [
+                            ShimmerBox(height: 40, width: 40, radius: 20),
+                            gapW16(),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ShimmerBox(height: 12, width: 150),
+                                  gapH8(),
+                                  ShimmerBox(height: 10, width: 150),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      gapW16(),
+                      Column(
+                        children: [
+                          ShimmerBox(height: 20, width: 100, radius: 8),
+                          gapH4(),
+                          ShimmerBox(height: 12, width: 100),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

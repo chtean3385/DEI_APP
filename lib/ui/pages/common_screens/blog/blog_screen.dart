@@ -16,48 +16,7 @@ class BlogScreen extends StatelessWidget {
         arrowLeft: true,
         titleStyleSmall: true,
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 16,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Latest Posts",
-                          style: context.textTheme.titleMedium?.copyWith(
-                            color: AppColors.primaryColor,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                        // gapH8(),
-                        Text(
-                          "Don't miss the trending news",
-                          style: context.textTheme.bodyMedium?.copyWith(
-                            color: Colors.black54,
-                          ),
-                          textAlign: TextAlign.left,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              BlogView(),
-            ],
-          ),
-        ),
-      ),
+      body: BlogView(),
     );
   }
 }
