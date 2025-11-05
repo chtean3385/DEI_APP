@@ -15,6 +15,7 @@ import '../ui/pages/auth/otp/otp_screen.dart';
 import '../ui/pages/auth/signup/choose_signup_type.dart';
 import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 import '../ui/pages/career_explorers/career_explorers_screen.dart';
+import '../ui/pages/common_screens/blog/blog_detail_screen.dart';
 import '../ui/pages/common_screens/blog/blog_screen.dart';
 import '../ui/pages/common_screens/faq/faq_screen.dart';
 import '../ui/pages/common_screens/html_detail_page.dart';
@@ -192,6 +193,14 @@ class AppNavigator {
       navigatorKey.currentContext!,
       MaterialPageRoute(
         builder: (context) => BlogScreen(),
+      ),
+    );
+  }
+  static loaBlogDetailsScreen(String id) {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(
+        builder: (context) => BlogDetailScreen(id: id),
       ),
     );
   }

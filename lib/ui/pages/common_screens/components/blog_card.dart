@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
@@ -21,141 +22,144 @@ class BlogCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     final plainText = html_parser.parse(item.description).body?.text ?? '';
-    return Card(
-      elevation: 2,
-      color: Colors.white,
-      margin: EdgeInsets.zero,
-      shadowColor: Colors.black,
-      // surfaceTintColor: AppColors.primaryColor,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
-      child: Column(
-        children: [
-          RoundedNetworkImage(
-            height: 250,
-            width: double.infinity,
-            imageUrl: item.image ?? "",
-            borderRadius: 0,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                commonChip(item.category ?? ""),
-                gapH8(),
-                Text(item.title ?? "", style: theme.labelMedium),
-                gapH8(),
-                Text(
-                  plainText,
-                  style: theme.displaySmall?.copyWith(color: Colors.black87),
-                  maxLines: 3,
-                  softWrap: true,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                gapH16(),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    // 🟩 Wrap these in an inner Row to center them together
-                    Expanded(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        // center vertically
-                        children: [
-                          RoundedNetworkImage(
-                            height: 40,
-                            width: 40,
-                            imageUrl: item.authorImage ?? "",
-                            borderRadius: 20,
-                          ),
-                          gapW16(),
-                          Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  item.authorName ?? "",
-                                  maxLines: 1,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: theme.labelMedium?.copyWith(
-                                    color: Colors.black54,
+    return GestureDetector(
+      onTap:()=>AppNavigator.loaBlogDetailsScreen(item.id ?? "") ,
+      child: Card(
+        elevation: 2,
+        color: Colors.white,
+        margin: EdgeInsets.zero,
+        shadowColor: Colors.black,
+        // surfaceTintColor: AppColors.primaryColor,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+        child: Column(
+          children: [
+            RoundedNetworkImage(
+              height: 250,
+              width: double.infinity,
+              imageUrl: item.image ?? "",
+              borderRadius: 0,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  commonChip(item.category ?? ""),
+                  gapH8(),
+                  Text(item.title ?? "", style: theme.labelMedium),
+                  gapH8(),
+                  Text(
+                    plainText,
+                    style: theme.displaySmall?.copyWith(color: Colors.black87),
+                    maxLines: 3,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  gapH16(),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      // 🟩 Wrap these in an inner Row to center them together
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // center vertically
+                          children: [
+                            RoundedNetworkImage(
+                              height: 40,
+                              width: 40,
+                              imageUrl: item.authorImage ?? "",
+                              borderRadius: 20,
+                            ),
+                            gapW16(),
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    item.authorName ?? "",
+                                    maxLines: 1,
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: theme.labelMedium?.copyWith(
+                                      color: Colors.black54,
+                                    ),
                                   ),
-                                ),
-                                gapH4(),
+                                  gapH4(),
+
+                                  Text(
+                                    DateFormat(
+                                      'MMMM d, yyyy',
+                                    ).format(item.createdAt ?? DateTime.now()),
+                                    maxLines: 1,
+                                    softWrap: true,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: theme.displaySmall?.copyWith(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      gapW16(),
+                      Column(
+                        children: [
+                          CustomThemeButton(
+                            child: Row(
+                              children: [
+
 
                                 Text(
-                                  DateFormat(
-                                    'MMMM d, yyyy',
-                                  ).format(item.createdAt ?? DateTime.now()),
-                                  maxLines: 1,
-                                  softWrap: true,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: theme.displaySmall?.copyWith(
-                                    color: Colors.black54,
-                                  ),
+                                  "View More",
+                                  style: navigatorKey
+                                      .currentContext!
+                                      .textTheme
+                                      .displaySmall
+                                      ?.copyWith(color: AppColors.primaryColor),
+                                ),
+                                gapW6(),
+                                Icon(
+                                  Icons.arrow_forward_ios,
+                                  size: 12,
+                                  color: AppColors.primaryColor,
                                 ),
                               ],
+                            ),
+                            color: AppColors.primaryColor.withValues(alpha: .1),
+                            borderColor: AppColors.primaryColor.withValues(alpha: .1),
+                            radius: 30,
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8,
+                              vertical: 4,
+                            ),
+                            onTap: null
+                          ),
+                          gapH4(),
+                          Text(
+                            "1 mins to read",
+                            maxLines: 1,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.displaySmall?.copyWith(
+                              color: Colors.black54,
+                              fontSize: 10
                             ),
                           ),
                         ],
                       ),
-                    ),
-                    gapW16(),
-                    Column(
-                      children: [
-                        CustomThemeButton(
-                          child: Row(
-                            children: [
-
-
-                              Text(
-                                "View More",
-                                style: navigatorKey
-                                    .currentContext!
-                                    .textTheme
-                                    .displaySmall
-                                    ?.copyWith(color: AppColors.primaryColor),
-                              ),
-                              gapW6(),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 12,
-                                color: AppColors.primaryColor,
-                              ),
-                            ],
-                          ),
-                          color: AppColors.primaryColor.withValues(alpha: .1),
-                          borderColor: AppColors.primaryColor.withValues(alpha: .1),
-                          radius: 30,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
-                          onTap: null
-                        ),
-                        gapH4(),
-                        Text(
-                          "1 mins to read",
-                          maxLines: 1,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          style: theme.displaySmall?.copyWith(
-                            color: Colors.black54,
-                            fontSize: 10
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

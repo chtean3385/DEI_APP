@@ -56,6 +56,11 @@ class CommonService {
     final result = await _apiHandler.get(url: url);
     return result;
   }
+  Future<dynamic> getBlogDetails(String id) async {
+    String url = await ApiUrls.getBlogDetails(id);
+    final result = await _apiHandler.get(url: url);
+    return result;
+  }
   Future<BaseModel> letsConnect() async {
     String url = await ApiUrls.employeeOurTeam;
     final result = await _apiHandler.get(url: url);

@@ -96,6 +96,7 @@ class ApiUrls {
   static String employeeOurTeam = 'our-team/get-all';
   static String faq = 'faq/get-all';
   static String blog = 'blog/get-all';
+  static String getBlogDetails(String id) => 'blog/get-one/$id';
 
 
   // DashBoard

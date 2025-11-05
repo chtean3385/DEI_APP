@@ -63,6 +63,7 @@ class AppDrawables {
   static const String onBoard1 = "assets/drawables/on_boarding/onBoard1.jpeg";
   static const String onBoard2 = "assets/drawables/on_boarding/onBoard2.jpeg";
   static const String onBoard3 = "assets/drawables/on_boarding/onBoard3.jpeg";
+  static const String blogBg = "assets/drawables/blog_detail_bg.jpeg";
 
 
 

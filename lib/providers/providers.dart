@@ -4,6 +4,7 @@ import 'package:dei_champions/models/state_models/about_us/about_vision_state.da
 import 'package:dei_champions/models/state_models/about_us/core_value_state.dart';
 import 'package:dei_champions/models/state_models/about_us/revolution_state.dart';
 import 'package:dei_champions/models/state_models/about_us/what_we_do_state.dart';
+import 'package:dei_champions/models/state_models/common/blog_detail_state.dart';
 import 'package:dei_champions/models/state_models/common/blog_state.dart';
 import 'package:dei_champions/models/state_models/common/faq_state.dart';
 import 'package:dei_champions/models/state_models/employer/candidates_state.dart';
@@ -84,6 +85,7 @@ import 'controllers/auth/employer_register_controller.dart';
 import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
+import 'controllers/common/blog_detail_controller.dart';
 import 'controllers/common/html_page_data_list_controller.dart';
 import 'controllers/common/lets_connect_controller.dart';
 import 'controllers/dash_board/dash_board_controller.dart';
@@ -373,6 +375,11 @@ final blogProvider =
 StateNotifierProvider.autoDispose<BlogController, BlogState>((ref) {
   return BlogController();
 });
+final blogDetailProvider = StateNotifierProvider.autoDispose
+    .family<BlogDetailController, BlogDetailState, String>((ref, id) {
+  return BlogDetailController(id);
+});
+
 
 /// employee profile
 final employeeProfileProvider =StateNotifierProvider.autoDispose<EmployeeProfileController, EmployeeProfileState>((ref) {
