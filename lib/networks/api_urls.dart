@@ -95,6 +95,7 @@ class ApiUrls {
   static String getHtmlPageData(String pageName) => 'footer-page/get-by-name/$pageName';
   static String employeeOurTeam = 'our-team/get-all';
   static String faq = 'faq/get-all';
+  static String blog = 'blog/get-all';
 
 
   // DashBoard

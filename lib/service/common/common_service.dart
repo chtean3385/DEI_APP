@@ -51,6 +51,11 @@ class CommonService {
       throw Exception('Invalid response format');
     }
   }
+  Future<dynamic> getBlogData() async {
+    String url = await ApiUrls.blog;
+    final result = await _apiHandler.get(url: url);
+    return result;
+  }
   Future<BaseModel> letsConnect() async {
     String url = await ApiUrls.employeeOurTeam;
     final result = await _apiHandler.get(url: url);

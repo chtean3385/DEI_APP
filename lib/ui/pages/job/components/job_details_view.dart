@@ -618,6 +618,8 @@ class JobDescriptionView extends StatelessWidget {
   }
 }
 
+
+
 /// A reusable widget to display a list of tags or skills in a wrapped layout.
 class TagList extends StatelessWidget {
   final List<String>? tags;

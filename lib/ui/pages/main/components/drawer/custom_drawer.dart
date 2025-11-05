@@ -171,6 +171,14 @@ class CustomDrawer extends StatelessWidget {
                   null,
                       () => AppNavigator.loadFaqScreen(), // navigate to your FAQ screen
                 ),
+                _drawerItem(
+                  Icons.article_outlined, // more suitable icon for blogs/articles
+                  'Blog',
+                  false,
+                  null,
+                      () => AppNavigator.loaBlogScreen(), // navigate to your Blog screen
+                ),
+
 
                 _drawerItem(
                   Icons.description_outlined,
