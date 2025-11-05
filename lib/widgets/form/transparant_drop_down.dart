@@ -89,6 +89,7 @@ class TransparentDropdownField extends StatelessWidget {
 
               validator: validator,
               isExpanded: true,
+
               dropdownColor: AppColors.primaryColor, // dropdown list bg
               borderRadius: BorderRadius.circular(radius ?? 16),
 
@@ -98,6 +99,8 @@ class TransparentDropdownField extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
 
+
+
               decoration: InputDecoration(
                 prefixIcon: Icon(icon, color: Colors.black54, size: 22),
                 border: InputBorder.none,
@@ -105,6 +108,12 @@ class TransparentDropdownField extends StatelessWidget {
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 8,
                   vertical: 14,
+                ),
+                // 👇 Works perfectly — applies to validation messages
+                errorStyle: TextStyle(
+                  color: Colors.redAccent,
+                  fontWeight: FontWeight.normal,
+                  fontSize: 10,
                 ),
               ),
 
@@ -144,8 +153,14 @@ class TransparentDropdownField extends StatelessWidget {
                   );
                 }).toList();
               },
+              onChanged: (val) {
+                onChanged(val?.toLowerCase());
+                // revalidate the form immediately
+                Form.of(context).validate();
+              },
 
-              onChanged: (val) => onChanged(val?.toLowerCase()),
+
+              // onChanged: (val) => onChanged(val?.toLowerCase()),
               icon: const Icon(
                 Icons.keyboard_arrow_down_rounded,
                 color: Colors.black54,

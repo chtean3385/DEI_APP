@@ -15,6 +15,14 @@ class AppValidators {
       return null;
     };
   }
+  static FormFieldValidator<String> dropDownFieldEmpty(String fieldName) {
+    return (value) {
+      if (value == null || value.isEmpty) {
+        return 'Please select ${fieldName.toLowerCase()}';
+      }
+      return null;
+    };
+  }
   static FormFieldValidator<String> fullName = (value) {
     if (value == null || value.isEmpty) {
       return  'Please enter your full name';

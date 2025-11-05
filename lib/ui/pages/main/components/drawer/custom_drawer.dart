@@ -158,6 +158,14 @@ class CustomDrawer extends StatelessWidget {
                       () => AppNavigator.loadOurTeams(),
                 ),
                 _drawerItem(
+                  Icons.support_agent_outlined,
+                  'Contact',
+                  false,
+                  null,
+                      () => AppNavigator.loadLetsConnect(), // or whatever your contact route is
+                ),
+
+                _drawerItem(
                   Icons.description_outlined,
                   'Terms & Conditions',
                   false,

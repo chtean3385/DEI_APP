@@ -28,6 +28,7 @@ import '../ui/pages/genz/genz_screen.dart';
 import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
 import '../ui/pages/invites/job_invite_details_screen.dart';
 import '../ui/pages/job/job_details_screen.dart';
+import '../ui/pages/lets_connect/lets_connect_screen.dart';
 import '../ui/pages/main/bottom_bar.dart';
 import '../ui/pages/main/similar_jobs_list_screen.dart';
 import '../ui/pages/men_alias/men_alias_screen.dart';
@@ -165,6 +166,14 @@ class AppNavigator {
       navigatorKey.currentContext!,
       MaterialPageRoute(
         builder: (context) => OurTeamScreen(),
+      ),
+    );
+  }
+  static loadLetsConnect() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(
+        builder: (context) => LetsConnectScreen(),
       ),
     );
   }

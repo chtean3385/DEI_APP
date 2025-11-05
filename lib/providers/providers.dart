@@ -81,6 +81,7 @@ import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
 import 'controllers/common/html_page_data_list_controller.dart';
+import 'controllers/common/lets_connect_controller.dart';
 import 'controllers/dash_board/dash_board_controller.dart';
 import 'controllers/disability/disability_bottom_section_controller.dart';
 import 'controllers/disability/disability_inclusion_setps_controller.dart';
@@ -355,6 +356,10 @@ StateNotifierProvider.autoDispose<LgbtqInclusionPointsController, LgbtqInclusion
 final ourTeamProvider =
 StateNotifierProvider.autoDispose<OurTeamController, OurTeamState>((ref) {
   return OurTeamController(ref);
+});
+final letsConnectProvider =
+StateNotifierProvider.autoDispose<LetsConnectController, PageState>((ref) {
+  return LetsConnectController(ref);
 });
 /// employee profile
 final employeeProfileProvider =StateNotifierProvider.autoDispose<EmployeeProfileController, EmployeeProfileState>((ref) {

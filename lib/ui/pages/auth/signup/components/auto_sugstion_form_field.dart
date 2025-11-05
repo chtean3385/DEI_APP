@@ -22,6 +22,8 @@ class AutoSuggestionDropdownField extends StatefulWidget {
   final bool showAbove;
   final FocusNode? focusNode;
   final double? radius;
+  final bool isRequired ;
+
 
 
   const AutoSuggestionDropdownField({
@@ -44,6 +46,8 @@ class AutoSuggestionDropdownField extends StatefulWidget {
     this.label,
     this.onChanged,
     this.radius,
+    this.isRequired = false,
+
   });
 
   @override
@@ -263,9 +267,26 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if(widget.label != null) Text(widget.label!,style:theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.black,fontWeight:  FontWeight.normal
-          ) ),
+          if(widget.label != null)  RichText(
+            text: TextSpan(
+              text: widget.label!,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: Colors.black,
+                fontWeight: FontWeight.normal,
+              ),
+              children: widget.isRequired
+                  ? [
+                TextSpan(
+                  text: ' *',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ]
+                  : [],
+            ),
+          ),
           if(widget.label != null) gapH4(),
           DecoratedBox(
             decoration: BoxDecoration(

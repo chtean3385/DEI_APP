@@ -37,4 +37,18 @@ class CommonService {
       throw Exception('Invalid response format');
     }
   }
+  Future<BaseModel> letsConnect() async {
+    String url = await ApiUrls.employeeOurTeam;
+    final result = await _apiHandler.get(url: url);
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
 }

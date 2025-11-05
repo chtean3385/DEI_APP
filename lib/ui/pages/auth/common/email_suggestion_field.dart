@@ -8,6 +8,7 @@ class EmailSuggestionField extends StatefulWidget {
   final FocusNode nextFocus;
   final String hint;
   final String label;
+  final bool isRequired ;
 
   const EmailSuggestionField({
     super.key,
@@ -16,6 +17,7 @@ class EmailSuggestionField extends StatefulWidget {
     required this.nextFocus,
     required this.hint,
     required this.label,
+    this.isRequired = false,
   });
 
   @override
@@ -63,6 +65,7 @@ class _EmailSuggestionFieldState extends State<EmailSuggestionField> {
       maxSuggestions: 5,
       caseSensitive: false,
       showAbove: true,
+      isRequired: widget.isRequired,
       onChanged: _updateSuggestions,
       keyboardType: TextInputType.emailAddress,
       textInputAction: TextInputAction.next,
