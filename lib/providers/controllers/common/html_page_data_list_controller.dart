@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/enums.dart';
-import '../../../models/state_models/html_page_data_state.dart';
+import '../../../models/state_models/common/html_page_data_state.dart';
 import '../../../service/common/common_service.dart';
 import '../../../widgets/others/snack_bar.dart';
 

@@ -17,11 +17,11 @@ class CustomLoader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        if(text?.isNotEmpty == true) Text(text !,style: theme.textTheme.bodyMedium),
+        if (text?.isNotEmpty == true)
+          Text(text!, style: theme.textTheme.bodyMedium),
         // Image.asset(AppDrawables.appLoader,
         //     fit: BoxFit.contain),
-        CircularProgressIndicator(color: AppColors.primaryColor)
-
+        CircularProgressIndicator(color: AppColors.primaryColor),
       ],
     );
   }
@@ -36,7 +36,7 @@ class SomethingWentWrong extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: AlignmentGeometry.center,
-      child:Padding(
+      child: Padding(
         padding: const EdgeInsets.all(16),
         child: Text(
           text ?? "Sorry.. Something went wrong. try again",
@@ -47,6 +47,7 @@ class SomethingWentWrong extends StatelessWidget {
     );
   }
 }
+
 class EmptyWidget extends StatelessWidget {
   final String? text;
 
@@ -56,7 +57,7 @@ class EmptyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: AlignmentGeometry.center,
-      child:Padding(
+      child: Padding(
         padding: const EdgeInsets.all(16),
         child: Text(
           text ?? "Sorry.. No data found",

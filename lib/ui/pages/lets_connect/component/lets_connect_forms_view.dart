@@ -149,7 +149,7 @@ class LetsConnectFormView extends ConsumerWidget {
               textCapitalization: TextCapitalization.words,
               minLines: 3,
               maxLength: 250,
-              // showCounter: true,
+              showCounter: true,
             ),
             gapH16(),
             TransparentDropdownField(

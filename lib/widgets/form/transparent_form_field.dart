@@ -68,11 +68,14 @@ class TransparentFormField extends StatefulWidget {
 class _TransparentFormFieldState extends State<TransparentFormField> {
   bool _isPasswordVisible = false;
 
-  void _onTextChanged() => setState(() {});
+  void _onTextChanged() => setState(() {
+    print("_onTextChanged");
+  });
 
   @override
   void initState() {
     super.initState();
+    print("widget.showCounter - ${widget.showCounter}");
     if (widget.showCounter == true) widget.controller.addListener(_onTextChanged);
   }
 
@@ -167,7 +170,8 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
                 hintStyle: theme.textTheme.bodyMedium?.copyWith(
                   color: Colors.black54,
                 ),
-                counterText: (widget.showCounter)
+                counterText:
+                (widget.showCounter)
                     ? "${widget.controller.text.length} / ${widget.maxLength}"
                     : null,
                 // 👈 live counter

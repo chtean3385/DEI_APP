@@ -24,6 +24,7 @@ class EditResumeInformation extends ConsumerWidget {
     return Card(
       elevation: 2,
       color: Colors.white,
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
         initiallyExpanded: isFromCommonEdit != true,

@@ -24,6 +24,7 @@ class EditLocationInformation extends ConsumerWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
+      clipBehavior: Clip.antiAlias,
       child: ExpansionTile(
         initiallyExpanded: false, // collapsed by default
         title: Text(

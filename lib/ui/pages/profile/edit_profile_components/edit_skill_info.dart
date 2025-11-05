@@ -21,6 +21,7 @@ class EditSkillInformation extends ConsumerWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
+
       child: SafeArea(
         child: ExpansionTile(
           initiallyExpanded: isFromCommonEdit!= true, // collapsed by default

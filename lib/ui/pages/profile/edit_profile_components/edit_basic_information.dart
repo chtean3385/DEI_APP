@@ -31,6 +31,7 @@ print("state.profileData?.workStatus -->> ${state.profileData?.workStatus}");
       child: Card(
         elevation: 2,
         color: Colors.white,
+        clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: ExpansionTile(
           initiallyExpanded: false,

@@ -164,6 +164,13 @@ class CustomDrawer extends StatelessWidget {
                   null,
                       () => AppNavigator.loadLetsConnect(), // or whatever your contact route is
                 ),
+                _drawerItem(
+                  Icons.help_outline,
+                  'FAQ',
+                  false,
+                  null,
+                      () => AppNavigator.loadFaqScreen(), // navigate to your FAQ screen
+                ),
 
                 _drawerItem(
                   Icons.description_outlined,

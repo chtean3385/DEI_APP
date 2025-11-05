@@ -1,6 +1,5 @@
 import 'package:dei_champions/constants/enums.dart';
-import '../common/html_page_gata_model.dart';
-import '../on_board/on_board_model.dart';
+import '../../common/html_page_gata_model.dart';
 
 class HtmlPageDataListState {
   final PageState? pageState;

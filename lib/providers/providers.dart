@@ -4,15 +4,17 @@ import 'package:dei_champions/models/state_models/about_us/about_vision_state.da
 import 'package:dei_champions/models/state_models/about_us/core_value_state.dart';
 import 'package:dei_champions/models/state_models/about_us/revolution_state.dart';
 import 'package:dei_champions/models/state_models/about_us/what_we_do_state.dart';
+import 'package:dei_champions/models/state_models/common/faq_state.dart';
 import 'package:dei_champions/models/state_models/employer/candidates_state.dart';
 import 'package:dei_champions/models/state_models/employer/emplyer_applications_state.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
 import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart';
-import 'package:dei_champions/models/state_models/html_page_data_state.dart';
+import 'package:dei_champions/models/state_models/common/html_page_data_state.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
 import 'package:dei_champions/models/state_models/job/job_type_list_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
+import 'package:dei_champions/providers/controllers/common/faq_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/friendly_industry_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/how_it_works_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/job_category_controller.dart';
@@ -361,6 +363,11 @@ final letsConnectProvider =
 StateNotifierProvider.autoDispose<LetsConnectController, PageState>((ref) {
   return LetsConnectController(ref);
 });
+final faqProvider =
+StateNotifierProvider.autoDispose<FaqController, FaqState>((ref) {
+  return FaqController();
+});
+
 /// employee profile
 final employeeProfileProvider =StateNotifierProvider.autoDispose<EmployeeProfileController, EmployeeProfileState>((ref) {
   return EmployeeProfileController();

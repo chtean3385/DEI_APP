@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_styles.dart';
-import '../../../../constants/app_validators.dart';
 import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
-import '../../../../widgets/form/transparent_form_field.dart';
 import '../../../../models/job/job_type_model.dart';
 import '../../auth/signup/widgets/key_skills/selected_key_skills.dart';
 import '../components/set_prefered_locations.dart';
@@ -21,6 +19,7 @@ class EditJobPreferenceInfo extends ConsumerWidget {
     return Card(
       elevation: 2,
       color: Colors.white,
+      clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),

@@ -31,7 +31,7 @@ class OurTeamView extends ConsumerWidget {
     return SafeArea(
       child: ListView.separated(
         itemCount: state.data!.length,
-        padding: EdgeInsets.symmetric(vertical: 16),
+        padding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
         itemBuilder: (context, index) {
           return OurTeamCard(
             item: state.data![index],
@@ -50,7 +50,7 @@ class OurTeamView extends ConsumerWidget {
   Widget _shimmerLoader() {
     return ListView.separated(
       itemCount: 3,
-      padding: EdgeInsets.symmetric(vertical: 16),
+      padding: EdgeInsets.symmetric(vertical: 16,horizontal: 16),
       itemBuilder: (context, index) {
         return ShimmerOurTeamCard();
       },
