@@ -46,6 +46,7 @@ class BasicDetails extends ConsumerWidget {
                 const SizedBox(height: 8),
                 Text(
                   state.profileData?.name ?? "",
+                  textAlign: TextAlign.center,
                   style: context.textTheme.headlineLarge?.copyWith(
                     fontWeight: FontWeight.w600,
                   ),

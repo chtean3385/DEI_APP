@@ -419,7 +419,9 @@ StateNotifierProvider.autoDispose<CsrImpactStoriesSectionController, CsrImpactSt
 });
 
 
-
+final drawerProfileProvider =StateNotifierProvider<DrawerProfileController, EmployeeProfileState>((ref) {
+  return DrawerProfileController();
+});
 
 /// employee profile
 final employeeProfileProvider =StateNotifierProvider.autoDispose<EmployeeProfileController, EmployeeProfileState>((ref) {

@@ -192,29 +192,29 @@ class EditEmployeeProfileController
      return;
    }
     state = state.copyWith(pageState: PageState.loading);
-    print('--- Employee Profile Form stattteee ---');
-    print('gender: ${state.profileData?.gender}');
-    print('workStatus: ${state.profileData?.workStatus}');
-    print('department: ${state.profileData?.department}');
-    print('category: ${state.profileData?.category}');
-    print('education: ${state.profileData?.education?.length}');
-    print('education: ${state.profileData?.education?.first.institution}');
-    print('education: ${state.profileData?.education?.last.institution}');
-    print('experience: ${state.profileData?.experience}');
-    print('skills: ${state.profileData?.skills}');
-
-    print('--- Employee Profile Form Values ---');
-    print('Name: ${nameController.text}');
-    print('Email: ${emailController.text}');
-    print('Mobile: ${mobileController.text}');
-    print('Description: ${descriptionController.text}');
-    print('Address: ${addressController.text}');
-    print('City: ${cityController.text}');
-    print('State: ${stateController.text}');
-    print('Country: ${countryController.text}');
-    print('Pincode: ${pinCodeController.text}');
-    print('Preferred Location: ${preferredLocationController.text}');
-    print('------------------------------------');
+    // print('--- Employee Profile Form stattteee ---');
+    // print('gender: ${state.profileData?.gender}');
+    // print('workStatus: ${state.profileData?.workStatus}');
+    // print('department: ${state.profileData?.department}');
+    // print('category: ${state.profileData?.category}');
+    // print('education: ${state.profileData?.education?.length}');
+    // print('education: ${state.profileData?.education?.first.institution}');
+    // print('education: ${state.profileData?.education?.last.institution}');
+    // print('experience: ${state.profileData?.experience}');
+    // print('skills: ${state.profileData?.skills}');
+    //
+    // print('--- Employee Profile Form Values ---');
+    // print('Name: ${nameController.text}');
+    // print('Email: ${emailController.text}');
+    // print('Mobile: ${mobileController.text}');
+    // print('Description: ${descriptionController.text}');
+    // print('Address: ${addressController.text}');
+    // print('City: ${cityController.text}');
+    // print('State: ${stateController.text}');
+    // print('Country: ${countryController.text}');
+    // print('Pincode: ${pinCodeController.text}');
+    // print('Preferred Location: ${preferredLocationController.text}');
+    // print('------------------------------------');
     final updatedExperience = buildUpdatedExperienceList();
     final updatedEducation = buildUpdatedEducationList();
     try {
@@ -245,7 +245,10 @@ class EditEmployeeProfileController
         profileFile: state.profileFile,
         resumeFile: state.resumeFile,
       );
+      final EmployeeUserModel profileData = EmployeeUserModel.fromJson(result.data);
+      ref.read(drawerProfileProvider.notifier).updateProfileData(profileData);
       ref.refresh(employeeProfileProvider);
+
       showSnackBar(result.message, duration: 2);
       Navigator.pop(context);
     } catch (e) {

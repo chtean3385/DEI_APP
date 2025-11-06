@@ -1,12 +1,18 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/main.dart';
+import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../../../../constants/enums.dart';
+import '../../../../../providers/providers.dart';
 import '../../../../../repo/shared_preference_repository.dart';
 import '../../../../../utils/widget_utils.dart';
+import '../../../../../widgets/others/rounded_network_image.dart';
+import '../../../../../widgets/others/shimmer_loader.dart';
 import '../../../../../widgets/others/snack_bar.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -21,53 +27,7 @@ class CustomDrawer extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 20),
           children: [
             // 🔹 Profile Section
-            Container(
-              padding: const EdgeInsets.all(16),
-              color: Colors.transparent,
-              child: Row(
-                children: [
-                  Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      SizedBox(
-                        width: 60,
-                        height: 60,
-                        child: CircularProgressIndicator(
-                          value: 0.65,
-                          strokeWidth: 5,
-                          backgroundColor: Colors.black12,
-                          valueColor: const AlwaysStoppedAnimation(
-                            AppColors.primaryColor,
-                          ),
-                        ),
-                      ),
-                      const CircleAvatar(
-                        radius: 25,
-                        backgroundColor: Colors.grey,
-                        child: Icon(
-                          Icons.person,
-                          size: 30,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(width: 16),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("John Deo", style: context.textTheme.labelMedium),
-                      Text(
-                        "Update profile",
-                        style: context.textTheme.bodyMedium?.copyWith(
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+            ProfileSection(),
 
             const Divider(color: Colors.black12),
 
@@ -146,7 +106,7 @@ class CustomDrawer extends StatelessWidget {
               "Corporate Social Responsibility",
               false,
               null,
-                  () => AppNavigator.loadCSR(),
+              () => AppNavigator.loadCSR(),
             ),
 
             _drawerItem(
@@ -163,31 +123,33 @@ class CustomDrawer extends StatelessWidget {
                   'Our Team',
                   false,
                   null,
-                      () => AppNavigator.loadOurTeams(),
+                  () => AppNavigator.loadOurTeams(),
                 ),
                 _drawerItem(
                   Icons.support_agent_outlined,
                   'Contact',
                   false,
                   null,
-                      () => AppNavigator.loadLetsConnect(), // or whatever your contact route is
+                  () =>
+                      AppNavigator.loadLetsConnect(), // or whatever your contact route is
                 ),
                 _drawerItem(
                   Icons.help_outline,
                   'FAQ',
                   false,
                   null,
-                      () => AppNavigator.loadFaqScreen(), // navigate to your FAQ screen
+                  () =>
+                      AppNavigator.loadFaqScreen(), // navigate to your FAQ screen
                 ),
                 _drawerItem(
-                  Icons.article_outlined, // more suitable icon for blogs/articles
+                  Icons.article_outlined,
+                  // more suitable icon for blogs/articles
                   'Blog',
                   false,
                   null,
-                      () => AppNavigator.loaBlogScreen(), // navigate to your Blog screen
+                  () =>
+                      AppNavigator.loaBlogScreen(), // navigate to your Blog screen
                 ),
-
-
 
                 _drawerItem(
                   Icons.description_outlined,
@@ -224,7 +186,6 @@ class CustomDrawer extends StatelessWidget {
                   null,
                   () => AppNavigator.loadHtmlDetailPage('Privacy Policy'),
                 ),
-
               ],
             ),
 
@@ -254,8 +215,10 @@ class CustomDrawer extends StatelessWidget {
   ]) {
     final theme = Theme.of(navigatorKey.currentContext!);
     return ListTile(
+      // dense: true,
       leading: Icon(icon, color: Colors.black87, size: 20),
-      visualDensity: VisualDensity.compact,
+      // visualDensity: VisualDensity.compact,
+      visualDensity: const VisualDensity(horizontal: 0, vertical: -2),
       title: Row(
         children: [
           Text(
@@ -312,4 +275,82 @@ Future<void> forceLogout({String? message}) async {
     }
   });
   await Future.delayed(Duration(seconds: 1));
+}
+
+class ProfileSection extends ConsumerWidget {
+  const ProfileSection({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(drawerProfileProvider);
+    return state.pageState == PageState.loading
+        ? _loader()
+        : Container(
+            padding: const EdgeInsets.all(16),
+            color: Colors.transparent,
+            child: Row(
+              children: [
+                state.profileData?.profilePhotoUrl?.isNotEmpty == true
+                    ? RoundedNetworkImage(
+                        imageUrl: state.profileData!.profilePhotoUrl!,
+                        width: 60,
+                        height: 60,
+                        borderRadius: 30,
+                      )
+                    : CircleAvatar(
+                        radius: 30,
+                        backgroundColor: Colors.black12,
+                        child: Icon(
+                          Icons.person_add, // ✅ Add Profile Image icon
+                          size: 30, // optional: adjust size
+                          color: Colors.grey.shade600, // optional: adjust color
+                        ),
+                      ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        state.profileData?.name ?? "Loading...",
+                        style: context.textTheme.labelMedium,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                      ),
+                      Text(
+                        "Update profile",
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.black54,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          );
+  }
+
+  Widget _loader() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ShimmerLoader(
+        child: Row(
+          children: [
+            ShimmerBox(height: 60, width: 60, radius: 30),
+            const SizedBox(width: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ShimmerBox(height: 12, width: 80),
+                SizedBox(height: 2),
+                ShimmerBox(height: 8, width: 100),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

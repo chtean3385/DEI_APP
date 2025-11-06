@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../../../../../repo/shared_preference_repository.dart';
 import '../../../../../../utils/widget_utils.dart';
 
-
 class EmployerCustomDrawer extends StatelessWidget {
   const EmployerCustomDrawer({super.key});
 
@@ -15,11 +14,10 @@ class EmployerCustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color:Colors.white,
+        color: Colors.white,
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 20),
           children: [
-
             // 🔹 Profile Section
             Container(
               padding: const EdgeInsets.all(16),
@@ -36,15 +34,19 @@ class EmployerCustomDrawer extends StatelessWidget {
                           value: 0.65,
                           strokeWidth: 5,
                           backgroundColor: Colors.black12,
-                          valueColor:
-                          const AlwaysStoppedAnimation(AppColors.primaryColor),
+                          valueColor: const AlwaysStoppedAnimation(
+                            AppColors.primaryColor,
+                          ),
                         ),
                       ),
                       const CircleAvatar(
                         radius: 25,
                         backgroundColor: Colors.grey,
-                        child:
-                        Icon(Icons.person, size: 30, color: Colors.white),
+                        child: Icon(
+                          Icons.person,
+                          size: 30,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
@@ -128,43 +130,48 @@ class EmployerCustomDrawer extends StatelessWidget {
               "Candidates",
               false,
               null,
-                  () => AppNavigator.loadCandidatesScreen(),
+              () => AppNavigator.loadCandidatesScreen(),
             ),
             _drawerItem(
               Icons.explore,
               "Career Explorers",
               false,
               null,
-                  () => AppNavigator.loadCareerExplorersScreen(),
+              () => AppNavigator.loadCareerExplorersScreen(),
             ),
             _drawerItem(
               Icons.corporate_fare,
               "Corporates Championing",
               false,
               null,
-                  () => AppNavigator.loadCorporatesChampioningScreen(),
+              () => AppNavigator.loadCorporatesChampioningScreen(),
             ),
             _drawerItem(
-              Icons.payment_outlined, // 💰 suitable icon for pricing/subscriptions
+              Icons.payment_outlined,
+              // 💰 suitable icon for pricing/subscriptions
               'Plan and Pricing',
               false,
               null,
-                  () => AppNavigator.loaPricePlanScreen(), // navigate to your Pricing Plans screen
+              () =>
+                  AppNavigator.loaPricePlanScreen(), // navigate to your Pricing Plans screen
             ),
 
-            _drawerItem(Icons.info_outline, "About us", false, // bold
-              null,  // badge
-                  () =>AppNavigator.loadAboutUsScreen()),
+            _drawerItem(
+              Icons.info_outline,
+              "About us",
+              false, // bold
+              null, // badge
+              () => AppNavigator.loadAboutUsScreen(),
+            ),
             _drawerItem(
               Icons.logout,
               "Logout",
               false, // bold
-              null,  // badge
-                  () {
+              null, // badge
+              () {
                 logoutAlertBox();
               },
             ),
-
 
             const SizedBox(height: 20),
           ],
@@ -173,25 +180,26 @@ class EmployerCustomDrawer extends StatelessWidget {
     );
   }
 
-
   Widget _drawerItem(
-      IconData icon,
-      String text, [
-        bool bold = false,
-        String? badge,
-        VoidCallback? onTap, // ✅ added as optional positional param
-      ]) {
+    IconData icon,
+    String text, [
+    bool bold = false,
+    String? badge,
+    VoidCallback? onTap, // ✅ added as optional positional param
+  ]) {
     final theme = Theme.of(navigatorKey.currentContext!);
     return ListTile(
+      // dense: true,
       leading: Icon(icon, color: Colors.black87, size: 20),
-      visualDensity: VisualDensity.compact,
+      // visualDensity: VisualDensity.compact,
+      visualDensity: const VisualDensity(horizontal: 0, vertical: -2),
       title: Row(
         children: [
           Text(
             text,
             style: theme.textTheme.bodyMedium?.copyWith(
               fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-              color: Colors.black
+              color: Colors.black,
             ),
           ),
           if (badge != null) ...[
@@ -212,8 +220,6 @@ class EmployerCustomDrawer extends StatelessWidget {
       onTap: onTap, // ✅ use it here
     );
   }
-
-
 }
 
 void logoutAlertBox() {

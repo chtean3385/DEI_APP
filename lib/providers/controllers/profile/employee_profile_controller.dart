@@ -84,3 +84,46 @@ Future<void> viewResumeFromUrl(String? url) async {
 
 
 }
+class DrawerProfileController extends StateNotifier<EmployeeProfileState> {
+  DrawerProfileController() : super(EmployeeProfileState.initial()) {
+    getEmployeeProfileData();
+  }
+
+  final EmployeeProfileService _employeeProfileService =
+  EmployeeProfileService();
+
+  @override
+  void dispose() {
+    debugPrint("🔥 DrawerProfileController disposed");
+
+    super.dispose();
+  }
+
+
+  /// 🔹 Call this to employee profile  data from API call
+  Future<void> getEmployeeProfileData() async {
+    state = state.copyWith(pageState: PageState.loading);
+    try {
+      final result = await _employeeProfileService.getEmployeeProfileDetails();
+      final EmployeeUserModel userModel = await EmployeeUserModel.fromJson(
+        result,
+      );
+      await SharedPreferenceRepository.setProfileName(userModel.name ?? "");
+      await SharedPreferenceRepository.setProfileImage(userModel.profilePhotoUrl ?? "");
+      state = state.copyWith(
+        pageState: PageState.success,
+        profileData: userModel,
+      );
+      debugPrint("success - getEmployeeProfileData");
+    } catch (e) {
+      state = state.copyWith(pageState: PageState.error);
+      showSnackBar(e.toString());
+      debugPrint("catch - getEmployeeProfileData");
+      debugPrint(e.toString());
+    }
+  }
+  ///update locally
+  void updateProfileData(EmployeeUserModel data) {
+    state = state.copyWith(profileData: data);
+  }
+}
