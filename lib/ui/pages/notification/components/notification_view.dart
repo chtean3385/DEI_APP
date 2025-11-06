@@ -37,7 +37,7 @@ class NotificationView extends ConsumerWidget {
         itemBuilder: (context, index) {
           return NotificationCard(notification: state.data![index]);
         },
-        separatorBuilder: (c, s) => gapH24(),
+        separatorBuilder: (c, s) => gapH8(),
       ),
     );
   }
@@ -51,7 +51,7 @@ class NotificationView extends ConsumerWidget {
       itemBuilder: (context, index) {
         return ShimmerNotificationCard();
       },
-      separatorBuilder: (c, s) => gapH24(),
+      separatorBuilder: (c, s) => gapH8(),
     );
   }
 }
@@ -76,7 +76,7 @@ class MarkAllRead extends ConsumerWidget {
               ),
               color: AppColors.primaryColor,
               borderColor: AppColors.primaryColor,
-              radius: 8,
+              radius: 6,
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
               onTap: () => controller.markAllAsRead(),
             ),

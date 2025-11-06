@@ -16,6 +16,7 @@ class NotificationController extends StateNotifier<NotificationsState> {
   Future<void> fetchData() async {
     state = state.copyWith(pageState: PageState.loading);
     try {
+      await Future.delayed(Duration(seconds: 2));
       final result = await _service.getNotificationsData();
       final List<dynamic>? list = result.data as List<dynamic>?;
       final List<NotificationModel> data = list != null
