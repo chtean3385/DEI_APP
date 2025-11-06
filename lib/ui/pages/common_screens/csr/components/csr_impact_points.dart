@@ -1,5 +1,7 @@
 import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/models/state_models/common/csr/csr_focus_area_state.dart';
+import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/models/common/csr/csr_impact_model.dart';
+import 'package:dei_champions/models/state_models/common/csr/csr_impact_state.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -7,19 +9,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/enums.dart';
 import '../../../../../main.dart';
-import '../../../../../models/common/csr/csr_focus_area_model.dart';
 import '../../../../../utils/fa_icon.dart';
 import '../../../../../widgets/others/shimmer_loader.dart';
 import '../../../about_us/components/core_value_card.dart';
 
-class CsrFocusPoints extends ConsumerStatefulWidget {
-  const CsrFocusPoints({Key? key}) : super(key: key);
+class CsrImpactPoints extends ConsumerStatefulWidget {
+  const CsrImpactPoints({Key? key}) : super(key: key);
 
   @override
-  ConsumerState<CsrFocusPoints> createState() => _JobsServiceSectionState();
+  ConsumerState<CsrImpactPoints> createState() => _JobsServiceSectionState();
 }
 
-class _JobsServiceSectionState extends ConsumerState<CsrFocusPoints> {
+class _JobsServiceSectionState extends ConsumerState<CsrImpactPoints> {
   final ScrollController _scrollController = ScrollController();
   int _currentIndex = 0;
   double _itemWidth = 250; // estimated width of each JobServiceCard + spacing
@@ -45,7 +46,7 @@ class _JobsServiceSectionState extends ConsumerState<CsrFocusPoints> {
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(csrFocusPointsSection1Provider);
+    final state = ref.watch(csrImpactSectionProvider);
     final hasData = (state.data ?? []).isNotEmpty;
 
     if (!hasData && state.pageState != PageState.loading) {
@@ -55,7 +56,7 @@ class _JobsServiceSectionState extends ConsumerState<CsrFocusPoints> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8, top: 8),
       child: ColoredBox(
-        color: AppColors.bg,
+        color: Colors.white,
         child: Padding(
           padding: const EdgeInsets.only(top: 12),
           child: state.pageState == PageState.loading
@@ -66,7 +67,7 @@ class _JobsServiceSectionState extends ConsumerState<CsrFocusPoints> {
     );
   }
 
-  Widget _dataItems(CsrFocusAreaState state) {
+  Widget _dataItems(CsrImpactState state) {
     final data = state.data?.first;
     if (data == null) return const SizedBox.shrink();
     return Column(
@@ -74,11 +75,27 @@ class _JobsServiceSectionState extends ConsumerState<CsrFocusPoints> {
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            data.sectionTitle ?? "",
-            style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
-              fontWeight: FontWeight.w600,
-            ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              Text(
+                data.sectionTitle ?? "",
+                style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              gapH8(),
+              // Text(
+              //   data.subTitle ?? "",
+              //   style: context.textTheme.displaySmall?.copyWith(
+              //     fontSize: 11,
+              //     color: Colors.black54,
+              //   ),
+              // ),
+              // gapH8(),
+
+            ],
           ),
         ),
         const SizedBox(height: 8),
@@ -118,36 +135,46 @@ class _JobsServiceSectionState extends ConsumerState<CsrFocusPoints> {
     );
   }
 
-  Widget _buildCard(FocusCardModel card) {
+  Widget _buildCard(CsrImpactCardModel card) {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
     return Padding(
       padding: const EdgeInsets.only(right: 12),
       child: Card(
         elevation: 3,
         color: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12),side: BorderSide(width: .5,color: Colors.black12)),
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: 100, maxWidth: _itemWidth),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      card.count?.toString() ?? "",
+                      style: theme.titleLarge,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+                gapH8(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     iconCircleCard(card.icon, ""),
                     const SizedBox(width: 16),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            card.title ?? "",
-                            style: theme.labelMedium,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        ],
+                    Flexible(
+                      child: Text(
+                        card.title ?? "",
+                        style: theme.labelMedium,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                   ],
@@ -155,6 +182,7 @@ class _JobsServiceSectionState extends ConsumerState<CsrFocusPoints> {
                 const SizedBox(height: 8),
                 Text(
                   card.subtitle ?? '',
+                  textAlign: TextAlign.center,
                   style: theme.displaySmall?.copyWith(color: Colors.black54,fontSize: 11),
                 ),
               ],

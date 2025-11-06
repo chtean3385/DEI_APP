@@ -8,6 +8,7 @@ import 'package:dei_champions/models/state_models/common/blog_detail_state.dart'
 import 'package:dei_champions/models/state_models/common/blog_state.dart';
 import 'package:dei_champions/models/state_models/common/csr/csr_banner_state.dart';
 import 'package:dei_champions/models/state_models/common/csr/csr_focus_area_state.dart';
+import 'package:dei_champions/models/state_models/common/csr/csr_impact_state.dart';
 import 'package:dei_champions/models/state_models/common/csr/csr_objectives_state.dart';
 import 'package:dei_champions/models/state_models/common/faq_state.dart';
 import 'package:dei_champions/models/state_models/common/price_plan_state.dart';
@@ -24,6 +25,7 @@ import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.d
 import 'package:dei_champions/providers/controllers/common/blog_controller.dart';
 import 'package:dei_champions/providers/controllers/common/csr/csr_banner_section_controller.dart';
 import 'package:dei_champions/providers/controllers/common/csr/csr_focus_area_section_controller.dart';
+import 'package:dei_champions/providers/controllers/common/csr/csr_impact_section_controller.dart';
 import 'package:dei_champions/providers/controllers/common/csr/csr_objectives_section_controller.dart';
 import 'package:dei_champions/providers/controllers/common/faq_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/friendly_industry_controller.dart';
@@ -95,6 +97,7 @@ import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
 import 'controllers/common/blog_detail_controller.dart';
+import 'controllers/common/csr/csr_impact_stories_section_controller.dart';
 import 'controllers/common/html_page_data_list_controller.dart';
 import 'controllers/common/lets_connect_controller.dart';
 import 'controllers/common/price_plan_controller.dart';
@@ -405,6 +408,14 @@ StateNotifierProvider.autoDispose<CsrObjectivesSectionController, CsrObjectivesS
 final csrFocusPointsSection1Provider =
 StateNotifierProvider.autoDispose<CsrFocusAreaSectionController, CsrFocusAreaState>((ref) {
   return CsrFocusAreaSectionController();
+});
+final csrImpactSectionProvider =
+StateNotifierProvider.autoDispose<CsrImpactSectionController, CsrImpactState>((ref) {
+  return CsrImpactSectionController();
+});
+final csrImpactStoriesSectionProvider =
+StateNotifierProvider.autoDispose<CsrImpactStoriesSectionController, CsrImpactState>((ref) {
+  return CsrImpactStoriesSectionController();
 });
 
 

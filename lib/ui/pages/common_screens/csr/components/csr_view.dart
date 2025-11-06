@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'csr_banner_section.dart';
 import 'csr_focus_points.dart';
+import 'csr_impact_points.dart';
+import 'csr_impact_stories.dart';
 import 'csr_objective_section.dart';
 
 class CsrView extends StatelessWidget {
@@ -17,7 +19,8 @@ class CsrView extends StatelessWidget {
           CsrBannerSection(),
           CsrObjectiveSection(),
           CsrFocusPoints(),
-          // LgbtqInclusionSection()
+          CsrImpactPoints(),
+          CsrImpactStories()
         ],
       ),
     );
