@@ -3,6 +3,7 @@ import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../repo/shared_preference_repository.dart';
 import '../../../../../utils/widget_utils.dart';
@@ -139,6 +140,13 @@ class CustomDrawer extends StatelessWidget {
               false,
               null,
               () => AppNavigator.loadCorporatesChampioningScreen(),
+            ),
+            _drawerItem(
+              FontAwesomeIcons.handshake,
+              "Corporate Social Responsibility",
+              false,
+              null,
+                  () => AppNavigator.loadCSR(),
             ),
 
             _drawerItem(

@@ -66,8 +66,15 @@ class ApiUrls {
   static const lgbtqTitleDetails = 'shine-with-pride/hero/get-all';
   static const lgbtqQuotes2 = 'shine-with-pride/colsing-pride/get-all';
 
+  // CSR
+  static const csrBannerDetails = 'csr/banner/get-all';
+  static const  csrObjectives = 'csr/objective/get-all';
+  static const csrFocusPoints = 'csr/focus-area/get-all';
 
- // search job
+
+
+
+  // search job
   static const searchJob = 'job/filtered-searched-jobs';
   // saved jobs
   static const savedJobs = 'job/my-saved';

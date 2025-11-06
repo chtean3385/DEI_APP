@@ -86,6 +86,10 @@ final Map<String, IconData> fontAwesomeMap = {
   'bell': FontAwesomeIcons.bell,
   'check': FontAwesomeIcons.check,
   'user': FontAwesomeIcons.user,
+
+
+  'FaSchool': FontAwesomeIcons.school,
+  'FaLeaf': FontAwesomeIcons.leaf,
 };
 /// Maps API "key" values to specific FontAwesome icons for dashboard items.
 final Map<String, IconData> dashboardIconMap = {

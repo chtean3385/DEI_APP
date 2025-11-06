@@ -6,6 +6,9 @@ import 'package:dei_champions/models/state_models/about_us/revolution_state.dart
 import 'package:dei_champions/models/state_models/about_us/what_we_do_state.dart';
 import 'package:dei_champions/models/state_models/common/blog_detail_state.dart';
 import 'package:dei_champions/models/state_models/common/blog_state.dart';
+import 'package:dei_champions/models/state_models/common/csr/csr_banner_state.dart';
+import 'package:dei_champions/models/state_models/common/csr/csr_focus_area_state.dart';
+import 'package:dei_champions/models/state_models/common/csr/csr_objectives_state.dart';
 import 'package:dei_champions/models/state_models/common/faq_state.dart';
 import 'package:dei_champions/models/state_models/common/price_plan_state.dart';
 import 'package:dei_champions/models/state_models/employer/candidates_state.dart';
@@ -19,6 +22,9 @@ import 'package:dei_champions/models/state_models/job/job_type_list_state.dart';
 import 'package:dei_champions/models/state_models/notification/notification_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:dei_champions/providers/controllers/common/blog_controller.dart';
+import 'package:dei_champions/providers/controllers/common/csr/csr_banner_section_controller.dart';
+import 'package:dei_champions/providers/controllers/common/csr/csr_focus_area_section_controller.dart';
+import 'package:dei_champions/providers/controllers/common/csr/csr_objectives_section_controller.dart';
 import 'package:dei_champions/providers/controllers/common/faq_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/friendly_industry_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/how_it_works_controller.dart';
@@ -385,6 +391,20 @@ final blogDetailProvider = StateNotifierProvider.autoDispose
 });
 final planPriceProvider = StateNotifierProvider.autoDispose<PricePlanController, PricePlanState>((ref) {
   return PricePlanController();
+});
+/// csr
+final csrBannerSectionProvider =
+StateNotifierProvider.autoDispose<CsrBannerSectionController, CsrBannerState>((ref) {
+  return CsrBannerSectionController();
+});
+final csrObjectivesController =
+StateNotifierProvider.autoDispose<CsrObjectivesSectionController, CsrObjectivesState>((ref) {
+  return CsrObjectivesSectionController();
+});
+
+final csrFocusPointsSection1Provider =
+StateNotifierProvider.autoDispose<CsrFocusAreaSectionController, CsrFocusAreaState>((ref) {
+  return CsrFocusAreaSectionController();
 });
 
 
