@@ -37,6 +37,7 @@ import '../ui/pages/main/bottom_bar.dart';
 import '../ui/pages/main/similar_jobs_list_screen.dart';
 import '../ui/pages/men_alias/men_alias_screen.dart';
 import '../ui/pages/not_defined_by_disability/not_defined_by_disability_screen.dart';
+import '../ui/pages/notification/employee_notification_screen.dart';
 import '../ui/pages/on_board/onboard_screen.dart';
 import '../ui/pages/profile/edit_profile_screen.dart';
 import '../ui/pages/profile/employee_profile_details_screen.dart';
@@ -217,6 +218,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => JobSearchResultScreen()),
+    );
+  }
+  static loadEmployeeNotificationsScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => EmployeeNotificationsScreen()),
     );
   }
 

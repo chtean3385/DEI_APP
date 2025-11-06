@@ -16,6 +16,7 @@ import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart'
 import 'package:dei_champions/models/state_models/common/html_page_data_state.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
 import 'package:dei_champions/models/state_models/job/job_type_list_state.dart';
+import 'package:dei_champions/models/state_models/notification/notification_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:dei_champions/providers/controllers/common/blog_controller.dart';
 import 'package:dei_champions/providers/controllers/common/faq_controller.dart';
@@ -24,6 +25,7 @@ import 'package:dei_champions/providers/controllers/home/category/how_it_works_c
 import 'package:dei_champions/providers/controllers/home/category/job_category_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/job_service_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/we_are_hiring_controller.dart';
+import 'package:dei_champions/providers/controllers/notification/notification_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
@@ -386,6 +388,8 @@ final planPriceProvider = StateNotifierProvider.autoDispose<PricePlanController,
 });
 
 
+
+
 /// employee profile
 final employeeProfileProvider =StateNotifierProvider.autoDispose<EmployeeProfileController, EmployeeProfileState>((ref) {
   return EmployeeProfileController();
@@ -399,6 +403,7 @@ final jobTypesProvider =
 StateNotifierProvider.autoDispose<JobTypesController, JobTypeListState>((ref) {
   return JobTypesController(ref);
 });
+
 
 
 
@@ -428,7 +433,10 @@ final employeeManageJobProvider =StateNotifierProvider<EmployeeManageJobControll
 final employeeJobDetailsProvider =StateNotifierProvider<EmployeeJobDetailsController, JobState>((ref) {
   return EmployeeJobDetailsController();
 });
-
+/// employee notifications
+final employeeNotificationProvider = StateNotifierProvider.autoDispose<NotificationController, NotificationsState>((ref) {
+  return NotificationController();
+});
 //////*****///////////******* EMPLOYER //////*****///////////*******
 
 /// manage jobs

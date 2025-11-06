@@ -76,6 +76,16 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaDashboardUserTie': FontAwesomeIcons.userTie,
   'FaDashboardTimesCircle': FontAwesomeIcons.timesCircle,
   'FaDashboardBookmark': FontAwesomeIcons.bookmark,
+
+  // Notifications
+  'briefcase': FontAwesomeIcons.briefcase,
+  'calendar': FontAwesomeIcons.calendar,
+  'envelope': FontAwesomeIcons.envelope,
+  'fileAlt': FontAwesomeIcons.fileAlt,
+  'comment': FontAwesomeIcons.comment,
+  'bell': FontAwesomeIcons.bell,
+  'check': FontAwesomeIcons.check,
+  'user': FontAwesomeIcons.user,
 };
 /// Maps API "key" values to specific FontAwesome icons for dashboard items.
 final Map<String, IconData> dashboardIconMap = {

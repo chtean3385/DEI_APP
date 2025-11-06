@@ -41,9 +41,7 @@ AppBar appBarHome(
                   color: Colors.black54,
                   size: 25,
                 ),
-                onPressed: () {
-                  // maybe show notifications later
-                },
+                onPressed:  () => AppNavigator.loadEmployeeNotificationsScreen(),
               ),
             ),
           ]
