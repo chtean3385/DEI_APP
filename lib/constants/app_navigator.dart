@@ -20,6 +20,7 @@ import '../ui/pages/common_screens/blog/blog_screen.dart';
 import '../ui/pages/common_screens/faq/faq_screen.dart';
 import '../ui/pages/common_screens/html_detail_page.dart';
 import '../ui/pages/common_screens/our_team/our_team_screen.dart';
+import '../ui/pages/common_screens/plan_pricing/plan_pricing_screen.dart';
 import '../ui/pages/company/company_profile_screen.dart';
 import '../ui/pages/employer/candidate/candidate_list_screen.dart';
 import '../ui/pages/employer/candidate/candidate_profile_details_screen.dart';
@@ -204,7 +205,14 @@ class AppNavigator {
       ),
     );
   }
-
+  static loaPricePlanScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(
+        builder: (context) => PlanPricingScreen(),
+      ),
+    );
+  }
   static loadJobSearchResultScreen() {
     Navigator.push(
       navigatorKey.currentContext!,

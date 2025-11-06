@@ -144,6 +144,13 @@ class EmployerCustomDrawer extends StatelessWidget {
               null,
                   () => AppNavigator.loadCorporatesChampioningScreen(),
             ),
+            _drawerItem(
+              Icons.payment_outlined, // 💰 suitable icon for pricing/subscriptions
+              'Plan and Pricing',
+              false,
+              null,
+                  () => AppNavigator.loaPricePlanScreen(), // navigate to your Pricing Plans screen
+            ),
 
             _drawerItem(Icons.info_outline, "About us", false, // bold
               null,  // badge

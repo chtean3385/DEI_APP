@@ -61,6 +61,22 @@ class CommonService {
     final result = await _apiHandler.get(url: url);
     return result;
   }
+  Future<BaseModel> getPlanPriceData() async {
+    // String url = await ApiUrls.faq;
+    // final result = await _apiHandler.get(url: url);
+    final result = await apiData;
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
+
   Future<BaseModel> letsConnect() async {
     String url = await ApiUrls.employeeOurTeam;
     final result = await _apiHandler.get(url: url);
@@ -75,4 +91,58 @@ class CommonService {
       throw Exception('Invalid response format');
     }
   }
+  final apiData = {
+    "success": true,
+    "data": [
+      {
+        "id": "starter",
+        "name": "Starter",
+        "price": 0,
+        "currency": "INR",
+        "billingCycle": "month",
+        "description": "Perfect for testing our platform",
+        "features": [
+          "1 job posting per month",
+          "14–day listing duration",
+          "Basic company profile",
+          "Up to 50 applications",
+          "Standard support"
+        ],
+        "ctaText": "Get Started"
+      },
+      {
+        "id": "professional",
+        "name": "Professional",
+        "price": 16599,
+        "currency": "INR",
+        "billingCycle": "month",
+        "description": "For growing companies with regular hiring needs",
+        "features": [
+          "5 active job postings",
+          "30–day listing duration",
+          "Featured job listings",
+          "Advanced candidate filtering",
+          "Candidate messaging"
+        ],
+        "ctaText": "Choose Plan"
+      },
+      {
+        "id": "enterprise",
+        "name": "Enterprise",
+        "price": 41599,
+        "currency": "INR",
+        "billingCycle": "month",
+        "description": "For large organizations with high-volume hiring",
+        "features": [
+          "Unlimited job postings",
+          "Priority placement",
+          "AI-powered candidate matching",
+          "Dedicated account manager",
+          "Custom branding & analytics"
+        ],
+        "ctaText": "Choose Plan"
+      }
+    ]
+  };
+
 }

@@ -7,6 +7,7 @@ import 'package:dei_champions/models/state_models/about_us/what_we_do_state.dart
 import 'package:dei_champions/models/state_models/common/blog_detail_state.dart';
 import 'package:dei_champions/models/state_models/common/blog_state.dart';
 import 'package:dei_champions/models/state_models/common/faq_state.dart';
+import 'package:dei_champions/models/state_models/common/price_plan_state.dart';
 import 'package:dei_champions/models/state_models/employer/candidates_state.dart';
 import 'package:dei_champions/models/state_models/employer/emplyer_applications_state.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
@@ -88,6 +89,7 @@ import 'controllers/auth/register_page_view_controller.dart';
 import 'controllers/common/blog_detail_controller.dart';
 import 'controllers/common/html_page_data_list_controller.dart';
 import 'controllers/common/lets_connect_controller.dart';
+import 'controllers/common/price_plan_controller.dart';
 import 'controllers/dash_board/dash_board_controller.dart';
 import 'controllers/disability/disability_bottom_section_controller.dart';
 import 'controllers/disability/disability_inclusion_setps_controller.dart';
@@ -378,6 +380,9 @@ StateNotifierProvider.autoDispose<BlogController, BlogState>((ref) {
 final blogDetailProvider = StateNotifierProvider.autoDispose
     .family<BlogDetailController, BlogDetailState, String>((ref, id) {
   return BlogDetailController(id);
+});
+final planPriceProvider = StateNotifierProvider.autoDispose<PricePlanController, PricePlanState>((ref) {
+  return PricePlanController();
 });
 
 
