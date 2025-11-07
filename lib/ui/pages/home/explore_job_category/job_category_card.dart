@@ -33,7 +33,7 @@ class JobCategoryCard extends StatelessWidget {
                   radius: 30,
                   backgroundColor: Colors.white,
                   child: RoundedNetworkImage(
-                    imageUrl: categoryModel.image,
+                    imageUrl: categoryModel.image ?? "",
                     width: 35,
                     height: 35,
                     borderRadius: 8,
@@ -43,7 +43,7 @@ class JobCategoryCard extends StatelessWidget {
             ),
             const SizedBox(height: 6),
             Text(
-              categoryModel.title,
+              categoryModel.title ?? "",
               style: theme.displaySmall?.copyWith(height: 1,color: Colors.black54),
               softWrap: true,
               overflow: TextOverflow.ellipsis,

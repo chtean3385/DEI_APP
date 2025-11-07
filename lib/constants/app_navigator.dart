@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import '../main.dart';
 import '../models/auth/auth_model.dart';
 import '../models/job/job_model.dart';
+import '../providers/controllers/job/employee_search_jobs_controller.dart';
 import '../repo/shared_preference_repository.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
@@ -215,10 +216,10 @@ class AppNavigator {
       ),
     );
   }
-  static loadJobSearchResultScreen() {
+  static loadJobSearchResultScreen({EmployeeSearchJobsParams? params}) {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => JobSearchResultScreen()),
+      MaterialPageRoute(builder: (_) => JobSearchResultScreen(params: params)),
     );
   }
   static loadEmployeeNotificationsScreen() {

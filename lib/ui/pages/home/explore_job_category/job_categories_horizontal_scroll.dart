@@ -4,8 +4,10 @@ import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../constants/app_navigator.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../models/state_models/home/job_category_state.dart';
+import '../../../../providers/controllers/job/employee_search_jobs_controller.dart';
 import 'job_category_card.dart';
 
 /// 📌 "Jobs categories based
@@ -111,6 +113,7 @@ class JobsCategorySection extends ConsumerWidget {
         itemBuilder: (context, index) {
           return JobCategoryCard(
             categoryModel: categoryState.data!.categories[index],
+            onTap: ()=>AppNavigator.loadJobSearchResultScreen(params:EmployeeSearchJobsParams(categoryId:categoryState.data!.categories[index].id ?? "" ) ),
           );
         },
         separatorBuilder: (c, v) => gapW2(),

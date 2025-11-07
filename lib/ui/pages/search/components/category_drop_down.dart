@@ -27,7 +27,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
     // Create a combined list: "All Categories" + fetched category titles
     final List<String> categoryTitles = [
       "All Categories",
-      ...widget.categories.map((c) => c.title),
+      ...widget.categories.map((c) => c.title ?? ""),
     ];
     return _buildDropdown("Category", categoryTitles, _selectedCategoryTitle, (
       val,
@@ -51,7 +51,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
         );
 
         final selectedId = val == "All Categories" ? "" : selectedCategory.id;
-        widget.onChanged?.call(selectedId); // 🔥 send category ID to parent
+        widget.onChanged?.call(selectedId ?? ""); // 🔥 send category ID to parent
       }
     });
   }

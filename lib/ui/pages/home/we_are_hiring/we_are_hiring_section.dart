@@ -9,8 +9,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_navigator.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/state_models/home/we_are_hiring_state.dart';
+import '../../../../providers/controllers/job/employee_search_jobs_controller.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
 
 class WeAreHiringBanner extends ConsumerWidget {
@@ -72,7 +74,7 @@ class WeAreHiringBanner extends ConsumerWidget {
                       color: AppColors.primaryColor,
                       radius: 30,
                       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                      onTap: () {},
+                      onTap:()=> AppNavigator.loadJobSearchResultScreen(params:EmployeeSearchJobsParams(searchQuery: "") ),
                     ),
                   ],
                 ),

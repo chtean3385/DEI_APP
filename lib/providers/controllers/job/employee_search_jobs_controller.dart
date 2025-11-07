@@ -127,3 +127,18 @@ class EmployeeSearchJobController extends StateNotifier<JobListState> {
 
 
 }
+
+
+class EmployeeSearchJobsParams {
+  final String? categoryId;
+  final String? searchQuery;
+  final String? sortBy;
+  final String? selectedState;
+
+  EmployeeSearchJobsParams({
+    this.categoryId,
+    this.searchQuery,
+    this.sortBy,
+    this.selectedState,
+  });
+}
