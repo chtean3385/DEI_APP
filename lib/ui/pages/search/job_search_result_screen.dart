@@ -103,16 +103,16 @@ class JobSearchResultScreen extends ConsumerStatefulWidget {
   const JobSearchResultScreen({Key? key, this.params}) : super(key: key);
 
   static const List<String> filters = [
-    "Work mode",
-    "Department",
-    "Experience",
-    "Salary",
-    "Companies",
-    "Industries",
-    "Role",
-    "Stipend",
-    "Duration",
-    "Education",
+    // "Work mode",
+    // "Department",
+    // "Experience",
+    "Salary Range",
+    // "Companies",
+    "Industry",
+    "Job Type",
+    // "Stipend",
+    // "Duration",
+    // "Education",
   ];
 
   @override
