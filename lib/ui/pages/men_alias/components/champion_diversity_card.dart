@@ -30,8 +30,11 @@ class ChampionDiversityCard extends StatelessWidget {
           ),
           border: Border.all(color: Colors.black12, width: 1),
         ),
-        child: SizedBox(
-          width: width,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            minHeight: 100,
+            maxWidth: width,
+          ),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
