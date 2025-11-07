@@ -33,6 +33,7 @@ class SelectCity extends StatelessWidget {
       maxSuggestions: 10,
       caseSensitive: false,
       showAbove: true,
+      isRequired: true,
       onFieldSubmitted: (_) {
         FocusScope.of(context).requestFocus(nextFocus);
       },

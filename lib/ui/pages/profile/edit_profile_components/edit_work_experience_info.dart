@@ -279,7 +279,7 @@ class EditWorkExpInformation extends ConsumerWidget {
                     hint: "Short description",
                     label: "Description",
                     textInputAction: TextInputAction.next,
-                    validator: AppValidators.fieldEmpty("Description"),
+                    // validator: AppValidators.fieldEmpty("Description"),
                     textCapitalization: TextCapitalization.sentences,
                     minLines: 3,
                   ),

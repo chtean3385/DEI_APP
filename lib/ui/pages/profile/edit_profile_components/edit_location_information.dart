@@ -51,18 +51,25 @@ class EditLocationInformation extends ConsumerWidget {
             textCapitalization: TextCapitalization.words,
           ),
           gapH16(),
-          TransparentDropdownField(
-            isRequired: true,
-            hint: "Select your city",
-            label: "City",
-            icon: Icons.location_city_outlined,
-            items: state.cities?.map((e)=>e.name).toList() ?? [],
-            value: controller.cityController.text,
-            validator: AppValidators.fieldEmpty("City"),
-            onChanged: (value) {
-              controller.cityController.text = value ?? "";
-            },
+          SelectCity(
+
+            controller: controller.cityController,
+            cityList: state.cities?.map((e)=>e.name).toList() ?? [],
+            // focusNode: _cityFocus,
+            // nextFocus: _countryFocus,
           ),
+          // TransparentDropdownField(
+          //   isRequired: true,
+          //   hint: "Select your city",
+          //   label: "City",
+          //   icon: Icons.location_city_outlined,
+          //   items: state.cities?.map((e)=>e.name).toList() ?? [],
+          //   value: controller.cityController.text,
+          //   validator: AppValidators.fieldEmpty("City"),
+          //   onChanged: (value) {
+          //     controller.cityController.text = value ?? "";
+          //   },
+          // ),
           gapH16(),
           TransparentDropdownField(
             isRequired: true,
@@ -102,7 +109,7 @@ class EditLocationInformation extends ConsumerWidget {
             textInputAction: TextInputAction.next,
             validator: AppValidators.fieldEmpty("Pincode"),
             keyboardType: TextInputType.number,
-            maxLength: 6,
+            // maxLength: 6,
           ),
         ],
       ),
