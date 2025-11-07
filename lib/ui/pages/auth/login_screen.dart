@@ -37,80 +37,88 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
     final state = ref.watch(loginProvider);
     final controller = ref.read(loginProvider.notifier);
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          // backgroundImage(),
-          Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                Expanded(child: Center(child: SizedBox(
-                height: 200,width: 200,
-                  child: WidgetUtils.logoWidget(),
-                ))),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(24, 50, 24, 50),
-                  decoration: const BoxDecoration(
-                    color: AppColors.secondaryColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50),
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black45, // subtle shadow color
-                        offset: Offset(0, -4), // negative Y offset = shadow on top
-                        blurRadius: 8, // softness of shadow
-                        spreadRadius: 1, // optional: how much the shadow spreads
-                      ),
-                    ],
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        AppStrings.loginTitle,
-                        style: context.textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 30),
-                      _emailField(),
-                      const SizedBox(height: 16),
-                      _passwordField(),
-                      const SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CustomCheckbox(
-                            label: "Remember Me",
-                            initialValue: state.rememberMe,
-                            onChanged: (label, isSelected) {
-                              print("$label changed to $isSelected");
-                              controller.toggleRememberMe(isSelected);
-                            },
-                          ),
-                          GestureDetector(
-                            onTap: AppNavigator.loadForgotPasswordScreen,
-                            child: Text(
-                              AppStrings.forgotPassword,
-                              style: context.textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor),
+      resizeToAvoidBottomInset: true,
+      body:SafeArea(
+        child: LayoutBuilder(
+            builder: (context, constraints)  {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: Form(
+                  key: _formKey,
+                  child: IntrinsicHeight(
+                    child: Column(
+                      children: [
+                        Expanded(child: Center(child: SizedBox(
+                        height: 200,width: 200,
+                          child: WidgetUtils.logoWidget(),
+                        ))),
+                        Container(
+                          padding: const EdgeInsets.fromLTRB(24, 50, 24, 50),
+                          decoration: const BoxDecoration(
+                            color: AppColors.secondaryColor,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(50),
+                              topRight: Radius.circular(50),
                             ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black45, // subtle shadow color
+                                offset: Offset(0, -4), // negative Y offset = shadow on top
+                                blurRadius: 8, // softness of shadow
+                                spreadRadius: 1, // optional: how much the shadow spreads
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 30),
-                      _signInButton(),
-                      const SizedBox(height: 30),
-                      _signup(),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                AppStrings.loginTitle,
+                                style: context.textTheme.titleLarge,
+                              ),
+                              const SizedBox(height: 30),
+                              _emailField(),
+                              const SizedBox(height: 16),
+                              _passwordField(),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  CustomCheckbox(
+                                    label: "Remember Me",
+                                    initialValue: state.rememberMe,
+                                    onChanged: (label, isSelected) {
+                                      print("$label changed to $isSelected");
+                                      controller.toggleRememberMe(isSelected);
+                                    },
+                                  ),
+                                  GestureDetector(
+                                    onTap: AppNavigator.loadForgotPasswordScreen,
+                                    child: Text(
+                                      AppStrings.forgotPassword,
+                                      style: context.textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 30),
+                              _signInButton(),
+                              const SizedBox(height: 30),
+                              _signup(),
 
-                    ],
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ],
+              ),
+            );
+          }
+        ),
       ),
     );
   }

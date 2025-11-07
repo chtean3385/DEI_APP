@@ -191,7 +191,7 @@ class EditBasicInformation extends ConsumerWidget {
             label: "Description",
             textInputAction: TextInputAction.next,
             validator: AppValidators.fieldEmpty("Description"),
-            textCapitalization: TextCapitalization.words,
+            textCapitalization: TextCapitalization.sentences,
             minLines: 3,
           ),
         ],
