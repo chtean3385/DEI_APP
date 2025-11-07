@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../widgets/others/app_bar_common.dart';
-import 'components/dei_impacts.dart';
+import 'components/about_us_view.dart';
 
 class AboutUsScreen extends StatelessWidget {
   const AboutUsScreen({super.key});
@@ -10,7 +10,7 @@ class AboutUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarCommon(title: "About Us", arrowLeft: true,titleStyleSmall: true),
-      body: DeiImpacts(),
+      body: AboutUsView(),
     );
   }
 }

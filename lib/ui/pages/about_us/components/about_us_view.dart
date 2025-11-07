@@ -6,8 +6,8 @@ import 'about_us_header.dart';
 import 'dei_revolutions.dart';
 import 'our_core_values_section.dart';
 
-class DeiImpacts extends StatelessWidget {
-  const DeiImpacts({super.key});
+class AboutUsView extends StatelessWidget {
+  const AboutUsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class DeiImpacts extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [AboutUsHeader(), WhatWeDo(),VisionMissionSection(),gapH16(),OurCoreValuesSection(),DeiRevolutions()],
+          children: [AboutUsHeader(),gapH16(), WhatWeDo(),VisionMissionSection(),gapH16(),DeiRevolutions(),OurCoreValuesSection(),],
         ),
       ),
     );

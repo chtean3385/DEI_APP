@@ -38,29 +38,7 @@ class AboutUsHeader extends ConsumerWidget {
 
     return Column(
       children: [
-        AboutDeiContent(description: item.description ?? ""),
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Row(
-            children: [
-              Expanded(
-                flex: 1,
-                child: ImpactCard(
-                  title: "Jobs Promoted",
-                  value:item.jobsPromoted ?? "",
-                ),
-              ),
-              gapW16(),
-              Expanded(
-                flex: 1,
-                child: ImpactCard(
-                  title: "Inclusive Employers",
-                  value:item.employers ?? "",
-                ),
-              ),
-            ],
-          ),
-        ),
+        AboutDeiContent(description: item.description ?? "",backgroundImage: item.image ?? "",jobsPromoted:item.jobsPromoted ?? "" ,employers:item.employers ?? "" ,),
       ],
     );
   }
