@@ -160,7 +160,10 @@ class _JobSearchResultScreenState extends ConsumerState<JobSearchResultScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: SortByDropdown()),
+                  Expanded(child: SortByDropdown(
+                    onChanged: (stateValue) =>
+                        controller.fetchJobs(sortBy: stateValue),
+                  )),
                   Expanded(
                     child: StateDropdown(
                       onChanged: (stateValue) =>

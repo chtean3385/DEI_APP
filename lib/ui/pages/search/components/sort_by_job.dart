@@ -3,14 +3,15 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 class SortByDropdown extends StatefulWidget {
-  const SortByDropdown({super.key});
+  final ValueChanged<String>? onChanged;
+  const SortByDropdown({super.key, this.onChanged});
 
   @override
   State<SortByDropdown> createState() => _SortByDropdownState();
 }
 
 class _SortByDropdownState extends State<SortByDropdown> {
-  final List<String> _sortOptions = ["New", "Old", "Rating"];
+  final List<String> _sortOptions = ["New", "Old",];
 
   late String _selected;
 
@@ -63,6 +64,8 @@ class _SortByDropdownState extends State<SortByDropdown> {
                 if (newValue != null) {
                   setState(() => _selected = newValue);
                 }
+                widget.onChanged?.call(newValue ==  "New" ? "newest" : "oldest");
+
               },
             ),
           ),
