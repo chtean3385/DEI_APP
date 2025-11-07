@@ -6,7 +6,9 @@ import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../constants/app_navigator.dart';
 import '../../../../constants/app_styles.dart';
+import '../../../../providers/controllers/job/employee_search_jobs_controller.dart';
 import 'dei_friendly_industry_card.dart';
 
 class DeiFriendlyIndustrySection extends ConsumerWidget {
@@ -121,7 +123,9 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         itemCount: industries!.length,
         itemBuilder: (context, index) {
-          return DeiFriendlyIndustryCard(department: industries[index]);
+          return DeiFriendlyIndustryCard(department: industries[index],
+            onTap: ()=>AppNavigator.loadJobSearchResultScreen(params:EmployeeSearchJobsParams(industryId:industries[index].id ?? "" ) ),
+          );
         },
         separatorBuilder: (c, v) => gapW16(),
       ),

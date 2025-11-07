@@ -74,7 +74,7 @@ class JobModelApi {
       city: json["city"],
       state: json["state"],
       country: json["country"],
-      salary: json["salary"],
+      salary: json["salary_range"],
       status: json["status"],
       myStatus: json["myStatus"],
       jobType: json["jobType"] != null ? json["jobType"]["name"] : null,

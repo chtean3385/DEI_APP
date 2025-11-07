@@ -15,6 +15,9 @@ class SearchService {
     String? state,
     String? categoryId,
     String? sortBy,
+    String? jobTypeId,
+    String? industryId,
+    String? salaryRangeId,
   }) async {
     try {
       // Start with base URL
@@ -35,7 +38,16 @@ class SearchService {
         queryParams["categoryId"] = categoryId!;
       }
       if (sortBy?.isNotEmpty == true) {
-        queryParams["sortBy"] = sortBy!;
+        queryParams["sortby"] = sortBy!;
+      }
+      if (jobTypeId?.isNotEmpty == true) {
+        queryParams["Jobtype"] = jobTypeId!;
+      }
+      if (industryId?.isNotEmpty == true) {
+        queryParams["Industry"] = industryId!;
+      }
+      if (salaryRangeId?.isNotEmpty == true) {
+        queryParams["salaryrange"] = salaryRangeId!;
       }
 
       // Append query params if any

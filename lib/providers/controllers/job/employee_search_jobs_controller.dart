@@ -21,24 +21,29 @@ class EmployeeSearchJobController extends StateNotifier<JobListState> {
   }
 
 
-  Future<void> fetchJobs({String? selectedState,String? query,String? sortBy,String? categoryId}) async {
+  Future<void> fetchJobs({String? selectedState,String? query,String? sortBy,String? categoryId,String? jobTypeId,String? industryId,String? salaryRangeId}) async {
     state = state.copyWith(
       pageState: PageState.loading,
       query : query,
       sortBy: sortBy,
       state: selectedState,
       categoryId: categoryId,
+      jobTypeId:  jobTypeId,
+      industryId: industryId,
+      salaryRangeId: salaryRangeId,
       currentPage: 1,
       data: [],
     );
-
     try {
       final BaseModel result = await _searchService.getSearchJobs(
         page: 1,
        categoryId: state.categoryId,
         search:  state.query,
         sortBy:  state.sortBy,
-        state:  state.state
+        state:  state.state,
+        jobTypeId:  state.jobTypeId,
+        industryId:  state.industryId,
+        salaryRangeId:  state.salaryRangeId,
       );
       final userId = await SharedPreferenceRepository.getUserId();
       final Data = (result.data as List)
@@ -73,6 +78,9 @@ class EmployeeSearchJobController extends StateNotifier<JobListState> {
         search:  state.query,
         sortBy:  state.sortBy,
         state:  state.state,
+        jobTypeId:  state.state,
+        industryId:  state.state,
+        salaryRangeId:  state.state,
         page: state.currentPage + 1,
       );
       final Data = (result.data as List)
@@ -131,12 +139,14 @@ class EmployeeSearchJobController extends StateNotifier<JobListState> {
 
 class EmployeeSearchJobsParams {
   final String? categoryId;
+  final String? industryId;
   final String? searchQuery;
   final String? sortBy;
   final String? selectedState;
 
   EmployeeSearchJobsParams({
     this.categoryId,
+    this.industryId,
     this.searchQuery,
     this.sortBy,
     this.selectedState,

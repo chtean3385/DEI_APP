@@ -97,10 +97,10 @@ import 'components/state_drop_down.dart';
 //   }
 // }
 
-
 class JobSearchResultScreen extends ConsumerStatefulWidget {
   final EmployeeSearchJobsParams? params;
-  const JobSearchResultScreen({Key? key,this.params}) : super(key: key);
+
+  const JobSearchResultScreen({Key? key, this.params}) : super(key: key);
 
   static const List<String> filters = [
     "Work mode",
@@ -116,7 +116,8 @@ class JobSearchResultScreen extends ConsumerStatefulWidget {
   ];
 
   @override
-  ConsumerState<JobSearchResultScreen> createState() => _JobSearchResultScreenState();
+  ConsumerState<JobSearchResultScreen> createState() =>
+      _JobSearchResultScreenState();
 }
 
 class _JobSearchResultScreenState extends ConsumerState<JobSearchResultScreen> {
@@ -124,7 +125,16 @@ class _JobSearchResultScreenState extends ConsumerState<JobSearchResultScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-    if(widget.params != null)  ref.read(searchJobListProvider.notifier).fetchJobs(query: widget.params?.searchQuery,sortBy:  widget.params?.sortBy,categoryId: widget.params?.categoryId ,selectedState: widget.params?.selectedState );
+      if (widget.params != null)
+        ref
+            .read(searchJobListProvider.notifier)
+            .fetchJobs(
+              query: widget.params?.searchQuery,
+              sortBy: widget.params?.sortBy,
+              categoryId: widget.params?.categoryId,
+              selectedState: widget.params?.selectedState,
+              industryId: widget.params?.industryId,
+            );
     });
   }
 

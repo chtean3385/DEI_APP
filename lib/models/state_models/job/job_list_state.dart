@@ -9,6 +9,9 @@ class JobListState {
   final String? sortBy;
   final String? state;
   final String? categoryId;
+  final String? jobTypeId;
+  final String? industryId;
+  final String? salaryRangeId;
   final String? status;
   final int currentPage;
   final int lastPage;
@@ -25,6 +28,9 @@ class JobListState {
     this.sortBy,
     this.state,
     this.categoryId,
+    this.jobTypeId,
+    this.industryId,
+    this.salaryRangeId,
     this.status,
     this.currentPage = 1,
     this.lastPage = 1,
@@ -43,6 +49,9 @@ class JobListState {
     status: null,
     categoryId: null,
     totalCount: null,
+    jobTypeId: null,
+    industryId: null,
+    salaryRangeId: null,
 
 
   );
@@ -55,6 +64,9 @@ class JobListState {
     String? sortBy,
     String? state,
     String? categoryId,
+    String? jobTypeId,
+    String? industryId,
+    String? salaryRangeId,
     String? status,
     int? currentPage,
     int? lastPage,
@@ -69,6 +81,9 @@ class JobListState {
       query: query ?? this.query,
       sortBy: sortBy ?? this.sortBy,
       state: state ?? this.state,
+      jobTypeId: jobTypeId ?? this.jobTypeId,
+      industryId: industryId ?? this.industryId,
+      salaryRangeId: salaryRangeId ?? this.salaryRangeId,
       status: status ?? this.status,
       categoryId: categoryId ?? this.categoryId,
       currentPage: currentPage ?? this.currentPage,
