@@ -278,58 +278,64 @@ Future<void> forceLogout({String? message}) async {
 }
 
 class ProfileSection extends ConsumerWidget {
-  const ProfileSection({super.key});
+  final  bool isEmployer;
+  const ProfileSection({super.key,this.isEmployer = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(drawerProfileProvider);
     return state.pageState == PageState.loading
         ? _loader()
-        : Container(
-            padding: const EdgeInsets.all(16),
-            color: Colors.transparent,
-            child: Row(
-              children: [
-                state.profileData?.profilePhotoUrl?.isNotEmpty == true
-                    ? RoundedNetworkImage(
-                        imageUrl: state.profileData!.profilePhotoUrl!,
-                        width: 60,
-                        height: 60,
-                        borderRadius: 30,
-                      )
-                    : CircleAvatar(
-                        radius: 30,
-                        backgroundColor: Colors.black12,
-                        child: Icon(
-                          Icons.person_add, // ✅ Add Profile Image icon
-                          size: 30, // optional: adjust size
-                          color: Colors.grey.shade600, // optional: adjust color
+        : GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () =>
+          AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
+          child: Container(
+              padding: const EdgeInsets.all(16),
+              color: Colors.transparent,
+              child: Row(
+                children: [
+                  state.profileData?.profilePhotoUrl?.isNotEmpty == true
+                      ? RoundedNetworkImage(
+                          imageUrl: state.profileData!.profilePhotoUrl!,
+                          width: 60,
+                          height: 60,
+                          borderRadius: 30,
+                        )
+                      : CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.black12,
+                          child: Icon(
+                            Icons.person_add, // ✅ Add Profile Image icon
+                            size: 30, // optional: adjust size
+                            color: Colors.grey.shade600, // optional: adjust color
+                          ),
                         ),
-                      ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        state.profileData?.name ?? "Loading...",
-                        style: context.textTheme.labelMedium,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                      ),
-                      Text(
-                        "Update profile",
-                        style: context.textTheme.bodyMedium?.copyWith(
-                          color: Colors.black54,
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          state.profileData?.name ?? "Loading...",
+                          style: context.textTheme.labelMedium,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Update profile",
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          );
+        );
   }
 
   Widget _loader() {

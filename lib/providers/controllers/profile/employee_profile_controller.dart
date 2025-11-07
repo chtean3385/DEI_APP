@@ -108,8 +108,6 @@ class DrawerProfileController extends StateNotifier<EmployeeProfileState> {
       final EmployeeUserModel userModel = await EmployeeUserModel.fromJson(
         result,
       );
-      await SharedPreferenceRepository.setProfileName(userModel.name ?? "");
-      await SharedPreferenceRepository.setProfileImage(userModel.profilePhotoUrl ?? "");
       state = state.copyWith(
         pageState: PageState.success,
         profileData: userModel,
