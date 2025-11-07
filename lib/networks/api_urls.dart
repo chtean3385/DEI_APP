@@ -19,6 +19,7 @@ class ApiUrls {
   static const weAreHiringData = 'home/weareHiring/get-all';
   static const howItWorksData = 'home/howItWorksSection/get-all';
   static const championCandidatesData = 'home/deiCandidateSection/get-all';
+  static const friendlyIndustries = 'home/recruiterSection/get-all';
 
   // about us
 

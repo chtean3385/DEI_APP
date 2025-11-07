@@ -1,11 +1,9 @@
 import 'package:dei_champions/constants/enums.dart';
-
-import '../../home/featured_employer/employer_model.dart';
 import '../../home/friendly_industries/friendly_industry_model.dart';
 
 class FriendlyIndustryState {
   final PageState pageState;
-  final List<FriendlyIndustry>? data;
+  final List<IndustryModel>? data;
   final String? errorMessage;
   final String selectedFilter;
 
@@ -25,7 +23,7 @@ class FriendlyIndustryState {
 
   FriendlyIndustryState copyWith({
     PageState? pageState,
-    List<FriendlyIndustry>? data,
+    List<IndustryModel>? data,
     String? errorMessage,
     String? selectedFilter,
   }) {

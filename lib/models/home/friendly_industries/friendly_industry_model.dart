@@ -1,67 +1,108 @@
-class FriendlyIndustry {
-  final String name;
-  final String icon;
-  final String alt;
-  final Badge badge;
-  final String description;
-  final String location;
-  final String jobs;
 
-  FriendlyIndustry({
-    required this.name,
-    required this.icon,
-    required this.alt,
-    required this.badge,
-    required this.description,
-    required this.location,
-    required this.jobs,
+class IndustryModel {
+  final String? id;
+  final String? heading;
+  final String? subHeading;
+  final List<IndustryDepartmentModel>? department;
+  final List<String>? users;
+  final String? status;
+  final String? createdAt;
+  final String? updatedAt;
+  final int? v;
+
+  IndustryModel({
+    this.id,
+    this.heading,
+    this.subHeading,
+    this.department,
+    this.users,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
   });
 
-  factory FriendlyIndustry.fromJson(Map<String, dynamic> json) {
-    return FriendlyIndustry(
-      name: json['name'] as String,
-      icon: json['icon'] as String,
-      alt: json['alt'] as String,
-      badge: Badge.fromJson(json['badge'] as Map<String, dynamic>),
-      description: json['description'] as String,
-      location: json['location'] as String,
-      jobs: json['jobs'] as String,
+  factory IndustryModel.fromJson(Map<String, dynamic> json) {
+    return IndustryModel(
+      id: json['_id'] as String?,
+      heading: json['heading'] as String?,
+      subHeading: json['subHeading'] as String?,
+      department: (json['department'] as List<dynamic>?)
+          ?.map((e) => IndustryDepartmentModel.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      users: (json['users'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      status: json['status'] as String?,
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      v: json['__v'] as int?,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
-      'icon': icon,
-      'alt': alt,
-      'badge': badge.toJson(),
-      'description': description,
-      'location': location,
-      'jobs': jobs,
+      '_id': id,
+      'heading': heading,
+      'subHeading': subHeading,
+      'department': department?.map((e) => e.toJson()).toList(),
+      'users': users,
+      'status': status,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      '__v': v,
     };
   }
 }
 
-class Badge {
-  final String text;
-  final String color;
+class IndustryDepartmentModel {
+  final String? id;
+  final String? name;
+  final String? status;
+  final String? createdAt;
+  final String? updatedAt;
+  final int? v;
+  final String? focus;
+  final String? trend;
+  final int? openJobs;
 
-  Badge({
-    required this.text,
-    required this.color,
+  IndustryDepartmentModel({
+    this.id,
+    this.name,
+    this.status,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+    this.focus,
+    this.trend,
+    this.openJobs,
   });
 
-  factory Badge.fromJson(Map<String, dynamic> json) {
-    return Badge(
-      text: json['text'] as String,
-      color: json['color'] as String,
+  factory IndustryDepartmentModel.fromJson(Map<String, dynamic> json) {
+    return IndustryDepartmentModel(
+      id: json['_id'] as String?,
+      name: json['name'] as String?,
+      status: json['status'] as String?,
+      createdAt: json['createdAt'] as String?,
+      updatedAt: json['updatedAt'] as String?,
+      v: json['__v'] as int?,
+      focus: json['focus'] as String?,
+      trend: json['trend'] as String?,
+      openJobs: json['openJobs'] as int?,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'text': text,
-      'color': color,
+      '_id': id,
+      'name': name,
+      'status': status,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      '__v': v,
+      'focus': focus,
+      'trend': trend,
+      'openJobs': openJobs,
     };
   }
 }

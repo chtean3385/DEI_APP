@@ -1,14 +1,16 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/models/home/friendly_industries/friendly_industry_model.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_styles.dart';
+import '../../../../main.dart';
 
 class DeiFriendlyIndustryCard extends StatelessWidget {
-  final FriendlyIndustry employer;
+  final IndustryDepartmentModel department;
   final VoidCallback? onTap;
 
-  const DeiFriendlyIndustryCard({required this.employer, this.onTap});
+  const DeiFriendlyIndustryCard({required this.department, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -28,30 +30,51 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
           border: Border.all(color: Colors.white, width: 1),
         ),
         child: SizedBox(
-          width: 130,
+          width: 150,
           child: Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(employer.icon, width: 50, height: 50),
+                CircleAvatar(
+                  backgroundColor: AppColors.bg,
+                  radius: 14,
+                  child: Text(
+                    (department.name?.isNotEmpty ?? false)
+                        ? department.name![0].toUpperCase()
+                        : "",
+                    style: theme.labelMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+
                 gapH4(),
                 Text(
-                  employer.name,
+                  department.name ?? "",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
-                  style: theme.displaySmall,
+                  style: theme.labelMedium,
                   textAlign: TextAlign.center,
                 ),
+
+                gapH4(),
+                gapH4(),
+                chipTile(department.trend ?? "",true),
+                gapH4(),
+                chipTile("Focus: ${department.focus ?? ""}",false),
+                gapH4(),
                 gapH4(),
                 Text(
-                  employer.jobs,
+                 " ${department.openJobs?.toString() ?? ""} Open jobs",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
-                  style: theme.displaySmall?.copyWith(
-                    fontSize: 9,
+                  style: theme.labelMedium?.copyWith(
+                    fontSize: 10,
                     color: AppColors.primaryColor,
                   ),
                   textAlign: TextAlign.center,
@@ -63,6 +86,28 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
       ),
     );
   }
+  Widget chipTile(String tag,bool small) {
+    return // Tag chip
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+        decoration: BoxDecoration(
+          color: small? (BootstrapColors.colors["blueCapsule"] ?? AppColors.bg) :(BootstrapColors.colors["purpleCapsule"] ?? AppColors.bg) ,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(
+          tag,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          softWrap: true,
+          textAlign: TextAlign.center,
+          style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.w600,
+            fontSize:small ? 8 :  10,
+          ),
+        ),
+      );
+  }
+
 }
 
 class ShimmerDeiFriendlyIndustryCard extends StatelessWidget {

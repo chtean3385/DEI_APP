@@ -26,8 +26,8 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
         color: AppColors.bg,
         child: state.pageState == PageState.loading
             ? _loadingUi()
-        //: _loadingUi()
-            : _data(state, context, ref),
+        // : _loadingUi()
+            : _data(state, context),
       ),
     );
   }
@@ -64,10 +64,10 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
   Widget _data(
     FriendlyIndustryState state,
     BuildContext context,
-    WidgetRef ref,
   ) {
     final theme = Theme.of(context).textTheme;
-    return Padding(
+    return  state.data?.isNotEmpty == true ?
+    Padding(
       padding: const EdgeInsets.only(bottom: 24, top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Explore Top DEI-Friendly Industries",
+                 state.data?.first.heading ?? "",
                   style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
                 ),
                 const SizedBox(height: 8),
@@ -89,10 +89,10 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
             ),
           ),
           // horizontal list
-          _dataItems(state, ref),
+          _dataItems(state),
         ],
       ),
-    );
+    ) : SizedBox.shrink();
   }
 
   Widget _loadingItems() {
@@ -110,20 +110,18 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
     );
   }
 
-  Widget _dataItems(FriendlyIndustryState state, WidgetRef ref) {
-    final controller = ref.read(friendlyIndustryProvider.notifier);
-    final industries = controller.filteredIndustries;
-
-    if (industries.isEmpty) return const SizedBox.shrink();
+  Widget _dataItems(FriendlyIndustryState state) {
+    final industries = state.data?.first.department;
+    if (industries?.isEmpty == true) return const SizedBox.shrink();
 
     return SizedBox(
-      height: 130,
+      height: 170,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: industries.length,
+        itemCount: industries!.length,
         itemBuilder: (context, index) {
-          return DeiFriendlyIndustryCard(employer: industries[index]);
+          return DeiFriendlyIndustryCard(department: industries[index]);
         },
         separatorBuilder: (c, v) => gapW16(),
       ),

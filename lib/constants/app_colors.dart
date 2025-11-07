@@ -40,6 +40,8 @@ class BootstrapColors {
     "dark": Color(0xFF212529),
     "navy": Color(0xFF0d2a66),
     "lightNavy": Color(0xFF26457d),
+    "blueCapsule": Color(0xFFA9C9FF),
+    "purpleCapsule": Color(0xFFCBB2FF),
   };
 }
 
