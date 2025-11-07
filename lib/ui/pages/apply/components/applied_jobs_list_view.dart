@@ -49,7 +49,7 @@ class _SearchResultsViewState extends ConsumerState<AppliedJobListView> {
     } else if (state.pageState == PageState.error) {
       return SomethingWentWrong();
     } else if (state.data?.isEmpty == true) {
-      return AppliedJobCategoryEmptyView(category: state.status ?? "All");
+      return AppliedJobCategoryEmptyView(category: state.status ?? "allApplications");
     } else {
       return _data(state);
     }

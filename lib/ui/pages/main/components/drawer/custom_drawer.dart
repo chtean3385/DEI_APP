@@ -215,33 +215,16 @@ class CustomDrawer extends StatelessWidget {
   ]) {
     final theme = Theme.of(navigatorKey.currentContext!);
     return ListTile(
-      // dense: true,
+      dense: true,
       leading: Icon(icon, color: Colors.black87, size: 20),
       // visualDensity: VisualDensity.compact,
-      visualDensity: const VisualDensity(horizontal: 0, vertical: -2),
-      title: Row(
-        children: [
-          Text(
-            text,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-              color: Colors.black,
-            ),
-          ),
-          if (badge != null) ...[
-            const SizedBox(width: 6),
-            Text(
-              "($badge)",
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: badge == "New"
-                    ? AppColors.primaryColor
-                    : Colors.blueGrey,
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-          ],
-        ],
+      visualDensity: const VisualDensity(horizontal:2, vertical: -1),
+      title: Text(
+        text,
+        style: theme.textTheme.bodyMedium?.copyWith(
+          fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+          color: Colors.black,
+        ),
       ),
       onTap: onTap, // ✅ use it here
     );

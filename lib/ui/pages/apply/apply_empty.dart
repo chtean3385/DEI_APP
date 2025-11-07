@@ -5,12 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/app_navigator.dart';
 
-import 'package:flutter/material.dart';
-import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/constants/app_drawables.dart';
-import 'package:dei_champions/widgets/others/custom_theme_button.dart';
-import '../../../constants/app_navigator.dart';
-
 class AppliedJobCategoryEmptyView extends StatelessWidget {
   final String category;
 
@@ -18,17 +12,17 @@ class AppliedJobCategoryEmptyView extends StatelessWidget {
 
   String get _title {
     switch (category) {
-      case 'Pending':
+      case 'pending':
         return "No pending applications";
-      case 'Accepted':
+      case 'accepted':
         return "No accepted jobs yet";
-      case 'Interviewing':
+      case 'interviewing':
         return "No interviews scheduled";
-      case 'Negotiation':
+      case 'negotiation':
         return "No offers under negotiation";
-      case 'Hired':
+      case 'hired':
         return "You haven’t been hired yet";
-      case 'Rejected':
+      case 'rejected':
         return "No rejected applications";
       default:
         return "You haven’t applied yet!";
@@ -37,17 +31,17 @@ class AppliedJobCategoryEmptyView extends StatelessWidget {
 
   String get _subtitle {
     switch (category) {
-      case 'Pending':
+      case 'pending':
         return "Your applications awaiting employer review will appear here.";
-      case 'Accepted':
+      case 'accepted':
         return "Jobs you’ve been shortlisted for will show up here.";
-      case 'Interviewing':
+      case 'interviewing':
         return "When an employer schedules an interview, you’ll see it here.";
-      case 'Negotiation':
+      case 'negotiation':
         return "Track offers and salary discussions here.";
-      case 'Hired':
+      case 'hired':
         return "Your successfully hired roles will appear here.";
-      case 'Rejected':
+      case 'rejected':
         return "Rejected applications will be shown here.";
       default:
         return "Search for jobs and start applying. You can track your applications here!";
@@ -61,17 +55,13 @@ class AppliedJobCategoryEmptyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              AppDrawables.searchJob,
-              height: 200,
-            ),
+            Image.asset(AppDrawables.searchJob, height: 200),
             const SizedBox(height: 24),
             Text(
               _title,
@@ -110,4 +100,3 @@ class AppliedJobCategoryEmptyView extends StatelessWidget {
     );
   }
 }
-
