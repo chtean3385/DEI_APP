@@ -6,7 +6,6 @@ import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../constants/enums.dart';
 import '../../../../../providers/providers.dart';
@@ -34,21 +33,29 @@ class CustomDrawer extends StatelessWidget {
 
             // 🔹 Job Actions
             // _drawerItem(Icons.visibility, "Actively searching jobs", true),
-            _drawerItem(Icons.search, "Search jobs",  false,
-                null,
-                    () => AppNavigator.loadJobSearchResultScreen()),
+            _drawerItem(
+              Icons.search,
+              "Search jobs",
+              false,
+              null,
+              () => AppNavigator.loadJobSearchResultScreen(),
+            ),
             _drawerItem(Icons.work_outline, "Recommended jobs"),
-            _drawerItem(Icons.bookmark_border, "Saved jobs",  false,
-                null,
-                    () => AppNavigator.loadSavedJobsScreen()),
+            _drawerItem(
+              Icons.bookmark_border,
+              "Saved jobs",
+              false,
+              null,
+              () => AppNavigator.loadSavedJobsScreen(),
+            ),
+
             // _drawerItem(Icons.bar_chart, "Profile performance"),
             //
             // const Divider(color: Colors.black12),
-
             _drawerItem(Icons.settings, "Settings"),
+
             //
             // const Divider(color: Colors.black12),
-
 
             // _drawerItem(Icons.woman_outlined, "Empower Women", false, // bold
             //     null,  // badge
@@ -101,7 +108,6 @@ class CustomDrawer extends StatelessWidget {
             //   null,
             //   () => AppNavigator.loadCSR(),
             // ),
-
             _drawerItem(
               Icons.info_outline,
               "About us",
@@ -148,7 +154,7 @@ class CustomDrawer extends StatelessWidget {
                   'Security',
                   false,
                   null,
-                      () => AppNavigator.loadHtmlDetailPage('Security'),
+                  () => AppNavigator.loadHtmlDetailPage('Security'),
                 ),
 
                 _drawerItem(
@@ -212,7 +218,7 @@ class CustomDrawer extends StatelessWidget {
       dense: true,
       leading: Icon(icon, color: Colors.black87, size: 20),
       // visualDensity: VisualDensity.compact,
-      visualDensity: const VisualDensity(horizontal:2, vertical: -1),
+      visualDensity: const VisualDensity(horizontal: 2, vertical: -1),
       title: Text(
         text,
         style: theme.textTheme.bodyMedium?.copyWith(
@@ -221,6 +227,174 @@ class CustomDrawer extends StatelessWidget {
         ),
       ),
       onTap: onTap, // ✅ use it here
+    );
+  }
+}
+
+class ProfileSection extends ConsumerWidget {
+  final bool isEmployer;
+  final bool showMissingData;
+
+  const ProfileSection({
+    super.key,
+    this.isEmployer = false,
+    this.showMissingData = false,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context).textTheme;
+    final state = ref.watch(drawerProfileProvider);
+    return state.pageState == PageState.loading
+        ? _loader()
+        : GestureDetector(
+            behavior: HitTestBehavior.translucent,
+            onTap: () =>
+                AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
+            child: Container(
+              padding: const EdgeInsets.all(16),
+              margin: showMissingData ? const EdgeInsets.all(16) : null,
+              decoration: showMissingData
+                  ? BoxDecoration(
+                      color: Colors.transparent,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(16),
+                        topRight: Radius.circular(16),
+                        bottomLeft: Radius.circular(16),
+                        bottomRight: Radius.circular(16),
+                      ),
+                      border: Border.all(color: Colors.black12, width: 1),
+                    )
+                  : null,
+
+              child: Stack(
+                alignment: AlignmentGeometry.topRight,
+                children: [
+                  Row(
+                    children: [
+                      Column(
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              SizedBox(
+                                width: 70,
+                                height: 70,
+                                child: CircularProgressIndicator(
+                                  value: .7,
+                                  strokeWidth: 5,
+                                  backgroundColor: Colors.black12,
+                                  valueColor: AlwaysStoppedAnimation(
+                                    AppColors.primaryColor,
+                                  ),
+                                ),
+                              ),
+                              state.profileData?.profilePhotoUrl?.isNotEmpty ==
+                                      true
+                                  ? RoundedNetworkImage(
+                                      imageUrl:
+                                          state.profileData!.profilePhotoUrl!,
+                                      width: 60,
+                                      height: 60,
+                                      borderRadius: 30,
+                                    )
+                                  : CircleAvatar(
+                                      radius: 30,
+                                      backgroundColor: Colors.black12,
+                                      child: Icon(
+                                        Icons
+                                            .person_add, // ✅ Add Profile Image icon
+                                        size: 30, // optional: adjust size
+                                        color: Colors
+                                            .grey
+                                            .shade600, // optional: adjust color
+                                      ),
+                                    ),
+                            ],
+                          ),
+                          gapH8(),
+                          _tagChip("70%", context),
+                        ],
+                      ),
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.profileData?.name ?? "Loading...",
+                              style: context.textTheme.labelMedium,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                            ),
+                            Text(
+                              "Update profile",
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (showMissingData)
+                    Text(
+                      "7 Missing details",
+                      style: theme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                ],
+              ),
+            ),
+          );
+  }
+
+  Widget _tagChip(String tag, BuildContext context) {
+    return // Tag chip
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      decoration: BoxDecoration(
+        color: AppColors.bg,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        tag,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        softWrap: true,
+        textAlign: TextAlign.center,
+        style: context.textTheme.labelMedium?.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 12,
+          color: AppColors.primaryColor,
+        ),
+      ),
+    );
+  }
+
+  Widget _loader() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ShimmerLoader(
+        child: Row(
+          children: [
+            ShimmerBox(height: 60, width: 60, radius: 30),
+            const SizedBox(width: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ShimmerBox(height: 12, width: 80),
+                SizedBox(height: 2),
+                ShimmerBox(height: 8, width: 100),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -252,160 +426,4 @@ Future<void> forceLogout({String? message}) async {
     }
   });
   await Future.delayed(Duration(seconds: 1));
-}
-
-class ProfileSection extends ConsumerWidget {
-  final  bool isEmployer;
-  final  bool showMissingData;
-  const ProfileSection({super.key,this.isEmployer = false,this.showMissingData = false});
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context).textTheme;
-    final state = ref.watch(drawerProfileProvider);
-    return state.pageState == PageState.loading
-        ? _loader()
-        : GestureDetector(
-      behavior: HitTestBehavior.translucent,
-      onTap: () =>
-          AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
-          child: Container(
-              padding: const EdgeInsets.all(16),
-              margin:showMissingData ? const EdgeInsets.all(16) : null,
-              decoration:showMissingData? BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(16),
-                  topRight: Radius.circular(16),
-                  bottomLeft: Radius.circular(16),
-                  bottomRight: Radius.circular(16),
-                ),
-                border: Border.all(color: Colors.black12, width: 1),
-              ) : null,
-
-              child: Stack(
-                alignment: AlignmentGeometry.topRight,
-                children: [
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: CircularProgressIndicator(
-                                  value: .7,
-                                  strokeWidth: 5,
-                                  backgroundColor: Colors.black12,
-                                  valueColor:  AlwaysStoppedAnimation(
-                                    AppColors.primaryColor,
-                                  ),
-                                ),
-                              ),
-                              state.profileData?.profilePhotoUrl?.isNotEmpty == true
-                                  ? RoundedNetworkImage(
-                                imageUrl: state.profileData!.profilePhotoUrl!,
-                                width: 60,
-                                height: 60,
-                                borderRadius: 30,
-                              )
-                                  : CircleAvatar(
-                                radius: 30,
-                                backgroundColor: Colors.black12,
-                                child: Icon(
-                                  Icons.person_add, // ✅ Add Profile Image icon
-                                  size: 30, // optional: adjust size
-                                  color: Colors.grey.shade600, // optional: adjust color
-                                ),
-                              ),
-                            ],
-                          ),
-                          gapH8(),
-                          _tagChip("70%",context)
-
-                        ],
-                      ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              state.profileData?.name ?? "Loading...",
-                              style: context.textTheme.labelMedium,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                            ),
-                            Text(
-                              "Update profile",
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                color: Colors.black54,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                    ],
-                  ),
-                  if(showMissingData)  Text(
-                    "7 Missing details",
-                    style: theme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.primaryColor,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-        );
-  }
-  Widget _tagChip(String tag,BuildContext context) {
-    return // Tag chip
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-        decoration: BoxDecoration(
-          color: AppColors.bg,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          tag,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: context.textTheme.labelMedium?.copyWith(
-            fontWeight: FontWeight.w400,
-            fontSize: 12,
-            color: AppColors.primaryColor,
-          ),
-        ),
-      );
-  }
-
-  Widget _loader() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: ShimmerLoader(
-        child: Row(
-          children: [
-            ShimmerBox(height: 60, width: 60, radius: 30),
-            const SizedBox(width: 16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                ShimmerBox(height: 12, width: 80),
-                SizedBox(height: 2),
-                ShimmerBox(height: 8, width: 100),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
