@@ -6,32 +6,13 @@ import '../search/components/bottom_filter_options.dart';
 
 class SavedJobsScreen extends StatelessWidget {
   const SavedJobsScreen({Key? key}) : super(key: key);
-  static const List<String> filters = [
-    "Work mode",
-    "Department",
-    "Experience",
-    "Salary",
-    "Companies",
-    "Industries",
-    "Role",
-    "Stipend",
-    "Duration",
-    "Education",
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBarCommon(title: "Saved Jobs"),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Expanded(child: SavedJobsView()),
-            // Sticky bottom filter bar
-            const FilterOptionsBar(filters: filters),
-          ],
-        ),
+        child: SavedJobsView(),
       ),
     );
   }

@@ -3,14 +3,12 @@ import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../ui/pages/search/components/bottom_filter_options.dart';
 import '../form/home_search.dart';
 
 AppBar appBarHome(
   BuildContext context, {
   bool isFromHome = false,
   bool isFromProfile = false,
-  bool isFromSavedJobs = false,
   String title = "",
   VoidCallback? onPressed,
   bool isEmployer = false,
@@ -56,47 +54,7 @@ AppBar appBarHome(
               ),
             ),
           ]
-        : isFromSavedJobs
-        ? [
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.filter_list_alt,
-                  color: Colors.black54,
-                  size: 25,
-                ),
-                onPressed: () => _openFilterModal(context),
-              ),
-            ),
-          ]
-        : null,
+        :  null,
   );
 }
 
-const List<String> filters = [
-  "Work mode",
-  "Department",
-  "Experience",
-  "Salary",
-  "Companies",
-  "Industries",
-  "Role",
-  "Stipend",
-  "Duration",
-  "Education",
-];
-
-Future<void> _openFilterModal(BuildContext context, {String? initialFilter}) {
-  return showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent,
-    builder: (ctx) {
-      return FilterModal(
-        categories: filters,
-        initialCategory: initialFilter ?? filters.first,
-      );
-    },
-  );
-}

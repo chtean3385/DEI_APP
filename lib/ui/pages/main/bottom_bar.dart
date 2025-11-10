@@ -72,7 +72,7 @@ class _BottomBarState extends State<BottomBar> {
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,isFromSavedJobs: _currentIndex == 2 ,  onPressed: _handleMenuButtonPressed, ),
+        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,  onPressed: _handleMenuButtonPressed, ),
         // drawer: CustomDrawer(),
         body: _buildScreen(_currentIndex),
         bottomNavigationBar: SafeArea(

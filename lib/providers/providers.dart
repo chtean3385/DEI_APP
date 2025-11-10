@@ -56,6 +56,7 @@ import '../models/state_models/home/featured_employers_state.dart';
 import '../models/state_models/home/how_it_works_state.dart';
 import '../models/state_models/home/job_service_state.dart';
 import '../models/state_models/job/job_state.dart';
+import '../models/state_models/job/salary_range_list_state.dart';
 import '../models/state_models/lgbtq/lgbtq_advantages_state.dart';
 import '../models/state_models/lgbtq/lgbtq_inclusion_point_state.dart';
 import '../models/state_models/lgbtq/lgbtq_quote_state.dart';
@@ -120,6 +121,7 @@ import 'controllers/job/employee_manage_job_controller.dart';
 import 'controllers/job/employee_saved_jobs_controller.dart';
 import 'controllers/job/employee_search_jobs_controller.dart';
 import 'controllers/job/job_types_controller.dart';
+import 'controllers/job/salary_range_type_controller.dart';
 import 'controllers/lgbtq/lgbtq_advantage_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_inclusion_section_controller.dart';
 import 'controllers/lgbtq/lgbtq_quotes_section1_controller.dart';
@@ -140,365 +142,572 @@ import 'controllers/veteran/veteran_quote_section_controller.dart';
 import 'controllers/veteran/veteran_role_controller.dart';
 import 'controllers/veteran/veteran_title_section_controller.dart';
 
-
-final appProvider =
-    AutoDisposeNotifierProvider<AppController, PageState>(
-      () => AppController(),
-    );
+final appProvider = AutoDisposeNotifierProvider<AppController, PageState>(
+  () => AppController(),
+);
 final onBoardingProvider =
-StateNotifierProvider.autoDispose<OnBoardingController, OnBoardingState>((ref) {
-  return OnBoardingController();
-});
-
+    StateNotifierProvider.autoDispose<OnBoardingController, OnBoardingState>((
+      ref,
+    ) {
+      return OnBoardingController();
+    });
 
 /// login controller
 
-final loginProvider  = StateNotifierProvider.autoDispose<LoginController, AuthState>((ref) {
-  return LoginController(ref);
-});
+final loginProvider =
+    StateNotifierProvider.autoDispose<LoginController, AuthState>((ref) {
+      return LoginController(ref);
+    });
 
 /// registration controller
-final registerProvider  = StateNotifierProvider.autoDispose<EmployeeRegisterController, RegisterState>((ref) {
-  return EmployeeRegisterController(ref);
-});
+final registerProvider =
+    StateNotifierProvider.autoDispose<
+      EmployeeRegisterController,
+      RegisterState
+    >((ref) {
+      return EmployeeRegisterController(ref);
+    });
+
 /// registration controller
-final employerRegisterProvider  = StateNotifierProvider.autoDispose<EmployerRegisterController, EmployerRegisterState>((ref) {
-  return EmployerRegisterController(ref);
-});
+final employerRegisterProvider =
+    StateNotifierProvider.autoDispose<
+      EmployerRegisterController,
+      EmployerRegisterState
+    >((ref) {
+      return EmployerRegisterController(ref);
+    });
+
 /// verify OTP controller
-final verifyOtpProvider  = StateNotifierProvider.autoDispose<VerifyOtpController, OtpState>((ref) {
-  return VerifyOtpController(ref);
-});
+final verifyOtpProvider =
+    StateNotifierProvider.autoDispose<VerifyOtpController, OtpState>((ref) {
+      return VerifyOtpController(ref);
+    });
 
 /// signup Page view Provider
 final signupFlowControllerProvider =
-AutoDisposeNotifierProvider<SignupFlowController, SignupFlowState>(
-    SignupFlowController.new);
+    AutoDisposeNotifierProvider<SignupFlowController, SignupFlowState>(
+      SignupFlowController.new,
+    );
 
 /// signup Page employer
 final employerSignupFlowControllerProvider =
-AutoDisposeNotifierProvider<EmployerSignupFlowController, SignupFlowState>(
-    EmployerSignupFlowController.new);
+    AutoDisposeNotifierProvider<EmployerSignupFlowController, SignupFlowState>(
+      EmployerSignupFlowController.new,
+    );
+
 ///common html content screens
 final commonHtmlPageContentsProvider =
-StateNotifierProvider.autoDispose<HtmlPageDataListController, HtmlPageDataListState>((ref) {
-  return HtmlPageDataListController();
-});
+    StateNotifierProvider.autoDispose<
+      HtmlPageDataListController,
+      HtmlPageDataListState
+    >((ref) {
+      return HtmlPageDataListController();
+    });
+
 ///dashboard dynamic counts
 final dashBoardProvider =
-StateNotifierProvider.autoDispose<DashBoardController, DashBoardState>((ref) {
-  return DashBoardController();
-});
+    StateNotifierProvider.autoDispose<DashBoardController, DashBoardState>((
+      ref,
+    ) {
+      return DashBoardController();
+    });
 
 ///job categories
 final jobCategoryProvider =
-StateNotifierProvider.autoDispose<JobCategoryController, JobCategoryState>((ref) {
-  return JobCategoryController(ref);
-});
-
+    StateNotifierProvider.autoDispose<JobCategoryController, JobCategoryState>((
+      ref,
+    ) {
+      return JobCategoryController(ref);
+    });
 
 ///featured employers
 final featuredEmployersProvider =
-StateNotifierProvider.autoDispose<FeaturedEmployersController, FeaturedEmployersState>((ref) {
-  return FeaturedEmployersController();
-});
+    StateNotifierProvider.autoDispose<
+      FeaturedEmployersController,
+      FeaturedEmployersState
+    >((ref) {
+      return FeaturedEmployersController();
+    });
 
 ///friendly industries
 final friendlyIndustryProvider =
-StateNotifierProvider.autoDispose<FriendlyIndustryController, FriendlyIndustryState>((ref) {
-  return FriendlyIndustryController();
-});
+    StateNotifierProvider.autoDispose<
+      FriendlyIndustryController,
+      FriendlyIndustryState
+    >((ref) {
+      return FriendlyIndustryController();
+    });
+
 ///job services
 final jobServiceProvider =
-StateNotifierProvider.autoDispose<JobServiceController, JobServiceState>((ref) {
-  return JobServiceController(ref);
-});
+    StateNotifierProvider.autoDispose<JobServiceController, JobServiceState>((
+      ref,
+    ) {
+      return JobServiceController(ref);
+    });
+
 ///hiring banner
 final hiringBannerProvider =
-StateNotifierProvider.autoDispose<WeAreHiringController, WeAreHiringState>((ref) {
-  return WeAreHiringController(ref);
-});
+    StateNotifierProvider.autoDispose<WeAreHiringController, WeAreHiringState>((
+      ref,
+    ) {
+      return WeAreHiringController(ref);
+    });
+
 ///howItWorks
 final howItWorksProvider =
-StateNotifierProvider.autoDispose<HowItWorksController, HowItWorkState>((ref) {
-  return HowItWorksController(ref);
-});
+    StateNotifierProvider.autoDispose<HowItWorksController, HowItWorkState>((
+      ref,
+    ) {
+      return HowItWorksController(ref);
+    });
 
 ///championCandidates
 final championCandidatesProvider =
-StateNotifierProvider.autoDispose<ChampionCandidatesController, ChampionCandidatesState>((ref) {
-  return ChampionCandidatesController(ref);
-});
+    StateNotifierProvider.autoDispose<
+      ChampionCandidatesController,
+      ChampionCandidatesState
+    >((ref) {
+      return ChampionCandidatesController(ref);
+    });
 
 ///what we do -about us
 final whatWeDoProvider =
-StateNotifierProvider.autoDispose<WhatWeDoController, WhatWeDoState>((ref) {
-  return WhatWeDoController();
-});
+    StateNotifierProvider.autoDispose<WhatWeDoController, WhatWeDoState>((ref) {
+      return WhatWeDoController();
+    });
 
 ///what we do -about us
 final aboutUsProvider =
-StateNotifierProvider.autoDispose<AboutUsController, AboutUsState>((ref) {
-  return AboutUsController();
-});
+    StateNotifierProvider.autoDispose<AboutUsController, AboutUsState>((ref) {
+      return AboutUsController();
+    });
+
 ///what we do -vision
 final aboutVisionProvider =
-StateNotifierProvider.autoDispose<AboutVisionController, AboutVisionState>((ref) {
-  return AboutVisionController();
-});
+    StateNotifierProvider.autoDispose<AboutVisionController, AboutVisionState>((
+      ref,
+    ) {
+      return AboutVisionController();
+    });
 
 ///core values
 final coreValuesProvider =
-StateNotifierProvider.autoDispose<CoreValueController, CoreValueState>((ref) {
-  return CoreValueController();
-});
+    StateNotifierProvider.autoDispose<CoreValueController, CoreValueState>((
+      ref,
+    ) {
+      return CoreValueController();
+    });
 
 ///revolution
 final aboutUsRevolutionProvider =
-StateNotifierProvider.autoDispose<AboutUsRevolutionController, RevolutionState>((ref) {
-  return AboutUsRevolutionController();
-});
+    StateNotifierProvider.autoDispose<
+      AboutUsRevolutionController,
+      RevolutionState
+    >((ref) {
+      return AboutUsRevolutionController();
+    });
+
 ///empower women
 final womenWorkForceProvider =
-StateNotifierProvider.autoDispose<EmpowerWomenWorkForceController, EmpowerWomenWorkforceState>((ref) {
-  return EmpowerWomenWorkForceController();
-});
+    StateNotifierProvider.autoDispose<
+      EmpowerWomenWorkForceController,
+      EmpowerWomenWorkforceState
+    >((ref) {
+      return EmpowerWomenWorkForceController();
+    });
 final womenQuoteControllerProvider =
-StateNotifierProvider.autoDispose<EmpowerWomenQuoteController, EmpowerWomenQuoteState>((ref) {
-  return EmpowerWomenQuoteController();
-});
+    StateNotifierProvider.autoDispose<
+      EmpowerWomenQuoteController,
+      EmpowerWomenQuoteState
+    >((ref) {
+      return EmpowerWomenQuoteController();
+    });
 final womenProgramControllerProvider =
-StateNotifierProvider.autoDispose<EmpowerWomenProgramController, EmpowerWomenProgramState>((ref) {
-  return EmpowerWomenProgramController();
-});
+    StateNotifierProvider.autoDispose<
+      EmpowerWomenProgramController,
+      EmpowerWomenProgramState
+    >((ref) {
+      return EmpowerWomenProgramController();
+    });
 
 ///men alias
 final menAllyShipProvider =
-StateNotifierProvider.autoDispose<AllyShipMenController, AllyShipMenState>((ref) {
-  return AllyShipMenController();
-});
+    StateNotifierProvider.autoDispose<AllyShipMenController, AllyShipMenState>((
+      ref,
+    ) {
+      return AllyShipMenController();
+    });
 final allyShipMatterProvider =
-StateNotifierProvider.autoDispose<AllyShipMatterController, AllyShipMatterState>((ref) {
-  return AllyShipMatterController();
-});
+    StateNotifierProvider.autoDispose<
+      AllyShipMatterController,
+      AllyShipMatterState
+    >((ref) {
+      return AllyShipMatterController();
+    });
 final championDiversityProvider =
-StateNotifierProvider.autoDispose<MenChampionDiversityController, ChampionDiversityState>((ref) {
-  return MenChampionDiversityController();
-});
+    StateNotifierProvider.autoDispose<
+      MenChampionDiversityController,
+      ChampionDiversityState
+    >((ref) {
+      return MenChampionDiversityController();
+    });
 final menAliasTitleProvider =
-StateNotifierProvider.autoDispose<MenAsAliasTitleController, MenAsAliasTitleState>((ref) {
-  return MenAsAliasTitleController();
-});
+    StateNotifierProvider.autoDispose<
+      MenAsAliasTitleController,
+      MenAsAliasTitleState
+    >((ref) {
+      return MenAsAliasTitleController();
+    });
 final organizationalBenefitProvider =
-StateNotifierProvider.autoDispose<OrganizationalBenefitController, OrganizationalBenefitState>((ref) {
-  return OrganizationalBenefitController();
-});
+    StateNotifierProvider.autoDispose<
+      OrganizationalBenefitController,
+      OrganizationalBenefitState
+    >((ref) {
+      return OrganizationalBenefitController();
+    });
 
 ///not defined by disability
 final disabilityTitleSectionProvider =
-StateNotifierProvider.autoDispose<DisabilityTitleSectionController, DisabilityTitleState>((ref) {
-  return DisabilityTitleSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      DisabilityTitleSectionController,
+      DisabilityTitleState
+    >((ref) {
+      return DisabilityTitleSectionController();
+    });
 final disabilityBottomSectionProvider =
-StateNotifierProvider.autoDispose<DisabilityBottomSectionController, DisabilityBottomState>((ref) {
-  return DisabilityBottomSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      DisabilityBottomSectionController,
+      DisabilityBottomState
+    >((ref) {
+      return DisabilityBottomSectionController();
+    });
 final disabilityInclusionStepsProvider =
-StateNotifierProvider.autoDispose<DisabilityInclusionStepsController, DisabilityInclusionStepsState>((ref) {
-  return DisabilityInclusionStepsController();
-});
+    StateNotifierProvider.autoDispose<
+      DisabilityInclusionStepsController,
+      DisabilityInclusionStepsState
+    >((ref) {
+      return DisabilityInclusionStepsController();
+    });
 
 ///gen z
 final genZTitleSectionProvider =
-StateNotifierProvider.autoDispose<GenZTitleSectionController, GenZTitleState>((ref) {
-  return GenZTitleSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      GenZTitleSectionController,
+      GenZTitleState
+    >((ref) {
+      return GenZTitleSectionController();
+    });
 final genZGrowthSectionProvider =
-StateNotifierProvider.autoDispose<GenZGrowthSectionController, GenZGrowthState>((ref) {
-  return GenZGrowthSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      GenZGrowthSectionController,
+      GenZGrowthState
+    >((ref) {
+      return GenZGrowthSectionController();
+    });
 final genZBottomButtonSectionProvider =
-StateNotifierProvider.autoDispose<GenZBottomButtonSectionController, GenZBottomButtonState>((ref) {
-  return GenZBottomButtonSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      GenZBottomButtonSectionController,
+      GenZBottomButtonState
+    >((ref) {
+      return GenZBottomButtonSectionController();
+    });
 final genZAdvantagesSectionControllerProvider =
-StateNotifierProvider.autoDispose<GenZAdvantagesSectionController, GenZAdvantagesState>((ref) {
-  return GenZAdvantagesSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      GenZAdvantagesSectionController,
+      GenZAdvantagesState
+    >((ref) {
+      return GenZAdvantagesSectionController();
+    });
 
 /// veteran
 final veteranTitleSectionProvider =
-StateNotifierProvider.autoDispose<VeteranTitleSectionController, VeteranTitleState>((ref) {
-  return VeteranTitleSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      VeteranTitleSectionController,
+      VeteranTitleState
+    >((ref) {
+      return VeteranTitleSectionController();
+    });
 final veteranRoleSectionProvider =
-StateNotifierProvider.autoDispose<VeteranRoleSectionController, VeteranRoleState>((ref) {
-  return VeteranRoleSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      VeteranRoleSectionController,
+      VeteranRoleState
+    >((ref) {
+      return VeteranRoleSectionController();
+    });
 
 final veteranOrganizationalBenefitSectionProvider =
-StateNotifierProvider.autoDispose<VeteranOrganizationalBenefitSectionController, VeteranOrganizationalBenefitState>((ref) {
-  return VeteranOrganizationalBenefitSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      VeteranOrganizationalBenefitSectionController,
+      VeteranOrganizationalBenefitState
+    >((ref) {
+      return VeteranOrganizationalBenefitSectionController();
+    });
 final veteranAdvantageSectionProvider =
-StateNotifierProvider.autoDispose<VeteranAdvantageSectionController, VeteranAdvantageState>((ref) {
-return VeteranAdvantageSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      VeteranAdvantageSectionController,
+      VeteranAdvantageState
+    >((ref) {
+      return VeteranAdvantageSectionController();
+    });
 final veteranQuoteSectionProvider =
-StateNotifierProvider.autoDispose<VeteranQuoteSectionController, VeteranQuoteState>((ref) {
-  return VeteranQuoteSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      VeteranQuoteSectionController,
+      VeteranQuoteState
+    >((ref) {
+      return VeteranQuoteSectionController();
+    });
 
 /// LGBTQ
 final lgbtqTitleSectionProvider =
-StateNotifierProvider.autoDispose<LgbtqTitleSectionController, LgbtqTitleState>((ref) {
-  return LgbtqTitleSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      LgbtqTitleSectionController,
+      LgbtqTitleState
+    >((ref) {
+      return LgbtqTitleSectionController();
+    });
 final lgbtqAdvantagesController =
-StateNotifierProvider.autoDispose<LgbtqAdvantagesSectionController, LgbtqAdvantagesState>((ref) {
-  return LgbtqAdvantagesSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      LgbtqAdvantagesSectionController,
+      LgbtqAdvantagesState
+    >((ref) {
+      return LgbtqAdvantagesSectionController();
+    });
 
 final lgbtqQuoteSection1Provider =
-StateNotifierProvider.autoDispose<LgbtqQuoteSection1Controller, LgbtqQuoteState>((ref) {
-  return LgbtqQuoteSection1Controller();
-});
+    StateNotifierProvider.autoDispose<
+      LgbtqQuoteSection1Controller,
+      LgbtqQuoteState
+    >((ref) {
+      return LgbtqQuoteSection1Controller();
+    });
 
 final lgbtqQuoteSection2Provider =
-StateNotifierProvider.autoDispose<LgbtqQuoteSection2Controller, LgbtqQuoteState>((ref) {
-  return LgbtqQuoteSection2Controller();
-});
+    StateNotifierProvider.autoDispose<
+      LgbtqQuoteSection2Controller,
+      LgbtqQuoteState
+    >((ref) {
+      return LgbtqQuoteSection2Controller();
+    });
 final lgbtqInclusionPointsProvider =
-StateNotifierProvider.autoDispose<LgbtqInclusionPointsController, LgbtqInclusionPointState>((ref) {
-  return LgbtqInclusionPointsController();
-});
+    StateNotifierProvider.autoDispose<
+      LgbtqInclusionPointsController,
+      LgbtqInclusionPointState
+    >((ref) {
+      return LgbtqInclusionPointsController();
+    });
 final ourTeamProvider =
-StateNotifierProvider.autoDispose<OurTeamController, OurTeamState>((ref) {
-  return OurTeamController(ref);
-});
+    StateNotifierProvider.autoDispose<OurTeamController, OurTeamState>((ref) {
+      return OurTeamController(ref);
+    });
 final letsConnectProvider =
-StateNotifierProvider.autoDispose<LetsConnectController, PageState>((ref) {
-  return LetsConnectController(ref);
-});
-final faqProvider =
-StateNotifierProvider.autoDispose<FaqController, FaqState>((ref) {
+    StateNotifierProvider.autoDispose<LetsConnectController, PageState>((ref) {
+      return LetsConnectController(ref);
+    });
+final faqProvider = StateNotifierProvider.autoDispose<FaqController, FaqState>((
+  ref,
+) {
   return FaqController();
 });
 final blogProvider =
-StateNotifierProvider.autoDispose<BlogController, BlogState>((ref) {
-  return BlogController();
-});
+    StateNotifierProvider.autoDispose<BlogController, BlogState>((ref) {
+      return BlogController();
+    });
 final blogDetailProvider = StateNotifierProvider.autoDispose
     .family<BlogDetailController, BlogDetailState, String>((ref, id) {
-  return BlogDetailController(id);
-});
-final planPriceProvider = StateNotifierProvider.autoDispose<PricePlanController, PricePlanState>((ref) {
-  return PricePlanController();
-});
+      return BlogDetailController(id);
+    });
+final planPriceProvider =
+    StateNotifierProvider.autoDispose<PricePlanController, PricePlanState>((
+      ref,
+    ) {
+      return PricePlanController();
+    });
+
 /// csr
 final csrBannerSectionProvider =
-StateNotifierProvider.autoDispose<CsrBannerSectionController, CsrBannerState>((ref) {
-  return CsrBannerSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      CsrBannerSectionController,
+      CsrBannerState
+    >((ref) {
+      return CsrBannerSectionController();
+    });
 final csrObjectivesController =
-StateNotifierProvider.autoDispose<CsrObjectivesSectionController, CsrObjectivesState>((ref) {
-  return CsrObjectivesSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      CsrObjectivesSectionController,
+      CsrObjectivesState
+    >((ref) {
+      return CsrObjectivesSectionController();
+    });
 
 final csrFocusPointsSection1Provider =
-StateNotifierProvider.autoDispose<CsrFocusAreaSectionController, CsrFocusAreaState>((ref) {
-  return CsrFocusAreaSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      CsrFocusAreaSectionController,
+      CsrFocusAreaState
+    >((ref) {
+      return CsrFocusAreaSectionController();
+    });
 final csrImpactSectionProvider =
-StateNotifierProvider.autoDispose<CsrImpactSectionController, CsrImpactState>((ref) {
-  return CsrImpactSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      CsrImpactSectionController,
+      CsrImpactState
+    >((ref) {
+      return CsrImpactSectionController();
+    });
 final csrImpactStoriesSectionProvider =
-StateNotifierProvider.autoDispose<CsrImpactStoriesSectionController, CsrImpactState>((ref) {
-  return CsrImpactStoriesSectionController();
-});
+    StateNotifierProvider.autoDispose<
+      CsrImpactStoriesSectionController,
+      CsrImpactState
+    >((ref) {
+      return CsrImpactStoriesSectionController();
+    });
 
-
-final drawerProfileProvider =StateNotifierProvider<DrawerProfileController, EmployeeProfileState>((ref) {
-  return DrawerProfileController();
-});
+final drawerProfileProvider =
+    StateNotifierProvider<DrawerProfileController, EmployeeProfileState>((ref) {
+      return DrawerProfileController();
+    });
 
 /// employee profile
-final employeeProfileProvider =StateNotifierProvider.autoDispose<EmployeeProfileController, EmployeeProfileState>((ref) {
-  return EmployeeProfileController(ref);
-});
+final employeeProfileProvider =
+    StateNotifierProvider.autoDispose<
+      EmployeeProfileController,
+      EmployeeProfileState
+    >((ref) {
+      return EmployeeProfileController(ref);
+    });
+
 /// edit employee profile
-final editEmployeeProfileProvider =StateNotifierProvider.autoDispose<EditEmployeeProfileController, EmployeeProfileState>((ref) {
-  return EditEmployeeProfileController(ref);
-});
+final editEmployeeProfileProvider =
+    StateNotifierProvider.autoDispose<
+      EditEmployeeProfileController,
+      EmployeeProfileState
+    >((ref) {
+      return EditEmployeeProfileController(ref);
+    });
+
 ///job types
 final jobTypesProvider =
-StateNotifierProvider.autoDispose<JobTypesController, JobTypeListState>((ref) {
-  return JobTypesController(ref);
-});
+    StateNotifierProvider.autoDispose<JobTypesController, JobTypeListState>((
+      ref,
+    ) {
+      return JobTypesController(ref);
+    });
 
-
-
-
+///job salary range types
+final salaryRangeTypesProvider =
+    StateNotifierProvider.autoDispose<
+      SalaryRangeTypesController,
+      SalaryRangeListState
+    >((ref) {
+      return SalaryRangeTypesController(ref);
+    });
 
 /// applied jobs
-final appliedJobsProvider =StateNotifierProvider.autoDispose<AppliedJobsController, AppliedJobState>((ref) {
-  return AppliedJobsController();
-});
-final employeeAppliedJobsProvider =StateNotifierProvider.autoDispose<EmployeeAppliedJobsController, JobListState>((ref) {
-  return EmployeeAppliedJobsController();
-});
+final appliedJobsProvider =
+    StateNotifierProvider.autoDispose<AppliedJobsController, AppliedJobState>((
+      ref,
+    ) {
+      return AppliedJobsController();
+    });
+final employeeAppliedJobsProvider =
+    StateNotifierProvider.autoDispose<
+      EmployeeAppliedJobsController,
+      JobListState
+    >((ref) {
+      return EmployeeAppliedJobsController();
+    });
 
+final employeeSavedJobsProvider =
+    StateNotifierProvider.autoDispose<EmployeeSavedJobController, JobListState>(
+      (ref) {
+        return EmployeeSavedJobController();
+      },
+    );
 
-final employeeSavedJobsProvider =StateNotifierProvider.autoDispose<EmployeeSavedJobController, JobListState>((ref) {
-  return EmployeeSavedJobController();
-});
 /// search jobs list
-final searchJobListProvider =StateNotifierProvider.autoDispose<EmployeeSearchJobController, JobListState>((ref) {
-  return EmployeeSearchJobController();
-});
+final searchJobListProvider =
+    StateNotifierProvider.autoDispose<
+      EmployeeSearchJobController,
+      JobListState
+    >((ref) {
+      return EmployeeSearchJobController();
+    });
 
 /// employee manage job
-final employeeManageJobProvider =StateNotifierProvider<EmployeeManageJobController, JobState>((ref) {
-  return EmployeeManageJobController(ref);
-});
+final employeeManageJobProvider =
+    StateNotifierProvider<EmployeeManageJobController, JobState>((ref) {
+      return EmployeeManageJobController(ref);
+    });
+
 /// employee get  job details
-final employeeJobDetailsProvider =StateNotifierProvider<EmployeeJobDetailsController, JobState>((ref) {
-  return EmployeeJobDetailsController();
-});
+final employeeJobDetailsProvider =
+    StateNotifierProvider<EmployeeJobDetailsController, JobState>((ref) {
+      return EmployeeJobDetailsController();
+    });
+
 /// employee notifications
-final employeeNotificationProvider = StateNotifierProvider.autoDispose<NotificationController, NotificationsState>((ref) {
-  return NotificationController();
-});
+final employeeNotificationProvider =
+    StateNotifierProvider.autoDispose<
+      NotificationController,
+      NotificationsState
+    >((ref) {
+      return NotificationController();
+    });
 //////*****///////////******* EMPLOYER //////*****///////////*******
 
 /// manage jobs
-final manageJobsProvider =StateNotifierProvider.autoDispose<EmployerManageJobsController, AppliedJobState>((ref) {
-  return EmployerManageJobsController();
-});
+final manageJobsProvider =
+    StateNotifierProvider.autoDispose<
+      EmployerManageJobsController,
+      AppliedJobState
+    >((ref) {
+      return EmployerManageJobsController();
+    });
 
 /// current jobs
-final currentJobOpeningsProvider =StateNotifierProvider.autoDispose<CurrentJobOpeningController, AppliedJobState>((ref) {
-  return CurrentJobOpeningController();
-});
+final currentJobOpeningsProvider =
+    StateNotifierProvider.autoDispose<
+      CurrentJobOpeningController,
+      AppliedJobState
+    >((ref) {
+      return CurrentJobOpeningController();
+    });
 
 /// edit employer profile
-final editEmployerProfileProvider =StateNotifierProvider.autoDispose<EditEmployerProfileController, ProfileState>((ref) {
-  return EditEmployerProfileController();
-});
-final employerApplicationsProvider =StateNotifierProvider.autoDispose<EmployerApplicationsController, EmployerApplicationState>((ref) {
-  return EmployerApplicationsController();
-});
-final addEditJobProvider =StateNotifierProvider.autoDispose<EmployerPostNewJobController, AddEditJobState>((ref) {
-  return EmployerPostNewJobController(ref);
-});
+final editEmployerProfileProvider =
+    StateNotifierProvider.autoDispose<
+      EditEmployerProfileController,
+      ProfileState
+    >((ref) {
+      return EditEmployerProfileController();
+    });
+final employerApplicationsProvider =
+    StateNotifierProvider.autoDispose<
+      EmployerApplicationsController,
+      EmployerApplicationState
+    >((ref) {
+      return EmployerApplicationsController();
+    });
+final addEditJobProvider =
+    StateNotifierProvider.autoDispose<
+      EmployerPostNewJobController,
+      AddEditJobState
+    >((ref) {
+      return EmployerPostNewJobController(ref);
+    });
 
 /// view candidate profile
-final candidateProfileProvider =StateNotifierProvider.autoDispose<CandidateProfileController, ProfileState>((ref) {
-  return CandidateProfileController();
-});
-/// view all candidate list
-final candidatesListProvider =StateNotifierProvider.autoDispose<CandidatesController, CandidatesState>((ref) {
-  return CandidatesController();
-});
+final candidateProfileProvider =
+    StateNotifierProvider.autoDispose<CandidateProfileController, ProfileState>(
+      (ref) {
+        return CandidateProfileController();
+      },
+    );
 
+/// view all candidate list
+final candidatesListProvider =
+    StateNotifierProvider.autoDispose<CandidatesController, CandidatesState>((
+      ref,
+    ) {
+      return CandidatesController();
+    });

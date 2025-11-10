@@ -1,8 +1,10 @@
 import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/ui/pages/search/components/selected_filters.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../providers/providers.dart';
 
 /// 🔹 Separate widget for bottom filter options (with filter list + modal logic)
 class FilterOptionsBar extends StatelessWidget {
@@ -90,7 +92,7 @@ class FilterOptionsBar extends StatelessWidget {
 
 /// Full-screen style modal that shows left categories and right options.
 /// Height is ~85% of screen to match screenshot feel.
-class FilterModal extends StatefulWidget {
+class FilterModal extends ConsumerStatefulWidget {
   final List<String> categories;
   final String initialCategory;
 
@@ -101,43 +103,51 @@ class FilterModal extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<FilterModal> createState() => _FilterModalState();
+  ConsumerState<FilterModal> createState() => _FilterModalState();
 }
 
-class _FilterModalState extends State<FilterModal> {
+class _FilterModalState extends ConsumerState<FilterModal> {
   late String selectedCategory;
   final Map<String, Set<String>> selectedOptionsMap = {};
 
-  // sample options per category (replace with real data)
-  final Map<String, List<Map<String, dynamic>>> _options = {
-    "Work mode": [
-      {"label": "Work from office", "count": 59},
-      {"label": "Work from home", "count": 12},
-      {"label": "Hybrid", "count": 28},
-    ],
-    "Department": [
-      {"label": "Development", "count": 42},
-      {"label": "Design", "count": 10},
-      {"label": "Product", "count": 7},
-    ],
-    "Experience": [
-      {"label": "0-1 yrs", "count": 11},
-      {"label": "1-3 yrs", "count": 20},
-      {"label": "3-5 yrs", "count": 18},
-      {"label": "5+ yrs", "count": 10},
-    ],
-    "Salary": [
-      {"label": "0-2 LPA", "count": 10},
-      {"label": "2-4 LPA", "count": 25},
-      {"label": "4-8 LPA", "count": 12},
-    ],
-    "Companies": [
-      {"label": "Company A", "count": 5},
-      {"label": "Company B", "count": 8},
-      {"label": "Company C", "count": 12},
-    ],
-    // fallback for other categories
-  };
+  Map<String, List<Map<String, dynamic>>> get _options {
+    final jobTypeState = ref.watch(jobTypesProvider);
+    final industryState = ref.watch(friendlyIndustryProvider);
+    final salaryTypeState = ref.watch(salaryRangeTypesProvider);
+
+    // Helper to add "All" option at the top
+    List<Map<String, dynamic>> addAllOption(List<Map<String, dynamic>> list) {
+      if (list.isEmpty) return [];
+      return [
+        {"label": "All", "id": "all"},
+        ...list,
+      ];
+    }
+
+    return {
+      "Industry": addAllOption(
+        (industryState.data?.first.department ?? [])
+            .map((e) => {"label": e.name ?? "", "id": e.id})
+            .toList(),
+      ),
+
+      "Salary Range": addAllOption(
+        (salaryTypeState.data ?? [])
+            .map((e) => {"label": e.name ?? "", "id": e.id})
+            .toList(),
+      ),
+      "Job Type": addAllOption(
+        (jobTypeState.data ?? [])
+            .map((e) => {"label": e.name ?? "", "id": e.id})
+            .toList(),
+      ),
+
+
+
+    };
+  }
+
+
 
   @override
   void initState() {
@@ -146,38 +156,95 @@ class _FilterModalState extends State<FilterModal> {
     for (var c in widget.categories) {
       selectedOptionsMap[c] = <String>{};
     }
+    // 👇 Load saved filter selections from controller
+    final savedState = ref.read(searchJobListProvider);
+
+    selectedOptionsMap["Industry"] = savedState.industryId?.isNotEmpty == true
+        ? savedState.industryId!.split(',').toSet()
+        : <String>{};
+
+    selectedOptionsMap["Salary Range"] = savedState.salaryRangeId?.isNotEmpty == true
+        ? savedState.salaryRangeId!.split(',').toSet()
+        : <String>{};
+
+    selectedOptionsMap["Job Type"] = savedState.jobTypeId?.isNotEmpty == true
+        ? savedState.jobTypeId!.split(',').toSet()
+        : <String>{};
   }
 
-  void _toggleOption(String category, String option) {
+  void _toggleOption(String category, String label) {
     setState(() {
-      final set = selectedOptionsMap[category]!;
-      if (set.contains(option)) {
-        set.remove(option);
+      final id = _options[category]!
+          .firstWhere((e) => e['label'] == label)['id'] as String;
+
+      final selectedList = selectedOptionsMap[category]!;
+
+      if (id == "all") {
+        // Select/deselect all
+        if (selectedList.length == _options[category]!.length - 1) {
+          selectedList.clear();
+        } else {
+          selectedList
+            ..clear()
+            ..addAll(
+              _options[category]!
+                  .where((e) => e['id'] != "all")
+                  .map((e) => e['id'] as String),
+            );
+        }
       } else {
-        set.add(option);
+        // Toggle individual
+        if (selectedList.contains(id)) {
+          selectedList.remove(id);
+        } else {
+          selectedList.add(id);
+        }
       }
     });
   }
 
+
+
   void _applyAndClose() {
-    // You can return the selectedOptionsMap if needed:
-    // Navigator.pop(context, selectedOptionsMap);
+    final controller = ref.read(searchJobListProvider.notifier);
+
+    String buildSelectedIds(String category) {
+      final options = _options[category] ?? [];
+      final selectedSet = selectedOptionsMap[category] ?? <String>{};
+
+      // Exclude "all" from actual ids
+      final allIds = options
+          .where((e) => e['id'] != 'all')
+          .map((e) => e['id'] as String)
+          .toList();
+
+      // If "all" selected, include every id
+      final idsToUse =
+      selectedSet.length == allIds.length ? allIds : selectedSet.toList();
+
+      return idsToUse.join(',');
+    }
+
+    final industryIds = buildSelectedIds('Industry');
+    final salaryRangeIds = buildSelectedIds('Salary Range');
+    final jobTypeIds = buildSelectedIds('Job Type');
+
+    debugPrint('🟢 Selected IDs:');
+    debugPrint('Industry IDs: $industryIds');
+    debugPrint('Salary Range IDs: $salaryRangeIds');
+    debugPrint('Job Type IDs: $jobTypeIds');
+    controller.fetchJobs(salaryRangeId: salaryRangeIds,industryId:industryIds,jobTypeId:jobTypeIds  );
     Navigator.pop(context);
   }
 
+
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
     final leftWidth = 140.0;
     final theme = Theme.of(context).textTheme;
 
-    final options =
-        _options[selectedCategory] ??
-        ([
-          {"label": "Option 1", "count": 0},
-          {"label": "Option 2", "count": 0},
-          {"label": "Option 3", "count": 0},
-        ]);
+    final options = _options[selectedCategory] ?? [];
+
 
     return FractionallySizedBox(
       heightFactor: 0.85,
@@ -222,8 +289,14 @@ class _FilterModalState extends State<FilterModal> {
                         setState(() {
                           for (var k in selectedOptionsMap.keys) {
                             selectedOptionsMap[k]!.clear();
+
                           }
                         });
+                        final controller = ref.read(searchJobListProvider.notifier);
+                        controller.fetchJobs(salaryRangeId: "",industryId:"",jobTypeId:""  );
+                        Navigator.pop(context);
+
+
                       },
                       child: const Text("Clear all"),
                     ),
@@ -232,22 +305,22 @@ class _FilterModalState extends State<FilterModal> {
               ),
 
               const SizedBox(height: 8),
-              /// 🔽 Show selected skills
-              SelectedFilters(
-                selectedSkill: selectedOptionsMap.values
-                    .expand((s) => s)
-                    .toList(),
-                onRemove: (skill) {
-                  setState(() {
-                    for (var set in selectedOptionsMap.values) {
-                      set.remove(skill);
-                    }
-                  });
-                },
-              ),
-
-
-              const SizedBox(height: 8),
+              // /// 🔽 Show selected skills
+              // SelectedFilters(
+              //   selectedSkill: selectedOptionsMap.values
+              //       .expand((s) => s)
+              //       .toList(),
+              //   onRemove: (skill) {
+              //     setState(() {
+              //       for (var set in selectedOptionsMap.values) {
+              //         set.remove(skill);
+              //       }
+              //     });
+              //   },
+              // ),
+              //
+              //
+              // const SizedBox(height: 8),
 
               // Main content — left categories / right options
               Expanded(
@@ -335,10 +408,13 @@ class _FilterModalState extends State<FilterModal> {
                                 itemBuilder: (context, i) {
                                   final opt = options[i];
                                   final label = opt['label'] as String;
-                                  final count = opt['count'] as int;
-                                  final checked =
-                                      selectedOptionsMap[selectedCategory]!
-                                          .contains(label);
+                                  final id = opt['id'] as String;
+                                  final checked = id == "all"
+                                      ? selectedOptionsMap[selectedCategory]!.length ==
+                                      (_options[selectedCategory]?.length ?? 1) - 1
+                                      : selectedOptionsMap[selectedCategory]!.contains(id);
+
+
                                   return Row(
                                     children: [
                                       Checkbox(
@@ -363,12 +439,7 @@ class _FilterModalState extends State<FilterModal> {
                                           style: theme.bodyMedium,
                                         ),
                                       ),
-                                      Text(
-                                        count > 0 ? "$count" : "",
-                                        style: theme.bodyMedium?.copyWith(
-                                          color: Colors.black38,
-                                        ),
-                                      ),
+
                                     ],
                                   );
                                 },
@@ -431,3 +502,8 @@ class _FilterModalState extends State<FilterModal> {
     );
   }
 }
+
+
+
+
+

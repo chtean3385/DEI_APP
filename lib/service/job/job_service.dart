@@ -196,4 +196,20 @@ class JobService {
     );
     return result;
   }
+  getSalaryRangeData() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.salaryTypes,
+      includeAuthToken: true,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
 }
