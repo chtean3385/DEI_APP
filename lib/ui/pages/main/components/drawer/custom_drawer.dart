@@ -58,7 +58,9 @@ class CustomDrawer extends StatelessWidget {
             // _drawerItem(Icons.bar_chart, "Profile performance"),
             //
             // const Divider(color: Colors.black12),
-            _drawerItem(Icons.settings, "Settings"),
+            _drawerItem(Icons.settings, "Settings", false,
+              null,
+                  () => AppNavigator.loadSettingsScreen(),),
 
             //
             // const Divider(color: Colors.black12),
