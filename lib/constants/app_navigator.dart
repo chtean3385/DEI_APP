@@ -31,12 +31,10 @@ import '../ui/pages/employer/employer_main/employer_bottom_bar.dart';
 import '../ui/pages/employer/employer_profile/edit_employer_profile.dart';
 import '../ui/pages/employer/post_job/edit_job_post_screen.dart';
 import '../ui/pages/genz/genz_screen.dart';
-import '../ui/pages/home/components/recommended_jobs/recommended_jobs.dart';
 import '../ui/pages/invites/job_invite_details_screen.dart';
 import '../ui/pages/job/job_details_screen.dart';
 import '../ui/pages/lets_connect/lets_connect_screen.dart';
 import '../ui/pages/main/bottom_bar.dart';
-import '../ui/pages/main/similar_jobs_list_screen.dart';
 import '../ui/pages/men_alias/men_alias_screen.dart';
 import '../ui/pages/not_defined_by_disability/not_defined_by_disability_screen.dart';
 import '../ui/pages/notification/employee_notification_screen.dart';
@@ -44,6 +42,7 @@ import '../ui/pages/on_board/onboard_screen.dart';
 import '../ui/pages/profile/edit_profile_screen.dart';
 import '../ui/pages/profile/employee_profile_details_screen.dart';
 import '../ui/pages/profile/upload_profile_pic.dart';
+import '../ui/pages/recommended_jobs/recommended_jobs_screen.dart';
 import '../ui/pages/saved_jobs/saved_jobs_screen.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
 import '../ui/pages/search/job_search_screen.dart';
@@ -248,7 +247,7 @@ class AppNavigator {
       navigatorKey.currentContext!,
       MaterialPageRoute(
         builder: (_) =>
-            RecommendedJobsScreen(initialCategoryId: initialCategoryId),
+            RecommendedJobsScreen(),
       ),
     );
   }
@@ -387,6 +386,7 @@ class AppNavigator {
       MaterialPageRoute(builder: (_) => SavedJobsScreen()),
     );
   }
+
 
   static Map<String, Function(Map<String, dynamic>? params)> routeMap = {
     "allApplications": (params) => AppNavigator.toBottomBar(initialPage: 1, params: params),

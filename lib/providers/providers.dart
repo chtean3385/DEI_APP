@@ -118,6 +118,7 @@ import 'controllers/home/category/featured_employers_controller.dart';
 import 'controllers/job/employee_applied_jobs_controller.dart';
 import 'controllers/job/employee_job_details_controller.dart';
 import 'controllers/job/employee_manage_job_controller.dart';
+import 'controllers/job/employee_recommended_jobs_controller.dart';
 import 'controllers/job/employee_saved_jobs_controller.dart';
 import 'controllers/job/employee_search_jobs_controller.dart';
 import 'controllers/job/employee_similar_jobs_controller.dart';
@@ -633,6 +634,14 @@ final searchJobListProvider =
     >((ref) {
       return EmployeeSearchJobController();
     });
+/// recommended jobs list
+final recommendedJobListProvider =
+StateNotifierProvider.autoDispose<
+    EmployeeRecommendedJobController,
+    JobListState
+>((ref) {
+  return EmployeeRecommendedJobController();
+});
 
 /// employee manage job
 final employeeManageJobProvider =

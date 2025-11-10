@@ -40,7 +40,13 @@ class CustomDrawer extends StatelessWidget {
               null,
               () => AppNavigator.loadJobSearchResultScreen(),
             ),
-            _drawerItem(Icons.work_outline, "Recommended jobs"),
+            _drawerItem(
+              Icons.work_outline,
+              "Recommended jobs",
+              false,
+              null,
+              () => AppNavigator.loadRecommendedJobsScreen(),
+            ),
             _drawerItem(
               Icons.bookmark_border,
               "Saved jobs",
@@ -247,7 +253,9 @@ class ProfileSection extends ConsumerWidget {
     final state = ref.watch(drawerProfileProvider);
     // return _loaderShowMissing();
     return state.pageState == PageState.loading
-        ? showMissingData ? _loaderShowMissing() : _loader()
+        ? showMissingData
+              ? _loaderShowMissing()
+              : _loader()
         : GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () =>
@@ -323,7 +331,9 @@ class ProfileSection extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              showMissingData ? "${state.profileData?.name}'s Profile"   :   state.profileData?.name ?? "Loading...",
+                              showMissingData
+                                  ? "${state.profileData?.name}'s Profile"
+                                  : state.profileData?.name ?? "Loading...",
                               style: context.textTheme.labelMedium,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -342,7 +352,7 @@ class ProfileSection extends ConsumerWidget {
                             //     color: AppColors.primaryColor,
                             //   ),
                             // ),
-                            if(showMissingData) gapH16()
+                            if (showMissingData) gapH16(),
                           ],
                         ),
                       ),
@@ -354,7 +364,7 @@ class ProfileSection extends ConsumerWidget {
                       style: theme.labelMedium?.copyWith(
                         fontWeight: FontWeight.w800,
                         color: AppColors.primaryColor,
-                        fontSize: 12
+                        fontSize: 12,
                       ),
                     ),
                 ],
@@ -407,21 +417,22 @@ class ProfileSection extends ConsumerWidget {
       ),
     );
   }
+
   Widget _loaderShowMissing() {
     return ShimmerLoader(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: DecoratedBox(
-           decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(16),
-                topRight: Radius.circular(16),
-                bottomLeft: Radius.circular(16),
-                bottomRight: Radius.circular(16),
-              ),
-              border: Border.all(color: Colors.white30, width: 2),
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16),
             ),
+            border: Border.all(color: Colors.white30, width: 2),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Row(
