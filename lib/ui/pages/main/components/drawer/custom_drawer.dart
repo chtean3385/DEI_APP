@@ -252,7 +252,7 @@ class ProfileSection extends ConsumerWidget {
             onTap: () =>
                 AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
             child: Container(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(12),
               margin: showMissingData ? const EdgeInsets.all(16) : null,
               decoration: showMissingData
                   ? BoxDecoration(
@@ -322,7 +322,7 @@ class ProfileSection extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              state.profileData?.name ?? "Loading...",
+                              showMissingData ? "${state.profileData?.name}'s Profile"   :   state.profileData?.name ?? "Loading...",
                               style: context.textTheme.labelMedium,
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -334,6 +334,14 @@ class ProfileSection extends ConsumerWidget {
                                 color: Colors.black54,
                               ),
                             ),
+                            // Text(
+                            //   "7 Missing details",
+                            //   style: theme.bodyMedium?.copyWith(
+                            //     fontWeight: FontWeight.w600,
+                            //     color: AppColors.primaryColor,
+                            //   ),
+                            // ),
+                            if(showMissingData) gapH16()
                           ],
                         ),
                       ),
@@ -342,9 +350,10 @@ class ProfileSection extends ConsumerWidget {
                   if (showMissingData)
                     Text(
                       "7 Missing details",
-                      style: theme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
+                      style: theme.labelMedium?.copyWith(
+                        fontWeight: FontWeight.w800,
                         color: AppColors.primaryColor,
+                        fontSize: 12
                       ),
                     ),
                 ],
