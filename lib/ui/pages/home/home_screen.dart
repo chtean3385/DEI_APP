@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
             // RecruitersNoticingWidget(
             //   recruiters: ["01", "02", "03", "04"], // sample data
             // ),
-            // HiringInfoWidget(),
+            HiringInfoWidget(),
           ],
         ),
       ),
