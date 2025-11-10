@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -271,22 +272,47 @@ class ProfileSection extends ConsumerWidget {
               color: Colors.transparent,
               child: Row(
                 children: [
-                  state.profileData?.profilePhotoUrl?.isNotEmpty == true
-                      ? RoundedNetworkImage(
-                          imageUrl: state.profileData!.profilePhotoUrl!,
-                          width: 60,
-                          height: 60,
-                          borderRadius: 30,
-                        )
-                      : CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Colors.black12,
-                          child: Icon(
-                            Icons.person_add, // ✅ Add Profile Image icon
-                            size: 30, // optional: adjust size
-                            color: Colors.grey.shade600, // optional: adjust color
+                  Column(
+                    children: [
+                      Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          SizedBox(
+                            width: 70,
+                            height: 70,
+                            child: CircularProgressIndicator(
+                              value: .7,
+                              strokeWidth: 5,
+                              backgroundColor: Colors.black12,
+                              valueColor:  AlwaysStoppedAnimation(
+                                AppColors.primaryColor,
+                              ),
+                            ),
                           ),
-                        ),
+                          state.profileData?.profilePhotoUrl?.isNotEmpty == true
+                              ? RoundedNetworkImage(
+                            imageUrl: state.profileData!.profilePhotoUrl!,
+                            width: 60,
+                            height: 60,
+                            borderRadius: 30,
+                          )
+                              : CircleAvatar(
+                            radius: 30,
+                            backgroundColor: Colors.black12,
+                            child: Icon(
+                              Icons.person_add, // ✅ Add Profile Image icon
+                              size: 30, // optional: adjust size
+                              color: Colors.grey.shade600, // optional: adjust color
+                            ),
+                          ),
+                        ],
+                      ),
+                      gapH8(),
+                      _tagChip("70%")
+
+                    ],
+                  ),
+
                   const SizedBox(width: 16),
                   Expanded(
                     child: Column(
@@ -312,6 +338,28 @@ class ProfileSection extends ConsumerWidget {
               ),
             ),
         );
+  }
+  Widget _tagChip(String tag) {
+    return // Tag chip
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+        decoration: BoxDecoration(
+          color: AppColors.bg,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(
+          tag,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          softWrap: true,
+          textAlign: TextAlign.center,
+          style: navigatorKey.currentContext!.textTheme.labelMedium?.copyWith(
+            fontWeight: FontWeight.w400,
+            fontSize: 12,
+            color: AppColors.primaryColor,
+          ),
+        ),
+      );
   }
 
   Widget _loader() {
