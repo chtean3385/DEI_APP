@@ -246,7 +246,7 @@ class EditEmployeeProfileController
         resumeFile: state.resumeFile,
       );
       final EmployeeUserModel profileData = EmployeeUserModel.fromJson(result.data);
-      ref.read(drawerProfileProvider.notifier).updateProfileData(profileData);
+      // ref.read(drawerProfileProvider.notifier).updateProfileData(profileData);
       ref.refresh(employeeProfileProvider);
 
       showSnackBar(result.message, duration: 2);

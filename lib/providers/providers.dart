@@ -425,7 +425,7 @@ final drawerProfileProvider =StateNotifierProvider<DrawerProfileController, Empl
 
 /// employee profile
 final employeeProfileProvider =StateNotifierProvider.autoDispose<EmployeeProfileController, EmployeeProfileState>((ref) {
-  return EmployeeProfileController();
+  return EmployeeProfileController(ref);
 });
 /// edit employee profile
 final editEmployeeProfileProvider =StateNotifierProvider.autoDispose<EditEmployeeProfileController, EmployeeProfileState>((ref) {

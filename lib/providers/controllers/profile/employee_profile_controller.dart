@@ -7,9 +7,11 @@ import '../../../models/state_models/profile/employee_profile_state.dart';
 import '../../../networks/api_urls.dart';
 import '../../../service/employee_profile/employee_profile_service.dart';
 import '../../../widgets/others/snack_bar.dart';
+import '../../providers.dart';
 
 class EmployeeProfileController extends StateNotifier<EmployeeProfileState> {
-  EmployeeProfileController() : super(EmployeeProfileState.initial()) {
+  final Ref ref;
+  EmployeeProfileController(this.ref) : super(EmployeeProfileState.initial()) {
     getEmployeeProfileData();
   }
 
@@ -32,7 +34,7 @@ class EmployeeProfileController extends StateNotifier<EmployeeProfileState> {
       final EmployeeUserModel userModel = await EmployeeUserModel.fromJson(
         result,
       );
-
+      ref.read(drawerProfileProvider.notifier).updateProfileData(userModel);
       state = state.copyWith(
         pageState: PageState.success,
         profileData: userModel,
