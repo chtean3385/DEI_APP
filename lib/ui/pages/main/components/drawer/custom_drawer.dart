@@ -245,8 +245,9 @@ class ProfileSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).textTheme;
     final state = ref.watch(drawerProfileProvider);
+    // return _loaderShowMissing();
     return state.pageState == PageState.loading
-        ? _loader()
+        ? showMissingData ? _loaderShowMissing() : _loader()
         : GestureDetector(
             behavior: HitTestBehavior.translucent,
             onTap: () =>
@@ -402,6 +403,42 @@ class ProfileSection extends ConsumerWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+  Widget _loaderShowMissing() {
+    return ShimmerLoader(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: DecoratedBox(
+           decoration: BoxDecoration(
+              color: Colors.transparent,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+                bottomRight: Radius.circular(16),
+              ),
+              border: Border.all(color: Colors.white30, width: 2),
+            ),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              children: [
+                ShimmerBox(height: 70, width: 70, radius: 35),
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ShimmerBox(height: 12, width: 80),
+                    SizedBox(height: 2),
+                    ShimmerBox(height: 8, width: 100),
+                  ],
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
