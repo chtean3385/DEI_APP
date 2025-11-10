@@ -279,12 +279,12 @@ class AppNavigator {
     );
   }
 
-  static loadSimilarJobsListScreen() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => SimilarJobsListScreen()),
-    );
-  }
+  // static loadSimilarJobsListScreen() {
+  //   Navigator.push(
+  //     navigatorKey.currentContext!,
+  //     MaterialPageRoute(builder: (_) => SimilarJobsListScreen()),
+  //   );
+  // }
 
   static loadCompanyProfileScreen() {
     Navigator.push(

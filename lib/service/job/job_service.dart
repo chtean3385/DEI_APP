@@ -212,4 +212,21 @@ class JobService {
       throw Exception('Invalid response format');
     }
   }
+
+  getSimilarJobs({required String jobId}) async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.similarJobs(jobId),
+      includeAuthToken: true,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
 }

@@ -10,6 +10,7 @@ import '../../../models/state_models/job/job_state.dart';
 import '../../../repo/shared_preference_repository.dart';
 import '../../../widgets/others/show_custom_alert_dialog.dart';
 import '../../../widgets/others/snack_bar.dart';
+import 'employee_similar_jobs_controller.dart';
 
 class EmployeeManageJobController extends StateNotifier<JobState> {
   final Ref ref;
@@ -156,6 +157,9 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
     final _employeeAppliedJobListController = ref.read(
       employeeAppliedJobsProvider.notifier,
     );
+    final _employeeSimilarJobListController = ref.read(
+      similarJobListProvider(null).notifier,
+    );
     if (_employeeJobDetailsController.mounted) {
       _employeeJobDetailsController.updateJobStatus(
         jobId: jobId,
@@ -179,6 +183,13 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
     }
     if (_employeeAppliedJobListController.mounted) {
       _employeeAppliedJobListController.updateJobStatus(
+        jobId: jobId,
+        isApplied: isApplied,
+        isSaved: isSaved,
+      );
+    }
+    if (_employeeSimilarJobListController.mounted) {
+      _employeeSimilarJobListController.updateJobStatus(
         jobId: jobId,
         isApplied: isApplied,
         isSaved: isSaved,

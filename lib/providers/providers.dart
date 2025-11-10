@@ -120,6 +120,7 @@ import 'controllers/job/employee_job_details_controller.dart';
 import 'controllers/job/employee_manage_job_controller.dart';
 import 'controllers/job/employee_saved_jobs_controller.dart';
 import 'controllers/job/employee_search_jobs_controller.dart';
+import 'controllers/job/employee_similar_jobs_controller.dart';
 import 'controllers/job/job_types_controller.dart';
 import 'controllers/job/salary_range_type_controller.dart';
 import 'controllers/lgbtq/lgbtq_advantage_section_controller.dart';
@@ -644,7 +645,15 @@ final employeeJobDetailsProvider =
     StateNotifierProvider<EmployeeJobDetailsController, JobState>((ref) {
       return EmployeeJobDetailsController();
     });
-
+/// similar jobs list
+final similarJobListProvider =
+StateNotifierProvider.autoDispose.family<
+    EmployeeSimilarJobController,
+    JobListState,
+    String?
+>((ref,jobId) {
+  return EmployeeSimilarJobController(jobId);
+});
 /// employee notifications
 final employeeNotificationProvider =
     StateNotifierProvider.autoDispose<
