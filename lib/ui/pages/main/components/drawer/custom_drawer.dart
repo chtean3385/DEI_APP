@@ -33,30 +33,22 @@ class CustomDrawer extends StatelessWidget {
 
             // 🔹 Job Actions
             // _drawerItem(Icons.visibility, "Actively searching jobs", true),
-            // _drawerItem(Icons.search, "Search jobs"),
-            // _drawerItem(Icons.work_outline, "Recommended jobs"),
-            // _drawerItem(Icons.bookmark_border, "Saved jobs"),
+            _drawerItem(Icons.search, "Search jobs",  false,
+                null,
+                    () => AppNavigator.loadJobSearchResultScreen()),
+            _drawerItem(Icons.work_outline, "Recommended jobs"),
+            _drawerItem(Icons.bookmark_border, "Saved jobs",  false,
+                null,
+                    () => AppNavigator.loadSavedJobsScreen()),
             // _drawerItem(Icons.bar_chart, "Profile performance"),
             //
             // const Divider(color: Colors.black12),
-            //
-            // // 🔹 Preferences & Help
-            // // _drawerItem(Icons.remove_red_eye_outlined, "Display preferences"),
-            // _drawerItem(Icons.chat_outlined, "Chat for help", false, "New"),
-            // _drawerItem(Icons.settings, "Settings"),
-            //
-            // const Divider(color: Colors.black12),
-            //
-            // // 🔹 Paid Services
-            // _drawerItem(Icons.card_membership, "Jobseeker services", false, "Paid"),
-            // _drawerItem(Icons.workspace_premium, "DEI Pro", false, "Paid"),
+
+            _drawerItem(Icons.settings, "Settings"),
             //
             // const Divider(color: Colors.black12),
 
-            // 🔹 Info & Support
-            // _drawerItem(Icons.article_outlined, "DEi blog"),
-            // _drawerItem(Icons.help_outline, "How DEI works"),
-            // _drawerItem(Icons.mail_outline, "Write to us"),
+
             // _drawerItem(Icons.woman_outlined, "Empower Women", false, // bold
             //     null,  // badge
             //         () =>AppNavigator.loadEmpowerWomenScreen()),
@@ -87,27 +79,27 @@ class CustomDrawer extends StatelessWidget {
             //   null,
             //       () => AppNavigator.loadLgbtqScreen(),
             // ),
-            _drawerItem(
-              Icons.explore,
-              "Career Explorers",
-              false,
-              null,
-              () => AppNavigator.loadCareerExplorersScreen(),
-            ),
-            _drawerItem(
-              Icons.corporate_fare,
-              "Corporates Championing",
-              false,
-              null,
-              () => AppNavigator.loadCorporatesChampioningScreen(),
-            ),
-            _drawerItem(
-              FontAwesomeIcons.handshake,
-              "Corporate Social Responsibility",
-              false,
-              null,
-              () => AppNavigator.loadCSR(),
-            ),
+            // _drawerItem(
+            //   Icons.explore,
+            //   "Career Explorers",
+            //   false,
+            //   null,
+            //   () => AppNavigator.loadCareerExplorersScreen(),
+            // ),
+            // _drawerItem(
+            //   Icons.corporate_fare,
+            //   "Corporates Championing",
+            //   false,
+            //   null,
+            //   () => AppNavigator.loadCorporatesChampioningScreen(),
+            // ),
+            // _drawerItem(
+            //   FontAwesomeIcons.handshake,
+            //   "Corporate Social Responsibility",
+            //   false,
+            //   null,
+            //   () => AppNavigator.loadCSR(),
+            // ),
 
             _drawerItem(
               Icons.info_outline,
@@ -118,13 +110,13 @@ class CustomDrawer extends StatelessWidget {
             ),
             Column(
               children: [
-                _drawerItem(
-                  Icons.privacy_tip_outlined,
-                  'Our Team',
-                  false,
-                  null,
-                  () => AppNavigator.loadOurTeams(),
-                ),
+                // _drawerItem(
+                //   Icons.privacy_tip_outlined,
+                //   'Our Team',
+                //   false,
+                //   null,
+                //   () => AppNavigator.loadOurTeams(),
+                // ),
                 _drawerItem(
                   Icons.support_agent_outlined,
                   'Contact',
@@ -150,6 +142,13 @@ class CustomDrawer extends StatelessWidget {
                   () =>
                       AppNavigator.loaBlogScreen(), // navigate to your Blog screen
                 ),
+                _drawerItem(
+                  Icons.lock_clock_outlined,
+                  'Security',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Security'),
+                ),
 
                 _drawerItem(
                   Icons.description_outlined,
@@ -158,13 +157,7 @@ class CustomDrawer extends StatelessWidget {
                   null,
                   () => AppNavigator.loadHtmlDetailPage('Terms & Conditions'),
                 ),
-                _drawerItem(
-                  Icons.lock_clock_outlined,
-                  'Security',
-                  false,
-                  null,
-                  () => AppNavigator.loadHtmlDetailPage('Security'),
-                ),
+
                 _drawerItem(
                   Icons.rule_rounded,
                   'Terms of Use',
@@ -172,13 +165,13 @@ class CustomDrawer extends StatelessWidget {
                   null,
                   () => AppNavigator.loadHtmlDetailPage('Terms of Use'),
                 ),
-                _drawerItem(
-                  Icons.accessibility_new_outlined,
-                  'Accessibility',
-                  false,
-                  null,
-                  () => AppNavigator.loadHtmlDetailPage('Accessibility'),
-                ),
+                // _drawerItem(
+                //   Icons.accessibility_new_outlined,
+                //   'Accessibility',
+                //   false,
+                //   null,
+                //   () => AppNavigator.loadHtmlDetailPage('Accessibility'),
+                // ),
                 _drawerItem(
                   Icons.privacy_tip_outlined,
                   'Privacy Policy',
