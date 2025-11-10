@@ -256,10 +256,12 @@ Future<void> forceLogout({String? message}) async {
 
 class ProfileSection extends ConsumerWidget {
   final  bool isEmployer;
-  const ProfileSection({super.key,this.isEmployer = false});
+  final  bool showMissingData;
+  const ProfileSection({super.key,this.isEmployer = false,this.showMissingData = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context).textTheme;
     final state = ref.watch(drawerProfileProvider);
     return state.pageState == PageState.loading
         ? _loader()
@@ -269,69 +271,92 @@ class ProfileSection extends ConsumerWidget {
           AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
           child: Container(
               padding: const EdgeInsets.all(16),
-              color: Colors.transparent,
-              child: Row(
+              margin:showMissingData ? const EdgeInsets.all(16) : null,
+              decoration:showMissingData? BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                  bottomLeft: Radius.circular(16),
+                  bottomRight: Radius.circular(16),
+                ),
+                border: Border.all(color: Colors.black12, width: 1),
+              ) : null,
+
+              child: Stack(
+                alignment: AlignmentGeometry.topRight,
                 children: [
-                  Column(
+                  Row(
                     children: [
-                      Stack(
-                        alignment: Alignment.center,
+                      Column(
                         children: [
-                          SizedBox(
-                            width: 70,
-                            height: 70,
-                            child: CircularProgressIndicator(
-                              value: .7,
-                              strokeWidth: 5,
-                              backgroundColor: Colors.black12,
-                              valueColor:  AlwaysStoppedAnimation(
-                                AppColors.primaryColor,
+                          Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              SizedBox(
+                                width: 70,
+                                height: 70,
+                                child: CircularProgressIndicator(
+                                  value: .7,
+                                  strokeWidth: 5,
+                                  backgroundColor: Colors.black12,
+                                  valueColor:  AlwaysStoppedAnimation(
+                                    AppColors.primaryColor,
+                                  ),
+                                ),
                               ),
-                            ),
+                              state.profileData?.profilePhotoUrl?.isNotEmpty == true
+                                  ? RoundedNetworkImage(
+                                imageUrl: state.profileData!.profilePhotoUrl!,
+                                width: 60,
+                                height: 60,
+                                borderRadius: 30,
+                              )
+                                  : CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.black12,
+                                child: Icon(
+                                  Icons.person_add, // ✅ Add Profile Image icon
+                                  size: 30, // optional: adjust size
+                                  color: Colors.grey.shade600, // optional: adjust color
+                                ),
+                              ),
+                            ],
                           ),
-                          state.profileData?.profilePhotoUrl?.isNotEmpty == true
-                              ? RoundedNetworkImage(
-                            imageUrl: state.profileData!.profilePhotoUrl!,
-                            width: 60,
-                            height: 60,
-                            borderRadius: 30,
-                          )
-                              : CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.black12,
-                            child: Icon(
-                              Icons.person_add, // ✅ Add Profile Image icon
-                              size: 30, // optional: adjust size
-                              color: Colors.grey.shade600, // optional: adjust color
-                            ),
-                          ),
+                          gapH8(),
+                          _tagChip("70%",context)
+
                         ],
                       ),
-                      gapH8(),
-                      _tagChip("70%")
+                      const SizedBox(width: 16),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              state.profileData?.name ?? "Loading...",
+                              style: context.textTheme.labelMedium,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                            ),
+                            Text(
+                              "Update profile",
+                              style: context.textTheme.bodyMedium?.copyWith(
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
 
                     ],
                   ),
-
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          state.profileData?.name ?? "Loading...",
-                          style: context.textTheme.labelMedium,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                        ),
-                        Text(
-                          "Update profile",
-                          style: context.textTheme.bodyMedium?.copyWith(
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ],
+                  if(showMissingData)  Text(
+                    "7 Missing details",
+                    style: theme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.primaryColor,
                     ),
                   ),
                 ],
@@ -339,7 +364,7 @@ class ProfileSection extends ConsumerWidget {
             ),
         );
   }
-  Widget _tagChip(String tag) {
+  Widget _tagChip(String tag,BuildContext context) {
     return // Tag chip
       Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
@@ -353,7 +378,7 @@ class ProfileSection extends ConsumerWidget {
           overflow: TextOverflow.ellipsis,
           softWrap: true,
           textAlign: TextAlign.center,
-          style: navigatorKey.currentContext!.textTheme.labelMedium?.copyWith(
+          style: context.textTheme.labelMedium?.copyWith(
             fontWeight: FontWeight.w400,
             fontSize: 12,
             color: AppColors.primaryColor,
