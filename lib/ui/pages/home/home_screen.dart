@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/app_colors.dart';
 import '../main/components/drawer/custom_drawer.dart';
+import '../recommended_jobs/components/recommended_jobs_horizontal.dart';
 import 'champion_candidates/champion_candidates_section.dart';
 import 'components/boost/booster_slider.dart';
 import 'components/explore_more_jobs/explore_more_jobs.dart';
@@ -32,7 +33,8 @@ class HomeScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             ProfileSection(showMissingData: true,),
-            WeAreHiringBanner(),
+            RecommendedJobsHorizontal(),
+            // WeAreHiringBanner(),
             JobsCategorySection(),
             ExploreOurServices(),
             FeaturedEmployersSection(),
@@ -42,7 +44,7 @@ class HomeScreen extends StatelessWidget {
             // Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
             // gapH16(),
             //
-            // JobsBasedOnProfile(),
+
             // // gapH16(),
             // JobsYouMightLike(),
             // gapH16(),

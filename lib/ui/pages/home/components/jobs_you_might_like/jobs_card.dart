@@ -1,15 +1,18 @@
-import 'package:dei_champions/models/job/job_model.dart';
+import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_styles.dart';
+import '../../../../../models/job/job_model_api.dart';
 import '../../../../../widgets/others/rounded_network_image.dart';
+import '../../../search/components/search_job_card.dart';
 
 /// 📌 Single Job Card
-class JobCard extends StatelessWidget {
-  final JobModel jobModel;
+class RecommendedJobCard extends StatelessWidget {
+  final JobModelApi jobModel;
   final GestureTapCallback? onTap;
 
-  const JobCard({super.key, required this.jobModel, this.onTap});
+  const RecommendedJobCard({super.key, required this.jobModel, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -32,82 +35,204 @@ class JobCard extends StatelessWidget {
           color: Colors.white,
           margin: const EdgeInsets.only(right: 12),
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(12),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Company logo placeholder
                 RoundedNetworkImage(
-                  imageUrl: jobModel.logoUrl,
-                  width: 40,
-                  height: 40,
+                  imageUrl: jobModel.employer?.companyLogo ?? "",
+                  width: 50,
+                  height: 50,
                   borderRadius: 8,
                 ),
-
                 const SizedBox(height: 8),
                 Text(
-                  jobModel.title,
+                  jobModel.title ?? "",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: theme.labelMedium,
                 ),
                 const SizedBox(height: 4),
+                Flexible(
+                  child: Text(
+                    jobModel.employer?.company ?? "",
+                    style: theme.displaySmall?.copyWith(
+                      color: AppColors.primaryColor,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 16,
+                      color: Colors.black54,
+                    ),
+                    SizedBox(width: 4),
+                    Text(
+                      jobModel.state ?? "",
+                      style: theme.displaySmall?.copyWith(color: Colors.black54),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
                 Row(
                   children: [
-                    // 🏢 Company Name
-                    Flexible(
-                      child: Text(
-                        jobModel.companyName,
-                        style: theme.displaySmall?.copyWith(
-                          color: Colors.black45,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    Icon(
+                      Icons.work_history_outlined,
+                      size: 16,
+                      color: Colors.black54,
                     ),
-
-                    const SizedBox(width: 6),
-
-                    // ⭐ Star + rating
+                    SizedBox(width: 4),
+                    Text(
+                      jobModel.jobType ?? "",
+                      style: theme.displaySmall?.copyWith(color: Colors.black54),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
                     Row(
                       children: [
-                        const Icon(Icons.star, color: Colors.orange, size: 16),
-                        const SizedBox(width: 2),
+                        SizedBox(width: 5),
                         Text(
-                          jobModel.rating?.toString() ?? "",
+                          "₹",
+                          style: theme.labelMedium?.copyWith(
+                            color: Colors.black54,
+                          ),
+                        ),
+                        SizedBox(width: 6),
+                        Text(
+                          jobModel.salary ?? "",
                           style: theme.displaySmall?.copyWith(
-                            color: Colors.black45,
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.calendar_month,
+                          size: 14,
+                          color: Colors.black54,
+                        ),
+                        gapW4(),
+                        Text(
+                          " ${getTimeAgo(jobModel.createdAt ?? DateTime.now())}",
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
+                          style: theme.displaySmall?.copyWith(
+                            color: Colors.black54,
                           ),
                         ),
                       ],
                     ),
                   ],
                 ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+class ShimmerRecommendedJobCard extends StatelessWidget {
 
-                gapH20(),
+  const ShimmerRecommendedJobCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ShimmerLoader(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.65,
+        child: Card(
+          color: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(16),
+              topRight: Radius.circular(6),
+              bottomLeft: Radius.circular(6),
+              bottomRight: Radius.circular(16),
+            ),
+            side: const BorderSide(color: Colors.white, width: 2),
+          ),
+          elevation: 0,
+          margin: const EdgeInsets.only(right: 12),
+          child: Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Company logo placeholder
+                ShimmerBox(height: 50, width: 50, radius: 8),
+                const SizedBox(height: 8),
+                ShimmerBox(height: 14, width: 160),
+                const SizedBox(height: 4),
+                ShimmerBox(height: 12, width: 100),
+
+                const SizedBox(height: 12),
                 Row(
                   children: [
                     Icon(
                       Icons.location_on_outlined,
-                      size: 14,
-                      color: Colors.grey.shade600,
+                      size: 16,
+                      color: Colors.white,
                     ),
-                    const SizedBox(width: 4),
-                    Expanded(
-                      child: Text(
-                        jobModel.location,
-                        style: TextStyle(
-                          color: Colors.grey.shade600,
-                          fontSize: 12,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
+                    const SizedBox(width: 6),
+                    ShimmerBox(height: 10, width: 80),
                   ],
                 ),
-                const Spacer(),
-                Text(
-                  jobModel.postedTime,
-                  style: TextStyle(color: Colors.grey.shade500, fontSize: 11),
+                const SizedBox(height: 6),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.location_on_outlined,
+                      size: 16,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(width: 6),
+                    ShimmerBox(height: 10, width: 80),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 16,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 6),
+                        ShimmerBox(height: 10, width: 80),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 16,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 6),
+                        ShimmerBox(height: 10, width: 80),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
