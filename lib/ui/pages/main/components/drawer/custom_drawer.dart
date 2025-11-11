@@ -314,7 +314,7 @@ class ProfileSection extends ConsumerWidget {
                                       backgroundColor: Colors.black12,
                                       child: Icon(
                                         Icons
-                                            .person_add, // ✅ Add Profile Image icon
+                                            .person, // ✅ Add Profile Image icon
                                         size: 30, // optional: adjust size
                                         color: Colors
                                             .grey
@@ -334,7 +334,7 @@ class ProfileSection extends ConsumerWidget {
                           children: [
                             Text(
                               showMissingData
-                                  ? "${state.profileData?.name}'s Profile"
+                                  ? (state.profileData?.name?.isNotEmpty == true ?  "${state.profileData?.name}'s Profile":"Loading...")
                                   : state.profileData?.name ?? "Loading...",
                               style: context.textTheme.labelMedium,
                               maxLines: 1,
