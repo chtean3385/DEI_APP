@@ -112,6 +112,10 @@ class ApiUrls {
 
   // DashBoard
   static String employeeDashBoardData = 'job/employee-dashboard-counts';
+
+  ///EMPLOYER APIs///
+
+  // DashBoard
   static String employerDashBoardData = 'job/employer-dashboard-counts';
 
 

@@ -91,6 +91,9 @@ final Map<String, IconData> fontAwesomeMap = {
   'FaSchool': FontAwesomeIcons.school,
   'FaLeaf': FontAwesomeIcons.leaf,
 };
+IconData getFontAwesomeIcon(String? iconName) {
+  return fontAwesomeMap[iconName] ?? Icons.circle;
+}
 /// Maps API "key" values to specific FontAwesome icons for dashboard items.
 final Map<String, IconData> dashboardIconMap = {
   'allApplications': FontAwesomeIcons.clipboardList,
@@ -101,12 +104,14 @@ final Map<String, IconData> dashboardIconMap = {
   'negotiation': FontAwesomeIcons.handshake,
   'hired': FontAwesomeIcons.userTie,
   'rejected': FontAwesomeIcons.timesCircle,
+  //employer
+  'totalJobs': FontAwesomeIcons.clipboardList,
+  'openJobs': FontAwesomeIcons.solidCircleCheck,
+  'closedJobs': FontAwesomeIcons.solidCircleXmark,
+  'draftJobs': FontAwesomeIcons.solidCircleXmark,
+  'totalApplicants': FontAwesomeIcons.userTie,
 };
-
-IconData getFontAwesomeIcon(String? iconName) {
-  return fontAwesomeMap[iconName] ?? Icons.circle;
-}
-
 IconData getDashboardIcon(String? key) {
   return dashboardIconMap[key] ?? Icons.circle;
 }
+

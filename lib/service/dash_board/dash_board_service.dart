@@ -24,4 +24,19 @@ class DashBoardService {
       throw Exception('Invalid response format');
     }
   }
+  Future<BaseModel> getEmployerDashBoardData() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.employerDashBoardData,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
 }

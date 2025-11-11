@@ -78,6 +78,7 @@ import '../models/state_models/veteran/veteran_future_state.dart';
 import '../models/state_models/veteran/veteran_organizational_benefit_state.dart';
 import '../models/state_models/veteran/veteran_quote_state.dart';
 import '../models/state_models/veteran/veteran_title_state.dart';
+import 'controllers/EMPLOYER/employer_dashboard/employer_dash_board_controller.dart';
 import 'controllers/Employer/candidate/candidate_profile_controller.dart';
 import 'controllers/Employer/candidate/candidates_list_controller.dart';
 import 'controllers/Employer/employer_job/employer_application_controller.dart';
@@ -671,6 +672,12 @@ final employeeNotificationProvider =
     >((ref) {
       return NotificationController();
     });
+
+
+//////*****///////////******* EMPLOYER //////*****///////////*******
+//////*****///////////******* EMPLOYER //////*****///////////*******
+//////*****///////////******* EMPLOYER //////*****///////////*******
+//////*****///////////******* EMPLOYER //////*****///////////*******
 //////*****///////////******* EMPLOYER //////*****///////////*******
 
 /// manage jobs
@@ -729,3 +736,10 @@ final candidatesListProvider =
     ) {
       return CandidatesController();
     });
+///employer dashboard dynamic counts
+final employerDashBoardProvider =
+StateNotifierProvider.autoDispose<EmployerDashBoardController, DashBoardState>((
+    ref,
+    ) {
+  return EmployerDashBoardController();
+});

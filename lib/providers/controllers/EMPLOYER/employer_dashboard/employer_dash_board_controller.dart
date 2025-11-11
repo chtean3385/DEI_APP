@@ -3,21 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
+import '../../../../models/state_models/dash_board/dash_board_state.dart';
+import '../../../../service/dash_board/dash_board_service.dart';
 import '../../../../widgets/others/snack_bar.dart';
-import '../../../models/state_models/dash_board/dash_board_state.dart';
-import '../../../service/dash_board/dash_board_service.dart';
 
-class DashBoardController extends StateNotifier<DashBoardState> {
+class EmployerDashBoardController extends StateNotifier<DashBoardState> {
   final DashBoardService _service = DashBoardService();
 
-  DashBoardController() : super(DashBoardState.initial()) {
+  EmployerDashBoardController() : super(DashBoardState.initial()) {
     fetchData();
   }
 
   Future<void> fetchData() async {
     state = state.copyWith(pageState: PageState.loading);
     try {
-      final result = await _service.getDashBoardData();
+      final result = await _service.getEmployerDashBoardData();
       final Data = (result.data as List)
           .map((e) => DashBoardModel.fromJson(e))
           .toList();
@@ -26,7 +26,7 @@ class DashBoardController extends StateNotifier<DashBoardState> {
       state = state.copyWith(
         pageState: PageState.error,
       );
-      debugPrint(" catch DashBoardController  fetchData -${e.toString()}");
+      debugPrint(" catch EmployerDashBoardController  fetchData -${e.toString()}");
       showSnackBar(e.toString());
     }
   }

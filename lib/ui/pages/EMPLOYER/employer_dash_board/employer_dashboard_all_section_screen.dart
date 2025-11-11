@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../constants/enums.dart';
-import '../../../models/state_models/dash_board/dash_board_state.dart';
-import '../../../providers/providers.dart';
-import '../../../widgets/others/animated_wrapper.dart';
-import '../../../widgets/others/custom_loader.dart';
-import 'components/dash_board_empty.dart';
-import 'components/dashboard_item_card.dart';
+import '../../../../constants/enums.dart';
+import '../../../../models/state_models/dash_board/dash_board_state.dart';
+import '../../../../providers/providers.dart';
+import '../../../../widgets/others/animated_wrapper.dart';
+import '../../../../widgets/others/custom_loader.dart';
+import '../../All/components/dash_board_empty.dart';
+import '../../All/components/dashboard_item_card.dart';
 
-class DashBoardAllScreen extends ConsumerWidget {
-  DashBoardAllScreen({super.key});
+
+class EmployerDashBoardAllScreen extends ConsumerWidget {
+  EmployerDashBoardAllScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(dashBoardProvider);
+    final state = ref.watch(employerDashBoardProvider);
     // return _shimmerLoader();
     if (state.pageState == PageState.loading) {
       return _shimmerLoader();
