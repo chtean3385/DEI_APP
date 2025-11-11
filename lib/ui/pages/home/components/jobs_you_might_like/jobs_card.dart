@@ -154,88 +154,86 @@ class ShimmerRecommendedJobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ShimmerLoader(
-      child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.65,
-        child: Card(
-          color: Colors.transparent,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(6),
-              bottomLeft: Radius.circular(6),
-              bottomRight: Radius.circular(16),
-            ),
-            side: const BorderSide(color: Colors.white, width: 2),
+    return SizedBox(
+      width: MediaQuery.of(context).size.width * 0.65,
+      child: Card(
+        color: Colors.transparent,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(6),
+            bottomLeft: Radius.circular(6),
+            bottomRight: Radius.circular(16),
           ),
-          elevation: 0,
-          margin: const EdgeInsets.only(right: 12),
-          child: Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Company logo placeholder
-                ShimmerBox(height: 50, width: 50, radius: 8),
-                const SizedBox(height: 8),
-                ShimmerBox(height: 14, width: 160),
-                const SizedBox(height: 4),
-                ShimmerBox(height: 12, width: 100),
+          side: const BorderSide(color: Colors.white, width: 2),
+        ),
+        elevation: 0,
+        margin: const EdgeInsets.only(right: 12),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Company logo placeholder
+              ShimmerBox(height: 50, width: 50, radius: 8),
+              const SizedBox(height: 8),
+              ShimmerBox(height: 14, width: 160),
+              const SizedBox(height: 4),
+              ShimmerBox(height: 12, width: 100),
 
-                const SizedBox(height: 12),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      size: 16,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(width: 6),
-                    ShimmerBox(height: 10, width: 80),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.location_on_outlined,
-                      size: 16,
-                      color: Colors.white,
-                    ),
-                    const SizedBox(width: 6),
-                    ShimmerBox(height: 10, width: 80),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          size: 16,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 6),
-                        ShimmerBox(height: 10, width: 80),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.location_on_outlined,
-                          size: 16,
-                          color: Colors.white,
-                        ),
-                        const SizedBox(width: 6),
-                        ShimmerBox(height: 10, width: 80),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
-            ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    size: 16,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 6),
+                  ShimmerBox(height: 10, width: 80),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  Icon(
+                    Icons.location_on_outlined,
+                    size: 16,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(width: 6),
+                  ShimmerBox(height: 10, width: 80),
+                ],
+              ),
+              const SizedBox(height: 6),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_outlined,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 6),
+                      ShimmerBox(height: 10, width: 80),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.location_on_outlined,
+                        size: 16,
+                        color: Colors.white,
+                      ),
+                      const SizedBox(width: 6),
+                      ShimmerBox(height: 10, width: 80),
+                    ],
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
