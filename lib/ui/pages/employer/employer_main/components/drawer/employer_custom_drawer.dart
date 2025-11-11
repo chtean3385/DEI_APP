@@ -125,13 +125,16 @@ class EmployerCustomDrawer extends StatelessWidget {
             //   null,
             //       () => AppNavigator.loadLgbtqScreen(),
             // ),
-            _drawerItem(
-              Icons.person_search,
-              "Candidates",
-              false,
+            // _drawerItem(
+            //   Icons.person_search,
+            //   "Candidates",
+            //   false,
+            //   null,
+            //   () => AppNavigator.loadCandidatesScreen(),
+            // ),
+            _drawerItem(Icons.settings, "Settings", false,
               null,
-              () => AppNavigator.loadCandidatesScreen(),
-            ),
+                  () => AppNavigator.loadSettingsScreen(),),
             _drawerItem(
               Icons.explore,
               "Career Explorers",
@@ -162,6 +165,79 @@ class EmployerCustomDrawer extends StatelessWidget {
               false, // bold
               null, // badge
               () => AppNavigator.loadAboutUsScreen(),
+            ),
+            Column(
+              children: [
+                // _drawerItem(
+                //   Icons.privacy_tip_outlined,
+                //   'Our Team',
+                //   false,
+                //   null,
+                //   () => AppNavigator.loadOurTeams(),
+                // ),
+                _drawerItem(
+                  Icons.support_agent_outlined,
+                  'Contact',
+                  false,
+                  null,
+                      () =>
+                      AppNavigator.loadLetsConnect(), // or whatever your contact route is
+                ),
+                _drawerItem(
+                  Icons.help_outline,
+                  'FAQ',
+                  false,
+                  null,
+                      () =>
+                      AppNavigator.loadFaqScreen(), // navigate to your FAQ screen
+                ),
+                _drawerItem(
+                  Icons.article_outlined,
+                  // more suitable icon for blogs/articles
+                  'Blog',
+                  false,
+                  null,
+                      () =>
+                      AppNavigator.loaBlogScreen(), // navigate to your Blog screen
+                ),
+                _drawerItem(
+                  Icons.lock_clock_outlined,
+                  'Security',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Security'),
+                ),
+
+                _drawerItem(
+                  Icons.description_outlined,
+                  'Terms & Conditions',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Terms & Conditions'),
+                ),
+
+                _drawerItem(
+                  Icons.rule_rounded,
+                  'Terms of Use',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Terms of Use'),
+                ),
+                // _drawerItem(
+                //   Icons.accessibility_new_outlined,
+                //   'Accessibility',
+                //   false,
+                //   null,
+                //   () => AppNavigator.loadHtmlDetailPage('Accessibility'),
+                // ),
+                _drawerItem(
+                  Icons.privacy_tip_outlined,
+                  'Privacy Policy',
+                  false,
+                  null,
+                      () => AppNavigator.loadHtmlDetailPage('Privacy Policy'),
+                ),
+              ],
             ),
             _drawerItem(
               Icons.logout,
