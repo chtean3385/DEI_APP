@@ -1,18 +1,20 @@
-import 'package:dei_champions/ui/pages/employer/manage_jobs/components/manage_jobs_filter_options.dart';
+import 'package:dei_champions/ui/pages/EMPLOYER/manage_jobs/components/manage_jobs_filter_options.dart';
 import 'package:flutter/material.dart';
 import 'components/manage_jobs_list_view.dart';
 
-class ManageJobsScreen extends StatelessWidget {
-  const ManageJobsScreen({super.key});
+class EmployerManageJobsScreen extends StatelessWidget {
+  const EmployerManageJobsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        ManageJobsFilterOptions(),
-        Expanded(child: ManageJobListView()),
-      ],
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          EmployerManageJobsFilterOptions(),
+          Expanded(child: EmployerManageJobListView()),
+        ],
+      ),
     );
   }
 }

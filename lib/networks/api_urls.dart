@@ -117,6 +117,9 @@ class ApiUrls {
 
   // DashBoard
   static String employerDashBoardData = 'job/employer-dashboard-counts';
+  // manage jobs
+  static String employerManageJobs = 'job/get-all';
+
 
 
 

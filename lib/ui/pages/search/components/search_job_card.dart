@@ -472,7 +472,7 @@ class ShimmerSearchJobCard extends StatelessWidget {
                   Icon(
                     Icons.location_on_outlined,
                     size: 16,
-                    color: Colors.black26,
+                    color: Colors.white,
                   ),
                   const SizedBox(width: 6),
                   ShimmerBox(height: 10, width: 80),
@@ -486,7 +486,7 @@ class ShimmerSearchJobCard extends StatelessWidget {
                   Icon(
                     Icons.work_history_outlined,
                     size: 16,
-                    color: Colors.black26,
+                    color: Colors.white,
                   ),
                   const SizedBox(width: 6),
                   ShimmerBox(height: 10, width: 60),
@@ -532,7 +532,7 @@ class ShimmerSearchJobCard extends StatelessWidget {
               // Footer with calendar and button placeholder
               Row(
                 children: [
-                  Icon(Icons.calendar_month, size: 14, color: Colors.black26),
+                  Icon(Icons.calendar_month, size: 14, color: Colors.white),
                   const SizedBox(width: 6),
                   ShimmerBox(height: 10, width: 60),
                   const Spacer(),

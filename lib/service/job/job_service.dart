@@ -229,4 +229,28 @@ class JobService {
       throw Exception('Invalid response format');
     }
   }
+
+  ///EMPLOYER///////////////////////////////////////////////////////////////////////////////////////
+
+  /// Get employer  jobs posted
+  Future<BaseModel> getEmployerJobs() async {
+    try {
+      // Perform the GET request
+      final result = await _apiHandler.get(url: ApiUrls.employerManageJobs, includeAuthToken: true);
+
+      // Handle the API response
+      if (result is Map<String, dynamic>) {
+        final base = BaseModel.fromJson(result);
+        if (base.isSuccess) {
+          return base;
+        } else {
+          throw base.message;
+        }
+      } else {
+        throw Exception('Invalid response format');
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

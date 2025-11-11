@@ -79,13 +79,13 @@ import '../models/state_models/veteran/veteran_organizational_benefit_state.dart
 import '../models/state_models/veteran/veteran_quote_state.dart';
 import '../models/state_models/veteran/veteran_title_state.dart';
 import 'controllers/EMPLOYER/employer_dashboard/employer_dash_board_controller.dart';
+import 'controllers/EMPLOYER/manage_jobs/employer_manage_jobs_controller.dart';
 import 'controllers/Employer/candidate/candidate_profile_controller.dart';
 import 'controllers/Employer/candidate/candidates_list_controller.dart';
 import 'controllers/Employer/employer_job/employer_application_controller.dart';
 import 'controllers/Employer/employer_job/post_new_job_controller.dart';
 import 'controllers/Employer/employer_profile/edit_employer_profile_controller.dart';
 import 'controllers/Employer/manage_jobs/current_jobs_controller.dart';
-import 'controllers/Employer/manage_jobs/employer_manage_jobs_controller.dart';
 import 'controllers/about_us/about_us_controller.dart';
 import 'controllers/about_us/about_vision_controller.dart';
 import 'controllers/about_us/core_value_controller.dart';
@@ -681,10 +681,10 @@ final employeeNotificationProvider =
 //////*****///////////******* EMPLOYER //////*****///////////*******
 
 /// manage jobs
-final manageJobsProvider =
+final employerManageJobsProvider =
     StateNotifierProvider.autoDispose<
-      EmployerManageJobsController,
-      AppliedJobState
+        EmployerManageJobsController,
+        JobListState
     >((ref) {
       return EmployerManageJobsController();
     });

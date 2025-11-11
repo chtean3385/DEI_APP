@@ -152,7 +152,7 @@ class _EmployerBottomBarState extends State<EmployerBottomBar> {
       case 1:
         return  PostJobScreen();
       case 2:
-        return const ManageJobsScreen();
+        return const EmployerManageJobsScreen();
       case 3:
         return const EmployerProfileScreen();
       case 4:

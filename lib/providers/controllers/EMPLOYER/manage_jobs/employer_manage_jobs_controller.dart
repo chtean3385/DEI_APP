@@ -1,155 +1,80 @@
-import 'package:dei_champions/models/state_models/applied/applied_job_state.dart';
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
-import '../../../../models/job/job_model.dart';
-import '../../../../widgets/others/snack_bar.dart';
+import '../../../../models/common/base_model.dart';
+import '../../../../models/job/job_model_api.dart';
+import '../../../../models/state_models/job/job_list_state.dart';
+import '../../../../repo/shared_preference_repository.dart';
+import '../../../../service/job/job_service.dart';
 
-class EmployerManageJobsController extends StateNotifier<AppliedJobState> {
-
-  EmployerManageJobsController() : super(AppliedJobState.initial()) {
-    fetchData();
-    selectFilter("All");
+class EmployerManageJobsController extends StateNotifier<JobListState> {
+  EmployerManageJobsController() : super(JobListState.initial()) {
+    fetchJobs();
   }
-  final List<JobModel> jobs = [
-    JobModel(
-      title: "UI/UX Designer",
-      companyName: "Vedhasekaran and Akalya Inc 123",
-      location: "Remote",
-      experience: "1-4 yrs",
-      salary: "3 - 6 Lacs PA",
-      skills: ["UI Design", "UX Design", "Figma", "Adobe XD"],
-      vacancies: "2 vacancies",
-      postedTime: "5d ago",
-      logoUrl: "https://img.icons8.com/color/96/000000/meta.png",
-      rating: 3.8,
-      hasAwards: true,
-      hasReviews: false,
-      hasBenefits: true,
-      hasVerifiedBenefits: false,
-      hasSalaryInsights: true,
-      reviews: "1.4K+",
-      postedDate: "27 Aug",
-      isWalkIn: true,
-      status: "closed"
-    ),
-    JobModel(
-      title: "MERN stack",
-      companyName: "Vedhasekaran and Akalya Inc 123",
-      location: "Remote",
-      experience: "0-2 yrs",
-      salary: "1.5 - 3 Lacs PA",
-      skills: ["Communication", "Sales", "Customer Service", "Telecalling"],
-      vacancies: "10 vacancies",
-      postedTime: "2d ago",
-      logoUrl: "https://img.icons8.com/color/96/000000/google-logo.png",
-      rating: 3.1,
-      hasAwards: false,
-      hasReviews: true,
-      hasBenefits: false,
-      hasVerifiedBenefits: false,
-      hasSalaryInsights: true,
-      reviews: "1.4K+",
-      postedDate: "27 Aug",
-      isWalkIn: true,
-        status: "open"
-    ),
-    JobModel(
-      title: "Software Engineer",
-      companyName: "Vedhasekaran and Akalya Inc 123",
-      location: "Bengaluru",
-      experience: "1-3 yrs",
-      salary: "3 - 5 Lacs PA",
-      skills: ["Software Engineering", "Programming", "Development"],
-      vacancies: "Multiple",
-      postedTime: "1d ago",
-      logoUrl:
-      "https://assets.streamlinehq.com/.../wipro-h69to9ubxsai6gq72cym27.png",
-      rating: 4.0,
-      hasAwards: true,
-      hasReviews: true,
-      hasBenefits: true,
-      hasVerifiedBenefits: true,
-      hasSalaryInsights: false,
-      reviews: "1.4K+",
-      postedDate: "27 Aug",
-      isWalkIn: true,
-        status: "drafts"
-    ),
-    JobModel(
-      title: "Backend Engineer",
-      companyName: "Vedhasekaran and Akalya Inc 123",
-      location: "Hyderabad",
-      experience: "2-4 yrs",
-      salary: "4 - 7 Lacs PA",
-      skills: ["Backend Development", "API", "Microservices", "Database"],
-      vacancies: "5 vacancies",
-      postedTime: "1d ago",
-      logoUrl: "https://img.icons8.com/color/96/000000/amazon.png",
-      rating: 4.5,
-      hasAwards: false,
-      hasReviews: true,
-      hasBenefits: true,
-      hasVerifiedBenefits: true,
-      hasSalaryInsights: true,
-      reviews: "1.4K+",
-      postedDate: "27 Aug",
-      isWalkIn: true,
-        status: "closed"
-    ),
-    JobModel(
-      title: "Cloud Specialist",
-      companyName: "Vedhasekaran and Akalya Inc 123",
-      location: "Pune",
-      experience: "2-5 yrs",
-      salary: "5 - 8 Lacs PA",
-      skills: ["Cloud Computing", "AWS", "Azure", "DevOps"],
-      vacancies: "3 vacancies",
-      postedTime: "3d ago",
-      logoUrl: "https://img.icons8.com/color/96/000000/ibm.png",
-      rating: 4.0,
-      hasAwards: true,
-      hasReviews: false,
-      hasBenefits: false,
-      hasVerifiedBenefits: true,
-      hasSalaryInsights: true,
-      reviews: "1.4K+",
-      postedDate: "27 Aug",
-      isWalkIn: true,
-        status: "open"
-    ),
-  ];
 
-  Future<void> fetchData() async {
-    state = state.copyWith(pageState: PageState.loading);
+  final JobService _jobService = JobService();
+  List<JobModelApi> _allJobs = []; // 🔹 Keep the full list here
+
+  @override
+  void dispose() {
+    debugPrint("🔥 EmployerManageJobsController disposed");
+    super.dispose();
+  }
+
+  void resetState() {
+    state = state.copyWith(status: null, data: [], totalCount: 0);
+    _allJobs = [];
+  }
+
+  Future<void> fetchJobs() async {
+    state = state.copyWith(
+      pageState: PageState.loading,
+      data: [],
+    );
+
     try {
-      final result = jobs;
-      state = state.copyWith(pageState: PageState.success, data: result);
+      final BaseModel result = await _jobService.getEmployerJobs();
+      final userId = await SharedPreferenceRepository.getUserId();
+      final jobs = (result.data as List)
+          .map((e) => JobModelApi.fromJson(e, currentUserId: userId))
+          .toList();
+
+      _allJobs = jobs; // ✅ Save the unfiltered list
+
+      state = state.copyWith(
+        pageState: PageState.success,
+        data: jobs,
+      );
     } catch (e) {
       state = state.copyWith(
         pageState: PageState.error,
         errorMessage: e.toString(),
       );
-      debugPrint(" catch AppliedJobsController  fetchData -${e.toString()}");
-      showSnackBar(e.toString());
     }
   }
-  void selectFilter(String filter) {
-    state = state.copyWith(selectedFilter: filter);
 
-    // Filter logic
-    final filtered = jobs.where((job) =>
-    job.status?.toLowerCase() == filter.toLowerCase()).toList();
-    state = state.copyWith(data: filtered);
-    // if (filter.toLowerCase() == 'all') {
-    //   state = state.copyWith(data: jobs);
-    // } else
-    // {
-    //   final filtered = jobs.where((job) =>
-    //   job.status?.toLowerCase() == filter.toLowerCase()).toList();
-    //   state = state.copyWith(data: filtered);
-    // }
+  void selectFilter(String newStatus) {
+    debugPrint("🟡 Selected Filter: $newStatus");
+    debugPrint("📦 Total jobs before filter: ${_allJobs.length}");
+
+    List<JobModelApi>? filtered;
+    if (newStatus.toLowerCase() == 'all' || newStatus.toLowerCase() == 'totaljobs') {
+      filtered = _allJobs;
+    } else {
+      filtered = _allJobs
+          .where((job) => job.status?.toLowerCase() == newStatus.toLowerCase())
+          .toList();
+    }
+
+    debugPrint("✅ Filtered count: ${filtered.length}");
+
+    state = state.copyWith(
+      status: newStatus,
+      data: filtered,
+    );
   }
-
 }
+
