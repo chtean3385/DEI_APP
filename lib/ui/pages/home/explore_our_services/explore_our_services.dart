@@ -186,7 +186,7 @@ void showExploreServicesBottomSheet(
     builder: (context) {
       final theme = Theme.of(context).textTheme;
       return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
