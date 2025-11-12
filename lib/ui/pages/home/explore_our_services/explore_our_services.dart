@@ -123,7 +123,13 @@ class _ExploreOurServicesState extends State<ExploreOurServices> {
                         ),
                         ViewAllButton(
                           isSmall: true,
-                          onPressed: AppNavigator.loadRecommendedJobsScreen,
+                          onPressed: () {
+                            showExploreServicesBottomSheet(
+                              context,
+                              services: sliderItems,
+                              callbacks: _drawerCallbacks,
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -164,4 +170,131 @@ class _ExploreOurServicesState extends State<ExploreOurServices> {
       ),
     );
   }
+}
+void showExploreServicesBottomSheet(
+    BuildContext context, {
+      required List<ExploreServiceModel> services,
+      required List<VoidCallback> callbacks,
+    }) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.white,
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+    ),
+    builder: (context) {
+      final theme = Theme.of(context).textTheme;
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: 12),
+                decoration: BoxDecoration(
+                  color: Colors.grey[400],
+                  borderRadius: BorderRadius.circular(4),
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+
+                Text(
+                  "Explore Our Services",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodySmall
+                      ?.copyWith(fontWeight: FontWeight.w600),
+                ),
+
+                gapW8(),
+                Image.asset(
+                  AppDrawables.Gift,
+                  height: 40,
+                  width: 40,
+                ),
+              ],
+            ),
+            gapH4(),
+            Text(
+              "Think of these services as our little gift to you! 🎁 Each one is completely free, built to make your job search smoother, smarter, and more successful. Explore, learn, and take the next step toward your dream career.",
+              textAlign: TextAlign.left,
+              style: Theme.of(context)
+                  .textTheme
+                  .displaySmall?.copyWith(color: Colors.black45),
+            ),
+            const SizedBox(height: 10),
+            const SizedBox(height: 10),
+            Flexible(
+              child: ListView.separated(
+                shrinkWrap: true,
+                itemCount: services.length,
+                separatorBuilder: (_, __) => gapH8(),
+                itemBuilder: (context, index) {
+                  final item = services[index];
+                  return  GestureDetector(  onTap: () {
+                    Navigator.pop(context); // close bottom sheet
+                    callbacks[index](); // call the corresponding navigation
+                  },
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            BootstrapColors.colors["primary"] ?? Colors.blue.shade900,
+                            BootstrapColors.colors["navy"] ?? Colors.blue.shade700,
+                            BootstrapColors.colors["indigo"] ?? Colors.purpleAccent,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Icon(
+                            item.icon,
+                            color: BootstrapColors.colors["warning"] ?? Colors.white,
+                            size: 25,
+                          ),
+                         gapW16(),
+                          Expanded(
+                            child: Text(
+                              item.title ?? "",
+                              style: theme.bodyMedium?.copyWith(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.left,
+                              maxLines: 1,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          const Icon(Icons.arrow_forward_ios_rounded, size: 20,color: Colors.white,),
+                        ],
+                      ),
+                    ),
+                    ),
+                  );
+
+                },
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
+      );
+    },
+  );
 }
