@@ -40,6 +40,9 @@ class UserModel {
   final String? workStatus;
   final String? companyName;
   final String? position;
+  final String? salary;
+  final String? jobType;
+  final DateTime? createdAt;
 
   UserModel({
     this.name,
@@ -54,6 +57,9 @@ class UserModel {
     this.workStatus,
     this.companyName,
     this.position,
+    this.salary,
+    this.jobType,
+    this.createdAt,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -77,6 +83,10 @@ class UserModel {
           : null,
       position: (experience != null && experience.isNotEmpty)
           ? experience.first["position"] as String?
+          : null,
+      salary: json["preferences"] != null ? json["preferences"]["salary_range"] : null,
+      createdAt: json["createdAt"] != null
+          ? DateTime.tryParse(json["createdAt"])
           : null,
     );
   }

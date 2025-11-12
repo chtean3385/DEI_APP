@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../widgets/others/rounded_network_image.dart';
+import '../../search/components/search_job_card.dart';
 
 /// 📌 Individual Job category Card
 class ChampionCandidateCard extends StatelessWidget {
@@ -45,11 +46,11 @@ class ChampionCandidateCard extends StatelessWidget {
                   children: [
                     RoundedNetworkImage(
                       imageUrl: categoryModel.profilePhotoUrl ?? "",
-                      width: 50,
-                      height: 50,
-                      borderRadius: 25,
+                      width: 60,
+                      height: 60,
+                      borderRadius: 30,
                     ),
-                    const SizedBox(width: 8),
+                    gapW12(),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,16 +63,19 @@ class ChampionCandidateCard extends StatelessWidget {
                             textAlign: TextAlign.center,
                             maxLines: 1,
                           ),
+                          gapH4(),
                           Text(
                             categoryModel.position ?? "Professional",
                             softWrap: true,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             textAlign: TextAlign.center,
-                            style: context.textTheme.displaySmall?.copyWith(
-                              color: Colors.black54,
+                            style: context.textTheme.labelSmall?.copyWith(
+                              color: AppColors.primaryColor,
                             ),
                           ),
+
+
                           Text(
                             categoryModel.workStatus ?? "candidate",
                             softWrap: true,
@@ -82,96 +86,88 @@ class ChampionCandidateCard extends StatelessWidget {
                               color: Colors.black54,
                             ),
                           ),
-
-
-                          // ⭐ Star rating
-                          // Row(
-                          //   mainAxisSize: MainAxisSize.min,
-                          //   mainAxisAlignment: MainAxisAlignment.start,
-                          //   children: [
-                          //     StarRatingDisplay(
-                          //       size: 15,
-                          //       rating: 4.5,
-                          //       starCount: 5,
-                          //     ),
-                          //     gapW8(),
-                          //     Text(
-                          //       "(50)",
-                          //       softWrap: true,
-                          //       overflow: TextOverflow.ellipsis,
-                          //       maxLines: 1,
-                          //       textAlign: TextAlign.center,
-                          //       style: context.textTheme.displaySmall?.copyWith(
-                          //         color: Colors.black54,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
                         ],
                       ),
                     ),
-                    const SizedBox(width: 4),
-                    SizedBox(
-                      height: 50,
-                      child: const VerticalDivider(
-                        color: Colors.grey,
-                        thickness: 1,
-                        width: 1, // space around divider
-                      ),
-                    ),
-                    const SizedBox(width: 4),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.location_on_outlined,
-                              size: 14,
-                              color: Colors.black54,
-                            ),
-                            gapW2(),
-                            Text(
-                              categoryModel.city ?? categoryModel.country ?? "India",
-                              style: theme.displaySmall?.copyWith(
-                                color: Colors.black45,
-                              ),
-                              maxLines: 1,
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Icon(
-                              Icons.timelapse_sharp,
-                              size: 14,
-                              color: Colors.black54,
-                            ),
-                            gapW2(),
-                            Text(
-                              "1500/hr",
-                              style: theme.displaySmall?.copyWith(
-                                color: Colors.black,
-                              ),
-                              maxLines: 1,
-                              softWrap: true,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ],
-                        ),
-                      ],
-                    )
+
+
+
                   ],
                 ),
-                const SizedBox(height: 12),
+                gapH8(),
+                Divider(thickness: 1,color: Colors.black12,height: 1,),
+                gapH8(),
+                gapH4(),
+
                 _skillsRow(categoryModel.skills),
+                const SizedBox(height: 12),
+
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.location_on_outlined,
+                          size: 16,
+                          color: Colors.black54,
+                        ),
+                        gapW2(),
+                        Text(
+                          categoryModel.state ?? categoryModel.country ?? "India",
+                          style: theme.displaySmall?.copyWith(
+                            color: Colors.black54,
+                          ),
+                          maxLines: 1,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.currency_rupee,
+                          size: 16,
+                          color: Colors.black54,
+                        ),
+                        gapW4(),
+                        Text(
+                          categoryModel.salary ?? "",
+                          style: theme.displaySmall?.copyWith(
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 6),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Icon(
+                          Icons.calendar_month,
+                          size: 14,
+                          color: Colors.black54,
+                        ),
+                        gapW4(),
+                        Text(
+                          " ${getTimeAgo(categoryModel.createdAt ?? DateTime.now())}",
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
+                          style: theme.displaySmall?.copyWith(
+                            color: Colors.black54,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -180,19 +176,28 @@ class ChampionCandidateCard extends StatelessWidget {
     );
   }
 
+  // Widget _skillsRow(List<String>? skills) {
+  //   if (skills == null || skills.isEmpty) return const SizedBox.shrink();
+  //
+  //   return SizedBox(
+  //     height: 20, // fixed height for chips
+  //     child: ListView(
+  //       scrollDirection: Axis.horizontal,
+  //       shrinkWrap: true,
+  //       children: skills.map((s) => Padding(
+  //         padding: const EdgeInsets.only(right: 8),
+  //         child: _tagChip(s),
+  //       )).toList(),
+  //     ),
+  //   );
+  // }
   Widget _skillsRow(List<String>? skills) {
     if (skills == null || skills.isEmpty) return const SizedBox.shrink();
 
-    return SizedBox(
-      height: 20, // fixed height for chips
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        children: skills.map((s) => Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: _tagChip(s),
-        )).toList(),
-      ),
+    return Wrap(
+      spacing: 8, // horizontal space between chips
+      runSpacing: 8, // vertical space between rows
+      children: skills.map((s) => _tagChip(s)).toList(),
     );
   }
 
