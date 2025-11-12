@@ -40,6 +40,7 @@ dependencies:
   firebase_analytics:
   firebase_core: ^4.0.0
   firebase_messaging: ^16.0.0
+  flutter_flip_card: ^0.0.6
   flutter_advanced_drawer: ^1.5.0
   flutter_html: ^3.0.0
   flutter_local_notifications: ^19.3.0
@@ -98,6 +99,7 @@ flutter:
     - assets/drawables/
     - assets/icon/
     - assets/json/
+    - assets/gif/
     - assets/icon/bottom_bar/
     - assets/drawables/featured_employers/
     - assets/drawables/friendly_industries/

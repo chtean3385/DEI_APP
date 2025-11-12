@@ -10,6 +10,11 @@ class AppDrawables {
   static const String searchJob = "assets/drawables/job_search.jpeg";
   static const String jobPost = "assets/drawables/job_post.jpeg";
 
+  ///gif
+  static const String celebration = "assets/gif/celebration.gif";
+  static const String Gift = "assets/gif/Gift premium animation.gif";
+  static const String Gift2 = "assets/gif/Gift.gif";
+
 ///bottom bar icons
   static const String home = "assets/icon/bottom_bar/home.jpeg";
   static const String homeFilled = "assets/icon/bottom_bar/home_filled.jpeg";
