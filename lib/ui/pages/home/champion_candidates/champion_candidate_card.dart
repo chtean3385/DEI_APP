@@ -99,7 +99,7 @@ class ChampionCandidateCard extends StatelessWidget {
                 gapH8(),
                 gapH4(),
 
-                _skillsRow(categoryModel.skills),
+                _skillsRow([...categoryModel.skills!,...categoryModel.skills!]),
                 const SizedBox(height: 12),
 
                 Column(
@@ -194,10 +194,17 @@ class ChampionCandidateCard extends StatelessWidget {
   Widget _skillsRow(List<String>? skills) {
     if (skills == null || skills.isEmpty) return const SizedBox.shrink();
 
-    return Wrap(
-      spacing: 8, // horizontal space between chips
-      runSpacing: 8, // vertical space between rows
-      children: skills.map((s) => _tagChip(s)).toList(),
+    return ConstrainedBox(
+        constraints: const BoxConstraints(
+          maxHeight: 45, // restrict height to 3–4 lines
+        ),
+      child: SingleChildScrollView(
+        child: Wrap(
+          spacing: 8, // horizontal space between chips
+          runSpacing: 8, // vertical space between rows
+          children: skills.map((s) => _tagChip(s)).toList(),
+        ),
+      ),
     );
   }
 

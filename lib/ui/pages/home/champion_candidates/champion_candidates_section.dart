@@ -90,7 +90,7 @@ class ChampionCandidatesSection extends ConsumerWidget {
   Widget _dataItems(ChampionCandidatesState state) {
     return (state.data?.first.users?.length ?? 0) > 0
         ? SizedBox(
-            height: 220,
+            height: 230,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
