@@ -142,12 +142,12 @@ class _ExploreServicesProgramsState
               final isActive = _currentIndex == index;
               return AnimatedContainer(
                 duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.symmetric(horizontal: 4),
+                margin: const EdgeInsets.symmetric(horizontal: 3),
                 height: 6,
                 width: isActive ? 22 : 6,
                 decoration: BoxDecoration(
                   color: isActive
-                      ? AppColors.primaryColor
+                      ? AppColors.primaryColor.withValues(alpha: .8)
                       : Colors.grey.shade400,
                   borderRadius: BorderRadius.circular(8),
                 ),

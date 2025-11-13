@@ -30,60 +30,54 @@ class JobsCategorySection extends ConsumerWidget {
 
   Widget _loadingUi() {
     return ShimmerLoader(
-      child: Padding(
-        padding: const EdgeInsets.only( top: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ColoredBox(
-                    color: Colors.white,
-                    child: SizedBox(height: 14, width: 200),
-                  ),
-                  const SizedBox(height: 8),
-                ],
-              ),
-            ),
-            // horizontal list
-            _loadingItems(),
-
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _data(JobCategoryState categoryState, BuildContext context) {
-    final theme = Theme.of(context).textTheme;
-    return Padding(
-      padding: const EdgeInsets.only( top: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // header row
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  categoryState.data?.title ?? "",
-                  style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 14, width: 200),
                 ),
                 const SizedBox(height: 8),
               ],
             ),
           ),
           // horizontal list
-          _dataItems(categoryState),
+          _loadingItems(),
+
         ],
       ),
+    );
+  }
+
+  Widget _data(JobCategoryState categoryState, BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // header row
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                categoryState.data?.title ?? "",
+                style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+              ),
+              const SizedBox(height: 8),
+            ],
+          ),
+        ),
+        // horizontal list
+        _dataItems(categoryState),
+      ],
     );
   }
   Widget _loadingItems() {

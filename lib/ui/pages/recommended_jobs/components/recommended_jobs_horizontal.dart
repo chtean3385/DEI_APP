@@ -11,9 +11,6 @@ class RecommendedJobsHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: AppColors.bg,
-      child: RecommendedJobHorizontalView(),
-    );
+    return RecommendedJobHorizontalView();
   }
 }

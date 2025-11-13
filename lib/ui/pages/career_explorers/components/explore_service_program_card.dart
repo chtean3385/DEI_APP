@@ -70,13 +70,15 @@ class ExploreServiceProgramCard extends StatelessWidget {
                   ),
                 ),
                 gapH8(),
-                Text(
-                  item.subtitle ?? "",
-                  softWrap: true,
-                  maxLines: 3,
-                  textAlign: TextAlign.center,
-                  style: theme.displaySmall?.copyWith(
-                    color: Colors.black54,fontSize: 11
+                Flexible(
+                  child: Text(
+                    item.subtitle ?? "",
+                    softWrap: true,
+                    maxLines: 3,
+                    textAlign: TextAlign.center,
+                    style: theme.displaySmall?.copyWith(
+                      color: Colors.black54,fontSize: 12
+                    ),
                   ),
                 ),
                 gapH8(),
