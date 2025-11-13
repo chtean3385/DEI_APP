@@ -2,6 +2,7 @@ import 'package:dei_champions/constants/app_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_navigator.dart';
 import '../../../../models/explore_career/explore_service_program_model.dart';
 import '../../../../utils/fa_icon.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
@@ -90,6 +91,8 @@ class ExploreServiceProgramCard extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                     color: AppColors.primaryColor,
                     borderColor: AppColors.primaryColor,
+                    onTap:  () =>
+                        AppNavigator.loadLetsConnect(),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
