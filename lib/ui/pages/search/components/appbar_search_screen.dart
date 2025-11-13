@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../widgets/others/search_form_common.dart';
@@ -8,7 +9,7 @@ AppBar appBarSearch(BuildContext context, {String? query,bool showSearchField = 
     automaticallyImplyLeading: true,
     leadingWidth: 30,
     title:showSearchField ? SearchFormFieldCommon(
-      hint: "Search... ",
+      hintList: AppStrings.searchHintList,
       padding: EdgeInsets.zero,
       hintColor:
       Colors.black54,

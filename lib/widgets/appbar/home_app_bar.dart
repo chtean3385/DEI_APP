@@ -15,12 +15,11 @@ AppBar appBarHome(
 }) {
   return AppBar(
     elevation: 0,
-    backgroundColor: isFromHome ? AppColors.bg : null,
     centerTitle: true,
     titleSpacing: 0,
     leading: Builder(
       builder: (context) => IconButton(
-        icon: const Icon(Icons.menu, color: Colors.black54, size: 30),
+        icon: const Icon(Icons.menu, color: Colors.black45, size: 30),
         onPressed: onPressed,
       ),
     ),
@@ -36,7 +35,7 @@ AppBar appBarHome(
               child: IconButton(
                 icon: const Icon(
                   Icons.notifications_none,
-                  color: Colors.black54,
+                  color: Colors.black45,
                   size: 25,
                 ),
                 onPressed:  () => AppNavigator.loadEmployeeNotificationsScreen(),

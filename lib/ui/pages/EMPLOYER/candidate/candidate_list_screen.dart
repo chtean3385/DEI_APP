@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_strings.dart';
 import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:flutter/material.dart';
 import '../../../../widgets/others/search_form_common.dart';
@@ -20,7 +21,7 @@ class CandidatesScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SearchFormFieldCommon(
-              hint: "Search jobs by title, skills or company...",
+             hintList: AppStrings.searchHintList,
               padding: EdgeInsets.all(16),
               hintColor: Colors.black54,
               radius: 8,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../widgets/others/search_form_common.dart';
 import '../../constants/app_navigator.dart';
+import '../../constants/app_strings.dart';
 
 class HomeSearch extends StatelessWidget {
   const HomeSearch({super.key});
@@ -14,7 +15,7 @@ class HomeSearch extends StatelessWidget {
       child: AbsorbPointer(
         absorbing: true,
         child: SearchFormFieldCommon(
-          hint: "Search jobs here",
+          hintList: AppStrings.searchHintList,
           padding: EdgeInsets.zero,
         ),
       ),

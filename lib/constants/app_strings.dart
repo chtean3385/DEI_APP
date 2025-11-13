@@ -269,4 +269,12 @@ class AppStrings {
     "Women",
   ];
 
+  static const List<String> searchHintList= [
+  'Search for "BE/BTech"',
+  'Search in "Bangalore"',
+  'Search for "TCS"',
+  'Search for "Software Developer"',
+  'Search for "Remote Jobs"',
+  ];
+
 }
