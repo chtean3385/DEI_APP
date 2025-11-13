@@ -20,7 +20,7 @@ return ThemeData(
   appBarTheme: AppBarTheme(
     backgroundColor: Colors.white,
     elevation: 1,
-    titleTextStyle: GoogleFonts.poppins(
+    titleTextStyle: GoogleFonts.inter(
       fontSize: 14,
       fontWeight: FontWeight.bold,
       color: Colors.black,
@@ -36,37 +36,37 @@ return ThemeData(
     backgroundColor: Colors.white,
   ),
   textTheme: TextTheme(
-    displayLarge: GoogleFonts.poppins(
+    displayLarge: GoogleFonts.inter(
       fontSize:isTablet? 80 : 70,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
-    headlineMedium: GoogleFonts.poppins(
+    headlineMedium: GoogleFonts.inter(
       fontSize: isTablet? 24 :20,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
-    titleLarge: GoogleFonts.poppins(
+    titleLarge: GoogleFonts.inter(
       fontSize: isTablet? 32 :24,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
-    titleMedium: GoogleFonts.poppins(
+    titleMedium: GoogleFonts.inter(
       fontSize: isTablet? 18 :16,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
-    labelMedium: GoogleFonts.poppins(
+    labelMedium: GoogleFonts.inter(
       fontSize: isTablet? 16 :14,
       fontWeight: FontWeight.bold,
       color: Colors.black,
     ),
-    bodyMedium: GoogleFonts.poppins(
+    bodyMedium: GoogleFonts.inter(
       fontSize:isTablet? 16 : 14,
       fontWeight: FontWeight.normal,
       color: Colors.black,
     ),
-    labelSmall: GoogleFonts.poppins(
+    labelSmall: GoogleFonts.inter(
       fontSize:isTablet? 14 : 12,
       fontWeight: FontWeight.bold,
       color: Colors.black,
@@ -104,63 +104,63 @@ ThemeData darkTheme(BuildContext context) {
       unselectedItemColor: Colors.grey.shade400,
     ),
     textTheme: TextTheme(
-      displayLarge: GoogleFonts.poppins(
+      displayLarge: GoogleFonts.inter(
         fontSize: isTablet ? 80 : 70,
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
-      headlineLarge: GoogleFonts.poppins(
+      headlineLarge: GoogleFonts.inter(
         fontSize:isTablet ? 38 :  28,
         fontWeight: FontWeight.normal,
         color: Colors.black,
       ),
-      headlineMedium: GoogleFonts.poppins(
+      headlineMedium: GoogleFonts.inter(
         fontSize:isTablet ? 24 :  20,
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
-      bodyLarge: GoogleFonts.poppins(
+      bodyLarge: GoogleFonts.inter(
         fontSize:isTablet ? 22 :  18,
         fontWeight: FontWeight.normal,
         color: Colors.black,
       ),
-      headlineSmall: GoogleFonts.poppins(
+      headlineSmall: GoogleFonts.inter(
         fontSize:isTablet ? 24 : 20,
         fontWeight: FontWeight.normal,
         color: Colors.black,
       ),
-      titleLarge: GoogleFonts.poppins(
+      titleLarge: GoogleFonts.inter(
         fontSize:isTablet ? 32 : 24,
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
-      titleMedium: GoogleFonts.poppins(
+      titleMedium: GoogleFonts.inter(
         fontSize:isTablet ? 18 : 16,
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
-      bodySmall: GoogleFonts.poppins(
+      bodySmall: GoogleFonts.inter(
         fontSize: isTablet ? 18 :16,
         fontWeight: FontWeight.normal,
         color: Colors.black,
       ),
-      labelMedium: GoogleFonts.poppins(
+      labelMedium: GoogleFonts.inter(
         fontSize: isTablet ? 16 :14,
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
-      bodyMedium: GoogleFonts.poppins(
+      bodyMedium: GoogleFonts.inter(
         fontSize: isTablet ? 16 :14,
         fontWeight: FontWeight.normal,
         color: Colors.black,
       ),
 
-      labelSmall: GoogleFonts.poppins(
+      labelSmall: GoogleFonts.inter(
         fontSize: isTablet ? 14 :12,
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
-      displaySmall: GoogleFonts.poppins(
+      displaySmall: GoogleFonts.inter(
         fontSize: isTablet ? 14 :12,
         fontWeight: FontWeight.normal,
         color: Colors.black,
