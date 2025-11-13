@@ -38,7 +38,7 @@ class AboutMe extends ConsumerWidget {
             state.profileData?.employeeDescription ?? "",
 
             style: context.textTheme.displaySmall?.copyWith(
-              color: Colors.black54,
+              color: Colors.black54,fontSize: 13
             ),
             softWrap: true,textAlign: TextAlign.left,
           ),

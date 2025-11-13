@@ -58,7 +58,7 @@ class ContactDetails extends ConsumerWidget {
                       child: Text(
                         state.profileData?.workStatus ?? "",
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,
+                          color: Colors.black54,fontSize: 13
                         ),
                       ),
                     ),
@@ -75,7 +75,7 @@ class ContactDetails extends ConsumerWidget {
                         state.profileData?.preferences?.salaryRange ??
                             'Not specified',
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,
+                          color: Colors.black54,fontSize: 13
                         ),
                       ),
                     ),
@@ -91,7 +91,7 @@ class ContactDetails extends ConsumerWidget {
                       child: Text(
                         state.profileData?.email ?? 'Not specified',
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,
+                          color: Colors.black54,fontSize: 13
                         ),
                       ),
                     ),
@@ -107,7 +107,7 @@ class ContactDetails extends ConsumerWidget {
                       child: Text(
                         state.profileData?.mobile ?? 'Not specified',
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,
+                          color: Colors.black54,fontSize: 13
                         ),
                       ),
                     ),
@@ -123,7 +123,7 @@ class ContactDetails extends ConsumerWidget {
                       child: Text(
                         "${state.profileData?.address ?? ""}, ${state.profileData?.city ?? ""}, ${state.profileData?.state ?? ""}, ${state.profileData?.country ?? ""}",
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,
+                          color: Colors.black54,fontSize: 13
                         ),
                       ),
                     ),
