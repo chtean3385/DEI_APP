@@ -70,22 +70,22 @@ class ChampionCandidateCard extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             textAlign: TextAlign.center,
-                            style: context.textTheme.labelSmall?.copyWith(
-                              color: AppColors.primaryColor,
-                            ),
-                          ),
-
-
-                          Text(
-                            categoryModel.workStatus ?? "candidate",
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                            textAlign: TextAlign.center,
                             style: context.textTheme.displaySmall?.copyWith(
-                              color: Colors.black54,
+                              color: Colors.black,fontSize: 13
                             ),
                           ),
+                          //
+                          //
+                          // Text(
+                          //   categoryModel.workStatus ?? "candidate",
+                          //   softWrap: true,
+                          //   overflow: TextOverflow.ellipsis,
+                          //   maxLines: 1,
+                          //   textAlign: TextAlign.center,
+                          //   style: context.textTheme.displaySmall?.copyWith(
+                          //     color: Colors.black54,
+                          //   ),
+                          // ),
                         ],
                       ),
                     ),
@@ -118,7 +118,8 @@ class ChampionCandidateCard extends StatelessWidget {
                         ),
                         gapW2(),
                         Text(
-                          categoryModel.state ?? categoryModel.country ?? "India",
+                          "${ categoryModel.city ?? ""} ,${ categoryModel.state ?? ""}",
+                          textAlign: TextAlign.left,
                           style: theme.displaySmall?.copyWith(
                             color: Colors.black54,
                           ),
@@ -129,42 +130,57 @@ class ChampionCandidateCard extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 6),
-                    Row(
+                    Row(mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Icon(
-                          Icons.currency_rupee,
-                          size: 16,
-                          color: Colors.black54,
+                        Expanded(
+                          flex: 1,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Icon(
+                                Icons.currency_rupee,
+                                size: 16,
+                                color: Colors.black54,
+                              ),
+                              gapW4(),
+                              Text(
+                                categoryModel.salary ?? "",
+                                style: theme.displaySmall?.copyWith(
+                                  color: Colors.black54,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        gapW4(),
-                        Text(
-                          categoryModel.salary ?? "",
-                          style: theme.displaySmall?.copyWith(
-                            color: Colors.black54,
+                        Expanded(
+                          flex: 1,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.work_outline_rounded,
+                                size: 16,
+                                color: Colors.black54,
+                              ),
+                              SizedBox(width: 4),
+                              Text(
+                                  getExperienceLabel(workStatus: categoryModel.workStatus,experienceYears: categoryModel.totalExperienceYears),
+                                style: theme.displaySmall?.copyWith(color: Colors.black54),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 6),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.calendar_month,
-                          size: 14,
-                          color: Colors.black54,
-                        ),
-                        gapW4(),
-                        Text(
-                          " ${getTimeAgo(categoryModel.createdAt ?? DateTime.now())}",
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: theme.displaySmall?.copyWith(
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ],
+                    const SizedBox(height: 6),
+
+                    Text(
+                      " ${getShortTimeAgo(categoryModel.createdAt ?? DateTime.now())}",
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style: theme.displaySmall?.copyWith(
+                        color: Colors.black45,
+                      ),
                     ),
                   ],
                 ),
@@ -176,21 +192,6 @@ class ChampionCandidateCard extends StatelessWidget {
     );
   }
 
-  // Widget _skillsRow(List<String>? skills) {
-  //   if (skills == null || skills.isEmpty) return const SizedBox.shrink();
-  //
-  //   return SizedBox(
-  //     height: 20, // fixed height for chips
-  //     child: ListView(
-  //       scrollDirection: Axis.horizontal,
-  //       shrinkWrap: true,
-  //       children: skills.map((s) => Padding(
-  //         padding: const EdgeInsets.only(right: 8),
-  //         child: _tagChip(s),
-  //       )).toList(),
-  //     ),
-  //   );
-  // }
   Widget _skillsRow(List<String>? skills) {
     if (skills == null || skills.isEmpty) return const SizedBox.shrink();
 
@@ -212,9 +213,9 @@ class ChampionCandidateCard extends StatelessWidget {
   Widget _tagChip(String tag) {
     return // Tag chip
     Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
       decoration: BoxDecoration(
-        color: AppColors.bg,
+        color: AppColors.bg2,
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
@@ -222,7 +223,7 @@ class ChampionCandidateCard extends StatelessWidget {
         maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,textAlign: TextAlign.center,
         style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
           fontWeight: FontWeight.w400,fontSize: 10,
-          color: Colors.black,
+          color: Colors.black54,
         ),
       ),
     );

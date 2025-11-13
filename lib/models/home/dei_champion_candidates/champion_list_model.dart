@@ -43,6 +43,8 @@ class UserModel {
   final String? salary;
   final String? jobType;
   final DateTime? createdAt;
+  final double? totalExperienceYears;
+
 
   UserModel({
     this.name,
@@ -60,10 +62,24 @@ class UserModel {
     this.salary,
     this.jobType,
     this.createdAt,
+    this.totalExperienceYears,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     final experience = json["experience"] as List<dynamic>?;
+
+    double totalExpYears = 0;
+    if (experience != null && experience.isNotEmpty) {
+      for (final exp in experience) {
+        final start = DateTime.tryParse(exp["startDate"] ?? "");
+        final end = DateTime.tryParse(exp["endDate"] ?? "") ?? DateTime.now();
+
+        if (start != null) {
+          final months = (end.year - start.year) * 12 + (end.month - start.month);
+          totalExpYears += months / 12;
+        }
+      }
+    }
 
     return UserModel(
       name: json["name"] as String?,
@@ -76,7 +92,7 @@ class UserModel {
       country: json["country"] as String?,
       mobile: json["mobile"] as String?,
       profilePhotoUrl: json["profilePhotoUrl"] as String?,
-      state: json["state"] as String?,
+      state: json["state"] ??  "N/A",
       workStatus: json["workStatus"] as String?,
       companyName: (experience != null && experience.isNotEmpty)
           ? experience.first["companyName"] as String?
@@ -84,10 +100,11 @@ class UserModel {
       position: (experience != null && experience.isNotEmpty)
           ? experience.first["position"] as String?
           : null,
-      salary: json["preferences"] != null ? json["preferences"]["salary_range"] : null,
+      salary: json["preferences"] != null ? (json["preferences"]["salary_range"] ?? "N/A") : "N/A",
       createdAt: json["createdAt"] != null
           ? DateTime.tryParse(json["createdAt"])
           : null,
+        totalExperienceYears: totalExpYears
     );
   }
 
@@ -106,5 +123,39 @@ class UserModel {
       "companyName": companyName,
       "position": position,
     };
+  }
+}
+String getExperienceLabel({
+  String? workStatus,
+  double? experienceYears,
+}) {
+  final normalized = workStatus?.toLowerCase() ?? '';
+
+  if (normalized.isEmpty) {
+    return 'Experience N/A';
+  }
+
+  if (normalized == 'student') {
+    return 'Student';
+  }
+
+  // For all other statuses, show experience if available
+  if (experienceYears != null && experienceYears > 0) {
+    final yearsStr = experienceYears % 1 == 0
+        ? experienceYears.toInt().toString()
+        : experienceYears.toStringAsFixed(1);
+    return '$yearsStr+ Yrs';
+  }
+
+  switch (normalized) {
+    case 'employed':
+      return 'Experience N/A';
+    case 'self-employed':
+      return 'Experience N/A';
+    case 'un-employed':
+    case 'unemployed':
+      return 'Experience N/A';
+    default:
+      return 'Experience N/A';
   }
 }
