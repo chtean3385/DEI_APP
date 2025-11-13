@@ -21,6 +21,7 @@ import 'package:dei_champions/models/state_models/common/html_page_data_state.da
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
 import 'package:dei_champions/models/state_models/job/job_type_list_state.dart';
 import 'package:dei_champions/models/state_models/notification/notification_state.dart';
+import 'package:dei_champions/models/state_models/services/services_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:dei_champions/providers/controllers/common/blog_controller.dart';
 import 'package:dei_champions/providers/controllers/common/csr/csr_banner_section_controller.dart';
@@ -34,6 +35,7 @@ import 'package:dei_champions/providers/controllers/home/category/job_category_c
 import 'package:dei_champions/providers/controllers/home/category/job_service_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/we_are_hiring_controller.dart';
 import 'package:dei_champions/providers/controllers/notification/notification_controller.dart';
+import 'package:dei_champions/providers/controllers/services/services_controller.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../constants/enums.dart';
@@ -499,6 +501,16 @@ final lgbtqInclusionPointsProvider =
     >((ref) {
       return LgbtqInclusionPointsController();
     });
+
+/// career explore services
+final careerExploreServicesProvider =
+StateNotifierProvider.autoDispose<
+    CareerExploreServicesController,
+    CareerExploreServicesState
+>((ref) {
+  return CareerExploreServicesController();
+});
+
 final ourTeamProvider =
     StateNotifierProvider.autoDispose<OurTeamController, OurTeamState>((ref) {
       return OurTeamController(ref);

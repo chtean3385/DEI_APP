@@ -108,6 +108,7 @@ class ApiUrls {
   static String faq = 'faq/get-all';
   static String blog = 'blog/get-all';
   static String getBlogDetails(String id) => 'blog/get-one/$id';
+  static String exploreOurServices = 'career-explorer/career-explorer-service/get-all';
 
 
   // DashBoard

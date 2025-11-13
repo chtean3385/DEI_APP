@@ -4,6 +4,7 @@ import 'package:dei_champions/ui/pages/home/we_are_hiring/we_are_hiring_section.
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_colors.dart';
+import '../career_explorers/components/explore_services_programs.dart';
 import '../main/components/drawer/custom_drawer.dart';
 import '../recommended_jobs/components/recommended_jobs_horizontal.dart';
 import 'champion_candidates/champion_candidates_section.dart';
@@ -36,7 +37,8 @@ class HomeScreen extends StatelessWidget {
             RecommendedJobsHorizontal(),
             // WeAreHiringBanner(),
             JobsCategorySection(),
-            ExploreOurServices(),
+            // ExploreOurServices(),
+            ExploreServicesPrograms(),
             FeaturedEmployersSection(),
             // JobsServiceSection(),
             ChampionCandidatesSection(),

@@ -22,10 +22,18 @@ class ExploreServiceProgramCard extends StatelessWidget {
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: Colors.white,
+            boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.08),
+                      blurRadius: 10,
+                      spreadRadius: 1,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
-            topRight: Radius.circular(6),
-            bottomLeft: Radius.circular(6),
+            topRight: Radius.circular(16),
+            bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16),
           ),
           border: Border.all(color: Colors.black12, width: 1),
@@ -78,8 +86,8 @@ class ExploreServiceProgramCard extends StatelessWidget {
                     radius: 10,
                     isExpanded: true,
                     padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                    color: AppColors.bg,
-                    borderColor: Colors.black12,
+                    color: AppColors.primaryColor,
+                    borderColor: AppColors.primaryColor,
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +95,7 @@ class ExploreServiceProgramCard extends StatelessWidget {
                         Text(
                           "Enquire",
                           style: theme.labelSmall?.copyWith(
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
                       ],
@@ -116,8 +124,8 @@ class ShimmerExploreServiceProgramCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
-          topRight: Radius.circular(6),
-          bottomLeft: Radius.circular(6),
+          topRight: Radius.circular(16),
+          bottomLeft: Radius.circular(16),
           bottomRight: Radius.circular(16),
         ),
         border: Border.all(color: Colors.black12, width: 1),
