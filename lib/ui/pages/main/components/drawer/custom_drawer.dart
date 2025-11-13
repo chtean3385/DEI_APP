@@ -95,13 +95,13 @@ class CustomDrawer extends StatelessWidget {
             //   null,
             //       () => AppNavigator.loadLgbtqScreen(),
             // ),
-            // _drawerItem(
-            //   Icons.explore,
-            //   "Career Explorers",
-            //   false,
-            //   null,
-            //   () => AppNavigator.loadCareerExplorersScreen(),
-            // ),
+            _drawerItem(
+              Icons.explore,
+              "Career Explorers",
+              false,
+              null,
+              () => AppNavigator.loadCareerExplorersScreen(),
+            ),
             // _drawerItem(
             //   Icons.corporate_fare,
             //   "Corporates Championing",

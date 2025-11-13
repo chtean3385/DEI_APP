@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants/app_colors.dart';
 import '../career_explorers/components/explore_services_programs.dart';
+import '../common_screens/blog/blogs_horizontal.dart';
 import '../main/components/drawer/custom_drawer.dart';
 import '../recommended_jobs/components/recommended_jobs_horizontal.dart';
 import 'champion_candidates/champion_candidates_section.dart';
@@ -39,7 +40,8 @@ class HomeScreen extends StatelessWidget {
             JobsCategorySection(),
             // ExploreOurServices(),
             ExploreServicesPrograms(),
-            FeaturedEmployersSection(),
+            BlogsHorizontal(),
+            // FeaturedEmployersSection(),
             // JobsServiceSection(),
             ChampionCandidatesSection(),
             DeiFriendlyIndustrySection(),

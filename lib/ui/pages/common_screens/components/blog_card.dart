@@ -269,3 +269,120 @@ class ShimmerBlogCard extends StatelessWidget {
     );
   }
 }
+
+class BlogCardHorizontal extends StatelessWidget {
+  final BlogModel item;
+
+  const BlogCardHorizontal({required this.item});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
+    return GestureDetector(
+      onTap:()=>AppNavigator.loaBlogDetailsScreen(item.id ?? "") ,
+      child: SizedBox(
+        width: 180,
+        child: Card(
+          elevation: 0,
+          color: Colors.white,
+          margin: EdgeInsets.zero,
+          shadowColor: Colors.black,
+          // surfaceTintColor: AppColors.primaryColor,
+          clipBehavior: Clip.antiAlias,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: Colors.black12)),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                RoundedNetworkImage(
+                  height: 100,
+                  width: double.infinity,
+                  imageUrl: item.image ?? "",
+                  borderRadius: 4,
+                ),
+                gapH8(),
+                Expanded(child: Text(item.title ?? "",
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    style: theme.labelSmall?.copyWith(height: 1.2))),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          RoundedNetworkImage(
+                            height: 10,
+                            width: 10,
+                            imageUrl: item.authorImage ?? "",
+                            borderRadius: 5,
+                          ),
+                          gapW4(),
+                          Text(
+                            item.authorName ?? "",
+                            maxLines: 1,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            style: theme.displaySmall?.copyWith(
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      " ${getShortTimeAgo(item.createdAt ?? DateTime.now())}",
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                      style: theme.displaySmall?.copyWith(
+                        color: Colors.black45,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+class BlogCardHorizontalShimmer extends StatelessWidget {
+
+  const BlogCardHorizontalShimmer();
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 180,
+      child: Card(
+        elevation: 2,
+        color: Colors.transparent,
+        margin: EdgeInsets.zero,
+        shadowColor: Colors.black,
+        // surfaceTintColor: AppColors.primaryColor,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: Colors.white,width: 1)),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ShimmerBox(height: 150, width: double.infinity, radius: 4),
+
+              gapH8(),
+              ShimmerBox(height: 12, width: double.infinity, radius: 0),
+              gapH4(),
+
+              ShimmerBox(height: 10, width: 150, radius: 0),
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
