@@ -29,6 +29,7 @@ class DashBoardAllScreen extends ConsumerWidget {
 
   Widget _data(DashBoardState state) {
     return AnimatedSignupWrapper(
+      enableGoogleSign: false,
       child: ListView.separated(
         itemCount: state.data!.length,
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
