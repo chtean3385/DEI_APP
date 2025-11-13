@@ -63,7 +63,7 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
           ),
           const SizedBox(height: 12),
           SizedBox(
-            height: 200,
+            height: 190,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -148,7 +148,7 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
               ),
             ),
             SizedBox(
-              height: 200,
+              height: 180,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 padding: EdgeInsets.symmetric(horizontal: 16),

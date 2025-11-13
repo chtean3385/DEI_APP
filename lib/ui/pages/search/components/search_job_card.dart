@@ -417,6 +417,26 @@ String getTimeAgo(DateTime date) {
     return '$years year${years == 1 ? '' : 's'} ago';
   }
 }
+String getShortTimeAgo(DateTime date) {
+  final Duration diff = DateTime.now().difference(date);
+
+  if (diff.inSeconds < 60) {
+    return 'now';
+  } else if (diff.inMinutes < 60) {
+    return '${diff.inMinutes}m ago';
+  } else if (diff.inHours < 24) {
+    return '${diff.inHours}h ago';
+  } else if (diff.inDays < 30) {
+    return '${diff.inDays}d ago';
+  } else if (diff.inDays < 365) {
+    final months = (diff.inDays / 30).floor();
+    return '${months}mo ago';
+  } else {
+    final years = (diff.inDays / 365).floor();
+    return '${years}y ago';
+  }
+}
+
 
 String formatPostedDate(DateTime date) {
   return DateFormat('MMMM d, y').format(date); // e.g., October 16, 2025

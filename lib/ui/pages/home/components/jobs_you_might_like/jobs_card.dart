@@ -1,8 +1,5 @@
-import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../constants/app_styles.dart';
 import '../../../../../models/job/job_model_api.dart';
 import '../../../../../widgets/others/rounded_network_image.dart';
 import '../../../search/components/search_job_card.dart';
@@ -58,13 +55,13 @@ class RecommendedJobCard extends StatelessWidget {
                   child: Text(
                     jobModel.employer?.company ?? "",
                     style: theme.displaySmall?.copyWith(
-                      color: AppColors.primaryColor,
+                        fontSize: 13
                     ),
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(height:8),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -77,68 +74,18 @@ class RecommendedJobCard extends StatelessWidget {
                     SizedBox(width: 4),
                     Text(
                       jobModel.state ?? "",
-                      style: theme.displaySmall?.copyWith(color: Colors.black54),
+                      style: theme.displaySmall?.copyWith(color: Colors.black54,fontSize: 13),
                     ),
                   ],
                 ),
-                const SizedBox(height: 6),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.work_history_outlined,
-                      size: 16,
-                      color: Colors.black54,
-                    ),
-                    SizedBox(width: 4),
-                    Text(
-                      jobModel.jobType ?? "",
-                      style: theme.displaySmall?.copyWith(color: Colors.black54),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 6),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(width: 5),
-                        Text(
-                          "₹",
-                          style: theme.labelMedium?.copyWith(
-                            color: Colors.black54,
-                          ),
-                        ),
-                        SizedBox(width: 6),
-                        Text(
-                          jobModel.salary ?? "",
-                          style: theme.displaySmall?.copyWith(
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Icon(
-                          Icons.calendar_month,
-                          size: 14,
-                          color: Colors.black54,
-                        ),
-                        gapW4(),
-                        Text(
-                          " ${getTimeAgo(jobModel.createdAt ?? DateTime.now())}",
-                          overflow: TextOverflow.ellipsis,
-                          softWrap: true,
-                          style: theme.displaySmall?.copyWith(
-                            color: Colors.black54,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                const SizedBox(height: 12),
+                Text(
+                  " ${getShortTimeAgo(jobModel.createdAt ?? DateTime.now())}",
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
+                  style: theme.displaySmall?.copyWith(
+                    color: Colors.black45,
+                  ),
                 ),
               ],
             ),
@@ -177,9 +124,9 @@ class ShimmerRecommendedJobCard extends StatelessWidget {
               // Company logo placeholder
               ShimmerBox(height: 50, width: 50, radius: 8),
               const SizedBox(height: 8),
-              ShimmerBox(height: 14, width: 160),
+              ShimmerBox(height: 14, width: 200),
               const SizedBox(height: 4),
-              ShimmerBox(height: 12, width: 100),
+              ShimmerBox(height: 12, width: 150),
 
               const SizedBox(height: 12),
               Row(
@@ -193,46 +140,8 @@ class ShimmerRecommendedJobCard extends StatelessWidget {
                   ShimmerBox(height: 10, width: 80),
                 ],
               ),
-              const SizedBox(height: 6),
-              Row(
-                children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    size: 16,
-                    color: Colors.white,
-                  ),
-                  const SizedBox(width: 6),
-                  ShimmerBox(height: 10, width: 80),
-                ],
-              ),
-              const SizedBox(height: 6),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        size: 16,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 6),
-                      ShimmerBox(height: 10, width: 80),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.location_on_outlined,
-                        size: 16,
-                        color: Colors.white,
-                      ),
-                      const SizedBox(width: 6),
-                      ShimmerBox(height: 10, width: 80),
-                    ],
-                  ),
-                ],
-              ),
+              Spacer(),
+              ShimmerBox(height: 10, width: 80),
             ],
           ),
         ),
