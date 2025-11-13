@@ -15,7 +15,7 @@ class LetsConnectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: appBarCommon(title: "Contact",arrowLeft: true,titleStyleSmall: true),
+      appBar: appBarCommon(title: "Write to Us",arrowLeft: true,titleStyleSmall: true),
       body: SafeArea(
         child: Column(
           children: [

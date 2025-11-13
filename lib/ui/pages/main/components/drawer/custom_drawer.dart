@@ -95,13 +95,13 @@ class CustomDrawer extends StatelessWidget {
             //   null,
             //       () => AppNavigator.loadLgbtqScreen(),
             // ),
-            _drawerItem(
-              Icons.explore,
-              "Career Explorers",
-              false,
-              null,
-              () => AppNavigator.loadCareerExplorersScreen(),
-            ),
+            // _drawerItem(
+            //   Icons.explore,
+            //   "Career Explorers",
+            //   false,
+            //   null,
+            //   () => AppNavigator.loadCareerExplorersScreen(),
+            // ),
             // _drawerItem(
             //   Icons.corporate_fare,
             //   "Corporates Championing",
@@ -133,8 +133,8 @@ class CustomDrawer extends StatelessWidget {
                 //   () => AppNavigator.loadOurTeams(),
                 // ),
                 _drawerItem(
-                  Icons.support_agent_outlined,
-                  'Contact',
+                  Icons.rate_review_outlined,
+                  'Write to Us',
                   false,
                   null,
                   () =>
@@ -148,22 +148,22 @@ class CustomDrawer extends StatelessWidget {
                   () =>
                       AppNavigator.loadFaqScreen(), // navigate to your FAQ screen
                 ),
-                _drawerItem(
-                  Icons.article_outlined,
-                  // more suitable icon for blogs/articles
-                  'Blog',
-                  false,
-                  null,
-                  () =>
-                      AppNavigator.loaBlogScreen(), // navigate to your Blog screen
-                ),
-                _drawerItem(
-                  Icons.lock_clock_outlined,
-                  'Security',
-                  false,
-                  null,
-                  () => AppNavigator.loadHtmlDetailPage('Security'),
-                ),
+                // _drawerItem(
+                //   Icons.article_outlined,
+                //   // more suitable icon for blogs/articles
+                //   'Blog',
+                //   false,
+                //   null,
+                //   () =>
+                //       AppNavigator.loaBlogScreen(), // navigate to your Blog screen
+                // ),
+                // _drawerItem(
+                //   Icons.lock_clock_outlined,
+                //   'Security',
+                //   false,
+                //   null,
+                //   () => AppNavigator.loadHtmlDetailPage('Security'),
+                // ),
 
                 _drawerItem(
                   Icons.description_outlined,
@@ -172,14 +172,14 @@ class CustomDrawer extends StatelessWidget {
                   null,
                   () => AppNavigator.loadHtmlDetailPage('Terms & Conditions'),
                 ),
-
-                _drawerItem(
-                  Icons.rule_rounded,
-                  'Terms of Use',
-                  false,
-                  null,
-                  () => AppNavigator.loadHtmlDetailPage('Terms of Use'),
-                ),
+                //
+                // _drawerItem(
+                //   Icons.rule_rounded,
+                //   'Terms of Use',
+                //   false,
+                //   null,
+                //   () => AppNavigator.loadHtmlDetailPage('Terms of Use'),
+                // ),
                 // _drawerItem(
                 //   Icons.accessibility_new_outlined,
                 //   'Accessibility',
