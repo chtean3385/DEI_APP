@@ -75,7 +75,7 @@ class EditWorkExpInformation extends ConsumerWidget {
                 ),
               ],
             ),
-            onTap: () => controller.addWorkExpEntry(),
+            onTap: () => controller.addWorkExpEntry(context),
           ),
           gapH16(),
           if(isFromCommonEdit!= true)  Padding(

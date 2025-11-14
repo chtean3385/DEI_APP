@@ -253,6 +253,7 @@ class ProfileSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).textTheme;
     final state = ref.watch(drawerProfileProvider);
+    final profilePercentData = ref.watch(profileCompletionProvider).profileData;
     // return _loaderShowMissing();
     return state.pageState == PageState.loading
         ? showMissingData
@@ -324,7 +325,7 @@ class ProfileSection extends ConsumerWidget {
                             ],
                           ),
                           gapH8(),
-                          _tagChip("70%", context),
+                          _tagChip("${profilePercentData?.profileCompletion?.toString() ?? ""}", context),
                         ],
                       ),
                       const SizedBox(width: 16),
@@ -361,12 +362,16 @@ class ProfileSection extends ConsumerWidget {
                     ],
                   ),
                   if (showMissingData)
-                    Text(
-                      "7 Missing details",
-                      style: theme.labelMedium?.copyWith(
-                        fontWeight: FontWeight.w800,
-                        color: AppColors.primaryColor,
-                        fontSize: 12,
+                    GestureDetector(
+                      onTap:AppNavigator.loadEditProfileScreen ,
+                      behavior: HitTestBehavior.translucent,
+                      child: Text(
+                        "${profilePercentData?.missingFieldsCount?.toString() ?? ""} Missing details",
+                        style: theme.labelMedium?.copyWith(
+                          fontWeight: FontWeight.w800,
+                          color: AppColors.primaryColor,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
                 ],

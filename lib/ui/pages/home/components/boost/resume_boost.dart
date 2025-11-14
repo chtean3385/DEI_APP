@@ -33,7 +33,7 @@ class ResumeBoostCard extends StatelessWidget {
       margin: EdgeInsets.zero,
 
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,13 +42,13 @@ class ResumeBoostCard extends StatelessWidget {
               children: [
                 Icon(
                   Icons.arrow_upward,
-                  color: AppColors.primaryColor,
+                  color: (BootstrapColors.colors["teal"] ?? AppColors.primaryColor),
                   size: 16,
                 ),
                 Text(
                   "Boost ${boostPercentage} %",
                   style: theme.labelSmall?.copyWith(
-                    color: AppColors.primaryColor,
+                    color: (BootstrapColors.colors["teal"] ?? AppColors.primaryColor),
                   ),
                 ),
               ],
@@ -59,7 +59,8 @@ class ResumeBoostCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     title,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    maxLines: 2,overflow: TextOverflow.ellipsis,softWrap: true,
+                    style: theme.displaySmall,
                   ),
                 ),
                 width32(),

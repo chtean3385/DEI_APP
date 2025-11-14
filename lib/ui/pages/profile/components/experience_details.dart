@@ -42,10 +42,9 @@ class ExperienceDetails extends ConsumerWidget {
               ),
               GestureDetector(
                   behavior: HitTestBehavior.translucent,
-                  onTap:() => openEditBottomSheet(
+                  onTap:() => openDynamicFormSheet(
                     context:context,
-                    isDraggable: true,
-                    content: const EditWorkExpInformation(isFromCommonEdit: false),
+                    child: const EditWorkExpInformation(isFromCommonEdit: false),
                   ),
                   child: Icon(Icons.edit_outlined,color: AppColors.primaryColor,size: 15))
             ],

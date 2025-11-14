@@ -32,6 +32,7 @@ import '../ui/pages/employer/employer_main/employer_bottom_bar.dart';
 import '../ui/pages/employer/employer_profile/edit_employer_profile.dart';
 import '../ui/pages/employer/post_job/edit_job_post_screen.dart';
 import '../ui/pages/genz/genz_screen.dart';
+import '../ui/pages/home/components/boost/profile_completion_slider.dart';
 import '../ui/pages/invites/job_invite_details_screen.dart';
 import '../ui/pages/job/job_details_screen.dart';
 import '../ui/pages/lets_connect/lets_connect_screen.dart';
@@ -374,10 +375,10 @@ class AppNavigator {
           );
   }
 
-  static loadEditEmployeeResumeScreen() {
+  static loadEditEmployeeSelectedSectionScreen({EmployeeProfileFieldsParams? params}) {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => EmployeeProfileDetailsScreen()),
+      MaterialPageRoute(builder: (_) => EmployeeProfileDetailsScreen(params: params)),
     );
   }
 

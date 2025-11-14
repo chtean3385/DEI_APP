@@ -30,7 +30,6 @@ class StateModel {
   StateModel({required this.name, required this.cities});
 
   factory StateModel.fromJson(Map<String, dynamic> json) {
-    print("cccc");
     return StateModel(
       name: json['name'],
       cities: (json['cities'] as List)

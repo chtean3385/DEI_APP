@@ -10,9 +10,11 @@ import '../../../../widgets/form/transparant_date_picker.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
 import '../../../../widgets/pickers/profile_pic_edit_widget.dart';
+import 'edit_profile_action_button.dart';
 
 class EditBasicInformation extends ConsumerWidget {
-  const EditBasicInformation({super.key});
+  final bool isFromCommonEdit;
+  const EditBasicInformation({super.key,this.isFromCommonEdit = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -30,7 +32,7 @@ class EditBasicInformation extends ConsumerWidget {
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ExpansionTile(
-        initiallyExpanded: false,
+        initiallyExpanded: isFromCommonEdit != true,
         // collapsed by default
         title: Text(
           "Basic Information",
@@ -43,6 +45,8 @@ class EditBasicInformation extends ConsumerWidget {
 
         iconColor: Colors.black54,
         collapsedIconColor: Colors.black54,
+        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+        onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 12,
@@ -150,6 +154,7 @@ class EditBasicInformation extends ConsumerWidget {
             icon: Icons.phone_android,
             validator: AppValidators.phone,
             keyboardType: TextInputType.phone,
+            maxLength: 10,
           ),
           gapH16(),
           TransparentDatePickerField(
@@ -194,6 +199,15 @@ class EditBasicInformation extends ConsumerWidget {
             textCapitalization: TextCapitalization.sentences,
             minLines: 3,
           ),
+          gapH16(),
+          if (isFromCommonEdit != true)
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: EditProfileActionButtons(
+                isEmployee: true,
+                isFromCommonEdit: isFromCommonEdit,
+              ),
+            ),
         ],
       ),
     );

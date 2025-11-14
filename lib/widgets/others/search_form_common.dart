@@ -150,7 +150,7 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
               widget.hintList[_currentHintIndex],
               key: ValueKey(_currentHintIndex),
               style: theme.textTheme.bodyMedium?.copyWith(
-                fontSize: 14,
+                fontSize: 13,height: 1,
                 color: widget.hintColor ?? Colors.grey,
               ),
             ),

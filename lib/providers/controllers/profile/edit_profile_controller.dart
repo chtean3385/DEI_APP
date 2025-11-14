@@ -347,7 +347,7 @@ class EditEmployeeProfileController
     );
   }
 
-  void addEducationEntry() {
+  void addEducationEntry(BuildContext context) {
     // Check if any existing entry is incomplete
     final hasIncomplete = state.educationEntries?.any((entry) =>
     entry.degreeController.text.isEmpty ||
@@ -356,8 +356,9 @@ class EditEmployeeProfileController
 
     if (hasIncomplete) {
       debugPrint("Validation failed: Fill all existing education details before adding a new one.");
-      showSnackBar("Fill all existing education details before adding a new one.");
-      // You can show a snackbar in UI after this (if desired)
+      showOverlaySnackBar( context,"Fill all existing education details before adding a new one.",);
+
+
       return;
     }
     final newList = List<EducationEntryControllers>.from(
@@ -402,7 +403,7 @@ class EditEmployeeProfileController
     return true;
   }
 
-  void addWorkExpEntry() {
+  void addWorkExpEntry(BuildContext context) {
     final hasIncomplete = state.workExpEntries?.any((entry) =>
     entry.companyController.text.isEmpty ||
         entry.positionController.text.isEmpty ||
@@ -411,7 +412,7 @@ class EditEmployeeProfileController
 
     if (hasIncomplete) {
       debugPrint("Validation failed: Fill all existing work experience details before adding a new one.");
-      showSnackBar("Fill all existing work experience details before adding a new one.");
+      showOverlaySnackBar(context,"Fill all existing work experience details before adding a new one.");
       return;
     }
     final newList = List<WorkExperienceEntryControllers>.from(
@@ -535,4 +536,14 @@ class EditEmployeeProfileController
 
 
 
+}
+void showTopSnackBar(BuildContext context, String message) {
+  final messenger = ScaffoldMessenger.of(
+    Navigator.of(context, rootNavigator: true).context,
+  );
+
+  messenger.clearSnackBars();
+  messenger.showSnackBar(
+    SnackBar(content: Text(message)),
+  );
 }

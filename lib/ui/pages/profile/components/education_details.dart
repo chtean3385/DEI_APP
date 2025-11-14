@@ -41,10 +41,9 @@ class EducationDetails extends ConsumerWidget {
               ),
               GestureDetector(
                 behavior: HitTestBehavior.translucent,
-                onTap: () => openEditBottomSheet(
+                onTap: () => openDynamicFormSheet(
                   context: context,
-                  isDraggable: true,
-                  content: const EditEducationInformation(
+                  child: const EditEducationInformation(
                     isFromCommonEdit: false,
                   ),
                 ),

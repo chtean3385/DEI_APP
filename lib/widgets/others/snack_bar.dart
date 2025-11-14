@@ -46,11 +46,11 @@ void showOverlaySnackBar(BuildContext context, String message) {
       right: 0,
       child: Material(
         elevation: snackBarTheme.elevation ?? 6,
-        color:const Color(0xFFe0e4e6),
+        color: Colors.black,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           child: Text(
-            message
+            message,style: TextStyle(color: Colors.white),
           ),
         ),
       ),

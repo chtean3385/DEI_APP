@@ -21,6 +21,7 @@ import 'package:dei_champions/models/state_models/common/html_page_data_state.da
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
 import 'package:dei_champions/models/state_models/job/job_type_list_state.dart';
 import 'package:dei_champions/models/state_models/notification/notification_state.dart';
+import 'package:dei_champions/models/state_models/profile/employee_profile_completion_state.dart';
 import 'package:dei_champions/models/state_models/services/services_state.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:dei_champions/providers/controllers/common/blog_controller.dart';
@@ -140,6 +141,7 @@ import 'controllers/men_alias/organizational_benefit_controller.dart';
 import 'controllers/on_boarding/on_boarding_controller.dart';
 import 'controllers/our_team/our_team_controller.dart';
 import 'controllers/profile/edit_profile_controller.dart';
+import 'controllers/profile/employee_profile_completion_controller.dart';
 import 'controllers/profile/employee_profile_controller.dart';
 import 'controllers/veteran/veteran_advantage_controller.dart';
 import 'controllers/veteran/veteran_organizational_gorwth_controller.dart';
@@ -581,6 +583,11 @@ final drawerProfileProvider =
     StateNotifierProvider<DrawerProfileController, EmployeeProfileState>((ref) {
       return DrawerProfileController();
     });
+/// employee profile completion
+final profileCompletionProvider =
+StateNotifierProvider<EmployeeProfileCompletionController, EmployeeProfileCompletionState>((ref) {
+  return EmployeeProfileCompletionController();
+});
 
 /// employee profile
 final employeeProfileProvider =

@@ -10,6 +10,7 @@ import '../main/components/drawer/custom_drawer.dart';
 import '../recommended_jobs/components/recommended_jobs_horizontal.dart';
 import 'champion_candidates/champion_candidates_section.dart';
 import 'components/boost/booster_slider.dart';
+import 'components/boost/profile_completion_slider.dart';
 import 'components/explore_more_jobs/explore_more_jobs.dart';
 import 'components/hiring_info/hiring_info.dart';
 import 'components/jobs_based_on_profile/jobs_you_might_like.dart';
@@ -34,7 +35,8 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            ProfileSection(showMissingData: true,),
+
+            ProfileCompletionSlider(),
             RecommendedJobsHorizontal(),
             // WeAreHiringBanner(),
             JobsCategorySection(),
@@ -45,7 +47,6 @@ class HomeScreen extends StatelessWidget {
             // JobsServiceSection(),
             ChampionCandidatesSection(),
             DeiFriendlyIndustrySection(),
-            // Stack(children: [ResumeBoostSlider(), HomeTopSlider()]),
             // gapH16(),
             //
 

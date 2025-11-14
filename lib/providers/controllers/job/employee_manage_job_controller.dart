@@ -8,6 +8,7 @@ import '../../../constants/app_navigator.dart';
 import '../../../constants/enums.dart';
 import '../../../models/state_models/job/job_state.dart';
 import '../../../repo/shared_preference_repository.dart';
+import '../../../ui/pages/home/components/boost/profile_completion_slider.dart';
 import '../../../widgets/others/show_custom_alert_dialog.dart';
 import '../../../widgets/others/snack_bar.dart';
 import 'employee_similar_jobs_controller.dart';
@@ -36,9 +37,10 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
         message: "You need to upload your resume before applying for this job.",
         primaryButtonText: "Upload",
         onPrimaryPressed: () {
-          Navigator.pop(context); // Close dialog
+          Navigator.pop(context);
+          // Close dialog
           Future.microtask(() {
-            AppNavigator.loadEditEmployeeResumeScreen();
+            AppNavigator.loadEditEmployeeSelectedSectionScreen(params:EmployeeProfileFieldsParams(resume: true) );
           });
         },
         secondaryButtonText: "Cancel",

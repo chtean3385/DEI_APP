@@ -63,4 +63,21 @@ class EmployeeProfileService {
       throw Exception('Invalid response format');
     }
   }
+  /// 🔹 get employee profile percentage
+  Future<BaseModel> getEmployeeProfilePercentageDetails() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.employeeProfilePercentage,
+      includeAuthToken: true
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
 }

@@ -6,10 +6,11 @@ import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
 import '../../auth/signup_employer/widgets/select_city.dart';
-import '../../auth/signup_employer/widgets/select_state.dart';
+import 'edit_profile_action_button.dart';
 
 class EditLocationInformation extends ConsumerWidget {
-  const EditLocationInformation({super.key});
+  final bool isFromCommonEdit;
+  const EditLocationInformation({super.key,this.isFromCommonEdit = true});
 
 
   @override
@@ -26,7 +27,7 @@ class EditLocationInformation extends ConsumerWidget {
       ),
       clipBehavior: Clip.antiAlias,
       child: ExpansionTile(
-        initiallyExpanded: false, // collapsed by default
+        initiallyExpanded: isFromCommonEdit != true,
         title: Text(
           "Location Information",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -38,6 +39,8 @@ class EditLocationInformation extends ConsumerWidget {
 
         iconColor: Colors.black54,
         collapsedIconColor: Colors.black54,
+        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+        onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
           TransparentFormField(
@@ -106,11 +109,21 @@ class EditLocationInformation extends ConsumerWidget {
             hint: "Enter Pincode",
             label: "Pincode",
             icon: Icons.pin_drop_outlined,
+            maxLength: 6,
             textInputAction: TextInputAction.next,
             validator: AppValidators.fieldEmpty("Pincode"),
             keyboardType: TextInputType.number,
             // maxLength: 6,
           ),
+          gapH16(),
+          if (isFromCommonEdit != true)
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: EditProfileActionButtons(
+                isEmployee: true,
+                isFromCommonEdit: isFromCommonEdit,
+              ),
+            ),
         ],
       ),
     );

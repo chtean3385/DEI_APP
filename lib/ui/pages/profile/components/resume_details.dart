@@ -12,23 +12,12 @@ import '../../../../widgets/others/shimmer_loader.dart';
 import '../../search/components/search_job_card.dart';
 
 class ResumeDetails extends ConsumerWidget {
-  final bool openEditResume;
 
-  const ResumeDetails({super.key, this.openEditResume = false});
+  const ResumeDetails({super.key,});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(employeeProfileProvider);
-    // 👇 Trigger bottom sheet automatically after first frame if flag is true
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (openEditResume) {
-        openEditBottomSheet(
-          context: context,
-          isDraggable: false,
-          content: const EditResumeInformation(isFromCommonEdit: false),
-        );
-      }
-    });
     return state.pageState == PageState.loading
         ? _loader()
         : Container(

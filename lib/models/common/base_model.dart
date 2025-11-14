@@ -21,7 +21,7 @@ class BaseModel {
 
   factory BaseModel.fromJson(Map<String, dynamic> json) {
     return BaseModel(
-      success: json['success'] ?? false,
+      success: json['success'] ?? (json['status'] =="success")  ?? false,
       message: json['message'] ?? '',
       data: json['data'],
       currentPage: json['currentPage'],

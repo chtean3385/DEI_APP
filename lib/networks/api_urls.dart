@@ -99,6 +99,7 @@ class ApiUrls {
  //   employee profile
   static String employeeProfileDetails = 'users/get-one-user';
   static String updateEmployeeProfileDetails = 'users/update-profile-with-resume';
+  static String employeeProfilePercentage = 'users/profile/percentage';
 
 
 // common

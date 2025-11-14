@@ -73,7 +73,7 @@ class EditEducationInformation extends ConsumerWidget {
                 ),
               ],
             ),
-            onTap: () => controller.addEducationEntry(),
+            onTap: () => controller.addEducationEntry(context),
           ),
           gapH16(),
           if (isFromCommonEdit != true)
