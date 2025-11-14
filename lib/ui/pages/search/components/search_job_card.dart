@@ -6,7 +6,6 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:html/parser.dart' as html_parser;
 import 'package:intl/intl.dart';
 
 import '../../../../../../constants/app_styles.dart';
@@ -36,7 +35,6 @@ class SearchJobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    final plainText = html_parser.parse(jobModel.description).body?.text ?? '';
     return GestureDetector(
       onTap: onTap,
       child: Card(

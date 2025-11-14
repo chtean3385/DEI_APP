@@ -1,3 +1,4 @@
+import 'package:dei_champions/main.dart';
 import 'package:dei_champions/models/common/base_model.dart';
 import 'package:dei_champions/models/profile/profile_completion/profile_completion_model.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/enums.dart';
 import '../../../models/state_models/profile/employee_profile_completion_state.dart';
 import '../../../service/employee_profile/employee_profile_service.dart';
+import '../../../ui/pages/main/components/drawer/profile_completion_alert.dart';
 
 class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileCompletionState> {
   EmployeeProfileCompletionController() : super(EmployeeProfileCompletionState.initial()) {
@@ -14,6 +16,8 @@ class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileC
 
   final EmployeeProfileService _employeeProfileService =
   EmployeeProfileService();
+
+  bool _alertShownThisSession = false;
 
   @override
   void dispose() {
@@ -34,6 +38,10 @@ class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileC
         pageState: PageState.success,
         profileData: profileCompletionModel,
       );
+      if (_alertShownThisSession) return;
+      final missing = state.profileData?.missingFieldsCount ?? 0;
+      if (missing == 0) return;
+      showProfileAlert(navigatorKey.currentContext!,state.profileData?.missingFields);
       debugPrint("success - getEmployeeProfileCompletionData");
     } catch (e) {
       state = state.copyWith(pageState: PageState.error);

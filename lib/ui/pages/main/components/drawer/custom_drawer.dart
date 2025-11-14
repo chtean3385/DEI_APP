@@ -2,10 +2,12 @@ import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/main.dart';
+import 'package:dei_champions/ui/pages/main/components/drawer/profile_completion_alert.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constants/enums.dart';
 import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
@@ -253,7 +255,6 @@ class ProfileSection extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context).textTheme;
     final state = ref.watch(drawerProfileProvider);
     final profilePercentData = ref.watch(profileCompletionProvider);
     // return _loaderShowMissing();
@@ -511,3 +512,5 @@ Future<void> forceLogout({String? message}) async {
   });
   await Future.delayed(Duration(seconds: 1));
 }
+
+

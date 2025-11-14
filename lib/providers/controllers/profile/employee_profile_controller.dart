@@ -35,6 +35,7 @@ class EmployeeProfileController extends StateNotifier<EmployeeProfileState> {
         result,
       );
       ref.read(drawerProfileProvider.notifier).updateProfileData(userModel);
+      ref.read(profileCompletionProvider.notifier).getEmployeeProfileCompletionData();
       state = state.copyWith(
         pageState: PageState.success,
         profileData: userModel,
@@ -46,10 +47,6 @@ class EmployeeProfileController extends StateNotifier<EmployeeProfileState> {
       debugPrint("catch - getEmployeeProfileData");
       debugPrint(e.toString());
     }
-  }
-  ///update locally
-  void updateProfileData(EmployeeUserModel data) {
-    state = state.copyWith(profileData: data);
   }
 }
 
