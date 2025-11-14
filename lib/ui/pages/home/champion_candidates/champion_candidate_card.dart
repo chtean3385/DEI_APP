@@ -99,7 +99,7 @@ class ChampionCandidateCard extends StatelessWidget {
                 gapH8(),
                 gapH4(),
 
-                _skillsRow([...categoryModel.skills!,...categoryModel.skills!]),
+                _skillsRow(categoryModel.skills),
                 const SizedBox(height: 12),
 
                 Column(

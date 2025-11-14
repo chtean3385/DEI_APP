@@ -109,7 +109,7 @@ class SearchJobCard extends StatelessWidget {
                   ),
                   SizedBox(width: 4),
                   Text(
-                    jobModel.state ?? "",
+                    jobModel.state ?? "N/A",
                     style: theme.displaySmall?.copyWith(color: Colors.black54),
                   ),
                 ],
@@ -124,7 +124,7 @@ class SearchJobCard extends StatelessWidget {
                   ),
                   SizedBox(width: 4),
                   Text(
-                    jobModel.jobType ?? "",
+                    jobModel.jobType ?? "N/A",
                     style: theme.displaySmall?.copyWith(color: Colors.black54),
                   ),
                 ],
@@ -144,7 +144,7 @@ class SearchJobCard extends StatelessWidget {
                       ),
                       SizedBox(width: 6),
                       Text(
-                        jobModel.salary ?? "",
+                        jobModel.salary ?? "N/A",
                         style: theme.displaySmall?.copyWith(
                           color: Colors.black54,
                         ),
@@ -307,34 +307,37 @@ class SearchJobCard extends StatelessWidget {
   Widget _skillsRow(List<String>? skills) {
     if (skills == null || skills.isEmpty) return const SizedBox.shrink();
 
-    return Wrap(
-      spacing: 8, // horizontal space between chips
-      runSpacing: 8, // vertical space between lines
-      children: skills.map((s) => _tagChip(s)).toList(),
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        maxHeight: 45, // restrict height to 3–4 lines
+      ),
+      child: SingleChildScrollView(
+        child: Wrap(
+          spacing: 8, // horizontal space between chips
+          runSpacing: 8, // vertical space between rows
+          children: skills.map((s) => _tagChip(s)).toList(),
+        ),
+      ),
     );
   }
 
   Widget _tagChip(String tag) {
     return // Tag chip
-    Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
-      decoration: BoxDecoration(
-        color: AppColors.bg,
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        tag,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        softWrap: true,
-        textAlign: TextAlign.center,
-        style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
-          fontWeight: FontWeight.w400,
-          fontSize: 12,
-          color: Colors.black,
+      Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+        decoration: BoxDecoration(
+          color: AppColors.bg2,
+          borderRadius: BorderRadius.circular(4),
         ),
-      ),
-    );
+        child: Text(
+          tag,
+          maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,textAlign: TextAlign.center,
+          style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
+            fontWeight: FontWeight.w400,fontSize: 10,
+            color: Colors.black54,
+          ),
+        ),
+      );
   }
 
   Widget _buildStatusButton(String status) {
