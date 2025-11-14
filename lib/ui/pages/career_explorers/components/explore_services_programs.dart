@@ -112,6 +112,7 @@ class _ExploreServicesProgramsState
           ),
         ),
         const SizedBox(height: 8),
+        const SizedBox(height: 4),
         CarouselSlider.builder(
           itemCount: exploreServiceProgramModels.length,
           itemBuilder: (context, index, realIdx) {
