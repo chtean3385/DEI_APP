@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/ui/pages/home/components/boost/resume_boost.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +24,54 @@ class _ProfileCompletionSliderState
     extends ConsumerState<ProfileCompletionSlider> {
   final PageController _controller = PageController();
   int _currentPage = 0;
+  Timer? _autoSlideTimer;
+  @override
+  void initState() {
+    super.initState();
+    _startAutoSlide();
+  }
+
+  void _startAutoSlide() {
+    _autoSlideTimer?.cancel();
+
+    _autoSlideTimer = Timer.periodic(const Duration(seconds: 3), (_) {
+      if (!mounted) return;
+
+      final state = ref.read(profileCompletionProvider);
+      final itemCount = state.profileData?.missingFields?.length ?? 0;
+
+      if (itemCount == 0) return;
+
+      // If at last page → jump to first & stop timer
+      if (_currentPage == itemCount - 1) {
+        _controller.animateToPage(
+          0,
+          duration: const Duration(milliseconds: 450),
+          curve: Curves.fastOutSlowIn,
+        );
+
+        _autoSlideTimer?.cancel(); // ❌ stop sliding
+        return;
+      }
+
+      // Otherwise slide to next
+      final nextPage = _currentPage + 1;
+
+      _controller.animateToPage(
+        nextPage,
+        duration: const Duration(milliseconds: 450),
+        curve: Curves.fastOutSlowIn,
+      );
+    });
+  }
+
+
+  @override
+  void dispose() {
+    _autoSlideTimer?.cancel();
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +87,7 @@ class _ProfileCompletionSliderState
 
   Widget _data(EmployeeProfileCompletionState state) {
     final profile = state.profileData;
+    if(profile?.profileCompletion == 100) return const SizedBox.shrink();
     final List<MissingField> data = profile?.missingFields ?? [];
     return Stack(
       children: [
