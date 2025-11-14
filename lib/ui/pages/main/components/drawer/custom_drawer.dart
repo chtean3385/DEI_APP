@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/enums.dart';
+import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
+import '../../../../../models/state_models/profile/employee_profile_state.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../../repo/shared_preference_repository.dart';
 import '../../../../../utils/widget_utils.dart';
@@ -253,134 +255,152 @@ class ProfileSection extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).textTheme;
     final state = ref.watch(drawerProfileProvider);
-    final profilePercentData = ref.watch(profileCompletionProvider).profileData;
+    final profilePercentData = ref.watch(profileCompletionProvider);
     // return _loaderShowMissing();
-    return state.pageState == PageState.loading
-        ? showMissingData
-              ? _loaderShowMissing()
-              : _loader()
-        : GestureDetector(
-            behavior: HitTestBehavior.translucent,
-            onTap: () =>
-                AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
-            child: Container(
-              padding: const EdgeInsets.all(12),
-              margin: showMissingData ? const EdgeInsets.all(16) : null,
-              decoration: showMissingData
-                  ? BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(16),
-                        topRight: Radius.circular(16),
-                        bottomLeft: Radius.circular(16),
-                        bottomRight: Radius.circular(16),
-                      ),
-                      border: Border.all(color: Colors.black12, width: 1),
-                    )
-                  : null,
 
-              child: Stack(
-                alignment: AlignmentGeometry.topRight,
-                children: [
-                  Row(
-                    children: [
-                      Column(
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              SizedBox(
-                                width: 70,
-                                height: 70,
-                                child: CircularProgressIndicator(
-                                  value: .7,
-                                  strokeWidth: 5,
-                                  backgroundColor: Colors.black12,
-                                  valueColor: AlwaysStoppedAnimation(
-                                    AppColors.primaryColor,
-                                  ),
-                                ),
-                              ),
-                              state.profileData?.profilePhotoUrl?.isNotEmpty ==
-                                      true
-                                  ? RoundedNetworkImage(
-                                      imageUrl:
-                                          state.profileData!.profilePhotoUrl!,
-                                      width: 60,
-                                      height: 60,
-                                      borderRadius: 30,
-                                    )
-                                  : CircleAvatar(
-                                      radius: 30,
-                                      backgroundColor: Colors.black12,
-                                      child: Icon(
-                                        Icons
-                                            .person, // ✅ Add Profile Image icon
-                                        size: 30, // optional: adjust size
-                                        color: Colors
-                                            .grey
-                                            .shade600, // optional: adjust color
-                                      ),
-                                    ),
-                            ],
+    return state.pageState == PageState.loading
+        ?( showMissingData
+              ? _loaderShowMissing()
+              : _loader())
+        : _data(profilePercentData,state,context);
+  }
+  Widget _data(EmployeeProfileCompletionState data,EmployeeProfileState state,BuildContext context){
+    final profilePercentData = data.profileData;
+    final theme = Theme.of(context).textTheme;
+    double percent = (profilePercentData?.profileCompletion ?? 0).toDouble();
+    double progressValue = (percent / 100).clamp(0.0, 1.0);
+
+    Color getProgressColor(double value) {
+      if (value <= 0.25) {
+        return Colors.red;
+      } else if (value <= 0.75) {
+        return Colors.orange;
+      } else {
+        return Colors.green;
+      }
+    }
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () =>
+          AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
+      child: Container(
+        padding: const EdgeInsets.all(12),
+        margin: showMissingData ? const EdgeInsets.all(16) : null,
+        decoration: showMissingData
+            ? BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+          ),
+          border: Border.all(color: Colors.black12, width: 1),
+        )
+            : null,
+
+        child: Stack(
+          alignment: AlignmentGeometry.topRight,
+          children: [
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        SizedBox(
+                          width: 70,
+                          height: 70,
+                          child: CircularProgressIndicator(
+                            value: progressValue,
+                            strokeWidth: 5,
+                            backgroundColor: Colors.black12,
+                            valueColor: AlwaysStoppedAnimation(
+                              getProgressColor(progressValue),
+                            ),
                           ),
-                          gapH8(),
-                          _tagChip("${profilePercentData?.profileCompletion?.toString() ?? ""}", context),
-                        ],
+                        ),
+                        state.profileData?.profilePhotoUrl?.isNotEmpty ==
+                            true
+                            ? RoundedNetworkImage(
+                          imageUrl:
+                          state.profileData!.profilePhotoUrl!,
+                          width: 60,
+                          height: 60,
+                          borderRadius: 30,
+                        )
+                            : CircleAvatar(
+                          radius: 30,
+                          backgroundColor: Colors.black12,
+                          child: Icon(
+                            Icons
+                                .person, // ✅ Add Profile Image icon
+                            size: 30, // optional: adjust size
+                            color: Colors
+                                .grey
+                                .shade600, // optional: adjust color
+                          ),
+                        ),
+                      ],
+                    ),
+                    gapH8(),
+                    _tagChip("${profilePercentData?.profileCompletion?.toString() ?? ""}%", context, getProgressColor(progressValue),),
+                  ],
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        showMissingData
+                            ? (state.profileData?.name?.isNotEmpty == true ?  "${state.profileData?.name}'s Profile":"Loading...")
+                            : state.profileData?.name ?? "Loading...",
+                        style: context.textTheme.labelMedium,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
                       ),
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              showMissingData
-                                  ? (state.profileData?.name?.isNotEmpty == true ?  "${state.profileData?.name}'s Profile":"Loading...")
-                                  : state.profileData?.name ?? "Loading...",
-                              style: context.textTheme.labelMedium,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                            ),
-                            Text(
-                              "Update profile",
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                color: Colors.black54,
-                              ),
-                            ),
-                            // Text(
-                            //   "7 Missing details",
-                            //   style: theme.bodyMedium?.copyWith(
-                            //     fontWeight: FontWeight.w600,
-                            //     color: AppColors.primaryColor,
-                            //   ),
-                            // ),
-                            if (showMissingData) gapH16(),
-                          ],
+                      Text(
+                        "Update profile",
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: Colors.black54,
                         ),
                       ),
+                      // Text(
+                      //   "7 Missing details",
+                      //   style: theme.bodyMedium?.copyWith(
+                      //     fontWeight: FontWeight.w600,
+                      //     color: AppColors.primaryColor,
+                      //   ),
+                      // ),
+                      if (showMissingData) gapH16(),
                     ],
                   ),
-                  if (showMissingData)
-                    GestureDetector(
-                      onTap:AppNavigator.loadEditProfileScreen ,
-                      behavior: HitTestBehavior.translucent,
-                      child: Text(
-                        "${profilePercentData?.missingFieldsCount?.toString() ?? ""} Missing details",
-                        style: theme.labelMedium?.copyWith(
-                          fontWeight: FontWeight.w800,
-                          color: AppColors.primaryColor,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
+            if (showMissingData)
+              GestureDetector(
+                onTap:AppNavigator.loadEditProfileScreen ,
+                behavior: HitTestBehavior.translucent,
+                child: Text(
+                  "${profilePercentData?.missingFieldsCount?.toString() ?? ""} Missing details",
+                  style: theme.labelMedium?.copyWith(
+                    fontWeight: FontWeight.w800,
+                    color: AppColors.primaryColor,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
   }
 
-  Widget _tagChip(String tag, BuildContext context) {
+  Widget _tagChip(String tag, BuildContext context,Color textColor) {
     return // Tag chip
     Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
@@ -397,7 +417,7 @@ class ProfileSection extends ConsumerWidget {
         style: context.textTheme.labelMedium?.copyWith(
           fontWeight: FontWeight.w400,
           fontSize: 12,
-          color: AppColors.primaryColor,
+          color: textColor,
         ),
       ),
     );
