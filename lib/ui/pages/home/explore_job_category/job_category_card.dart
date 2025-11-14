@@ -22,25 +22,7 @@ class JobCategoryCard extends StatelessWidget {
         width: 80,
         child: Column(
           children: [
-            DecoratedBox(
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 2,color: AppColors.primaryColor)
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(2.0),
-                child: CircleAvatar(
-                  radius: 30,
-                  backgroundColor: Colors.white,
-                  child: RoundedNetworkImage(
-                    imageUrl: categoryModel.image ?? "",
-                    width: 35,
-                    height: 35,
-                    borderRadius: 8,
-                  ),
-                ),
-              ),
-            ),
+            RainbowBorderAvatar(imageUrl:  categoryModel.image ?? ""),
             const SizedBox(height: 6),
             Text(
               categoryModel.title ?? "",
@@ -55,7 +37,99 @@ class JobCategoryCard extends StatelessWidget {
       ),
     );
   }
+
 }
+class RainbowBorderAvatar extends StatefulWidget {
+  final String imageUrl;
+
+  const RainbowBorderAvatar({super.key, required this.imageUrl});
+
+  @override
+  State<RainbowBorderAvatar> createState() => _RainbowBorderAvatarState();
+}
+
+class _RainbowBorderAvatarState extends State<RainbowBorderAvatar>
+    with SingleTickerProviderStateMixin {
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: const Duration(seconds: 4),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // Total size = border padding + inner CircleAvatar radius * 2
+    const double outerPadding = 3;
+    const double innerPadding = 3;
+    const double avatarRadius = 30;
+
+    return SizedBox(
+      width: (avatarRadius + outerPadding + innerPadding) * 2,
+      height: (avatarRadius + outerPadding + innerPadding) * 2,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          // 🔄 Rotating rainbow border
+          RotationTransition(
+            turns: controller,
+            child: Container(
+              padding: const EdgeInsets.all(outerPadding),
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: SweepGradient(
+                  colors: [
+                    Colors.red,
+                    Colors.orange,
+                    Colors.yellow,
+                    Colors.green,
+                    Colors.blue,
+                    Colors.indigo,
+                    Colors.purple,
+                    Colors.red,
+                  ],
+                ),
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(innerPadding),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+
+          // 🖼️ Static inner image
+          CircleAvatar(
+            radius: avatarRadius,
+            backgroundColor: Colors.white,
+            child: RoundedNetworkImage(
+              imageUrl: widget.imageUrl,
+              width: 35,
+              height: 35,
+              borderRadius: 8,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+
+
+
 
 class ShimmerJobCategoryCard extends StatelessWidget {
   const ShimmerJobCategoryCard();
@@ -95,66 +169,6 @@ class ShimmerJobCategoryCard extends StatelessWidget {
           ),
 
         ],
-      ),
-    );
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(6),
-          bottomLeft: Radius.circular(6),
-          bottomRight: Radius.circular(16),
-        ),
-        border: Border.all(color: Colors.white, width: 2),
-      ),
-      child: SizedBox(
-        width: 100,
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              RoundedNetworkImage(
-                imageUrl: "",
-                width: 35,
-                height: 35,
-                borderRadius: 8,
-              ),
-              const SizedBox(height: 6),
-              ColoredBox(
-                color: Colors.white,
-                child: SizedBox(
-                  height:10,width: 80,
-                ),
-              ),
-
-              const SizedBox(height: 6),
-              // ColoredBox(
-              //   color: Colors.white,
-              //   child: SizedBox(
-              //     height:10,width: 170,
-              //   ),
-              // ),
-              // const SizedBox(height: 2),
-              // ColoredBox(
-              //   color: Colors.white,
-              //   child: SizedBox(
-              //     height:10,width: 150,
-              //   ),
-              // ),
-              // const SizedBox(height: 2),
-              // ColoredBox(
-              //   color: Colors.white,
-              //   child: SizedBox(
-              //     height:10,width: 80,
-              //   ),
-              // ),
-              // const SizedBox(height: 12),
-              //
-              // ViewAllButton(text: 'View jobs', isSmall: true),
-            ],
-          ),
-        ),
       ),
     );
   }
