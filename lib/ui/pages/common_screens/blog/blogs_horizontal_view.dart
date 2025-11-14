@@ -9,7 +9,6 @@ import '../../../../constants/app_navigator.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/state_models/common/blog_state.dart';
 import '../../../../providers/providers.dart';
-import '../../../../widgets/others/custom_loader.dart';
 import '../../../../widgets/others/view_all_button.dart';
 import '../components/blog_card.dart';
 
@@ -23,7 +22,7 @@ class BlogsHorizontalView extends ConsumerWidget {
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();
     } else if (state.pageState == PageState.error) {
-      return SomethingWentWrong();
+      return SizedBox.shrink();
     } else if (state.data?.isEmpty == true) {
       return SizedBox.shrink();
     } else {
