@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/enums.dart';
+import '../../../models/auth/auth_model.dart';
 import '../../../models/common/base_model.dart';
 import '../../../models/state_models/auth_state.dart';
 import '../../../repo/shared_preference_repository.dart';
@@ -36,7 +37,8 @@ class LoginController extends StateNotifier<AuthState> {
       showSnackBar(result.message, duration: 3);
      if(state.rememberMe) saveCredentials();
       setPageState(PageState.success);
-      AppNavigator.loadOtpScreen(emailNameController.text.trim());
+      final AuthModel authModel = AuthModel.fromJson(result.data);
+      AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
       debugPrint("success - signInEmployee");
     } catch (e) {
       setPageState(PageState.error);
