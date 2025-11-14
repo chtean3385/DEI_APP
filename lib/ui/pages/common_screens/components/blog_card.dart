@@ -311,7 +311,6 @@ class BlogCardHorizontal extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           RoundedNetworkImage(
                             height: 10,
@@ -320,28 +319,31 @@ class BlogCardHorizontal extends StatelessWidget {
                             borderRadius: 5,
                           ),
                           gapW4(),
-                          Text(
-                            item.authorName ?? "",
-                            maxLines: 1,
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.displaySmall?.copyWith(
-                              color: Colors.black54,
+                          Expanded(
+                            child: Text(
+                              item.authorName ?? "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: theme.displaySmall?.copyWith(
+                                color: Colors.black54,
+                              ),
                             ),
                           ),
                         ],
                       ),
                     ),
+
+                    // time ago text
                     Text(
                       " ${getShortTimeAgo(item.createdAt ?? DateTime.now())}",
                       overflow: TextOverflow.ellipsis,
-                      softWrap: true,
                       style: theme.displaySmall?.copyWith(
                         color: Colors.black45,
                       ),
                     ),
                   ],
-                ),
+                )
+
               ],
             ),
           ),
