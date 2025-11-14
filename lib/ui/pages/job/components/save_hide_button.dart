@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:flutter/material.dart';
 
 class SaveHideButton extends StatefulWidget {
@@ -67,10 +68,13 @@ class CustomDynamicButton extends StatefulWidget {
   final String activeTitle;
   final String inActiveTitle;
   final double size;
+  final double? activeIconSize;
   final bool smaller;
   final bool initialValue;
   final Color activeColor;
+  final Color activeBgColor;
   final Color inActiveColor;
+  final Color inActiveBgColor;
   final Future<bool> Function(bool)? onPressed; // ✅ callback returns whether to accept toggle
 
   const CustomDynamicButton({
@@ -81,10 +85,13 @@ class CustomDynamicButton extends StatefulWidget {
     this.initialValue = false,
     this.activeColor = AppColors.primaryColor,
     this.inActiveColor =  Colors.black54,
+    this.activeBgColor = AppColors.primaryColor,
+    this.inActiveBgColor =  Colors.black54,
     required this.activeIcon,
     required this.inActiveIcon,
     required this.activeTitle,
     required this.inActiveTitle,
+    this.activeIconSize
   });
 
   @override
@@ -117,22 +124,25 @@ class _CustomDynamicButtonState extends State<CustomDynamicButton> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
 
-    return InkWell(
-      onTap: _toggle,
-      borderRadius: BorderRadius.circular(8),
+    return CustomThemeButton(
+      onTap:isBusy ? null : _toggle,
+      radius: 8,
+      padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
+      color:  isActive ? widget.activeBgColor : widget.inActiveBgColor ,
+      borderColor:  isActive ? widget.activeBgColor : widget.inActiveBgColor ,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           if (isBusy)
-            const SizedBox(
+             SizedBox(
               width: 18,
               height: 18,
-              child: CircularProgressIndicator(strokeWidth: 2),
+              child: CircularProgressIndicator(strokeWidth: 2,color: isActive ? Colors.white : AppColors.primaryColor,),
             )
           else
             Icon(
               isActive ? widget.activeIcon : widget.inActiveIcon,
-              size: widget.size,
+              size: isActive ? (widget.activeIconSize ??  widget.size) : widget.size,
               color: isActive ? widget.activeColor : widget.inActiveColor ,
             ),
           const SizedBox(width: 4),

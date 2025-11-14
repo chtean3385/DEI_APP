@@ -5,6 +5,7 @@ import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:intl/intl.dart';
 
@@ -155,17 +156,17 @@ class SearchJobCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Icon(
-                        Icons.calendar_month,
+                        Icons.calendar_today_outlined,
                         size: 14,
-                        color: Colors.black54,
-                      ),
-                      gapW4(),
+                        color: Colors.black45,),
+
+                        gapW4(),
                       Text(
-                        " ${getTimeAgo(jobModel.createdAt ?? DateTime.now())}",
+                        " ${getShortTimeAgo(jobModel.createdAt ?? DateTime.now())}",
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
                         style: theme.displaySmall?.copyWith(
-                          color: Colors.black54,
+                          color: Colors.black45,
                         ),
                       ),
                     ],
@@ -174,15 +175,15 @@ class SearchJobCard extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               _skillsRow(jobModel.skills),
-              const SizedBox(height: 6),
-
-              Text(
-                plainText,
-                overflow: TextOverflow.ellipsis,
-                softWrap: true,
-                maxLines: 3,
-                style: theme.displaySmall?.copyWith(color: Colors.black54),
-              ),
+              // const SizedBox(height: 6),
+              //
+              // Text(
+              //   plainText,
+              //   overflow: TextOverflow.ellipsis,
+              //   softWrap: true,
+              //   maxLines: 3,
+              //   style: theme.displaySmall?.copyWith(color: Colors.black54),
+              // ),
               const SizedBox(height: 6),
               const SizedBox(height: 6),
 
@@ -197,6 +198,8 @@ class SearchJobCard extends StatelessWidget {
                       inActiveTitle: "Withdraw",
                       activeColor: AppColors.primaryColor,
                       inActiveColor: Colors.red.withValues(alpha: .8),
+                      activeBgColor: AppColors.primaryColor,
+                      inActiveBgColor: Colors.red.withValues(alpha: .8),
                       size: 20,
                       smaller: true,
                       initialValue: !jobModel.isApplied,
@@ -223,12 +226,17 @@ class SearchJobCard extends StatelessWidget {
                     ),
                   if (!hideApplyButton)
                     CustomDynamicButton(
-                      activeIcon: Icons.send_rounded,
-                      inActiveIcon: Icons.check_circle_rounded,
+                      activeIcon: FontAwesomeIcons.paperPlane,
+                      inActiveIcon: FontAwesomeIcons.circleCheck,
                       activeTitle: "Apply",
                       inActiveTitle: "Applied",
-                      size: 20,
+                      size:15,
+                      activeIconSize:12,
                       smaller: true,
+                      activeColor: Colors.white,
+                      inActiveColor: AppColors.primaryColor,
+                      activeBgColor: AppColors.primaryColor,
+                      inActiveBgColor: AppColors.bg,
                       initialValue: !jobModel.isApplied,
                       onPressed: (isAppliedNow) async {
                         final jobId = jobModel.id ?? "";
@@ -261,6 +269,10 @@ class SearchJobCard extends StatelessWidget {
                       size: 20,
                       smaller: true,
                       initialValue: !jobModel.isSaved,
+                      activeColor: Colors.white,
+                      inActiveColor: AppColors.primaryColor,
+                      activeBgColor: AppColors.primaryColor,
+                      inActiveBgColor: AppColors.bg,
                       onPressed: (isSavedNow) async {
                         // 🔹 Add API call here
                         print("Save/Hide tapped!  -- $isSavedNow");
@@ -282,6 +294,7 @@ class SearchJobCard extends StatelessWidget {
                     ),
                   if (showMyApplicationStatusButton)
                     _buildStatusButton(jobModel.myStatus ?? ""),
+
                 ],
               ),
             ],
