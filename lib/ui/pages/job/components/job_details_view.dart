@@ -19,7 +19,7 @@ class JobDetailsView extends StatelessWidget {
   final GlobalKey jobDetailsKey;
   final GlobalKey aboutCompanyKey;
   final GlobalKey similarJobsKey;
-  final GlobalKey awardsKey;
+  final GlobalKey deiCertificates;
   final GlobalKey verifiedBenefitsKey;
   final GlobalKey reviewsKey;
   final GlobalKey benefitsKey;
@@ -33,7 +33,7 @@ class JobDetailsView extends StatelessWidget {
     required this.jobDetailsKey,
     required this.aboutCompanyKey,
     required this.similarJobsKey,
-    required this.awardsKey,
+    required this.deiCertificates,
     required this.verifiedBenefitsKey,
     required this.reviewsKey,
     required this.benefitsKey,
@@ -53,6 +53,8 @@ class JobDetailsView extends StatelessWidget {
         children: [
           _buildJobDetailsTab(context),
           _buildAboutCompanyTab(),
+          gapH16(),
+          _certificatesCard(),
           gapH16(),
           _buildCompanyGallery(),
           //  AwardsTimeline(key: awardsKey,),
@@ -125,8 +127,7 @@ class JobDetailsView extends StatelessWidget {
             website: jobModel.employer?.companyWebsite ?? "",
           ),
         ),
-        gapH16(),
-        _certificatesCard(),
+
         gapH16(),
       ],
     );
@@ -360,12 +361,14 @@ class JobDetailsView extends StatelessWidget {
   Widget _certificatesCard() {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
 
-    if (jobModel.employer?.certifiedTags == null ||
-        jobModel.employer?.certifiedTags?.isEmpty == true) {
-      return const SizedBox.shrink(); // no tags, no widget
-    }
+    // if (jobModel.employer?.certifiedTags == null ||
+    //     jobModel.employer?.certifiedTags?.isEmpty == true) {
+    //   return const SizedBox.shrink(); // no tags, no widget
+    // }
+
 
     return CustomDecoratedBox(
+      key: deiCertificates,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -374,6 +377,11 @@ class JobDetailsView extends StatelessWidget {
             style: theme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           gapH8(),
+          (jobModel.employer?.certifiedTags == null ||
+              jobModel.employer?.certifiedTags?.isEmpty == true)? SizedBox(
+            height: 50,
+            child: const Center(child: Text('No Certifications available')),
+          ) :
           Column(
             children: jobModel.employer!.certifiedTags!.map((tag) {
               return Padding(

@@ -82,7 +82,7 @@ class JobDetailHeader extends StatelessWidget {
                 Icon(Icons.access_time, size: 24, color: Colors.black54),
                 gapW8(),
                 Text(
-                  '${getTimeAgo(jobModel.createdAt ?? DateTime.now())}',
+                  '${getShortTimeAgo(jobModel.createdAt ?? DateTime.now())}',
                   style: theme.bodyMedium?.copyWith(color: Colors.black54),
                 ),
               ],

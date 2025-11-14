@@ -28,7 +28,7 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
   final ScrollController _scrollController = ScrollController();
   final GlobalKey _jobDetailsKey = GlobalKey();
   final GlobalKey _aboutCompanyKey = GlobalKey();
-  final _awardsKey = GlobalKey();
+  final _deiCertificates = GlobalKey();
   final _verifiedBenefitsKey = GlobalKey();
   final _reviewsKey = GlobalKey();
   final _benefitsKey = GlobalKey();
@@ -91,12 +91,13 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
     final categories = [
       {"id": 1, "title": 'Job Details'},
       {"id": 2, "title": 'About Company'},
-      // {"id": 3, "title": 'Awards'},
+      {"id": 3, "title": 'Certifications'},
       // {"id": 4, "title": 'Verified benefits'},
       // {"id": 5, "title": 'Reviews'},
       //  {"id": 6, "title": 'Benefits'},
       // {"id": 7, "title": 'Salary '},
       {"id": 8, "title": 'Company Gallery '},
+
       // if (widget.jobModel.hasAwards) {"id": 3, "title": 'Awards'},
       // if (widget.jobModel.hasVerifiedBenefits) {"id": 4, "title": 'Verified benefits'},
       // if (widget.jobModel.hasReviews) {"id": 5, "title": 'Reviews'},
@@ -245,7 +246,7 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                                     } else if (item['id'] == 2) {
                                       _scrollToSection(_aboutCompanyKey);
                                     } else if (item['id'] == 3) {
-                                      _scrollToSection(_awardsKey);
+                                      _scrollToSection(_deiCertificates);
                                     } else if (item['id'] == 4) {
                                       _scrollToSection(_verifiedBenefitsKey);
                                     } else if (item['id'] == 5) {
@@ -277,7 +278,7 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                             aboutCompanyKey: _aboutCompanyKey,
                             companyGalleryKey: _companyGalleryKey,
                             similarJobsKey: _similarJobsKey,
-                            awardsKey: _awardsKey,
+                            deiCertificates: _deiCertificates,
                             benefitsKey: _benefitsKey,
                             reviewsKey: _reviewsKey,
                             salaryInsightsKey: _salaryInsightsKey,
