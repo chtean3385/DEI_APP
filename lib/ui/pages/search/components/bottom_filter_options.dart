@@ -12,7 +12,7 @@ class FilterOptionsBar extends StatelessWidget {
 
   const FilterOptionsBar({Key? key, required this.filters}) : super(key: key);
 
-  Future<void> _openFilterModal(BuildContext context, {String? initialFilter}) {
+  Future<void> openFilterModal(BuildContext context, {String? initialFilter}) {
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -39,7 +39,7 @@ class FilterOptionsBar extends StatelessWidget {
         children: [
           // Left filter icon (circular with outline)
           GestureDetector(
-            onTap: () => _openFilterModal(context),
+            onTap: () => openFilterModal(context),
             child: Container(
               height: 35,
               width: 35,
@@ -65,7 +65,7 @@ class FilterOptionsBar extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 8.0),
                     child: OutlinedButton(
                       onPressed: () =>
-                          _openFilterModal(context, initialFilter: f),
+                          openFilterModal(context, initialFilter: f),
                       style: OutlinedButton.styleFrom(
                         visualDensity: VisualDensity.compact,
                         padding: const EdgeInsets.symmetric(

@@ -11,6 +11,7 @@ import '../invites/invites_screen.dart';
 import '../profile/profile_details_view.dart';
 import '../saved_jobs/saved_jobs_view.dart';
 import 'components/drawer/custom_drawer.dart';
+import 'components/floating_filter.dart';
 
 class BottomBar extends StatefulWidget {
   final int initialPage;
@@ -136,6 +137,7 @@ class _BottomBarState extends State<BottomBar> {
             ),
           ),
         ),
+        floatingActionButton: _currentIndex == 0 ? FloatingFilterFab() : null,
       ),
       drawer: CustomDrawer(),
     );

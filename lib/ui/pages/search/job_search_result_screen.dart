@@ -11,16 +11,11 @@ import 'components/search_result_view.dart';
 import 'components/sort_by_job.dart';
 import 'components/state_drop_down.dart';
 
-
 class JobSearchResultScreen extends ConsumerStatefulWidget {
   final EmployeeSearchJobsParams? params;
 
   const JobSearchResultScreen({Key? key, this.params}) : super(key: key);
-  static const List<String> filters = [
-    "Industry",
-    "Salary Range",
-    "Job Type",
-  ];
+  static const List<String> filters = ["Industry", "Salary Range", "Job Type"];
 
   @override
   ConsumerState<JobSearchResultScreen> createState() =>
@@ -32,16 +27,23 @@ class _JobSearchResultScreenState extends ConsumerState<JobSearchResultScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (widget.params != null)
-        ref
-            .read(searchJobListProvider.notifier)
-            .fetchJobs(
-              query: widget.params?.searchQuery,
-              sortBy: widget.params?.sortBy,
-              categoryId: widget.params?.categoryId,
-              selectedState: widget.params?.selectedState,
-              industryId: widget.params?.industryId,
-            );
+      if (widget.params != null) {
+        if (widget.params?.showFilter == true) {
+          FilterOptionsBar(
+            filters: JobSearchResultScreen.filters,
+          ).openFilterModal(context);
+        } else {
+          ref
+              .read(searchJobListProvider.notifier)
+              .fetchJobs(
+                query: widget.params?.searchQuery,
+                sortBy: widget.params?.sortBy,
+                categoryId: widget.params?.categoryId,
+                selectedState: widget.params?.selectedState,
+                industryId: widget.params?.industryId,
+              );
+        }
+      }
     });
   }
 
@@ -70,10 +72,12 @@ class _JobSearchResultScreenState extends ConsumerState<JobSearchResultScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(child: SortByDropdown(
-                    onChanged: (stateValue) =>
-                        controller.fetchJobs(sortBy: stateValue),
-                  )),
+                  Expanded(
+                    child: SortByDropdown(
+                      onChanged: (stateValue) =>
+                          controller.fetchJobs(sortBy: stateValue),
+                    ),
+                  ),
                   Expanded(
                     child: StateDropdown(
                       onChanged: (stateValue) =>

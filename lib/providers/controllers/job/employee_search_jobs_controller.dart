@@ -143,6 +143,7 @@ class EmployeeSearchJobsParams {
   final String? searchQuery;
   final String? sortBy;
   final String? selectedState;
+  final bool? showFilter;
 
   EmployeeSearchJobsParams({
     this.categoryId,
@@ -150,5 +151,6 @@ class EmployeeSearchJobsParams {
     this.searchQuery,
     this.sortBy,
     this.selectedState,
+    this.showFilter,
   });
 }
