@@ -2,12 +2,10 @@ import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/main.dart';
-import 'package:dei_champions/ui/pages/main/components/drawer/profile_completion_alert.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../../constants/enums.dart';
 import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
@@ -496,7 +494,13 @@ Future<void> signOut() async {
   await SharedPreferenceRepository.setUserId("");
   await SharedPreferenceRepository.setRoleId(0);
   await SharedPreferenceRepository.setHasUploadedResume(false);
+ final providerScope =  ProviderScope.containerOf(
+    navigatorKey.currentContext!,
+  );
+  providerScope.read(drawerProfileProvider.notifier).clearState();
+  providerScope.read(profileCompletionProvider.notifier).clearState();
   AppNavigator.loadSignInScreen();
+
 }
 
 Future<void> forceLogout({String? message}) async {

@@ -85,7 +85,6 @@ Future<void> viewResumeFromUrl(String? url) async {
 }
 class DrawerProfileController extends StateNotifier<EmployeeProfileState> {
   DrawerProfileController() : super(EmployeeProfileState.initial()) {
-    getEmployeeProfileData();
   }
 
   final EmployeeProfileService _employeeProfileService =
@@ -96,6 +95,11 @@ class DrawerProfileController extends StateNotifier<EmployeeProfileState> {
     debugPrint("🔥 DrawerProfileController disposed");
 
     super.dispose();
+  }
+
+  /// Reset the provider to initial state
+  void clearState() {
+    state = EmployeeProfileState.initial();
   }
 
 

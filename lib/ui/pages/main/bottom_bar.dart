@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants/app_colors.dart';
+import '../../../main.dart';
+import '../../../providers/providers.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
 import '../All/dashboard_all_section_screen.dart';
 import '../apply/apply_screen.dart';
 import '../home/home_screen.dart';
-import '../invites/invites_screen.dart';
 import '../profile/profile_details_view.dart';
 import '../saved_jobs/saved_jobs_view.dart';
 import 'components/drawer/custom_drawer.dart';
@@ -32,8 +34,18 @@ class _BottomBarState extends State<BottomBar> {
     super.initState();
     _currentIndex = widget.initialPage;
     _params = widget.params;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      initialiseController();
+    });
   }
 
+  initialiseController(){
+    final providerScope =  ProviderScope.containerOf(
+      navigatorKey.currentContext!,
+    );
+    providerScope.read(drawerProfileProvider.notifier).getEmployeeProfileData();
+    providerScope.read(profileCompletionProvider.notifier).getEmployeeProfileCompletionData();
+  }
   void _onTap(int index) {
     _params = null;
     setState(() => _currentIndex = index);
@@ -56,17 +68,8 @@ class _BottomBarState extends State<BottomBar> {
       animationDuration: const Duration(milliseconds: 300),
       animateChildDecoration: true,
       rtlOpening: false,
-      // openScale: 1.0,
       disabledGestures: false,
       childDecoration:  BoxDecoration(
-        // NOTICE: Uncomment if you want to add shadow behind the page.
-        // Keep in mind that it may cause animation jerks.
-        // boxShadow: <BoxShadow>[
-        //   BoxShadow(
-        //     color: Colors.black12,
-        //     blurRadius: 0.0,
-        //   ),
-        // ],
         border: Border.all(color: Colors.black26,width: 1),
 
         borderRadius: const BorderRadius.all(Radius.circular(0)),

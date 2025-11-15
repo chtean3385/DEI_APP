@@ -11,7 +11,6 @@ import '../../../ui/pages/main/components/drawer/profile_completion_alert.dart';
 
 class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileCompletionState> {
   EmployeeProfileCompletionController() : super(EmployeeProfileCompletionState.initial()) {
-    getEmployeeProfileCompletionData();
   }
 
   final EmployeeProfileService _employeeProfileService =
@@ -23,6 +22,9 @@ class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileC
   void dispose() {
     debugPrint("🔥 EmployeeProfileCompletionController disposed");
     super.dispose();
+  }
+  void clearState() {
+    state = EmployeeProfileCompletionState.initial();
   }
 
 
