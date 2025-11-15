@@ -53,7 +53,7 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
                   ),
                 ),
                 const Spacer(),
-                ViewAllButton(
+              if(state.data!.length > 5)  ViewAllButton(
                   isSmall: true,
                   onPressed: AppNavigator.loadRecommendedJobsScreen,
                 ),
@@ -96,7 +96,7 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Text(
-                                "View all 70 jobs",
+                                "View all ${state.totalCount?.toString() ?? ""} jobs",
                                 style: navigatorKey
                                     .currentContext!
                                     .textTheme
