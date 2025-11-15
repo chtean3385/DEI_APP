@@ -57,6 +57,8 @@ class AppNavigator {
     await SharedPreferenceRepository.setToken(authModel!.token);
     await SharedPreferenceRepository.setUserId(authModel.userId);
     await SharedPreferenceRepository.setRoleId(authModel.roleId);
+
+    bool? isTutorialShown =  await SharedPreferenceRepository.getHomeTutorialShown();
     if (authModel.roleId == 2) {
       Navigator.pushAndRemoveUntil(
         navigatorKey.currentContext!,
@@ -66,7 +68,7 @@ class AppNavigator {
     } else {
       Navigator.pushAndRemoveUntil(
         navigatorKey.currentContext!,
-        MaterialPageRoute(builder: (_) => BottomBar()),
+        MaterialPageRoute(builder: (_) => BottomBar(showTutorial: !isTutorialShown )),
         (route) => false,
       );
     }
@@ -85,7 +87,7 @@ class AppNavigator {
     } else {
       Navigator.pushAndRemoveUntil(
         navigatorKey.currentContext!,
-        MaterialPageRoute(builder: (_) => BottomBar(initialPage: initialPage,params: params,)),
+        MaterialPageRoute(builder: (_) => BottomBar(initialPage: initialPage,params: params,showTutorial: false)),
         (route) => false,
       );
     }

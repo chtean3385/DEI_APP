@@ -3,6 +3,7 @@ import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../../constants/app_keys.dart';
 import '../form/home_search.dart';
 
 AppBar appBarHome(
@@ -12,6 +13,7 @@ AppBar appBarHome(
   String title = "",
   VoidCallback? onPressed,
   bool isEmployer = false,
+  bool showTutorial = false,
 }) {
   return AppBar(
     elevation: 0,
@@ -24,7 +26,7 @@ AppBar appBarHome(
       ),
     ),
     title: isFromHome
-        ? HomeSearch()
+        ? HomeSearch(showTutorial: showTutorial)
         : title.isNotEmpty
         ? Text(title, style: context.textTheme.headlineMedium)
         : null,
@@ -33,6 +35,7 @@ AppBar appBarHome(
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: IconButton(
+                key:!showTutorial ? null : AppTutorialKeys.notificationButtonKey,
                 icon: const Icon(
                   Icons.notifications_none,
                   color: Colors.black45,

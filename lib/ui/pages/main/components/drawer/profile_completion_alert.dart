@@ -1,5 +1,4 @@
 import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -70,7 +69,7 @@ void showProfileAlert(BuildContext context,List<MissingField>? missingFields) {
               ),
               onPressed: () {
                 Navigator.pop(context);
-                AppNavigator.loadEditProfileScreen();
+                // AppNavigator.loadEditProfileScreen();
               },
               child:  Text(
                 "Okay",

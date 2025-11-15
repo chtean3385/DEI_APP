@@ -10,7 +10,7 @@ class SharedPreferenceRepository {
   static const String KEY_REMEMBER_ME = "KEY_REMEMBER_ME";
   static const String HAS_SEEN_ON_BOARDING = "HAS_SEEN_ON_BOARDING";
   static const String HAS_UPLOADED_RESUME = "HAS_UPLOADED_RESUME";
-
+  static const String isHomeTutorialShown = "isHomeTutorialShown";
 
   static Future<void> setToken(String token) async {
     debugPrint("set token -- $token");
@@ -91,6 +91,16 @@ class SharedPreferenceRepository {
     debugPrint("hasSeenOnboarding -- $hasSeenOnboarding");
     return hasSeenOnboarding;
   }
-
+  static Future<void> setHomeTutorialShown(bool value) async {
+    debugPrint(" set HomeTutorialShown  -- $value");
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setBool(isHomeTutorialShown, value);
+  }
+  static Future<bool> getHomeTutorialShown() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    bool value = preferences.getBool(isHomeTutorialShown) ?? false;
+    debugPrint("get HomeTutorialShown -- $value");
+    return value;
+  }
 
 }

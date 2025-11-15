@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../constants/enums.dart';
 import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
 import '../../../../../models/state_models/profile/employee_profile_state.dart';
+import '../../../../../providers/controllers/profile/employee_profile_completion_controller.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../../repo/shared_preference_repository.dart';
 import '../../../../../utils/widget_utils.dart';
