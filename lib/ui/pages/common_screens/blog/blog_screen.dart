@@ -16,7 +16,7 @@ class BlogScreen extends StatelessWidget {
         arrowLeft: true,
         titleStyleSmall: true,
       ),
-      body: BlogView(),
+      body: BlogListView(),
     );
   }
 }
