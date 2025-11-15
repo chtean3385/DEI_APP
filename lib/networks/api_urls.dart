@@ -83,6 +83,8 @@ class ApiUrls {
   static const appliedJobs = 'job/my-applications';
   // similar jobs
   static String similarJobs(String id) => 'job/similar/$id';
+  // recommended jobs
+  static const recommendedJobs = 'job/recommended-jobs';
 
 
 

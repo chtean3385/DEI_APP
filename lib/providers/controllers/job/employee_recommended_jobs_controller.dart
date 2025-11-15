@@ -2,18 +2,18 @@ import 'package:dei_champions/models/common/base_model.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
 import 'package:dei_champions/repo/shared_preference_repository.dart';
+import 'package:dei_champions/service/job/job_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/enums.dart';
-import '../../../service/search/search_service.dart';
 
 class EmployeeRecommendedJobController extends StateNotifier<JobListState> {
   EmployeeRecommendedJobController() : super(JobListState.initial()) {
     fetchJobs( );
   }
 
-  final SearchService _searchService = SearchService();
+  final JobService _jobService = JobService();
 
   @override
   void dispose() {
@@ -29,9 +29,7 @@ class EmployeeRecommendedJobController extends StateNotifier<JobListState> {
       data: [],
     );
     try {
-      final BaseModel result = await _searchService.getSearchJobs(
-        page: 1,
-      );
+      final BaseModel result = await _jobService.getRecommendedJobs(page: 1);
       final userId = await SharedPreferenceRepository.getUserId();
       final Data = (result.data as List)
           .map((e) => JobModelApi.fromJson(e,currentUserId: userId))
@@ -60,7 +58,7 @@ class EmployeeRecommendedJobController extends StateNotifier<JobListState> {
     state = state.copyWith(isLoadingMore: true);
 
     try {
-      final result = await _searchService.getSearchJobs(
+      final result = await _jobService.getRecommendedJobs(
         page: state.currentPage + 1,
       );
       final Data = (result.data as List)
@@ -88,7 +86,7 @@ class EmployeeRecommendedJobController extends StateNotifier<JobListState> {
     // Find job index by ID
     final index = state.data!.indexWhere((job) => job.id == jobId);
     if (index == -1) {
-      debugPrint("⚠️ Job not found in search list for ID: $jobId");
+      debugPrint("⚠️ Job not found in recommended list for ID: $jobId");
       return;
     }
 
@@ -108,7 +106,7 @@ class EmployeeRecommendedJobController extends StateNotifier<JobListState> {
     state = state.copyWith(data: updatedList);
 
     debugPrint(
-      "✅ Job updated in search list — jobId: $jobId | "
+      "✅ Job updated in recommended list — jobId: $jobId | "
           "isApplied: ${updatedJob.isApplied} | isSaved: ${updatedJob.isSaved}",
     );
   }

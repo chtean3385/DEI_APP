@@ -162,6 +162,9 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
     final _employeeSimilarJobListController = ref.read(
       similarJobListProvider(null).notifier,
     );
+    final _employeeRecommendedJobListController = ref.read(
+      recommendedJobListProvider.notifier,
+    );
     if (_employeeJobDetailsController.mounted) {
       _employeeJobDetailsController.updateJobStatus(
         jobId: jobId,
@@ -192,6 +195,13 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
     }
     if (_employeeSimilarJobListController.mounted) {
       _employeeSimilarJobListController.updateJobStatus(
+        jobId: jobId,
+        isApplied: isApplied,
+        isSaved: isSaved,
+      );
+    }
+    if (_employeeRecommendedJobListController.mounted) {
+      _employeeRecommendedJobListController.updateJobStatus(
         jobId: jobId,
         isApplied: isApplied,
         isSaved: isSaved,
