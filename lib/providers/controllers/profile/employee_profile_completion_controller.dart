@@ -62,9 +62,9 @@ class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileC
   resendEmailVerification() async {
     state = state.copyWith(verifyEmailPageState: PageState.loading);
     try {
-      await _employeeProfileService.sendEmailVerification();
+     final BaseModel result  = await _employeeProfileService.sendEmailVerification();
       state = state.copyWith(verifyEmailPageState: PageState.success);
-      showSnackBar("verify email send");
+      showSnackBar(result.message);
     } catch (e) {
       showSnackBar(e.toString());
       state = state.copyWith(

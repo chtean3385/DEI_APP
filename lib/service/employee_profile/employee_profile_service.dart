@@ -80,8 +80,8 @@ class EmployeeProfileService {
       throw Exception('Invalid response format');
     }
   }
-  sendEmailVerification() async {
-    final result = await _apiHandler.post(
+  Future<BaseModel> sendEmailVerification() async {
+    final result = await _apiHandler.get(
       url: ApiUrls.resendEmailVerification,
       includeAuthToken: true,
     );
