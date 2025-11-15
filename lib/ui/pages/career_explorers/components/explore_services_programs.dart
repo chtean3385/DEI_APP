@@ -132,29 +132,47 @@ class _ExploreServicesProgramsState
           ),
         ),
         const SizedBox(height: 12),
-        AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: Row(
-            key: ValueKey<int>(_currentIndex),
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(exploreServiceProgramModels.length, (
-              index,
-            ) {
-              final isActive = _currentIndex == index;
-              return AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                margin: const EdgeInsets.symmetric(horizontal: 3),
-                height: 6,
-                width: isActive ? 22 : 6,
-                decoration: BoxDecoration(
-                  color: isActive
-                      ? AppColors.primaryColor.withValues(alpha: .8)
-                      : Colors.grey.shade400,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              );
-            }),
-          ),
+        // AnimatedSwitcher(
+        //   duration: const Duration(milliseconds: 300),
+        //   child: Row(
+        //     key:ValueKey("indicator_$_currentIndex"),
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: List.generate(exploreServiceProgramModels.length, (
+        //       index,
+        //     ) {
+        //       final isActive = _currentIndex == index;
+        //       return AnimatedContainer(
+        //         duration: const Duration(milliseconds: 300),
+        //         margin: const EdgeInsets.symmetric(horizontal: 3),
+        //         height: 6,
+        //         width: isActive ? 22 : 6,
+        //         decoration: BoxDecoration(
+        //           color: isActive
+        //               ? AppColors.primaryColor.withValues(alpha: .8)
+        //               : Colors.grey.shade400,
+        //           borderRadius: BorderRadius.circular(8),
+        //         ),
+        //       );
+        //     }),
+        //   ),
+        // ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(exploreServiceProgramModels.length, (index) {
+            final isActive = index == _currentIndex;
+            return AnimatedContainer(
+              duration: const Duration(milliseconds: 300),
+              margin: const EdgeInsets.symmetric(horizontal: 3),
+              height: 6,
+              width: isActive ? 22 : 6,
+              decoration: BoxDecoration(
+                color: isActive
+                    ? AppColors.primaryColor.withOpacity(.8)
+                    : Colors.grey.shade400,
+                borderRadius: BorderRadius.circular(8),
+              ),
+            );
+          }),
         ),
         const SizedBox(height: 12),
       ],
