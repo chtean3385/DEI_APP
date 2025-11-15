@@ -8,6 +8,7 @@ import '../../../constants/enums.dart';
 import '../../../models/state_models/profile/employee_profile_completion_state.dart';
 import '../../../service/employee_profile/employee_profile_service.dart';
 import '../../../ui/pages/main/components/drawer/profile_completion_alert.dart';
+import '../../../widgets/others/snack_bar.dart';
 
 class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileCompletionState> {
   EmployeeProfileCompletionController() : super(EmployeeProfileCompletionState.initial()) {
@@ -51,6 +52,19 @@ class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileC
       state = state.copyWith(pageState: PageState.error);
       debugPrint("catch - getEmployeeProfileCompletionData");
       debugPrint(e.toString());
+    }
+  }
+  resendEmailVerification() async {
+    state = state.copyWith(verifyEmailPageState: PageState.loading);
+    try {
+      await _employeeProfileService.sendEmailVerification();
+      state = state.copyWith(verifyEmailPageState: PageState.success);
+
+    } catch (e) {
+      showSnackBar(e.toString());
+      state = state.copyWith(
+        pageState: PageState.error,
+      );
     }
   }
 }

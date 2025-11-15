@@ -80,4 +80,20 @@ class EmployeeProfileService {
       throw Exception('Invalid response format');
     }
   }
+  sendEmailVerification() async {
+    final result = await _apiHandler.post(
+      url: ApiUrls.resendEmailVerification,
+      includeAuthToken: true,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
 }

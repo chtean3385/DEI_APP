@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dei_champions/main.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/ui/pages/home/components/boost/resume_boost.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import '../../../../../constants/enums.dart';
 import '../../../../../models/profile/profile_completion/profile_completion_model.dart';
 import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
 import '../../../main/components/drawer/custom_drawer.dart';
+import '../../../main/components/drawer/verify_email_alert.dart';
 
 /// 🔄 PageView slider for ResumeBoostCards
 class ProfileCompletionSlider extends ConsumerStatefulWidget {
@@ -195,7 +197,9 @@ void _handleAction(String field) {
   switch (field) {
     case "emailVerified":
       // Navigate or show verify flow
-        AppNavigator.loadEditEmployeeSelectedSectionScreen(params:EmployeeProfileFieldsParams(email: true) );
+      showEmailVerificationAlert();
+
+      //   AppNavigator.loadEditEmployeeSelectedSectionScreen(params:EmployeeProfileFieldsParams(email: true) );
       break;
 
     case "city":

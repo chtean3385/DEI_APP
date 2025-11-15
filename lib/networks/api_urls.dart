@@ -124,6 +124,11 @@ class ApiUrls {
   // manage jobs
   static String employerManageJobs = 'job/get-all';
 
+  //verify email
+
+  static String resendEmailVerification = 'users/resend-email';
+
+
 
 
 
