@@ -91,16 +91,6 @@ class SharedPreferenceRepository {
     debugPrint("hasSeenOnboarding -- $hasSeenOnboarding");
     return hasSeenOnboarding;
   }
-  static Future<void> setHasUploadedResume(bool hasUploadedResume) async {
-    debugPrint("Set hasUploadedResume -- $hasUploadedResume");
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    await preferences.setBool(HAS_UPLOADED_RESUME, hasUploadedResume);
-  }
-  static Future<bool> getHasUploadedResume() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool hasUploadedResume = preferences.getBool(HAS_UPLOADED_RESUME) ?? false;
-    debugPrint("hasUploadedResume -- $hasUploadedResume");
-    return hasUploadedResume;
-  }
+
 
 }

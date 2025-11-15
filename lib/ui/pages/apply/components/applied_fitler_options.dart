@@ -153,7 +153,7 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
               Expanded(
                 child: Text(
                   "Track the status of all your job applications in one place",
-                  style: context.textTheme.displaySmall?.copyWith(fontSize: 10),
+                  style: context.textTheme.displaySmall?.copyWith(fontSize: 11),
                   textAlign: TextAlign.left,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

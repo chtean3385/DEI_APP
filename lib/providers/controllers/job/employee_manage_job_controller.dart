@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/app_navigator.dart';
 import '../../../constants/enums.dart';
+import '../../../models/profile/profile_completion/profile_completion_model.dart';
 import '../../../models/state_models/job/job_state.dart';
 import '../../../repo/shared_preference_repository.dart';
 import '../../../ui/pages/home/components/boost/profile_completion_slider.dart';
@@ -27,8 +28,14 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
   }
 
   Future<bool> applyJob(BuildContext context, String jobId) async {
-    final hasUploadedResume =
-        await SharedPreferenceRepository.getHasUploadedResume();
+    final profileState = ref.read(profileCompletionProvider);
+
+    final List<MissingField> missingData =
+        profileState.profileData?.missingFields ?? [];
+
+    // Check if "resume" is one of the missing fields
+    final bool hasUploadedResume =
+    !missingData.any((field) => field.field == "resume");
 
     if (!hasUploadedResume) {
       showCustomAlertDialog(

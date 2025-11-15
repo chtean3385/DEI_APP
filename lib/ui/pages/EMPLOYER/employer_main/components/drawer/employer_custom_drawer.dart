@@ -308,6 +308,5 @@ Future<void> signOut() async {
   await SharedPreferenceRepository.setToken("");
   await SharedPreferenceRepository.setUserId("");
   await SharedPreferenceRepository.setRoleId(0);
-  await SharedPreferenceRepository.setHasUploadedResume(false);
 AppNavigator.loadSignInScreen();
 }
