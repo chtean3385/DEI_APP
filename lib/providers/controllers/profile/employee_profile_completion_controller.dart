@@ -59,6 +59,7 @@ class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileC
     try {
       await _employeeProfileService.sendEmailVerification();
       state = state.copyWith(verifyEmailPageState: PageState.success);
+      showSnackBar("verify email send");
 
     } catch (e) {
       showSnackBar(e.toString());
