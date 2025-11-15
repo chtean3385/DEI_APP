@@ -19,9 +19,9 @@ class CurrentJobOpenings  extends ConsumerWidget {
       shrinkWrap: true,
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        return ManageJobCard(jobModel: state.data![index],
-          onTap: ()=>AppNavigator.loadEmployerJobDetailsScreen(),
-        );
+        // return ManageJobCard(jobModel: state.data![index],
+        //   onTap: ()=>AppNavigator.loadEmployerJobDetailsScreen(),
+        // );
       },
       separatorBuilder: (context, index) => gapH16(),
     ): EmployerManageJobsEmptyScreen(category: "totalJobs");

@@ -37,7 +37,7 @@ class EmployerManageJobListView extends ConsumerWidget {
             shrinkWrap: true,
             physics: AlwaysScrollableScrollPhysics(),
             itemBuilder: (context, index) {
-              return EmployeeManageJobCard(jobModel: state.data![index]);
+              // return EmployeeManageJobCard(jobModel: state.data![index]);
             },
             separatorBuilder: (context, index) => gapH16(),
           )
@@ -49,7 +49,7 @@ class EmployerManageJobListView extends ConsumerWidget {
       itemCount: 3,
       padding: EdgeInsets.symmetric(horizontal: 16),
       itemBuilder: (context, index) {
-        return ShimmerEmployeeManageJobCard();
+        // return ShimmerEmployeeManageJobCard();
       },
     );
   }

@@ -1,6 +1,8 @@
+import 'package:dei_champions/ui/pages/recommended_jobs/components/recommended_jobs_empty.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/custom_loader.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
@@ -44,13 +46,14 @@ class _SearchResultsViewState extends ConsumerState<RecommendedJobsView> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(recommendedJobListProvider);
+    final profileCompletionState = ref.watch(profileCompletionProvider);
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();
     } else if (state.pageState == PageState.error) {
       return SomethingWentWrong();
     } else if (state.data?.isEmpty == true) {
-      return SomethingWentWrong(text: "Sorry.. No jobs found",);
+      return RecommendedJobsEmptyView(isProfileIncomplete:profileCompletionState.profileData?.profileCompletion != 100 ,);
     } else {
       return _data(state);
     }

@@ -35,117 +35,67 @@ class SearchJobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final bool isNew = isNewJob(jobModel.createdAt);
     return GestureDetector(
       onTap: onTap,
-      child: Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(6),
-            bottomLeft: Radius.circular(6),
-            bottomRight: Radius.circular(16),
-          ),
-          side: BorderSide(color: Colors.black12, width: 1),
-        ),
-        elevation: 0,
-        color: Colors.white,
-        margin: const EdgeInsets.only(bottom: 12),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                jobModel.title ?? "",
-                                style: theme.labelMedium,
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                jobModel.employer?.company ?? "",
-                                style: theme.displaySmall?.copyWith(
-                                  color: AppColors.primaryColor,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  gapW8(),
-                  RoundedNetworkImage(
-                    imageUrl: jobModel.employer?.companyLogo ?? "",
-                    width: 50,
-                    height: 50,
-                    borderRadius: 8,
-                  ),
-                ],
+      child: Stack(
+        children: [
+          Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(6),
+                bottomLeft: Radius.circular(6),
+                bottomRight: Radius.circular(16),
               ),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Icon(
-                    Icons.location_on_outlined,
-                    size: 16,
-                    color: Colors.black54,
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    jobModel.state ?? "N/A",
-                    style: theme.displaySmall?.copyWith(color: Colors.black54),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              Row(
-                children: [
-                  Icon(
-                    Icons.work_history_outlined,
-                    size: 16,
-                    color: Colors.black54,
-                  ),
-                  SizedBox(width: 4),
-                  Text(
-                    jobModel.jobType ?? "N/A",
-                    style: theme.displaySmall?.copyWith(color: Colors.black54),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 6),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              side: BorderSide(color: Colors.black12, width: 1),
+            ),
+            elevation: 0,
+            color: Colors.white,
+            margin: const EdgeInsets.only(bottom: 12),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(width: 5),
-                      Text(
-                        "₹",
-                        style: theme.labelMedium?.copyWith(
-                          color: Colors.black54,
+                      Expanded(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    jobModel.title ?? "",
+                                    style: theme.labelMedium,
+                                  ),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    jobModel.employer?.company ?? "",
+                                    style: theme.displaySmall?.copyWith(
+                                      color: AppColors.primaryColor,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 6),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                      SizedBox(width: 6),
-                      Text(
-                        jobModel.salary ?? "N/A",
-                        style: theme.displaySmall?.copyWith(
-                          color: Colors.black54,
-                        ),
+                      gapW8(),
+                      RoundedNetworkImage(
+                        imageUrl: jobModel.employer?.companyLogo ?? "",
+                        width: 50,
+                        height: 50,
+                        borderRadius: 8,
                       ),
                     ],
                   ),
@@ -154,150 +104,206 @@ class SearchJobCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Icon(
-                        Icons.calendar_today_outlined,
-                        size: 14,
-                        color: Colors.black45,),
-
-                        gapW4(),
-                      Text(
-                        " ${getShortTimeAgo(jobModel.createdAt ?? DateTime.now())}",
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: true,
-                        style: theme.displaySmall?.copyWith(
-                          color: Colors.black45,
-                        ),
+                        Icons.location_on_outlined,
+                        size: 16,
+                        color: Colors.black54,
                       ),
+                      SizedBox(width: 4),
+                      Text(
+                        jobModel.state ?? "N/A",
+                        style: theme.displaySmall?.copyWith(color: Colors.black54),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.work_history_outlined,
+                        size: 16,
+                        color: Colors.black54,
+                      ),
+                      SizedBox(width: 4),
+                      Text(
+                        jobModel.jobType ?? "N/A",
+                        style: theme.displaySmall?.copyWith(color: Colors.black54),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(width: 5),
+                          Text(
+                            "₹",
+                            style: theme.labelMedium?.copyWith(
+                              color: Colors.black54,
+                            ),
+                          ),
+                          SizedBox(width: 6),
+                          Text(
+                            jobModel.salary ?? "N/A",
+                            style: theme.displaySmall?.copyWith(
+                              color: Colors.black54,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.calendar_today_outlined,
+                            size: 14,
+                            color: Colors.black45,),
+
+                            gapW4(),
+                          Text(
+                            " ${getShortTimeAgo(jobModel.createdAt ?? DateTime.now())}",
+                            overflow: TextOverflow.ellipsis,
+                            softWrap: true,
+                            style: theme.displaySmall?.copyWith(
+                              color: Colors.black45,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  _skillsRow(jobModel.skills),
+                  // const SizedBox(height: 6),
+                  //
+                  // Text(
+                  //   plainText,
+                  //   overflow: TextOverflow.ellipsis,
+                  //   softWrap: true,
+                  //   maxLines: 3,
+                  //   style: theme.displaySmall?.copyWith(color: Colors.black54),
+                  // ),
+                  const SizedBox(height: 6),
+                  const SizedBox(height: 6),
+
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      if (showWithdrawButton)
+                        CustomDynamicButton(
+                          activeIcon: Icons.send_rounded,
+                          inActiveIcon: Icons.cancel_outlined,
+                          activeTitle: "Apply",
+                          inActiveTitle: "Withdraw",
+                          activeColor: Colors.white,
+                          inActiveColor: Colors.white,
+                          activeBgColor: AppColors.primaryColor,
+                          inActiveBgColor: Colors.red.withValues(alpha: .8),
+                          size: 20,
+                          smaller: true,
+                          initialValue: !jobModel.isApplied,
+                          onPressed: (isWithdrawnNow) async {
+                            final jobId = jobModel.id ?? "";
+                            final notifier = ProviderScope.containerOf(
+                              context,
+                            ).read(employeeManageJobProvider.notifier);
+
+                            if (isWithdrawnNow) {
+                              final success = await notifier.unApplyJob(
+                                context,
+                                jobId,
+                              );
+                              return success; // true = toggle, false = no change
+                            } else {
+                              final success = await notifier.applyJob(
+                                context,
+                                jobId,
+                              );
+                              return success;
+                            }
+                          },
+                        ),
+                      if (!hideApplyButton)
+                        CustomDynamicButton(
+                          activeIcon: FontAwesomeIcons.paperPlane,
+                          inActiveIcon: FontAwesomeIcons.circleCheck,
+                          activeTitle: "Apply",
+                          inActiveTitle: "Applied",
+                          size:15,
+                          activeIconSize:12,
+                          smaller: true,
+                          activeColor: Colors.white,
+                          inActiveColor: AppColors.primaryColor,
+                          activeBgColor: AppColors.primaryColor,
+                          inActiveBgColor: AppColors.bg,
+                          initialValue: !jobModel.isApplied,
+                          onPressed: (isAppliedNow) async {
+                            final jobId = jobModel.id ?? "";
+                            final notifier = ProviderScope.containerOf(
+                              context,
+                            ).read(employeeManageJobProvider.notifier);
+
+                            if (isAppliedNow) {
+                              final success = await notifier.unApplyJob(
+                                context,
+                                jobId,
+                              );
+                              return success; // true = toggle, false = no change
+                            } else {
+                              final success = await notifier.applyJob(
+                                context,
+                                jobId,
+                              );
+                              return success;
+                            }
+                          },
+                        ),
+
+                      if (!hideSaveButton)
+                        CustomDynamicButton(
+                          activeIcon: Icons.bookmark_border,
+                          inActiveIcon: Icons.bookmark,
+                          activeTitle: "Save",
+                          inActiveTitle: "Saved",
+                          size: 20,
+                          smaller: true,
+                          initialValue: !jobModel.isSaved,
+                          activeColor: Colors.white,
+                          inActiveColor: AppColors.primaryColor,
+                          activeBgColor: AppColors.primaryColor,
+                          inActiveBgColor: AppColors.bg,
+                          onPressed: (isSavedNow) async {
+                            // 🔹 Add API call here
+                            print("Save/Hide tapped!  -- $isSavedNow");
+                            final jobId = jobModel.id ?? "";
+                            final notifier = ProviderScope.containerOf(
+                              context,
+                            ).read(employeeManageJobProvider.notifier);
+
+                            if (isSavedNow) {
+                              notifier.unSaveJob(jobId);
+                              print("❌ unSaveJob from job $jobId");
+                              return true;
+                            } else {
+                              notifier.saveJob(jobId);
+                              print("✅ saveJob for job $jobId");
+                              return true;
+                            }
+                          },
+                        ),
+                      if (showMyApplicationStatusButton)
+                        _buildStatusButton(jobModel.myStatus ?? ""),
+
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 6),
-              _skillsRow(jobModel.skills),
-              // const SizedBox(height: 6),
-              //
-              // Text(
-              //   plainText,
-              //   overflow: TextOverflow.ellipsis,
-              //   softWrap: true,
-              //   maxLines: 3,
-              //   style: theme.displaySmall?.copyWith(color: Colors.black54),
-              // ),
-              const SizedBox(height: 6),
-              const SizedBox(height: 6),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  if (showWithdrawButton)
-                    CustomDynamicButton(
-                      activeIcon: Icons.send_rounded,
-                      inActiveIcon: Icons.cancel_outlined,
-                      activeTitle: "Apply",
-                      inActiveTitle: "Withdraw",
-                      activeColor: Colors.white,
-                      inActiveColor: Colors.white,
-                      activeBgColor: AppColors.primaryColor,
-                      inActiveBgColor: Colors.red.withValues(alpha: .8),
-                      size: 20,
-                      smaller: true,
-                      initialValue: !jobModel.isApplied,
-                      onPressed: (isWithdrawnNow) async {
-                        final jobId = jobModel.id ?? "";
-                        final notifier = ProviderScope.containerOf(
-                          context,
-                        ).read(employeeManageJobProvider.notifier);
-
-                        if (isWithdrawnNow) {
-                          final success = await notifier.unApplyJob(
-                            context,
-                            jobId,
-                          );
-                          return success; // true = toggle, false = no change
-                        } else {
-                          final success = await notifier.applyJob(
-                            context,
-                            jobId,
-                          );
-                          return success;
-                        }
-                      },
-                    ),
-                  if (!hideApplyButton)
-                    CustomDynamicButton(
-                      activeIcon: FontAwesomeIcons.paperPlane,
-                      inActiveIcon: FontAwesomeIcons.circleCheck,
-                      activeTitle: "Apply",
-                      inActiveTitle: "Applied",
-                      size:15,
-                      activeIconSize:12,
-                      smaller: true,
-                      activeColor: Colors.white,
-                      inActiveColor: AppColors.primaryColor,
-                      activeBgColor: AppColors.primaryColor,
-                      inActiveBgColor: AppColors.bg,
-                      initialValue: !jobModel.isApplied,
-                      onPressed: (isAppliedNow) async {
-                        final jobId = jobModel.id ?? "";
-                        final notifier = ProviderScope.containerOf(
-                          context,
-                        ).read(employeeManageJobProvider.notifier);
-
-                        if (isAppliedNow) {
-                          final success = await notifier.unApplyJob(
-                            context,
-                            jobId,
-                          );
-                          return success; // true = toggle, false = no change
-                        } else {
-                          final success = await notifier.applyJob(
-                            context,
-                            jobId,
-                          );
-                          return success;
-                        }
-                      },
-                    ),
-
-                  if (!hideSaveButton)
-                    CustomDynamicButton(
-                      activeIcon: Icons.bookmark_border,
-                      inActiveIcon: Icons.bookmark,
-                      activeTitle: "Save",
-                      inActiveTitle: "Saved",
-                      size: 20,
-                      smaller: true,
-                      initialValue: !jobModel.isSaved,
-                      activeColor: Colors.white,
-                      inActiveColor: AppColors.primaryColor,
-                      activeBgColor: AppColors.primaryColor,
-                      inActiveBgColor: AppColors.bg,
-                      onPressed: (isSavedNow) async {
-                        // 🔹 Add API call here
-                        print("Save/Hide tapped!  -- $isSavedNow");
-                        final jobId = jobModel.id ?? "";
-                        final notifier = ProviderScope.containerOf(
-                          context,
-                        ).read(employeeManageJobProvider.notifier);
-
-                        if (isSavedNow) {
-                          notifier.unSaveJob(jobId);
-                          print("❌ unSaveJob from job $jobId");
-                          return true;
-                        } else {
-                          notifier.saveJob(jobId);
-                          print("✅ saveJob for job $jobId");
-                          return true;
-                        }
-                      },
-                    ),
-                  if (showMyApplicationStatusButton)
-                    _buildStatusButton(jobModel.myStatus ?? ""),
-
-                ],
-              ),
-            ],
+            ),
           ),
-        ),
+          if (isNew) NewBadge(text: "NEW"),
+        ],
       ),
     );
   }
@@ -455,6 +461,14 @@ String getShortTimeAgo(DateTime date) {
 String formatPostedDate(DateTime date) {
   return DateFormat('MMMM d, y').format(date); // e.g., October 16, 2025
 }
+bool isNewJob(DateTime? updatedAt) {
+  if (updatedAt == null) return false;
+  final now = DateTime.now();
+  final difference = now.difference(updatedAt).inDays;
+  return difference <= 7;
+}
+
+
 
 class ShimmerSearchJobCard extends StatelessWidget {
   const ShimmerSearchJobCard({super.key});
@@ -601,6 +615,121 @@ class ShimmerBox extends StatelessWidget {
         borderRadius: BorderRadius.circular(radius),
       ),
       child: SizedBox(height: height, width: width),
+    );
+  }
+}
+
+class NewBadge extends StatelessWidget {
+  final String text;
+  const NewBadge({this.text = "NEW", super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: 4,
+      top: 4,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 10,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// unused //delete in future
+class CurvedGradientRibbon extends StatelessWidget {
+  final String text;
+
+  const CurvedGradientRibbon({this.text = "NEW", super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: -32,
+      top: 12,
+      child: Transform.rotate(
+        angle: 0.785398, // 45 degrees
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Container(
+            width: 110,
+            padding: const EdgeInsets.symmetric(vertical: 0),
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.purple,
+                  Colors.pink,
+                  Colors.orange,
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              ),
+            ),
+            child: Center(
+              child: Text(
+                text,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// unused //delete in future
+class CurvedEndRibbon extends StatelessWidget {
+  final String text;
+
+  const CurvedEndRibbon({this.text = "NEW", super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      right: -30,
+      top: 16,
+      child: Transform.rotate(
+        angle: 0.785398,
+        child: Container(
+          width: 120,
+          padding: const EdgeInsets.symmetric(vertical: 0),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              colors: [Colors.teal, Colors.greenAccent],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+            ),
+            borderRadius: BorderRadius.circular(30), // curved ends
+          ),
+          child: Center(
+            child: Text(
+              text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 11,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
