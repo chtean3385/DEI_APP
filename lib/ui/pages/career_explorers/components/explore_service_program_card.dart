@@ -63,11 +63,11 @@ class ExploreServiceProgramCard extends StatelessWidget {
                 Flexible(
                   child: Text(
                     item.title ?? "",
-                    style: theme.labelSmall,
+                    style: theme.labelSmall?.copyWith(fontSize: 13),
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
-                    maxLines: 1,
+                    maxLines: 2,
                   ),
                 ),
                 gapH8(),

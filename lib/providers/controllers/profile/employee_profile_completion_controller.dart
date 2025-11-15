@@ -41,6 +41,8 @@ class EmployeeProfileCompletionController extends StateNotifier<EmployeeProfileC
       if (_alertShownThisSession) return;
       final missing = state.profileData?.missingFieldsCount ?? 0;
       if (missing == 0) return;
+      // 🚀 Mark as shown BEFORE showing alert
+      _alertShownThisSession = true;
       showProfileAlert(navigatorKey.currentContext!,state.profileData?.missingFields);
       debugPrint("success - getEmployeeProfileCompletionData");
     } catch (e) {
