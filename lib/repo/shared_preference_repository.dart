@@ -13,7 +13,7 @@ class SharedPreferenceRepository {
   static const String isHomeTutorialShown = "isHomeTutorialShown";
 
   static Future<void> setToken(String token) async {
-    debugPrint("set token -- $token");
+    // debugPrint("set token -- $token");
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(KEY_TOKEN, token);
   }
@@ -33,7 +33,7 @@ class SharedPreferenceRepository {
     await preferences.setString("$userId-$KEY_PASSWORD", password);
   }
   static Future<void> setUserId(String userId) async {
-    debugPrint("setUserId -- $userId");
+    // debugPrint("setUserId -- $userId");
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.setString(KEY_USER_ID, userId);
   }
@@ -46,13 +46,13 @@ class SharedPreferenceRepository {
   static Future<String> getToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String token = preferences.getString(KEY_TOKEN) ?? "";
-    debugPrint("getToken -- $token");
+    // debugPrint("getToken -- $token");
     return token;
   }
   static Future<String> getUserId() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String userId = preferences.getString(KEY_USER_ID) ?? "";
-    debugPrint("getUserId -- $userId");
+    // debugPrint("getUserId -- $userId");
     return userId;
   }
   static Future<int> getRoleId() async {
@@ -102,5 +102,7 @@ class SharedPreferenceRepository {
     debugPrint("get HomeTutorialShown -- $value");
     return value;
   }
+
+
 
 }
