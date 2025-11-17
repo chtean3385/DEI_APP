@@ -29,6 +29,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
   void initState() {
     super.initState();
     controller = ref.read(loginProvider.notifier);
+    controller.loadSavedCredentials();
   }
 
 

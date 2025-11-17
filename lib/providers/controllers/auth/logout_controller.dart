@@ -28,7 +28,7 @@ class LogoutController extends StateNotifier<OtpState> {
   Future<void> signOut() async {
     await deleteFcm();
     await SharedPreferenceRepository.setToken("");
-    // await SharedPreferenceRepository.setUserId("");
+    await SharedPreferenceRepository.setUserId("");
     await SharedPreferenceRepository.setRoleId(0);
 
     ref.read(drawerProfileProvider.notifier).clearState();
@@ -39,7 +39,7 @@ class LogoutController extends StateNotifier<OtpState> {
 
   Future<void> forceLogout({String? message}) async {
     await SharedPreferenceRepository.setToken("");
-    // await SharedPreferenceRepository.setUserId("");
+    await SharedPreferenceRepository.setUserId("");
     await SharedPreferenceRepository.setRoleId(0);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       AppNavigator.loadSignInScreen();

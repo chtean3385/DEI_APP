@@ -17,7 +17,7 @@ class LoginController extends StateNotifier<AuthState> {
   final Ref ref;
 
   LoginController(this.ref) : super(const AuthState()){
-    loadSavedCredentials();
+
   }
 
   final AuthService _authService = AuthService();
@@ -27,7 +27,17 @@ class LoginController extends StateNotifier<AuthState> {
   void setPageState(PageState newState) {
     state = state.copyWith(pageState: newState);
   }
+  Future<void> loadSavedCredentials() async {
+    final bool remember = await SharedPreferenceRepository.getRememberMe();
+    state = state.copyWith(rememberMe: remember);
+    if(remember){
+      final savedEmail = await SharedPreferenceRepository.getEmail();
+      final savedPassword = await SharedPreferenceRepository.getPassword();
 
+      if (savedEmail.isNotEmpty) emailNameController.text = savedEmail;
+      if (savedPassword.isNotEmpty) passwordController.text = savedPassword;
+    }
+  }
   ///Sign In ///
   Future<void> signIn() async {
     setPageState(PageState.loading);
@@ -57,17 +67,7 @@ class LoginController extends StateNotifier<AuthState> {
      SharedPreferenceRepository.setRememberMe(val);
   }
 
-  Future<void> loadSavedCredentials() async {
-    final bool remember = await SharedPreferenceRepository.getRememberMe();
-    state = state.copyWith(rememberMe: remember);
-    if(remember){
-      final savedEmail = await SharedPreferenceRepository.getEmail();
-      final savedPassword = await SharedPreferenceRepository.getPassword();
 
-      if (savedEmail.isNotEmpty) emailNameController.text = savedEmail;
-      if (savedPassword.isNotEmpty) passwordController.text = savedPassword;
-    }
-  }
 
   Future<void> saveCredentials() async {
     await SharedPreferenceRepository.setRememberMe(true);

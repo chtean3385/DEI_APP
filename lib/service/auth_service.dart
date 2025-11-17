@@ -152,9 +152,7 @@ class AuthService {
       "fcmToken":fcm ?? "",
       "userId":userId,
       "deviceType":deviceType,
-
     };
-    print("bodybodybody-- ${body}");
     final result = await ApiHandler().post(
         url: ApiUrls.saveFcmToken,
         includeAuthToken: true,

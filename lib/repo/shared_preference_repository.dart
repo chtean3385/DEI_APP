@@ -58,13 +58,7 @@ class SharedPreferenceRepository {
     debugPrint("getremember -- $remember");
     return remember;
   }
-  static Future<String> getEmail() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    String userId = preferences.getString(KEY_USER_ID) ?? "";
-    String email = preferences.getString("$userId-$KEY_EMAIL") ?? "";
-    debugPrint("getEmail -- $email");
-    return email;
-  }
+
 
   static Future<void> setHasSeenOnboarding(bool hasSeenOnboarding) async {
     debugPrint("Set hasSeenOnboarding -- $hasSeenOnboarding");
@@ -90,19 +84,21 @@ class SharedPreferenceRepository {
   }
   static Future<void> setEmail(String email) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String userId = preferences.getString(KEY_USER_ID) ?? "";
-    await preferences.setString("$userId-$KEY_EMAIL", email);
+    await preferences.setString("$KEY_EMAIL", email);
   }
   static Future<void> setPassword(String password) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String userId = preferences.getString(KEY_USER_ID) ?? "";
-    await preferences.setString("$userId-$KEY_PASSWORD", password);
+    await preferences.setString("$KEY_PASSWORD", password);
   }
   static Future<String> getPassword() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    String userId = preferences.getString(KEY_USER_ID) ?? "";
-    String password = preferences.getString("$userId-$KEY_PASSWORD") ?? "";
+    String password = preferences.getString("$KEY_PASSWORD") ?? "";
     return password;
+  }
+  static Future<String> getEmail() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String email = preferences.getString("$KEY_EMAIL") ?? "";
+    return email;
   }
 
 }
