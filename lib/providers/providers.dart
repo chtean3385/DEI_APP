@@ -21,6 +21,7 @@ import 'package:dei_champions/models/state_models/job/job_type_list_state.dart';
 import 'package:dei_champions/models/state_models/notification/notification_state.dart';
 import 'package:dei_champions/models/state_models/profile/employee_profile_completion_state.dart';
 import 'package:dei_champions/models/state_models/services/services_state.dart';
+import 'package:dei_champions/providers/controllers/auth/logout_controller.dart';
 import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:dei_champions/providers/controllers/common/blog_controller.dart';
 import 'package:dei_champions/providers/controllers/common/csr/csr_banner_section_controller.dart';
@@ -174,7 +175,11 @@ final signupFlowControllerProvider =
       SignupFlowController.new,
     );
 
-
+/// logout controller
+final logoutProvider =
+StateNotifierProvider<LogoutController, OtpState>((ref) {
+  return LogoutController(ref);
+});
 
 ///common html content screens
 final commonHtmlPageContentsProvider =

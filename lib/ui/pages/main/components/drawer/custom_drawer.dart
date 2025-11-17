@@ -10,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../constants/enums.dart';
 import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
 import '../../../../../models/state_models/profile/employee_profile_state.dart';
-import '../../../../../providers/controllers/profile/employee_profile_completion_controller.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../../repo/shared_preference_repository.dart';
 import '../../../../../utils/widget_utils.dart';
@@ -206,7 +205,8 @@ class CustomDrawer extends StatelessWidget {
               false, // bold
               null, // badge
               () {
-                logoutAlertBox();
+                final providerScope =  ProviderScope.containerOf(context);
+                providerScope.read(logoutProvider.notifier).logoutAlertBox(context);
               },
             ),
 
@@ -483,37 +483,19 @@ class ProfileSection extends ConsumerWidget {
   }
 }
 
-void logoutAlertBox() {
-  WidgetUtils.showLogoutPopUp(
-    navigatorKey.currentContext!,
-    sBtnFunction: () => signOut(),
-  );
-}
 
-Future<void> signOut() async {
-  await SharedPreferenceRepository.setToken("");
-  await SharedPreferenceRepository.setUserId("");
-  await SharedPreferenceRepository.setRoleId(0);
- final providerScope =  ProviderScope.containerOf(
-    navigatorKey.currentContext!,
-  );
-  providerScope.read(drawerProfileProvider.notifier).clearState();
-  providerScope.read(profileCompletionProvider.notifier).clearState();
-  AppNavigator.loadSignInScreen();
 
-}
-
-Future<void> forceLogout({String? message}) async {
-  await SharedPreferenceRepository.setToken("");
-  await SharedPreferenceRepository.setUserId("");
-  await SharedPreferenceRepository.setRoleId(0);
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    AppNavigator.loadSignInScreen();
-    if (message != null) {
-      showSnackBar(message, duration: 3);
-    }
-  });
-  await Future.delayed(Duration(seconds: 1));
-}
+// Future<void> forceLogout({String? message}) async {
+//   await SharedPreferenceRepository.setToken("");
+//   await SharedPreferenceRepository.setUserId("");
+//   await SharedPreferenceRepository.setRoleId(0);
+//   WidgetsBinding.instance.addPostFrameCallback((_) {
+//     AppNavigator.loadSignInScreen();
+//     if (message != null) {
+//       showSnackBar(message, duration: 3);
+//     }
+//   });
+//   await Future.delayed(Duration(seconds: 1));
+// }
 
 

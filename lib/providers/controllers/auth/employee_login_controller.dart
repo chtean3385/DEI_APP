@@ -40,7 +40,7 @@ class LoginController extends StateNotifier<AuthState> {
      if(state.rememberMe) saveCredentials();
       setPageState(PageState.success);
       final AuthModel authModel = AuthModel.fromJson(result.data);
-      AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
+      await AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
       saveFcm();
       debugPrint("success - signInEmployee");
     } catch (e) {
@@ -84,6 +84,7 @@ class LoginController extends StateNotifier<AuthState> {
       await _authService.saveFcmToken(fcm: fcm ?? "",userId: userId, deviceType: deviceType,);
       debugPrint("✅ Saved Fcm ");
     } catch (e) {
+      debugPrint("Saved Fcm  error --->> ${e.toString()} ");
       showSnackBar(e.toString());
     }
   }

@@ -12,7 +12,6 @@ import '../../../models/common/base_model.dart';
 import '../../../models/state_models/otp_state.dart';
 import '../../../repo/shared_preference_repository.dart';
 import '../../../service/auth_service.dart';
-import '../../../service/employee_profile/employee_profile_service.dart';
 import '../../../widgets/others/snack_bar.dart';
 
 class VerifyOtpController extends StateNotifier<OtpState> {
@@ -37,7 +36,7 @@ class VerifyOtpController extends StateNotifier<OtpState> {
       Navigator.pop(navigatorKey.currentContext!, true);
       showSnackBar(result.message, duration: 3);
       final AuthModel authModel = AuthModel.fromJson(result.data);
-      AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
+     await AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
       saveFcm();
       debugPrint("success - verifyOtp");
     } catch (e) {
@@ -56,7 +55,6 @@ class VerifyOtpController extends StateNotifier<OtpState> {
       String deviceType = await getDeviceType();
       await _authService.saveFcmToken(fcm: fcm ?? "",userId: userId, deviceType: deviceType,);
       debugPrint("✅ Saved Fcm ");
-
     } catch (e) {
       showSnackBar(e.toString());
     }
@@ -79,7 +77,7 @@ String getDeviceType() {
   } else if (Platform.isIOS) {
     return "ios";
   } else {
-    return "unknown";
+    return "";
   }
 }
 Future<String?> getAndSaveFcmToken() async {

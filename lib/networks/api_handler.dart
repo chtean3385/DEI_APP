@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:dei_champions/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../providers/providers.dart';
 import '../repo/shared_preference_repository.dart';
 import '../ui/pages/main/components/drawer/custom_drawer.dart';
 import 'api_urls.dart';
@@ -231,7 +234,8 @@ class ApiHandler {
     // ✅ Force logout on unauthorized responses
     if (statusCode == 401 ||
         (response.data is Map && response.data['message']?.toString().contains('Unauthorized') == true) || (response.data is Map && response.data['message']?.toString().contains('Token expired') == true)) {
-      forceLogout(message: "Your last session has expired. Please sign in again.");
+      final providerScope =  ProviderScope.containerOf(navigatorKey.currentContext!);
+      providerScope.read(logoutProvider.notifier).forceLogout(message: "Your last session has expired. Please log in again.");
       throw AppException("Unauthorized");
     }
     if (statusCode == 204) return null;
@@ -250,7 +254,9 @@ class ApiHandler {
         'Unexpected error';
     // ✅ Handle Unauthorized globally
     if (response?.statusCode == 401 || message.contains('Unauthorized') || message.contains('Token expired')) {
-      forceLogout(message: "Your last session has expired. Please log in again.");
+      final providerScope =  ProviderScope.containerOf(navigatorKey.currentContext!);
+      providerScope.read(logoutProvider.notifier).forceLogout(message: "Your last session has expired. Please log in again.");
+
       return AppException("Unauthorized");
     }
     switch (e.type) {
