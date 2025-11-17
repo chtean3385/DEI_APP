@@ -15,7 +15,7 @@ import 'package:flutter/foundation.dart'
 /// );
 /// ```
 class DefaultFirebaseOptions {
-  static FirebaseOptions get currentPlatform {
+  static FirebaseOptions get ncurrentPlatform {
     if (kIsWeb) {
       throw UnsupportedError(
         'DefaultFirebaseOptions have not been configured for web - '
@@ -63,6 +63,9 @@ class DefaultFirebaseOptions {
     messagingSenderId: '325714813742',
     projectId: 'dei-champions',
     storageBucket: 'dei-champions.firebasestorage.app',
+    androidClientId: '325714813742-a6qudjd6mjqavjcsv9b7abrull1n9kj1.apps.googleusercontent.com',
+    iosClientId: '325714813742-me68iclfkd366hg8b378pv6fspt2eqtf.apps.googleusercontent.com',
     iosBundleId: 'com.drmstc.deiChampions',
   );
+
 }
