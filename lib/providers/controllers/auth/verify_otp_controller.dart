@@ -54,7 +54,7 @@ class VerifyOtpController extends StateNotifier<OtpState> {
       String? fcm = await getAndSaveFcmToken();
       String userId = await SharedPreferenceRepository.getUserId();
       String deviceType = await getDeviceType();
-      await EmployeeProfileService().saveFcmToken(fcm: fcm ?? "",userId: userId, deviceType: deviceType,);
+      await _authService.saveFcmToken(fcm: fcm ?? "",userId: userId, deviceType: deviceType,);
       debugPrint("✅ Saved Fcm ");
 
     } catch (e) {
