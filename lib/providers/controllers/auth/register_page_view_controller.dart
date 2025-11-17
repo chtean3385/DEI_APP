@@ -34,11 +34,10 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
     });
 
     // Set your total steps here (or expose a setter).
-    return const SignupFlowState(currentStep: 0, totalSteps: 7,otpVerified: false);
+    return const SignupFlowState(currentStep: 0, totalSteps: 2,otpVerified: false);
   }
 
   Future<void> nextStep({VoidCallback? onComplete}) async {
-    if (!state.isLast) {
       final next = state.currentStep + 1;
 
       if (state.currentStep == 1) {
@@ -49,8 +48,9 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
           final registerDetails =   await ref.read(registerProvider.notifier).signUpEmployee();
           if (registerDetails != true) return; // stop if not verified
           // final verified = await AppNavigator.loadOtpScreenForSignup(false);
-         final verified =   await AppNavigator.loadOtpScreenForSignup(isFromEmployeeSignup: true,email: ref
-             .read(registerProvider).email ?? ""); /// need to change bool value as per mobile otp or email otp
+         final verified =   await AppNavigator.loadOtpScreenForSignup(mobile: ref
+             .read(registerProvider).mobile ?? "",userId:ref
+             .read(registerProvider).userId ?? "" ); /// need to change bool value as per mobile otp or email otp
 
           if (verified != true) return; // stop if not verified
 
@@ -58,13 +58,13 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
           state = state.copyWith(otpVerified: true);
         }
 
-        // Move to next step
-        await pageController.nextPage(
-          // next,
-          duration: const Duration(milliseconds: 900),
-          curve: Curves.fastOutSlowIn,
-        );
-        state = state.copyWith(currentStep: next);
+        // // Move to next step
+        // await pageController.nextPage(
+        //   // next,
+        //   duration: const Duration(milliseconds: 900),
+        //   curve: Curves.fastOutSlowIn,
+        // );
+        // state = state.copyWith(currentStep: next);
       } else {
         // Normal step navigation
         await pageController.nextPage(
@@ -74,9 +74,6 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
         );
         state = state.copyWith(currentStep: next);
       }
-    } else {
-      submitRegistration(navigatorKey.currentContext!);
-    }
   }
   Future<void> skip() async {
     AppNavigator.loadSignInScreen();

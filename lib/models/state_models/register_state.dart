@@ -8,6 +8,7 @@ class RegisterState {
   final String? workStatus;
   final bool? acceptTerms;
   final int? roleId;
+  final String? userId;
 
   final PageState pageState;
 
@@ -19,6 +20,7 @@ class RegisterState {
     this.workStatus,
     this.acceptTerms,
     this.roleId,
+    this.userId,
     this.pageState = PageState.initial,
   });
 
@@ -29,6 +31,7 @@ class RegisterState {
     String? password,
     String? mobile,
     String? workStatus,
+    String? userId,
     bool? acceptTerms,
     int? roleId,
     PageState? pageState,
@@ -42,6 +45,7 @@ class RegisterState {
       acceptTerms: acceptTerms ?? this.acceptTerms,
       roleId: roleId ?? this.roleId,
       pageState: pageState ?? this.pageState,
+      userId: userId ?? this.userId,
     );
   }
 

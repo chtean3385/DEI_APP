@@ -30,11 +30,6 @@ class EmployeeSignupScreen extends ConsumerWidget {
             children: [
               BasicPersonalInfo(onNext: () => controller.nextStep()),
               OtherInfo(onNext: () => controller.nextStep()),
-              EmploymentScreen(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
-              KeySkills(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
-              Education(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
-              CareerPreferences(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
-              IntroductionToRecruiter(onNext: () => controller.nextStep(),onSkip: () => controller.skip() ,),
             ],
           ),
         ),

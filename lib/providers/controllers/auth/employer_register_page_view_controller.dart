@@ -48,9 +48,8 @@ class EmployerSignupFlowController
         if (registerDetails != true) return; // stop if not verified
         // final verified = await AppNavigator.loadOtpScreenForSignup(false);
         final verified = await AppNavigator.loadOtpScreenForSignup(
-          isFromEmployerSignup: true,
-          email: ref
-              .read(employerRegisterProvider).email ?? ""
+          mobile: ref
+              .read(employerRegisterProvider).email ?? "",userId: ""
         );
 
         /// need to change bool value as per mobile otp or email otp

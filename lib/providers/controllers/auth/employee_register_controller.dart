@@ -34,6 +34,7 @@ class EmployeeRegisterController extends StateNotifier<RegisterState> {
       if (result.success != true) {
         return false; // not registered yet
       } else {
+        setUserId(result.data["userId"]);
         return true; // already registered
       }
 
@@ -59,6 +60,7 @@ class EmployeeRegisterController extends StateNotifier<RegisterState> {
   void setMobile(String val) => state = state.copyWith(mobile: val);
 
   void setWorkStatus(String val) => state = state.copyWith(workStatus: val);
+  void setUserId(String val) => state = state.copyWith(userId: val);
 
   void setAcceptTerms(bool val) => state = state.copyWith(acceptTerms: val);
   void toggleAcceptTerms() {

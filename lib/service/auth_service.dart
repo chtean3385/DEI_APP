@@ -87,8 +87,12 @@ class AuthService {
       throw Exception('Invalid response format');
     }
   }
-  Future<BaseModel> verifyEmailOtp({required String email, required String otp}) async {
-    final body = {'email': email, 'otp': otp};
+  Future<BaseModel> verifyEmailOtp({required String userId, required String otp}) async {
+    final body = {
+      "userId": userId,
+      "roleId": "2",
+      "mobileOtp": otp
+    };
     final result = await _apiHandler.post(
       url: ApiUrls.verifyOtp,
       body: body,

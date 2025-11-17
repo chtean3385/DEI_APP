@@ -66,7 +66,7 @@ class OTPVerifyButton extends ConsumerWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: (isComplete && authState.pageState != PageState.loading)
-              ? () => controller.verifyEmailOtp(otp,isEmployeeSignup: isFromEmployeeSignup,isEmployerSignup: isFromEmployerSignup,isLogin:isFromLogin )
+              ? () => controller.verifyOtp(otp)
               : null,
 
           child: Center(

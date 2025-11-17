@@ -7,9 +7,7 @@ import '../../../constants/enums.dart';
 import '../../../models/auth/auth_model.dart';
 import '../../../models/common/base_model.dart';
 import '../../../models/state_models/otp_state.dart';
-import '../../../models/state_models/register_state.dart';
 import '../../../service/auth_service.dart';
-import '../../../ui/pages/auth/signup/widgets/registration_complete.dart';
 import '../../../widgets/others/snack_bar.dart';
 
 class VerifyOtpController extends StateNotifier<OtpState> {
@@ -21,38 +19,25 @@ class VerifyOtpController extends StateNotifier<OtpState> {
   String? error;
 
   ///verifyEmailOtp
-  Future<void> verifyEmailOtp(
-    String otp, {
-    bool isLogin = false,
-    bool isEmployeeSignup = false,
-    bool isEmployerSignup = false,
-  }) async {
+  Future<void> verifyOtp(
+    String otp) async {
     setPageState(PageState.loading);
     try {
       final BaseModel result = await _authService.verifyEmailOtp(
-        email: state.email ?? "",
+        userId: state.userId ?? "",
         otp: otp,
       );
 
       setPageState(PageState.success);
-      if (isEmployeeSignup) {
-        Navigator.pop(navigatorKey.currentContext!, true);
-      }
-      if (isEmployerSignup) {
-        //save user data/token
-        final AuthModel authModel = AuthModel.fromJson(result.data);
-        submitRegistration(navigatorKey.currentContext!,authModel: authModel);
-      } else {
-        //save user data/token
-        showSnackBar(result.message, duration: 3);
-        final AuthModel authModel = AuthModel.fromJson(result.data);
-        AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
-      }
-      debugPrint("success - verifyEmailOtp");
+      Navigator.pop(navigatorKey.currentContext!, true);
+      showSnackBar(result.message, duration: 3);
+      final AuthModel authModel = AuthModel.fromJson(result.data);
+      AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
+      debugPrint("success - verifyOtp");
     } catch (e) {
       setPageState(PageState.error);
       showSnackBar(e.toString());
-      debugPrint("catch - verifyEmailOtp");
+      debugPrint("catch - verifyOtp");
       debugPrint(e.toString());
     }
   }
@@ -62,7 +47,7 @@ class VerifyOtpController extends StateNotifier<OtpState> {
     state = state.copyWith(pageState: newState);
   }
 
-  void setEmail(String? email) {
-    state = state.copyWith(email: email);
+  void setMobileUserId(String? email,String? userId) {
+    state = state.copyWith(email: email,userId:userId );
   }
 }

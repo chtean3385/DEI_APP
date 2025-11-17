@@ -5,14 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class OTPHeader extends StatelessWidget {
-  final bool isEmployer;
   final Animation<double> pulseAnimation;
   final Animation<double> shineAnimation;
 
   const OTPHeader({
     super.key,
     required this.pulseAnimation,
-    required this.shineAnimation,  this.isEmployer = true,
+    required this.shineAnimation,
   });
 
   @override
@@ -29,7 +28,7 @@ class OTPHeader extends StatelessWidget {
         // Title
          Text(
            // isEmployer ?
-           'Verify Email',
+           'Verify Mobile Number',
            // :
            // 'Verify Mobile Number',
           style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600),
@@ -39,14 +38,14 @@ class OTPHeader extends StatelessWidget {
         // Subtitle
         Text(
           // isEmployer ?
-          'We\'ve sent a verification code to' ,
+          "Enter the 6-digit OTP send to",
               // : "Enter the 6-digit OTP send to",
           style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
         ),
         const SizedBox(height: 8),
 
         // Email container
-        _EmailContainer(isEmployer:   isEmployer  ),
+        _EmailContainer( ),
       ],
     );
   }
@@ -147,7 +146,7 @@ class _EmailContainer extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
-        verifyOtpState.email ?? "",
+        verifyOtpState.mobile ?? "",
         style: context.textTheme.bodySmall?.copyWith(
           fontWeight: FontWeight.w600,
           color: AppColors.primaryColor,

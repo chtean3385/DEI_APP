@@ -12,17 +12,13 @@ import 'components/otp_floating_background.dart';
 import 'components/otp_main_card.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
-  final bool isFromEmployeeSignup;
-  final bool isFromEmployerSignup;
-  final bool isFromLogin;
-  final String email;
+  final String mobileNumber;
+  final String userId;
 
   const OTPVerificationScreen({
     super.key,
-    this.isFromEmployeeSignup = false,
-    this.isFromEmployerSignup = false,
-    this.isFromLogin = false,
-    required this.email,
+    required this.mobileNumber,
+    required this.userId,
   });
 
   @override
@@ -46,7 +42,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ProviderScope.containerOf(
         context,
-      ).read(verifyOtpProvider.notifier).setEmail(widget.email);
+      ).read(verifyOtpProvider.notifier).setMobileUserId(widget.mobileNumber,widget.userId);
     });
   }
 
@@ -77,7 +73,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
     String otp = otpControllers.map((controller) => controller.text).join();
     ProviderScope.containerOf(
       context,
-    ).read(verifyOtpProvider.notifier).verifyEmailOtp(otp,isEmployeeSignup: widget.isFromEmployeeSignup,isEmployerSignup: widget.isFromEmployerSignup,isLogin:widget.isFromLogin );
+    ).read(verifyOtpProvider.notifier).verifyOtp(otp);
   }
 
   void _resendCode() {
@@ -129,9 +125,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.all(24),
                           child: OTPMainCard(
-                            isFromLogin:widget.isFromLogin ,
-                            isFromEmployerSignup:widget.isFromEmployerSignup ,
-                            isFromEmployeeSignup: widget.isFromEmployeeSignup ,
                             otpControllers: otpControllers,
                             focusNodes: focusNodes,
                             resendTimer: resendTimer,

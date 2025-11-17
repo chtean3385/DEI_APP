@@ -1,15 +1,17 @@
 import '../../constants/enums.dart';
 
 class OtpState {
-  final String? email;
+  final String? mobile;
+  final String? userId;
 
   final PageState pageState;
 
-  const OtpState({this.email, this.pageState = PageState.initial});
+  const OtpState({this.mobile,this.userId, this.pageState = PageState.initial});
 
-  OtpState copyWith({String? email, PageState? pageState}) {
+  OtpState copyWith({String? email, PageState? pageState,String? userId}) {
     return OtpState(
-      email: email ?? this.email,
+      mobile: email ?? this.mobile,
+      userId: userId ?? this.userId,
 
       pageState: pageState ?? this.pageState,
     );

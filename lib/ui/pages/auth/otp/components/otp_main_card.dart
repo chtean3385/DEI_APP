@@ -5,9 +5,6 @@ import 'otp_input_fields.dart';
 import 'otp_verify_button.dart';
 
 class OTPMainCard extends StatelessWidget {
-  final bool isFromEmployeeSignup;
-  final bool isFromEmployerSignup;
-  final bool isFromLogin;
   final List<TextEditingController> otpControllers;
   final List<FocusNode> focusNodes;
   final int resendTimer;
@@ -25,9 +22,6 @@ class OTPMainCard extends StatelessWidget {
     required this.shineAnimation,
     required this.onResendCode,
     required this.onOTPChanged,
-    this.isFromEmployeeSignup = false,
-    this.isFromEmployerSignup = false,
-    this.isFromLogin = false,
   });
 
   @override
@@ -49,7 +43,6 @@ class OTPMainCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           OTPHeader(
-            isEmployer: isFromEmployerSignup || isFromEmployeeSignup,
             pulseAnimation: pulseAnimation,
             shineAnimation: shineAnimation,
           ),
