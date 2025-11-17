@@ -3,42 +3,49 @@
 import 'package:dei_champions/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
-import '../../signup/components/auto_sugstion_form_field.dart';
+import '../signup/components/auto_sugstion_form_field.dart';
 
 
-class CompanyEmployeeSize extends StatelessWidget {
+class SelectCity extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
+  final List<String>? cityList;
 
-  CompanyEmployeeSize({super.key, required this.controller,  this.focusNode, this.nextFocus});
-
-
+  const SelectCity({
+    super.key,
+    required this.controller,
+    this.focusNode,
+    this.nextFocus,
+    this.cityList,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final List<String> data = cityList ?? AppStrings.indianCities;
     return AutoSuggestionDropdownField(
       controller: controller,
       focusNode: focusNode,
-      hint: AppStrings.selectCompanySize,
-      label: AppStrings.companySize,
-      icon: Icons.group_outlined,
-      suggestions: AppStrings.companyEmployeeSize,
+      hint: AppStrings.selectCity,
+      label:AppStrings.employerCity,
+      icon: Icons.location_city_outlined,
+      suggestions: data,
       maxSuggestions: 10,
       caseSensitive: false,
       showAbove: true,
+      isRequired: true,
       onFieldSubmitted: (_) {
         FocusScope.of(context).requestFocus(nextFocus);
       },
       onSuggestionSelected: (suggestion) {
-        print('Selected Company Size: $suggestion');
+        print('Selected City: $suggestion');
       },
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please select company size';
+          return 'Please select a city';
         }
         // ✅ Check if input is in list
-        if (!AppStrings.companyEmployeeSize.contains(value)) {
+        if (!data.contains(value)) {
           return 'Please select a valid option from the list';
         }
         return null;
@@ -46,4 +53,5 @@ class CompanyEmployeeSize extends StatelessWidget {
     );
   }
 }
+
 

@@ -6,13 +6,11 @@ import '../../providers/providers.dart';
 
 class AnimatedSignupWrapper extends StatefulWidget {
   final Widget child;
-  final bool isEmployer;
   final bool enableGoogleSign;
 
   const AnimatedSignupWrapper({
     super.key,
     required this.child,
-    this.isEmployer = false,
     this.enableGoogleSign = true,
   });
 
@@ -50,14 +48,7 @@ class _AnimatedSignupWrapperState extends State<AnimatedSignupWrapper>
       if (kReleaseMode) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
           final container = ProviderScope.containerOf(context);
-
-          if (widget.isEmployer) {
-            container
-                .read(employerSignupFlowControllerProvider.notifier)
-                .iniController();
-          } else {
-            container.read(signupFlowControllerProvider.notifier).iniController();
-          }
+          container.read(signupFlowControllerProvider.notifier).iniController();
         });
       }
     }

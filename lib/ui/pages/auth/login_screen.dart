@@ -125,7 +125,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
 
   Widget _signup(){
     return GestureDetector(
-      onTap: ()=>AppNavigator.loadCommonSignUp(),
+      onTap: ()=>AppNavigator.loadSignUpScreen(),
       child: RichText(textAlign: TextAlign.center,
         text: TextSpan(children: [
           TextSpan(

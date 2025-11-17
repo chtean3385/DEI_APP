@@ -12,8 +12,6 @@ import 'package:dei_champions/models/state_models/common/csr/csr_impact_state.da
 import 'package:dei_champions/models/state_models/common/csr/csr_objectives_state.dart';
 import 'package:dei_champions/models/state_models/common/faq_state.dart';
 import 'package:dei_champions/models/state_models/common/price_plan_state.dart';
-import 'package:dei_champions/models/state_models/employer/candidates_state.dart';
-import 'package:dei_champions/models/state_models/employer/emplyer_applications_state.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
 import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart';
@@ -46,7 +44,6 @@ import '../models/state_models/dash_board/dash_board_state.dart';
 import '../models/state_models/disability/disability_bottom_state.dart';
 import '../models/state_models/disability/disability_inclusion_steps_state.dart';
 import '../models/state_models/disability/disability_title_state.dart';
-import '../models/state_models/employer/add_edit_job_state.dart';
 import '../models/state_models/empower_women/empower_women_program_state.dart';
 import '../models/state_models/empower_women/empower_women_quote_state.dart';
 import '../models/state_models/empower_women/empower_women_workforce_state.dart';
@@ -73,7 +70,6 @@ import '../models/state_models/on_boarding_state.dart';
 import '../models/state_models/otp_state.dart';
 import '../models/state_models/out_teeam/our_team_state.dart';
 import '../models/state_models/profile/employee_profile_state.dart';
-import '../models/state_models/profile/profile_state.dart';
 import '../models/state_models/register_state.dart';
 import '../models/state_models/signup_flow_state.dart';
 import '../models/state_models/veteran/veteran_advantag_state.dart';
@@ -81,14 +77,6 @@ import '../models/state_models/veteran/veteran_future_state.dart';
 import '../models/state_models/veteran/veteran_organizational_benefit_state.dart';
 import '../models/state_models/veteran/veteran_quote_state.dart';
 import '../models/state_models/veteran/veteran_title_state.dart';
-import 'controllers/EMPLOYER/employer_dashboard/employer_dash_board_controller.dart';
-import 'controllers/EMPLOYER/manage_jobs/employer_manage_jobs_controller.dart';
-import 'controllers/Employer/candidate/candidate_profile_controller.dart';
-import 'controllers/Employer/candidate/candidates_list_controller.dart';
-import 'controllers/Employer/employer_job/employer_application_controller.dart';
-import 'controllers/Employer/employer_job/post_new_job_controller.dart';
-import 'controllers/Employer/employer_profile/edit_employer_profile_controller.dart';
-import 'controllers/Employer/manage_jobs/current_jobs_controller.dart';
 import 'controllers/about_us/about_us_controller.dart';
 import 'controllers/about_us/about_vision_controller.dart';
 import 'controllers/about_us/core_value_controller.dart';
@@ -97,8 +85,6 @@ import 'controllers/about_us/what_we_do_controller.dart';
 import 'controllers/app_controller.dart';
 import 'controllers/applied/applied_jobs_controller.dart';
 import 'controllers/auth/employee_login_controller.dart';
-import 'controllers/auth/employer_register_controller.dart';
-import 'controllers/auth/employer_register_page_view_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
 import 'controllers/common/blog_detail_controller.dart';
@@ -175,14 +161,6 @@ final registerProvider =
       return EmployeeRegisterController(ref);
     });
 
-/// registration controller
-final employerRegisterProvider =
-    StateNotifierProvider.autoDispose<
-      EmployerRegisterController,
-      EmployerRegisterState
-    >((ref) {
-      return EmployerRegisterController(ref);
-    });
 
 /// verify OTP controller
 final verifyOtpProvider =
@@ -196,11 +174,7 @@ final signupFlowControllerProvider =
       SignupFlowController.new,
     );
 
-/// signup Page employer
-final employerSignupFlowControllerProvider =
-    AutoDisposeNotifierProvider<EmployerSignupFlowController, SignupFlowState>(
-      EmployerSignupFlowController.new,
-    );
+
 
 ///common html content screens
 final commonHtmlPageContentsProvider =
@@ -699,66 +673,5 @@ final employeeNotificationProvider =
 //////*****///////////******* EMPLOYER //////*****///////////*******
 //////*****///////////******* EMPLOYER //////*****///////////*******
 
-/// manage jobs
-final employerManageJobsProvider =
-    StateNotifierProvider.autoDispose<
-        EmployerManageJobsController,
-        JobListState
-    >((ref) {
-      return EmployerManageJobsController();
-    });
 
-/// current jobs
-final currentJobOpeningsProvider =
-    StateNotifierProvider.autoDispose<
-      CurrentJobOpeningController,
-      AppliedJobState
-    >((ref) {
-      return CurrentJobOpeningController();
-    });
 
-/// edit employer profile
-final editEmployerProfileProvider =
-    StateNotifierProvider.autoDispose<
-      EditEmployerProfileController,
-      ProfileState
-    >((ref) {
-      return EditEmployerProfileController();
-    });
-final employerApplicationsProvider =
-    StateNotifierProvider.autoDispose<
-      EmployerApplicationsController,
-      EmployerApplicationState
-    >((ref) {
-      return EmployerApplicationsController();
-    });
-final addEditJobProvider =
-    StateNotifierProvider.autoDispose<
-      EmployerPostNewJobController,
-      AddEditJobState
-    >((ref) {
-      return EmployerPostNewJobController(ref);
-    });
-
-/// view candidate profile
-final candidateProfileProvider =
-    StateNotifierProvider.autoDispose<CandidateProfileController, ProfileState>(
-      (ref) {
-        return CandidateProfileController();
-      },
-    );
-
-/// view all candidate list
-final candidatesListProvider =
-    StateNotifierProvider.autoDispose<CandidatesController, CandidatesState>((
-      ref,
-    ) {
-      return CandidatesController();
-    });
-///employer dashboard dynamic counts
-final employerDashBoardProvider =
-StateNotifierProvider.autoDispose<EmployerDashBoardController, DashBoardState>((
-    ref,
-    ) {
-  return EmployerDashBoardController();
-});

@@ -1,9 +1,4 @@
-import 'package:dei_champions/ui/pages/auth/signup/screens/career_preferences.dart';
-import 'package:dei_champions/ui/pages/auth/signup/screens/education.dart';
-import 'package:dei_champions/ui/pages/auth/signup/screens/employment_screen.dart';
-import 'package:dei_champions/ui/pages/auth/signup/screens/introduction_to_recruiter.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/basic_info.dart';
-import 'package:dei_champions/ui/pages/auth/signup/screens/key_skills.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/other_info.dart';
 import 'package:dei_champions/widgets/others/animated_wrapper.dart';
 import 'package:flutter/material.dart';

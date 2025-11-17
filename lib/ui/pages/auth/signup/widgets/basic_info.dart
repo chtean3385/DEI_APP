@@ -141,7 +141,6 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                     // SMS/Email Updates Checkbox
                     UpdatesCheckbox(
                       formKey: basicPersonalInfoFormKey,
-                      isEmployer: false,
                     ),
 
                     // Terms and Conditions

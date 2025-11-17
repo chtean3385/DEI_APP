@@ -17,11 +17,7 @@ class EditProfileActionButtons extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final employeeState = ref.watch(editEmployeeProfileProvider);
     final employeeController = ref.read(editEmployeeProfileProvider.notifier);
-    final employerController = ref.read(editEmployerProfileProvider.notifier);
-    final employerState = ref.watch(editEmployerProfileProvider);
-    final bool isLoading = isEmployee
-        ? employeeState.pageState == PageState.loading
-        : employerState.pageState == PageState.loading;
+    final bool isLoading = employeeState.pageState == PageState.loading;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

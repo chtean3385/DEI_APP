@@ -15,8 +15,6 @@ import '../repo/shared_preference_repository.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
-import '../ui/pages/auth/signup/choose_signup_type.dart';
-import '../ui/pages/auth/signup_employer/signup_employer_screen.dart';
 import '../ui/pages/career_explorers/career_explorers_screen.dart';
 import '../ui/pages/common_screens/blog/blog_detail_screen.dart';
 import '../ui/pages/common_screens/blog/blog_screen.dart';
@@ -25,12 +23,6 @@ import '../ui/pages/common_screens/html_detail_page.dart';
 import '../ui/pages/common_screens/our_team/our_team_screen.dart';
 import '../ui/pages/common_screens/plan_pricing/plan_pricing_screen.dart';
 import '../ui/pages/company/company_profile_screen.dart';
-import '../ui/pages/employer/candidate/candidate_list_screen.dart';
-import '../ui/pages/employer/candidate/candidate_profile_details_screen.dart';
-import '../ui/pages/employer/employer_job_details/employer_job_details_screen.dart';
-import '../ui/pages/employer/employer_main/employer_bottom_bar.dart';
-import '../ui/pages/employer/employer_profile/edit_employer_profile.dart';
-import '../ui/pages/employer/post_job/edit_job_post_screen.dart';
 import '../ui/pages/genz/genz_screen.dart';
 import '../ui/pages/home/components/boost/profile_completion_slider.dart';
 import '../ui/pages/invites/job_invite_details_screen.dart';
@@ -47,7 +39,6 @@ import '../ui/pages/profile/upload_profile_pic.dart';
 import '../ui/pages/recommended_jobs/recommended_jobs_screen.dart';
 import '../ui/pages/saved_jobs/saved_jobs_screen.dart';
 import '../ui/pages/search/job_search_result_screen.dart';
-import '../ui/pages/search/job_search_screen.dart';
 import '../ui/pages/veteran/veteran_screen.dart';
 
 class AppNavigator {
@@ -59,38 +50,19 @@ class AppNavigator {
     await SharedPreferenceRepository.setRoleId(authModel.roleId);
 
     bool? isTutorialShown =  await SharedPreferenceRepository.getHomeTutorialShown();
-    if (authModel.roleId == 2) {
-      Navigator.pushAndRemoveUntil(
-        navigatorKey.currentContext!,
-        MaterialPageRoute(builder: (_) => EmployerBottomBar()),
-        (route) => false,
-      );
-    } else {
-      Navigator.pushAndRemoveUntil(
-        navigatorKey.currentContext!,
-        MaterialPageRoute(builder: (_) => BottomBar(showTutorial: !isTutorialShown )),
-        (route) => false,
-      );
-    }
+    Navigator.pushAndRemoveUntil(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => BottomBar(showTutorial: !isTutorialShown )),
+          (route) => false,
+    );
   }
 
   static Future<void> toBottomBar({int initialPage = 0,Map<String, dynamic>? params}) async {
-    final roleId = await SharedPreferenceRepository.getRoleId();
-    if (roleId == 2) {
-      Navigator.pushAndRemoveUntil(
-        navigatorKey.currentContext!,
-        MaterialPageRoute(
-          builder: (_) => EmployerBottomBar(initialPage: initialPage),
-        ),
-        (route) => false,
-      );
-    } else {
-      Navigator.pushAndRemoveUntil(
-        navigatorKey.currentContext!,
-        MaterialPageRoute(builder: (_) => BottomBar(initialPage: initialPage,params: params,showTutorial: false)),
-        (route) => false,
-      );
-    }
+    Navigator.pushAndRemoveUntil(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => BottomBar(initialPage: initialPage,params: params,showTutorial: false)),
+          (route) => false,
+    );
   }
 
   static loadSignInScreen({bool isFromLogout = false}) {
@@ -101,31 +73,21 @@ class AppNavigator {
     );
   }
 
-  static loadCommonSignUp() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => ChooseSignupType()),
-      // (route) => false,
-    );
-  }
+  // static loadCommonSignUp() {
+  //   Navigator.push(
+  //     navigatorKey.currentContext!,
+  //     MaterialPageRoute(builder: (_) => ChooseSignupType()),
+  //     // (route) => false,
+  //   );
+  // }
 
   static loadSignUpScreen({bool isFromLogout = false}) {
-    // if(!isFromLogout) initController();
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => EmployeeSignupScreen()),
-      // (route) => false,
     );
   }
 
-  static loadEmployerSignUpScreen({bool isFromLogout = false}) {
-    // if(!isFromLogout) initController();
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => SignupEmployerScreen()),
-      // (route) => false,
-    );
-  }
 
   static Future<bool> loadOtpScreenForSignup({
     required String mobile,
@@ -221,12 +183,7 @@ class AppNavigator {
     );
   }
 
-  static loadJobSearchScreen() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => JobSearchScreen()),
-    );
-  }
+
 
   static loadTopCompaniesListScreen() {
     Navigator.push(
@@ -355,15 +312,10 @@ class AppNavigator {
   }
 
   static loadEditProfileScreen({bool isEmployer = false}) {
-    isEmployer
-        ? Navigator.push(
-            navigatorKey.currentContext!,
-            MaterialPageRoute(builder: (_) => EditEmployerProfileScreen()),
-          )
-        : Navigator.push(
-            navigatorKey.currentContext!,
-            MaterialPageRoute(builder: (_) => EditProfileScreen()),
-          );
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => EditProfileScreen()),
+    );
   }
 
   static loadEditEmployeeSelectedSectionScreen({EmployeeProfileFieldsParams? params}) {
@@ -406,31 +358,5 @@ class AppNavigator {
     );
   }
 
-  /////////***********employer**********////////
-  static loadEmployerJobDetailsScreen() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => EmployerJobDetailsScreen()),
-    );
-  }
-  static loadCandidateProfileDetailsScreen() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => CandidateProfileDetailsScreen()),
-    );
-  }
 
-
-  static loadEditJobPostScreen() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => EditJobPostScreen()),
-    );
-  }
-  static loadCandidatesScreen() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => CandidatesScreen()),
-    );
-  }
 }

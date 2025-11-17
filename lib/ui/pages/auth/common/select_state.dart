@@ -3,49 +3,45 @@
 import 'package:dei_champions/constants/app_strings.dart';
 import 'package:flutter/material.dart';
 
-import '../../signup/components/auto_sugstion_form_field.dart';
+import '../signup/components/auto_sugstion_form_field.dart';
 
 
-class SelectCity extends StatelessWidget {
+class SelectState extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
-  final List<String>? cityList;
 
-  const SelectCity({
+  const SelectState({
     super.key,
     required this.controller,
-    this.focusNode,
+     this.focusNode,
     this.nextFocus,
-    this.cityList,
   });
 
   @override
   Widget build(BuildContext context) {
-    final List<String> data = cityList ?? AppStrings.indianCities;
     return AutoSuggestionDropdownField(
       controller: controller,
       focusNode: focusNode,
-      hint: AppStrings.selectCity,
-      label:AppStrings.employerCity,
-      icon: Icons.location_city_outlined,
-      suggestions: data,
+      hint: AppStrings.selectState,
+      label:AppStrings.state,
+      icon: Icons.map_outlined,
+      suggestions: AppStrings.indianStates,
       maxSuggestions: 10,
       caseSensitive: false,
       showAbove: true,
-      isRequired: true,
       onFieldSubmitted: (_) {
         FocusScope.of(context).requestFocus(nextFocus);
       },
       onSuggestionSelected: (suggestion) {
-        print('Selected City: $suggestion');
+        print('Selected State: $suggestion');
       },
       validator: (value) {
         if (value == null || value.isEmpty) {
-          return 'Please select a city';
+          return 'Please select a state';
         }
         // ✅ Check if input is in list
-        if (!data.contains(value)) {
+        if (!AppStrings.indianStates.contains(value)) {
           return 'Please select a valid option from the list';
         }
         return null;

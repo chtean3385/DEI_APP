@@ -1,5 +1,4 @@
 import 'package:dei_champions/constants/app_navigator.dart';
-import 'package:dei_champions/main.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
@@ -7,7 +6,6 @@ import 'package:riverpod/riverpod.dart';
 import '../../../models/state_models/signup_flow_state.dart';
 import '../../../service/screen_shot_security_manager.dart';
 import '../../../service/user_info_service.dart';
-import '../../../ui/pages/auth/signup/widgets/registration_complete.dart';
 
 
 
@@ -57,14 +55,6 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
           // Save that OTP is verified
           state = state.copyWith(otpVerified: true);
         }
-
-        // // Move to next step
-        // await pageController.nextPage(
-        //   // next,
-        //   duration: const Duration(milliseconds: 900),
-        //   curve: Curves.fastOutSlowIn,
-        // );
-        // state = state.copyWith(currentStep: next);
       } else {
         // Normal step navigation
         await pageController.nextPage(

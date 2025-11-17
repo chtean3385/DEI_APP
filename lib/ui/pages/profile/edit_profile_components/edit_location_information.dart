@@ -5,7 +5,7 @@ import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
-import '../../auth/signup_employer/widgets/select_city.dart';
+import '../../auth/common/select_city.dart';
 import 'edit_profile_action_button.dart';
 
 class EditLocationInformation extends ConsumerWidget {

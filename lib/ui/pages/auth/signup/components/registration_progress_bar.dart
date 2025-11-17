@@ -7,12 +7,11 @@ import '../../../../../providers/providers.dart';
 
 
 class RegistrationProgressBar extends ConsumerWidget {
-  final bool isEmployer;
-  const RegistrationProgressBar({super.key,  this.isEmployer = false});
+  const RegistrationProgressBar({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = isEmployer ? ref.watch(employerSignupFlowControllerProvider) : ref.watch(signupFlowControllerProvider);
+    final state =  ref.watch(signupFlowControllerProvider);
     final fullWidth = MediaQuery.of(context).size.width;
     final double height = 12;
 
