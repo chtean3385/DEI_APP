@@ -10,6 +10,7 @@ import '../../../../../constants/enums.dart';
 import '../../../../../models/profile/profile_completion/profile_completion_model.dart';
 import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
 import '../../../main/components/drawer/custom_drawer.dart';
+import '../../../main/components/drawer/promotion_alert.dart';
 import '../../../main/components/drawer/verify_email_alert.dart';
 
 /// 🔄 PageView slider for ResumeBoostCards
@@ -196,7 +197,17 @@ void _handleAction(String field) {
   switch (field) {
     case "emailVerified":
       // Navigate or show verify flow
-      showEmailVerificationAlert();
+      // showEmailVerificationAlert();
+      // showPromotionAlert(
+      //   PromotionModel(
+      //     imageUrl: "https://freeimage.host/i/fJdZGwJ",
+      //     heading: "Special Offer!",
+      //     content: "Get 40% discount on premium membership.",
+      //     buttonText: "Upgrade Now",
+      //     buttonUrl: "myapp://premium",
+      //   ),
+      // );
+
       // showJobStatusUpdateAlert(
       //   jobTitle: "Figma Developer",
       //   oldStatus: "pending",
