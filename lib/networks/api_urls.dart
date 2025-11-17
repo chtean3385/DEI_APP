@@ -127,6 +127,10 @@ class ApiUrls {
   //verify email
 
   static String resendEmailVerification = 'users/resend-email';
+  static String saveFcmToken = 'fcm-token/save';
+
+
+
 
 
 

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/providers/controllers/auth/verify_otp_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,6 +10,7 @@ import '../../../models/common/base_model.dart';
 import '../../../models/state_models/auth_state.dart';
 import '../../../repo/shared_preference_repository.dart';
 import '../../../service/auth_service.dart';
+import '../../../service/employee_profile/employee_profile_service.dart';
 import '../../../widgets/others/snack_bar.dart';
 
 class LoginController extends StateNotifier<AuthState> {
@@ -39,6 +41,7 @@ class LoginController extends StateNotifier<AuthState> {
       setPageState(PageState.success);
       final AuthModel authModel = AuthModel.fromJson(result.data);
       AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
+      saveFcm();
       debugPrint("success - signInEmployee");
     } catch (e) {
       setPageState(PageState.error);
@@ -72,5 +75,16 @@ class LoginController extends StateNotifier<AuthState> {
     await SharedPreferenceRepository.setPassword(
       passwordController.text.trim(),
     );
+  }
+  saveFcm() async {
+    try {
+      String? fcm = await getAndSaveFcmToken();
+      String userId = await SharedPreferenceRepository.getUserId();
+      String deviceType = await getDeviceType();
+      await _authService.saveFcmToken(fcm: fcm ?? "",userId: userId, deviceType: deviceType,);
+      debugPrint("✅ Saved Fcm ");
+    } catch (e) {
+      showSnackBar(e.toString());
+    }
   }
 }

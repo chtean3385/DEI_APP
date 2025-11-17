@@ -3,8 +3,10 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
 
+
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
+
 
   factory NotificationService() => _instance;
 
@@ -14,7 +16,6 @@ class NotificationService {
   FlutterLocalNotificationsPlugin();
 
   Future<void> init(BuildContext context) async {
-    getFcmToken();
     const androidInit = AndroidInitializationSettings('@drawable/ic_notification');
     const iosInit = DarwinInitializationSettings();
     const initSettings = InitializationSettings(
@@ -106,10 +107,6 @@ class NotificationService {
 
     await showLocalNotification(title: sender, body: body);
   }
-  Future<void> getFcmToken() async {
-    String? token = await FirebaseMessaging.instance.getToken();
-    print("📲 FCM Token: $token");
 
-    // Send to backend
-  }
+
 }
