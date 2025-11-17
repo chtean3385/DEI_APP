@@ -147,17 +147,20 @@ class AuthService {
       throw Exception('Invalid response format');
     }
   }
-  saveFcmToken({required String fcm,required String userId,required String deviceType}) async {
+  saveFcmToken({ String? fcm,required String userId,required String deviceType}) async {
+    var body =  {
+      "fcmToken":fcm ?? "",
+      "userId":userId,
+      "deviceType":deviceType,
+
+    };
+    print("bodybodybody-- ${body}");
     final result = await ApiHandler().post(
         url: ApiUrls.saveFcmToken,
         includeAuthToken: true,
-        body: {
-          "fcmToken":fcm,
-          "userId":userId,
-          "deviceType":deviceType,
-
-        }
+        body:body
     );
+
     if (result is Map<String, dynamic>) {
       final base = BaseModel.fromJson(result);
       if (base.isSuccess) {
