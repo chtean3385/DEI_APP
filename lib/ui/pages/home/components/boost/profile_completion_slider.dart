@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:dei_champions/main.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/ui/pages/home/components/boost/resume_boost.dart';
 import 'package:flutter/material.dart';
@@ -198,6 +197,12 @@ void _handleAction(String field) {
     case "emailVerified":
       // Navigate or show verify flow
       showEmailVerificationAlert();
+      // showJobStatusUpdateAlert(
+      //   jobTitle: "Figma Developer",
+      //   oldStatus: "pending",
+      //   newStatus: "accepted",
+      // );
+
 
       //   AppNavigator.loadEditEmployeeSelectedSectionScreen(params:EmployeeProfileFieldsParams(email: true) );
       break;
