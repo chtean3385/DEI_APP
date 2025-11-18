@@ -1,181 +1,148 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
-
+import 'package:http/http.dart' as http;
 
 class NotificationService {
   static final NotificationService _instance = NotificationService._internal();
-
-
   factory NotificationService() => _instance;
-
   NotificationService._internal();
 
-  final FlutterLocalNotificationsPlugin _flutterLocalNotificationsPlugin =
+  static final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
   FlutterLocalNotificationsPlugin();
 
-  Future<void> init(BuildContext context) async {
+  /// ---------------------------------------------------------------------------
+  /// INITIALIZE
+  /// ---------------------------------------------------------------------------
+  Future<void> init() async {
+    // Initialization settings
     const androidInit = AndroidInitializationSettings('@drawable/ic_notification');
     const iosInit = DarwinInitializationSettings();
-    const initSettings = InitializationSettings(
-      android: androidInit,
-      iOS: iosInit,
-    );
-    // 🔔 Register notification channel with sound
-    await _flutterLocalNotificationsPlugin
+    const initSettings =
+    InitializationSettings(android: androidInit, iOS: iosInit);
+
+    // Create default notification channel
+    await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
         AndroidFlutterLocalNotificationsPlugin>()
         ?.createNotificationChannel(
       const AndroidNotificationChannel(
         'default_channel',
         'General Notifications',
-        description: 'Used for important chat messages',
+        description: 'Shows all app notifications',
         importance: Importance.max,
         playSound: true,
       ),
     );
 
-    await _flutterLocalNotificationsPlugin.initialize(
-      initSettings,
-      onDidReceiveNotificationResponse: (details) {
-        debugPrint("🔔 Notification tapped: ${details.payload}");
-        // Add optional navigation logic here if needed
-      },
+    await flutterLocalNotificationsPlugin.initialize(initSettings);
+
+    // Ask permissions
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
     );
 
-    // Request notification permission
-    await FirebaseMessaging.instance.requestPermission(alert: true,
-        badge: true,
-        sound: true);
-
-    // Handle foreground messages
-    FirebaseMessaging.onMessage.listen((message) async {
-      debugPrint("📥 Foreground FCM message: ${message.data}");
-      debugPrint("📥 Foreground FCM message: ${message.notification?.body}");
-      debugPrint("📥 Foreground FCM message: ${message.notification?.title}");
-      debugPrint("📥 Foreground FCM message: ${message.messageType}");
-      debugPrint("📥 Foreground FCM message: ${message.toString()}");
-      if (message.data.isNotEmpty) {
-        await handleStreamMessage(message);
-      }
+    // Listen for foreground messages → ONLY this
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      _handleMessageInternal(message);
     });
   }
 
-  /// Show local notification
-  // Future<void> showLocalNotification({
-  //   required String title,
-  //   required String body,
-  // }) async {
-  //   const androidDetails = AndroidNotificationDetails(
-  //     'default_channel',
-  //     'General Notifications',
-  //     channelDescription: 'Notifications with images',
-  //     importance: Importance.max,
-  //     priority: Priority.high,
-  //     playSound: true,
-  //   );
-  //   const notificationDetails = NotificationDetails(android: androidDetails);
-  //   await _flutterLocalNotificationsPlugin.show(
-  //     0,
-  //     title,
-  //     body,
-  //     notificationDetails,
-  //   );
-  // }
-  Future<void> showLocalNotification({
+  /// ---------------------------------------------------------------------------
+  /// BACKGROUND HANDLER (STATIC ENTRYPOINT)
+  /// ---------------------------------------------------------------------------
+  static Future<void> firebaseBackgroundHandler(RemoteMessage message) async {
+    await NotificationService()._handleMessageInternal(message);
+  }
+
+  /// ---------------------------------------------------------------------------
+  /// MAIN MESSAGE HANDLER (foreground + background)
+  /// ---------------------------------------------------------------------------
+  Future<void> _handleMessageInternal(RemoteMessage message) async {
+    final data = message.data;
+
+    debugPrint("🔔 FCM DATA: $data");
+
+    final String title = data['title'] ?? 'New message';
+    final String body = data['body'] ?? '';
+    final String? imageUrl = data['image'];
+
+    // Load image if URL exists
+    if (imageUrl != null && imageUrl.isNotEmpty) {
+      final bitmap = await _getBitmapFromUrl(imageUrl);
+      if (bitmap != null) {
+        final style = BigPictureStyleInformation(
+          bitmap,
+          contentTitle: title,
+          summaryText: body,
+        );
+
+        final android = AndroidNotificationDetails(
+          'default_channel',
+          'General Notifications',
+          channelDescription: 'Shows image notifications',
+          importance: Importance.max,
+          priority: Priority.high,
+          playSound: true,
+          styleInformation: style,
+        );
+
+        await flutterLocalNotificationsPlugin.show(
+          DateTime.now().millisecondsSinceEpoch ~/ 1000,
+          title,
+          body,
+          NotificationDetails(android: android),
+        );
+
+        return;
+      }
+    }
+
+    // 👉 Fallback notification (TEXT ONLY)
+    await _showSimpleNotification(title: title, body: body);
+  }
+
+  /// ---------------------------------------------------------------------------
+  /// SIMPLE NOTIFICATION
+  /// ---------------------------------------------------------------------------
+  Future<void> _showSimpleNotification({
     required String title,
     required String body,
-    String? payload,
   }) async {
-    const androidDetails = AndroidNotificationDetails(
+    const android = AndroidNotificationDetails(
       'default_channel',
       'General Notifications',
-      channelDescription: 'Notifications for chat updates',
+      channelDescription: 'Shows basic notifications',
       importance: Importance.max,
       priority: Priority.high,
       playSound: true,
     );
 
-    const notificationDetails = NotificationDetails(android: androidDetails);
-
-    await _flutterLocalNotificationsPlugin.show(
-      0,
+    await flutterLocalNotificationsPlugin.show(
+      DateTime.now().millisecondsSinceEpoch ~/ 1000,
       title,
       body,
-      notificationDetails,
-      payload: payload, // pass URL here
+      const NotificationDetails(android: android),
     );
   }
 
-
-  /// Handle Stream Chat message from FCM
-  // Future<void> handleStreamMessage(RemoteMessage message) async {
-  //   try {
-  //     final data = message.data;
-  //     debugPrint("  handling Stream message: success");
-  //     debugPrint("Handling FCM message: $data");
-  //     await showLocalNotification(title: "💬 ${data['body'] ?? 'New message'}", body: data['title'] ?? 'Message');
-  //   } catch (e) {
-  //     debugPrint("❌ Error handling Stream message: $e");
-  //   }
-  // }
-  Future<void> handleStreamMessage(RemoteMessage message) async {
+  /// ---------------------------------------------------------------------------
+  /// Convert image URL → ByteArray bitmap
+  /// ---------------------------------------------------------------------------
+  Future<ByteArrayAndroidBitmap?> _getBitmapFromUrl(String url) async {
     try {
-      final data = message.data;
-      debugPrint("Handling FCM message: $data");
-
-      final title = data['title'] ?? 'New message';
-      final body = data['body'] ?? '';
-      final imageUrl = data['image'];
-      final url = data['url'];
-
-      // Optionally show image notification if image exists
-      if (imageUrl != null && imageUrl.isNotEmpty) {
-        final bigPictureStyle = BigPictureStyleInformation(
-          FilePathAndroidBitmap(imageUrl), // or use NetworkImage + caching
-          contentTitle: title,
-          summaryText: body,
+      final response = await http.get(Uri.parse(url));
+      if (response.statusCode == 200) {
+        return ByteArrayAndroidBitmap.fromBase64String(
+          base64Encode(response.bodyBytes),
         );
-
-        final androidDetails = AndroidNotificationDetails(
-          'default_channel',
-          'General Notifications',
-          channelDescription: 'Notifications with images',
-          styleInformation: bigPictureStyle,
-          importance: Importance.max,
-          priority: Priority.high,
-          playSound: true,
-        );
-
-        await _flutterLocalNotificationsPlugin.show(
-          0,
-          title,
-          body,
-          NotificationDetails(android: androidDetails),
-          payload: url, // optional: navigate on tap
-        );
-      } else {
-        await showLocalNotification(title: title, body: body);
       }
     } catch (e) {
-      debugPrint("Error handling FCM message: $e");
+      debugPrint('❌ Image load failed: $e');
     }
+    return null;
   }
-
-
-  /// Register this as the background handler in main.dart
-  Future<void> handleBackgroundMessage(RemoteMessage message) async {
-    debugPrint("📥 [BG] Background FCM message: ${message.data}");
-
-    final data = message.data;
-
-    // Use fallback values directly from FCM `data` payload
-    final body = data['body'] ?? 'New message';
-    final sender = data['title'] ?? 'Message';
-
-    await showLocalNotification(title: sender, body: body);
-  }
-
-
 }

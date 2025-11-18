@@ -10,21 +10,15 @@ import 'constants/app_strings.dart';
 import 'constants/app_theme.dart';
 import 'firebase_options.dart';
 
-@pragma('vm:entry-point')
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
-  debugPrint("🔔 Handling background message: ${message.messageId}");
-  debugPrint("🔔 [BG] Message ID: ${message.messageId}");
-  debugPrint("🔔 [BG] Message data: ${message.data}");
-  debugPrint("🔔 [BG] Notification title: ${message.notification?.title}");
-  debugPrint("🔔 [BG] Notification body: ${message.notification?.body}");
-  await NotificationService().handleBackgroundMessage(message);
-}
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.ncurrentPlatform);
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(
+      NotificationService.firebaseBackgroundHandler);
+
+  await NotificationService().init();
   // Lock app to portrait mode only
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -45,7 +39,6 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   void initState() {
     super.initState();
-    NotificationService().init(context);
   }
 
   @override
