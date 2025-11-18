@@ -63,9 +63,30 @@ class NotificationService {
   }
 
   /// Show local notification
+  // Future<void> showLocalNotification({
+  //   required String title,
+  //   required String body,
+  // }) async {
+  //   const androidDetails = AndroidNotificationDetails(
+  //     'default_channel',
+  //     'General Notifications',
+  //     channelDescription: 'Notifications with images',
+  //     importance: Importance.max,
+  //     priority: Priority.high,
+  //     playSound: true,
+  //   );
+  //   const notificationDetails = NotificationDetails(android: androidDetails);
+  //   await _flutterLocalNotificationsPlugin.show(
+  //     0,
+  //     title,
+  //     body,
+  //     notificationDetails,
+  //   );
+  // }
   Future<void> showLocalNotification({
     required String title,
     required String body,
+    String? payload,
   }) async {
     const androidDetails = AndroidNotificationDetails(
       'default_channel',
@@ -75,25 +96,73 @@ class NotificationService {
       priority: Priority.high,
       playSound: true,
     );
+
     const notificationDetails = NotificationDetails(android: androidDetails);
+
     await _flutterLocalNotificationsPlugin.show(
       0,
       title,
       body,
       notificationDetails,
+      payload: payload, // pass URL here
     );
   }
 
+
   /// Handle Stream Chat message from FCM
+  // Future<void> handleStreamMessage(RemoteMessage message) async {
+  //   try {
+  //     final data = message.data;
+  //     debugPrint("  handling Stream message: success");
+  //     debugPrint("Handling FCM message: $data");
+  //     await showLocalNotification(title: "💬 ${data['body'] ?? 'New message'}", body: data['title'] ?? 'Message');
+  //   } catch (e) {
+  //     debugPrint("❌ Error handling Stream message: $e");
+  //   }
+  // }
   Future<void> handleStreamMessage(RemoteMessage message) async {
     try {
       final data = message.data;
-      debugPrint("  handling Stream message: success");
-      await showLocalNotification(title: "💬 ${data['body'] ?? 'New message'}", body: data['title'] ?? 'Message');
+      debugPrint("Handling FCM message: $data");
+
+      final title = data['title'] ?? 'New message';
+      final body = data['body'] ?? '';
+      final imageUrl = data['image'];
+      final url = data['url'];
+
+      // Optionally show image notification if image exists
+      if (imageUrl != null && imageUrl.isNotEmpty) {
+        final bigPictureStyle = BigPictureStyleInformation(
+          FilePathAndroidBitmap(imageUrl), // or use NetworkImage + caching
+          contentTitle: title,
+          summaryText: body,
+        );
+
+        final androidDetails = AndroidNotificationDetails(
+          'default_channel',
+          'General Notifications',
+          channelDescription: 'Notifications with images',
+          styleInformation: bigPictureStyle,
+          importance: Importance.max,
+          priority: Priority.high,
+          playSound: true,
+        );
+
+        await _flutterLocalNotificationsPlugin.show(
+          0,
+          title,
+          body,
+          NotificationDetails(android: androidDetails),
+          payload: url, // optional: navigate on tap
+        );
+      } else {
+        await showLocalNotification(title: title, body: body);
+      }
     } catch (e) {
-      debugPrint("❌ Error handling Stream message: $e");
+      debugPrint("Error handling FCM message: $e");
     }
   }
+
 
   /// Register this as the background handler in main.dart
   Future<void> handleBackgroundMessage(RemoteMessage message) async {
