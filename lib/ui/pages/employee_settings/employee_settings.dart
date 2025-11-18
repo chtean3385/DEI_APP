@@ -65,20 +65,20 @@ class _SettingsBodyState extends State<SettingsBody> {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 16),
       children: [
-         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Text(
-            "General",
-            style: context.textTheme.labelMedium?.copyWith(color: Colors.grey),
-          ),
-        ),
-        _buildToggle(
-          title: "Online Status",
-          subtitle: "Show others when you’re active on the platform",
-          value: onlineStatus,
-          onChanged: (val) => setState(() => onlineStatus = val),
-          icon: Icons.circle,
-        ),
+        //  Padding(
+        //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        //   child: Text(
+        //     "General",
+        //     style: context.textTheme.labelMedium?.copyWith(color: Colors.grey),
+        //   ),
+        // ),
+        // _buildToggle(
+        //   title: "Online Status",
+        //   subtitle: "Show others when you’re active on the platform",
+        //   value: onlineStatus,
+        //   onChanged: (val) => setState(() => onlineStatus = val),
+        //   icon: Icons.circle,
+        // ),
          Padding(
           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Text(

@@ -12,56 +12,52 @@ class ExploreServiceProgramCard extends StatelessWidget {
   final ExploreServiceProgramModel item;
   final double width;
 
-
-  const ExploreServiceProgramCard({required this.item, required this.width,});
+  const ExploreServiceProgramCard({required this.item, required this.width});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-    return Padding(
-      padding: const EdgeInsets.only(right: 16),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.white,
-            boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.08),
-                      blurRadius: 10,
-                      spreadRadius: 1,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(16),
-            topRight: Radius.circular(16),
-            bottomLeft: Radius.circular(16),
-            bottomRight: Radius.circular(16),
+
+    return Container(
+      margin: const EdgeInsets.only(right: 8),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+      width: width,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.08),
+            blurRadius: 10,
+            spreadRadius: 1,
+            offset: const Offset(0, 4),
           ),
-          border: Border.all(color: Colors.black12, width: 1),
-        ),
-        child: SizedBox(
-          width: width,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircleAvatar(
-                  radius: 20,
-                  backgroundColor: item.backgroundColor != null
-                      ? HexColor(item.backgroundColor!) // Convert hex to Color
-                      : null, // fallback color
-                  child: Icon(
-                    getFontAwesomeIcon(item.icon),
-                    color:Colors.white,
-                    size: 18,
+        ],
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.black12, width: 1),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Center content in the available space
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    radius: 20,
+                    backgroundColor: item.backgroundColor != null
+                        ? HexColor(item.backgroundColor!)
+                        : null,
+                    child: Icon(
+                      getFontAwesomeIcon(item.icon),
+                      color: Colors.white,
+                      size: 18,
+                    ),
                   ),
-                ),
-                gapH8(),
-                Flexible(
-                  child: Text(
+                  gapH8(),
+                  Text(
                     item.title ?? "",
                     style: theme.labelSmall?.copyWith(fontSize: 13),
                     softWrap: true,
@@ -69,54 +65,55 @@ class ExploreServiceProgramCard extends StatelessWidget {
                     textAlign: TextAlign.center,
                     maxLines: 2,
                   ),
-                ),
-                gapH8(),
-                Flexible(
-                  child: Text(
+                  gapH8(),
+                  Text(
                     item.subtitle ?? "",
                     softWrap: true,
+                    overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     textAlign: TextAlign.center,
                     style: theme.displaySmall?.copyWith(
-                      color: Colors.black54,fontSize: 12
+                      color: Colors.black54,
+                      fontSize: 12,
                     ),
                   ),
-                ),
-                gapH8(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 2),
-                  child: CustomThemeButton(
-                    radius: 10,
-                    isExpanded: true,
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-                    color: AppColors.primaryColor,
-                    borderColor: AppColors.primaryColor,
-                    onTap:  () =>
-                        AppNavigator.loadLetsConnect(),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Enquire",
-                          style: theme.labelSmall?.copyWith(
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-
-              ],
+                ],
+              ),
             ),
           ),
-        ),
+
+          // Bottom button
+          Padding(
+            padding:
+            const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+            child: CustomThemeButton(
+              radius: 10,
+              isExpanded: true,
+              padding:
+              const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+              color: AppColors.primaryColor,
+              borderColor: AppColors.primaryColor,
+              onTap: () => AppNavigator.loadLetsConnect(),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Enquire",
+                    style: theme.labelSmall?.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
+
 class ShimmerExploreServiceProgramCard extends StatelessWidget {
 
 
