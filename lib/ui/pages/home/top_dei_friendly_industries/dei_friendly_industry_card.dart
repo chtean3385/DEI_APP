@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_styles.dart';
 import '../../../../main.dart';
+import '../../../../utils/fa_icon.dart';
+import '../../career_explorers/components/explore_service_program_card.dart';
 
 class DeiFriendlyIndustryCard extends StatelessWidget {
   final IndustryDepartmentModel department;
@@ -32,24 +34,36 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
         child: SizedBox(
           width: 150,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12,horizontal: 8),
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                CircleAvatar(
-                  backgroundColor: AppColors.bg,
-                  radius: 14,
-                  child: Text(
-                    (department.name?.isNotEmpty ?? false)
-                        ? department.name![0].toUpperCase()
-                        : "",
-                    style: theme.labelMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+                (department.icon?.isNotEmpty ?? false)
+                    ? CircleAvatar(
+                        radius: 20,
+                        backgroundColor: department.backgroundColor != null
+                            ? HexColor(department.backgroundColor!)
+                            : null,
+                        child: Icon(
+                          getFontAwesomeIcon(department.icon),
+                          color: Colors.white,
+                          size: 14,
+                        ),
+                      )
+                    : CircleAvatar(
+                        backgroundColor: AppColors.bg,
+                        radius: 14,
+                        child: Text(
+                          (department.name?.isNotEmpty ?? false)
+                              ? department.name![0].toUpperCase()
+                              : "",
+                          style: theme.labelMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
 
                 gapH4(),
                 Text(
@@ -63,13 +77,13 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
 
                 gapH4(),
                 gapH4(),
-                chipTile(department.trend ?? "",true),
+                chipTile(department.trend ?? "", true),
                 gapH4(),
-                chipTile("Focus: ${department.focus ?? ""}",false),
+                chipTile("Focus: ${department.focus ?? ""}", false),
                 gapH4(),
                 gapH4(),
                 Text(
-                 " ${department.openJobs?.toString() ?? ""} Open jobs",
+                  " ${department.openJobs?.toString() ?? ""} Open jobs",
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
@@ -86,28 +100,30 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
       ),
     );
   }
-  Widget chipTile(String tag,bool small) {
-    return // Tag chip
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-        decoration: BoxDecoration(
-          color: small? (BootstrapColors.colors["blueCapsule"] ?? AppColors.bg) :(BootstrapColors.colors["purpleCapsule"] ?? AppColors.bg) ,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Text(
-          tag,
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
-          softWrap: true,
-          textAlign: TextAlign.center,
-          style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
-            fontWeight: FontWeight.w600,
-            fontSize:small ? 8 :  10,
-          ),
-        ),
-      );
-  }
 
+  Widget chipTile(String tag, bool small) {
+    return // Tag chip
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      decoration: BoxDecoration(
+        color: small
+            ? (BootstrapColors.colors["blueCapsule"] ?? AppColors.bg)
+            : (BootstrapColors.colors["purpleCapsule"] ?? AppColors.bg),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        tag,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        softWrap: true,
+        textAlign: TextAlign.center,
+        style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
+          fontWeight: FontWeight.w600,
+          fontSize: small ? 8 : 10,
+        ),
+      ),
+    );
+  }
 }
 
 class ShimmerDeiFriendlyIndustryCard extends StatelessWidget {

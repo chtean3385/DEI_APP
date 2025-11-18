@@ -58,6 +58,7 @@ class IndustryModel {
 class IndustryDepartmentModel {
   final String? id;
   final String? name;
+  final String? icon;
   final String? status;
   final String? createdAt;
   final String? updatedAt;
@@ -65,10 +66,12 @@ class IndustryDepartmentModel {
   final String? focus;
   final String? trend;
   final int? openJobs;
+  final String? backgroundColor;
 
   IndustryDepartmentModel({
     this.id,
     this.name,
+    this.icon,
     this.status,
     this.createdAt,
     this.updatedAt,
@@ -76,12 +79,14 @@ class IndustryDepartmentModel {
     this.focus,
     this.trend,
     this.openJobs,
+    this.backgroundColor,
   });
 
   factory IndustryDepartmentModel.fromJson(Map<String, dynamic> json) {
     return IndustryDepartmentModel(
       id: json['_id'] as String?,
       name: json['name'] as String?,
+      icon: json['icon'] as String?,
       status: json['status'] as String?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
@@ -89,6 +94,7 @@ class IndustryDepartmentModel {
       focus: json['focus'] as String?,
       trend: json['trend'] as String?,
       openJobs: json['openJobs'] as int?,
+      backgroundColor: json['backgroundColor'],
     );
   }
 
