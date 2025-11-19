@@ -193,16 +193,19 @@ class SearchJobCard extends StatelessWidget {
                     children: [
                       if (showWithdrawButton)
                         CustomDynamicButton(
-                          activeIcon: Icons.send_rounded,
-                          inActiveIcon: Icons.cancel_outlined,
+                          activeIcon: FontAwesomeIcons.paperPlane,
+                          inActiveIcon:FontAwesomeIcons.circleXmark,
                           activeTitle: "Apply",
                           inActiveTitle: "Withdraw",
-                          activeColor: Colors.white,
-                          inActiveColor: Colors.white,
-                          activeBgColor: AppColors.primaryColor,
-                          inActiveBgColor: Colors.red.withValues(alpha: .8),
+                          activeColor: AppColors.primaryColor,
+                          inActiveColor: Colors.red,
+                          activeBgColor: Colors.white,
+                          inActiveBgColor: Colors.white,
+                          activeIconSize:12,
+                          inActiveIconSize:14,
                           size: 20,
                           smaller: true,
+                          radius: 30,
                           initialValue: !jobModel.isApplied,
                           onPressed: (isWithdrawnNow) async {
                             final jobId = jobModel.id ?? "";
@@ -233,11 +236,12 @@ class SearchJobCard extends StatelessWidget {
                           inActiveTitle: "Applied",
                           size:15,
                           activeIconSize:12,
+                          radius: 30,
                           smaller: true,
-                          activeColor: Colors.white,
+                          activeColor: AppColors.primaryColor,
                           inActiveColor: AppColors.primaryColor,
-                          activeBgColor: AppColors.primaryColor,
-                          inActiveBgColor: AppColors.bg,
+                          activeBgColor: Colors.white,
+                          inActiveBgColor: Colors.white,
                           initialValue: !jobModel.isApplied,
                           onPressed: (isAppliedNow) async {
                             final jobId = jobModel.id ?? "";
@@ -263,17 +267,20 @@ class SearchJobCard extends StatelessWidget {
 
                       if (!hideSaveButton)
                         CustomDynamicButton(
-                          activeIcon: Icons.bookmark_border,
-                          inActiveIcon: Icons.bookmark,
+                          activeIcon: FontAwesomeIcons.bookmark,   // outline
+                          inActiveIcon: FontAwesomeIcons.solidBookmark,        // filled
+
                           activeTitle: "Save",
                           inActiveTitle: "Saved",
-                          size: 20,
+                          radius: 30,
                           smaller: true,
-                          initialValue: !jobModel.isSaved,
-                          activeColor: Colors.white,
+                          activeIconSize:12,
+                          inActiveIconSize:12,
+                          activeColor:AppColors.primaryColor,
                           inActiveColor: AppColors.primaryColor,
-                          activeBgColor: AppColors.primaryColor,
-                          inActiveBgColor: AppColors.bg,
+                          activeBgColor: Colors.white,
+                          inActiveBgColor: Colors.white,
+                          initialValue: !jobModel.isSaved,
                           onPressed: (isSavedNow) async {
                             // 🔹 Add API call here
                             print("Save/Hide tapped!  -- $isSavedNow");

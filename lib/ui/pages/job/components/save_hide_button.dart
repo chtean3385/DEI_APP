@@ -69,12 +69,14 @@ class CustomDynamicButton extends StatefulWidget {
   final String inActiveTitle;
   final double size;
   final double? activeIconSize;
+  final double? inActiveIconSize;
   final bool smaller;
   final bool initialValue;
   final Color activeColor;
   final Color activeBgColor;
   final Color inActiveColor;
   final Color inActiveBgColor;
+  final double radius;
   final Future<bool> Function(bool)? onPressed; // ✅ callback returns whether to accept toggle
 
   const CustomDynamicButton({
@@ -91,7 +93,10 @@ class CustomDynamicButton extends StatefulWidget {
     required this.inActiveIcon,
     required this.activeTitle,
     required this.inActiveTitle,
-    this.activeIconSize
+    this.activeIconSize,
+    this.inActiveIconSize,
+    this.radius = 12,
+
   });
 
   @override
@@ -126,10 +131,11 @@ class _CustomDynamicButtonState extends State<CustomDynamicButton> {
 
     return CustomThemeButton(
       onTap:isBusy ? null : _toggle,
-      radius: 8,
+      radius:widget.radius,
+      borderWidth: .6,
       padding: EdgeInsets.symmetric(horizontal: 8,vertical: 4),
       color:  isActive ? widget.activeBgColor : widget.inActiveBgColor ,
-      borderColor:  isActive ? widget.activeBgColor : widget.inActiveBgColor ,
+      borderColor: AppColors.primaryColor ,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -137,12 +143,12 @@ class _CustomDynamicButtonState extends State<CustomDynamicButton> {
              SizedBox(
               width: 18,
               height: 18,
-              child: CircularProgressIndicator(strokeWidth: 2,color: isActive ? Colors.white : AppColors.primaryColor,),
+              child: CircularProgressIndicator(strokeWidth: 2,color:  AppColors.primaryColor,),
             )
           else
             Icon(
               isActive ? widget.activeIcon : widget.inActiveIcon,
-              size: isActive ? (widget.activeIconSize ??  widget.size) : widget.size,
+              size: isActive ? (widget.activeIconSize ??  widget.size) : (widget.inActiveIconSize ??  widget.size),
               color: isActive ? widget.activeColor : widget.inActiveColor ,
             ),
           const SizedBox(width: 4),
