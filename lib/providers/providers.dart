@@ -56,6 +56,7 @@ import '../models/state_models/home/champion_candidates_state.dart';
 import '../models/state_models/home/featured_employers_state.dart';
 import '../models/state_models/home/how_it_works_state.dart';
 import '../models/state_models/home/job_service_state.dart';
+import '../models/state_models/home/promo_banner_state.dart';
 import '../models/state_models/job/job_state.dart';
 import '../models/state_models/job/salary_range_list_state.dart';
 import '../models/state_models/lgbtq/lgbtq_advantages_state.dart';
@@ -106,6 +107,7 @@ import 'controllers/genz/genz_growth_section_controller.dart';
 import 'controllers/genz/genz_title_section_controller.dart';
 import 'controllers/home/category/champion_candidates_controller.dart';
 import 'controllers/home/category/featured_employers_controller.dart';
+import 'controllers/home/category/promo_banner_controller.dart';
 import 'controllers/job/employee_applied_jobs_controller.dart';
 import 'controllers/job/employee_job_details_controller.dart';
 import 'controllers/job/employee_manage_job_controller.dart';
@@ -257,6 +259,14 @@ final championCandidatesProvider =
       return ChampionCandidatesController(ref);
     });
 
+///promo banner
+final promoBannerProvider =
+StateNotifierProvider.autoDispose<
+    PromoBannerController,
+    PromoBannerState
+>((ref) {
+  return PromoBannerController(ref);
+});
 ///what we do -about us
 final whatWeDoProvider =
     StateNotifierProvider.autoDispose<WhatWeDoController, WhatWeDoState>((ref) {

@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/ui/pages/home/promo_banner/promo_banner_section.dart';
 import 'package:dei_champions/ui/pages/home/top_dei_friendly_industries/dei_friendly_industry_horizontal_scroll.dart';
 import 'package:dei_champions/ui/pages/home/we_are_hiring/we_are_hiring_section.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class HomeScreen extends StatelessWidget {
         children: [
 
           ProfileCompletionSlider(),
+          PromoBannerSection(),
           RecommendedJobsHorizontal(),
           // WeAreHiringBanner(),
           JobsCategorySection(),

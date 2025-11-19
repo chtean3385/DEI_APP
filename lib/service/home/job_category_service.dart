@@ -50,5 +50,12 @@ class JobCategoryService {
     );
     return result;
   }
+  Future<dynamic> getPromoBanners() async {
+    final result = await _apiHandler.get(
+      url: ApiUrls.friendlyIndustries,
+      includeAuthToken: true,
+    );
+    return result;
+  }
 
 }
