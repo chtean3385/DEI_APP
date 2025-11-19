@@ -44,11 +44,12 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final themeMode = ref.watch(themeNotifierProvider);
+    final accessibility = ref.watch(accessibilityProvider);
     return MaterialApp(
       navigatorKey: navigatorKey,
       title: AppStrings.appName,
-      theme: lightTheme(context),
-      darkTheme: darkTheme(context),
+      theme: lightTheme(context, accessibility),
+      darkTheme: darkTheme(context, accessibility),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),

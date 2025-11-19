@@ -55,6 +55,7 @@ class ResumeBoostCard extends StatelessWidget {
             ),
             gapH8(),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Text(

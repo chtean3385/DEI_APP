@@ -334,11 +334,13 @@ class BlogCardHorizontal extends StatelessWidget {
                     ),
 
                     // time ago text
-                    Text(
-                      " ${getShortTimeAgo(item.createdAt ?? DateTime.now())}",
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.displaySmall?.copyWith(
-                        color: Colors.black45,
+                    Flexible(
+                      child: Text(
+                        " ${getShortTimeAgo(item.createdAt ?? DateTime.now())}",
+                        overflow: TextOverflow.ellipsis,
+                        style: theme.displaySmall?.copyWith(
+                          color: Colors.black45,
+                        ),
                       ),
                     ),
                   ],

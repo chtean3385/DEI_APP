@@ -143,10 +143,12 @@ class ChampionCandidateCard extends StatelessWidget {
                                 color: Colors.black54,
                               ),
                               gapW4(),
-                              Text(
-                                categoryModel.salary ?? "",
-                                style: theme.displaySmall?.copyWith(
-                                  color: Colors.black54,
+                              Flexible(
+                                child: Text(
+                                  categoryModel.salary ?? "",
+                                  style: theme.displaySmall?.copyWith(
+                                    color: Colors.black54,
+                                  ),
                                 ),
                               ),
                             ],
@@ -162,9 +164,11 @@ class ChampionCandidateCard extends StatelessWidget {
                                 color: Colors.black54,
                               ),
                               SizedBox(width: 4),
-                              Text(
-                                  getExperienceLabel(workStatus: categoryModel.workStatus,experienceYears: categoryModel.totalExperienceYears),
-                                style: theme.displaySmall?.copyWith(color: Colors.black54),
+                              Flexible(
+                                child: Text(
+                                    getExperienceLabel(workStatus: categoryModel.workStatus,experienceYears: categoryModel.totalExperienceYears),
+                                  style: theme.displaySmall?.copyWith(color: Colors.black54),
+                                ),
                               ),
                             ],
                           ),
