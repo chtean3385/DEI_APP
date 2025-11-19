@@ -14,6 +14,11 @@ class JobServiceController extends StateNotifier<JobServiceState> {
   JobServiceController(this._ref) : super(JobServiceState.initial()) {
     fetchJobServices();
   }
+  @override
+  void dispose() {
+    debugPrint("🔥 JobServiceController disposed");
+    super.dispose();
+  }
 
   Future<void> fetchJobServices() async {
     state = state.copyWith(pageState: PageState.loading);

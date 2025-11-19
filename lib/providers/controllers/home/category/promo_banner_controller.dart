@@ -18,6 +18,12 @@ class PromoBannerController extends StateNotifier<PromoBannerState> {
     fetchPromoBanners();
   }
 
+  @override
+  void dispose() {
+    debugPrint("🔥 PromoBannerController disposed");
+    super.dispose();
+  }
+
   Future<void> fetchPromoBanners() async {
     state = state.copyWith(pageState: PageState.loading);
     try {

@@ -13,6 +13,11 @@ class AboutUsController extends StateNotifier<AboutUsState> {
   AboutUsController() : super(AboutUsState.initial()) {
     fetchData();
   }
+  @override
+  void dispose() {
+    debugPrint("🔥 AboutUsController disposed");
+    super.dispose();
+  }
 
   Future<void> fetchData() async {
     state = state.copyWith(pageState: PageState.loading);

@@ -14,7 +14,11 @@ class ChampionCandidatesController extends StateNotifier<ChampionCandidatesState
   ChampionCandidatesController(this._ref) : super(ChampionCandidatesState.initial()) {
     fetchData();
   }
-
+  @override
+  void dispose() {
+    debugPrint("🔥 ChampionCandidatesController disposed");
+    super.dispose();
+  }
   Future<void> fetchData() async {
     state = state.copyWith(pageState: PageState.loading);
     try {

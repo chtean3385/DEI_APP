@@ -17,6 +17,11 @@ class CareerExploreServicesController extends StateNotifier<CareerExploreService
   CareerExploreServicesController() : super(CareerExploreServicesState.initial()) {
     fetchData();
   }
+  @override
+  void dispose() {
+    debugPrint("🔥 CareerExploreServicesController disposed");
+    super.dispose();
+  }
 
   Future<void> fetchData() async {
     state = state.copyWith(pageState: PageState.loading);
