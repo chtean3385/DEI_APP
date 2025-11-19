@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:mobile_number/mobile_number.dart';
 
 class UserInfoService {
   static final GoogleSignIn _googleSignIn = GoogleSignIn.instance;
@@ -62,38 +60,3 @@ class UserInfoService {
 
 
 
-class MobileHelper {
-  // Fetch Mobile Number or SIM Card Number
-  static Future<String?> getMobileNumber() async {
-    try {
-      // Check & request permission
-      if (!await MobileNumber.hasPhonePermission) {
-        debugPrint("No permission, requesting...");
-        await MobileNumber.requestPhonePermission; // ✅ fixed: no ()
-        if (!await MobileNumber.hasPhonePermission) {
-          debugPrint("Permission denied by user");
-          return null;
-        }
-      }
-
-      // Try fetching mobile number
-      debugPrint("1111 - Trying to get number directly");
-      final String? mobile = await MobileNumber.mobileNumber;
-      debugPrint("3333 - $mobile");
-      if (mobile != null && mobile.isNotEmpty) return mobile;
-
-      // Fallback: get SIM card list
-      debugPrint("2222 - Falling back to SIM list");
-      final List<SimCard>? sims = await MobileNumber.getSimCards;
-      if (sims != null && sims.isNotEmpty) {
-        debugPrint("4444 - ${sims.first.number}");
-        return sims.first.number;
-      }
-
-      return null;
-    } on PlatformException catch (e) {
-      debugPrint("Error fetching mobile number: ${e.message}");
-      return null;
-    }
-  }
-}

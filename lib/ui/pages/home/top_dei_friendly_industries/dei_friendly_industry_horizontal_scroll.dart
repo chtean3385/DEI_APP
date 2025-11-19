@@ -117,7 +117,7 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
     if (industries?.isEmpty == true) return const SizedBox.shrink();
 
     return SizedBox(
-      height: 170,
+      height: 190,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),

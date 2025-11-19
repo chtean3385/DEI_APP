@@ -197,7 +197,7 @@ void _handleAction(String field) {
   switch (field) {
     case "emailVerified":
       // Navigate or show verify flow
-      // showEmailVerificationAlert();
+      showEmailVerificationAlert();
       // showPromotionAlert(
       //   PromotionModel(
       //     imageUrl: "https://freeimage.host/i/fJdZGwJ",

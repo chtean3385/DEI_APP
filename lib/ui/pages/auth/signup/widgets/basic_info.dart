@@ -9,7 +9,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/app_colors.dart';
 import '../../../../../providers/providers.dart';
-import '../../../../../service/screen_shot_security_manager.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../../common/email_suggestion_field.dart';
@@ -45,7 +44,6 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
   void initState() {
     // TODO: implement initState
     super.initState();
-    ScreenShotProtector.enableScreenProtection();
   }
 
   @override
@@ -58,7 +56,6 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
     _nameFocus.dispose();
     _emailFocus.dispose();
     _checkBoxFocus.dispose();
-    ScreenShotProtector.disableScreenProtection();
     debugPrint("BasicPersonalInfo dispose");
 
     super.dispose();

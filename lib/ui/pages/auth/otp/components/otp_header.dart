@@ -32,6 +32,7 @@ class OTPHeader extends StatelessWidget {
            // :
            // 'Verify Mobile Number',
           style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600),
+           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 12),
 

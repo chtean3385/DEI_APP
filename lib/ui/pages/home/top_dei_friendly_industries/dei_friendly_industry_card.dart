@@ -42,9 +42,10 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
                 (department.icon?.isNotEmpty ?? false)
                     ? CircleAvatar(
                         radius: 20,
-                        backgroundColor: department.backgroundColor != null
-                            ? HexColor(department.backgroundColor!)
-                            : null,
+                        backgroundColor: AppColors.primaryColor,
+                        // backgroundColor: department.backgroundColor != null
+                        //     ? HexColor(department.backgroundColor!)
+                        //     : null,
                         child: Icon(
                           getFontAwesomeIcon(department.icon),
                           color: Colors.white,
@@ -82,16 +83,18 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
                 chipTile("Focus: ${department.focus ?? ""}", false),
                 gapH4(),
                 gapH4(),
-                Text(
-                  " ${department.openJobs?.toString() ?? ""} Open jobs",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: true,
-                  style: theme.labelMedium?.copyWith(
-                    fontSize: 10,
-                    color: AppColors.primaryColor,
+                Flexible(
+                  child: Text(
+                    " ${department.openJobs?.toString() ?? ""} Open jobs",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    softWrap: true,
+                    style: theme.labelMedium?.copyWith(
+                      fontSize: 10,
+                      color: AppColors.primaryColor,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
-                  textAlign: TextAlign.center,
                 ),
               ],
             ),

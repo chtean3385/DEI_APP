@@ -17,7 +17,7 @@ class NotificationService {
   /// ---------------------------------------------------------------------------
   Future<void> init() async {
     // Initialization settings
-    const androidInit = AndroidInitializationSettings('@drawable/ic_notification');
+    const androidInit = AndroidInitializationSettings('@drawable/launcher_icon');
     const iosInit = DarwinInitializationSettings();
     const initSettings =
     InitializationSettings(android: androidInit, iOS: iosInit);

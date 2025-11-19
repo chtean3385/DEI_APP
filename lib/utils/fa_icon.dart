@@ -90,6 +90,14 @@ final Map<String, IconData> fontAwesomeMap = {
 
   'FaSchool': FontAwesomeIcons.school,
   'FaLeaf': FontAwesomeIcons.leaf,
+  // home /dei candidates
+  'FaSatelliteDish': FontAwesomeIcons.satelliteDish,
+  'FaBook': FontAwesomeIcons.book,
+  'FaAmbulance': FontAwesomeIcons.ambulance,
+  'FaCreativeCommonsNcEu': FontAwesomeIcons.creativeCommonsNcEu,
+  'FaMarker': FontAwesomeIcons.marker,
+  'FaBloggerB': FontAwesomeIcons.bloggerB,
+  'FaSuitcase': FontAwesomeIcons.suitcase,
 };
 IconData getFontAwesomeIcon(String? iconName) {
   return fontAwesomeMap[iconName] ?? Icons.circle;

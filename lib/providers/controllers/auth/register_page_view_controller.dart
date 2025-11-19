@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:riverpod/riverpod.dart';
 
 import '../../../models/state_models/signup_flow_state.dart';
-import '../../../service/screen_shot_security_manager.dart';
 import '../../../service/user_info_service.dart';
 
 
@@ -95,19 +94,15 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
   Future<void> _autoFillUserData() async {
     debugPrint("SignupFlowController _autoFillUserData");
     final email = await UserInfoService.getUserEmail();
-    final mobile = await MobileHelper.getMobileNumber();
 
     state = state.copyWith(
       email: email,
-      phone: mobile,
     );
   }
   iniController(){
     _autoFillUserData();
-    ScreenShotProtector.enableScreenProtection();
   }
   disposeValues(){
-    ScreenShotProtector.disableScreenProtection();
   }
 
 }
