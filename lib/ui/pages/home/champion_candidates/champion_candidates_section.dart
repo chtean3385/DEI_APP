@@ -21,7 +21,7 @@ class ChampionCandidatesSection extends ConsumerWidget {
       return const SizedBox.shrink();
     }
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.only(bottom:12),
       child: ColoredBox(
         color: AppColors.bg,
         child: state.pageState == PageState.loading

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/ui/pages/home/components/boost/resume_boost.dart';
 import 'package:flutter/material.dart';
@@ -91,71 +92,76 @@ class _ProfileCompletionSliderState
     final profile = state.profileData;
     if(profile?.profileCompletion == 100) return const SizedBox.shrink();
     final List<MissingField> data = profile?.missingFields ?? [];
-    return Stack(
+    return Column(
       children: [
-        Column(
+        Stack(
           children: [
-            SizedBox(height: 100, width: double.infinity),
-            ColoredBox(
-              color: Colors.white,
-              child: SizedBox(height: 50, width: double.infinity),
-            ),
-            SizedBox(
-              height: 80,
-              child: PageView.builder(
-                controller: _controller,
-                itemCount: data.length,
-                onPageChanged: (index) {
-                  setState(() => _currentPage = index);
-                },
-                itemBuilder: (context, index) {
-                  final item = data[index];
+            Column(
+              children: [
+                SizedBox(height: 100, width: double.infinity),
+                ColoredBox(
+                  color: Colors.white,
+                  child: SizedBox(height: 50, width: double.infinity),
+                ),
+                SizedBox(
+                  height: 80,
+                  child: PageView.builder(
+                    controller: _controller,
+                    itemCount: data.length,
+                    onPageChanged: (index) {
+                      setState(() => _currentPage = index);
+                    },
+                    itemBuilder: (context, index) {
+                      final item = data[index];
 
-                  final action = () {
-                    _handleAction(item.field ?? "");
-                  };
+                      final action = () {
+                        _handleAction(item.field ?? "");
+                      };
 
-                  return ResumeBoostCard(
-                    title: getBoostDescription(item.field ?? ""),
-                    buttonTitle: getButtonText(item.field ?? ""),
-                    boostPercentage: (item.percentage ?? 0).toDouble(),
-                    currentPage: _currentPage,
-                    totalPages: data.length,
-                    onButtonTap: action,
-                  );
-                },
-              ),
-            ),
+                      return ResumeBoostCard(
+                        title: getBoostDescription(item.field ?? ""),
+                        buttonTitle: getButtonText(item.field ?? ""),
+                        boostPercentage: (item.percentage ?? 0).toDouble(),
+                        currentPage: _currentPage,
+                        totalPages: data.length,
+                        onButtonTap: action,
+                      );
+                    },
+                  ),
+                ),
 
-            // indicator row (outside card)
-            ColoredBox(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 8, left: 16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: List.generate(
-                    data.length,
-                    (index) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 3),
-                      width: _currentPage == index ? 20 : 10,
-                      height: 6,
-                      decoration: BoxDecoration(
-                        color: _currentPage == index
-                            ? Colors.red
-                            : Colors.grey.shade300,
-                        borderRadius: BorderRadius.circular(3),
+                // indicator row (outside card)
+                ColoredBox(
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 8, left: 16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: List.generate(
+                        data.length,
+                        (index) => Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 3),
+                          width: _currentPage == index ? 20 : 10,
+                          height: 6,
+                          decoration: BoxDecoration(
+                            color: _currentPage == index
+                                ? Colors.red
+                                : Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(3),
+                          ),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
+              ],
+            ),
+            ProfileSection(
+              showMissingData: true,
             ),
           ],
         ),
-        ProfileSection(
-          showMissingData: true,
-        ),
+        coloredGap()
       ],
     );
   }

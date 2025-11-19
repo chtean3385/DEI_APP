@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
@@ -26,3 +27,7 @@ Widget gap100() => const SizedBox(height: 100);
 Widget width32() => const SizedBox(width: 32);
 Widget gapW16() => const SizedBox(width: 16);
 Widget gapW12() => const SizedBox(width: 12);
+
+Widget coloredGap() => ColoredBox(
+  color: AppColors.bg,
+    child: const SizedBox(height: 12,width: double.infinity,));

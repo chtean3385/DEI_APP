@@ -23,7 +23,7 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
       return const SizedBox.shrink();
     }
     return Padding(
-      padding: const EdgeInsets.only(bottom: 24),
+      padding: const EdgeInsets.only(bottom: 8),
       child: ColoredBox(
         color: AppColors.bg,
         child: state.pageState == PageState.loading

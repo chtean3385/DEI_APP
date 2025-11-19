@@ -58,25 +58,33 @@ class JobsCategorySection extends ConsumerWidget {
   Widget _data(JobCategoryState categoryState, BuildContext context) {
     final theme = Theme.of(context).textTheme;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // header row
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                categoryState.data?.title ?? "",
-                style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+              // header row
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      categoryState.data?.title ?? "",
+                      style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                ),
               ),
-              const SizedBox(height: 8),
+              // horizontal list
+              _dataItems(categoryState),
             ],
           ),
         ),
-        // horizontal list
-        _dataItems(categoryState),
+        coloredGap()
       ],
     );
   }

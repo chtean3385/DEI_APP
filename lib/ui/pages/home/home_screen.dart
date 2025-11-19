@@ -29,40 +29,37 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ColoredBox(
-      color: Colors.white,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
 
-            ProfileCompletionSlider(),
-            RecommendedJobsHorizontal(),
-            // WeAreHiringBanner(),
-            JobsCategorySection(),
-            // ExploreOurServices(),
-            ExploreServicesPrograms(),
-            BlogsHorizontal(),
-            // FeaturedEmployersSection(),
-            // JobsServiceSection(),
-            ChampionCandidatesSection(),
-            DeiFriendlyIndustrySection(),
-            // gapH16(),
-            //
+          ProfileCompletionSlider(),
+          RecommendedJobsHorizontal(),
+          // WeAreHiringBanner(),
+          JobsCategorySection(),
+          // ExploreOurServices(),
+          ExploreServicesPrograms(),
+          BlogsHorizontal(),
+          // FeaturedEmployersSection(),
+          // JobsServiceSection(),
+          ChampionCandidatesSection(),
+          DeiFriendlyIndustrySection(),
+          // gapH16(),
+          //
 
-            // // gapH16(),
-            // JobsYouMightLike(),
-            // gapH16(),
-            // ExploreMoreJobs(),
-            // gapH16(),
-            // TopCompaniesSection(),
-            // gapH16(),
-            // RecruitersNoticingWidget(
-            //   recruiters: ["01", "02", "03", "04"], // sample data
-            // ),
-            HiringInfoWidget(),
-          ],
-        ),
+          // // gapH16(),
+          // JobsYouMightLike(),
+          // gapH16(),
+          // ExploreMoreJobs(),
+          // gapH16(),
+          // TopCompaniesSection(),
+          // gapH16(),
+          // RecruitersNoticingWidget(
+          //   recruiters: ["01", "02", "03", "04"], // sample data
+          // ),
+          HiringInfoWidget(),
+        ],
       ),
     );
   }
