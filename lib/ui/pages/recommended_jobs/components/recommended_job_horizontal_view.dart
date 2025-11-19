@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -36,91 +37,96 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
     int length = state.data!.length > 5
         ? (state.data!.length + 1)
         : state.data!.length;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 24, top: 12),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // header row
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: [
-                Text(
-                  "Recommended jobs for you",
-                  style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const Spacer(),
-              if(state.data!.length > 5)  ViewAllButton(
-                  isSmall: true,
-                  onPressed: AppNavigator.loadRecommendedJobsScreen,
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 12),
-          SizedBox(
-            height: 190,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 16),
-              itemCount: length,
-              itemBuilder: (context, index) {
-                if (index < state.data!.length) {
-                  final item = state.data![index];
-                  return RecommendedJobCard(
-                    key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
-                    jobModel: item,
-                    onTap: () =>
-                        AppNavigator.loadJobDetailsScreen(jobId: item.id ?? ""),
-                  );
-                } else {
-                  // special "View all jobs" card
-                  return SizedBox(
-                    width: 200,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(width: 1, color: Colors.black12),
-                      ),
-                      elevation: 0,
-                      margin: const EdgeInsets.only(right: 12),
-                      color: Colors.white,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(12),
-                        onTap: () => AppNavigator.loadRecommendedJobsScreen(),
-                        child: Center(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                "View all ${state.totalCount?.toString() ?? ""} jobs",
-                                style: navigatorKey
-                                    .currentContext!
-                                    .textTheme
-                                    .labelMedium
-                                    ?.copyWith(color: AppColors.primaryColor),
-                              ),
-                              SizedBox(width: 6),
-                              Icon(
-                                Icons.arrow_forward_ios,
-                                size: 14,
-                                color: AppColors.primaryColor,
-                              ),
-                            ],
-                          ),
-                        ),
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 16, top: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // header row
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    Text(
+                      "Recommended jobs for you",
+                      style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                  );
-                }
-              },
-            ),
+                    const Spacer(),
+                  if(state.data!.length > 5)  ViewAllButton(
+                      isSmall: true,
+                      onPressed: AppNavigator.loadRecommendedJobsScreen,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              SizedBox(
+                height: 190,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
+                  itemCount: length,
+                  itemBuilder: (context, index) {
+                    if (index < state.data!.length) {
+                      final item = state.data![index];
+                      return RecommendedJobCard(
+                        key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
+                        jobModel: item,
+                        onTap: () =>
+                            AppNavigator.loadJobDetailsScreen(jobId: item.id ?? ""),
+                      );
+                    } else {
+                      // special "View all jobs" card
+                      return SizedBox(
+                        width: 200,
+                        child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                            side: BorderSide(width: 1, color: Colors.black12),
+                          ),
+                          elevation: 0,
+                          margin: const EdgeInsets.only(right: 12),
+                          color: Colors.white,
+                          child: InkWell(
+                            borderRadius: BorderRadius.circular(12),
+                            onTap: () => AppNavigator.loadRecommendedJobsScreen(),
+                            child: Center(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    "View all ${state.totalCount?.toString() ?? ""} jobs",
+                                    style: navigatorKey
+                                        .currentContext!
+                                        .textTheme
+                                        .labelMedium
+                                        ?.copyWith(color: AppColors.primaryColor),
+                                  ),
+                                  SizedBox(width: 6),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 14,
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        coloredGap()
+      ],
     );
   }
 
