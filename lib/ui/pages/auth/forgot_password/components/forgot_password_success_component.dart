@@ -86,7 +86,7 @@ class _SuccessTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return  Text(
       'Check Your Email',
-      style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600)
+      style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600,color: Colors.black)
 
     );
   }
@@ -97,6 +97,7 @@ class _SuccessMessage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'We\'ve sent a password reset link to',
+      textAlign: TextAlign.center,
       style: context.textTheme.bodySmall?.copyWith(color: Colors.black54)
 
     );

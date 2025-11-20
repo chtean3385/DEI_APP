@@ -39,6 +39,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
     final controller = ref.read(loginProvider.notifier);
     return Scaffold(
       resizeToAvoidBottomInset: true,
+      backgroundColor: Colors.white,
       body:SafeArea(
         child: LayoutBuilder(
             builder: (context, constraints)  {

@@ -61,7 +61,7 @@ class _Title extends StatelessWidget {
     return Text(
       'Forgot Password?',
       style: context.textTheme.headlineLarge?.copyWith(
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w600,color: Colors.black
       ),
     );
   }

@@ -31,11 +31,10 @@ class VerifyOtpController extends StateNotifier<OtpState> {
         userId: state.userId ?? "",
         otp: otp,
       );
-
-      setPageState(PageState.success);
-      Navigator.pop(navigatorKey.currentContext!, true);
       showSnackBar(result.message, duration: 3);
       final AuthModel authModel = AuthModel.fromJson(result.data);
+      setPageState(PageState.success);
+      Navigator.pop(navigatorKey.currentContext!, true);
      await AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
       saveFcm();
       debugPrint("success - verifyOtp");

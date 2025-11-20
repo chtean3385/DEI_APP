@@ -31,7 +31,7 @@ class OTPHeader extends StatelessWidget {
            'Verify Mobile Number',
            // :
            // 'Verify Mobile Number',
-          style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600),
+          style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600,color: Colors.black),
            textAlign: TextAlign.center,
         ),
         const SizedBox(height: 12),
@@ -40,6 +40,7 @@ class OTPHeader extends StatelessWidget {
         Text(
           // isEmployer ?
           "Enter the 6-digit OTP send to",
+          textAlign: TextAlign.center,
               // : "Enter the 6-digit OTP send to",
           style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
         ),
