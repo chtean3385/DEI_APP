@@ -43,6 +43,7 @@ class _OnBoardScreenState extends ConsumerState<OnBoardScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: _view(),
     );
   }
@@ -171,7 +172,7 @@ class _OnBoardScreenState extends ConsumerState<OnBoardScreen> {
       width: double.infinity,
       constraints: BoxConstraints(minHeight: 280),
       decoration: const BoxDecoration(
-        color: AppColors.secondaryColor,
+        color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
@@ -201,7 +202,7 @@ class _OnBoardScreenState extends ConsumerState<OnBoardScreen> {
           const SizedBox(height: 30),
           Text(
             subTitle,
-            style: context.textTheme.bodyMedium,
+            style: context.textTheme.bodyMedium?.copyWith(color: Colors.black),
             textAlign: TextAlign.center,
           ),
         ],
@@ -293,7 +294,7 @@ class _OnBoardScreenState extends ConsumerState<OnBoardScreen> {
         child: Text(
           buttonText,
           style: context.textTheme.titleMedium?.copyWith(
-            color: context.theme.colorScheme.onPrimary,
+            color: Colors.white,
           ),
         ),
       ),

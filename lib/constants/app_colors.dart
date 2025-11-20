@@ -7,12 +7,7 @@ class AppColors {
   static const primarySemiDarkColor = Color(0xFF6d65c6); // Medium Dark Blue
   static const primaryDarkColor =  Color(0xFF764ba2);     // Deep Navy Blue
   static const bg = Color(0xFFEDEFFB);
-  static const bg1 = Color(0xfff8f9fa);
   static const bg2 = Color(0xffeef1f5);
-// Secondary Shades (White)
-  static const secondaryColor = Color(0xFFFFFFFF); // Pure White
-  static const secondarySemiDarkColor = Color(0xFFE0E0E0); // Light Grey
-  static const secondaryDarkColor = Color(0xFFB3B3B3);     // Medium Grey
 
 
 

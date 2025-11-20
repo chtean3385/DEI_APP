@@ -21,6 +21,7 @@ class JobCategoryCard extends StatelessWidget {
       child: SizedBox(
         width: 80,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             RainbowBorderAvatar(imageUrl:  categoryModel.image ?? ""),
             const SizedBox(height: 6),

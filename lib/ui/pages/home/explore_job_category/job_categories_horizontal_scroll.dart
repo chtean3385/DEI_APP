@@ -106,7 +106,7 @@ class JobsCategorySection extends ConsumerWidget {
   Widget _dataItems(JobCategoryState categoryState) {
     return (categoryState.data?.categories.length ?? 0) > 0
         ? SizedBox(
-      height: 90,
+      height: 95,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),

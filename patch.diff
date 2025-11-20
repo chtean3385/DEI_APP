@@ -1,0 +1,1053 @@
+From b1400b38b4c754fd02296d17a9caffb71b712d95 Mon Sep 17 00:00:00 2001
+From: Greejith VC <greejithvc@gmail.com>
+Date: Wed, 19 Nov 2025 16:54:34 +0530
+Subject: [PATCH] settings - accessibility setings, font size, theme , in
+ progress
+
+---
+ lib/constants/app_theme.dart                  | 145 ++++++--
+ lib/main.dart                                 |   5 +-
+ .../acccessibility_settings.dart              |  25 ++
+ lib/providers/theme_controller.dart           |  83 +++++
+ .../common_screens/components/blog_card.dart  |  12 +-
+ .../components/button_color_dialog.dart       |  29 ++
+ .../components/setting_section_title.dart     |  19 ++
+ .../components/setting_section_togle.dart     |  45 +++
+ .../employee_settings/employee_settings.dart  | 313 ++++++++++++------
+ .../employee_settings/settings_view.dart      | 150 +++++++++
+ .../champion_candidate_card.dart              |  18 +-
+ .../home/components/boost/resume_boost.dart   |   1 +
+ 12 files changed, 714 insertions(+), 131 deletions(-)
+ create mode 100644 lib/models/accessibility/acccessibility_settings.dart
+ create mode 100644 lib/ui/pages/employee_settings/components/button_color_dialog.dart
+ create mode 100644 lib/ui/pages/employee_settings/components/setting_section_title.dart
+ create mode 100644 lib/ui/pages/employee_settings/components/setting_section_togle.dart
+ create mode 100644 lib/ui/pages/employee_settings/settings_view.dart
+
+diff --git a/lib/constants/app_theme.dart b/lib/constants/app_theme.dart
+index b72ad91..85a09f9 100755
+--- a/lib/constants/app_theme.dart
++++ b/lib/constants/app_theme.dart
+@@ -1,14 +1,54 @@
++import 'package:dei_champions/models/accessibility/acccessibility_settings.dart';
+ import 'package:flutter/material.dart';
+ import 'package:google_fonts/google_fonts.dart';
+ 
+ import 'app_colors.dart';
+ 
+- ThemeData lightTheme(BuildContext context) {
++ ThemeData lightTheme(BuildContext context,AccessibilitySettingsModel a) {
+ final isTablet = MediaQuery
+     .of(context)
+     .size
+     .shortestSide >= 600;
+ 
++final baseTextTheme = TextTheme(
++  displayLarge: GoogleFonts.inter(
++    fontSize:isTablet? 80 : 70,
++    fontWeight: FontWeight.bold,
++    color: Colors.black,
++  ),
++  headlineMedium: GoogleFonts.inter(
++    fontSize: isTablet? 24 :20,
++    fontWeight: FontWeight.bold,
++    color: Colors.black,
++  ),
++  titleLarge: GoogleFonts.inter(
++    fontSize: isTablet? 32 :24,
++    fontWeight: FontWeight.bold,
++    color: Colors.black,
++  ),
++  titleMedium: GoogleFonts.inter(
++    fontSize: isTablet? 18 :16,
++    fontWeight: FontWeight.bold,
++    color: Colors.black,
++  ),
++  labelMedium: GoogleFonts.inter(
++    fontSize: isTablet? 16 :14,
++    fontWeight: FontWeight.bold,
++    color: Colors.black,
++  ),
++  bodyMedium: GoogleFonts.inter(
++    fontSize:isTablet? 16 : 14,
++    fontWeight: FontWeight.normal,
++    color: Colors.black,
++  ),
++  labelSmall: GoogleFonts.inter(
++    fontSize:isTablet? 14 : 12,
++    fontWeight: FontWeight.bold,
++    color: Colors.black,
++  ),
++);
++final scaledTextTheme = applyFontScale(baseTextTheme, a.fontScale);
++
+ return ThemeData(
+   brightness: Brightness.light,
+   colorScheme: ColorScheme.fromSeed(
+@@ -21,65 +61,125 @@ return ThemeData(
+     backgroundColor: Colors.white,
+     elevation: 1,
+     titleTextStyle: GoogleFonts.inter(
+-      fontSize: 14,
++      fontSize: 14 * a.fontScale,
+       fontWeight: FontWeight.bold,
+       color: Colors.black,
+     ),
+     iconTheme: const IconThemeData(color: Colors.black),
+   ),
+-  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+-    backgroundColor: Colors.white,
++  // ⬇️ APPLY BUTTON COLOR HERE
++  elevatedButtonTheme: ElevatedButtonThemeData(
++    style: ElevatedButton.styleFrom(
++      backgroundColor: a.buttonColor ?? Colors.black,
++      foregroundColor: Colors.white,
++      textStyle: GoogleFonts.inter(
++        fontWeight: FontWeight.bold,
++        fontSize: 14 * a.fontScale,
++      ),
++    ),
++  ),
++
++  outlinedButtonTheme: OutlinedButtonThemeData(
++    style: OutlinedButton.styleFrom(
++      foregroundColor: a.buttonColor ?? Colors.black,
++      side: BorderSide(color: a.buttonColor ?? Colors.black, width: 1.5),
++      textStyle: GoogleFonts.inter(
++        fontWeight: FontWeight.bold,
++        fontSize: 14 * a.fontScale,
++      ),
++    ),
++  ),
++
++  textButtonTheme: TextButtonThemeData(
++    style: TextButton.styleFrom(
++      foregroundColor: a.buttonColor ?? Colors.black,
++      textStyle: GoogleFonts.inter(
++        fontWeight: FontWeight.bold,
++        fontSize: 14 * a.fontScale,
++      ),
++    ),
++  ),
++  floatingActionButtonTheme:  FloatingActionButtonThemeData(
++    backgroundColor: a.buttonColor ?? Colors.white,
+     foregroundColor: Colors.white,
+   ),
+   useMaterial3: true,
+   bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+     backgroundColor: Colors.white,
+   ),
+-  textTheme: TextTheme(
++  textTheme:scaledTextTheme,
++  textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.black),
++);}
++ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
++  final isTablet = MediaQuery
++      .of(context)
++      .size
++      .shortestSide >= 600;
++
++  final baseTextTheme = TextTheme(
+     displayLarge: GoogleFonts.inter(
+-      fontSize:isTablet? 80 : 70,
++      fontSize: isTablet ? 80 : 70,
+       fontWeight: FontWeight.bold,
+       color: Colors.black,
+     ),
++    headlineLarge: GoogleFonts.inter(
++      fontSize:isTablet ? 38 :  28,
++      fontWeight: FontWeight.normal,
++      color: Colors.black,
++    ),
+     headlineMedium: GoogleFonts.inter(
+-      fontSize: isTablet? 24 :20,
++      fontSize:isTablet ? 24 :  20,
+       fontWeight: FontWeight.bold,
+       color: Colors.black,
+     ),
++    bodyLarge: GoogleFonts.inter(
++      fontSize:isTablet ? 22 :  18,
++      fontWeight: FontWeight.normal,
++      color: Colors.black,
++    ),
++    headlineSmall: GoogleFonts.inter(
++      fontSize:isTablet ? 24 : 20,
++      fontWeight: FontWeight.normal,
++      color: Colors.black,
++    ),
+     titleLarge: GoogleFonts.inter(
+-      fontSize: isTablet? 32 :24,
++      fontSize:isTablet ? 32 : 24,
+       fontWeight: FontWeight.bold,
+       color: Colors.black,
+     ),
+     titleMedium: GoogleFonts.inter(
+-      fontSize: isTablet? 18 :16,
++      fontSize:isTablet ? 18 : 16,
+       fontWeight: FontWeight.bold,
+       color: Colors.black,
+     ),
++    bodySmall: GoogleFonts.inter(
++      fontSize: isTablet ? 18 :16,
++      fontWeight: FontWeight.normal,
++      color: Colors.black,
++    ),
+     labelMedium: GoogleFonts.inter(
+-      fontSize: isTablet? 16 :14,
++      fontSize: isTablet ? 16 :14,
+       fontWeight: FontWeight.bold,
+       color: Colors.black,
+     ),
+     bodyMedium: GoogleFonts.inter(
+-      fontSize:isTablet? 16 : 14,
++      fontSize: isTablet ? 16 :14,
+       fontWeight: FontWeight.normal,
+       color: Colors.black,
+     ),
++
+     labelSmall: GoogleFonts.inter(
+-      fontSize:isTablet? 14 : 12,
++      fontSize: isTablet ? 14 :12,
+       fontWeight: FontWeight.bold,
+       color: Colors.black,
+     ),
+-  ),
+-  textSelectionTheme: const TextSelectionThemeData(cursorColor: Colors.black),
+-);}
+-ThemeData darkTheme(BuildContext context) {
+-  final isTablet = MediaQuery
+-      .of(context)
+-      .size
+-      .shortestSide >= 600;
+-
++    displaySmall: GoogleFonts.inter(
++      fontSize: isTablet ? 14 :12,
++      fontWeight: FontWeight.normal,
++      color: Colors.black,
++    ),
++  );
++  final scaledTextTheme = applyFontScale(baseTextTheme, a.fontScale);
+   return ThemeData(
+     brightness: Brightness.dark,
+     colorScheme: darkColorScheme,
+@@ -202,3 +302,6 @@ final ColorScheme darkColorScheme = ColorScheme(
+ );
+ 
+ 
++TextTheme applyFontScale(TextTheme base, double scale) {
++  return base.apply(fontSizeFactor: scale);
++}
+diff --git a/lib/main.dart b/lib/main.dart
+index 87ded92..4c7730c 100644
+--- a/lib/main.dart
++++ b/lib/main.dart
+@@ -44,11 +44,12 @@ class _MyAppState extends ConsumerState<MyApp> {
+   @override
+   Widget build(BuildContext context) {
+     final themeMode = ref.watch(themeNotifierProvider);
++    final accessibility = ref.watch(accessibilityProvider);
+     return MaterialApp(
+       navigatorKey: navigatorKey,
+       title: AppStrings.appName,
+-      theme: lightTheme(context),
+-      darkTheme: darkTheme(context),
++      theme: lightTheme(context, accessibility),
++      darkTheme: darkTheme(context, accessibility),
+       themeMode: themeMode,
+       debugShowCheckedModeBanner: false,
+       home: const SplashScreen(),
+diff --git a/lib/models/accessibility/acccessibility_settings.dart b/lib/models/accessibility/acccessibility_settings.dart
+new file mode 100644
+index 0000000..e23bb2a
+--- /dev/null
++++ b/lib/models/accessibility/acccessibility_settings.dart
+@@ -0,0 +1,25 @@
++import 'package:flutter/material.dart';
++
++
++
++class AccessibilitySettingsModel {
++  final double fontScale;
++  final Color buttonColor;
++  final bool isDarkMode;
++
++  const AccessibilitySettingsModel({
++    this.fontScale = 1.0,
++    this.buttonColor = Colors.blue,
++    this.isDarkMode = false,
++  });
++
++  AccessibilitySettingsModel copyWith({
++    double? fontScale,
++    Color? buttonColor,
++  }) {
++    return AccessibilitySettingsModel(
++      fontScale: fontScale ?? this.fontScale,
++      buttonColor: buttonColor ?? this.buttonColor,
++    );
++  }
++}
+diff --git a/lib/providers/theme_controller.dart b/lib/providers/theme_controller.dart
+index 5c43288..2ada653 100644
+--- a/lib/providers/theme_controller.dart
++++ b/lib/providers/theme_controller.dart
+@@ -1,4 +1,87 @@
++import 'package:dei_champions/models/accessibility/acccessibility_settings.dart';
+ import 'package:flutter/material.dart';
+ import 'package:flutter_riverpod/flutter_riverpod.dart';
+ 
+ final themeNotifierProvider = StateProvider<ThemeMode>((ref) => ThemeMode.dark);
++
++
++class AccessibilityController extends Notifier<AccessibilitySettingsModel> {
++  @override
++  AccessibilitySettingsModel build() => const AccessibilitySettingsModel();
++
++  void increaseFont() {
++    state = state.copyWith(fontScale: (state.fontScale + 0.1).clamp(0.8, 1.5));
++  }
++
++  void decreaseFont() {
++    state = state.copyWith(fontScale: (state.fontScale - 0.1).clamp(0.8, 1.5));
++  }
++
++  void setButtonColor(Color color) {
++    state = state.copyWith(buttonColor: color);
++  }
++}
++
++final accessibilityProvider =
++NotifierProvider<AccessibilityController, AccessibilitySettingsModel>(
++    AccessibilityController.new);
++
++
++// -----------------------------------------------------
++// MODEL
++// -----------------------------------------------------
++class UserSettingsModel {
++  final bool notifications;
++  final bool emailAlert;
++  final bool smsAlert;
++  final Color buttonColor;
++
++  const UserSettingsModel({
++    this.notifications = true,
++    this.emailAlert = false,
++    this.smsAlert = false,
++    this.buttonColor = Colors.blue,
++  });
++
++  UserSettingsModel copyWith({
++    bool? notifications,
++    bool? emailAlert,
++    bool? smsAlert,
++    Color? buttonColor,
++  }) {
++    return UserSettingsModel(
++      notifications: notifications ?? this.notifications,
++      emailAlert: emailAlert ?? this.emailAlert,
++      smsAlert: smsAlert ?? this.smsAlert,
++      buttonColor: buttonColor ?? this.buttonColor,
++    );
++  }
++}
++
++// -----------------------------------------------------
++// CONTROLLER
++// -----------------------------------------------------
++class UserSettingsController extends Notifier<UserSettingsModel> {
++  @override
++  UserSettingsModel build() => const UserSettingsModel();
++
++  void toggleNotifications(bool val) {
++    state = state.copyWith(notifications: val);
++  }
++
++  void toggleEmail(bool val) {
++    state = state.copyWith(emailAlert: val);
++  }
++
++  void toggleSMS(bool val) {
++    state = state.copyWith(smsAlert: val);
++  }
++
++  void setButtonColor(Color color) {
++    state = state.copyWith(buttonColor: color);
++  }
++}
++
++final userSettingsProvider =
++NotifierProvider<UserSettingsController, UserSettingsModel>(
++    UserSettingsController.new);
+diff --git a/lib/ui/pages/common_screens/components/blog_card.dart b/lib/ui/pages/common_screens/components/blog_card.dart
+index a40e0e2..c48e772 100644
+--- a/lib/ui/pages/common_screens/components/blog_card.dart
++++ b/lib/ui/pages/common_screens/components/blog_card.dart
+@@ -334,11 +334,13 @@ class BlogCardHorizontal extends StatelessWidget {
+                     ),
+ 
+                     // time ago text
+-                    Text(
+-                      " ${getShortTimeAgo(item.createdAt ?? DateTime.now())}",
+-                      overflow: TextOverflow.ellipsis,
+-                      style: theme.displaySmall?.copyWith(
+-                        color: Colors.black45,
++                    Flexible(
++                      child: Text(
++                        " ${getShortTimeAgo(item.createdAt ?? DateTime.now())}",
++                        overflow: TextOverflow.ellipsis,
++                        style: theme.displaySmall?.copyWith(
++                          color: Colors.black45,
++                        ),
+                       ),
+                     ),
+                   ],
+diff --git a/lib/ui/pages/employee_settings/components/button_color_dialog.dart b/lib/ui/pages/employee_settings/components/button_color_dialog.dart
+new file mode 100644
+index 0000000..f54fdab
+--- /dev/null
++++ b/lib/ui/pages/employee_settings/components/button_color_dialog.dart
+@@ -0,0 +1,29 @@
++import 'package:flutter/material.dart';
++
++class ButtonColorDialog extends StatelessWidget {
++  @override
++  Widget build(BuildContext context) {
++    return AlertDialog(
++      title: const Text("Pick Button Color"),
++      content: Wrap(
++        spacing: 10,
++        children: [
++          _colorCircle(context, Colors.blue),
++          _colorCircle(context, Colors.red),
++          _colorCircle(context, Colors.green),
++          _colorCircle(context, Colors.orange),
++        ],
++      ),
++    );
++  }
++
++  Widget _colorCircle(BuildContext context, Color color) {
++    return GestureDetector(
++      onTap: () => Navigator.pop(context, color),
++      child: CircleAvatar(
++        radius: 18,
++        backgroundColor: color,
++      ),
++    );
++  }
++}
+diff --git a/lib/ui/pages/employee_settings/components/setting_section_title.dart b/lib/ui/pages/employee_settings/components/setting_section_title.dart
+new file mode 100644
+index 0000000..7b18cf1
+--- /dev/null
++++ b/lib/ui/pages/employee_settings/components/setting_section_title.dart
+@@ -0,0 +1,19 @@
++import 'package:dei_champions/widgets/others/theme_extension.dart';
++import 'package:flutter/material.dart';
++
++class SectionTitle extends StatelessWidget {
++  final String text;
++
++  const SectionTitle(this.text, {super.key});
++
++  @override
++  Widget build(BuildContext context) {
++    return Padding(
++      padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
++      child: Text(
++        text,
++        style: context.textTheme.labelMedium?.copyWith(color: Colors.grey),
++      ),
++    );
++  }
++}
+\ No newline at end of file
+diff --git a/lib/ui/pages/employee_settings/components/setting_section_togle.dart b/lib/ui/pages/employee_settings/components/setting_section_togle.dart
+new file mode 100644
+index 0000000..9a908eb
+--- /dev/null
++++ b/lib/ui/pages/employee_settings/components/setting_section_togle.dart
+@@ -0,0 +1,45 @@
++import 'package:dei_champions/widgets/others/theme_extension.dart';
++import 'package:flutter/material.dart';
++
++import '../../../../constants/app_colors.dart';
++
++class SettingToggle extends StatelessWidget {
++  final String title;
++  final String subtitle;
++  final bool value;
++  final Function(bool) onChanged;
++  final IconData icon;
++
++  const SettingToggle({
++    super.key,
++    required this.title,
++    required this.subtitle,
++    required this.value,
++    required this.onChanged,
++    required this.icon,
++  });
++
++  @override
++  Widget build(BuildContext context) {
++    return Card(
++      elevation: 2,
++      color: Colors.white,
++      shadowColor: AppColors.primaryColor,
++      surfaceTintColor: AppColors.primaryColor,
++      clipBehavior: Clip.antiAlias,
++      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
++      child: ListTile(
++        leading: Icon(icon, color: AppColors.primaryColor,size: 25,),
++        title: Text(title, style:  context.textTheme.labelMedium?.copyWith(height: 2)),
++        subtitle: Text(subtitle, style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54,height: 1.2)),
++        trailing: Switch(
++          value: value,
++          onChanged: onChanged,
++          activeThumbColor: AppColors.primaryColor,
++          inactiveTrackColor: Colors.grey,
++          padding: EdgeInsets.zero,
++        ),
++      ),
++    );
++  }
++}
+\ No newline at end of file
+diff --git a/lib/ui/pages/employee_settings/employee_settings.dart b/lib/ui/pages/employee_settings/employee_settings.dart
+index 437a842..e87abba 100644
+--- a/lib/ui/pages/employee_settings/employee_settings.dart
++++ b/lib/ui/pages/employee_settings/employee_settings.dart
+@@ -1,7 +1,11 @@
+ import 'package:dei_champions/constants/app_colors.dart';
++import 'package:dei_champions/ui/pages/employee_settings/settings_view.dart';
+ import 'package:dei_champions/widgets/others/app_bar_common.dart';
+ import 'package:dei_champions/widgets/others/theme_extension.dart';
+ import 'package:flutter/material.dart';
++import 'package:flutter_riverpod/flutter_riverpod.dart';
++
++import '../../../providers/theme_controller.dart';
+ 
+ class EmployeeSettingsScreen extends StatelessWidget {
+   const EmployeeSettingsScreen({super.key});
+@@ -15,99 +19,216 @@ class EmployeeSettingsScreen extends StatelessWidget {
+   }
+ }
+ 
+-class SettingsBody extends StatefulWidget {
+-  const SettingsBody({super.key});
+-
+-  @override
+-  State<SettingsBody> createState() => _SettingsBodyState();
+-}
+-
+-class _SettingsBodyState extends State<SettingsBody> {
+-  bool notifications = true;
+-  bool onlineStatus = true;
+-  bool emailAlert = false;
+-  bool smsAlert = false;
+-
+-  Widget _buildToggle({
+-    required String title,
+-    required String subtitle,
+-    required bool value,
+-    required Function(bool) onChanged,
+-    IconData? icon,
+-  }) {
+-    return Padding(
+-      padding: const EdgeInsets.only(bottom: 8),
+-      child: Card(
+-        elevation: 2,
+-        color: Colors.white,
+-        shadowColor: AppColors.primaryColor,
+-        surfaceTintColor: AppColors.primaryColor,
+-        clipBehavior: Clip.antiAlias,
+-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+-        child: ListTile(
+-          leading: Icon(icon, color: AppColors.primaryColor,size: 25,),
+-          title: Text(title, style:  context.textTheme.labelMedium?.copyWith(height: 2)),
+-          subtitle: Text(subtitle, style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54,height: 1.2)),
+-          trailing: Switch(
+-            value: value,
+-            onChanged: onChanged,
+-            activeThumbColor: AppColors.primaryColor,
+-            inactiveTrackColor: Colors.grey,
+-            padding: EdgeInsets.zero,
+-          ),
+-        ),
+-      ),
+-    );
+-  }
+-
+-  @override
+-  Widget build(BuildContext context) {
+-    return ListView(
+-      padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 16),
+-      children: [
+-        //  Padding(
+-        //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+-        //   child: Text(
+-        //     "General",
+-        //     style: context.textTheme.labelMedium?.copyWith(color: Colors.grey),
+-        //   ),
+-        // ),
+-        // _buildToggle(
+-        //   title: "Online Status",
+-        //   subtitle: "Show others when you’re active on the platform",
+-        //   value: onlineStatus,
+-        //   onChanged: (val) => setState(() => onlineStatus = val),
+-        //   icon: Icons.circle,
+-        // ),
+-         Padding(
+-          padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+-          child: Text(
+-            "Alerts",
+-            style: context.textTheme.labelMedium?.copyWith(color: Colors.grey),
+-          ),
+-        ),
+-        _buildToggle(
+-          title: "App Notifications",
+-          subtitle: "Receive updates about new jobs and messages",
+-          value: notifications,
+-          onChanged: (val) => setState(() => notifications = val),
+-          icon: Icons.notifications_active_outlined,
+-        ),
+-        _buildToggle(
+-          title: "Email Alerts",
+-          subtitle: "Get job recommendations and updates via email",
+-          value: emailAlert,
+-          onChanged: (val) => setState(() => emailAlert = val),
+-          icon: Icons.email_outlined,
+-        ),
+-        _buildToggle(
+-          title: "SMS Alerts",
+-          subtitle: "Receive important alerts through SMS",
+-          value: smsAlert,
+-          onChanged: (val) => setState(() => smsAlert = val),
+-          icon: Icons.sms_outlined,
+-        ),
+-      ],
+-    );
+-  }
+-}
++// class SettingsBody extends ConsumerStatefulWidget {
++//   const SettingsBody({super.key});
++//
++//   @override
++//   ConsumerState<SettingsBody> createState() => _SettingsBodyState();
++// }
++//
++// class _SettingsBodyState extends ConsumerState<SettingsBody> {
++//   bool notifications = true;
++//   bool onlineStatus = true;
++//   bool emailAlert = false;
++//   bool smsAlert = false;
++//   // Appearance settings
++//   bool isDarkMode = false;
++//   int fontSize = 16;
++//   Color primaryButtonColor = Colors.blue;
++//
++//
++//   Widget _buildToggle({
++//     required String title,
++//     required String subtitle,
++//     required bool value,
++//     required Function(bool) onChanged,
++//     IconData? icon,
++//   }) {
++//     return Padding(
++//       padding: const EdgeInsets.only(bottom: 8),
++//       child: Card(
++//         elevation: 2,
++//         color: Colors.white,
++//         shadowColor: AppColors.primaryColor,
++//         surfaceTintColor: AppColors.primaryColor,
++//         clipBehavior: Clip.antiAlias,
++//         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
++//         child: ListTile(
++//           leading: Icon(icon, color: AppColors.primaryColor,size: 25,),
++//           title: Text(title, style:  context.textTheme.labelMedium?.copyWith(height: 2)),
++//           subtitle: Text(subtitle, style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54,height: 1.2)),
++//           trailing: Switch(
++//             value: value,
++//             onChanged: onChanged,
++//             activeThumbColor: AppColors.primaryColor,
++//             inactiveTrackColor: Colors.grey,
++//             padding: EdgeInsets.zero,
++//           ),
++//         ),
++//       ),
++//     );
++//   }
++//
++//   @override
++//   Widget build(BuildContext context) {
++//     final accessibility = ref.watch(accessibilityProvider);
++//     final controller = ref.read(accessibilityProvider.notifier);
++//
++//     final themeMode = ref.watch(themeNotifierProvider);
++//     final themeController = ref.read(themeNotifierProvider.notifier);
++//
++//     return ListView(
++//       padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 16),
++//       children: [
++//         Padding(
++//           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
++//           child: Text(
++//             "Appearance",
++//             style: context.textTheme.labelMedium?.copyWith(color: Colors.grey),
++//           ),
++//         ),
++//
++// // Dark Mode Toggle
++//         _buildToggle(
++//           title:  themeMode == ThemeMode.dark ? "Dark Mode" : "Light Mode",
++//           subtitle: "Switch between dark and light themes",
++//           value: themeMode == ThemeMode.dark,
++//           onChanged: (val) {
++//             themeController.state = val ? ThemeMode.dark : ThemeMode.light;
++//           },
++//           icon: themeMode == ThemeMode.dark ? Icons.dark_mode :Icons.light_mode ,
++//         ),
++//
++// // Font Size Setting
++//         Card(
++//           elevation: 2,
++//           color: Colors.white,
++//           shadowColor: AppColors.primaryColor,
++//           surfaceTintColor: AppColors.primaryColor,
++//           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
++//           child: ListTile(
++//             leading: Icon(Icons.format_size, color: AppColors.primaryColor),
++//             title: Text(
++//               "Font Size",
++//               style: context.textTheme.labelMedium?.copyWith(height: 2),
++//             ),
++//             subtitle: Text(
++//               "Adjust text size across the app",
++//               style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
++//             ),
++//             trailing: Row(
++//               mainAxisSize: MainAxisSize.min,
++//               children: [
++//                 IconButton(
++//                   icon: Icon(Icons.remove,color: Colors.black,),
++//                   onPressed: controller.decreaseFont,
++//                 ),
++//                 Text(fontSize.toString(),style: context.textTheme.bodyMedium,),
++//                 IconButton(
++//                   icon: Icon(Icons.add,color: Colors.black,),
++//                   onPressed: controller.increaseFont,
++//
++//                 ),
++//               ],
++//             ),
++//           ),
++//         ),
++//
++//
++// // Button Color Picker
++//         Card(
++//           elevation: 2,
++//           color: Colors.white,
++//           shadowColor: AppColors.primaryColor,
++//           surfaceTintColor: AppColors.primaryColor,
++//           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
++//           child: ListTile(
++//             leading: Icon(Icons.color_lens, color: AppColors.primaryColor),
++//             title: Text(
++//               "Button Color",
++//               style: context.textTheme.labelMedium?.copyWith(height: 2),
++//             ),
++//             subtitle: Text(
++//               "Choose your preferred button color",
++//               style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
++//             ),
++//             trailing: GestureDetector(
++//               onTap: () async {
++//                 Color? selectedColor = await showDialog(
++//                   context: context,
++//                   builder: (_) => AlertDialog(
++//                     title: Text("Pick Button Color"),
++//                     content: Wrap(
++//                       spacing: 10,
++//                       children: [
++//                         _colorCircle(Colors.blue, () {
++//                           Navigator.pop(context, Colors.blue);
++//                         }),
++//                         _colorCircle(Colors.red, () {
++//                           Navigator.pop(context, Colors.red);
++//                         }),
++//                         _colorCircle(Colors.green, () {
++//                           Navigator.pop(context, Colors.green);
++//                         }),
++//                         _colorCircle(Colors.orange, () {
++//                           Navigator.pop(context, Colors.orange);
++//                         }),
++//                       ],
++//                     ),
++//                   ),
++//                 );
++//
++//                 if (selectedColor != null) {
++//                   setState(() => primaryButtonColor = selectedColor);
++//                 }
++//               },
++//               child: CircleAvatar(
++//                 radius: 14,
++//                 backgroundColor: primaryButtonColor,
++//               ),
++//             ),
++//           ),
++//         ),
++//
++//
++//         Padding(
++//           padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
++//           child: Text(
++//             "Alerts",
++//             style: context.textTheme.labelMedium?.copyWith(color: Colors.grey),
++//           ),
++//         ),
++//         _buildToggle(
++//           title: "App Notifications",
++//           subtitle: "Receive updates about new jobs and messages",
++//           value: notifications,
++//           onChanged: (val) => setState(() => notifications = val),
++//           icon: Icons.notifications_active_outlined,
++//         ),
++//         _buildToggle(
++//           title: "Email Alerts",
++//           subtitle: "Get job recommendations and updates via email",
++//           value: emailAlert,
++//           onChanged: (val) => setState(() => emailAlert = val),
++//           icon: Icons.email_outlined,
++//         ),
++//         _buildToggle(
++//           title: "SMS Alerts",
++//           subtitle: "Receive important alerts through SMS",
++//           value: smsAlert,
++//           onChanged: (val) => setState(() => smsAlert = val),
++//           icon: Icons.sms_outlined,
++//         ),
++//       ],
++//     );
++//   }
++// }
++// Widget _colorCircle(Color color, VoidCallback onTap) {
++//   return GestureDetector(
++//     onTap: onTap,
++//     child: CircleAvatar(
++//       radius: 18,
++//       backgroundColor: color,
++//     ),
++//   );
++// }
+diff --git a/lib/ui/pages/employee_settings/settings_view.dart b/lib/ui/pages/employee_settings/settings_view.dart
+new file mode 100644
+index 0000000..acd6179
+--- /dev/null
++++ b/lib/ui/pages/employee_settings/settings_view.dart
+@@ -0,0 +1,150 @@
++import 'package:dei_champions/constants/app_colors.dart';
++import 'package:dei_champions/widgets/others/theme_extension.dart';
++import 'package:flutter/material.dart';
++import 'package:flutter_riverpod/flutter_riverpod.dart';
++
++import '../../../providers/theme_controller.dart';
++import 'components/button_color_dialog.dart';
++import 'components/setting_section_title.dart';
++import 'components/setting_section_togle.dart';
++
++
++class SettingsBody extends ConsumerWidget {
++  const SettingsBody({super.key});
++
++  @override
++  Widget build(BuildContext context, WidgetRef ref) {
++    final accessibility = ref.watch(accessibilityProvider);
++    final accController = ref.read(accessibilityProvider.notifier);
++
++    final themeMode = ref.watch(themeNotifierProvider);
++    final themeController = ref.read(themeNotifierProvider.notifier);
++
++    final settings = ref.watch(userSettingsProvider);
++    final settingsCtrl = ref.read(userSettingsProvider.notifier);
++
++    return ListView(
++      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
++      children: [
++        // -----------------------------------
++        // APPEARANCE TITLE
++        // -----------------------------------
++        const SectionTitle("Appearance"),
++
++        // -----------------------------------
++        // THEME SWITCH
++        // -----------------------------------
++        SettingToggle(
++          title: themeMode == ThemeMode.dark ? "Dark Mode" : "Light Mode",
++          subtitle: "Switch between dark and light themes",
++          value: themeMode == ThemeMode.dark,
++          icon: themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode,
++          onChanged: (val) {
++            themeController.state = val ? ThemeMode.dark : ThemeMode.light;
++          },
++        ),
++
++        // -----------------------------------
++        // FONT SIZE
++        // -----------------------------------
++
++        Card(
++          elevation: 2,
++          color: Colors.white,
++          shadowColor: AppColors.primaryColor,
++          surfaceTintColor: AppColors.primaryColor,
++          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
++          child: ListTile(
++            leading: Icon(Icons.format_size, color: AppColors.primaryColor),
++            title: Text(
++              "Font Size",
++              style: context.textTheme.labelMedium?.copyWith(height: 2),
++            ),
++            subtitle: Text(
++              "Adjust text size across the app",
++              style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
++            ),
++            trailing: Row(
++              mainAxisSize: MainAxisSize.min,
++              children: [
++                IconButton(
++                  icon: Icon(Icons.remove,color: Colors.black,),
++                  onPressed: accController.decreaseFont,
++                ),
++                Text( (accessibility.fontScale * 16).round().toString(),style: context.textTheme.bodyMedium,),
++                IconButton(
++                  icon: Icon(Icons.add,color: Colors.black,),
++                  onPressed: accController.increaseFont,
++
++                ),
++              ],
++            ),
++          ),
++        ),
++
++        Card(
++          elevation: 2,
++          color: Colors.white,
++          shadowColor: AppColors.primaryColor,
++          surfaceTintColor: AppColors.primaryColor,
++          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
++          child: ListTile(
++            leading: Icon(Icons.color_lens, color: AppColors.primaryColor),
++            title: Text(
++              "Button Color",
++              style: context.textTheme.labelMedium?.copyWith(height: 2),
++            ),
++            subtitle: Text(
++              "Choose your preferred button color",
++              style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
++            ),
++            trailing: GestureDetector(
++              onTap: () async {
++                final selectedColor = await showDialog<Color>(
++                  context: context,
++                  builder: (_) => ButtonColorDialog(),
++                );
++                if (selectedColor != null) {
++                  settingsCtrl.setButtonColor(selectedColor);
++                }
++              },
++              child: CircleAvatar(
++                radius: 14,
++                backgroundColor: settings.buttonColor,
++              ),
++            ),
++          ),
++        ),
++
++        // -----------------------------------
++        // ALERTS SECTION
++        // -----------------------------------
++        const SectionTitle("Alerts"),
++
++        SettingToggle(
++          title: "App Notifications",
++          subtitle: "Receive updates about new jobs and messages",
++          value: settings.notifications,
++          icon: Icons.notifications_active_outlined,
++          onChanged: settingsCtrl.toggleNotifications,
++        ),
++
++        SettingToggle(
++          title: "Email Alerts",
++          subtitle: "Get job recommendations and updates via email",
++          value: settings.emailAlert,
++          icon: Icons.email_outlined,
++          onChanged: settingsCtrl.toggleEmail,
++        ),
++
++        SettingToggle(
++          title: "SMS Alerts",
++          subtitle: "Receive important alerts through SMS",
++          value: settings.smsAlert,
++          icon: Icons.sms_outlined,
++          onChanged: settingsCtrl.toggleSMS,
++        ),
++      ],
++    );
++  }
++}
+diff --git a/lib/ui/pages/home/champion_candidates/champion_candidate_card.dart b/lib/ui/pages/home/champion_candidates/champion_candidate_card.dart
+index 5824f4d..c66e6dc 100644
+--- a/lib/ui/pages/home/champion_candidates/champion_candidate_card.dart
++++ b/lib/ui/pages/home/champion_candidates/champion_candidate_card.dart
+@@ -143,10 +143,12 @@ class ChampionCandidateCard extends StatelessWidget {
+                                 color: Colors.black54,
+                               ),
+                               gapW4(),
+-                              Text(
+-                                categoryModel.salary ?? "",
+-                                style: theme.displaySmall?.copyWith(
+-                                  color: Colors.black54,
++                              Flexible(
++                                child: Text(
++                                  categoryModel.salary ?? "",
++                                  style: theme.displaySmall?.copyWith(
++                                    color: Colors.black54,
++                                  ),
+                                 ),
+                               ),
+                             ],
+@@ -162,9 +164,11 @@ class ChampionCandidateCard extends StatelessWidget {
+                                 color: Colors.black54,
+                               ),
+                               SizedBox(width: 4),
+-                              Text(
+-                                  getExperienceLabel(workStatus: categoryModel.workStatus,experienceYears: categoryModel.totalExperienceYears),
+-                                style: theme.displaySmall?.copyWith(color: Colors.black54),
++                              Flexible(
++                                child: Text(
++                                    getExperienceLabel(workStatus: categoryModel.workStatus,experienceYears: categoryModel.totalExperienceYears),
++                                  style: theme.displaySmall?.copyWith(color: Colors.black54),
++                                ),
+                               ),
+                             ],
+                           ),
+diff --git a/lib/ui/pages/home/components/boost/resume_boost.dart b/lib/ui/pages/home/components/boost/resume_boost.dart
+index a1e4917..93db918 100644
+--- a/lib/ui/pages/home/components/boost/resume_boost.dart
++++ b/lib/ui/pages/home/components/boost/resume_boost.dart
+@@ -55,6 +55,7 @@ class ResumeBoostCard extends StatelessWidget {
+             ),
+             gapH8(),
+             Row(
++              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               children: [
+                 Expanded(
+                   child: Text(
+-- 
+2.46.0
+

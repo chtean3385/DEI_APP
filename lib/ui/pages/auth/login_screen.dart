@@ -57,7 +57,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                         Container(
                           padding: const EdgeInsets.fromLTRB(24, 50, 24, 50),
                           decoration: const BoxDecoration(
-                            color: AppColors.secondaryColor,
+                            color: Colors.white,
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(50),
                               topRight: Radius.circular(50),
