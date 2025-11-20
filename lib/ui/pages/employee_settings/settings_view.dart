@@ -29,20 +29,20 @@ class SettingsBody extends ConsumerWidget {
         // -----------------------------------
         // APPEARANCE TITLE
         // -----------------------------------
-        // const SectionTitle("Appearance"),
-        //
-        // // -----------------------------------
-        // // THEME SWITCH
-        // // -----------------------------------
-        // SettingToggle(
-        //   title: themeMode == ThemeMode.dark ? "Dark Mode" : "Light Mode",
-        //   subtitle: "Switch between dark and light themes",
-        //   value: themeMode == ThemeMode.dark,
-        //   icon: themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode,
-        //   onChanged: (val) {
-        //     // themeController.state = val ? ThemeMode.dark : ThemeMode.light;
-        //   },
-        // ),
+        const SectionTitle("Appearance"),
+
+        // -----------------------------------
+        // THEME SWITCH
+        // -----------------------------------
+        SettingToggle(
+          title: themeMode == ThemeMode.dark ? "Dark Mode" : "Light Mode",
+          subtitle: "Switch between dark and light themes",
+          value: themeMode == ThemeMode.dark,
+          icon: themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode,
+          onChanged: (val) {
+            themeController.state = val ? ThemeMode.dark : ThemeMode.light;
+          },
+        ),
 
         // -----------------------------------
         // FONT SIZE
