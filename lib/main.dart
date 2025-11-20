@@ -48,8 +48,8 @@ class _MyAppState extends ConsumerState<MyApp> {
     return MaterialApp(
       navigatorKey: navigatorKey,
       title: AppStrings.appName,
-      theme: lightTheme(context, accessibility),
-      darkTheme: darkTheme(context, accessibility),
+      theme: lightTheme(context),
+      darkTheme: darkTheme(context),
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
