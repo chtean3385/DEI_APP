@@ -2,7 +2,7 @@ import 'package:dei_champions/models/accessibility/acccessibility_settings.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final themeNotifierProvider = StateProvider<ThemeMode>((ref) => ThemeMode.dark);
+final themeNotifierProvider = StateProvider<ThemeMode>((ref) => ThemeMode.light);
 
 
 class AccessibilityController extends Notifier<AccessibilitySettingsModel> {

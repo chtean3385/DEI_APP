@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/app_drawables.dart';
 import '../../constants/app_colors.dart';
@@ -82,7 +83,7 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
         controller: _controller,
         style: theme.textTheme.bodyMedium?.copyWith(
           fontSize: 14,
-          color: theme.colorScheme.secondary,
+          color: theme.colorScheme.onSurface,
           fontWeight: FontWeight.w500,
         ),
         decoration: InputDecoration(
@@ -94,7 +95,7 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
               AppDrawables.search,
               width: 20,
               height: 20,
-              color: Colors.black45,
+              color: context.colors.black45 ,
             ),
           ),
           suffixIcon: _showClear
@@ -103,29 +104,29 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
               _controller.clear();
               FocusScope.of(context).requestFocus(FocusNode());
             },
-            child: const Icon(Icons.clear, size: 20, color: Colors.black),
+            child:  Icon(Icons.clear, size: 20, color:  theme.colorScheme.onSurface ),
           )
               : null,
           // 👇 AnimatedSwitcher for rotating hint text
           hintText: null,
           hintStyle: theme.textTheme.displaySmall?.copyWith(
             fontSize: 14,
-            color: widget.hintColor ?? Colors.grey,
+            color: widget.hintColor ?? theme.colorScheme.onSurfaceVariant,
           ),
           filled: true,
-          fillColor: Colors.white,
+          fillColor: theme.colorScheme.surface,
           contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(widget.radius ?? 24),
-            borderSide: const BorderSide(color: Colors.black26, width: .5),
+            borderSide:  BorderSide(color: context.colors.black26,  width: .5),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(widget.radius ?? 24),
-            borderSide: const BorderSide(color: Colors.black26, width: .5),
+            borderSide:  BorderSide(color:  context.colors.black26, width: .5),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(widget.radius ?? 24),
-            borderSide: BorderSide(color: Colors.grey.shade600, width: .5),
+            borderSide: BorderSide(color:  context.colors.grey600, width: .5),
           ),
           // 👇 Animated hint widget
           label: AnimatedSwitcher(
@@ -151,7 +152,7 @@ class _SearchFormFieldCommonState extends State<SearchFormFieldCommon> {
               key: ValueKey(_currentHintIndex),
               style: theme.textTheme.bodyMedium?.copyWith(
                 fontSize: 13,height: 1,
-                color: widget.hintColor ?? Colors.grey,
+                color: widget.hintColor ?? theme.colorScheme.onSurfaceVariant,
               ),
             ),
           )

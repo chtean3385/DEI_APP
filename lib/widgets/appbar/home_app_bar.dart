@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ AppBar appBarHome(
     titleSpacing: 0,
     leading: Builder(
       builder: (context) => IconButton(
-        icon: const Icon(Icons.menu, color: Colors.black45, size: 30),
+        icon:  Icon(Icons.menu, color: context.colors.black54, size: 30),
         onPressed: onPressed,
       ),
     ),
@@ -36,9 +37,9 @@ AppBar appBarHome(
               padding: const EdgeInsets.only(right: 8),
               child: IconButton(
                 key:!showTutorial ? null : AppTutorialKeys.notificationButtonKey,
-                icon: const Icon(
+                icon:  Icon(
                   Icons.notifications_none,
-                  color: Colors.black45,
+                  color: context.colors.black45,
                   size: 25,
                 ),
                 onPressed:  () => AppNavigator.loadEmployeeNotificationsScreen(),
@@ -50,7 +51,7 @@ AppBar appBarHome(
             Padding(
               padding: const EdgeInsets.only(right: 8),
               child: IconButton(
-                icon: const Icon(Icons.edit, color: Colors.black54, size: 25),
+                icon:  Icon(Icons.edit, color:context.colors.black54, size: 25),
                 onPressed: () =>
                     AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
               ),

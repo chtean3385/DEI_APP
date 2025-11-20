@@ -12,68 +12,9 @@ import 'app_colors.dart';
        .size
        .shortestSide >= 600;
 
-   final baseTextTheme = TextTheme(
-     displayLarge: GoogleFonts.inter(
-       fontSize: isTablet ? 80 : 70,
-       fontWeight: FontWeight.bold,
-       color: Colors.black,
-     ),
-     headlineLarge: GoogleFonts.inter(
-       fontSize:isTablet ? 38 :  28,
-       fontWeight: FontWeight.normal,
-       color: Colors.black,
-     ),
-     headlineMedium: GoogleFonts.inter(
-       fontSize:isTablet ? 24 :  20,
-       fontWeight: FontWeight.bold,
-       color: Colors.black,
-     ),
-     bodyLarge: GoogleFonts.inter(
-       fontSize:isTablet ? 22 :  18,
-       fontWeight: FontWeight.normal,
-       color: Colors.black,
-     ),
-     headlineSmall: GoogleFonts.inter(
-       fontSize:isTablet ? 24 : 20,
-       fontWeight: FontWeight.normal,
-       color: Colors.black,
-     ),
-     titleLarge: GoogleFonts.inter(
-       fontSize:isTablet ? 32 : 24,
-       fontWeight: FontWeight.bold,
-       color: Colors.black,
-     ),
-     titleMedium: GoogleFonts.inter(
-       fontSize:isTablet ? 18 : 16,
-       fontWeight: FontWeight.bold,
-       color: Colors.black,
-     ),
-     bodySmall: GoogleFonts.inter(
-       fontSize: isTablet ? 18 :16,
-       fontWeight: FontWeight.normal,
-       color: Colors.black,
-     ),
-     labelMedium: GoogleFonts.inter(
-       fontSize: isTablet ? 16 :14,
-       fontWeight: FontWeight.bold,
-       color: Colors.black,
-     ),
-     bodyMedium: GoogleFonts.inter(
-       fontSize: isTablet ? 16 :14,
-       fontWeight: FontWeight.normal,
-       color: Colors.black,
-     ),
-
-     labelSmall: GoogleFonts.inter(
-       fontSize: isTablet ? 14 :12,
-       fontWeight: FontWeight.bold,
-       color: Colors.black,
-     ),
-     displaySmall: GoogleFonts.inter(
-       fontSize: isTablet ? 14 :12,
-       fontWeight: FontWeight.normal,
-       color: Colors.black,
-     ),
+   final baseTextTheme =  buildBaseTextTheme(
+     isTablet: isTablet,
+     color: Colors.black,
    );
    final scaledTextTheme = applyFontScale(baseTextTheme, a.fontScale);
    return ThemeData(
@@ -172,68 +113,9 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
       .size
       .shortestSide >= 600;
 
-  final baseTextTheme = TextTheme(
-    displayLarge: GoogleFonts.inter(
-      fontSize: isTablet ? 80 : 70,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
-    headlineLarge: GoogleFonts.inter(
-      fontSize:isTablet ? 38 :  28,
-      fontWeight: FontWeight.normal,
-      color: Colors.white,
-    ),
-    headlineMedium: GoogleFonts.inter(
-      fontSize:isTablet ? 24 :  20,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
-    bodyLarge: GoogleFonts.inter(
-      fontSize:isTablet ? 22 :  18,
-      fontWeight: FontWeight.normal,
-      color: Colors.white,
-    ),
-    headlineSmall: GoogleFonts.inter(
-      fontSize:isTablet ? 24 : 20,
-      fontWeight: FontWeight.normal,
-      color: Colors.white,
-    ),
-    titleLarge: GoogleFonts.inter(
-      fontSize:isTablet ? 32 : 24,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
-    titleMedium: GoogleFonts.inter(
-      fontSize:isTablet ? 18 : 16,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
-    bodySmall: GoogleFonts.inter(
-      fontSize: isTablet ? 18 :16,
-      fontWeight: FontWeight.normal,
-      color: Colors.white,
-    ),
-    labelMedium: GoogleFonts.inter(
-      fontSize: isTablet ? 16 :14,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
-    bodyMedium: GoogleFonts.inter(
-      fontSize: isTablet ? 16 :14,
-      fontWeight: FontWeight.normal,
-      color: Colors.white,
-    ),
-
-    labelSmall: GoogleFonts.inter(
-      fontSize: isTablet ? 14 :12,
-      fontWeight: FontWeight.bold,
-      color: Colors.white,
-    ),
-    displaySmall: GoogleFonts.inter(
-      fontSize: isTablet ? 14 :12,
-      fontWeight: FontWeight.normal,
-      color: Colors.white,
-    ),
+  final baseTextTheme =  buildBaseTextTheme(
+    isTablet: isTablet,
+    color: Colors.white,
   );
   final scaledTextTheme = applyFontScale(baseTextTheme, a.fontScale);
   return ThemeData(
@@ -337,12 +219,13 @@ final ColorScheme lightColorScheme = ColorScheme(
   onPrimary: Colors.white,
   secondary: AppColors.primarySemiDarkColor,
   onSecondary: Colors.white,
-  surface: Colors.grey[100]!,
+  surface: Colors.white,
   onSurface: Colors.black,
   background: Colors.white,
   onBackground: Colors.black,
   error: Colors.red,
   onError: Colors.white,
+  onSurfaceVariant: Colors.grey,
 );
 
 // 🌚 Dark Theme ColorScheme
@@ -359,7 +242,8 @@ final ColorScheme darkColorScheme = ColorScheme(
 
   // Surfaces
   surface: Colors.grey[900]!,             // Dark surface background
-  onSurface: Colors.white,                // Text on surface
+  onSurface: Colors.white,
+  onSurfaceVariant: Colors.grey.shade400,
 
   // Backgrounds
   background: Colors.black,               // Full dark background
@@ -367,7 +251,8 @@ final ColorScheme darkColorScheme = ColorScheme(
 
   // Errors
   error: Colors.red.shade300,             // Softer red for dark mode
-  onError: Colors.black,                  // Text/icon on error
+  onError: Colors.black,
+  // Text/icon on error
 );
 
 // final ColorScheme darkColorScheme = ColorScheme(
@@ -392,4 +277,72 @@ TextTheme applyFontScale(TextTheme base, double scale) {
 extension ColorExt on BuildContext {
   AppColorExtension get colors =>
       Theme.of(this).extension<AppColorExtension>()!;
+}
+TextTheme buildBaseTextTheme({
+  required bool isTablet,
+  required Color color,
+}) {
+  return  TextTheme(
+    displayLarge: GoogleFonts.inter(
+      fontSize: isTablet ? 80 : 70,
+      fontWeight: FontWeight.bold,
+      color: color,
+    ),
+    headlineLarge: GoogleFonts.inter(
+      fontSize:isTablet ? 38 :  28,
+      fontWeight: FontWeight.normal,
+      color:color,
+    ),
+    headlineMedium: GoogleFonts.inter(
+      fontSize:isTablet ? 24 :  20,
+      fontWeight: FontWeight.bold,
+      color: color,
+    ),
+    bodyLarge: GoogleFonts.inter(
+      fontSize:isTablet ? 22 :  18,
+      fontWeight: FontWeight.normal,
+      color: color,
+    ),
+    headlineSmall: GoogleFonts.inter(
+      fontSize:isTablet ? 24 : 20,
+      fontWeight: FontWeight.normal,
+      color: color,
+    ),
+    titleLarge: GoogleFonts.inter(
+      fontSize:isTablet ? 32 : 24,
+      fontWeight: FontWeight.bold,
+      color: color,
+    ),
+    titleMedium: GoogleFonts.inter(
+      fontSize:isTablet ? 18 : 16,
+      fontWeight: FontWeight.bold,
+      color: color,
+    ),
+    bodySmall: GoogleFonts.inter(
+      fontSize: isTablet ? 18 :16,
+      fontWeight: FontWeight.normal,
+      color: color,
+    ),
+    labelMedium: GoogleFonts.inter(
+      fontSize: isTablet ? 16 :14,
+      fontWeight: FontWeight.bold,
+      color: color,
+    ),
+    bodyMedium: GoogleFonts.inter(
+      fontSize: isTablet ? 16 :14,
+      fontWeight: FontWeight.normal,
+      color: color,
+    ),
+
+    labelSmall: GoogleFonts.inter(
+      fontSize: isTablet ? 14 :12,
+      fontWeight: FontWeight.bold,
+      color: color,
+    ),
+    displaySmall: GoogleFonts.inter(
+      fontSize: isTablet ? 14 :12,
+      fontWeight: FontWeight.normal,
+      color: color,
+    ),
+  );
 }
