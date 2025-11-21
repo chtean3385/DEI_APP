@@ -40,6 +40,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   // ─────────────────────────────
   final Color buttonPrimaryColor;
   final Color bottomBarBgColor;
+  final Color cardBgColor;
   final Color themBasedPrimary;
   final Color themBasedOnPrimary;
   final Color themBasedSecondary;
@@ -72,6 +73,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.redAccent,
     required this.buttonPrimaryColor,
     required this.bottomBarBgColor,
+    required this.cardBgColor,
     required this.themBasedPrimary,
     required this.themBasedOnPrimary,
     required this.themBasedSecondary,
@@ -106,6 +108,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? redAccent,
     Color? buttonPrimaryColor,
     Color? bottomBarPrimaryColor,
+    Color? cardBgColor,
     Color? themBasedPrimary,
     Color? themBasedOnPrimary,
     Color? themBasedSecondary,
@@ -138,6 +141,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       redAccent: redAccent ?? this.redAccent,
       buttonPrimaryColor: buttonPrimaryColor ?? this.buttonPrimaryColor,
       bottomBarBgColor: bottomBarPrimaryColor ?? this.bottomBarBgColor,
+      cardBgColor: cardBgColor ?? this.cardBgColor,
       themBasedPrimary: themBasedPrimary ?? this.themBasedPrimary,
       themBasedOnPrimary: themBasedOnPrimary ?? this.themBasedOnPrimary,
       themBasedSecondary: themBasedSecondary ?? this.themBasedSecondary,
@@ -179,8 +183,8 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
 
       buttonPrimaryColor:
       Color.lerp(buttonPrimaryColor, other.buttonPrimaryColor, t)!,
-      bottomBarBgColor:
-      Color.lerp(bottomBarBgColor, other.bottomBarBgColor, t)!,
+      bottomBarBgColor: Color.lerp(bottomBarBgColor, other.bottomBarBgColor, t)!,
+      cardBgColor: Color.lerp(cardBgColor, other.cardBgColor, t)!,
       themBasedPrimary: Color.lerp(themBasedPrimary, other.themBasedPrimary, t)!,
       themBasedOnPrimary:
       Color.lerp(themBasedOnPrimary, other.themBasedOnPrimary, t)!,

@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,7 @@ class ResumeBoostCard extends StatelessWidget {
     final theme = Theme.of(context).textTheme;
     return Card(
       elevation: 0,
-      color: Colors.white,
+      color:  context.colors.themBasedWhite,
       margin: EdgeInsets.zero,
 
       child: Padding(
@@ -72,7 +73,7 @@ class ResumeBoostCard extends StatelessWidget {
                   child: Text(
                     buttonTitle,
                     style: theme.bodyMedium?.copyWith(
-                      color: AppColors.primaryColor,
+                      color:context.colors.buttonPrimaryColor,
                       fontWeight: FontWeight.w600,
                     ),
                   ),

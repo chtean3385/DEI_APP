@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
@@ -40,7 +41,7 @@ class CustomThemeButton extends StatelessWidget {
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: color,
-            border: Border.all(width: borderWidth, color: borderColor ??  AppColors.primaryColor),
+            border: Border.all(width: borderWidth, color: borderColor ??  context.colors.buttonPrimaryColor),
             borderRadius: BorderRadius.all(Radius.circular(radius)),
           ),
           child: SizedBox(

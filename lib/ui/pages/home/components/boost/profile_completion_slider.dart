@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/ui/pages/home/components/boost/resume_boost.dart';
 import 'package:flutter/material.dart';
@@ -100,7 +101,7 @@ class _ProfileCompletionSliderState
               children: [
                 SizedBox(height: 100, width: double.infinity),
                 ColoredBox(
-                  color: Colors.white,
+                  color: context.colors.themBasedWhite,
                   child: SizedBox(height: 50, width: double.infinity),
                 ),
                 SizedBox(
@@ -132,7 +133,7 @@ class _ProfileCompletionSliderState
 
                 // indicator row (outside card)
                 ColoredBox(
-                  color: Colors.white,
+                  color: context.colors.themBasedWhite,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 8, left: 16),
                     child: Row(
@@ -146,7 +147,7 @@ class _ProfileCompletionSliderState
                           decoration: BoxDecoration(
                             color: _currentPage == index
                                 ? Colors.red
-                                : Colors.grey.shade300,
+                                :  context.colors.grey300,
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ),

@@ -106,6 +106,7 @@ import 'app_theme_color_scheme.dart';
 
          buttonPrimaryColor: AppColors.primaryColor,
          bottomBarBgColor:Colors.white,
+         cardBgColor:Colors.white,
          themBasedPrimary: Colors.white,
          themBasedOnPrimary: Colors.black,
          themBasedSecondary:Colors.black,
@@ -216,6 +217,7 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
 
           buttonPrimaryColor: AppColors.primaryForDarkThemeColor,
           bottomBarBgColor: Colors.black87,
+          cardBgColor: Colors.white10,
           themBasedPrimary: Colors.black,
           themBasedOnPrimary: Colors.white,
           themBasedSecondary:Colors.white,

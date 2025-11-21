@@ -1,6 +1,7 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -288,14 +289,14 @@ class ProfileSection extends ConsumerWidget {
         margin: showMissingData ? const EdgeInsets.all(16) : null,
         decoration: showMissingData
             ? BoxDecoration(
-          color: Colors.transparent,
+          color: context.colors.cardBgColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
             bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16),
           ),
-          border: Border.all(color: Colors.black12, width: 1),
+          border: Border.all(color:  context.colors.black12, width: 1),
         )
             : null,
 
@@ -315,7 +316,7 @@ class ProfileSection extends ConsumerWidget {
                           child: CircularProgressIndicator(
                             value: progressValue,
                             strokeWidth: 5,
-                            backgroundColor: Colors.black12,
+                            backgroundColor: context.colors.black12,
                             valueColor: AlwaysStoppedAnimation(
                               getProgressColor(progressValue),
                             ),
@@ -332,14 +333,12 @@ class ProfileSection extends ConsumerWidget {
                         )
                             : CircleAvatar(
                           radius: 30,
-                          backgroundColor: Colors.black12,
+                          backgroundColor:  context.colors.black12,
                           child: Icon(
                             Icons
                                 .person, // ✅ Add Profile Image icon
                             size: 30, // optional: adjust size
-                            color: Colors
-                                .grey
-                                .shade600, // optional: adjust color
+                            color:  context.colors.grey600, // optional: adjust color
                           ),
                         ),
                       ],
@@ -365,7 +364,7 @@ class ProfileSection extends ConsumerWidget {
                       Text(
                         "Update profile",
                         style: context.textTheme.bodyMedium?.copyWith(
-                          color: Colors.black54,
+                          color:context.colors.black54,
                         ),
                       ),
                       // Text(
@@ -389,7 +388,7 @@ class ProfileSection extends ConsumerWidget {
                   "${profilePercentData?.missingFieldsCount?.toString() ?? ""} Missing details",
                   style: theme.labelMedium?.copyWith(
                     fontWeight: FontWeight.w800,
-                    color: AppColors.primaryColor,
+                    color:  context.colors.buttonPrimaryColor,
                     fontSize: 12,
                   ),
                 ),
@@ -405,7 +404,7 @@ class ProfileSection extends ConsumerWidget {
     Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       decoration: BoxDecoration(
-        color: AppColors.bg,
+        color:  textColor.withValues(alpha: .1),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
