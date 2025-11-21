@@ -35,6 +35,18 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color red;
   final Color redAccent;
 
+  // ─────────────────────────────
+  // Theme-based Colors
+  // ─────────────────────────────
+  final Color buttonPrimaryColor;
+  final Color bottomBarBgColor;
+  final Color themBasedPrimary;
+  final Color themBasedOnPrimary;
+  final Color themBasedSecondary;
+  final Color themBasedOnSecondary;
+  final Color themBasedBlack;
+  final Color themBasedWhite;
+
   const AppColorExtension({
     required this.black12,
     required this.black26,
@@ -58,6 +70,14 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.grey700,
     required this.red,
     required this.redAccent,
+    required this.buttonPrimaryColor,
+    required this.bottomBarBgColor,
+    required this.themBasedPrimary,
+    required this.themBasedOnPrimary,
+    required this.themBasedSecondary,
+    required this.themBasedOnSecondary,
+    required this.themBasedBlack,
+    required this.themBasedWhite,
   });
 
   @override
@@ -84,6 +104,14 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? grey700,
     Color? red,
     Color? redAccent,
+    Color? buttonPrimaryColor,
+    Color? bottomBarPrimaryColor,
+    Color? themBasedPrimary,
+    Color? themBasedOnPrimary,
+    Color? themBasedSecondary,
+    Color? themBasedOnSecondary,
+    Color? themBasedBlack,
+    Color? themBasedWhite,
   }) {
     return AppColorExtension(
       black12: black12 ?? this.black12,
@@ -108,6 +136,14 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       grey700: grey700 ?? this.grey700,
       red: red ?? this.red,
       redAccent: redAccent ?? this.redAccent,
+      buttonPrimaryColor: buttonPrimaryColor ?? this.buttonPrimaryColor,
+      bottomBarBgColor: bottomBarPrimaryColor ?? this.bottomBarBgColor,
+      themBasedPrimary: themBasedPrimary ?? this.themBasedPrimary,
+      themBasedOnPrimary: themBasedOnPrimary ?? this.themBasedOnPrimary,
+      themBasedSecondary: themBasedSecondary ?? this.themBasedSecondary,
+      themBasedOnSecondary: themBasedOnSecondary ?? this.themBasedOnSecondary,
+      themBasedBlack: themBasedBlack ?? this.themBasedBlack,
+      themBasedWhite: themBasedWhite ?? this.themBasedWhite,
     );
   }
 
@@ -123,6 +159,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       black87: Color.lerp(black87, other.black87, t)!,
       blackOpacity10: Color.lerp(blackOpacity10, other.blackOpacity10, t)!,
       blackOpacity30: Color.lerp(blackOpacity30, other.blackOpacity30, t)!,
+
       white10: Color.lerp(white10, other.white10, t)!,
       white30: Color.lerp(white30, other.white30, t)!,
       white70: Color.lerp(white70, other.white70, t)!,
@@ -130,6 +167,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       whiteOpacity10: Color.lerp(whiteOpacity10, other.whiteOpacity10, t)!,
       whiteOpacity30: Color.lerp(whiteOpacity30, other.whiteOpacity30, t)!,
       whiteOpacity95: Color.lerp(whiteOpacity95, other.whiteOpacity95, t)!,
+
       blue: Color.lerp(blue, other.blue, t)!,
       yellow: Color.lerp(yellow, other.yellow, t)!,
       grey300: Color.lerp(grey300, other.grey300, t)!,
@@ -138,6 +176,20 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       grey700: Color.lerp(grey700, other.grey700, t)!,
       red: Color.lerp(red, other.red, t)!,
       redAccent: Color.lerp(redAccent, other.redAccent, t)!,
+
+      buttonPrimaryColor:
+      Color.lerp(buttonPrimaryColor, other.buttonPrimaryColor, t)!,
+      bottomBarBgColor:
+      Color.lerp(bottomBarBgColor, other.bottomBarBgColor, t)!,
+      themBasedPrimary: Color.lerp(themBasedPrimary, other.themBasedPrimary, t)!,
+      themBasedOnPrimary:
+      Color.lerp(themBasedOnPrimary, other.themBasedOnPrimary, t)!,
+      themBasedSecondary:
+      Color.lerp(themBasedSecondary, other.themBasedSecondary, t)!,
+      themBasedOnSecondary:
+      Color.lerp(themBasedOnSecondary, other.themBasedOnSecondary, t)!,
+      themBasedBlack: Color.lerp(themBasedBlack, other.themBasedBlack, t)!,
+      themBasedWhite: Color.lerp(themBasedWhite, other.themBasedWhite, t)!,
     );
   }
 }

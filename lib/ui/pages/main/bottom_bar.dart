@@ -1,10 +1,10 @@
 import 'package:dei_champions/constants/app_keys.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../constants/app_colors.dart';
 import '../../../main.dart';
 import '../../../providers/controllers/profile/employee_profile_completion_controller.dart';
 import '../../../providers/providers.dart';
@@ -61,6 +61,7 @@ class _BottomBarState extends State<BottomBar> {
   }
 
   Widget _buildMobileLayout() {
+    final theme = Theme.of(context);
     return AdvancedDrawer(
       backdrop: Container(
         width: double.infinity,
@@ -86,12 +87,12 @@ class _BottomBarState extends State<BottomBar> {
         bottomNavigationBar: SafeArea(
           top: false,
           child: DecoratedBox(
-            decoration: const BoxDecoration(
-              color: Colors.white,
+            decoration:  BoxDecoration(
+              color: context.colors.bottomBarBgColor,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black12,
-                  // blurRadius: .5,
+                  color: context.colors.grey300,
+                  blurRadius: .5,
                   offset: Offset(0, -1),
                 ),
               ],
@@ -102,16 +103,16 @@ class _BottomBarState extends State<BottomBar> {
               iconSize: 20,
               showSelectedLabels: true,
               showUnselectedLabels: true,
-              selectedItemColor: AppColors.primaryColor,
-              unselectedItemColor: Colors.black54,
+              selectedItemColor: context.colors.buttonPrimaryColor,
+              unselectedItemColor: context.colors.black54,
               type: BottomNavigationBarType.fixed,
               selectedLabelStyle: GoogleFonts.inter(
                 fontSize: 12,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w600,color: Colors.white
               ),
               unselectedLabelStyle: GoogleFonts.inter(
                 fontSize: 12,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w400,color: Colors.white30
               ),
               currentIndex: _currentIndex,
               onTap: _onTap,

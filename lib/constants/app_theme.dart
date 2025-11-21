@@ -1,9 +1,10 @@
+import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/models/accessibility/acccessibility_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'app_color_extension.dart';
-import 'app_colors.dart';
+import 'app_theme_color_scheme.dart';
 
 
  ThemeData lightTheme(BuildContext context,AccessibilitySettingsModel a) {
@@ -102,6 +103,15 @@ import 'app_colors.dart';
          grey700: Color(0xFF616161),
          red: Colors.red,
          redAccent: Colors.redAccent,
+
+         buttonPrimaryColor: AppColors.primaryColor,
+         bottomBarBgColor:Colors.white,
+         themBasedPrimary: Colors.white,
+         themBasedOnPrimary: Colors.black,
+         themBasedSecondary:Colors.black,
+         themBasedOnSecondary:  Colors.white,
+         themBasedBlack: Colors.black,
+         themBasedWhite: Colors.white,
        )
      ],
 
@@ -203,6 +213,15 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
           grey700: Color(0xFFBDBDBD),
           red: Colors.redAccent,
           redAccent: Colors.red,
+
+          buttonPrimaryColor: AppColors.primaryForDarkThemeColor,
+          bottomBarBgColor: Colors.black87,
+          themBasedPrimary: Colors.black,
+          themBasedOnPrimary: Colors.white,
+          themBasedSecondary:Colors.white,
+          themBasedOnSecondary:  Colors.black,
+          themBasedBlack: Colors.white,
+          themBasedWhite: Colors.black,
         )
       ],
 
@@ -212,48 +231,7 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
 
 
 
-// 🌞 Light Theme ColorScheme
-final ColorScheme lightColorScheme = ColorScheme(
-  brightness: Brightness.light,
-  primary: AppColors.primaryColor,
-  onPrimary: Colors.white,
-  secondary: AppColors.primarySemiDarkColor,
-  onSecondary: Colors.white,
-  surface: Colors.white,
-  onSurface: Colors.black,
-  background: Colors.white,
-  onBackground: Colors.black,
-  error: Colors.red,
-  onError: Colors.white,
-  onSurfaceVariant: Colors.grey,
-);
 
-// 🌚 Dark Theme ColorScheme
-final ColorScheme darkColorScheme = ColorScheme(
-  brightness: Brightness.dark,
-
-  // Primary Colors
-  primary: AppColors.primaryColor,        // Same base blue
-  onPrimary: Colors.white,                // Text/icon on primary
-
-  // Secondary Colors
-  secondary: AppColors.primarySemiDarkColor,
-  onSecondary: Colors.white,
-
-  // Surfaces
-  surface: Colors.grey[900]!,             // Dark surface background
-  onSurface: Colors.white,
-  onSurfaceVariant: Colors.grey.shade400,
-
-  // Backgrounds
-  background: Colors.black,               // Full dark background
-  onBackground: Colors.white,             // Text on dark background
-
-  // Errors
-  error: Colors.red.shade300,             // Softer red for dark mode
-  onError: Colors.black,
-  // Text/icon on error
-);
 
 // final ColorScheme darkColorScheme = ColorScheme(
 //   brightness: Brightness.dark,
