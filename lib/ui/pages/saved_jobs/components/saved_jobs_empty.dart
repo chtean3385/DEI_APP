@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_drawables.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class SavedJobsEmptyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorTheme = context.colors;
+
 
     return Center(
       child: Padding(
@@ -33,7 +36,7 @@ class SavedJobsEmptyScreen extends StatelessWidget {
               textAlign: TextAlign.center,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: colorTheme.black87,
               ),
             ),
 
@@ -44,7 +47,7 @@ class SavedJobsEmptyScreen extends StatelessWidget {
               "Start exploring and save jobs you like. You can view all your saved jobs here!",
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.black54,
+                color: colorTheme.black54,
               ),
             ),
 
@@ -52,15 +55,15 @@ class SavedJobsEmptyScreen extends StatelessWidget {
 
             // CTA button
             CustomThemeButton(
-              child: const Text(
+              child:  Text(
                 "Start my job search",
                 style: TextStyle(
-                  color: Colors.white,
+                  color: colorTheme.themBasedWhite,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              color: AppColors.primaryColor,
+              color: colorTheme.buttonPrimaryColor,
               radius: 30,
               padding: EdgeInsets.symmetric(horizontal: 16,vertical: 8),
               onTap: AppNavigator.loadJobSearchResultScreen,

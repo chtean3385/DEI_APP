@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_drawables.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:flutter/material.dart';
 
@@ -55,6 +56,8 @@ class AppliedJobCategoryEmptyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorTheme = context.colors;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -68,7 +71,7 @@ class AppliedJobCategoryEmptyView extends StatelessWidget {
               textAlign: TextAlign.center,
               style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: colorTheme.black87,
               ),
             ),
             const SizedBox(height: 12),
@@ -76,20 +79,20 @@ class AppliedJobCategoryEmptyView extends StatelessWidget {
               _subtitle,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.black54,
+                color: colorTheme.black54,
               ),
             ),
             const SizedBox(height: 32),
             CustomThemeButton(
               child: Text(
                 _buttonText,
-                style: const TextStyle(
+                style:  TextStyle(
                   color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              color: AppColors.primaryColor,
+              color: colorTheme.buttonPrimaryColor,
               radius: 30,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               onTap: AppNavigator.loadJobSearchResultScreen,

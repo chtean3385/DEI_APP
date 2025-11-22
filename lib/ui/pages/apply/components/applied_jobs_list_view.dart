@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../../constants/app_colors.dart';
@@ -77,12 +78,12 @@ class _SearchResultsViewState extends ConsumerState<AppliedJobListView> {
                 );
               } else {
                 // bottom loader
-                return const Padding(
+                return  Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      color: AppColors.primaryColor,
+                      color: context.colors.buttonPrimaryColor,
                     ),
                   ),
                 );

@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -92,6 +93,7 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
   Widget build(BuildContext context) {
     final state = ref.watch(employeeAppliedJobsProvider);
     final controller = ref.read(employeeAppliedJobsProvider.notifier);
+    final colorTheme = context.colors;
 
     final currentApiKey = state.status ?? "allApplications";
     final currentLabel = keyToLabelMap[currentApiKey] ?? "All";
@@ -126,13 +128,13 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
                     controller.fetchJobs(status: apiKey); // ✅ use API key
                     _scrollToSelected(label);
                   },
-                  selectedColor: AppColors.primaryColor,
+                  selectedColor: colorTheme.buttonPrimaryColor,
                   labelStyle: context.textTheme.bodyMedium?.copyWith(
-                    color: isSelected ? Colors.white : AppColors.primaryColor,
+                    color: isSelected ? colorTheme.themBasedWhite : colorTheme.buttonPrimaryColor,
                   ),
-                  backgroundColor: Colors.white,
+                  backgroundColor: colorTheme.commonDividerBgColor,
                   shape: StadiumBorder(
-                    side: BorderSide(color: AppColors.primaryColor),
+                    side: BorderSide(color: colorTheme.buttonPrimaryColor),
                   ),
                   showCheckmark: false,
                 ),
