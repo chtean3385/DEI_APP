@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -19,7 +20,7 @@ class VisionMissionSection extends ConsumerWidget {
       return const SizedBox.shrink();
     }
     return ColoredBox(
-      color: AppColors.bg,
+      color: context.colors.commonDividerBgColor,
       child: state.pageState == PageState.loading
           ? _shimmerItems()
           : _dataItems(state),

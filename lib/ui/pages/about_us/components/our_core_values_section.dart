@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/providers/providers.dart';
@@ -50,7 +51,7 @@ class _JobsServiceSectionState extends ConsumerState<OurCoreValuesSection> {
     }
 
     return ColoredBox(
-      color: AppColors.bg,
+      color: context.colors.commonDividerBgColor,
       child: Padding(
         padding: const EdgeInsets.only(top: 12),
         child: state.pageState == PageState.loading
@@ -131,7 +132,7 @@ class _JobsServiceSectionState extends ConsumerState<OurCoreValuesSection> {
               child: CircleAvatar(
                 radius: isActive ? 5 : 3,
                 backgroundColor: isActive
-                    ? AppColors.primaryColor
+                    ? context.colors.buttonPrimaryColor
                     : Colors.grey,
               ),
             );

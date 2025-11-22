@@ -1,4 +1,6 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
+import 'package:dei_champions/main.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -22,6 +24,7 @@ class DeiRevolutions extends ConsumerWidget {
     }
 
     if (state.pageState == PageState.error) {
+      return const SizedBox.shrink();
       return Padding(
         padding: const EdgeInsets.all(16),
         child: Text(
@@ -66,7 +69,7 @@ class DeiRevolutions extends ConsumerWidget {
               Text(
                 item.description ?? '',
                 style: context.textTheme.displaySmall?.copyWith(
-                  color: Colors.white,
+                  color: navigatorKey.currentContext!.colors.themBasedWhite,
                 ),
                 textAlign: TextAlign.center,
               ),

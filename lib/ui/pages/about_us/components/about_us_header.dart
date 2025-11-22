@@ -20,6 +20,7 @@ class AboutUsHeader extends ConsumerWidget {
     }
 
     if (state.pageState == PageState.error) {
+      return const SizedBox.shrink();
       return Padding(
         padding: const EdgeInsets.all(16),
         child: Text(

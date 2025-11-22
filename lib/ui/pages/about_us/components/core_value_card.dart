@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/about_us/core_values_model.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -15,21 +16,26 @@ class CoreValueCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
     return Padding(
       padding: const EdgeInsets.only(right: 16),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: colorTheme.jobCardBgColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(6),
             bottomLeft: Radius.circular(6),
             bottomRight: Radius.circular(16),
           ),
-          border: Border.all(color: Colors.black12, width: 1),
+          border: Border.all(color: colorTheme.black12, width: 1),
         ),
-        child: SizedBox(
-          width: width,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: width,
+            minHeight: 130,
+            minWidth: 200
+          ),
           child: Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
@@ -58,7 +64,7 @@ class CoreValueCard extends StatelessWidget {
                   softWrap: true,
                   textAlign: TextAlign.center,
                   style: context.textTheme.displaySmall?.copyWith(
-                    color: Colors.black54,
+                    color: colorTheme.black54,
                   ),
                 ),
               ],

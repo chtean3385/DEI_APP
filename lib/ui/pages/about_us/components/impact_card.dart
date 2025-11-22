@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -12,16 +13,18 @@ class ImpactCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final themeColor = context.colors;
+
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: themeColor.jobCardBgColor,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(6),
           bottomLeft: Radius.circular(6),
           bottomRight: Radius.circular(16),
         ),
-        border: Border.all(color: Colors.black12, width: 1),
+        border: Border.all(color: themeColor.black12, width: 1),
       ),
       child: Padding(
         padding: const EdgeInsets.all(12),
@@ -37,7 +40,7 @@ class ImpactCard extends StatelessWidget {
               maxLines: 1,
               textAlign: TextAlign.center,
               style: context.textTheme.displaySmall?.copyWith(
-                color: Colors.black54,
+                color: themeColor.black54,
               ),
             ),
             gapH4(),

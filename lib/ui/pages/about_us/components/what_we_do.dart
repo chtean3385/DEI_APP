@@ -1,4 +1,6 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
+import 'package:dei_champions/main.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -20,6 +22,7 @@ class WhatWeDo extends ConsumerWidget {
     }
 
     if (state.pageState == PageState.error) {
+      return const SizedBox.shrink();
       return Padding(
         padding: const EdgeInsets.all(16),
         child: Text(
@@ -54,7 +57,7 @@ class WhatWeDo extends ConsumerWidget {
           Text(
             item.description ?? '',
             style: context.textTheme.displaySmall?.copyWith(
-              color: Colors.black87,
+              color: navigatorKey.currentContext!.colors.black87,
             ),
             textAlign: TextAlign.left,
           ),
