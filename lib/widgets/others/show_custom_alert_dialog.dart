@@ -21,7 +21,7 @@ Future<void> showCustomAlertDialog({
     barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
-        backgroundColor: colorTheme.jobCardBgColor,
+        backgroundColor: colorTheme.commonDividerBgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 24,

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../constants/app_drawables.dart';
@@ -5,14 +6,20 @@ import '../constants/app_strings.dart';
 import '../main.dart';
 
 class WidgetUtils {
-  static Future<void> showExitPopUp(BuildContext context) async {
-    return await showPopUp(context,
-        title: "Confirmation",
-        message: "Are you sure to exit the app?",
-        sBtnLabel: "Exit",
-        sBtnFunction: () => Navigator.of(context).pop(true),
-        showBtnN: true);
+  static Future<bool> showExitPopUp(BuildContext context) async {
+    final result = await showConfirmExitPopUp(
+      context,
+      title: "Confirmation",
+      message: "Are you sure you want to exit the app?",
+      sBtnLabel: "Exit",
+      sBtnFunction: () => Navigator.of(context).pop(true),
+      showBtnN: true,
+    );
+
+    return result ?? false;
   }
+
+
 
   static Future<void> showCustomPopUpWithMessage(BuildContext context,{String? message,String? buttonLabel,GestureTapCallback? sBtnFunction,}) async {
     return await showPopUp(context,
@@ -22,6 +29,62 @@ class WidgetUtils {
         sBtnFunction:sBtnFunction ??  () => Navigator.of(context).pop(true),
         showBtnN: true);
   }
+  static Future<bool?> showConfirmExitPopUp(
+      BuildContext context, {
+        String? title,
+        String? message,
+        String? sBtnLabel,
+        String? nBtnLabel,
+        GestureTapCallback? sBtnFunction,
+        GestureTapCallback? nBtnFunction,
+        bool? showBtnN,
+      }) {
+    final theme = Theme.of(context);
+    final color = context.colors;
+
+    return showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => AlertDialog(
+        contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        title: Text(
+          title ?? AppStrings.appName,
+          textAlign: TextAlign.center,
+          style: theme.textTheme.headlineSmall?.copyWith(color: color.themBasedBlack),
+        ),
+        content: Text(
+          message ?? "",
+          textAlign: TextAlign.center,
+          style: Theme.of(navigatorKey.currentContext!)
+              .textTheme
+              .titleSmall!
+              .copyWith(fontWeight: FontWeight.w400),
+        ),
+        actions: <Widget>[
+          TextButton(
+            // If custom callback exists, call it → it must pop with a bool
+            // Otherwise default: pop(true)
+            onPressed: sBtnFunction ?? () => Navigator.of(context).pop(true),
+            child: Text(
+              sBtnLabel ?? "OK",
+              style: theme.textTheme.titleSmall,
+            ),
+          ),
+          if (showBtnN == true)
+            TextButton(
+              onPressed:
+              nBtnFunction ?? () => Navigator.of(context).pop(false),
+              child: Text(
+                nBtnLabel ?? "Cancel",
+                style: theme.textTheme.titleSmall,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
   static Future<void> showPopUp(BuildContext context,
       {String? title,
       String? message,
@@ -31,9 +94,11 @@ class WidgetUtils {
       GestureTapCallback? nBtnFunction,
       bool? showBtnN}) async {
     final theme = Theme.of(context);
+    final color = context.colors;
     return await showDialog(
       context: context,
       barrierDismissible: false,
+
       builder: (BuildContext context) => AlertDialog(
         contentPadding:
             const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
@@ -41,7 +106,7 @@ class WidgetUtils {
         title: Text(
           title ?? AppStrings.appName,
           textAlign: TextAlign.center,
-          style: theme.textTheme.headlineSmall?.copyWith(color: Colors.white),
+          style: theme.textTheme.headlineSmall?.copyWith(color: color.themBasedBlack),
         ),
         content: Text(
           message ?? "",

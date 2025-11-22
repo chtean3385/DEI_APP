@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../main.dart';
 import '../../../providers/controllers/profile/employee_profile_completion_controller.dart';
 import '../../../providers/providers.dart';
+import '../../../utils/widget_utils.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
 import '../All/dashboard_all_section_screen.dart';
 import '../apply/apply_screen.dart';
@@ -57,7 +58,9 @@ class _BottomBarState extends State<BottomBar> {
   @override
   Widget build(BuildContext context) {
     showHomeTutorial(context);
-    return _buildMobileLayout();
+    return WillPopScope(
+        onWillPop: _onWillPop,
+        child: _buildMobileLayout());
   }
 
   Widget _buildMobileLayout() {
@@ -200,4 +203,20 @@ class _BottomBarState extends State<BottomBar> {
         return null;
     }
   }
+
+  Future<bool> _onWillPop() async {
+    // 1️⃣ Close drawer if open
+    if (_advancedDrawerController.value.visible) {
+      _advancedDrawerController.hideDrawer();
+      return false; // don't exit
+    }
+
+    // 2️⃣ Show exit confirmation popup
+    final shouldExit = await WidgetUtils.showExitPopUp(context);
+
+    return shouldExit == true; // exit only if user taps Exit
+  }
+
+
 }
+
