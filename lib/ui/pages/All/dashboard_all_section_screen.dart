@@ -1,3 +1,5 @@
+import 'package:dei_champions/constants/app_theme.dart';
+import 'package:dei_champions/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,7 +38,7 @@ class DashBoardAllScreen extends ConsumerWidget {
         itemBuilder: (context, index) {
           return DashboardCard(item:  state.data![index]);
         },
-        separatorBuilder: (c, s) => Divider(color: Colors.white70, height: 12),
+        separatorBuilder: (c, s) => Divider(color: navigatorKey.currentContext!.colors.white70, height: 12),
       ),
     );
   }
@@ -48,7 +50,7 @@ class DashBoardAllScreen extends ConsumerWidget {
       itemBuilder: (context, index) {
         return ShimmerDashboardCard();
       },
-      separatorBuilder: (c, s) => Divider(color: Colors.white70, height: 12),
+      separatorBuilder: (c, s) => Divider(color: navigatorKey.currentContext!.colors.white70, height: 12),
 
     );
   }

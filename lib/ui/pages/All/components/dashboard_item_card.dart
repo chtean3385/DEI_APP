@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -31,6 +32,7 @@ class DashboardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme =  context.colors;
     return GestureDetector(
       onTap: () {
         final params = {'status': item.key};
@@ -38,9 +40,9 @@ class DashboardCard extends StatelessWidget {
       },
       child: Card(
         elevation: 2,
-        color: Colors.white,
-        shadowColor: AppColors.primaryColor,
-        surfaceTintColor: AppColors.primaryColor,
+        color: colorTheme.jobCardBgColor,
+        shadowColor: colorTheme.buttonPrimaryColor,
+        surfaceTintColor:colorTheme.buttonPrimaryColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           child: Row(
@@ -51,10 +53,10 @@ class DashboardCard extends StatelessWidget {
                 height: 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white, // background color
+                  color: colorTheme.cardBgColor,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.blue.withValues(alpha: 0.2),
+                      color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.2),
                       // subtle glow
                       blurRadius: 10,
                       spreadRadius: 1,
@@ -66,7 +68,7 @@ class DashboardCard extends StatelessWidget {
                   child: Icon(
                     getDashboardIcon(item.key),
                     size: 24,
-                    color: AppColors.primaryColor,
+                    color: colorTheme.buttonPrimaryColor
                   ),
                 ),
               ),
@@ -90,7 +92,7 @@ class DashboardCard extends StatelessWidget {
                     Text(
                       item.title ?? "",
                       style: context.textTheme.displaySmall?.copyWith(
-                        color: Colors.black54,
+                        color: colorTheme.black54,
                       ),
                     ),
                   ],
@@ -98,7 +100,7 @@ class DashboardCard extends StatelessWidget {
               ),
               Icon(
                 Icons.arrow_forward_ios,
-                color: AppColors.primaryColor,
+                color:colorTheme.buttonPrimaryColor,
                 size: 20,
               ),
             ],

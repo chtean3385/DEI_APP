@@ -53,7 +53,7 @@ Future<void> showCustomAlertDialog({
                 CustomThemeButton(
                   child: Text(
                     primaryButtonText,
-                    style: theme.labelMedium?.copyWith(color: colorTheme.themBasedWhite),
+                    style: theme.labelMedium?.copyWith(color: Colors.white),
                   ),
                   radius: 30,
 
