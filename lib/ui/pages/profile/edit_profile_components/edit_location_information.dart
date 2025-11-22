@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_styles.dart';
@@ -17,14 +18,14 @@ class EditLocationInformation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(editEmployeeProfileProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
+    final colorTheme = context.colors;
 
 
     return Card(
       elevation: 2,
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      color: colorTheme.jobCardBgColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: colorTheme.themBasedWhite)),
+
       clipBehavior: Clip.antiAlias,
       child: ExpansionTile(
         initiallyExpanded: isFromCommonEdit != true,
@@ -32,13 +33,13 @@ class EditLocationInformation extends ConsumerWidget {
           "Location Information",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: colorTheme.black87,
           ),
         ),
         visualDensity: VisualDensity.compact,
 
-        iconColor: Colors.black54,
-        collapsedIconColor: Colors.black54,
+        iconColor: colorTheme.black54,
+        collapsedIconColor: colorTheme.black54,
         trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
         onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),

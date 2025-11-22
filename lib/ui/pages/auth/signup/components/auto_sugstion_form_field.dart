@@ -1,4 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
+import 'package:dei_champions/main.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../constants/app_styles.dart';
@@ -194,11 +196,12 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
   }
 
   Widget _buildDropdown() {
+    final colorTheme = context.colors;
     if (_filteredSuggestions.isEmpty) {
       return Material(
         elevation: 4,
         borderRadius: BorderRadius.circular(12),
-        color: Colors.white,
+        color: colorTheme.themBasedWhite,
         child: Center(
           child: Text(
             'No suggestions',
@@ -211,13 +214,13 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
     return Material(
       elevation: 8,
       borderRadius: BorderRadius.circular(12),
-      color: Colors.white,
+      color: colorTheme.themBasedWhite,
       child: Container(
         decoration: BoxDecoration(
-          color: AppColors.primaryColor.withValues(alpha: 0.15),
+          color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: AppColors.primaryColor.withValues(alpha: 0.13),
+            color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
             width: 1,
           ),
         ),
@@ -260,6 +263,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorTheme = context.colors;
 
     return CompositedTransformTarget(
       link: _layerLink,
@@ -271,7 +275,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
             text: TextSpan(
               text: widget.label!,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.black,
+                color: colorTheme.themBasedBlack,
                 fontWeight: FontWeight.normal,
               ),
               children: widget.isRequired
@@ -279,7 +283,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
                 TextSpan(
                   text: ' *',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: colorTheme.themBasedBlack,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -290,10 +294,10 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
           if(widget.label != null) gapH4(),
           DecoratedBox(
             decoration: BoxDecoration(
-              color: AppColors.primaryColor.withValues(alpha: 0.15),
+              color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.15),
               borderRadius: BorderRadius.circular(widget.radius ?? 12),
               border: Border.all(
-                color: AppColors.primaryColor.withValues(alpha: 0.13),
+                color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
                 width: 1,
               ),
             ),
@@ -310,7 +314,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
                 textInputAction: widget.textInputAction,
                 cursorColor: Colors.black,
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.black,
+                  color: colorTheme.themBasedBlack,
                   fontWeight: FontWeight.normal,
                 ),
                 onFieldSubmitted: widget.onFieldSubmitted,
@@ -318,14 +322,14 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
                 decoration: InputDecoration(
                   hintText: widget.hint,
                   hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                    color: Colors.black54,
+                    color: colorTheme.black54,
                   ),
                   errorStyle: theme.textTheme.displaySmall?.copyWith(
                     color: Colors.redAccent,
                     fontWeight: FontWeight.normal,
                     fontSize: 10,
                   ),
-                  prefixIcon: Icon(widget.icon, color: Colors.black54, size: 22),
+                  prefixIcon: Icon(widget.icon, color: colorTheme.black54, size: 22),
                   border: InputBorder.none,
                   contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                 ),
@@ -355,6 +359,7 @@ class _SuggestionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     final theme = Theme.of(context);
 
     return InkWell(
@@ -365,7 +370,7 @@ class _SuggestionTile extends StatelessWidget {
         decoration: BoxDecoration(
           border: !isLast ? Border(
             bottom: BorderSide(
-              color: AppColors.primaryColor.withValues(alpha: 0.1),
+              color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.1),
               width: 0.5,
             ),
           ) : null,
@@ -374,7 +379,7 @@ class _SuggestionTile extends StatelessWidget {
           children: [
             Icon(
               Icons.search_outlined,
-              color: Colors.black54,
+              color: colorTheme.black54,
               size: 18,
             ),
             SizedBox(width: 12),
@@ -388,11 +393,13 @@ class _SuggestionTile extends StatelessWidget {
   }
 
   Widget _buildHighlightedText(ThemeData theme) {
+    final colorTheme = navigatorKey.currentContext!.colors;
+
     if (query.isEmpty) {
       return Text(
         suggestion,
         style: theme.textTheme.bodyMedium?.copyWith(
-          color:AppColors.primaryColor.withValues(alpha: 0.9),
+          color:colorTheme.buttonPrimaryColor.withValues(alpha: 0.9),
           fontWeight: FontWeight.normal,
         ),
       );
@@ -405,7 +412,7 @@ class _SuggestionTile extends StatelessWidget {
       return Text(
         suggestion,
         style: theme.textTheme.bodyMedium?.copyWith(
-          color: AppColors.primaryColor.withValues(alpha: 0.9),
+          color:colorTheme.buttonPrimaryColor.withValues(alpha: 0.9),
           fontWeight: FontWeight.normal,
         ),
       );
@@ -421,14 +428,14 @@ class _SuggestionTile extends StatelessWidget {
             TextSpan(
               text: suggestion.substring(0, startIndex),
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: AppColors.primaryColor.withValues(alpha: 0.9),
+                color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.9),
                 fontWeight: FontWeight.normal,
               ),
             ),
           TextSpan(
             text: suggestion.substring(startIndex, endIndex),
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.black,
+              color: colorTheme.themBasedBlack,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -436,7 +443,7 @@ class _SuggestionTile extends StatelessWidget {
             TextSpan(
               text: suggestion.substring(endIndex),
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: AppColors.primaryColor.withValues(alpha: 0.9),
+                color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.9),
                 fontWeight: FontWeight.normal,
               ),
             ),

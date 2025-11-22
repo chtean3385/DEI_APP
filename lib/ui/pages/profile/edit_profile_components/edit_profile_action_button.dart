@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class EditProfileActionButtons extends ConsumerWidget {
     final employeeState = ref.watch(editEmployeeProfileProvider);
     final employeeController = ref.read(editEmployeeProfileProvider.notifier);
     final bool isLoading = employeeState.pageState == PageState.loading;
+    final colorTheme = context.colors;
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
@@ -34,23 +37,23 @@ class EditProfileActionButtons extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                   Icon(
                     Icons.close_rounded,
                     size: 20,
-                    color: AppColors.primaryColor,
+                    color: colorTheme.buttonPrimaryColor,
                   ),
                   const SizedBox(width: 6),
                   Text(
                     'Cancel',
                     style: context.textTheme.titleMedium?.copyWith(
-                      color: AppColors.primaryColor,
+                      color: colorTheme.buttonPrimaryColor,
                     ),
                   ),
                 ],
               ),
               radius: 30,
-              color: Colors.white,
-              borderColor: AppColors.primaryColor,
+              color: colorTheme.themBasedWhite,
+              borderColor: colorTheme.buttonPrimaryColor,
             ),
 
             const SizedBox(width: 16),
@@ -70,10 +73,10 @@ class EditProfileActionButtons extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(
+                   Icon(
                     Icons.check_circle_outline_sharp,
                     size: 20,
-                    color: Colors.white,
+                    color: colorTheme.themBasedWhite,
                   ),
                   const SizedBox(width: 6),
                   Padding(
@@ -81,15 +84,15 @@ class EditProfileActionButtons extends ConsumerWidget {
                     child: Text(
                       'Save',
                       style: context.textTheme.titleMedium?.copyWith(
-                        color: Colors.white,
+                        color: colorTheme.themBasedWhite,
                       ),
                     ),
                   ),
                 ],
               ),
               radius: 30,
-              color: AppColors.primaryColor,
-              borderColor: AppColors.primaryColor,
+              color: colorTheme.buttonPrimaryColor,
+              borderColor: colorTheme.buttonPrimaryColor,
             ),
           ],
         ),
