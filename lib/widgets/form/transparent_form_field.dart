@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show TextInputFormatter;
 
@@ -88,6 +89,8 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorTheme = context.colors;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +100,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
             text: TextSpan(
               text: widget.label!,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.black,
+                color: colorTheme.themBasedBlack,
                 fontWeight: FontWeight.normal,
               ),
               children: widget.isRequired
@@ -105,7 +108,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
                       TextSpan(
                         text: ' *',
                         style: TextStyle(
-                          color: Colors.black,
+                          color: colorTheme.themBasedBlack,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -118,10 +121,10 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
           decoration: BoxDecoration(
             color:
                 widget.fillColor ??
-                AppColors.primaryColor.withValues(alpha: 0.15),
+                    colorTheme.buttonPrimaryColor.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(widget.radius ?? 16),
             border: Border.all(
-              color: AppColors.primaryColor.withValues(alpha: 0.13),
+              color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
               width: 1,
             ),
           ),
@@ -144,7 +147,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
               minLines: widget.isPassword ? 1 : widget.minLines,
               readOnly: widget.readOnly,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.black,
+                color: colorTheme.themBasedBlack,
                 fontWeight: FontWeight.normal,
               ),
               onFieldSubmitted:
@@ -168,7 +171,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
               decoration: InputDecoration(
                 hintText: widget.hint,
                 hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.black54,
+                  color: colorTheme.black54,
                 ),
                 counterText:
                 (widget.showCounter)
@@ -176,7 +179,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
                     : "",
                 // 👈 live counter
                 counterStyle: theme.textTheme.bodySmall?.copyWith(
-                  color: Colors.grey[600],
+                  color: colorTheme.grey600,
                   fontSize: 12,
                 ),
                 errorStyle: theme.textTheme.displaySmall?.copyWith(
@@ -185,7 +188,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
                   fontSize: 10,
                 ),
                 prefixIcon: widget.icon != null
-                    ? Icon(widget.icon, color: Colors.black54, size: 22)
+                    ? Icon(widget.icon, color: colorTheme.black54, size: 22)
                     : null,
                 suffixIcon: widget.isPassword
                     ? IconButton(
@@ -193,7 +196,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
                           _isPasswordVisible
                               ? Icons.visibility_outlined
                               : Icons.visibility_off_outlined,
-                          color: Colors.black54,
+                          color: colorTheme.black54,
                           size: 22,
                         ),
                         onPressed: () {

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -20,6 +21,8 @@ class EditBasicInformation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(editEmployeeProfileProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
+    final colorTheme = context.colors;
+
     final Map<String, String> workStatusLabels = {
       'employed': 'Employed',
       'un-employed': 'Looking for a Job',
@@ -28,9 +31,9 @@ class EditBasicInformation extends ConsumerWidget {
     };
     return Card(
       elevation: 2,
-      color: Colors.white,
+      color: colorTheme.jobCardBgColor,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: colorTheme.themBasedWhite)),
       child: ExpansionTile(
         initiallyExpanded: isFromCommonEdit != true,
         // collapsed by default
@@ -38,13 +41,13 @@ class EditBasicInformation extends ConsumerWidget {
           "Basic Information",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: colorTheme.black87,
           ),
         ),
         visualDensity: VisualDensity.compact,
 
-        iconColor: Colors.black54,
-        collapsedIconColor: Colors.black54,
+        iconColor: colorTheme.black54,
+        collapsedIconColor: colorTheme.black54,
         trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
         onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(
@@ -60,7 +63,7 @@ class EditBasicInformation extends ConsumerWidget {
                 text: "Active",
                 style: context.textTheme.labelMedium?.copyWith(
                   color: BootstrapColors.colors["green"] ??
-                      AppColors.primaryColor,
+                      colorTheme.buttonPrimaryColor,
                 ),
                 children: [
                   TextSpan(
@@ -70,7 +73,7 @@ class EditBasicInformation extends ConsumerWidget {
                   TextSpan(
                     text: '${workStatusLabels[state.profileData?.workStatus] ?? 'Select Status'}',
                     style: context.textTheme.labelMedium?.copyWith(
-                      color:AppColors.primaryColor,
+                      color:colorTheme.buttonPrimaryColor,
                     ),
                   ),
                 ]
