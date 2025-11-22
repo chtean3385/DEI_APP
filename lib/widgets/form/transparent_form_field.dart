@@ -141,7 +141,7 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
               autofillHints: widget.autofillHints,
               textInputAction: widget.textInputAction,
               inputFormatters: widget.inputFormatters,
-              cursorColor: Colors.black,
+              cursorColor: colorTheme.themBasedBlack,
               maxLength: widget.maxLength,
               maxLines: widget.isPassword ? 1 : null,
               minLines: widget.isPassword ? 1 : widget.minLines,

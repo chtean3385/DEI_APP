@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_styles.dart';
@@ -35,6 +36,7 @@ class TransparentDropdownField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorTheme = context.colors;
 // Normalize current value (case-insensitive)
     final normalizedValue = items.firstWhere(
           (e) => e.toLowerCase() == value?.toLowerCase(),
@@ -48,7 +50,7 @@ class TransparentDropdownField extends StatelessWidget {
           text: TextSpan(
             text: label!,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: Colors.black,
+              color: colorTheme.themBasedBlack,
               fontWeight: FontWeight.normal,
             ),
             children: isRequired
@@ -56,7 +58,7 @@ class TransparentDropdownField extends StatelessWidget {
               TextSpan(
                 text: ' *',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: colorTheme.themBasedBlack,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -67,10 +69,10 @@ class TransparentDropdownField extends StatelessWidget {
         if (label != null) gapH4(),
         DecoratedBox(
           decoration: BoxDecoration(
-            color: fillColor ?? AppColors.primaryColor.withValues(alpha: 0.15),
+            color: fillColor ?? (colorTheme.buttonPrimaryColor.withValues(alpha: 0.15)),
             borderRadius: BorderRadius.circular(radius ?? 16),
             border: Border.all(
-              color: AppColors.primaryColor.withValues(alpha: 0.13),
+              color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
             ),
           ),
           child: Padding(
@@ -90,19 +92,19 @@ class TransparentDropdownField extends StatelessWidget {
               validator: validator,
               isExpanded: true,
 
-              dropdownColor: AppColors.primaryColor, // dropdown list bg
+              dropdownColor: colorTheme.buttonPrimaryColor, // dropdown list bg
               borderRadius: BorderRadius.circular(radius ?? 16),
 
               // The text style for the selected value
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.black, // black when selected
+                color: colorTheme.themBasedBlack, // black when selected
                 fontWeight: FontWeight.bold,
               ),
 
 
 
               decoration: InputDecoration(
-                prefixIcon: Icon(icon, color: Colors.black54, size: 22),
+                prefixIcon: Icon(icon, color: colorTheme.black54, size: 22),
                 border: InputBorder.none,
                 isDense: true,
                 contentPadding: const EdgeInsets.symmetric(
@@ -120,7 +122,7 @@ class TransparentDropdownField extends StatelessWidget {
               hint: Text(
                 hint,
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.black54,
+                  color: colorTheme.black54,
                   fontWeight: FontWeight.normal,
                 ),
               ),
@@ -133,7 +135,7 @@ class TransparentDropdownField extends StatelessWidget {
                   child: Text(
                     _capitalize(item),
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: Colors.white, // white inside dropdown list
+                      color: colorTheme.themBasedWhite, // white inside dropdown list
                       fontWeight: FontWeight.normal,
                     ),
                   ),
@@ -147,7 +149,7 @@ class TransparentDropdownField extends StatelessWidget {
                   return Text(
                     _capitalize(item),
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: Colors.black, // black only for selected value
+                      color: colorTheme.themBasedBlack, // black only for selected value
                       fontWeight: FontWeight.normal,
                     ),
                   );
@@ -161,9 +163,9 @@ class TransparentDropdownField extends StatelessWidget {
 
 
               // onChanged: (val) => onChanged(val?.toLowerCase()),
-              icon: const Icon(
+              icon:  Icon(
                 Icons.keyboard_arrow_down_rounded,
-                color: Colors.black54,
+                color: colorTheme.black54,
               ),
             ),
           ),
