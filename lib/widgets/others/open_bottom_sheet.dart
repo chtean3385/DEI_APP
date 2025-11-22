@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 Future<void> openEditBottomSheet({
@@ -10,7 +11,10 @@ Future<void> openEditBottomSheet({
   double initialChildSize = 0.85,
   bool isDraggable = false,
 }) {
+  final colorTheme = context.colors;
+
   if (!isDraggable) {
+
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -21,7 +25,7 @@ Future<void> openEditBottomSheet({
             bottom: MediaQuery.of(ctx).viewInsets.bottom, // pushes content above keyboard
           ),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: colorTheme.commonDividerBgColor,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
           ),
           clipBehavior: Clip.antiAlias,child: content),
@@ -41,7 +45,7 @@ Future<void> openEditBottomSheet({
           builder: (context, scrollController) {
             return Container(
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: colorTheme.themBasedWhite,
                 borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
               ),
               padding: EdgeInsets.only(
@@ -66,6 +70,8 @@ Future<void> openDynamicFormSheet({
   required Widget child,
   bool isDismissible = true,
 }) {
+  final colorTheme = context.colors;
+
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -85,7 +91,7 @@ Future<void> openDynamicFormSheet({
               maxHeight: 0.95 * 1000, // <- overriden below dynamically
             ),
             child: Material(
-              color: Colors.white,
+              color: colorTheme.commonDividerBgColor,
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(18),
               ),
