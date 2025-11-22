@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -21,11 +22,12 @@ class CustomChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return GestureDetector(
       onTap:()=>onChanged(option),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color:AppColors.primaryColor.withValues(alpha: 0.15),
+          color:colorTheme.buttonPrimaryColor.withValues(alpha: 0.15),
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
             width: isSelected ? 2 : 0.2,
@@ -42,7 +44,7 @@ class CustomChip extends StatelessWidget {
               Text(
                 option,
                 style: context.textTheme.displaySmall?.copyWith(
-                  color: Colors.black,
+                  color: colorTheme.themBasedBlack,
                   fontWeight: isSelected
                       ? FontWeight.w500
                       : FontWeight.normal,
@@ -55,7 +57,7 @@ class CustomChip extends StatelessWidget {
                     print("showRemoveshowRemove - $option");
                     isMulti?onChanged(option)  :   onChanged("");
                   },
-                  child: const Icon(Icons.close, size: 18, color: Colors.black),
+                  child:  Icon(Icons.close, size: 18, color: colorTheme.themBasedBlack),
                 ),
             ],
           ),

@@ -73,10 +73,10 @@ class EditProfileActionButtons extends ConsumerWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                   Icon(
+                  const  Icon(
                     Icons.check_circle_outline_sharp,
                     size: 20,
-                    color: colorTheme.themBasedWhite,
+                    color: Colors.white,
                   ),
                   const SizedBox(width: 6),
                   Padding(
@@ -84,7 +84,7 @@ class EditProfileActionButtons extends ConsumerWidget {
                     child: Text(
                       'Save',
                       style: context.textTheme.titleMedium?.copyWith(
-                        color: colorTheme.themBasedWhite,
+                        color: Colors.white,
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -290,6 +291,8 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorTheme = context.colors;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -299,15 +302,15 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
             text: TextSpan(
               text: widget.label!,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.black,
+                color: colorTheme.themBasedBlack,
                 fontWeight: FontWeight.normal,
               ),
               children: widget.isRequired
                   ? [
                       TextSpan(
                         text: ' *',
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style:  TextStyle(
+                          color: colorTheme.themBasedBlack,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -320,10 +323,10 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
           decoration: BoxDecoration(
             color:
                 widget.fillColor ??
-                AppColors.primaryColor.withValues(alpha: 0.15),
+                    colorTheme.buttonPrimaryColor.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(widget.radius ?? 16),
             border: Border.all(
-              color: AppColors.primaryColor.withValues(alpha: 0.13),
+              color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
               width: 1,
             ),
           ),
@@ -342,13 +345,13 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
                     autofillHints: widget.autofillHints,
                     textInputAction: widget.textInputAction,
                     inputFormatters: widget.inputFormatters,
-                    cursorColor: Colors.black,
+                    cursorColor: colorTheme.themBasedBlack,
                     maxLength: widget.maxLength,
                     minLines: widget.minLines ?? 1,
                     maxLines: 1,
                     readOnly: widget.readOnly,
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: Colors.black,
+                      color: colorTheme.themBasedBlack,
                       fontWeight: FontWeight.normal,
                     ),
                     onFieldSubmitted:
@@ -364,7 +367,7 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
                     decoration: InputDecoration(
                       hintText: widget.hint,
                       hintStyle: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.black54,
+                        color: colorTheme.themBasedBlack,
                       ),
                       counterText: "",
                       errorStyle: theme.textTheme.displaySmall?.copyWith(
@@ -373,7 +376,7 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
                         fontSize: 10,
                       ),
                       prefixIcon: widget.icon != null
-                          ? Icon(widget.icon, color: Colors.black54, size: 22)
+                          ? Icon(widget.icon, color: colorTheme.black54, size: 22)
                           : null,
                       border: InputBorder.none,
                       isDense: true,
@@ -388,10 +391,10 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
                   padding: const EdgeInsets.only(right: 10),
                   child: CustomThemeButton(
                     color: isTextNotEmpty
-                        ? AppColors.primaryColor
-                        : Colors.grey,
+                        ? colorTheme.buttonPrimaryColor
+                        : colorTheme.grey,
                     borderColor: isTextNotEmpty
-                        ? AppColors.primaryColor
+                        ? colorTheme.buttonPrimaryColor
                         : Colors.grey,
                     radius: 12,
                     padding: const EdgeInsets.symmetric(
@@ -408,7 +411,7 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
                         widget.controller.clear();
                       }
                     },
-                    child: Icon(Icons.add, color: Colors.white),
+                    child: Icon(Icons.add, color: colorTheme.themBasedBlack),
                   ),
                 ),
               ],

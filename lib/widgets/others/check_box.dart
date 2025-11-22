@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckbox extends StatefulWidget {
@@ -46,6 +47,7 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -57,17 +59,17 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
             onChanged: _toggle,
             visualDensity: VisualDensity.compact,
             activeColor: AppColors.primaryColor,
-            checkColor: Colors.white,
+            checkColor: colorTheme.themBasedWhite,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
             ),
             fillColor: WidgetStateProperty.resolveWith<Color>((states) {
               if (states.contains(WidgetState.selected)) {
-                return AppColors.primaryColor;
+                return colorTheme.buttonPrimaryColor;
               }
               return Colors.transparent;
             }),
-            side: const BorderSide(color: AppColors.primaryColor, width: 1.2), // visible border
+            side:  BorderSide(color: colorTheme.buttonPrimaryColor, width: 1.2), // visible border
           ),
         ),
         const SizedBox(width: 6),

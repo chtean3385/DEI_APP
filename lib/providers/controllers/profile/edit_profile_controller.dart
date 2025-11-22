@@ -331,7 +331,7 @@ class EditEmployeeProfileController
         ),
       );
     }
-
+    formKey.currentState?.validate();
     skillController.clear();
   }
   // Remove skill

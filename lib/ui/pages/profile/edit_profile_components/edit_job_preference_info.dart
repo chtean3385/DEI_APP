@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_styles.dart';
@@ -16,25 +17,25 @@ class EditJobPreferenceInfo extends ConsumerWidget {
     final state = ref.watch(editEmployeeProfileProvider);
     final jobTypeState = ref.watch(jobTypesProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
+    final colorTheme = context.colors;
+
     return Card(
       elevation: 2,
-      color: Colors.white,
+      color: colorTheme.jobCardBgColor,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: colorTheme.themBasedWhite)),
       child: ExpansionTile(
         initiallyExpanded: false,
         title: Text(
           "Job Preferences",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: colorTheme.black87,
           ),
         ),
         visualDensity: VisualDensity.compact,
-        iconColor: Colors.black54,
-        collapsedIconColor: Colors.black54,
+        iconColor: colorTheme.black54,
+        collapsedIconColor: colorTheme.black54,
         childrenPadding:
         const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [

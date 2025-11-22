@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import '../../../../../../widgets/pickers/custom_chip.dart';
@@ -46,6 +47,7 @@ class _YearSelectorState extends State<YearSelector> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
 
     return Align(
       alignment: AlignmentGeometry.centerLeft,
@@ -64,7 +66,7 @@ class _YearSelectorState extends State<YearSelector> {
                 Text(
                   "${widget.title}*",
                   style: textTheme.bodyMedium?.copyWith(
-                    color: Colors.black,
+                    color: colorTheme.themBasedBlack,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -109,7 +111,7 @@ class _YearSelectorState extends State<YearSelector> {
               Text(
                 "${widget.title}*",
                 style: textTheme.bodyMedium?.copyWith(
-                  color: Colors.black,
+                  color: colorTheme.themBasedBlack,
                   fontWeight: FontWeight.w600,
                 ),
               ),

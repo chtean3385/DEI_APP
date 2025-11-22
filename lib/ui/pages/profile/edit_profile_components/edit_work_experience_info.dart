@@ -1,4 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
+import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -20,24 +22,25 @@ class EditWorkExpInformation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final state = ref.watch(editEmployeeProfileProvider);
+    final colorTheme = context.colors;
 
     return Card(
       elevation: 2,
-      color: Colors.white,
+      color: colorTheme.jobCardBgColor,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: colorTheme.themBasedWhite)),
       child: ExpansionTile(
         initiallyExpanded: isFromCommonEdit!= true,
         title: Text(
           "Work Experience",
           style: Theme.of(context).textTheme.bodyMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: colorTheme.black87,
           ),
         ),
         visualDensity: VisualDensity.compact,
-        iconColor: Colors.black54,
-        collapsedIconColor: Colors.black54,
+        iconColor: colorTheme.black54,
+        collapsedIconColor: colorTheme.black54,
         trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
         onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
@@ -59,7 +62,7 @@ class EditWorkExpInformation extends ConsumerWidget {
           gapH16(),
           CustomThemeButton(
             isExpanded: false,
-            color: AppColors.primaryColor,
+            color: colorTheme.buttonPrimaryColor,
             radius: 8,
             padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
             child: Row(
@@ -70,7 +73,7 @@ class EditWorkExpInformation extends ConsumerWidget {
                 Text(
                   "Add Experience",
                   style: context.textTheme.displaySmall?.copyWith(
-                    color: Colors.white,
+                    color: Colors.white
                   ),
                 ),
               ],
@@ -194,12 +197,12 @@ class EditWorkExpInformation extends ConsumerWidget {
       List<String> positionList,
       ) {
     final ValueNotifier<bool> isCurrentlyWorking = ValueNotifier(false);
-
+    final colorTheme = navigatorKey.currentContext!.colors;
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: Card(
         elevation: 2,
-        color: AppColors.bg,
+        color: colorTheme.cardBgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         child: Padding(
           padding: const EdgeInsets.all(8.0),

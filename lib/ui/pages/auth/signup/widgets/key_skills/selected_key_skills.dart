@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,8 @@ class SelectedKeySkills extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
+
     return FormField<List<String>>(
       validator: (_) {
         if (selectedSkill.isEmpty) {
@@ -37,7 +40,7 @@ class SelectedKeySkills extends StatelessWidget {
               if (selectedSkill.isNotEmpty)    Text(
                 'Selected ${label ?? "Skills"}',
                 style: context.textTheme.bodyMedium?.copyWith(
-                  color: Colors.black54,
+                  color: colorTheme.black54,
                 ),
               ),
               if (selectedSkill.isNotEmpty)   const SizedBox(height: 16),
@@ -48,7 +51,7 @@ class SelectedKeySkills extends StatelessWidget {
                   return GestureDetector(
                     child: DecoratedBox(
                       decoration: BoxDecoration(
-                        color: AppColors.primaryColor.withValues(alpha: 0.10),
+                        color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.10),
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(
                           width: 1,
@@ -66,7 +69,7 @@ class SelectedKeySkills extends StatelessWidget {
                             Text(
                               skill,
                               style: context.textTheme.displaySmall?.copyWith(
-                                color: Colors.black,
+                                color: colorTheme.themBasedBlack,
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -77,10 +80,10 @@ class SelectedKeySkills extends StatelessWidget {
                                 field.didChange(selectedSkill);
                                 field.validate();
                               },
-                              child: const Icon(
+                              child:  Icon(
                                 Icons.close,
                                 size: 16,
-                                color: Colors.black,
+                                color: colorTheme.themBasedBlack,
                               ),
                             ),
                           ],

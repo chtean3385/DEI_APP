@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -18,26 +19,28 @@ class EditResumeInformation extends ConsumerWidget {
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final state = ref.watch(editEmployeeProfileProvider);
     final theme = context.textTheme;
+    final colorTheme = context.colors;
+
 
     final fileName = state.resumeFile?.name;
 
     return Card(
       elevation: 2,
-      color: Colors.white,
+      color: colorTheme.jobCardBgColor,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: colorTheme.themBasedWhite)),
       child: ExpansionTile(
         initiallyExpanded: isFromCommonEdit != true,
         title: Text(
           "Resume",
           style: theme.bodyMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.black87,
+            color: colorTheme.black87,
           ),
         ),
         visualDensity: VisualDensity.compact,
-        iconColor: Colors.black54,
-        collapsedIconColor: Colors.black54,
+        iconColor: colorTheme.black54,
+        collapsedIconColor: colorTheme.black54,
         trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
         onExpansionChanged: isFromCommonEdit ? null : (_) {},
         childrenPadding: const EdgeInsets.symmetric(
@@ -52,7 +55,7 @@ class EditResumeInformation extends ConsumerWidget {
                 'Upload Your Resume',
                 style: theme.bodyMedium?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: const Color(0xFF1e293b),
+                  color: colorTheme.black54
                 ),
               ),
               const SizedBox(height: 24),
@@ -60,7 +63,7 @@ class EditResumeInformation extends ConsumerWidget {
               // File picker section
               DecoratedBox(
                 decoration: BoxDecoration(
-                  color: const Color(0xFFf8fafc),
+                  color: colorTheme.cardBgColor,
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: const Color(0xFFcbd5e1)),
                 ),
@@ -72,16 +75,16 @@ class EditResumeInformation extends ConsumerWidget {
                         onTap: controller.pickResume,
                         child: Row(
                           children: [
-                            const Icon(
+                             Icon(
                               Icons.attach_file,
-                              color: Color(0xFF475569),
+                              color: colorTheme.black54,
                             ),
                             const Text('Choose File'),
                           ],
                         ),
                         radius: 4,
-                        color: Colors.black12,
-                        borderColor: Colors.black12,
+                        color: colorTheme.black12,
+                        borderColor: colorTheme.black12,
                         padding: EdgeInsets.symmetric(
                           vertical: 4,
                           horizontal: 8,
@@ -124,7 +127,7 @@ class EditResumeInformation extends ConsumerWidget {
                           overflow: TextOverflow.ellipsis,
                           softWrap: true,
                           style: context.textTheme.labelLarge?.copyWith(
-                            color: AppColors.primaryColor,
+                            color: colorTheme.buttonPrimaryColor,
                           ),
                         ),
                       ),
@@ -133,9 +136,9 @@ class EditResumeInformation extends ConsumerWidget {
                 ),
               const SizedBox(height: 16),
 
-              const Text(
+              Text(
                 'Accepted formats: PDF, DOC, DOCX (Max size: 5MB)',
-                style: TextStyle(fontSize: 12, color: Colors.black54),
+                style: TextStyle(fontSize: 12, color: colorTheme.black54),
               ),
 
               if (fileName != null) ...[
@@ -158,16 +161,16 @@ class EditResumeInformation extends ConsumerWidget {
                       onTap: controller.viewResume,
                       child: Row(
                         children: [
-                          const Icon(
+                           Icon(
                             Icons.visibility_outlined,
                             size: 16,
-                            color: Colors.white,
+                            color: colorTheme.themBasedWhite,
                           ),
                           gapW6(),
                           Text(
                             'View',
                             style: theme.displaySmall?.copyWith(
-                              color: Colors.white,
+                              color: colorTheme.themBasedWhite,
                             ),
                           ),
                         ],
