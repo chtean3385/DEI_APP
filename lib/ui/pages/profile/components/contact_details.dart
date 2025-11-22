@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:dei_champions/widgets/others/view_all_button.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class ContactDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorTheme = context.colors;
     final state = ref.watch(employeeProfileProvider);
     return state.pageState == PageState.loading
         ? _loader()
@@ -21,7 +23,7 @@ class ContactDetails extends ConsumerWidget {
             margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: colorTheme.jobCardBgColor,
               borderRadius: BorderRadius.all(Radius.circular(8)),
               border: Border.all(color: Colors.black12, width: 1),
             ),
@@ -52,13 +54,13 @@ class ContactDetails extends ConsumerWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.work, color: Colors.black54, size: 16),
+                    Icon(Icons.work, color: colorTheme.black54, size: 16),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         state.profileData?.workStatus ?? "",
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,fontSize: 13
+                          color: colorTheme.black54,fontSize: 13
                         ),
                       ),
                     ),
@@ -68,14 +70,14 @@ class ContactDetails extends ConsumerWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.currency_rupee, color: Colors.black54, size: 16),
+                    Icon(Icons.currency_rupee, color: colorTheme.black54, size: 16),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         state.profileData?.preferences?.salaryRange ??
                             'Not specified',
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,fontSize: 13
+                          color: colorTheme.black54,fontSize: 13
                         ),
                       ),
                     ),
@@ -85,13 +87,13 @@ class ContactDetails extends ConsumerWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.email, color: Colors.black54, size: 16),
+                    Icon(Icons.email, color: colorTheme.black54, size: 16),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         state.profileData?.email ?? 'Not specified',
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,fontSize: 13
+                          color: colorTheme.black54,fontSize: 13
                         ),
                       ),
                     ),
@@ -101,13 +103,13 @@ class ContactDetails extends ConsumerWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.phone, color: Colors.black54, size: 16),
+                    Icon(Icons.phone, color: colorTheme.black54, size: 16),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         state.profileData?.mobile ?? 'Not specified',
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,fontSize: 13
+                          color: colorTheme.black54,fontSize: 13
                         ),
                       ),
                     ),
@@ -117,13 +119,13 @@ class ContactDetails extends ConsumerWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Icon(Icons.location_on, color: Colors.black54, size: 16),
+                    Icon(Icons.location_on, color: colorTheme.black54, size: 16),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         "${state.profileData?.address ?? ""}, ${state.profileData?.city ?? ""}, ${state.profileData?.state ?? ""}, ${state.profileData?.country ?? ""}",
                         style: context.textTheme.displaySmall?.copyWith(
-                          color: Colors.black54,fontSize: 13
+                          color: colorTheme.black54,fontSize: 13
                         ),
                       ),
                     ),

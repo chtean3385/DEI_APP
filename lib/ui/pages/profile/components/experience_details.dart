@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,14 +20,16 @@ class ExperienceDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(employeeProfileProvider);
+    final colorTheme = context.colors;
+
     return state.pageState == PageState.loading
         ? _loader() :  Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorTheme.jobCardBgColor,
         borderRadius: BorderRadius.all(Radius.circular(8)),
-        border: Border.all(color: Colors.black12, width: 1),
+        border: Border.all(color: colorTheme.black12, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +49,7 @@ class ExperienceDetails extends ConsumerWidget {
                     context:context,
                     child: const EditWorkExpInformation(isFromCommonEdit: false),
                   ),
-                  child: Icon(Icons.edit_outlined,color: AppColors.primaryColor,size: 15))
+                  child: Icon(Icons.edit_outlined,color: colorTheme.buttonPrimaryColor,size: 15))
             ],
           ),
         state.profileData?.experience?.isNotEmpty == true ?  ListView.separated(
@@ -61,13 +64,13 @@ class ExperienceDetails extends ConsumerWidget {
               );
             },
             separatorBuilder: (BuildContext context, int index) {
-              return Divider(color: Colors.black12, height: 48);
+              return Divider(color: colorTheme.black12, height: 48);
             },
             itemCount: state.profileData?.experience?.length ?? 0,
           ) :  Text(
            "No experience information available",
           style: context.textTheme.labelLarge?.copyWith(
-            color: AppColors.primaryColor,
+            color: colorTheme.buttonPrimaryColor,
           ),
         ),
         ],

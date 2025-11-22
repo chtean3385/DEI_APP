@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/profile/edit_profile_components/edit_resume.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -18,15 +19,17 @@ class ResumeDetails extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(employeeProfileProvider);
+    final colorTheme = context.colors;
+
     return state.pageState == PageState.loading
         ? _loader()
         : Container(
             margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: colorTheme.jobCardBgColor,
               borderRadius: BorderRadius.all(Radius.circular(8)),
-              border: Border.all(color: Colors.black12, width: 1),
+              border: Border.all(color: colorTheme.black12, width: 1),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +54,7 @@ class ResumeDetails extends ConsumerWidget {
                       ),
                       child: Icon(
                         Icons.edit_outlined,
-                        color: AppColors.primaryColor,
+                        color: colorTheme.buttonPrimaryColor,
                         size: 15,
                       ),
                     ),
@@ -73,7 +76,7 @@ class ResumeDetails extends ConsumerWidget {
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
                         style: context.textTheme.labelLarge?.copyWith(
-                          color: AppColors.primaryColor,
+                          color: colorTheme.buttonPrimaryColor,
                         ),
                       ),
                     ),

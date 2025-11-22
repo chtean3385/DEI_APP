@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -13,6 +14,7 @@ class BasicDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorTheme = context.colors;
     // return _loader();
     final state = ref.watch(employeeProfileProvider);
     String? employeeCurrentPosition =
@@ -36,11 +38,11 @@ class BasicDetails extends ConsumerWidget {
                       )
                     : CircleAvatar(
                         radius: 30,
-                        backgroundColor: Colors.black12,
+                        backgroundColor: colorTheme.black12,
                         child: Icon(
                           Icons.person_add, // ✅ Add Profile Image icon
                           size: 30, // optional: adjust size
-                          color: Colors.grey.shade600, // optional: adjust color
+                          color: colorTheme.grey600, // optional: adjust color
                         ),
                       ),
                 const SizedBox(height: 8),
@@ -55,7 +57,7 @@ class BasicDetails extends ConsumerWidget {
                 Text(
                   employeeCurrentPosition ?? "Profession not specified",
                   style: context.textTheme.labelLarge?.copyWith(
-                    color: Colors.black54,
+                    color: colorTheme.black54,
                   ),
                 ),
               ],

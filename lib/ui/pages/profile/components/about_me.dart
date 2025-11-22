@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,15 +15,17 @@ class AboutMe extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(employeeProfileProvider);
+    final colorTheme = context.colors;
+
     return state.pageState == PageState.loading
         ? _loader() : Container(
       margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorTheme.jobCardBgColor,
         borderRadius: BorderRadius.all(Radius.circular(8)),
-        border: Border.all(color: Colors.black12, width: 1),
+        border: Border.all(color: colorTheme.black12, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,7 +41,7 @@ class AboutMe extends ConsumerWidget {
             state.profileData?.employeeDescription ?? "",
 
             style: context.textTheme.displaySmall?.copyWith(
-              color: Colors.black54,fontSize: 13
+              color: colorTheme.black54,fontSize: 13
             ),
             softWrap: true,textAlign: TextAlign.left,
           ),
