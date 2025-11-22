@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -62,20 +63,22 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
     String selectedValue,
     ValueChanged<String?> onChanged,
   ) {
+    final colorTheme  = context.colors;
+
     return Row(
       children: [
         Text(
           "$label : ",
           style: context.textTheme.displaySmall?.copyWith(
-            color: Colors.black45,
+            color: colorTheme.black54,
           ),
         ),
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey.shade300, width: 1),
+              border: Border.all(color: colorTheme.grey300, width: 1),
               borderRadius: BorderRadius.circular(6),
-              color: Colors.white,
+              color: colorTheme.themBasedWhite,
             ),
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: DropdownButtonHideUnderline(
@@ -83,21 +86,21 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
                 value: selectedValue,
                 isExpanded: true,
                 isDense: true,
-                icon: const Icon(
+                icon:  Icon(
                   Icons.keyboard_arrow_down_rounded,
                   size: 20,
-                  color: Colors.black54,
+                  color: colorTheme.black54,
                 ),
-                style: const TextStyle(color: Colors.black87, fontSize: 12),
-                dropdownColor: Colors.white,
+                style:  TextStyle(color: colorTheme.black87, fontSize: 12),
+                dropdownColor: colorTheme.themBasedWhite,
                 borderRadius: BorderRadius.circular(6),
                 items: items.map((String value) {
                   return DropdownMenuItem<String>(
                     value: value,
                     child: Text(
                       value,
-                      style: const TextStyle(
-                        color: Colors.black87,
+                      style:  TextStyle(
+                        color: colorTheme.black87,
                         fontSize: 12,
                       ),
                     ),

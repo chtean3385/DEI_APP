@@ -25,7 +25,7 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: context.colors.commonDividerBgColor,
+        color: context.colors.themBasedWhite,
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 20),
           children: [

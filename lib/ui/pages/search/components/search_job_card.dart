@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -12,6 +13,7 @@ import '../../../../../../constants/app_styles.dart';
 import '../../../../../../main.dart';
 import '../../../../../../widgets/others/rounded_network_image.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
+import '../../home/champion_candidates/champion_candidate_card.dart';
 import '../../job/components/save_hide_button.dart';
 
 class SearchJobCard extends StatelessWidget {
@@ -35,6 +37,7 @@ class SearchJobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
     final bool isNew = isNewJob(jobModel.createdAt);
     return GestureDetector(
       onTap: onTap,
@@ -48,10 +51,10 @@ class SearchJobCard extends StatelessWidget {
                 bottomLeft: Radius.circular(6),
                 bottomRight: Radius.circular(16),
               ),
-              side: BorderSide(color: Colors.black12, width: 1),
+              side: BorderSide(color: colorTheme.black12, width: 1),
             ),
             elevation: 0,
-            color: Colors.white,
+            color: colorTheme.jobCardBgColor,
             margin: const EdgeInsets.only(bottom: 12),
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -80,7 +83,7 @@ class SearchJobCard extends StatelessWidget {
                                   Text(
                                     jobModel.employer?.company ?? "",
                                     style: theme.displaySmall?.copyWith(
-                                      color: AppColors.primaryColor,
+                                      color: colorTheme.buttonPrimaryColor,
                                     ),
                                   ),
                                   const SizedBox(height: 6),
@@ -106,12 +109,14 @@ class SearchJobCard extends StatelessWidget {
                       Icon(
                         Icons.location_on_outlined,
                         size: 16,
-                        color: Colors.black54,
+                        color: colorTheme.black54,
                       ),
                       SizedBox(width: 4),
                       Text(
                         jobModel.state ?? "N/A",
-                        style: theme.displaySmall?.copyWith(color: Colors.black54),
+                        style: theme.displaySmall?.copyWith(
+                          color: colorTheme.black54,
+                        ),
                       ),
                     ],
                   ),
@@ -121,12 +126,14 @@ class SearchJobCard extends StatelessWidget {
                       Icon(
                         Icons.work_history_outlined,
                         size: 16,
-                        color: Colors.black54,
+                        color: colorTheme.black54,
                       ),
                       SizedBox(width: 4),
                       Text(
                         jobModel.jobType ?? "N/A",
-                        style: theme.displaySmall?.copyWith(color: Colors.black54),
+                        style: theme.displaySmall?.copyWith(
+                          color: colorTheme.black54,
+                        ),
                       ),
                     ],
                   ),
@@ -140,14 +147,14 @@ class SearchJobCard extends StatelessWidget {
                           Text(
                             "₹",
                             style: theme.labelMedium?.copyWith(
-                              color: Colors.black54,
+                              color: colorTheme.black54,
                             ),
                           ),
                           SizedBox(width: 6),
                           Text(
                             jobModel.salary ?? "N/A",
                             style: theme.displaySmall?.copyWith(
-                              color: Colors.black54,
+                              color: colorTheme.black54,
                             ),
                           ),
                         ],
@@ -159,15 +166,16 @@ class SearchJobCard extends StatelessWidget {
                           Icon(
                             Icons.calendar_today_outlined,
                             size: 14,
-                            color: Colors.black45,),
+                            color: colorTheme.black45,
+                          ),
 
-                            gapW4(),
+                          gapW4(),
                           Text(
                             " ${getShortTimeAgo(jobModel.createdAt ?? DateTime.now())}",
                             overflow: TextOverflow.ellipsis,
                             softWrap: true,
                             style: theme.displaySmall?.copyWith(
-                              color: Colors.black45,
+                              color: colorTheme.black45,
                             ),
                           ),
                         ],
@@ -176,15 +184,7 @@ class SearchJobCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   _skillsRow(jobModel.skills),
-                  // const SizedBox(height: 6),
-                  //
-                  // Text(
-                  //   plainText,
-                  //   overflow: TextOverflow.ellipsis,
-                  //   softWrap: true,
-                  //   maxLines: 3,
-                  //   style: theme.displaySmall?.copyWith(color: Colors.black54),
-                  // ),
+
                   const SizedBox(height: 6),
                   const SizedBox(height: 6),
 
@@ -194,15 +194,15 @@ class SearchJobCard extends StatelessWidget {
                       if (showWithdrawButton)
                         CustomDynamicButton(
                           activeIcon: FontAwesomeIcons.paperPlane,
-                          inActiveIcon:FontAwesomeIcons.circleXmark,
+                          inActiveIcon: FontAwesomeIcons.circleXmark,
                           activeTitle: "Apply",
                           inActiveTitle: "Withdraw",
-                          activeColor: AppColors.primaryColor,
+                          activeColor: colorTheme.buttonPrimaryColor,
                           inActiveColor: Colors.red,
-                          activeBgColor: Colors.white,
-                          inActiveBgColor: Colors.white,
-                          activeIconSize:12,
-                          inActiveIconSize:14,
+                          activeBgColor: colorTheme.jobCardBgColor,
+                          inActiveBgColor: colorTheme.jobCardBgColor,
+                          activeIconSize: 12,
+                          inActiveIconSize: 14,
                           size: 20,
                           smaller: true,
                           radius: 30,
@@ -234,14 +234,14 @@ class SearchJobCard extends StatelessWidget {
                           inActiveIcon: FontAwesomeIcons.circleCheck,
                           activeTitle: "Apply",
                           inActiveTitle: "Applied",
-                          size:15,
-                          activeIconSize:12,
+                          size: 15,
+                          activeIconSize: 12,
                           radius: 30,
                           smaller: true,
-                          activeColor: AppColors.primaryColor,
-                          inActiveColor: AppColors.primaryColor,
-                          activeBgColor: Colors.white,
-                          inActiveBgColor: Colors.white,
+                          activeColor: colorTheme.buttonPrimaryColor,
+                          inActiveColor: colorTheme.buttonPrimaryColor,
+                          activeBgColor: colorTheme.jobCardBgColor,
+                          inActiveBgColor: colorTheme.jobCardBgColor,
                           initialValue: !jobModel.isApplied,
                           onPressed: (isAppliedNow) async {
                             final jobId = jobModel.id ?? "";
@@ -267,19 +267,21 @@ class SearchJobCard extends StatelessWidget {
 
                       if (!hideSaveButton)
                         CustomDynamicButton(
-                          activeIcon: FontAwesomeIcons.bookmark,   // outline
-                          inActiveIcon: FontAwesomeIcons.solidBookmark,        // filled
+                          activeIcon: FontAwesomeIcons.bookmark,
+                          // outline
+                          inActiveIcon: FontAwesomeIcons.solidBookmark,
 
+                          // filled
                           activeTitle: "Save",
                           inActiveTitle: "Saved",
                           radius: 30,
                           smaller: true,
-                          activeIconSize:12,
-                          inActiveIconSize:12,
-                          activeColor:AppColors.primaryColor,
-                          inActiveColor: AppColors.primaryColor,
-                          activeBgColor: Colors.white,
-                          inActiveBgColor: Colors.white,
+                          activeIconSize: 12,
+                          inActiveIconSize: 12,
+                          activeColor: colorTheme.buttonPrimaryColor,
+                          inActiveColor: colorTheme.buttonPrimaryColor,
+                          activeBgColor: colorTheme.jobCardBgColor,
+                          inActiveBgColor: colorTheme.jobCardBgColor,
                           initialValue: !jobModel.isSaved,
                           onPressed: (isSavedNow) async {
                             // 🔹 Add API call here
@@ -302,7 +304,6 @@ class SearchJobCard extends StatelessWidget {
                         ),
                       if (showMyApplicationStatusButton)
                         _buildStatusButton(jobModel.myStatus ?? ""),
-
                     ],
                   ),
                 ],
@@ -318,37 +319,86 @@ class SearchJobCard extends StatelessWidget {
   Widget _skillsRow(List<String>? skills) {
     if (skills == null || skills.isEmpty) return const SizedBox.shrink();
 
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxHeight: 45, // restrict height to 3–4 lines
-      ),
-      child: SingleChildScrollView(
-        child: Wrap(
-          spacing: 8, // horizontal space between chips
-          runSpacing: 8, // vertical space between rows
-          children: skills.map((s) => _tagChip(s)).toList(),
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double maxWidth = constraints.maxWidth;
+
+        double usedWidth = 0;
+        const spacing = 8.0;
+
+        List<String> visible = [];
+        List<String> hidden = [];
+
+        for (var skill in skills) {
+          double chipWidth = measureChipWidth(context, skill);
+
+          if (visible.isEmpty) {
+            // Always add first chip
+            usedWidth = chipWidth;
+            visible.add(skill);
+          } else if (usedWidth + spacing + chipWidth <= maxWidth) {
+            // Fits in single line
+            usedWidth += spacing + chipWidth;
+            visible.add(skill);
+          } else {
+            hidden.add(skill);
+          }
+        }
+
+        // if there's overflow, add +N more chip
+        if (hidden.isNotEmpty) {
+          String lastChip = "+${hidden.length} more";
+
+          double chipWidth = measureChipWidth(context, lastChip);
+
+          // Remove last visible chips until "+N more" fits
+          while (visible.isNotEmpty &&
+              usedWidth + spacing + chipWidth > maxWidth) {
+            double removedChipWidth = measureChipWidth(context, visible.last);
+            visible.removeLast();
+            usedWidth -= (visible.isEmpty
+                ? removedChipWidth
+                : removedChipWidth + spacing);
+          }
+
+          visible.add(lastChip);
+        }
+
+        return Row(
+          children: [
+            ...visible.map(
+              (s) => Padding(
+                padding: const EdgeInsets.only(right: spacing),
+                child: _tagChip(s),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 
   Widget _tagChip(String tag) {
     return // Tag chip
-      Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-        decoration: BoxDecoration(
-          color: AppColors.bg2,
-          borderRadius: BorderRadius.circular(4),
+    Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      decoration: BoxDecoration(
+        color: navigatorKey.currentContext!.colors.jobCardSkillTagBgColor,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        tag,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
+        softWrap: true,
+        textAlign: TextAlign.center,
+        style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
+          fontWeight: FontWeight.w400,
+          fontSize: 10,
+          color: navigatorKey.currentContext!.colors.black54,
         ),
-        child: Text(
-          tag,
-          maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,textAlign: TextAlign.center,
-          style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
-            fontWeight: FontWeight.w400,fontSize: 10,
-            color: Colors.black54,
-          ),
-        ),
-      );
+      ),
+    );
   }
 
   Widget _buildStatusButton(String status) {
@@ -444,6 +494,7 @@ String getTimeAgo(DateTime date) {
     return '$years year${years == 1 ? '' : 's'} ago';
   }
 }
+
 String getShortTimeAgo(DateTime date) {
   final Duration diff = DateTime.now().difference(date);
 
@@ -464,18 +515,16 @@ String getShortTimeAgo(DateTime date) {
   }
 }
 
-
 String formatPostedDate(DateTime date) {
   return DateFormat('MMMM d, y').format(date); // e.g., October 16, 2025
 }
+
 bool isNewJob(DateTime? updatedAt) {
   if (updatedAt == null) return false;
   final now = DateTime.now();
   final difference = now.difference(updatedAt).inDays;
   return difference <= 7;
 }
-
-
 
 class ShimmerSearchJobCard extends StatelessWidget {
   const ShimmerSearchJobCard({super.key});
@@ -628,6 +677,7 @@ class ShimmerBox extends StatelessWidget {
 
 class NewBadge extends StatelessWidget {
   final String text;
+
   const NewBadge({this.text = "NEW", super.key});
 
   @override
@@ -674,11 +724,7 @@ class CurvedGradientRibbon extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 0),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [
-                  Colors.purple,
-                  Colors.pink,
-                  Colors.orange,
-                ],
+                colors: [Colors.purple, Colors.pink, Colors.orange],
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
               ),

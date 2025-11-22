@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -28,12 +29,13 @@ class FilterOptionsBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return Container(
       // visual separation from list
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(color: Colors.grey.shade300)),
+        color: colorTheme.themBasedWhite,
+        border: Border(top: BorderSide(color: colorTheme.grey300)),
       ),
       child: Row(
         children: [
@@ -44,12 +46,12 @@ class FilterOptionsBar extends StatelessWidget {
               height: 35,
               width: 35,
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.primaryColor),
+                border: Border.all(color: colorTheme.buttonPrimaryColor),
                 shape: BoxShape.circle,
               ),
-              child: const Icon(
+              child:  Icon(
                 Icons.filter_list_alt,
-                color: AppColors.primaryColor,
+                color: colorTheme.buttonPrimaryColor
               ),
             ),
           ),
@@ -75,7 +77,7 @@ class FilterOptionsBar extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(24),
                         ),
-                        side: BorderSide(color: Colors.black38, width: .5),
+                        side: BorderSide(color: colorTheme.black45, width: .5),
                       ),
                       child: Text(f, style: context.textTheme.displaySmall),
                     ),
@@ -244,13 +246,13 @@ class _FilterModalState extends ConsumerState<FilterModal> {
     final theme = Theme.of(context).textTheme;
 
     final options = _options[selectedCategory] ?? [];
-
+    final colorTheme = context.colors;
 
     return FractionallySizedBox(
       heightFactor: 0.85,
       child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
+        decoration:  BoxDecoration(
+          color: colorTheme.jobCardBgColor,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
         ),
         child: SafeArea(
@@ -264,7 +266,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                   width: 64,
                   height: 4,
                   decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
+                    color: colorTheme.grey300,
                     borderRadius: BorderRadius.circular(4),
                   ),
                 ),
@@ -298,7 +300,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
 
 
                       },
-                      child: const Text("Clear all"),
+                      child:  Text("Clear all",style: TextStyle(color: colorTheme.buttonPrimaryColor),),
                     ),
                   ],
                 ),
@@ -331,7 +333,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                       width: leftWidth,
                       decoration: BoxDecoration(
                         border: Border(
-                          right: BorderSide(color: Colors.grey.shade200),
+                          right: BorderSide(color: colorTheme.grey300),
                         ),
                       ),
                       child: ListView.separated(
@@ -351,7 +353,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                               height: 56,
                               color: selected
                                   ? Colors.blue.shade50
-                                  : Colors.white,
+                                  : colorTheme.themBasedWhite,
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 12,
                               ),
@@ -363,7 +365,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                                     height: 28,
                                     decoration: BoxDecoration(
                                       color: selected
-                                          ? Colors.blue
+                                          ? colorTheme.buttonPrimaryColor
                                           : Colors.transparent,
                                       borderRadius: BorderRadius.circular(2),
                                     ),
@@ -377,8 +379,8 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                                             ? FontWeight.w900
                                             : FontWeight.w500,
                                         color: selected
-                                            ? AppColors.primaryColor
-                                            : Colors.black87,
+                                            ? colorTheme.buttonPrimaryColor
+                                            : colorTheme.black87,
                                       ),
                                     ),
                                   ),
@@ -423,13 +425,13 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                                           selectedCategory,
                                           label,
                                         ),
-                                        activeColor: AppColors.primaryColor,
+                                        activeColor: colorTheme.buttonPrimaryColor,
                                         // checked color
-                                        checkColor: Colors.white,
+                                        checkColor: colorTheme.themBasedWhite,
                                         // tick color
-                                        side: const BorderSide(
+                                        side:  BorderSide(
                                           // 👈 ensures border visible when unchecked
-                                          color: Colors.grey,
+                                          color: colorTheme.grey,
                                           width: 2,
                                         ),
                                       ),
@@ -459,8 +461,9 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                   horizontal: 16.0,
                   vertical: 12,
                 ),
+                margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  border: Border(top: BorderSide(color: Colors.grey.shade200)),
+                  border: Border(top: BorderSide(color: colorTheme.grey300)),
                 ),
                 child: Row(
                   children: [
@@ -469,7 +472,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                         child: Text(
                           "Cancel",
                           style: theme.labelMedium?.copyWith(
-                            color: AppColors.primaryColor,
+                            color: colorTheme.buttonPrimaryColor,
                           ),
                         ),
                         radius: 30,
@@ -483,13 +486,13 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                         child: Text(
                           "Apply filters",
                           style: theme.labelMedium?.copyWith(
-                            color: Colors.white,
+                            color: colorTheme.themBasedWhite,
                           ),
                         ),
                         radius: 30,
                         onTap: _applyAndClose,
                         isExpanded: true,
-                        color: AppColors.primaryColor,
+                        color: colorTheme.buttonPrimaryColor,
                       ),
                     ),
                   ],

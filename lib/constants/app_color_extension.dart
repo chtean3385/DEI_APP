@@ -53,6 +53,9 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color shimmerBaseColor;
   final Color shimmerHighlightColor;
 
+  final Color jobCardBgColor;
+  final Color jobCardSkillTagBgColor;
+
   const AppColorExtension({
     required this.black12,
     required this.black26,
@@ -90,6 +93,10 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
 
     required this.shimmerBaseColor,
     required this.shimmerHighlightColor,
+
+    required this.jobCardBgColor,
+    required this.jobCardSkillTagBgColor,
+
 
 
   });
@@ -131,6 +138,10 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? themBasedWhite,
     Color? shimmerBaseColor,
     Color? shimmerHighlightColor,
+
+    Color? jobCardBgColor,
+    Color? jobCardSkillTagBgColor,
+
   }) {
     return AppColorExtension(
       black12: black12 ?? this.black12,
@@ -168,6 +179,9 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       themBasedWhite: themBasedWhite ?? this.themBasedWhite,
       shimmerBaseColor: shimmerBaseColor ?? this.shimmerBaseColor,
       shimmerHighlightColor: shimmerHighlightColor ?? this.shimmerHighlightColor,
+      jobCardBgColor: jobCardBgColor ?? this.jobCardBgColor,
+      jobCardSkillTagBgColor: jobCardSkillTagBgColor ?? this.jobCardSkillTagBgColor,
+
     );
   }
 
@@ -218,6 +232,9 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       themBasedWhite: Color.lerp(themBasedWhite, other.themBasedWhite, t)!,
       shimmerBaseColor: Color.lerp(shimmerBaseColor, other.shimmerBaseColor, t)!,
       shimmerHighlightColor: Color.lerp(shimmerHighlightColor, other.shimmerHighlightColor, t)!,
+      jobCardBgColor: Color.lerp(jobCardBgColor, other.jobCardBgColor, t)!,
+      jobCardSkillTagBgColor: Color.lerp(jobCardSkillTagBgColor, other.jobCardSkillTagBgColor, t)!,
+
     );
   }
 }

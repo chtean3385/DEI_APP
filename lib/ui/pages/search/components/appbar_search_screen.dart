@@ -11,8 +11,6 @@ AppBar appBarSearch(BuildContext context, {String? query,bool showSearchField = 
     title:showSearchField ? SearchFormFieldCommon(
       hintList: AppStrings.searchHintList,
       padding: EdgeInsets.zero,
-      hintColor:
-      Colors.black54,
       radius: 10,
       onChanged: onChanged,
     ) :null,

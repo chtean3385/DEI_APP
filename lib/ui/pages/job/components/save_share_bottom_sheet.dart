@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/job/components/save_hide_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,6 +20,8 @@ void showJobOptionsSheet(BuildContext context) {
         builder: (context, ref, _) {
           final job = ref.watch(employeeJobDetailsProvider).data; // 👈 read directly
           final jobNotifier = ref.read(employeeManageJobProvider.notifier);
+          final colorTheme = context.colors;
+
 
           return SafeArea(
             child: Padding(
@@ -37,10 +40,10 @@ void showJobOptionsSheet(BuildContext context) {
                     smaller: true,
                     activeIconSize:12,
                     inActiveIconSize:12,
-                    activeColor:AppColors.primaryColor,
-                    inActiveColor: AppColors.primaryColor,
-                    activeBgColor: Colors.white,
-                    inActiveBgColor: Colors.white,
+                    activeColor:colorTheme.buttonPrimaryColor,
+                    inActiveColor: colorTheme.buttonPrimaryColor,
+                    activeBgColor: colorTheme.jobCardBgColor,
+                    inActiveBgColor: colorTheme.jobCardBgColor,
                     initialValue: !(job?.isSaved ?? false),
                     onPressed: (isSavedNow) async {
                       final jobId = job?.id ?? "";
@@ -72,10 +75,10 @@ void showJobOptionsSheet(BuildContext context) {
                     activeIconSize:12,
                     radius: 30,
                     smaller: true,
-                    activeColor: AppColors.primaryColor,
-                    inActiveColor: AppColors.primaryColor,
-                    activeBgColor: Colors.white,
-                    inActiveBgColor: Colors.white,
+                    activeColor:colorTheme.buttonPrimaryColor,
+                    inActiveColor: colorTheme.buttonPrimaryColor,
+                    activeBgColor: colorTheme.jobCardBgColor,
+                    inActiveBgColor: colorTheme.jobCardBgColor,
                     initialValue: !(job?.isApplied ?? false),
                     onPressed: (isAppliedNow) async {
                       final jobId = job?.id ?? "";

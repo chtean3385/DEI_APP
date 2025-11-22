@@ -66,7 +66,7 @@ class _BottomBarState extends State<BottomBar> {
       backdrop: Container(
         width: double.infinity,
         height: double.infinity,
-        color:colorTheme.commonDividerBgColor,
+        color:colorTheme.themBasedWhite,
       ),
       controller: _advancedDrawerController,
       animationCurve: Curves.easeInOut,
@@ -75,7 +75,7 @@ class _BottomBarState extends State<BottomBar> {
       rtlOpening: false,
       disabledGestures: false,
       childDecoration:  BoxDecoration(
-        border: Border.all(color: Colors.black26,width: 1),
+        border: Border.all(color: colorTheme.black26,width: 1),
 
         borderRadius: const BorderRadius.all(Radius.circular(0)),
       ),

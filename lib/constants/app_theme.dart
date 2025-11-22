@@ -117,6 +117,8 @@ import 'app_theme_color_scheme.dart';
          themBasedWhite: Colors.white,
          shimmerBaseColor: Color(0xFFE0E0E0),
          shimmerHighlightColor: Color(0xFFF5F5F5),
+           jobCardBgColor: Colors.white,
+           jobCardSkillTagBgColor: AppColors.bg2
        )
      ],
 
@@ -232,6 +234,9 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
           themBasedWhite: Colors.black,
           shimmerBaseColor: Color(0xFF2A2A2A),
           shimmerHighlightColor: Color(0xFF3A3A3A),
+
+          jobCardBgColor: AppColors.bg2Dark,
+          jobCardSkillTagBgColor: Colors.white10
 
         )
       ],

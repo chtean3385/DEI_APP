@@ -212,7 +212,7 @@ class ChampionCandidateCard extends StatelessWidget {
         List<String> hidden = [];
 
         for (var skill in skills) {
-          double chipWidth = _measureChipWidth(context, skill);
+          double chipWidth = measureChipWidth(context, skill);
 
           if (visible.isEmpty) {
             // Always add first chip
@@ -231,12 +231,12 @@ class ChampionCandidateCard extends StatelessWidget {
         if (hidden.isNotEmpty) {
           String lastChip = "+${hidden.length} more";
 
-          double chipWidth = _measureChipWidth(context, lastChip);
+          double chipWidth = measureChipWidth(context, lastChip);
 
           // Remove last visible chips until "+N more" fits
           while (visible.isNotEmpty &&
               usedWidth + spacing + chipWidth > maxWidth) {
-            double removedChipWidth = _measureChipWidth(context, visible.last);
+            double removedChipWidth = measureChipWidth(context, visible.last);
             visible.removeLast();
             usedWidth -= (visible.isEmpty ? removedChipWidth : removedChipWidth + spacing);
           }
@@ -432,7 +432,7 @@ class ShimmerChampionCandidateCard extends StatelessWidget {
   }
 }
 
-double _measureChipWidth(BuildContext context, String text) {
+double measureChipWidth(BuildContext context, String text) {
   final style = navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
     fontWeight: FontWeight.w400,
     fontSize: 10,

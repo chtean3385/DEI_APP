@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -23,40 +24,41 @@ class _SortByDropdownState extends State<SortByDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme  = context.colors;
     return Row(
       children: [
         Text(
           "Sort by : ",
           style: context.textTheme.displaySmall?.copyWith(
-            color: Colors.black45,
+            color: colorTheme.black54,
           ),
         ),
         gapW8(),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.grey.shade300, width: 1),
+            border: Border.all(color: colorTheme.grey300, width: 1),
             borderRadius: BorderRadius.circular(6),
-            color: Colors.white,
+            color: colorTheme.themBasedWhite,
           ),
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
           child: DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: _selected,
               isDense: true,
-              icon: const Icon(
+              icon:  Icon(
                 Icons.keyboard_arrow_down_rounded,
                 size: 20,
-                color: Colors.black54,
+                color: colorTheme.black54,
               ),
-              style: const TextStyle(color: Colors.black87, fontSize: 12),
-              dropdownColor: Colors.white,
+              style:  TextStyle(color: colorTheme.black87, fontSize: 12),
+              dropdownColor: colorTheme.themBasedWhite,
               borderRadius: BorderRadius.circular(6),
               items: _sortOptions.map((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(
                     value,
-                    style: const TextStyle(color: Colors.black87, fontSize: 12),
+                    style:  TextStyle(color: colorTheme.black87, fontSize: 12),
                   ),
                 );
               }).toList(),
