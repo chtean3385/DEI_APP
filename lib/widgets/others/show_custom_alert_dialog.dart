@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
@@ -13,13 +14,14 @@ Future<void> showCustomAlertDialog({
   required VoidCallback onSecondaryPressed,
 }) async {
   final theme = Theme.of(context).textTheme;
+  final colorTheme = context.colors;
 
   showDialog(
     context: context,
     barrierDismissible: false,
     builder: (context) {
       return AlertDialog(
-        backgroundColor: Colors.white,
+        backgroundColor: colorTheme.jobCardBgColor,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 24,
@@ -51,28 +53,28 @@ Future<void> showCustomAlertDialog({
                 CustomThemeButton(
                   child: Text(
                     primaryButtonText,
-                    style: theme.labelMedium?.copyWith(color: Colors.white),
+                    style: theme.labelMedium?.copyWith(color: colorTheme.themBasedWhite),
                   ),
                   radius: 30,
 
                   onTap: onPrimaryPressed,
                   isExpanded: false,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  color: AppColors.primaryColor,
+                  color: colorTheme.buttonPrimaryColor,
                 ),
 
                 const SizedBox(width: 16),
                 CustomThemeButton(
                   child: Text(
                     secondaryButtonText,
-                    style: theme.labelMedium?.copyWith(color: Colors.black),
+                    style: theme.labelMedium?.copyWith(color: colorTheme.themBasedBlack),
                   ),
                   radius: 30,
 
                   onTap: onSecondaryPressed,
                   isExpanded: false,
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  color: AppColors.bg,
+                  color: colorTheme.cardBgColor,
                 ),
               ],
             ),
