@@ -19,8 +19,6 @@ class SimilarJobsListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final state = ref.watch(similarJobListProvider(jobId));
-    print("jobs.length");
-    print( state.data?.length);
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();

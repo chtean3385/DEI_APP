@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ class CustomLoader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorTheme = context.colors;
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -21,7 +24,7 @@ class CustomLoader extends StatelessWidget {
           Text(text!, style: theme.textTheme.bodyMedium),
         // Image.asset(AppDrawables.appLoader,
         //     fit: BoxFit.contain),
-        CircularProgressIndicator(color: AppColors.primaryColor),
+        CircularProgressIndicator(color: colorTheme.buttonPrimaryColor),
       ],
     );
   }
@@ -34,6 +37,8 @@ class SomethingWentWrong extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
+
     return Align(
       alignment: AlignmentGeometry.center,
       child: Padding(
@@ -41,7 +46,7 @@ class SomethingWentWrong extends StatelessWidget {
         child: Text(
           text ?? "Sorry.. Something went wrong. try again",
           maxLines: 3,
-          style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
+          style: context.textTheme.bodyMedium?.copyWith(color: colorTheme.black54),
         ),
       ),
     );
@@ -55,6 +60,8 @@ class EmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
+
     return Align(
       alignment: AlignmentGeometry.center,
       child: Padding(
@@ -62,7 +69,7 @@ class EmptyWidget extends StatelessWidget {
         child: Text(
           text ?? "Sorry.. No data found",
           maxLines: 3,
-          style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
+          style: context.textTheme.bodyMedium?.copyWith(color: colorTheme.black54),
         ),
       ),
     );

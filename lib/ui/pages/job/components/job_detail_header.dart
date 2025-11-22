@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,8 @@ class JobDetailHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -31,7 +34,7 @@ class JobDetailHeader extends StatelessWidget {
                     width: 60,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: AppColors.primaryColor.withValues(alpha: 0.2),
+                      color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Center(
@@ -51,7 +54,7 @@ class JobDetailHeader extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     jobModel.employer?.company ?? "",
-                    style: theme.bodySmall?.copyWith(color: Colors.black54),
+                    style: theme.bodySmall?.copyWith(color: colorTheme.black54),
                   ),
                 ],
               ),
@@ -68,22 +71,22 @@ class JobDetailHeader extends StatelessWidget {
                 Icon(
                   Icons.work_outline_rounded,
                   size: 24,
-                  color: Colors.black54,
+                  color: colorTheme.black54,
                 ),
                 gapW8(),
                 Text(
                   jobModel.jobType ?? "",
-                  style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
                 ),
               ],
             ),
             Row(
               children: [
-                Icon(Icons.access_time, size: 24, color: Colors.black54),
+                Icon(Icons.access_time, size: 24, color: colorTheme.black54),
                 gapW8(),
                 Text(
                   '${getShortTimeAgo(jobModel.createdAt ?? DateTime.now())}',
-                  style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
                 ),
               ],
             ),

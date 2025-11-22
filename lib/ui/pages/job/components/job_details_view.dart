@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/ui/pages/job/components/apply_job_button.dart';
@@ -165,7 +166,7 @@ class JobDetailsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: theme.bodyMedium?.copyWith(color: Colors.black54)),
+          Text(label, style: theme.bodyMedium?.copyWith(color: navigatorKey.currentContext!.colors.black54)),
           SizedBox(height: 4),
           Text(value, style: theme.bodyMedium),
         ],
@@ -175,6 +176,8 @@ class JobDetailsView extends StatelessWidget {
 
   Widget _detailsCard1(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
+
     return CustomDecoratedBox(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -183,24 +186,24 @@ class JobDetailsView extends StatelessWidget {
           gapH8(),
           Row(
             children: [
-              Icon(Icons.apartment_outlined, size: 24, color: Colors.black54),
+              Icon(Icons.apartment_outlined, size: 24, color: colorTheme.black54),
               gapW16(),
               Text(
                 jobModel.category ?? "",
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
               ),
             ],
           ),
           gapH8(),
           Row(
             children: [
-              Icon(Icons.badge_outlined, size: 24, color: Colors.black54),
+              Icon(Icons.badge_outlined, size: 24, color: colorTheme.black54),
               // userTie
               gapW16(),
               Expanded(
                 child: Text(
                   "Experienced (Non - Manager)",
-                  style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
                 ),
               ),
             ],
@@ -208,12 +211,12 @@ class JobDetailsView extends StatelessWidget {
           gapH8(),
           Row(
             children: [
-              Icon(Icons.currency_rupee, size: 24, color: Colors.black54),
+              Icon(Icons.currency_rupee, size: 24, color: colorTheme.black54),
               // rupeeSign
               gapW16(),
               Text(
                 jobModel.salary ?? "",
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
               ),
             ],
           ),
@@ -223,59 +226,59 @@ class JobDetailsView extends StatelessWidget {
               Icon(
                 Icons.business_center_outlined,
                 size: 24,
-                color: Colors.black54,
+                color: colorTheme.black54,
               ), // briefcase
               gapW16(),
               Text(
                 "1 - 2 years",
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
               ),
             ],
           ),
           gapH8(),
           Row(
             children: [
-              Icon(Icons.work_outline, size: 24, color: Colors.black54),
+              Icon(Icons.work_outline, size: 24, color: colorTheme.black54),
               // mugSaucer
               gapW16(),
               Text(
                 jobModel.jobType ?? "",
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
               ),
             ],
           ),
           gapH8(),
           Row(
             children: [
-              Icon(Icons.access_time, size: 24, color: Colors.black54), // clock
+              Icon(Icons.access_time, size: 24, color: colorTheme.black54), // clock
               gapW16(),
               Text(
                 "Open until filled",
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
               ),
             ],
           ),
           gapH8(),
           Row(
             children: [
-              Icon(Icons.update, size: 24, color: Colors.black54), // rotate
+              Icon(Icons.update, size: 24, color: colorTheme.black54), // rotate
               gapW16(),
               Text(
                 '${getTimeAgo(jobModel.updatedAt ?? DateTime.now())}',
-                style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
               ),
             ],
           ),
           gapH8(),
           Row(
             children: [
-              Icon(Icons.location_on_outlined, size: 24, color: Colors.black54),
+              Icon(Icons.location_on_outlined, size: 24, color: colorTheme.black54),
               // locationDot
               gapW16(),
               Expanded(
                 child: Text(
                   "${jobModel.city ?? ""}, ${jobModel.state ?? ""}, ${jobModel.country ?? ""}",
-                  style: theme.bodyMedium?.copyWith(color: Colors.black54),
+                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
                   maxLines: 2,
@@ -291,6 +294,8 @@ class JobDetailsView extends StatelessWidget {
 
   Widget _descriptionCard(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+
+
     return CustomDecoratedBox(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -399,7 +404,7 @@ class JobDetailsView extends StatelessWidget {
                       child: Text(
                         tag.name ?? "",
                         style: theme.bodyMedium?.copyWith(
-                          color: Colors.black87,
+                          color: navigatorKey.currentContext!.colors.black87,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -422,13 +427,14 @@ class JobDescriptionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return SingleChildScrollView(
       child: Html(
         data: jobDescription,
         style: {
           "body": Style(
             fontSize: FontSize(14),
-            color: Colors.black87,
+            color: colorTheme.black87,
             lineHeight: LineHeight(1.5),
           ),
           "p": Style(margin: Margins.only(bottom: 8)),
@@ -471,6 +477,7 @@ class TagList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     if (tags == null || tags!.isEmpty) return const SizedBox.shrink();
 
     return Wrap(
@@ -480,8 +487,8 @@ class TagList extends StatelessWidget {
           .map(
             (tag) => _TagChip(
               tag: tag,
-              backgroundColor: backgroundColor ?? AppColors.bg,
-              textColor: textColor ?? Colors.black,
+              backgroundColor: backgroundColor ?? colorTheme.jobCardBgColor,
+              textColor: textColor ?? colorTheme.themBasedBlack,
               fontSize: fontSize,
               padding: padding,
               borderRadius: borderRadius,

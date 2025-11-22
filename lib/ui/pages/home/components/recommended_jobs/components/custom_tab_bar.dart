@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../constants/app_colors.dart';
@@ -81,6 +82,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
     return SizedBox(
       height: 40,
       child: SingleChildScrollView(
@@ -106,7 +108,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
-                        color: isSelected ? AppColors.primaryColor : Colors.transparent,
+                        color: isSelected ? colorTheme.buttonPrimaryColor : Colors.transparent,
                         width: 2,
                       ),
                     ),
@@ -114,7 +116,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                   child: Text(
                     _buildLabel(item),
                     style: theme.bodyMedium?.copyWith(
-                      color: isSelected ? Colors.black : Colors.black54,
+                      color: isSelected ? colorTheme.themBasedBlack : colorTheme.black54,
                       fontWeight:
                       isSelected ? FontWeight.bold : FontWeight.normal,
                     ),

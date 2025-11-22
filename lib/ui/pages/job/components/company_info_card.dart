@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -32,7 +33,7 @@ class CompanyInfoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-
+    final colorTheme = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -63,17 +64,17 @@ class CompanyInfoCard extends StatelessWidget {
                   const SizedBox(height: 2),
                   Row(
                     children: [
-                      const Icon(
+                       Icon(
                         Icons.location_on,
                         size: 14,
-                        color: Colors.grey,
+                        color: colorTheme.grey,
                       ),
                       const SizedBox(width: 4),
                       Flexible(
                         child: Text(
                           location,
                           style: theme.bodySmall?.copyWith(
-                            color: Colors.grey[700],
+                            color: colorTheme.grey700,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -90,7 +91,7 @@ class CompanyInfoCard extends StatelessWidget {
 
         Text(
           'Joined  ${getTimeAgo(joinedText ?? DateTime.now())}',
-          style: theme.bodySmall?.copyWith(color: Colors.grey[600]),
+          style: theme.bodySmall?.copyWith(color: colorTheme.grey600),
         ),
 
         const SizedBox(height: 8),
@@ -102,7 +103,7 @@ class CompanyInfoCard extends StatelessWidget {
           child: Text(
             openJobsText,
             style: theme.bodyMedium?.copyWith(
-              color: Colors.blue,
+              color: colorTheme.buttonPrimaryColor,
               fontWeight: FontWeight.w600,
               decoration: TextDecoration.underline,
             ),
@@ -137,18 +138,19 @@ class CompanyInfoCard extends StatelessWidget {
     VoidCallback? onTap,
   }) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
     return InkWell(
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
         child: Row(
           children: [
-            Icon(icon, size: 18, color: Colors.grey[700]),
+            Icon(icon, size: 18, color: colorTheme.grey700),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
                 text,
-                style: theme.bodyMedium?.copyWith(color: Colors.black87),
+                style: theme.bodyMedium?.copyWith(color: colorTheme.black87),
               ),
             ),
           ],

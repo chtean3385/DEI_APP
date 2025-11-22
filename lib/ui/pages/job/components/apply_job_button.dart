@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:flutter/material.dart';
@@ -17,16 +18,18 @@ class ApplyJobButton extends ConsumerWidget {
     final controller = ref.read(employeeManageJobProvider.notifier);
     final bool isApplied = state.data?.isApplied ?? false;
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
+
     return CustomThemeButton(
       onTap: () =>isApplied ? controller.unApplyJob(context, jobId):  controller.applyJob(context, jobId),
       isExpanded: true,
       isLoading: applyState.pageState ==PageState.loading,
       radius: 30,
-      color: isApplied ? Colors.grey: AppColors.primaryColor,
-      borderColor: isApplied ? Colors.grey: AppColors.primaryColor,
+      color: isApplied ? colorTheme.grey: colorTheme.buttonPrimaryColor,
+      borderColor: isApplied ? colorTheme.grey: colorTheme.buttonPrimaryColor,
       child: Text(
         isApplied ? "Applied"    : "Apply Now",
-        style: theme.labelMedium?.copyWith(color: Colors.white),
+        style: theme.labelMedium?.copyWith(color: colorTheme.themBasedWhite),
       ),
     );
   }

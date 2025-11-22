@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -104,9 +105,9 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
       // if (widget.jobModel.hasBenefits) {"id": 6, "title": 'Benefits'},
       // if (widget.jobModel.hasVerifiedBenefits) {"id": 7, "title": 'Salary '},
     ];
-
+final colorTheme = context.colors;
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
       body: Builder(
         builder: (context) {
           if (state.pageState == PageState.loading) {
@@ -127,7 +128,7 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                     child: Text(
                       "Go Back",
                       style: context.textTheme.labelMedium?.copyWith(
-                        color: Colors.white,
+                        color: colorTheme.themBasedWhite,
                       ),
                     ),
                   ),
@@ -146,12 +147,12 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                   ElevatedButton(
                     onPressed: () => Navigator.pop(context),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primaryColor,
+                      backgroundColor: colorTheme.buttonPrimaryColor,
                     ),
                     child: Text(
                       "Go Back",
                       style: context.textTheme.labelMedium?.copyWith(
-                        color: Colors.white,
+                        color: colorTheme.themBasedWhite,
                       ),
                     ),
                   ),
@@ -175,10 +176,10 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                         floating: false,
                         pinned: false,
                         snap: false,
-                        backgroundColor: Colors.white,
+                        backgroundColor: colorTheme.themBasedWhite,
                         elevation: 0,
                         leading: IconButton(
-                          icon: Icon(Icons.arrow_back, color: Colors.grey[600]),
+                          icon: Icon(Icons.arrow_back, color: colorTheme.grey600),
                           onPressed: () => Navigator.pop(context),
                         ),
 
@@ -191,14 +192,14 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                               children: [
                                 Icon(
                                   Icons.work_outline,
-                                  color: AppColors.primaryColor,
+                                  color: colorTheme.buttonPrimaryColor,
                                   size: 20,
                                 ),
                                 SizedBox(width: 8),
                                 Text(
                                   'Similar jobs',
                                   style: context.textTheme.bodyMedium?.copyWith(
-                                    color: AppColors.primaryColor,
+                                    color: colorTheme.buttonPrimaryColor,
                                   ),
                                 ),
                               ],
@@ -207,7 +208,7 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                           IconButton(
                             icon: Icon(
                               Icons.more_vert,
-                              color: Colors.grey[600],
+                              color: colorTheme.grey600,
                             ),
                             onPressed: () => showJobOptionsSheet(context),
                           ),
@@ -233,7 +234,7 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                         pinned: true,
                         delegate: _StickyTabBarDelegate(
                           child: Container(
-                            color: Colors.white,
+                            color: colorTheme.themBasedWhite,
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Column(
                               children: [
@@ -306,10 +307,10 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: colorTheme.themBasedWhite,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
+                            color: colorTheme.themBasedBlack.withValues(alpha: 0.1),
                             blurRadius: 8,
                             offset: const Offset(0, -2),
                           ),
