@@ -61,12 +61,12 @@ class _BottomBarState extends State<BottomBar> {
   }
 
   Widget _buildMobileLayout() {
-    final theme = Theme.of(context);
+    final colorTheme = context.colors;
     return AdvancedDrawer(
       backdrop: Container(
         width: double.infinity,
         height: double.infinity,
-        color:Colors.white,
+        color:colorTheme.commonDividerBgColor,
       ),
       controller: _advancedDrawerController,
       animationCurve: Curves.easeInOut,

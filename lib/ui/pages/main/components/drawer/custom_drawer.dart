@@ -25,14 +25,14 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        color: Colors.white,
+        color: context.colors.commonDividerBgColor,
         child: ListView(
           padding: EdgeInsets.symmetric(vertical: 20),
           children: [
             // 🔹 Profile Section
             ProfileSection(),
 
-            const Divider(color: Colors.black12),
+             Divider(color: context.colors.black12),
 
             // 🔹 Job Actions
             // _drawerItem(Icons.visibility, "Actively searching jobs", true),
@@ -226,16 +226,17 @@ class CustomDrawer extends StatelessWidget {
     VoidCallback? onTap, // ✅ added as optional positional param
   ]) {
     final theme = Theme.of(navigatorKey.currentContext!);
+    final colorTheme = navigatorKey.currentContext!.colors;
     return ListTile(
       dense: true,
-      leading: Icon(icon, color: Colors.black87, size: 20),
+      leading: Icon(icon, color: colorTheme.black87, size: 20),
       // visualDensity: VisualDensity.compact,
       visualDensity: const VisualDensity(horizontal: 2, vertical: -1),
       title: Text(
         text,
         style: theme.textTheme.bodyMedium?.copyWith(
           fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-          color: Colors.black,
+          color: colorTheme.themBasedBlack,
         ),
       ),
       onTap: onTap, // ✅ use it here
