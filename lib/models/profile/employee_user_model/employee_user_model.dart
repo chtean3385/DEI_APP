@@ -76,11 +76,14 @@ class EmployeeUserModel {
         ? Preferences.fromJson(json['preferences'])
         : null,
 
-    jobType: json['preferences']?['jobTypes'] != null
+    jobType: json['preferences']?['jobTypes'] != null &&
+        (json['preferences']['jobTypes'] as List).isNotEmpty
         ? (json['preferences']['jobTypes'][0]['name'])
         : null,
 
-    department: json['preferences']?['department'] != null
+
+    department: json['preferences']?['department'] != null &&
+        (json['preferences']['department'] as List).isNotEmpty
         ? (json['preferences']['department'][0]['name'])
         : null,
 

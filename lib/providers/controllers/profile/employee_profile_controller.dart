@@ -44,7 +44,6 @@ class EmployeeProfileController extends StateNotifier<EmployeeProfileState> {
       debugPrint("success - getEmployeeProfileData");
     } catch (e) {
       state = state.copyWith(pageState: PageState.error);
-      showSnackBar(e.toString());
       debugPrint("catch - getEmployeeProfileData");
       debugPrint(e.toString());
     }
