@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/models/state_models/services/services_state.dart';
 import 'package:dei_champions/providers/providers.dart';
@@ -106,7 +107,7 @@ class _ExploreServicesProgramsState
                 textAlign: TextAlign.left,
                 style: Theme.of(
                   context,
-                ).textTheme.displaySmall?.copyWith(color: Colors.black54),
+                ).textTheme.displaySmall?.copyWith(color: context.colors.black54),
               ),
             ],
           ),
@@ -143,7 +144,7 @@ class _ExploreServicesProgramsState
               width: isActive ? 22 : 6,
               decoration: BoxDecoration(
                 color: isActive
-                    ? AppColors.primaryColor.withOpacity(.8)
+                    ? context.colors.buttonPrimaryColor.withValues(alpha: .8)
                     : Colors.grey.shade400,
                 borderRadius: BorderRadius.circular(8),
               ),

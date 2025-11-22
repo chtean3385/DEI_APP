@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
@@ -17,23 +18,24 @@ class ExploreServiceProgramCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
 
     return Container(
       margin: const EdgeInsets.only(right: 8),
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
       width: width,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: colorTheme.cardBgColor,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: colorTheme.themBasedBlack.withValues(alpha: 0.08),
             blurRadius: 10,
             spreadRadius: 1,
             offset: const Offset(0, 4),
           ),
         ],
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.black12, width: 1),
+        border: Border.all(color: colorTheme.black12, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -75,7 +77,7 @@ class ExploreServiceProgramCard extends StatelessWidget {
                       maxLines: 3,
                       textAlign: TextAlign.center,
                       style: theme.displaySmall?.copyWith(
-                        color: Colors.black54,
+                        color: colorTheme.black54,
                         fontSize: 12,
                       ),
                     ),
@@ -94,8 +96,8 @@ class ExploreServiceProgramCard extends StatelessWidget {
               isExpanded: true,
               padding:
               const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
-              color: AppColors.primaryColor,
-              borderColor: AppColors.primaryColor,
+              color: colorTheme.buttonPrimaryColor,
+              borderColor: colorTheme.buttonPrimaryColor,
               onTap: () => AppNavigator.loadLetsConnect(),
               child: Row(
                 mainAxisSize: MainAxisSize.min,

@@ -7,8 +7,9 @@ class AppColors {
   static const primarySemiDarkColor = Color(0xFF6d65c6); // Medium Dark Blue
   static const primaryDarkColor =  Color(0xFF764ba2);     // Deep Navy Blue
   static const bg = Color(0xFFEDEFFB);
+  static const bgDark = Color(0xFF1A1C2A);
   static const bg2 = Color(0xffeef1f5);
-
+  static const bg2Dark = Color(0xFF1D1F23);
 
 
 }

@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/home/friendly_industries/friendly_industry_model.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -17,19 +18,20 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(20),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color:colorTheme.cardBgColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(16),
             bottomLeft: Radius.circular(16),
             bottomRight: Radius.circular(16),
           ),
-          border: Border.all(color: Colors.white, width: 1),
+          border: Border.all(color: colorTheme.themBasedWhite, width: 1),
         ),
         child: SizedBox(
           width: 150,
@@ -91,7 +93,7 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
                     softWrap: true,
                     style: theme.labelMedium?.copyWith(
                       fontSize: 10,
-                      color: AppColors.primaryColor,
+                      color: colorTheme.buttonPrimaryColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -123,6 +125,7 @@ class DeiFriendlyIndustryCard extends StatelessWidget {
         style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
           fontWeight: FontWeight.w600,
           fontSize: small ? 8 : 10,
+          color: navigatorKey.currentContext!.colors.themBasedWhite
         ),
       ),
     );

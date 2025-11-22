@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -23,7 +24,7 @@ class ChampionCandidatesSection extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom:12),
       child: ColoredBox(
-        color: AppColors.bg,
+        color: context.colors.commonDividerBgColor,
         child: state.pageState == PageState.loading
             ? _loadingUi()
         // :_loadingUi()

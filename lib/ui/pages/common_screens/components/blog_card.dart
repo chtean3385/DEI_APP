@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
@@ -278,18 +279,19 @@ class BlogCardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
     return GestureDetector(
       onTap:()=>AppNavigator.loaBlogDetailsScreen(item.id ?? "") ,
       child: SizedBox(
         width: 180,
         child: Card(
           elevation: 0,
-          color: Colors.white,
+          color: colorTheme.cardBgColor,
           margin: EdgeInsets.zero,
-          shadowColor: Colors.black,
+          shadowColor: colorTheme.themBasedBlack,
           // surfaceTintColor: AppColors.primaryColor,
           clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: Colors.black12)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: colorTheme.black12)),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -325,7 +327,7 @@ class BlogCardHorizontal extends StatelessWidget {
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: theme.displaySmall?.copyWith(
-                                color: Colors.black54,
+                                color: colorTheme.black54,
                               ),
                             ),
                           ),
@@ -339,7 +341,7 @@ class BlogCardHorizontal extends StatelessWidget {
                         " ${getShortTimeAgo(item.createdAt ?? DateTime.now())}",
                         overflow: TextOverflow.ellipsis,
                         style: theme.displaySmall?.copyWith(
-                          color: Colors.black45,
+                          color: colorTheme.black45,
                         ),
                       ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/providers/providers.dart';
@@ -25,7 +26,7 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
       child: ColoredBox(
-        color: AppColors.bg,
+        color: context.colors.commonDividerBgColor,
         child: state.pageState == PageState.loading
             ? _loadingUi()
         // : _loadingUi()

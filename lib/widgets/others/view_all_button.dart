@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ViewAllButton extends StatelessWidget {
@@ -28,11 +29,11 @@ class ViewAllButton extends StatelessWidget {
 
     final textStyle = isSmall
         ? theme.displaySmall?.copyWith(
-      color: fillColor ? Colors.white : AppColors.primaryColor,
+      color: fillColor ? Colors.white : context.colors.buttonPrimaryColor,
       fontWeight: FontWeight.w600,
     )
         : theme.bodySmall?.copyWith(
-      color: fillColor ? Colors.white : AppColors.primaryColor,
+      color: fillColor ? Colors.white : context.colors.buttonPrimaryColor,
       fontWeight: FontWeight.w600,
     );
 
@@ -43,7 +44,7 @@ class ViewAllButton extends StatelessWidget {
         visualDensity: VisualDensity.compact,
         minimumSize: const Size(0, 0),
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        backgroundColor: fillColor ? AppColors.primaryColor : Colors.transparent,
+        backgroundColor: fillColor ? context.colors.buttonPrimaryColor : Colors.transparent,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radius),
         ),
@@ -60,7 +61,7 @@ class ViewAllButton extends StatelessWidget {
             Icon(
               Icons.arrow_forward_ios,
               size: isSmall ? 12 : 16,
-              color: fillColor ? Colors.white : AppColors.primaryColor,
+              color: fillColor ? Colors.white : context.colors.buttonPrimaryColor,
             ),
           ]
         ],

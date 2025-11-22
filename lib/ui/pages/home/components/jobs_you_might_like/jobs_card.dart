@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../models/job/job_model_api.dart';
@@ -14,6 +15,7 @@ class RecommendedJobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
     return GestureDetector(
       onTap: onTap,
       child: SizedBox(
@@ -26,10 +28,10 @@ class RecommendedJobCard extends StatelessWidget {
               bottomLeft: Radius.circular(6),
               bottomRight: Radius.circular(16),
             ),
-            side: BorderSide(color: Colors.black12, width: 1),
+            side: BorderSide(color: colorTheme.black12, width: 1),
           ),
           elevation: 0,
-          color: Colors.white,
+          color: colorTheme.cardBgColor,
           margin: const EdgeInsets.only(right: 12),
           child: Padding(
             padding: const EdgeInsets.all(12),
@@ -69,12 +71,12 @@ class RecommendedJobCard extends StatelessWidget {
                     Icon(
                       Icons.location_on_outlined,
                       size: 16,
-                      color: Colors.black54,
+                      color: colorTheme.black54,
                     ),
                     SizedBox(width: 4),
                     Text(
                       jobModel.state ?? "",
-                      style: theme.displaySmall?.copyWith(color: Colors.black54,fontSize: 13),
+                      style: theme.displaySmall?.copyWith(color: colorTheme.black54,fontSize: 13),
                     ),
                   ],
                 ),
@@ -84,7 +86,7 @@ class RecommendedJobCard extends StatelessWidget {
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
                   style: theme.displaySmall?.copyWith(
-                    color: Colors.black45,
+                    color: colorTheme.black45,
                   ),
                 ),
               ],

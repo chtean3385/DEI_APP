@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -61,7 +62,7 @@ class BlogsHorizontalView extends ConsumerWidget {
                     Text(
                       "Don't miss the trending news",
                       style: navigatorKey.currentContext!.textTheme.displaySmall
-                          ?.copyWith(color: Colors.black54),
+                          ?.copyWith(color: navigatorKey.currentContext!.colors.black54),
                       textAlign: TextAlign.left,
                     ),
                   ],

@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/models/home/dei_champion_candidates/champion_list_model.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -18,18 +19,19 @@ class ChampionCandidateCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
     return GestureDetector(
       onTap: onTap,
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: colorTheme.cardBgColor,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(16),
             topRight: Radius.circular(6),
             bottomLeft: Radius.circular(6),
             bottomRight: Radius.circular(16),
           ),
-          border: Border.all(color: Colors.white, width: 1),
+          border: Border.all(color: colorTheme.themBasedWhite, width: 1),
         ),
         child: SizedBox(
           width: 300,
@@ -71,7 +73,7 @@ class ChampionCandidateCard extends StatelessWidget {
                             maxLines: 1,
                             textAlign: TextAlign.center,
                             style: context.textTheme.displaySmall?.copyWith(
-                              color: Colors.black,fontSize: 13
+                              color:  colorTheme.themBasedBlack,fontSize: 13
                             ),
                           ),
                           //
@@ -95,7 +97,7 @@ class ChampionCandidateCard extends StatelessWidget {
                   ],
                 ),
                 gapH8(),
-                Divider(thickness: 1,color: Colors.black12,height: 1,),
+                Divider(thickness: 1,color: colorTheme.black12,height: 1,),
                 gapH8(),
                 gapH4(),
 
@@ -114,14 +116,14 @@ class ChampionCandidateCard extends StatelessWidget {
                         Icon(
                           Icons.location_on_outlined,
                           size: 16,
-                          color: Colors.black54,
+                          color: colorTheme.black54,
                         ),
                         gapW2(),
                         Text(
                           "${ categoryModel.city ?? ""} ,${ categoryModel.state ?? ""}",
                           textAlign: TextAlign.left,
                           style: theme.displaySmall?.copyWith(
-                            color: Colors.black54,
+                            color: colorTheme.black54,
                           ),
                           maxLines: 1,
                           softWrap: true,
@@ -140,14 +142,14 @@ class ChampionCandidateCard extends StatelessWidget {
                               Icon(
                                 Icons.currency_rupee,
                                 size: 16,
-                                color: Colors.black54,
+                                color: colorTheme.black54,
                               ),
                               gapW4(),
                               Flexible(
                                 child: Text(
                                   categoryModel.salary ?? "",
                                   style: theme.displaySmall?.copyWith(
-                                    color: Colors.black54,
+                                    color: colorTheme.black54,
                                   ),
                                 ),
                               ),
@@ -161,13 +163,13 @@ class ChampionCandidateCard extends StatelessWidget {
                               Icon(
                                 Icons.work_outline_rounded,
                                 size: 16,
-                                color: Colors.black54,
+                                color: colorTheme.black54,
                               ),
                               SizedBox(width: 4),
                               Flexible(
                                 child: Text(
                                     getExperienceLabel(workStatus: categoryModel.workStatus,experienceYears: categoryModel.totalExperienceYears),
-                                  style: theme.displaySmall?.copyWith(color: Colors.black54),
+                                  style: theme.displaySmall?.copyWith(color: colorTheme.black54),
                                 ),
                               ),
                             ],
@@ -183,7 +185,7 @@ class ChampionCandidateCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       softWrap: true,
                       style: theme.displaySmall?.copyWith(
-                        color: Colors.black45,
+                        color: colorTheme.black45,
                       ),
                     ),
                   ],
@@ -196,22 +198,65 @@ class ChampionCandidateCard extends StatelessWidget {
     );
   }
 
+
   Widget _skillsRow(List<String>? skills) {
     if (skills == null || skills.isEmpty) return const SizedBox.shrink();
 
-    return ConstrainedBox(
-        constraints: const BoxConstraints(
-          maxHeight: 45, // restrict height to 3–4 lines
-        ),
-      child: SingleChildScrollView(
-        child: Wrap(
-          spacing: 8, // horizontal space between chips
-          runSpacing: 8, // vertical space between rows
-          children: skills.map((s) => _tagChip(s)).toList(),
-        ),
-      ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double maxWidth = constraints.maxWidth;
+        double usedWidth = 0;
+        const spacing = 8.0;
+
+        List<String> visible = [];
+        List<String> hidden = [];
+
+        for (var skill in skills) {
+          double chipWidth = _measureChipWidth(context, skill);
+
+          if (visible.isEmpty) {
+            // Always add first chip
+            usedWidth = chipWidth;
+            visible.add(skill);
+          } else if (usedWidth + spacing + chipWidth <= maxWidth) {
+            // Fits in single line
+            usedWidth += spacing + chipWidth;
+            visible.add(skill);
+          } else {
+            hidden.add(skill);
+          }
+        }
+
+        // if there's overflow, add +N more chip
+        if (hidden.isNotEmpty) {
+          String lastChip = "+${hidden.length} more";
+
+          double chipWidth = _measureChipWidth(context, lastChip);
+
+          // Remove last visible chips until "+N more" fits
+          while (visible.isNotEmpty &&
+              usedWidth + spacing + chipWidth > maxWidth) {
+            double removedChipWidth = _measureChipWidth(context, visible.last);
+            visible.removeLast();
+            usedWidth -= (visible.isEmpty ? removedChipWidth : removedChipWidth + spacing);
+          }
+
+          visible.add(lastChip);
+        }
+
+        return Row(
+          children: [
+            ...visible.map((s) => Padding(
+              padding: const EdgeInsets.only(right: spacing),
+              child: _tagChip(s),
+            )),
+          ],
+        );
+      },
     );
   }
+
+
 
 
   Widget _tagChip(String tag) {
@@ -219,7 +264,7 @@ class ChampionCandidateCard extends StatelessWidget {
     Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
       decoration: BoxDecoration(
-        color: AppColors.bg2,
+        color: navigatorKey.currentContext!.colors.commonBg2Color,
         borderRadius: BorderRadius.circular(4),
       ),
       child: Text(
@@ -227,7 +272,7 @@ class ChampionCandidateCard extends StatelessWidget {
         maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,textAlign: TextAlign.center,
         style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
           fontWeight: FontWeight.w400,fontSize: 10,
-          color: Colors.black54,
+          color: navigatorKey.currentContext!.colors.black54,
         ),
       ),
     );
@@ -387,3 +432,18 @@ class ShimmerChampionCandidateCard extends StatelessWidget {
   }
 }
 
+double _measureChipWidth(BuildContext context, String text) {
+  final style = navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
+    fontWeight: FontWeight.w400,
+    fontSize: 10,
+  );
+
+  final textSpan = TextSpan(text: text, style: style);
+  final tp = TextPainter(
+    text: textSpan,
+    maxLines: 1,
+    textDirection: TextDirection.ltr,
+  )..layout();
+
+  return tp.width + 20; // padding: 10 left + 10 right
+}

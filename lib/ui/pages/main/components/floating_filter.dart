@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_navigator.dart';
@@ -15,9 +16,10 @@ class FloatingFilterFab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return Material(
       elevation: 6,
-      color: Colors.white,
+      color: colorTheme.themBasedWhite,
       borderRadius: BorderRadius.circular(30),
       child: InkWell(
         borderRadius: BorderRadius.circular(30),
@@ -27,12 +29,12 @@ class FloatingFilterFab extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.tune, size: 20, color: Colors.black87),
+              Icon(Icons.tune, size: 20, color: colorTheme.black87),
               const SizedBox(width: 8),
               Text(
                 "Filter",
                 style: TextStyle(
-                  color: Colors.black87,
+                  color: colorTheme.black87,
                   fontSize: 16,
                   fontWeight: FontWeight.w500,
                 ),

@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class JobCategoryCard extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               categoryModel.title ?? "",
-              style: theme.displaySmall?.copyWith(height: 1,color: Colors.black54),
+              style: theme.displaySmall?.copyWith(height: 1,color: context.colors.black54),
               softWrap: true,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -103,9 +104,9 @@ class _RainbowBorderAvatarState extends State<RainbowBorderAvatar>
               ),
               child: Container(
                 padding: const EdgeInsets.all(innerPadding),
-                decoration: const BoxDecoration(
+                decoration:  BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.white,
+                  color: context.colors.themBasedWhite,
                 ),
               ),
             ),
@@ -114,7 +115,7 @@ class _RainbowBorderAvatarState extends State<RainbowBorderAvatar>
           // 🖼️ Static inner image
           CircleAvatar(
             radius: avatarRadius,
-            backgroundColor: Colors.white,
+            backgroundColor:  context.colors.cardBgColor,
             child: RoundedNetworkImage(
               imageUrl: widget.imageUrl,
               width: 35,
