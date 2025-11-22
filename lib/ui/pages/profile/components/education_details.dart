@@ -138,6 +138,7 @@ class EducationDetails extends ConsumerWidget {
   }
 
   Widget item(BuildContext context, EducationModel data) {
+    final colorTheme = context.colors;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -148,7 +149,7 @@ class EducationDetails extends ConsumerWidget {
               child: Text(
                 data.degree ?? "",
                 style: context.textTheme.labelLarge?.copyWith(
-                  color: AppColors.primaryColor,
+                  color: colorTheme.buttonPrimaryColor,
                 ),
               ),
             ),
@@ -156,7 +157,7 @@ class EducationDetails extends ConsumerWidget {
             Text(
               data.graduationYear?.toString() ?? "",
               style: context.textTheme.displaySmall?.copyWith(
-                color: Colors.black54,
+                color: colorTheme.black54,
               ),
             ),
           ],
@@ -164,7 +165,7 @@ class EducationDetails extends ConsumerWidget {
         const SizedBox(height: 2),
         Text(
           data.institution ?? "",
-          style: context.textTheme.labelLarge?.copyWith(color: Colors.black54),
+          style: context.textTheme.labelLarge?.copyWith(color: colorTheme.black54),
         ),
       ],
     );

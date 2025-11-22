@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/providers/providers.dart';
@@ -8,12 +9,12 @@ import '../../../../../constants/app_colors.dart';
 
 void showEmailVerificationAlert() {
   final theme = Theme.of(navigatorKey.currentContext!).textTheme;
-
+final colorTheme = navigatorKey.currentContext!.colors;
   showDialog(
     context: navigatorKey.currentContext!,
     barrierDismissible: true,
     builder: (_) => Dialog(
-      backgroundColor: Colors.white,
+      backgroundColor: colorTheme.commonDividerBgColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -29,7 +30,7 @@ void showEmailVerificationAlert() {
               children: [
                 Icon(
                   Icons.email_outlined,
-                  color: Colors.blue,
+                  color: colorTheme.buttonPrimaryColor,
                   size: 50,
                 ),
                 const SizedBox(height: 16),
@@ -55,7 +56,7 @@ void showEmailVerificationAlert() {
                   textAlign: TextAlign.center,
                   style: theme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w600,
-                    color: AppColors.primaryColor,
+                    color: colorTheme.buttonPrimaryColor,
                   ),
                 ),
 
@@ -64,7 +65,7 @@ void showEmailVerificationAlert() {
                 // SEND EMAIL BUTTON
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primaryColor,
+                    backgroundColor: colorTheme.buttonPrimaryColor,
                     minimumSize: const Size(double.infinity, 48),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -90,7 +91,7 @@ void showEmailVerificationAlert() {
                   child: Text(
                     "Cancel",
                     style: theme.titleMedium?.copyWith(
-                      color: Colors.black54,
+                      color: colorTheme.black54,
                     ),
                   ),
                 ),

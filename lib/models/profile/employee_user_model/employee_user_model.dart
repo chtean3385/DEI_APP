@@ -75,6 +75,19 @@ class EmployeeUserModel {
     preferences: json['preferences'] != null
         ? Preferences.fromJson(json['preferences'])
         : null,
+
+    jobType: json['preferences']?['jobTypes'] != null
+        ? (json['preferences']['jobTypes'][0]['name'])
+        : null,
+
+    department: json['preferences']?['department'] != null
+        ? (json['preferences']['department'][0]['name'])
+        : null,
+
+    salaryRange: json['preferences']?['salary_range']?['range'],
+    preferredLocations: json['preferences']?['preffered_locations'] != null
+        ? List<String>.from(json['preferences']['preffered_locations'])
+        : [],
     id: json['_id'],
     roleId: json['roleId'],
     name: json['name'],
@@ -214,39 +227,39 @@ class EmployeeUserModel {
 }
 
 
-class Preferences {
-  final List<String>? jobTypes;
-  final String? salaryRange;
-  final List<String>? department;
-  final List<String>? preferredLocations;
-
-  Preferences({
-    this.jobTypes,
-    this.salaryRange,
-    this.department,
-    this.preferredLocations,
-  });
-
-  factory Preferences.fromJson(Map<String, dynamic> json) => Preferences(
-    jobTypes: json['jobTypes'] != null
-        ? List<String>.from(json['jobTypes'])
-        : [],
-    salaryRange: json['salary_range'],
-    department: json['department'] != null
-        ? List<String>.from(json['department'])
-        : [],
-    preferredLocations: json['preffered_locations'] != null
-        ? List<String>.from(json['preffered_locations'])
-        : [],
-  );
-
-  Map<String, dynamic> toJson() => {
-    'jobTypes': jobTypes,
-    'salary_range': salaryRange,
-    'department': department,
-    'preffered_locations': preferredLocations,
-  };
-}
+// class Preferences {
+//   final List<String>? jobTypes;
+//   final String? salaryRange;
+//   final List<String>? department;
+//   final List<String>? preferredLocations;
+//
+//   Preferences({
+//     this.jobTypes,
+//     this.salaryRange,
+//     this.department,
+//     this.preferredLocations,
+//   });
+//
+//   factory Preferences.fromJson(Map<String, dynamic> json) => Preferences(
+//     jobTypes: json['jobTypes'] != null
+//         ? List<String>.from(json['jobTypes'])
+//         : [],
+//     // salaryRange: json["preferences"]?["salary_range"]?["range"]?.toString() ?? "N/A",
+//     department: json['department'] != null
+//         ? List<String>.from(json['department'])
+//         : [],
+//     preferredLocations: json['preffered_locations'] != null
+//         ? List<String>.from(json['preffered_locations'])
+//         : [],
+//   );
+//
+//   Map<String, dynamic> toJson() => {
+//     'jobTypes': jobTypes,
+//     'salary_range': salaryRange,
+//     'department': department,
+//     'preffered_locations': preferredLocations,
+//   };
+// }
 
 class EducationModel {
   final String? degree;
@@ -331,4 +344,71 @@ class ExperienceModel {
       description: description ?? this.description,
     );
   }
+}
+class JobTypeModel {
+  final String? id;
+  final String? name;
+
+  JobTypeModel({this.id, this.name});
+
+  factory JobTypeModel.fromJson(Map<String, dynamic> json) =>
+      JobTypeModel(id: json['_id'], name: json['name']);
+}
+class DepartmentModel {
+  final String? id;
+  final String? name;
+
+  DepartmentModel({this.id, this.name});
+
+  factory DepartmentModel.fromJson(Map<String, dynamic> json) =>
+      DepartmentModel(id: json['_id'], name: json['name']);
+}
+
+class SalaryRangeModel {
+  final String? id;
+  final String? range;
+
+  SalaryRangeModel({this.id, this.range});
+
+  factory SalaryRangeModel.fromJson(Map<String, dynamic> json) =>
+      SalaryRangeModel(id: json['_id'], range: json['range']);
+}
+class Preferences {
+  final List<JobTypeModel>? jobTypes;
+  final SalaryRangeModel? salaryRange;
+  final List<DepartmentModel>? department;
+  final List<String>? preferredLocations;
+
+  Preferences({
+    this.jobTypes,
+    this.salaryRange,
+    this.department,
+    this.preferredLocations,
+  });
+
+  factory Preferences.fromJson(Map<String, dynamic> json) => Preferences(
+    jobTypes: json['jobTypes'] != null
+        ? List<JobTypeModel>.from(
+        json['jobTypes'].map((e) => JobTypeModel.fromJson(e)))
+        : [],
+    salaryRange: json['salary_range'] != null
+        ? SalaryRangeModel.fromJson(json['salary_range'])
+        : null,
+    department: json['department'] != null
+        ? List<DepartmentModel>.from(
+        json['department'].map((e) => DepartmentModel.fromJson(e)))
+        : [],
+    preferredLocations: json['preffered_locations'] != null
+        ? List<String>.from(json['preffered_locations'])
+        : [],
+  );
+
+  Map<String, dynamic> toJson() => {
+    'jobTypes': jobTypes?.map((e) => {'_id': e.id, 'name': e.name}).toList(),
+    'salary_range': salaryRange != null
+        ? {'_id': salaryRange!.id, 'range': salaryRange!.range}
+        : null,
+    'department': department?.map((e) => {'_id': e.id, 'name': e.name}).toList(),
+    'preffered_locations': preferredLocations,
+  };
 }

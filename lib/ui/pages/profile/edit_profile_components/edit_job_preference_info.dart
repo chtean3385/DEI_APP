@@ -81,7 +81,7 @@ class EditJobPreferenceInfo extends ConsumerWidget {
             hint: "Salary Expectation",
             icon: Icons.currency_rupee,
             items: ["10-20 lac", "20-30 lac", "30-40 lac", "40-50 lac"],
-            value: state.profileData?.preferences?.salaryRange,
+            value: state.profileData?.preferences?.salaryRange?.range,
             onChanged: (value) {
               controller.updateSalary( value.toString());
             },

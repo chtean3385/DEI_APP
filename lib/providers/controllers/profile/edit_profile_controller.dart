@@ -165,9 +165,13 @@ class EditEmployeeProfileController
         skills: initialSkills,
         experience: workExperiences,
         education: educationData,
-        salaryRange: userData?.preferences?.salaryRange,
-          jobType:(userData?.preferences?.jobTypes?.isNotEmpty ?? false) ? userData?.preferences?.jobTypes?.first ?? "":"",
-          preferredLocations: userData?.preferences?.preferredLocations,
+        salaryRange: userData?.preferences?.salaryRange?.range,
+
+        jobType: (userData?.preferences?.jobTypes?.isNotEmpty ?? false)
+            ? userData!.preferences!.jobTypes!.first.name ?? ""
+            : "",
+
+        preferredLocations: userData?.preferences?.preferredLocations,
       ),
       workExpEntries: workExpControllers,
       educationEntries: educationControllers,

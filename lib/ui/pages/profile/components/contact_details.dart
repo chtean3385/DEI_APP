@@ -74,7 +74,7 @@ class ContactDetails extends ConsumerWidget {
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        state.profileData?.preferences?.salaryRange ??
+                        state.profileData?.preferences?.salaryRange?.range ??
                             'Not specified',
                         style: context.textTheme.displaySmall?.copyWith(
                           color: colorTheme.black54,fontSize: 13
