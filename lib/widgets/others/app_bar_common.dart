@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../main.dart';
@@ -14,10 +15,11 @@ AppBar appBarCommon({
 
 }) {
   final theme = Theme.of(navigatorKey.currentContext!);
+  final themeColor = navigatorKey.currentContext!.colors;
   return AppBar(
     elevation: 0,
     backgroundColor:bgColor  ,
-    leading:arrowLeft ?  BackButton(color:titleIconColor ??  Colors.black54,) : null,
+    leading:arrowLeft ?  BackButton(color:titleIconColor ??  themeColor.black54,) : null,
     title: title != null
         ? Text(title, style: titleStyleSmall == true ? theme.textTheme.bodySmall?.copyWith(color: titleIconColor)  : theme.textTheme.headlineSmall?.copyWith(color: titleIconColor))
         : null,
