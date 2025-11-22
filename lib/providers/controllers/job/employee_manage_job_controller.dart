@@ -12,6 +12,7 @@ import '../../../repo/shared_preference_repository.dart';
 import '../../../ui/pages/home/components/boost/profile_completion_slider.dart';
 import '../../../widgets/others/show_custom_alert_dialog.dart';
 import '../../../widgets/others/snack_bar.dart';
+import '../../../widgets/pickers/show_permission_alert.dart';
 import 'employee_similar_jobs_controller.dart';
 
 class EmployeeManageJobController extends StateNotifier<JobState> {

@@ -104,6 +104,7 @@ import 'app_theme_color_scheme.dart';
          red: Colors.red,
          redAccent: Colors.redAccent,
 
+           alertBgColor: Colors.white,
          commonBg2Color: AppColors.bg2,
          commonDividerBgColor: AppColors.bg,
          buttonPrimaryColor: AppColors.primaryColor,
@@ -221,6 +222,8 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
           red: Colors.redAccent,
           redAccent: Colors.red,
 
+
+            alertBgColor:  AppColors.bgDark,
           commonBg2Color: AppColors.bg2Dark,
           commonDividerBgColor: AppColors.bgDark,
           buttonPrimaryColor: AppColors.primaryForDarkThemeColor,

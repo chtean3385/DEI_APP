@@ -1,9 +1,11 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../main.dart';
 
 Future<void> showPermissionAlert({required String requestMessage}) async {
+  final colorTheme = navigatorKey.currentContext!.colors;
   await showDialog(
       context: navigatorKey.currentContext!,
       useSafeArea: true,
@@ -14,7 +16,7 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
             contentPadding: const EdgeInsets.all(0),
             actionsPadding: const EdgeInsets.all(0),
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor:  colorTheme.alertBgColor,
             content: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -22,21 +24,21 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                 Container(
                   width: double.maxFinite,
                   decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.only(
+                    borderRadius:  BorderRadius.only(
                         topLeft: Radius.circular(8),
                         topRight: Radius.circular(8)),
-                    color: Theme.of(context).colorScheme.primary,
+                    color: colorTheme.buttonPrimaryColor,
                   ),
                   padding: const EdgeInsets.all(20),
                   child: Icon(
                     Icons.contacts,
-                    color: Theme.of(context).colorScheme.surface,
+                    color: colorTheme.themBasedWhite,
                     size: 32,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text(requestMessage,textScaleFactor: 1,style:Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white) ,
+                  child: Text(requestMessage,textScaleFactor: 1,style:Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorTheme.themBasedBlack,) ,
                   ),
                 ),
                 Row(
@@ -51,7 +53,7 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                               horizontal: 8, vertical: 8),
                           child: Text(
                             "CANCEL",textScaleFactor: 1,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorTheme.themBasedBlack),
                           )),
                     ),
                     const SizedBox(
@@ -68,7 +70,7 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                               horizontal: 8, vertical: 8),
                           child: Text(
                             "CONTINUE",textScaleFactor: 1,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white),
+                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorTheme.themBasedBlack),
                           )),
                     ),
                     const SizedBox(

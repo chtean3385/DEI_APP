@@ -100,7 +100,7 @@ class UserModel {
       position: (experience != null && experience.isNotEmpty)
           ? experience.first["position"] as String?
           : null,
-      salary: json["preferences"] != null ? (json["preferences"]["salary_range"] ?? "N/A") : "N/A",
+        salary: json["preferences"]?["salary_range"]?["range"]?.toString() ?? "N/A",
       createdAt: json["createdAt"] != null
           ? DateTime.tryParse(json["createdAt"])
           : null,
