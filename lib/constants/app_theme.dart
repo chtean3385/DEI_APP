@@ -115,6 +115,8 @@ import 'app_theme_color_scheme.dart';
          themBasedOnSecondary:  Colors.white,
          themBasedBlack: Colors.black,
          themBasedWhite: Colors.white,
+         shimmerBaseColor: Color(0xFFE0E0E0),
+         shimmerHighlightColor: Color(0xFFF5F5F5),
        )
      ],
 
@@ -228,6 +230,9 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
           themBasedOnSecondary:  Colors.black,
           themBasedBlack: Colors.white,
           themBasedWhite: Colors.black,
+          shimmerBaseColor: Color(0xFF2A2A2A),
+          shimmerHighlightColor: Color(0xFF3A3A3A),
+
         )
       ],
 

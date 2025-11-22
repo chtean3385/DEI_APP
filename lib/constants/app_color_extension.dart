@@ -50,6 +50,9 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color themBasedBlack;
   final Color themBasedWhite;
 
+  final Color shimmerBaseColor;
+  final Color shimmerHighlightColor;
+
   const AppColorExtension({
     required this.black12,
     required this.black26,
@@ -84,6 +87,11 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.themBasedOnSecondary,
     required this.themBasedBlack,
     required this.themBasedWhite,
+
+    required this.shimmerBaseColor,
+    required this.shimmerHighlightColor,
+
+
   });
 
   @override
@@ -121,6 +129,8 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? themBasedOnSecondary,
     Color? themBasedBlack,
     Color? themBasedWhite,
+    Color? shimmerBaseColor,
+    Color? shimmerHighlightColor,
   }) {
     return AppColorExtension(
       black12: black12 ?? this.black12,
@@ -156,6 +166,8 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       themBasedOnSecondary: themBasedOnSecondary ?? this.themBasedOnSecondary,
       themBasedBlack: themBasedBlack ?? this.themBasedBlack,
       themBasedWhite: themBasedWhite ?? this.themBasedWhite,
+      shimmerBaseColor: shimmerBaseColor ?? this.shimmerBaseColor,
+      shimmerHighlightColor: shimmerHighlightColor ?? this.shimmerHighlightColor,
     );
   }
 
@@ -204,6 +216,8 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       Color.lerp(themBasedOnSecondary, other.themBasedOnSecondary, t)!,
       themBasedBlack: Color.lerp(themBasedBlack, other.themBasedBlack, t)!,
       themBasedWhite: Color.lerp(themBasedWhite, other.themBasedWhite, t)!,
+      shimmerBaseColor: Color.lerp(shimmerBaseColor, other.shimmerBaseColor, t)!,
+      shimmerHighlightColor: Color.lerp(shimmerHighlightColor, other.shimmerHighlightColor, t)!,
     );
   }
 }

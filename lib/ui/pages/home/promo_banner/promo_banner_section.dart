@@ -64,7 +64,7 @@ class PromoBannerSection extends ConsumerWidget {
 
   Widget _shimmerItems() {
     return ShimmerLoader(
-      child: ShimmerBox(height: 160, width: double.infinity),
+      child: ShimmerBox(height: 160, width: double.infinity,radius: 16,),
     );
   }
 }
