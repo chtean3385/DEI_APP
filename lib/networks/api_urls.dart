@@ -131,8 +131,9 @@ class ApiUrls {
 
 
 
+  //web page  url
 
-
+  static String aboutUsPage = 'https://frontend-dei.vercel.app/about-us';
 
 
 
