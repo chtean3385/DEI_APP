@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -35,6 +36,8 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
+
     final state = ref.watch(commonHtmlPageContentsProvider);
     if (state.pageState == PageState.loading) {
       return Center(child: const CustomLoader());
@@ -49,7 +52,7 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
+                backgroundColor: colorTheme.buttonPrimaryColor,
               ),
               child: Text(
                 "Go Back",
@@ -73,7 +76,7 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primaryColor,
+                backgroundColor: colorTheme.buttonPrimaryColor,
               ),
               child: Text(
                 "Go Back",
@@ -87,7 +90,7 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
       );
     }
     final content = state.data?.content;
-    final processedHtml = highlightSpecialNotes(content ?? "");
+    final processedHtml = highlightSpecialNotes(content ?? "",isDarkMode: Theme.of(context).brightness == Brightness.dark,);
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Html(
@@ -96,7 +99,7 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
           "body": Style(
             fontSize: FontSize(14),
             fontFamily: GoogleFonts.poppins().fontFamily,
-            color: Colors.black87,
+            color: colorTheme.black87,
             lineHeight: LineHeight(1.5),
             margin: Margins.zero,
             padding: HtmlPaddings.zero,
@@ -107,7 +110,7 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
             fontSize: FontSize(16),
             fontFamily: GoogleFonts.poppins().fontFamily,
             fontWeight: FontWeight.w700,
-            color: Colors.black,
+            color: colorTheme.themBasedBlack,
             margin: Margins.only(top: 16, bottom: 12),
             padding: HtmlPaddings.only(bottom: 4),
             border: const Border(
@@ -119,7 +122,7 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
           "h2": Style(
             fontSize: FontSize(16),
             fontWeight: FontWeight.w600,
-            color: Colors.black,
+            color: colorTheme.themBasedBlack,
             fontFamily: GoogleFonts.poppins().fontFamily,
             margin: Margins.only(top: 16, bottom: 10),
             padding: HtmlPaddings.only(bottom: 3),
@@ -168,17 +171,26 @@ class _JobDetailsScreenState extends ConsumerState<HtmlContentVIew> {
   }
 }
 
-String highlightSpecialNotes(String html) {
+String highlightSpecialNotes(String html, {required bool isDarkMode}) {
   final patterns = {
-    'Important:': '#e8f5e9|#4caf50', // green
-    'Note:': '#e3f2fd|#2196f3', // blue
-    'Warning:': '#fff3e0|#ff9800', // orange
+    'Important:': isDarkMode
+        ? '#1b3c2d|#66bb6a|#c8e6c9'  // dark-bg | border | text
+        : '#e8f5e9|#4caf50|#1b5e20',
+
+    'Note:': isDarkMode
+        ? '#10273f|#64b5f6|#bbdefb'
+        : '#e3f2fd|#2196f3|#0d47a1',
+
+    'Warning:': isDarkMode
+        ? '#3b2e12|#ffb74d|#ffe0b2'
+        : '#fff3e0|#ff9800|#e65100',
   };
 
   patterns.forEach((key, value) {
     final parts = value.split('|');
     final bg = parts[0];
     final border = parts[1];
+    final textColor = parts[2];
 
     final regex = RegExp(
       r'<p><strong>' + key + r'(.*?)</p>',
@@ -190,8 +202,8 @@ String highlightSpecialNotes(String html) {
       final text = match.group(1) ?? '';
       return '''
       <div style="background-color:$bg;padding:12px;border-left:5px solid $border;
-      border-radius:8px;margin:12px 0;">
-        <strong>$key</strong>$text
+          border-radius:8px;margin:12px 0;color:$textColor;">
+        <strong style="color:$textColor;">$key</strong>$text
       </div>
       ''';
     });
@@ -199,3 +211,4 @@ String highlightSpecialNotes(String html) {
 
   return html;
 }
+
