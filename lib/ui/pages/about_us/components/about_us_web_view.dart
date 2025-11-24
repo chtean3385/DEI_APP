@@ -87,251 +87,15 @@ class _WebViewPageState extends State<WebViewPage> {
               preferredContentMode: UserPreferredContentMode.MOBILE,
               forceDark: ForceDark.ON,    // <-- Android dark mode BEFORE loading
               forceDarkStrategy: ForceDarkStrategy.PREFER_WEB_THEME_OVER_USER_AGENT_DARKENING,
-              contentBlockers: _blockers,
+              contentBlockers: _blockers
             ),
 
 
             onWebViewCreated: (controller) async {
               _controller = controller;
-              final isDark = Theme.of(context).brightness == Brightness.dark ? "dark" : "light";
-
-              await controller.evaluateJavascript(source: """
-    (function() {
-      
-      // --- apply theme instantly (prevent white flash) ---
-      if ('$isDark' === 'dark') {
-        const style = document.createElement('style');
-        style.innerHTML = `
-          html {
-            filter: invert(1) hue-rotate(180deg) !important;
-            background: #000 !important;
-          }
-          img, video, iframe {
-            filter: invert(1) hue-rotate(180deg) !important;
-          }
-        `;
-        document.head.appendChild(style);
-      }
-
-      function hideAll() {
-        const selectors = [
-          '.header-area',
-          '.header-style-3',
-          '.sticky-bar',
-          '#navigation',
-          '.logo',
-          '.header-logo',
-          '.burger-icon',
-          '.menu-icon',
-          '.accessibility-widget',
-          '#userwayAccessibilityIcon',
-          '[id^="userway"]',
-          '[id*="userway"]',
-          '[class*="userway"]',
-          '[class*="accessibility"]',
-          '[id*="accessibility"]',
-          '.skip-to-content',
-          '.accessibility-btn',
-          '.uwy',
-          '.uwy-floating-button',
-          '#uwy',
-          '#userway',
-          '.uai-wrapper',
-          'footer',
-          '.footer-area',
-          '.footer-bg',
-          '.scroll-to-top'
-        ];
-
-        selectors.forEach(sel => {
-          document.querySelectorAll(sel).forEach(el => {
-            el.remove();            // remove the element fully
-          });
-        });
-
-        // Remove iframes injected by UserWay
-        document.querySelectorAll('iframe').forEach(frame => {
-          const src = frame.src || "";
-          if (src.includes("userway") || src.includes("accessibility")) {
-            frame.remove();
-          }
-        });
-
-        // Remove all <script> that load UserWay
-        document.querySelectorAll('script').forEach(s => {
-          const txt = s.outerHTML;
-          if (txt.includes("userway") || txt.includes("accessibility")) {
-            s.remove();
-          }
-        });
-
-        // Remove shadow DOM instances
-        const walker = document.createTreeWalker(document, NodeFilter.SHOW_ELEMENT);
-        let node;
-        while (node = walker.nextNode()) {
-          if (node.shadowRoot) {
-            const children = node.shadowRoot.querySelectorAll('*');
-            children.forEach(child => {
-              const test = child.className + child.id;
-              if (test.toLowerCase().includes("access")
-               || test.toLowerCase().includes("userway")) {
-                child.remove();
-              }
-            });
-          }
-        }
-
-        document.body.style.margin = '0';
-        document.body.style.padding = '0';
-      }
-
-      // Apply multiple times because UserWay injects late
-      let attempts = 0;
-      let killInterval = setInterval(() => {
-        hideAll();
-        attempts++;
-        if (attempts > 50) clearInterval(killInterval);
-      }, 120);
-
-      // Final aggressive CSS override
-      const forceCSS = document.createElement('style');
-      forceCSS.innerHTML = `
-        *[class*="userway"], *[id*="userway"],
-        *[class*="accessibility"], *[id*="accessibility"],
-        .uwy, .uwy-floating-button {
-          display: none !important;
-          visibility: hidden !important;
-          opacity: 0 !important;
-          pointer-events: none !important;
-          height: 0 !important;
-          width: 0 !important;
-        }
-      `;
-      document.head.appendChild(forceCSS);
-
-    })();
-  """);
             },
 
             onLoadStart: (controller, url) async {
-  //             final isDark = Theme.of(context).brightness == Brightness.dark ? "dark" : "light";
-  //
-  //             await controller.evaluateJavascript(source: """
-  //   (function() {
-  //
-  //     // --- apply theme instantly (prevent white flash) ---
-  //     if ('$isDark' === 'dark') {
-  //       const style = document.createElement('style');
-  //       style.innerHTML = `
-  //         html {
-  //           filter: invert(1) hue-rotate(180deg) !important;
-  //           background: #000 !important;
-  //         }
-  //         img, video, iframe {
-  //           filter: invert(1) hue-rotate(180deg) !important;
-  //         }
-  //       `;
-  //       document.head.appendChild(style);
-  //     }
-  //
-  //     function hideAll() {
-  //       const selectors = [
-  //         '.header-area',
-  //         '.header-style-3',
-  //         '.sticky-bar',
-  //         '#navigation',
-  //         '.logo',
-  //         '.header-logo',
-  //         '.burger-icon',
-  //         '.menu-icon',
-  //         '.accessibility-widget',
-  //         '#userwayAccessibilityIcon',
-  //         '[id^="userway"]',
-  //         '[id*="userway"]',
-  //         '[class*="userway"]',
-  //         '[class*="accessibility"]',
-  //         '[id*="accessibility"]',
-  //         '.skip-to-content',
-  //         '.accessibility-btn',
-  //         '.uwy',
-  //         '.uwy-floating-button',
-  //         '#uwy',
-  //         '#userway',
-  //         '.uai-wrapper',
-  //         'footer',
-  //         '.footer-area',
-  //         '.footer-bg',
-  //         '.scroll-to-top'
-  //       ];
-  //
-  //       selectors.forEach(sel => {
-  //         document.querySelectorAll(sel).forEach(el => {
-  //           el.remove();            // remove the element fully
-  //         });
-  //       });
-  //
-  //       // Remove iframes injected by UserWay
-  //       document.querySelectorAll('iframe').forEach(frame => {
-  //         const src = frame.src || "";
-  //         if (src.includes("userway") || src.includes("accessibility")) {
-  //           frame.remove();
-  //         }
-  //       });
-  //
-  //       // Remove all <script> that load UserWay
-  //       document.querySelectorAll('script').forEach(s => {
-  //         const txt = s.outerHTML;
-  //         if (txt.includes("userway") || txt.includes("accessibility")) {
-  //           s.remove();
-  //         }
-  //       });
-  //
-  //       // Remove shadow DOM instances
-  //       const walker = document.createTreeWalker(document, NodeFilter.SHOW_ELEMENT);
-  //       let node;
-  //       while (node = walker.nextNode()) {
-  //         if (node.shadowRoot) {
-  //           const children = node.shadowRoot.querySelectorAll('*');
-  //           children.forEach(child => {
-  //             const test = child.className + child.id;
-  //             if (test.toLowerCase().includes("access")
-  //              || test.toLowerCase().includes("userway")) {
-  //               child.remove();
-  //             }
-  //           });
-  //         }
-  //       }
-  //
-  //       document.body.style.margin = '0';
-  //       document.body.style.padding = '0';
-  //     }
-  //
-  //     // Apply multiple times because UserWay injects late
-  //     let attempts = 0;
-  //     let killInterval = setInterval(() => {
-  //       hideAll();
-  //       attempts++;
-  //       if (attempts > 50) clearInterval(killInterval);
-  //     }, 120);
-  //
-  //     // Final aggressive CSS override
-  //     const forceCSS = document.createElement('style');
-  //     forceCSS.innerHTML = `
-  //       *[class*="userway"], *[id*="userway"],
-  //       *[class*="accessibility"], *[id*="accessibility"],
-  //       .uwy, .uwy-floating-button {
-  //         display: none !important;
-  //         visibility: hidden !important;
-  //         opacity: 0 !important;
-  //         pointer-events: none !important;
-  //         height: 0 !important;
-  //         width: 0 !important;
-  //       }
-  //     `;
-  //     document.head.appendChild(forceCSS);
-  //
-  //   })();
-  // """);
               setState(() {
                 _isLoading = true;
                 _hasError = false;
@@ -364,34 +128,34 @@ class _WebViewPageState extends State<WebViewPage> {
 
       function hideAll() {
         const selectors = [
-          '.header-area',
-          '.header-style-3',
-          '.sticky-bar',
-          '#navigation',
-          '.logo',
-          '.header-logo',
-          '.burger-icon',
-          '.menu-icon',
-          '.accessibility-widget',
-          '#userwayAccessibilityIcon',
-          '[id^="userway"]',
-          '[id*="userway"]',
-          '[class*="userway"]',
-          '[class*="accessibility"]',
-          '[id*="accessibility"]',
-          '.skip-to-content',
-          '.accessibility-btn',
-          '.uwy',
-          '.uwy-floating-button',
-          '#uwy',
-          '#userway',
-          '.uai-wrapper',
-          'footer',
-          '.footer-area',
-          '.footer-bg',
-          '.scroll-to-top'
-        ];
-
+  '.header-area',
+  '.header-style-3',
+  '.sticky-bar',
+  '#navigation',
+  '.logo',
+  '.header-logo',
+  '.burger-icon',
+  '.menu-icon',
+  '.accessibility-widget',
+  '#userwayAccessibilityIcon',
+  '[id^="userway"]',
+  '[id*="userway"]',
+  '[class*="userway"]',
+  '[class*="accessibility"]',
+  '[id*="accessibility"]',
+  '.skip-to-content',
+  '.accessibility-btn',
+  '.uwy',
+  '.uwy-floating-button',
+  '#uwy',
+  '#userway',
+  '.uai-wrapper',
+  '.asw-menu-btn',         // <-- 🆕 ADDED
+  'footer',
+  '.footer-area',
+  '.footer-bg',
+  '.scroll-to-top'
+];
         selectors.forEach(sel => {
           document.querySelectorAll(sel).forEach(el => {
             el.remove();            // remove the element fully
@@ -443,20 +207,21 @@ class _WebViewPageState extends State<WebViewPage> {
       }, 120);
 
       // Final aggressive CSS override
-      const forceCSS = document.createElement('style');
-      forceCSS.innerHTML = `
-        *[class*="userway"], *[id*="userway"],
-        *[class*="accessibility"], *[id*="accessibility"],
-        .uwy, .uwy-floating-button {
-          display: none !important;
-          visibility: hidden !important;
-          opacity: 0 !important;
-          pointer-events: none !important;
-          height: 0 !important;
-          width: 0 !important;
-        }
-      `;
-      document.head.appendChild(forceCSS);
+     const forceCSS = document.createElement('style');
+forceCSS.innerHTML = `
+  *[class*="userway"], *[id*="userway"],
+  *[class*="accessibility"], *[id*="accessibility"],
+  .uwy, .uwy-floating-button {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+  }
+`;
+document.head.appendChild(forceCSS);
+
 
     })();
   """);
