@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/app_colors.dart';
@@ -10,6 +11,7 @@ class FaqScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return Scaffold(
       appBar: appBarCommon(
         title: "FAQ",
@@ -21,7 +23,7 @@ class FaqScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ColoredBox(
-              color: AppColors.bg,
+              color: colorTheme.commonBg2Color,
               child: SizedBox(
                 width: double.infinity,
                 child: Padding(
@@ -35,7 +37,7 @@ class FaqScreen extends StatelessWidget {
                       Text(
                         "Frequently Asked Questions",
                         style: context.textTheme.titleMedium?.copyWith(
-                          color: AppColors.primaryColor,
+                          color: colorTheme.buttonPrimaryColor,
                         ),
                         textAlign: TextAlign.left,
                       ),
@@ -43,7 +45,7 @@ class FaqScreen extends StatelessWidget {
                       Text(
                         "Find answers to common questions about our platform. Learn how to use our job portal effectively and get the most out of your experience.",
                         style: context.textTheme.bodyMedium?.copyWith(
-                          color: Colors.black54,
+                          color: colorTheme.black54,
                         ),
                         textAlign: TextAlign.left,
                       ),
