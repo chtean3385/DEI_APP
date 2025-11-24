@@ -8,6 +8,7 @@ class AppDrawables {
   ///icons
   static const String search = "assets/icon/search.png";
   static const String searchJob = "assets/drawables/job_search.jpeg";
+  static const String searchJobDark = "assets/drawables/job_search_dark.png";
   static const String jobPost = "assets/drawables/job_post.jpeg";
 
   ///gif

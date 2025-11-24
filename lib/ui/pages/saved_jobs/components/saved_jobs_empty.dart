@@ -15,6 +15,7 @@ class SavedJobsEmptyScreen extends StatelessWidget {
     final theme = Theme.of(context);
     final colorTheme = context.colors;
 
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Center(
       child: Padding(
@@ -24,7 +25,7 @@ class SavedJobsEmptyScreen extends StatelessWidget {
           children: [
             // Illustration image
             Image.asset(
-              AppDrawables.searchJob, // replace with your asset
+              isDark?AppDrawables.searchJobDark : AppDrawables.searchJob, // replace with your asset
               height: 200,
             ),
 
@@ -58,7 +59,7 @@ class SavedJobsEmptyScreen extends StatelessWidget {
               child:  Text(
                 "Start my job search",
                 style: TextStyle(
-                  color: colorTheme.themBasedWhite,
+                  color: Colors.white,
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),

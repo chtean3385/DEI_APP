@@ -110,6 +110,7 @@ class MyKeySkill extends ConsumerWidget {
   }
 
   Widget _skillChips(List<String> selectedSkill) {
+    final colorTheme = navigatorKey.currentContext!.colors;
     return SizedBox(
       width: double.infinity,
       child: Wrap(
@@ -118,9 +119,9 @@ class MyKeySkill extends ConsumerWidget {
         children: selectedSkill.map((skill) {
           return DecoratedBox(
             decoration: BoxDecoration(
-              color: AppColors.bg,
+              color: colorTheme.commonBg2Color,
               borderRadius: BorderRadius.circular(24),
-              border: Border.all(width: 1, color: Colors.black12),
+              border: Border.all(width: 1, color: colorTheme.black12),
             ),
 
             child: Padding(
@@ -131,7 +132,7 @@ class MyKeySkill extends ConsumerWidget {
                   Text(
                     skill,
                     style: navigatorKey.currentContext!.textTheme.displaySmall
-                        ?.copyWith(color: Colors.black54),
+                        ?.copyWith(color: colorTheme.black54),
                   ),
                 ],
               ),

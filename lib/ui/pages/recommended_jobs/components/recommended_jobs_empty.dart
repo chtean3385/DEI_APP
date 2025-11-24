@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_drawables.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,8 @@ class RecommendedJobsEmptyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorTheme = context.colors;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Center(
       child: Padding(
@@ -35,7 +38,7 @@ class RecommendedJobsEmptyView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(AppDrawables.searchJob, height: 200),
+            Image.asset(isDark? AppDrawables.searchJobDark:AppDrawables.searchJob, height: 200),
             const SizedBox(height: 24),
 
             /// Title
@@ -44,7 +47,7 @@ class RecommendedJobsEmptyView extends StatelessWidget {
               textAlign: TextAlign.center,
               style: theme.textTheme.headlineMedium?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: colorTheme.black87,
               ),
             ),
             const SizedBox(height: 12),
@@ -54,7 +57,7 @@ class RecommendedJobsEmptyView extends StatelessWidget {
               _subtitle,
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.black54,
+                color: colorTheme.black54,
               ),
             ),
 
@@ -70,7 +73,7 @@ class RecommendedJobsEmptyView extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              color: AppColors.primaryColor,
+              color: colorTheme.buttonPrimaryColor,
               radius: 30,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               onTap: AppNavigator.loadJobSearchResultScreen,
@@ -89,7 +92,7 @@ class RecommendedJobsEmptyView extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                color: AppColors.primaryColor,
+                color: colorTheme.buttonPrimaryColor,
                 radius: 30,
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                 onTap: AppNavigator.loadEditProfileScreen,

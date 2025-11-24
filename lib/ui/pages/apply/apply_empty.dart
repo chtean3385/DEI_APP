@@ -57,6 +57,7 @@ class AppliedJobCategoryEmptyView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorTheme = context.colors;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Center(
       child: Padding(
@@ -64,7 +65,7 @@ class AppliedJobCategoryEmptyView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(AppDrawables.searchJob, height: 200),
+            Image.asset(isDark ? AppDrawables.searchJobDark : AppDrawables.searchJob, height: 200),
             const SizedBox(height: 24),
             Text(
               _title,

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_colors.dart';
@@ -11,7 +12,8 @@ class EmptyDashboardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+final colorTheme = context.colors;
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
@@ -19,7 +21,7 @@ class EmptyDashboardWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
-              AppDrawables.searchJob,
+              isDark?AppDrawables.searchJobDark :  AppDrawables.searchJob,
               height: 200,
             ),
             const SizedBox(height: 24),
@@ -28,7 +30,7 @@ class EmptyDashboardWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               style: theme.textTheme.titleLarge?.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Colors.black87,
+                color: colorTheme.black87,
               ),
             ),
             const SizedBox(height: 12),
@@ -36,7 +38,7 @@ class EmptyDashboardWidget extends StatelessWidget {
               "Start exploring and applying for jobs to see your statistics here.",
               textAlign: TextAlign.center,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: Colors.black54,
+                color: colorTheme.black54,
               ),
             ),
             const SizedBox(height: 32),
@@ -49,7 +51,7 @@ class EmptyDashboardWidget extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              color: AppColors.primaryColor,
+              color: colorTheme.buttonPrimaryColor,
               radius: 30,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               onTap: AppNavigator.loadJobSearchResultScreen,
