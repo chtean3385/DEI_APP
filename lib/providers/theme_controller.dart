@@ -34,12 +34,14 @@ class UserSettingsModel {
   final bool notifications;
   final bool emailAlert;
   final bool smsAlert;
+  final String? profileMode;
   final Color buttonColor;
 
   const UserSettingsModel({
     this.notifications = true,
     this.emailAlert = false,
     this.smsAlert = false,
+    this.profileMode,
     this.buttonColor = Colors.blue,
   });
 
@@ -48,12 +50,14 @@ class UserSettingsModel {
     bool? emailAlert,
     bool? smsAlert,
     Color? buttonColor,
+    String? profileMode,
   }) {
     return UserSettingsModel(
       notifications: notifications ?? this.notifications,
       emailAlert: emailAlert ?? this.emailAlert,
       smsAlert: smsAlert ?? this.smsAlert,
       buttonColor: buttonColor ?? this.buttonColor,
+      profileMode: profileMode ?? this.profileMode,
     );
   }
 }
@@ -79,6 +83,9 @@ class UserSettingsController extends Notifier<UserSettingsModel> {
 
   void setButtonColor(Color color) {
     state = state.copyWith(buttonColor: color);
+  }
+  void setProfileMode(String newValue) {
+    state = state.copyWith(profileMode: newValue);
   }
 }
 

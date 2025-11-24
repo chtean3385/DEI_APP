@@ -57,3 +57,51 @@ class SettingToggle extends StatelessWidget {
     );
   }
 }
+
+class SettingArrow extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  const SettingArrow({
+    super.key,
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final themeColor = context.colors;
+
+    return Card(
+      elevation: 2,
+      color: themeColor.jobCardBgColor,
+      shadowColor: themeColor.buttonPrimaryColor,
+      surfaceTintColor: themeColor.buttonPrimaryColor,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      child: ListTile(
+        onTap: onTap,
+        leading: Icon(
+          icon,
+          color: themeColor.buttonPrimaryColor,
+          size: 25,
+        ),
+        title: Text(
+          title,
+          style: context.textTheme.labelMedium?.copyWith(height: 2),
+        ),
+        subtitle: Text(
+          subtitle,
+          style:
+          context.textTheme.bodyMedium?.copyWith(color: themeColor.black54, height: 1.2),
+        ),
+        trailing:  Icon(Icons.arrow_forward_ios, size: 20,color: themeColor.buttonPrimaryColor,),
+      ),
+    );
+  }
+}
+
+

@@ -2,6 +2,7 @@ import 'package:dei_champions/ui/pages/about_us/about_us.dart';
 import 'package:dei_champions/ui/pages/auth/signup/employee_signup_screen.dart';
 import 'package:dei_champions/ui/pages/common_screens/csr/csr_screen.dart';
 import 'package:dei_champions/ui/pages/corporates_championing/corporates_championing_screen.dart';
+import 'package:dei_champions/ui/pages/employee_settings/components/profile_mode/profile_mode_settings_screen.dart';
 import 'package:dei_champions/ui/pages/employee_settings/employee_settings.dart';
 import 'package:dei_champions/ui/pages/empower_women/empower_women_screen.dart';
 import 'package:dei_champions/ui/pages/home/components/top_companies/top_companies_list_screen.dart';
@@ -355,6 +356,13 @@ class AppNavigator {
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => OnBoardScreen()),
       (route) => false,
+    );
+  }
+
+  static loadProfileModeSettingsScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => ProfileModeSettingsScreen()),
     );
   }
 

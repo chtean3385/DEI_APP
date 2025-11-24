@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +8,6 @@ import '../../../providers/theme_controller.dart';
 import 'components/button_color_dialog.dart';
 import 'components/setting_section_title.dart';
 import 'components/setting_section_togle.dart';
-
 
 class SettingsBody extends ConsumerWidget {
   const SettingsBody({super.key});
@@ -26,6 +26,17 @@ class SettingsBody extends ConsumerWidget {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       children: [
+        const SectionTitle("Account"),
+
+        // -----------------------------------
+        // THEME SWITCH
+        // -----------------------------------
+        SettingArrow(
+          title: "Profile Mode",
+          subtitle: "Control the visibility of your profile to recruiters & companies",
+          icon: Icons.manage_accounts_sharp,
+          onTap: () => AppNavigator.loadProfileModeSettingsScreen(),
+        ),
         // -----------------------------------
         // APPEARANCE TITLE
         // -----------------------------------
@@ -38,7 +49,9 @@ class SettingsBody extends ConsumerWidget {
           title: themeMode == ThemeMode.dark ? "Dark Mode" : "Light Mode",
           subtitle: "Switch between dark and light themes",
           value: themeMode == ThemeMode.dark,
-          icon: themeMode == ThemeMode.dark ? Icons.dark_mode : Icons.light_mode,
+          icon: themeMode == ThemeMode.dark
+              ? Icons.dark_mode
+              : Icons.light_mode,
           onChanged: (val) {
             themeController.state = val ? ThemeMode.dark : ThemeMode.light;
           },
@@ -115,6 +128,7 @@ class SettingsBody extends ConsumerWidget {
         //     ),
         //   ),
         // ),
+
 
         // -----------------------------------
         // ALERTS SECTION
