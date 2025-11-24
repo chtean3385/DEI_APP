@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 import '../../../networks/api_urls.dart';
 import '../../../widgets/others/app_bar_common.dart';
-import 'components/about_us_view.dart';
 import 'components/about_us_web_view.dart';
 
 class AboutUsScreen extends StatelessWidget {

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class LetsConnectFormView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(letsConnectProvider.notifier);
+    final colorTheme = context.colors;
     return Form(
       key: controller.formKey,
       child: SingleChildScrollView(
@@ -31,7 +33,7 @@ class LetsConnectFormView extends ConsumerWidget {
                   TextSpan(
                     text: 'Connect',
                     style: context.textTheme.bodyLarge?.copyWith(
-                      color: AppColors.primaryColor,fontWeight: FontWeight.w600
+                      color: colorTheme.buttonPrimaryColor,fontWeight: FontWeight.w600
                     ),
                   ),
                 ],
@@ -41,7 +43,7 @@ class LetsConnectFormView extends ConsumerWidget {
             Text(
               "Email us personally or complete the form below to set up a meeting or discuss an idea.",
               style: context.textTheme.bodyMedium?.copyWith(
-                color: Colors.black54,
+                color: colorTheme.black54,
               ),
             ),
             gapH8(),
@@ -179,11 +181,11 @@ class LetsConnectFormView extends ConsumerWidget {
   Widget _contactDetailsTile(IconData,title){
     return Row(
       children: [
-        Icon(IconData, size: 15, color: AppColors.primaryColor),
+        Icon(IconData, size: 15, color: navigatorKey.currentContext!.colors.buttonPrimaryColor),
         gapW16(),
         Text(
           title,
-          style: navigatorKey.currentContext!.textTheme.bodyMedium?.copyWith(color: Colors.black54),
+          style: navigatorKey.currentContext!.textTheme.bodyMedium?.copyWith(color: navigatorKey.currentContext!.colors.black54),
         ),
       ],
     );
