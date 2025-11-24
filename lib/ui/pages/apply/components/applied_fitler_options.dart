@@ -132,7 +132,7 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
                   labelStyle: context.textTheme.bodyMedium?.copyWith(
                     color: isSelected ? colorTheme.themBasedWhite : colorTheme.buttonPrimaryColor,
                   ),
-                  backgroundColor: colorTheme.commonDividerBgColor,
+                  backgroundColor: colorTheme.bottomBarBgColor,
                   shape: StadiumBorder(
                     side: BorderSide(color: colorTheme.buttonPrimaryColor),
                   ),
