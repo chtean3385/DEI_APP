@@ -167,11 +167,13 @@ class BlogCard extends StatelessWidget {
 }
 
 Widget commonChip(String tag) {
+  final colorTheme = navigatorKey.currentContext!.colors;
+
   return // Tag chip
   Container(
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
     decoration: BoxDecoration(
-      color: AppColors.bg,
+      color: colorTheme.cardBgColor,
       borderRadius: BorderRadius.circular(8),
     ),
     child: Text(
@@ -183,7 +185,7 @@ Widget commonChip(String tag) {
       style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
         fontWeight: FontWeight.w600,
         fontSize: 12,
-        color: AppColors.primaryColor,
+        color: colorTheme.buttonPrimaryColor,
       ),
     ),
   );

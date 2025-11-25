@@ -54,7 +54,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                     child: Column(
                       children: [
                         Expanded(child: Center(child: SizedBox(
-                        height: 200,width: 200,
+                        height: 150,width: 150,
                           child: WidgetUtils.logoWidget(),
                         ))),
                         Container(
@@ -102,7 +102,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                                     onTap: AppNavigator.loadForgotPasswordScreen,
                                     child: Text(
                                       AppStrings.forgotPassword,
-                                      style: context.textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor),
+                                      style: context.textTheme.bodyMedium?.copyWith(color: colorTheme.buttonPrimaryColor),
                                     ),
                                   ),
                                 ],

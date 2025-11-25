@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_drawables.dart';
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/models/common/blog_model.dart';
 import 'package:dei_champions/models/state_models/common/blog_detail_state.dart';
@@ -39,6 +40,7 @@ class BlogDetailsView extends ConsumerWidget {
   Widget _data(BlogDetailState state, BuildContext context) {
     final theme = Theme.of(context).textTheme;
     final item = state.data;
+    final colorTheme = context.colors;
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -58,7 +60,7 @@ class BlogDetailsView extends ConsumerWidget {
                 Container(
                   margin: EdgeInsets.all(16),
                   padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(color: Colors.white),
+                  decoration: BoxDecoration(color: colorTheme.commonDividerBgColor),
                   child: Column(
                     children: [
                       Text(
@@ -83,7 +85,7 @@ class BlogDetailsView extends ConsumerWidget {
                             softWrap: true,
                             overflow: TextOverflow.ellipsis,
                             style: theme.labelMedium?.copyWith(
-                              color: Colors.black54,
+                              color: colorTheme.black54,
                             ),
                           ),
                         ],
@@ -101,7 +103,7 @@ class BlogDetailsView extends ConsumerWidget {
                               Icon(
                                 Icons.calendar_month,
                                 size: 20,
-                                color: Colors.black54,
+                                color: colorTheme.black54,
                               ),
                               gapW6(),
                               Text(
@@ -112,7 +114,7 @@ class BlogDetailsView extends ConsumerWidget {
                                 softWrap: true,
                                 overflow: TextOverflow.ellipsis,
                                 style: theme.displaySmall?.copyWith(
-                                  color: Colors.black54,
+                                  color: colorTheme.black54,
                                 ),
                               ),
                             ],
@@ -125,7 +127,7 @@ class BlogDetailsView extends ConsumerWidget {
                               Icon(
                                 Icons.access_time_rounded,
                                 size: 20,
-                                color: Colors.black54,
+                                color: colorTheme.black54,
                               ),
                               gapW6(),
                               Text(
@@ -134,7 +136,7 @@ class BlogDetailsView extends ConsumerWidget {
                                 softWrap: true,
                                 overflow: TextOverflow.ellipsis,
                                 style: theme.displaySmall?.copyWith(
-                                  color: Colors.black54,
+                                  color: colorTheme.black54,
                                 ),
                               ),
                             ],
@@ -239,11 +241,12 @@ class BlogDetailsView extends ConsumerWidget {
   Widget _itemDetails(BlogModel? item) {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
     final plainText = html_parser.parse(item?.description).body?.text ?? '';
+    final colorTheme = navigatorKey.currentContext!.colors;
     return Card(
       elevation: 2,
-      color: Colors.white,
+      color: colorTheme.commonDividerBgColor,
       margin: EdgeInsets.all(16),
-      shadowColor: Colors.black,
+      shadowColor: colorTheme.themBasedBlack,
       // surfaceTintColor: AppColors.primaryColor,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -261,7 +264,7 @@ class BlogDetailsView extends ConsumerWidget {
               children: [
                 Text(
                   plainText,
-                  style: theme.displaySmall?.copyWith(color: Colors.black87),
+                  style: theme.displaySmall?.copyWith(color: colorTheme.black87),
                   maxLines: 3,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
@@ -269,7 +272,7 @@ class BlogDetailsView extends ConsumerWidget {
                 gapH16(),
                 Text(
                   "Thank you for reading this blog post. We hope you found it informative and useful.",
-                  style: theme.displaySmall?.copyWith(color: Colors.black87),
+                  style: theme.displaySmall?.copyWith(color: colorTheme.black87),
                   maxLines: 3,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
@@ -327,11 +330,13 @@ class BlogTagsAndShare extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
+
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Divider(thickness: 1, color: Colors.black12),
+         Divider(thickness: 1, color: colorTheme.black12),
         const SizedBox(height: 12),
         Wrap(
           spacing: 8, // horizontal space between chips
@@ -346,26 +351,26 @@ class BlogTagsAndShare extends StatelessWidget {
               'Share',
               style: theme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w600,
-                color: Colors.blueGrey,
+                color: colorTheme.grey600,
               ),
             ),
             const SizedBox(width: 12),
             Icon(
               FontAwesomeIcons.facebookF,
               size: 18,
-              color: Colors.blueGrey.shade500,
+              color: colorTheme.grey600,
             ),
             const SizedBox(width: 12),
             Icon(
               FontAwesomeIcons.twitter,
               size: 18,
-              color: Colors.blueGrey.shade500,
+              color: colorTheme.grey600,
             ),
             const SizedBox(width: 12),
             Icon(
               FontAwesomeIcons.pinterestP,
               size: 18,
-              color: Colors.blueGrey.shade500,
+              color: colorTheme.grey600,
             ),
           ],
         ),

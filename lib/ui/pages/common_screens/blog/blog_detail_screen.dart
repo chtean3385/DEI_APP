@@ -10,7 +10,6 @@ class BlogDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bg,
       appBar: appBarCommon(
         title: "Blog Details",
         arrowLeft: true,

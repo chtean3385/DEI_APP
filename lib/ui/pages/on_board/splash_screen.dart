@@ -1,8 +1,4 @@
-import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
-import '../../../constants/app_colors.dart';
-import '../../../providers/theme_controller.dart';
-import '../../../repo/shared_preference_repository.dart';
 import '../../../utils/widget_utils.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../providers/providers.dart';
