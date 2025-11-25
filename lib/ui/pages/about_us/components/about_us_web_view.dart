@@ -55,7 +55,7 @@ class _WebViewPageState extends State<WebViewPage> {
           urlFilter: ".*userway.*",
           resourceType: [
             ContentBlockerTriggerResourceType.SCRIPT,
-            ContentBlockerTriggerResourceType.DOCUMENT,
+            // ContentBlockerTriggerResourceType.DOCUMENT,
           ],
         ),
         action: ContentBlockerAction(type: ContentBlockerActionType.BLOCK),
@@ -104,7 +104,9 @@ class _WebViewPageState extends State<WebViewPage> {
             },
 
             shouldOverrideUrlLoading:
-                (controller, navigationAction) async {},
+                (controller, navigationAction) async {
+                  return NavigationActionPolicy.ALLOW;
+                },
             onLoadStop: (controller, url) async {
               final isDark = Theme.of(context).brightness == Brightness.dark ? "dark" : "light";
 
