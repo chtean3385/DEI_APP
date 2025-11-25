@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ import '../../../../../models/profile/profile_completion/profile_completion_mode
 
 void showProfileAlert(BuildContext context,List<MissingField>? missingFields) {
   final theme =Theme.of(context).textTheme;
+  final colorTheme = context.colors;
   final List<String> labels = missingFields
       ?.map((e) => e.displayName ?? "")
       .where((e) => e.isNotEmpty)
@@ -17,7 +19,7 @@ void showProfileAlert(BuildContext context,List<MissingField>? missingFields) {
     context: context,
     barrierDismissible: true,
     builder: (_) => Dialog(
-      backgroundColor: Colors.white,
+      backgroundColor: colorTheme.alertBgColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -61,7 +63,7 @@ void showProfileAlert(BuildContext context,List<MissingField>? missingFields) {
 
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                backgroundColor:AppColors.primaryColor,
+                backgroundColor:colorTheme.buttonPrimaryColor,
                 minimumSize: Size(double.infinity, 48),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
@@ -99,19 +101,25 @@ Widget skillsRow(List<String>? skills) {
   );
 }
 Widget tagChip(String tag) {
+  final colorTheme = navigatorKey.currentContext!.colors;
   return // Tag chip
     Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+      // decoration: BoxDecoration(
+      //   color: colorTheme.white70,
+      //   borderRadius: BorderRadius.circular(4),
+      // ),
       decoration: BoxDecoration(
-        color: AppColors.bg2,
-        borderRadius: BorderRadius.circular(4),
+        color: colorTheme.commonBg2Color,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(width: 1, color: colorTheme.black12),
       ),
       child: Text(
         tag,
         maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,textAlign: TextAlign.center,
         style: navigatorKey.currentContext!.textTheme.displaySmall?.copyWith(
           fontWeight: FontWeight.w400,fontSize: 10,
-          color: Colors.black54,
+          color: colorTheme.black54,
         ),
       ),
     );

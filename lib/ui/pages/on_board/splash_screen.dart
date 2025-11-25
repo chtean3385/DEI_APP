@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import '../../../constants/app_colors.dart';
 import '../../../providers/theme_controller.dart';
@@ -19,12 +20,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
     super.initState();
     Future.microtask(() {
       ref.read(appProvider.notifier).fetchAppDetails();
-      
-      WidgetsBinding.instance.addPostFrameCallback((_) async {
-        final theme = await SharedPreferenceRepository.getTheme();
-        ref.read(themeNotifierProvider.notifier).state = theme == "dark" ? ThemeMode.dark : ThemeMode.light;
-      });
-
     });
   }
 
@@ -32,15 +27,10 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: DecoratedBox(
-        decoration: BoxDecoration(
-          color: Colors.white
-        ),
-        child: Center(
-          child: SizedBox(
-            height: 200,width: 200,
-            child: WidgetUtils.logoWidget(),
-          ),
+      body: Center(
+        child: SizedBox(
+          height: 200,width: 200,
+          child: WidgetUtils.logoWidget(),
         ),
       ),
     );
