@@ -19,13 +19,41 @@ class TutorialService {
       targets: targets,
       colorShadow: Colors.black87,
       textSkip: "SKIP",
-      hideSkip: true,
+      hideSkip: false,
       textStyleSkip: TextStyle(
         fontSize: 30,
+
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),
       alignSkip: alignSkip,
+      skipWidget: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: OutlinedButton(
+          onPressed: () {
+            _tutorialCoachMark.skip(); // stop tutorial
+
+            if (onSkip != null) onSkip();
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            side: const BorderSide(color: Colors.white, width: 1.5),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+          ),
+          child: const Text(
+            "Skip",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
       paddingFocus: 10,
       opacityShadow: 0.7,
       onFinish: () {
