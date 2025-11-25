@@ -11,6 +11,7 @@ class SharedPreferenceRepository {
   static const String HAS_SEEN_ON_BOARDING = "HAS_SEEN_ON_BOARDING";
   static const String HAS_UPLOADED_RESUME = "HAS_UPLOADED_RESUME";
   static const String isHomeTutorialShown = "isHomeTutorialShown";
+  static const String KEY_THEME = "KEY_THEME";
 
   static Future<void> setToken(String token) async {
     // debugPrint("set token -- $token");
@@ -99,6 +100,19 @@ class SharedPreferenceRepository {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     String email = preferences.getString("$KEY_EMAIL") ?? "";
     return email;
+  }
+
+  static Future<void> setTheme(String theme) async {
+    debugPrint("setRoleId -- $theme");
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setString(KEY_THEME, theme);
+  }
+
+  static Future<String> getTheme() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String theme = preferences.getString(KEY_THEME) ?? "";
+    debugPrint("getTheme -- $theme");
+    return theme;
   }
 
 }

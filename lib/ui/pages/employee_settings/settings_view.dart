@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../providers/theme_controller.dart';
+import '../../../repo/shared_preference_repository.dart';
 import 'components/button_color_dialog.dart';
 import 'components/setting_section_title.dart';
 import 'components/setting_section_togle.dart';
@@ -54,6 +55,7 @@ class SettingsBody extends ConsumerWidget {
               : Icons.light_mode,
           onChanged: (val) {
             themeController.state = val ? ThemeMode.dark : ThemeMode.light;
+             SharedPreferenceRepository.setTheme(val?"dark":"light" );
           },
         ),
 
