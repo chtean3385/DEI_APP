@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/basic_info.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/other_info.dart';
 import 'package:dei_champions/widgets/others/animated_wrapper.dart';
@@ -14,7 +15,7 @@ class EmployeeSignupScreen extends ConsumerWidget {
     final controller = ref.read(signupFlowControllerProvider.notifier);
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: context.colors.commonDividerBgColor,
       body: AnimatedSignupWrapper(
         child: SizedBox(
           height: double.infinity,

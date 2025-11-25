@@ -1,6 +1,7 @@
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_strings.dart';
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/app_validators.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/signup_back_button.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
@@ -216,7 +217,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
       builder: (context, ref, _) {
         final notifier = ref.read(registerProvider.notifier);
         return CustomThemeButton(
-          color: AppColors.primaryColor,
+          color: context.colors.buttonPrimaryColor,
           height: 56,
           radius: 16,
           isExpanded: false,
@@ -232,7 +233,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
           child: Text(
             AppStrings.next,
             style: context.textTheme.titleMedium?.copyWith(
-              color: context.theme.colorScheme.onPrimary,
+              color: Colors.white,
             ),
           ),
         );

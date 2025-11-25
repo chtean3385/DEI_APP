@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/auth/otp/components/resend_otp.dart';
 import 'package:flutter/material.dart';
 import 'otp_header.dart';
@@ -26,14 +27,15 @@ class OTPMainCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return Container(
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.95),
+        color: colorTheme.whiteOpacity95,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: colorTheme.black87,
             blurRadius: 20,
             offset: const Offset(0, 10),
           ),

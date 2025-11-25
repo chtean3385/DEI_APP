@@ -59,7 +59,7 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
             onChanged: _toggle,
             visualDensity: VisualDensity.compact,
             activeColor: AppColors.primaryColor,
-            checkColor: colorTheme.themBasedWhite,
+            checkColor: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(4),
             ),

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -22,25 +23,11 @@ class OTPVerifyButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorTheme = context.colors;
     final authState = ref.watch(verifyOtpProvider);
     final controller = ref.watch(verifyOtpProvider.notifier);
     bool isComplete = otpControllers.every((controller) => controller.text.isNotEmpty);
     String otp = otpControllers.map((controller) => controller.text).join();
-    // return CustomThemeButton(
-    //   color: isComplete ?  AppColors.primaryColor : AppColors.secondaryDarkColor ,
-    //   borderColor:isComplete ?  AppColors.primaryColor : AppColors.secondaryDarkColor  ,
-    //   height: 56,
-    //   radius: 16,
-    //   isExpanded: true,
-    //
-    //   // alignRight: true,
-    //   isLoading:authState.pageState == PageState.loading ,
-    //   onTap: isComplete ? controller.verifyEmailOtp : null,
-    //   child: Text(
-    //     'Verify Code',
-    //     style: context.textTheme.titleMedium?.copyWith(color: context.theme.colorScheme.onPrimary,fontSize: 18),
-    //   ),
-    // );
     return Container(
       width: double.infinity,
       height: 56,
@@ -54,7 +41,7 @@ class OTPVerifyButton extends ConsumerWidget {
         boxShadow: isComplete
             ? [
           BoxShadow(
-            color: const Color(0xFF667eea).withValues(alpha: 0.3),
+            color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.3),
             blurRadius: 12,
             offset: const Offset(0, 6),
           ),
@@ -82,7 +69,7 @@ class OTPVerifyButton extends ConsumerWidget {
                 : Text(
               'Verify Code',
               style: context.textTheme.titleMedium?.copyWith(
-                color: context.theme.colorScheme.onPrimary,
+                color: Colors.white,
                 fontSize: 18,
               ),
             ),

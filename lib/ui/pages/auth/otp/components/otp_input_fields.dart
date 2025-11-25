@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -42,14 +43,15 @@ class OTPInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return Container(
       width: 45,
       height: 55,
       decoration: BoxDecoration(
         border: Border.all(
           color: controller.text.isEmpty
-              ? Colors.grey.shade300
-              : const Color(0xFF667eea),
+              ? colorTheme.grey300
+              : colorTheme.buttonPrimaryColor,
           width: 2,
         ),
         borderRadius: BorderRadius.circular(12),
@@ -61,7 +63,6 @@ class OTPInputField extends StatelessWidget {
         style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
-          color: Color(0xFF2D3748),
         ),
         keyboardType: TextInputType.number,
         maxLength: 1,

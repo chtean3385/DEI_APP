@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,7 @@ class OTPHeader extends StatelessWidget {
            'Verify Mobile Number',
            // :
            // 'Verify Mobile Number',
-          style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600,color: Colors.black),
+          style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600),
            textAlign: TextAlign.center,
         ),
         const SizedBox(height: 12),
@@ -42,12 +43,12 @@ class OTPHeader extends StatelessWidget {
           "Enter the 6-digit OTP send to",
           textAlign: TextAlign.center,
               // : "Enter the 6-digit OTP send to",
-          style: context.textTheme.bodyMedium?.copyWith(color: Colors.black54),
+          style: context.textTheme.bodyMedium?.copyWith(color: context.colors.black54),
         ),
         const SizedBox(height: 8),
 
         // Email container
-        _EmailContainer( ),
+        _EmailContainer(),
       ],
     );
   }
@@ -135,23 +136,23 @@ class _ShineEffect extends StatelessWidget {
 }
 
 class _EmailContainer extends ConsumerWidget {
-  final bool isEmployer;
-  const _EmailContainer({Key? key,this.isEmployer = true}) : super(key: key);
+  const _EmailContainer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final verifyOtpState = ref.watch(verifyOtpProvider);
+    final colorTheme = context.colors;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: const Color(0xFF667eea).withValues(alpha: 0.1),
+        color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
         verifyOtpState.mobile ?? "",
         style: context.textTheme.bodySmall?.copyWith(
           fontWeight: FontWeight.w600,
-          color: AppColors.primaryColor,
+          color: colorTheme.buttonPrimaryColor,
         ),
       ),
     );

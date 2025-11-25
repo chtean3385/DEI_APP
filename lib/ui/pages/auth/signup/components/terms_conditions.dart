@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class TermsAndConditions extends StatelessWidget {
@@ -5,21 +6,21 @@ class TermsAndConditions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: RichText(
         textAlign: TextAlign.center,
-        text: const TextSpan(
+        text:  TextSpan(
           text: 'By clicking register, you agree to the  ',
           style: TextStyle(
-            color: Colors.black54,
+            color: colorTheme.black54,
             fontSize: 10,
           ),
           children: [
             TextSpan(
               text: 'Terms of Service',
               style: TextStyle(
-                color: Colors.black,
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline,
               ),
@@ -28,7 +29,6 @@ class TermsAndConditions extends StatelessWidget {
             TextSpan(
               text: 'Privacy Policy',
               style: TextStyle(
-                color: Colors.black,
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline,
               ),

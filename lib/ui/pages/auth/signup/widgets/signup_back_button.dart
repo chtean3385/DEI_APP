@@ -12,7 +12,7 @@ class SignupBackButton extends ConsumerWidget {
     final state =  ref.watch(signupFlowControllerProvider);
     return IconButton(
       visualDensity: VisualDensity.standard,
-      icon: const Icon(Icons.arrow_back,color: Colors.black,),
+      icon: const Icon(Icons.arrow_back),
       onPressed: state.isFirst ? Navigator.of(context).pop : (ref.read(signupFlowControllerProvider.notifier).previousStep),
     );
   }

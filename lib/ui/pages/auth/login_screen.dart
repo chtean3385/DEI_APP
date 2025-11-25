@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_drawables.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -37,9 +38,10 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(loginProvider);
     final controller = ref.read(loginProvider.notifier);
+    final colorTheme = context.colors;
     return Scaffold(
+      backgroundColor: colorTheme.jobCardBgColor,
       resizeToAvoidBottomInset: true,
-      backgroundColor: Colors.white,
       body:SafeArea(
         child: LayoutBuilder(
             builder: (context, constraints)  {
@@ -57,15 +59,15 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                         ))),
                         Container(
                           padding: const EdgeInsets.fromLTRB(24, 50, 24, 50),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
+                          decoration:  BoxDecoration(
+                            color: colorTheme.commonDividerBgColor,
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(50),
                               topRight: Radius.circular(50),
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black45, // subtle shadow color
+                                color: colorTheme.black45, // subtle shadow color
                                 offset: Offset(0, -4), // negative Y offset = shadow on top
                                 blurRadius: 8, // softness of shadow
                                 spreadRadius: 1, // optional: how much the shadow spreads
@@ -135,7 +137,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
               style: context.textTheme.bodyMedium),
             TextSpan(
                 text: AppStrings.signupForFree,
-                style: context.textTheme.bodyMedium?.copyWith(color: AppColors.primaryColor) )
+                style: context.textTheme.bodyMedium?.copyWith(color: context.colors.buttonPrimaryColor) )
         ]),
       ),
     );
@@ -178,9 +180,10 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
 
   Widget _signInButton() {
     final pageState = ref.watch(loginProvider).pageState;
+    final colorTheme = context.colors;
     return CustomThemeButton(
       isLoading: pageState == PageState.loading,
-      color: AppColors.primaryColor,
+      color: colorTheme.buttonPrimaryColor,
       radius: 30,
       height: 56,
       isExpanded: true,
@@ -192,7 +195,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       child:  Text(
         AppStrings.signIn,
         style: context.textTheme.titleMedium?.copyWith(
-          color: context.theme.colorScheme.onPrimary,
+          color: Colors.white,
         ),
       ),
     );

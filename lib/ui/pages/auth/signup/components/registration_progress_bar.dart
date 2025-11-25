@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +15,7 @@ class RegistrationProgressBar extends ConsumerWidget {
     final state =  ref.watch(signupFlowControllerProvider);
     final fullWidth = MediaQuery.of(context).size.width;
     final double height = 12;
+    final colorTheme = context.colors;
 
     final int currentStep = state.currentStep;
     final int totalSteps = state.totalSteps;
@@ -28,14 +30,14 @@ class RegistrationProgressBar extends ConsumerWidget {
             Text(
               'Step ${currentStep + 1} of $totalSteps',
               style: context.textTheme.bodyMedium?.copyWith(
-                color: Colors.black,
+                color: colorTheme.themBasedBlack,
                 fontWeight: FontWeight.w600,
               ),
             ),
             Text(
               '${(progress * 100).round()}%',
               style: context.textTheme.bodyMedium?.copyWith(
-                color: Colors.black,
+                color: colorTheme.themBasedBlack,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -47,7 +49,7 @@ class RegistrationProgressBar extends ConsumerWidget {
           height: height,
           width: fullWidth,
           decoration: BoxDecoration(
-            color: AppColors.primaryColor.withAlpha(60),
+            color: colorTheme.buttonPrimaryColor.withAlpha(60),
             // border: Border.all(width: 1, color: AppColors.primaryColor),
             borderRadius: const BorderRadius.all(Radius.circular(16)),
           ),
@@ -73,7 +75,7 @@ class RegistrationProgressBar extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(16),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primaryColor.withAlpha(
+                      color: colorTheme.buttonPrimaryColor.withAlpha(
                           (0.3 * 255).round()),
                       blurRadius: 6,
                       offset: const Offset(0, 3),

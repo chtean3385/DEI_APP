@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_colors.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class UpdatesCheckbox extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final colorTheme = context.colors;
     final bool  value =
          (ref.watch(registerProvider).acceptTerms ?? false);
 
@@ -27,12 +29,12 @@ class UpdatesCheckbox extends ConsumerWidget {
       builder: (field) {
         return DecoratedBox(
           decoration: BoxDecoration(
-            color: AppColors.primaryColor.withValues(alpha: 0.1),
+            color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: field.hasError
                   ? Colors.redAccent
-                  : AppColors.primaryColor.withValues(alpha: 0.2),
+                  : colorTheme.buttonPrimaryColor.withValues(alpha: 0.2),
               width: 1,
             ),
           ),
@@ -56,8 +58,8 @@ class UpdatesCheckbox extends ConsumerWidget {
                           formKey.currentState?.validate();
                         },
                         visualDensity: VisualDensity.compact,
-                        activeColor: const Color(0xFF667eea),
-                        side: const BorderSide(color: Colors.black54),
+                        activeColor: colorTheme.buttonPrimaryColor,
+                        side:  BorderSide(color: colorTheme.black54),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4),
                         ),
@@ -74,7 +76,6 @@ class UpdatesCheckbox extends ConsumerWidget {
                         child: Text(
                           'Send me important updates & promotions via SMS, email, and WhatsApp',
                           style: context.textTheme.displaySmall?.copyWith(
-                            color: Colors.black,
                             fontSize: 10,
                           ),
                         ),

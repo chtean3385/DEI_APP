@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/ui/pages/auth/signup/components/work_status_view.dart';
 import 'package:dei_champions/ui/pages/auth/signup/widgets/signup_back_button.dart';
@@ -164,29 +165,12 @@ class _OtherInfoState extends State<OtherInfo> {
           final skip = ref.watch(signupFlowControllerProvider);
           return SafeArea(
           child: Row(
-            mainAxisAlignment: skip.otpVerified ? MainAxisAlignment.spaceBetween : MainAxisAlignment.end,
+            mainAxisAlignment:  MainAxisAlignment.end,
             children: [
-            if(skip.otpVerified)  CustomThemeButton(
-                color:Colors.white,
-                height: 56,
-                radius: 16,
-                isExpanded: false,
-                alignRight: false,
-                onTap: () {
-                  widget.onNext();
-                },
-                child: Text(
-                  AppStrings.skip,
-                  style: context.textTheme.titleMedium?.copyWith(
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-            if(skip.otpVerified)  gapW16(),
               SizedBox(
                 width: 80,
                 child: CustomThemeButton(
-                  color: AppColors.primaryColor,
+                  color: context.colors.buttonPrimaryColor,
                   height: 56,
                   radius: 16,
                   isExpanded: true,
@@ -202,7 +186,7 @@ class _OtherInfoState extends State<OtherInfo> {
                   child: Text(
                     AppStrings.next,
                     style: context.textTheme.titleMedium?.copyWith(
-                      color: context.theme.colorScheme.onPrimary,
+                      color: Colors.white,
                     ),
                   ),
                 ),
