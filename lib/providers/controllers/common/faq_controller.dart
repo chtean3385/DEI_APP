@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
+import '../../../constants/app_strings.dart';
 import '../../../service/common/common_service.dart';
 
 class FaqController extends StateNotifier<FaqState> {
@@ -27,7 +28,7 @@ class FaqController extends StateNotifier<FaqState> {
         errorMessage: e.toString(),
       );
       debugPrint(" catch FaqController fetchData -${e.toString()}");
-      showSnackBar(e.toString());
+      showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 }

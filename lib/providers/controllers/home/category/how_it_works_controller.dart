@@ -3,6 +3,7 @@ import 'package:dei_champions/models/state_models/home/how_it_works_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../constants/app_strings.dart';
 import '../../../../constants/enums.dart';
 import '../../../../service/home/job_category_service.dart';
 import '../../../../widgets/others/snack_bar.dart';
@@ -30,7 +31,7 @@ class HowItWorksController extends StateNotifier<HowItWorkState> {
         errorMessage: e.toString(),
       );
       debugPrint(" catch fetchData -${e.toString()}");
-      showSnackBar(e.toString());
+      showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 }

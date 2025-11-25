@@ -4,6 +4,7 @@ import 'package:dei_champions/models/state_models/home/friendly_industries_state
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../constants/app_strings.dart';
 import '../../../../models/home/friendly_industries/friendly_industry_model.dart';
 import '../../../../service/home/job_category_service.dart';
 import '../../../../widgets/others/snack_bar.dart';
@@ -35,7 +36,7 @@ class FriendlyIndustryController extends StateNotifier<FriendlyIndustryState> {
         errorMessage: e.toString(),
       );
       debugPrint(" catch  FriendlyIndustryController fetchData -${e.toString()}");
-      showSnackBar(e.toString());
+      showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 

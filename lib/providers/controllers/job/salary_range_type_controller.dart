@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
+import '../../../constants/app_strings.dart';
 import '../../../models/state_models/job/salary_range_list_state.dart';
 
 
@@ -36,7 +37,7 @@ class SalaryRangeTypesController extends StateNotifier<SalaryRangeListState> {
         pageState: PageState.error,
       );
       debugPrint(" catch fetchSalaryRanges -${e.toString()}");
-      showSnackBar(e.toString());
+      showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 }

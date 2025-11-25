@@ -277,4 +277,5 @@ class AppStrings {
   'Search for "Remote Jobs"',
   ];
 
+  static const somethingWentWrong = "Something went wrong";
 }

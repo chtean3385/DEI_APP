@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
+import '../../../constants/app_strings.dart';
 import '../../../models/explore_career/explore_service_program_model.dart';
 import '../../../models/men_alias/organizational_benefit_model.dart';
 import '../../../models/state_models/men_alias/organizational_benefit_state.dart';
@@ -44,7 +45,7 @@ class CareerExploreServicesController extends StateNotifier<CareerExploreService
         errorMessage: e.toString(),
       );
       debugPrint(" catch CareerExploreServicesController fetchData -${e.toString()}");
-      showSnackBar(e.toString());
+      showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
+import '../../../constants/app_strings.dart';
 import '../../../service/common/common_service.dart';
 
 class BlogDetailController extends StateNotifier<BlogDetailState> {
@@ -38,7 +39,7 @@ class BlogDetailController extends StateNotifier<BlogDetailState> {
         errorMessage: e.toString(),
       );
       debugPrint("❌ BlogDetailController fetchData error: ${e.toString()}");
-      showSnackBar(e.toString());
+      showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 }

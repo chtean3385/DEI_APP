@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
+import '../../../constants/app_strings.dart';
 
 
 class JobTypesController extends StateNotifier<JobTypeListState> {
@@ -36,7 +37,7 @@ class JobTypesController extends StateNotifier<JobTypeListState> {
         pageState: PageState.error,
       );
       debugPrint(" catch fetchJobTypes -${e.toString()}");
-      showSnackBar(e.toString());
+      showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 }

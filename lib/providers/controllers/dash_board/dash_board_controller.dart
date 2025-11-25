@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
+import '../../../constants/app_strings.dart';
 import '../../../models/state_models/dash_board/dash_board_state.dart';
 import '../../../service/dash_board/dash_board_service.dart';
 
@@ -27,7 +28,7 @@ class DashBoardController extends StateNotifier<DashBoardState> {
         pageState: PageState.error,
       );
       debugPrint(" catch DashBoardController  fetchData -${e.toString()}");
-      showSnackBar(e.toString());
+      showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 }
