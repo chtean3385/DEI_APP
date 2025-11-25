@@ -40,8 +40,9 @@ Future<XFile?> pickImageFromGalleryOrCamera({
         storagePermission = await Permission.storage.isGranted;
       }
     } else if (Platform.isIOS) {
-      final result = await Permission.photos.request();
-      storagePermission = result.isGranted || result.isLimited;
+      // final result = await Permission.photos.request();
+      // storagePermission = result.isGranted || result.isLimited;
+      storagePermission = true; // iOS automatically handles permissions
     }
   } else {
     storagePermission = true; // Web doesn't need permission

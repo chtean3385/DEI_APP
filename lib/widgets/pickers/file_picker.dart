@@ -31,28 +31,21 @@ Future<dynamic> pickFileFromStorage({
   bool storagePermission = false;
 
   // Check storage permission for Android
-  if (!kIsWeb) {
-    AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
+  if (Platform.isAndroid) {
+    // Try photos/media permission first (Android 13+)
+    final photos = await Permission.photos.request();
 
-    if (androidInfo.version.sdkInt > 32) {
-      // For Android 13+ (SDK 33+), use photos/media permissions
-      await Permission.photos.request();
-      storagePermission = await Permission.photos.request().isGranted;
-
-      // If photos permission is denied, try storage permission as fallback
-      if (!storagePermission) {
-        await Permission.storage.request();
-        storagePermission = await Permission.storage.request().isGranted;
-      }
+    if (photos.isGranted) {
+      storagePermission = true;
     } else {
-      // For devices with SDK version less than 33, use READ_EXTERNAL_STORAGE
-      await Permission.storage.request();
-      storagePermission = await Permission.storage.request().isGranted;
+      // Fallback for Android 12 and below
+      final storage = await Permission.storage.request();
+      storagePermission = storage.isGranted;
     }
   } else {
-    // For web, permission is not required
-    storagePermission = true;
+    storagePermission = true; // iOS + Web
   }
+
 
   if (storagePermission) {
     try {
