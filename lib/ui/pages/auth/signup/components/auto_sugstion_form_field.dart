@@ -25,6 +25,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
   final FocusNode? focusNode;
   final double? radius;
   final bool isRequired ;
+  final bool readOnly ;
 
 
 
@@ -49,7 +50,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
     this.onChanged,
     this.radius,
     this.isRequired = false,
-
+    this.readOnly = false,
   });
 
   @override
@@ -294,7 +295,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
           if(widget.label != null) gapH4(),
           DecoratedBox(
             decoration: BoxDecoration(
-              color: colorTheme.cardBgColor,
+              color: widget.readOnly ? colorTheme.commonDividerBgColor : colorTheme.cardBgColor,
               borderRadius: BorderRadius.circular(widget.radius ?? 12),
               border: Border.all(
                 color: colorTheme.themBasedBlack.withValues(alpha: 0.13),
@@ -317,6 +318,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
                   color: colorTheme.themBasedBlack,
                   fontWeight: FontWeight.normal,
                 ),
+                readOnly: widget.readOnly ,
                 onFieldSubmitted: widget.onFieldSubmitted,
                 onChanged: widget.onChanged,
                 decoration: InputDecoration(

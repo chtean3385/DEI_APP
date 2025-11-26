@@ -1,6 +1,7 @@
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../../../constants/app_strings.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
@@ -21,7 +22,7 @@ class EditLocationInformation extends ConsumerWidget {
     final colorTheme = context.colors;
     final hasError = controller.sectionErrors.containsKey("location");
 
-
+print("State.filteredCitiestate.filteredCities-->> ${state.filteredCities?.length}");
 
     return Card(
       elevation: 2,
@@ -68,13 +69,57 @@ class EditLocationInformation extends ConsumerWidget {
                    textCapitalization: TextCapitalization.words,
                  ),
                  gapH16(),
-                 SelectCity(
-
-                   controller: controller.cityController,
-                   cityList: state.cities?.map((e)=>e.name).toList() ?? [],
-                   // focusNode: _cityFocus,
-                   // nextFocus: _countryFocus,
+                 TransparentFormField(
+                   controller: controller.countryController,
+                   hint: "Select your country",
+                   label: "Country",
+                   icon: Icons.public_outlined,
+                   readOnly: true,
+                   fillColor: colorTheme.commonBg2Color,
                  ),
+                 gapH16(),
+                 TransparentDropdownField(
+                   isRequired: true,
+                   hint: "Select your state",
+                   label: "State",
+                   icon: Icons.map_outlined,
+                   items: state.states?.map((e)=>e.name).toList() ?? [],
+                   value: controller.stateController.text,
+                   validator: AppValidators.fieldEmpty("State"),
+                   onChanged: (value) {
+                     if (value != null && value.isNotEmpty) {
+                       controller.updateSelectedState(value); // call function
+                     }
+                   },
+
+                 ),
+                 gapH16(),
+                 TransparentDropdownField(
+                   key: ValueKey(controller.stateController.text), // ✅ ADD THIS - forces rebuild when state changes
+                   isRequired: true,
+                   fillColor: controller.stateController.text.isEmpty ||
+                       (state.filteredCities?.isEmpty ?? true)
+                       ? colorTheme.commonBg2Color
+                       : null,
+                   hint: AppStrings.selectCity,
+                   label: AppStrings.employerCity,
+                   icon: Icons.location_city_outlined,
+                   items: state.filteredCities?.map((e) => e.name).toList() ?? [],
+                   value: (state.filteredCities?.any((e) => e.name == controller.cityController.text) == true)
+                       ? controller.cityController.text
+                       : null, // ✅ This is correct
+                   validator: AppValidators.fieldEmpty("city"),
+                   onChanged: (value) {
+                     if (value != null && value.isNotEmpty) {
+                       controller.cityController.text = value;
+                     }
+                   },
+                 ),
+                 // SelectCity(
+                 //   controller: controller.cityController,
+                 //   cityList: state.filteredCities?.map((e)=>e.name).toList() ?? [],
+                 //   readOnly: controller.stateController.text.isEmpty || (state.filteredCities?.isEmpty ?? true),
+                 // ),
                  // TransparentDropdownField(
                  //   isRequired: true,
                  //   hint: "Select your city",
@@ -87,33 +132,21 @@ class EditLocationInformation extends ConsumerWidget {
                  //     controller.cityController.text = value ?? "";
                  //   },
                  // ),
-                 gapH16(),
-                 TransparentDropdownField(
-                   isRequired: true,
-                   hint: "Select your state",
-                   label: "State",
-                   icon: Icons.map_outlined,
-                   items: state.states?.map((e)=>e.name).toList() ?? [],
-                   value: controller.stateController.text,
-                   validator: AppValidators.fieldEmpty("State"),
-                   onChanged: (value) {
-                     controller.stateController.text = value ?? "";
-                   },
-                 ),
 
-                 gapH16(),
-                 TransparentDropdownField(
-                   isRequired: true,
-                   hint: "Select your country",
-                   label: "Country",
-                   icon: Icons.public_outlined,
-                   items: state.countries?.map((e)=>e.name).toList() ?? [],
-                   value: controller.countryController.text,
-                   validator: AppValidators.fieldEmpty("Country"),
-                   onChanged: (value) {
-                     controller.countryController.text = value ?? "";
-                   },
-                 ),
+
+                 // gapH16(),
+                 // TransparentDropdownField(
+                 //   isRequired: true,
+                 //   hint: "Select your country",
+                 //   label: "Country",
+                 //   icon: Icons.public_outlined,
+                 //   items: state.countries?.map((e)=>e.name).toList() ?? [],
+                 //   value: controller.countryController.text,
+                 //   validator: AppValidators.fieldEmpty("Country"),
+                 //   onChanged: (value) {
+                 //     controller.countryController.text = value ?? "";
+                 //   },
+                 // ),
 
 
                  gapH16(),

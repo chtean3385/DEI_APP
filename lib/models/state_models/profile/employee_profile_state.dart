@@ -25,6 +25,7 @@ class EmployeeProfileState {
  final List<LocalJsonItemModel>? positions ;
  final List<LocalJsonItemModel>? countries ;
  final List<LocalJsonItemModel>? cities ;
+ final List<LocalJsonItemModel>? filteredCities ;
  final List<StateModel>? states ;
 
 
@@ -44,6 +45,7 @@ class EmployeeProfileState {
     this.positions,
     this.countries,
     this.cities,
+    this.filteredCities,
     this.states,
   });
 
@@ -66,6 +68,7 @@ class EmployeeProfileState {
     List<LocalJsonItemModel>? positions ,
     List<LocalJsonItemModel>? countries ,
     List<LocalJsonItemModel>? cities ,
+    List<LocalJsonItemModel>? filteredCities ,
     List<StateModel>? states ,
   }) {
     return EmployeeProfileState(
@@ -84,6 +87,7 @@ class EmployeeProfileState {
       positions: positions ?? this.positions,
       countries: countries ?? this.countries,
       cities: cities ?? this.cities,
+      filteredCities: filteredCities ?? this.filteredCities,
       states: states ?? this.states,
     );
   }

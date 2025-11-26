@@ -39,9 +39,7 @@ class StateModel {
   }
 
   static List<StateModel> listFromJson(Map<String, dynamic> json) {
-    print("aaa");
     final List degrees = json['states'] ?? [];
-    print("bbb");
     return degrees.map((name) => StateModel.fromJson(name)).toList();
   }
 }

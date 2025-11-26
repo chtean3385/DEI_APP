@@ -11,6 +11,7 @@ class SelectCity extends StatelessWidget {
   final FocusNode? focusNode;
   final FocusNode? nextFocus;
   final List<String>? cityList;
+  final bool readOnly;
 
   const SelectCity({
     super.key,
@@ -18,6 +19,7 @@ class SelectCity extends StatelessWidget {
     this.focusNode,
     this.nextFocus,
     this.cityList,
+    this.readOnly = false,
   });
 
   @override
@@ -34,6 +36,7 @@ class SelectCity extends StatelessWidget {
       caseSensitive: false,
       showAbove: true,
       isRequired: true,
+      readOnly: readOnly,
       onFieldSubmitted: (_) {
         FocusScope.of(context).requestFocus(nextFocus);
       },

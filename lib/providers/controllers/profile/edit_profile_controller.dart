@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../constants/enums.dart';
 import '../../../models/common/base_model.dart';
+import '../../../models/profile/edit_profile/json_item_model.dart';
 import '../../../models/profile/employee_user_model/employee_user_model.dart';
 import '../../../models/state_models/profile/employee_profile_state.dart';
 import '../../../service/employee_profile/employee_profile_service.dart';
@@ -27,7 +28,6 @@ class EditEmployeeProfileController
     fetchDegrees();
     fetchInstitutes();
     fetchPositions();
-    fetchCountries();
     fetchCityState();
   }
 
@@ -105,8 +105,14 @@ class EditEmployeeProfileController
     descriptionController.text = userData?.employeeDescription ?? "";
     addressController.text = userData?.address ?? "";
     cityController.text = userData?.city ?? "";
+
     stateController.text = userData?.state ?? "";
-    countryController.text = userData?.country ?? "";
+    // ⬇ auto-filter for existing profile
+    final existingState = stateController.text.trim();
+    if (existingState.isNotEmpty) {
+      updateSelectedState(existingState);
+    }
+    countryController.text =  "India";
     pinCodeController.text = userData?.pincode ?? "";
     preferredLocationController.text = (userData?.preferences?.preferredLocations?.isNotEmpty ?? false) ?
         userData?.preferences?.preferredLocations?.first ?? "" : "";
@@ -540,9 +546,51 @@ class EditEmployeeProfileController
   Future<void> fetchCityState() async {
     final stateCities = await _jsonService.loadCityState();
     final states = stateCities;
-    final allCities = stateCities.expand((s) => s.cities).toList();
-    state = state.copyWith(cities: allCities,states: states);
+    state = state.copyWith(cities: [],states: states);
   }
+  // void updateSelectedState(String stateName) {
+  //   // update text field
+  //   print("stateNamestateName--->>>$stateName");
+  //   stateController.text = stateName;
+  //
+  //   // clear previously selected city
+  //   cityController.clear();
+  //
+  //   // find this state model
+  //   final selectedStateModel = state.states?.firstWhere(
+  //         (s) => s.name.trim().toLowerCase() == stateName.trim().toLowerCase(),
+  //     orElse: () => StateModel(name: "", cities: []),
+  //   );
+  //
+  //   // filter its cities
+  //   final filtered = selectedStateModel?.cities ?? [];
+  //   print("filteredfiltered--->>>${filtered.length}");
+  //   // update state → Riverpod will notify UI
+  //   state = state.copyWith(filteredCities: filtered);
+  // }
+
+  void updateSelectedState(String stateName) {
+    stateController.text = stateName;
+
+    // ✅ Clear city text
+    cityController.text = "";
+
+    // find this state model
+    final selectedStateModel = state.states?.firstWhere(
+          (s) => s.name.trim().toLowerCase() == stateName.trim().toLowerCase(),
+      orElse: () => StateModel(name: "", cities: []),
+    );
+
+    // filter its cities
+    final filtered = selectedStateModel?.cities ?? [];
+
+    // ✅ Update state AND clear form validation for city field
+    state = state.copyWith(filteredCities: filtered);
+
+    // ✅ Optional: trigger form revalidation
+    locationFormKey.currentState?.validate();
+  }
+
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
