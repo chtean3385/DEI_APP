@@ -5,6 +5,7 @@ import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:dei_champions/widgets/others/view_all_button.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:intl/intl.dart';
@@ -112,10 +113,11 @@ class BlogCard extends StatelessWidget {
                       gapW16(),
                       Column(
                         children: [
+
                           CustomThemeButton(
                             child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-
 
                                 Text(
                                   "View More",
@@ -125,15 +127,15 @@ class BlogCard extends StatelessWidget {
                                       .displaySmall
                                       ?.copyWith(color: colorTheme.buttonPrimaryColor),
                                 ),
-                                gapW6(),
+                                gapW4(),
                                 Icon(
                                   Icons.arrow_forward_ios,
-                                  size: 12,
+                                  size: 10,
                                   color: colorTheme.buttonPrimaryColor,
                                 ),
                               ],
                             ),
-                            color: colorTheme.buttonPrimaryColor.withValues(alpha: .1),
+                            color: colorTheme.cardBgColor,
                             borderColor: colorTheme.buttonPrimaryColor.withValues(alpha: .1),
                             radius: 30,
                             padding: const EdgeInsets.symmetric(
@@ -167,14 +169,14 @@ class BlogCard extends StatelessWidget {
   }
 }
 
-Widget commonChip(String tag) {
+Widget commonChip(String tag, {bool isFromDetails = false}) {
   final colorTheme = navigatorKey.currentContext!.colors;
 
   return // Tag chip
   Container(
     padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
     decoration: BoxDecoration(
-      color: colorTheme.cardBgColor,
+      color: isFromDetails ? colorTheme.cardBgColor :  colorTheme.commonBg2Color,
       borderRadius: BorderRadius.circular(8),
     ),
     child: Text(

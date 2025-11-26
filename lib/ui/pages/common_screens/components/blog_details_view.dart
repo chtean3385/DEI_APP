@@ -341,7 +341,7 @@ class BlogTagsAndShare extends StatelessWidget {
         Wrap(
           spacing: 8, // horizontal space between chips
           runSpacing: 8, // vertical space between lines
-          children: tags.map((s) => commonChip(s)).toList(),
+          children: tags.map((s) => commonChip(s,isFromDetails: true)).toList(),
         ),
         gapH16(),
         Row(
