@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/pickers/show_permission_alert.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -77,14 +79,37 @@ Future<XFile?> cropImage(
     bool isLockAspectRatio = true}) async {
   CroppedFile? croppedFile;
   try {
+
+    // CRITICAL: Set this BEFORE opening cropper
+    if (Platform.isAndroid) {
+      await SystemChrome.setEnabledSystemUIMode(
+        SystemUiMode.manual,
+        overlays: [SystemUiOverlay.top, SystemUiOverlay.bottom],
+      );
+
+      await Future.delayed(Duration(milliseconds: 100)); // Give time to apply
+
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarColor: Colors.black,
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.black,
+          systemNavigationBarIconBrightness: Brightness.light,
+        ),
+      );
+    }
     croppedFile = await ImageCropper().cropImage(
       sourcePath: imageFile.path,
       uiSettings: [
         AndroidUiSettings(
             toolbarTitle: 'Cropper',
             initAspectRatio: ratio ?? CropAspectRatioPreset.original,
-            toolbarColor: AppColors.primaryColor,
+            toolbarColor: Colors.black,
             toolbarWidgetColor: Colors.white,
+            hideBottomControls: false,
+            statusBarColor: Colors.black,
+            backgroundColor:Colors.black,
             aspectRatioPresets:ratio!= null ?  [ratio] : [
               CropAspectRatioPreset.ratio16x9,
               CropAspectRatioPreset.ratio7x5,
