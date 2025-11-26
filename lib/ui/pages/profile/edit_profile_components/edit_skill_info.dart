@@ -40,7 +40,7 @@ class EditSkillInformation extends ConsumerWidget {
                 ),
               ),
               visualDensity: VisualDensity.compact,
-
+              maintainState: true,
               iconColor: colorTheme.black54,
               collapsedIconColor: colorTheme.black54,
               // 👇 Hides the expand/collapse icon

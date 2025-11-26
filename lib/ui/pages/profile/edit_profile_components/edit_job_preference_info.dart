@@ -41,6 +41,7 @@ class EditJobPreferenceInfo extends ConsumerWidget {
                 color: colorTheme.black87,
               ),
             ),
+            maintainState: true,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide.none),
             visualDensity: VisualDensity.compact,
             iconColor: colorTheme.black54,

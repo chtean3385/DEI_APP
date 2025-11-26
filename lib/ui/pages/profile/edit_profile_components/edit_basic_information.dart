@@ -43,6 +43,7 @@ class EditBasicInformation extends ConsumerWidget {
         children: [
           ExpansionTile(
             initiallyExpanded: isFromCommonEdit != true,
+              maintainState: true,
             // collapsed by default
             title: Text(
               "Basic Information",

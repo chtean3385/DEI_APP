@@ -50,7 +50,7 @@ class EditEducationInformation extends ConsumerWidget {
               ),
             ),
             visualDensity: VisualDensity.compact,
-
+            maintainState: true,
             iconColor: colorTheme.black54,
             collapsedIconColor: colorTheme.black54,
             trailing: isFromCommonEdit ? null : const SizedBox.shrink(),

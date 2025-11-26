@@ -46,6 +46,7 @@ class EditWorkExpInformation extends ConsumerWidget {
                 color: colorTheme.black87,
               ),
             ),
+            maintainState: true,
             visualDensity: VisualDensity.compact,
             iconColor: colorTheme.black54,
             collapsedIconColor: colorTheme.black54,

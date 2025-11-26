@@ -45,7 +45,7 @@ class EditLocationInformation extends ConsumerWidget {
               ),
             ),
             visualDensity: VisualDensity.compact,
-
+            maintainState: true,
             iconColor: colorTheme.black54,
             collapsedIconColor: colorTheme.black54,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide.none),
