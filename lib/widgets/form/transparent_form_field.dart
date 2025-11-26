@@ -121,10 +121,10 @@ class _TransparentFormFieldState extends State<TransparentFormField> {
           decoration: BoxDecoration(
             color:
                 widget.fillColor ??
-                    colorTheme.buttonPrimaryColor.withValues(alpha: 0.15),
+                    colorTheme.cardBgColor,
             borderRadius: BorderRadius.circular(widget.radius ?? 16),
             border: Border.all(
-              color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
+              color: colorTheme.themBasedBlack.withValues(alpha: 0.13),
               width: 1,
             ),
           ),

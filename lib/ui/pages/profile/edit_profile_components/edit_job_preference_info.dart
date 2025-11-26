@@ -113,7 +113,7 @@ class EditJobPreferenceInfo extends ConsumerWidget {
 
                    SelectedKeySkills(
                      selectedSkill: state.profileData?.preferredLocations ?? [],
-                     onRemove: controller.removeSkill,
+                     onRemove: controller.removePreferredLocation,
                      label: "Location",
                    ),
                    // TransparentFormField(

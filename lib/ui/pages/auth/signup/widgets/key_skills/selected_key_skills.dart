@@ -25,7 +25,8 @@ class SelectedKeySkills extends StatelessWidget {
     final colorTheme = context.colors;
 
     return FormField<List<String>>(
-      validator: (_) {
+      validator: (v) {
+        print("vvvvvvvv$v");
         if (selectedSkill.isEmpty) {
           return "Please select at least one ${label?.toLowerCase() ?? "skill"}";
         }

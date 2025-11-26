@@ -294,10 +294,10 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
           if(widget.label != null) gapH4(),
           DecoratedBox(
             decoration: BoxDecoration(
-              color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.15),
+              color: colorTheme.cardBgColor,
               borderRadius: BorderRadius.circular(widget.radius ?? 12),
               border: Border.all(
-                color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
+                color: colorTheme.themBasedBlack.withValues(alpha: 0.13),
                 width: 1,
               ),
             ),

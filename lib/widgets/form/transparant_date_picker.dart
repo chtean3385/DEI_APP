@@ -109,7 +109,7 @@ class _TransparentDatePickerFieldState extends State<TransparentDatePickerField>
         if (widget.label != null) gapH4(),
         DecoratedBox(
           decoration: BoxDecoration(
-            color: widget.enabled ?  (widget.fillColor ?? colorTheme.buttonPrimaryColor.withValues(alpha: 0.15)): colorTheme.grey,
+            color: widget.enabled ?  (widget.fillColor ?? colorTheme.cardBgColor): colorTheme.grey,
             borderRadius: BorderRadius.circular(widget.radius ?? 16),
             border: Border.all(
               color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
@@ -128,6 +128,11 @@ class _TransparentDatePickerFieldState extends State<TransparentDatePickerField>
                   hintText: widget.hint,
                   hintStyle: theme.textTheme.bodyMedium?.copyWith(
                     color: colorTheme.black54,
+                  ),
+                  errorStyle: TextStyle(
+                    color: Colors.redAccent,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 10,
                   ),
                   prefixIcon: Icon(widget.icon, color: colorTheme.black54, size: 22),
                   border: InputBorder.none,

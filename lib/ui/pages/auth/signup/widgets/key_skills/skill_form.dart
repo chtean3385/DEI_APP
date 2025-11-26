@@ -323,7 +323,7 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
           decoration: BoxDecoration(
             color:
                 widget.fillColor ??
-                    colorTheme.buttonPrimaryColor.withValues(alpha: 0.15),
+                    colorTheme.cardBgColor,
             borderRadius: BorderRadius.circular(widget.radius ?? 16),
             border: Border.all(
               color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
@@ -411,7 +411,7 @@ class _TransparentAddFormFieldState extends State<TransparentAddFormField> {
                         widget.controller.clear();
                       }
                     },
-                    child: Icon(Icons.add, color: colorTheme.themBasedBlack),
+                    child: Icon(Icons.add, color: Colors.white),
                   ),
                 ),
               ],

@@ -92,52 +92,6 @@ class EditBasicInformation extends ConsumerWidget {
                           ]
                       ),
                     ),
-                    // Column(
-                    //   mainAxisSize: MainAxisSize.min,
-                    //   mainAxisAlignment: MainAxisAlignment.start,
-                    //   crossAxisAlignment: CrossAxisAlignment.center,
-                    //   children: [
-                    //
-                    //
-                    //
-                    //
-                    //     CustomThemeButton(
-                    //       onTap: () {
-                    //       },
-                    //
-                    //       padding:  const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    //       child: Padding(
-                    //         padding: const EdgeInsets.symmetric(horizontal: 10),
-                    //         child: Text(
-                    //           'Active',
-                    //           style: context.textTheme.labelMedium?.copyWith(
-                    //             color: Colors.white,
-                    //           ),
-                    //         ),
-                    //       ),
-                    //       radius: 30,
-                    //       color: BootstrapColors.colors["green"] ??
-                    //           AppColors.primaryColor,
-                    //       borderColor:  BootstrapColors.colors["green"] ??
-                    //           AppColors.primaryColor,
-                    //     ),
-                    //     const SizedBox(height: 8),
-                    //     CustomThemeButton(
-                    //       onTap: () {
-                    //       },
-                    //       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    //       child: Text(
-                    //         workStatusLabels[state.profileData?.workStatus] ?? 'Select Status',
-                    //         style: context.textTheme.labelMedium?.copyWith(
-                    //           color: AppColors.primaryColor,
-                    //         ),
-                    //       ),
-                    //       radius: 30,
-                    //       color: AppColors.bg,
-                    //       borderColor: AppColors.primaryColor,
-                    //     ),
-                    //   ],
-                    // ),
                     gapH16(),
                     TransparentFormField(
                       isRequired: true,
@@ -162,13 +116,13 @@ class EditBasicInformation extends ConsumerWidget {
                     gapH16(),
                     TransparentFormField(
                       isRequired: true,
+                      readOnly: true,
+                      fillColor: Colors.black12,
                       controller: controller.mobileController,
                       hint: AppStrings.mobile,
                       label: AppStrings.mobile,
-                      autofillHints: [AutofillHints.telephoneNumber],
                       textInputAction: TextInputAction.next,
                       icon: Icons.phone_android,
-                      validator: AppValidators.phone,
                       keyboardType: TextInputType.phone,
                       maxLength: 10,
                     ),

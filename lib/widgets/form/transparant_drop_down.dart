@@ -69,14 +69,14 @@ class TransparentDropdownField extends StatelessWidget {
         if (label != null) gapH4(),
         DecoratedBox(
           decoration: BoxDecoration(
-            color: fillColor ?? (colorTheme.buttonPrimaryColor.withValues(alpha: 0.15)),
+            color: fillColor ?? (colorTheme.cardBgColor),
             borderRadius: BorderRadius.circular(radius ?? 16),
             border: Border.all(
               color: colorTheme.buttonPrimaryColor.withValues(alpha: 0.13),
             ),
           ),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
+            padding: const EdgeInsets.only(right: 12),
             child: DropdownButtonFormField<String>(
               value: (value != null && value?.trim().isNotEmpty == true)
                   ? items.firstWhere(
