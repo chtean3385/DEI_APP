@@ -42,10 +42,10 @@ class HomeScreen extends StatelessWidget {
           JobsCategorySection(),
           // ExploreOurServices(),
           ExploreServicesPrograms(),
-          BlogsHorizontal(),
+          // BlogsHorizontal(),
           // FeaturedEmployersSection(),
           // JobsServiceSection(),
-          ChampionCandidatesSection(),
+          // ChampionCandidatesSection(),
           DeiFriendlyIndustrySection(),
           // gapH16(),
           //

@@ -12,6 +12,7 @@ import '../../../utils/widget_utils.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
 import '../All/dashboard_all_section_screen.dart';
 import '../apply/apply_screen.dart';
+import '../common_screens/components/blog_view.dart';
 import '../home/home_screen.dart';
 import '../profile/profile_details_view.dart';
 import '../saved_jobs/saved_jobs_view.dart';
@@ -84,7 +85,7 @@ class _BottomBarState extends State<BottomBar> {
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromProfile: _currentIndex == 3 ,  onPressed: _handleMenuButtonPressed,showTutorial: widget.showTutorial ),
+        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromBlog: _currentIndex == 4,isFromProfile: _currentIndex == 3 ,  onPressed: _handleMenuButtonPressed,showTutorial: widget.showTutorial ),
         // drawer: CustomDrawer(),
         body: _buildScreen(_currentIndex),
         bottomNavigationBar: SafeArea(
@@ -143,11 +144,11 @@ class _BottomBarState extends State<BottomBar> {
                 BottomNavigationBarItem(
                   key: _getKeyForIndex(4),
                   icon: _navIcon(
-                    Icons.description,
-                    Icons.description_outlined,
+                    Icons.article,
+                    Icons.article_outlined,
                     3,
                   ),
-                  label: "All",
+                  label: "News",
                 ),
               ],
             ),
@@ -179,7 +180,7 @@ class _BottomBarState extends State<BottomBar> {
       case 3:
         return const ProfileDetailsView();
       case 4:
-        return  DashBoardAllScreen();
+        return  BlogListView();
       default:
         return SizedBox();
     }

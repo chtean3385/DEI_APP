@@ -10,6 +10,7 @@ AppBar appBarHome(
   BuildContext context, {
   bool isFromHome = false,
   bool isFromProfile = false,
+  bool isFromBlog = false,
   String title = "",
   VoidCallback? onPressed,
   bool isEmployer = false,
@@ -17,7 +18,7 @@ AppBar appBarHome(
 }) {
   return AppBar(
     elevation: 0,
-    centerTitle: true,
+    centerTitle: !isFromBlog,
     titleSpacing: 0,
     leading: Builder(
       builder: (context) => IconButton(
@@ -27,7 +28,27 @@ AppBar appBarHome(
     ),
     title: isFromHome
         ? HomeSearch(showTutorial: showTutorial)
-        : title.isNotEmpty
+        :isFromBlog?
+    Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          "Stay Informed With Us",
+          style: context.textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.w600,fontSize: 12
+          ),
+          textAlign: TextAlign.left,
+        ),
+        Text(
+          "Don't miss the trending news",
+          style: context.textTheme.displaySmall
+              ?.copyWith(color: context.colors.black54),
+          textAlign: TextAlign.left,
+        ),
+      ],
+    ):
+
+    title.isNotEmpty
         ? Text(title, style: context.textTheme.headlineMedium)
         : null,
     actions: isFromHome

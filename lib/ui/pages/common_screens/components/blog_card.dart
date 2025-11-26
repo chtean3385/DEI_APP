@@ -22,14 +22,15 @@ class BlogCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
+    final colorTheme = context.colors;
     final plainText = html_parser.parse(item.description).body?.text ?? '';
     return GestureDetector(
       onTap:()=>AppNavigator.loaBlogDetailsScreen(item.id ?? "") ,
       child: Card(
         elevation: 2,
-        color: Colors.white,
+        color: colorTheme.themBasedWhite,
         margin: EdgeInsets.zero,
-        shadowColor: Colors.black,
+        shadowColor: colorTheme.themBasedBlack,
         // surfaceTintColor: AppColors.primaryColor,
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
@@ -52,7 +53,7 @@ class BlogCard extends StatelessWidget {
                   gapH8(),
                   Text(
                     plainText,
-                    style: theme.displaySmall?.copyWith(color: Colors.black87),
+                    style: theme.displaySmall?.copyWith(color: colorTheme.black87),
                     maxLines: 3,
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
@@ -86,7 +87,7 @@ class BlogCard extends StatelessWidget {
                                     softWrap: true,
                                     overflow: TextOverflow.ellipsis,
                                     style: theme.labelMedium?.copyWith(
-                                      color: Colors.black54,
+                                      color: colorTheme.black54,
                                     ),
                                   ),
                                   gapH4(),
@@ -99,7 +100,7 @@ class BlogCard extends StatelessWidget {
                                     softWrap: true,
                                     overflow: TextOverflow.ellipsis,
                                     style: theme.displaySmall?.copyWith(
-                                      color: Colors.black54,
+                                      color: colorTheme.black54,
                                     ),
                                   ),
                                 ],
@@ -122,18 +123,18 @@ class BlogCard extends StatelessWidget {
                                       .currentContext!
                                       .textTheme
                                       .displaySmall
-                                      ?.copyWith(color: AppColors.primaryColor),
+                                      ?.copyWith(color: colorTheme.buttonPrimaryColor),
                                 ),
                                 gapW6(),
                                 Icon(
                                   Icons.arrow_forward_ios,
                                   size: 12,
-                                  color: AppColors.primaryColor,
+                                  color: colorTheme.buttonPrimaryColor,
                                 ),
                               ],
                             ),
-                            color: AppColors.primaryColor.withValues(alpha: .1),
-                            borderColor: AppColors.primaryColor.withValues(alpha: .1),
+                            color: colorTheme.buttonPrimaryColor.withValues(alpha: .1),
+                            borderColor: colorTheme.buttonPrimaryColor.withValues(alpha: .1),
                             radius: 30,
                             padding: const EdgeInsets.symmetric(
                               horizontal: 8,
@@ -148,7 +149,7 @@ class BlogCard extends StatelessWidget {
                             softWrap: true,
                             overflow: TextOverflow.ellipsis,
                             style: theme.displaySmall?.copyWith(
-                              color: Colors.black54,
+                              color: colorTheme.black54,
                               fontSize: 10
                             ),
                           ),

@@ -1,10 +1,12 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/state_models/common/blog_state.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/enums.dart';
+import '../../../../main.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/custom_loader.dart';
 import 'blog_card.dart';
@@ -59,56 +61,54 @@ class _SearchResultsViewState extends ConsumerState<BlogListView> {
   Widget _data(BlogState state) {
     return Column(
       children: [
-        ColoredBox(
-          color: Colors.white,
-          child: SizedBox(
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 16,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Latest Posts",
-                    style: context.textTheme.titleMedium?.copyWith(
-                      color: AppColors.primaryColor,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  // gapH8(),
-                  Text(
-                    "Don't miss the trending news",
-                    style: context.textTheme.bodyMedium?.copyWith(
-                      color: Colors.black54,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
+        // ColoredBox(
+        //   color: navigatorKey.currentContext!.colors.commonDividerBgColor,
+        //   child: SizedBox(
+        //     width: double.infinity,
+        //     child: Padding(
+        //       padding: const EdgeInsets.symmetric(
+        //         horizontal: 16,
+        //         vertical: 16,
+        //       ),
+        //       child:  Column(
+        //         crossAxisAlignment: CrossAxisAlignment.start,
+        //         children: [
+        //           Text(
+        //             "Stay Informed With Us",
+        //             style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
+        //               fontWeight: FontWeight.w600,
+        //             ),
+        //             textAlign: TextAlign.left,
+        //           ),
+        //           Text(
+        //             "Don't miss the trending news",
+        //             style: navigatorKey.currentContext!.textTheme.displaySmall
+        //                 ?.copyWith(color: navigatorKey.currentContext!.colors.black54),
+        //             textAlign: TextAlign.left,
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+        // ),
         Expanded(
           child: ListView.separated(
             controller: _scrollController,
             padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
             itemCount: state.data!.length + (state.isLoadingMore ? 1 : 0),
-            separatorBuilder: (c, s) => gapH24(),
+            separatorBuilder: (c, s) => coloredGap(),
             itemBuilder: (context, index) {
               if (index < state.data!.length) {
                 final item = state.data![index];
                 return BlogCard(item:item);
               } else {
                 // bottom loader
-                return const Padding(
+                return  Padding(
                   padding: EdgeInsets.all(12.0),
                   child: Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
-                      color: AppColors.primaryColor,
+                      color: context.colors.buttonPrimaryColor,
                     ),
                   ),
                 );
