@@ -546,28 +546,18 @@ class EditEmployeeProfileController
   Future<void> fetchCityState() async {
     final stateCities = await _jsonService.loadCityState();
     final states = stateCities;
-    state = state.copyWith(cities: [],states: states);
+    // sort states by name
+    stateCities.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
+    // expand all cities into 1 list
+    final allCities = stateCities
+        .expand((s) => s.cities)
+        .toList()
+      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase())); // 🔥 sort alphabetically
+
+    state = state.copyWith(cities: allCities,states: states);
+
   }
-  // void updateSelectedState(String stateName) {
-  //   // update text field
-  //   print("stateNamestateName--->>>$stateName");
-  //   stateController.text = stateName;
-  //
-  //   // clear previously selected city
-  //   cityController.clear();
-  //
-  //   // find this state model
-  //   final selectedStateModel = state.states?.firstWhere(
-  //         (s) => s.name.trim().toLowerCase() == stateName.trim().toLowerCase(),
-  //     orElse: () => StateModel(name: "", cities: []),
-  //   );
-  //
-  //   // filter its cities
-  //   final filtered = selectedStateModel?.cities ?? [];
-  //   print("filteredfiltered--->>>${filtered.length}");
-  //   // update state → Riverpod will notify UI
-  //   state = state.copyWith(filteredCities: filtered);
-  // }
 
   void updateSelectedState(String stateName) {
     stateController.text = stateName;
@@ -582,7 +572,9 @@ class EditEmployeeProfileController
     );
 
     // filter its cities
-    final filtered = selectedStateModel?.cities ?? [];
+    // filter and sort its cities alphabetically
+    final filtered = [...(selectedStateModel?.cities ?? [])]
+      ..sort((a, b) => a.name.trim().compareTo(b.name.trim()));
 
     // ✅ Update state AND clear form validation for city field
     state = state.copyWith(filteredCities: filtered);
