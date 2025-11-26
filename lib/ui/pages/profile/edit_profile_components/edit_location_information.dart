@@ -19,112 +19,141 @@ class EditLocationInformation extends ConsumerWidget {
     final state = ref.watch(editEmployeeProfileProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final colorTheme = context.colors;
+    final hasError = controller.sectionErrors.containsKey("location");
+
 
 
     return Card(
       elevation: 2,
       color: colorTheme.jobCardBgColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: colorTheme.themBasedWhite)),
-
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(
+        color: hasError ? Colors.red : colorTheme.themBasedWhite,
+        width:  1,
+      )),
       clipBehavior: Clip.antiAlias,
-      child: ExpansionTile(
-        initiallyExpanded: isFromCommonEdit != true,
-        title: Text(
-          "Location Information",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorTheme.black87,
-          ),
-        ),
-        visualDensity: VisualDensity.compact,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
-        iconColor: colorTheme.black54,
-        collapsedIconColor: colorTheme.black54,
-        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
-        onExpansionChanged: isFromCommonEdit ? null : (_) {},
-        childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         children: [
-          TransparentFormField(
-            isRequired: true,
-            controller: controller.addressController,
-            hint: "Enter Address",
-            label: "Address",
-            icon: Icons.home_outlined,
-            textInputAction: TextInputAction.next,
-            validator: AppValidators.fieldEmpty("Address"),
-            textCapitalization: TextCapitalization.words,
-          ),
-          gapH16(),
-          SelectCity(
-
-            controller: controller.cityController,
-            cityList: state.cities?.map((e)=>e.name).toList() ?? [],
-            // focusNode: _cityFocus,
-            // nextFocus: _countryFocus,
-          ),
-          // TransparentDropdownField(
-          //   isRequired: true,
-          //   hint: "Select your city",
-          //   label: "City",
-          //   icon: Icons.location_city_outlined,
-          //   items: state.cities?.map((e)=>e.name).toList() ?? [],
-          //   value: controller.cityController.text,
-          //   validator: AppValidators.fieldEmpty("City"),
-          //   onChanged: (value) {
-          //     controller.cityController.text = value ?? "";
-          //   },
-          // ),
-          gapH16(),
-          TransparentDropdownField(
-            isRequired: true,
-            hint: "Select your state",
-            label: "State",
-            icon: Icons.map_outlined,
-            items: state.states?.map((e)=>e.name).toList() ?? [],
-            value: controller.stateController.text,
-            validator: AppValidators.fieldEmpty("State"),
-            onChanged: (value) {
-              controller.stateController.text = value ?? "";
-            },
-          ),
-
-          gapH16(),
-          TransparentDropdownField(
-            isRequired: true,
-            hint: "Select your country",
-            label: "Country",
-            icon: Icons.public_outlined,
-            items: state.countries?.map((e)=>e.name).toList() ?? [],
-            value: controller.countryController.text,
-            validator: AppValidators.fieldEmpty("Country"),
-            onChanged: (value) {
-              controller.countryController.text = value ?? "";
-            },
-          ),
-
-
-          gapH16(),
-          TransparentFormField(
-            isRequired: true,
-            controller: controller.pinCodeController,
-            hint: "Enter Pincode",
-            label: "Pincode",
-            icon: Icons.pin_drop_outlined,
-            maxLength: 6,
-            textInputAction: TextInputAction.next,
-            validator: AppValidators.fieldEmpty("Pincode"),
-            keyboardType: TextInputType.number,
-            // maxLength: 6,
-          ),
-          gapH16(),
-          if (isFromCommonEdit != true)
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: EditProfileActionButtons(
-                isEmployee: true,
-                isFromCommonEdit: isFromCommonEdit,
+          ExpansionTile(
+            initiallyExpanded: isFromCommonEdit != true,
+            title: Text(
+              "Location Information",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorTheme.black87,
               ),
             ),
+            visualDensity: VisualDensity.compact,
+
+            iconColor: colorTheme.black54,
+            collapsedIconColor: colorTheme.black54,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide.none),
+            trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+            onExpansionChanged: isFromCommonEdit ? null : (_) {},
+            childrenPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+         children: [
+           Form(
+             key: controller.locationFormKey,
+             child: Column(
+               children: [
+                 TransparentFormField(
+                   isRequired: true,
+                   controller: controller.addressController,
+                   hint: "Enter Address",
+                   label: "Address",
+                   icon: Icons.home_outlined,
+                   textInputAction: TextInputAction.next,
+                   validator: AppValidators.fieldEmpty("Address"),
+                   textCapitalization: TextCapitalization.words,
+                 ),
+                 gapH16(),
+                 SelectCity(
+
+                   controller: controller.cityController,
+                   cityList: state.cities?.map((e)=>e.name).toList() ?? [],
+                   // focusNode: _cityFocus,
+                   // nextFocus: _countryFocus,
+                 ),
+                 // TransparentDropdownField(
+                 //   isRequired: true,
+                 //   hint: "Select your city",
+                 //   label: "City",
+                 //   icon: Icons.location_city_outlined,
+                 //   items: state.cities?.map((e)=>e.name).toList() ?? [],
+                 //   value: controller.cityController.text,
+                 //   validator: AppValidators.fieldEmpty("City"),
+                 //   onChanged: (value) {
+                 //     controller.cityController.text = value ?? "";
+                 //   },
+                 // ),
+                 gapH16(),
+                 TransparentDropdownField(
+                   isRequired: true,
+                   hint: "Select your state",
+                   label: "State",
+                   icon: Icons.map_outlined,
+                   items: state.states?.map((e)=>e.name).toList() ?? [],
+                   value: controller.stateController.text,
+                   validator: AppValidators.fieldEmpty("State"),
+                   onChanged: (value) {
+                     controller.stateController.text = value ?? "";
+                   },
+                 ),
+
+                 gapH16(),
+                 TransparentDropdownField(
+                   isRequired: true,
+                   hint: "Select your country",
+                   label: "Country",
+                   icon: Icons.public_outlined,
+                   items: state.countries?.map((e)=>e.name).toList() ?? [],
+                   value: controller.countryController.text,
+                   validator: AppValidators.fieldEmpty("Country"),
+                   onChanged: (value) {
+                     controller.countryController.text = value ?? "";
+                   },
+                 ),
+
+
+                 gapH16(),
+                 TransparentFormField(
+                   isRequired: true,
+                   controller: controller.pinCodeController,
+                   hint: "Enter Pincode",
+                   label: "Pincode",
+                   icon: Icons.pin_drop_outlined,
+                   maxLength: 6,
+                   textInputAction: TextInputAction.next,
+                   validator: AppValidators.fieldEmpty("Pincode"),
+                   keyboardType: TextInputType.number,
+                   // maxLength: 6,
+                 ),
+                 gapH16(),
+                 if (isFromCommonEdit != true)
+                   Padding(
+                     padding: const EdgeInsets.only(top: 20),
+                     child: EditProfileActionButtons(
+                       isEmployee: true,
+                       isFromCommonEdit: isFromCommonEdit,
+                     ),
+                   ),
+               ],
+
+             ),
+           )
+         ],
+          ),
+          if (hasError) Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              controller.sectionErrors["location"] ?? '',
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                color: Colors.red,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
         ],
       ),
     );

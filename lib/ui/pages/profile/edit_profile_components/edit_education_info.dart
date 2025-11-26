@@ -22,69 +22,107 @@ class EditEducationInformation extends ConsumerWidget {
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final state = ref.watch(editEmployeeProfileProvider);
     final colorTheme = context.colors;
+    final hasError = controller.sectionErrors.containsKey("education");
 
     return Card(
       elevation: 2,
       color: colorTheme.jobCardBgColor,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: colorTheme.themBasedWhite)),
-      child: ExpansionTile(
-        initiallyExpanded: isFromCommonEdit != true,
-        // collapsed by default
-        title: Text(
-          "Education",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorTheme.black87,
-          ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+        side: BorderSide(
+          color: hasError ? Colors.red : colorTheme.themBasedWhite,
+          width: 1,
         ),
-        visualDensity: VisualDensity.compact,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
-        iconColor: colorTheme.black54,
-        collapsedIconColor: colorTheme.black54,
-        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
-        onExpansionChanged: isFromCommonEdit ? null : (_) {},
-        childrenPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
         children: [
-          ...state.educationEntries!.asMap().entries.map((entry) {
-            final index = entry.key;
-            final edu = entry.value;
-            return _item(
-              edu.degreeController,
-              edu.institutionController,
-              edu.graduationYearController,
-              () => controller.removeEducationEntry(index),
-              state.degrees?.map((e) => e.name).toList() ?? [],
-              state.institutes?.map((e) => e.name).toList() ?? [],
-            );
-          }).toList(),
-          gapH16(),
-          CustomThemeButton(
-            isExpanded: false,
-            color: colorTheme.buttonPrimaryColor,
-            radius: 8,
-            padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.add, color: Colors.white, size: 20),
-                Text(
-                  "Add Education",
-                  style: context.textTheme.displaySmall?.copyWith(
-                    color: Colors.white,
-                  ),
-                ),
-              ],
+          ExpansionTile(
+            initiallyExpanded: isFromCommonEdit != true,
+            // collapsed by default
+            title: Text(
+              "Education",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorTheme.black87,
+              ),
             ),
-            onTap: () => controller.addEducationEntry(context),
+            visualDensity: VisualDensity.compact,
+
+            iconColor: colorTheme.black54,
+            collapsedIconColor: colorTheme.black54,
+            trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+              side: BorderSide.none,
+            ),
+            onExpansionChanged: isFromCommonEdit ? null : (_) {},
+            childrenPadding: const EdgeInsets.symmetric(
+              horizontal: 4,
+              vertical: 4,
+            ),
+            children: [
+              Form(
+                key: controller.educationFormKey,
+                child: Column(
+                  children: [
+                    ...state.educationEntries!.asMap().entries.map((entry) {
+                      final index = entry.key;
+                      final edu = entry.value;
+                      return _item(
+                        edu.degreeController,
+                        edu.institutionController,
+                        edu.graduationYearController,
+                        () => controller.removeEducationEntry(index),
+                        state.degrees?.map((e) => e.name).toList() ?? [],
+                        state.institutes?.map((e) => e.name).toList() ?? [],
+                      );
+                    }).toList(),
+                    gapH16(),
+                    CustomThemeButton(
+                      isExpanded: false,
+                      color: colorTheme.buttonPrimaryColor,
+                      radius: 8,
+                      padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.add, color: Colors.white, size: 20),
+                          Text(
+                            "Add Education",
+                            style: context.textTheme.displaySmall?.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                      onTap: () => controller.addEducationEntry(context),
+                    ),
+                    gapH16(),
+                    if (isFromCommonEdit != true)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: EditProfileActionButtons(
+                          isEmployee: true,
+                          isFromCommonEdit: isFromCommonEdit,
+                        ),
+                      ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          gapH16(),
-          if (isFromCommonEdit != true)
+          if (hasError)
             Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: EditProfileActionButtons(
-                isEmployee: true,
-                isFromCommonEdit: isFromCommonEdit,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Text(
+                controller.sectionErrors["education"] ?? '',
+                style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  color: Colors.red,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
         ],

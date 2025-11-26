@@ -23,68 +23,96 @@ class EditWorkExpInformation extends ConsumerWidget {
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final state = ref.watch(editEmployeeProfileProvider);
     final colorTheme = context.colors;
+    final hasError = controller.sectionErrors.containsKey("workExp");
 
     return Card(
       elevation: 2,
       color: colorTheme.jobCardBgColor,
       clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(color: colorTheme.themBasedWhite)),
-      child: ExpansionTile(
-        initiallyExpanded: isFromCommonEdit!= true,
-        title: Text(
-          "Work Experience",
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: colorTheme.black87,
-          ),
-        ),
-        visualDensity: VisualDensity.compact,
-        iconColor: colorTheme.black54,
-        collapsedIconColor: colorTheme.black54,
-        trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
-        onExpansionChanged: isFromCommonEdit ? null : (_) {},
-        childrenPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-        children: [
-          ...state.workExpEntries!.asMap().entries.map((entry) {
-            final index = entry.key;
-            final workExp = entry.value;
-            return _item(
-              workExp.companyController,
-              workExp.positionController,
-              workExp.startDateController,
-              workExp.endDateController,
-              workExp.descriptionController,
-                  () => controller.removeWorkExpEntry(index),
-                state.positions?.map((e) => e.name).toList() ?? [],
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide(
+        color: hasError ? Colors.red : colorTheme.themBasedWhite,
+        width:  1,
+      )),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
 
-            );
-          }).toList(),
-          gapH16(),
-          CustomThemeButton(
-            isExpanded: false,
-            color: colorTheme.buttonPrimaryColor,
-            radius: 8,
-            padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.add, color: Colors.white, size: 20),
-                const SizedBox(width: 4),
-                Text(
-                  "Add Experience",
-                  style: context.textTheme.displaySmall?.copyWith(
-                    color: Colors.white
-                  ),
-                ),
-              ],
+        children: [
+          ExpansionTile(
+            initiallyExpanded: isFromCommonEdit!= true,
+            title: Text(
+              "Work Experience",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: colorTheme.black87,
+              ),
             ),
-            onTap: () => controller.addWorkExpEntry(context),
+            visualDensity: VisualDensity.compact,
+            iconColor: colorTheme.black54,
+            collapsedIconColor: colorTheme.black54,
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16),side: BorderSide.none),
+            trailing: isFromCommonEdit ? null : const SizedBox.shrink(),
+            onExpansionChanged: isFromCommonEdit ? null : (_) {},
+            childrenPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+          children: [
+            Form(
+              key: controller.workExpFormKey,
+              child: Column(
+                children: [
+                  ...state.workExpEntries!.asMap().entries.map((entry) {
+                    final index = entry.key;
+                    final workExp = entry.value;
+                    return _item(
+                      workExp.companyController,
+                      workExp.positionController,
+                      workExp.startDateController,
+                      workExp.endDateController,
+                      workExp.descriptionController,
+                          () => controller.removeWorkExpEntry(index),
+                      state.positions?.map((e) => e.name).toList() ?? [],
+
+                    );
+                  }).toList(),
+                  gapH16(),
+                  CustomThemeButton(
+                    isExpanded: false,
+                    color: colorTheme.buttonPrimaryColor,
+                    radius: 8,
+                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.add, color: Colors.white, size: 20),
+                        const SizedBox(width: 4),
+                        Text(
+                          "Add Experience",
+                          style: context.textTheme.displaySmall?.copyWith(
+                              color: Colors.white
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () => controller.addWorkExpEntry(context),
+                  ),
+                  gapH16(),
+                  if(isFromCommonEdit!= true)  Padding(
+                    padding: const EdgeInsets.only(top: 20),
+                    child: EditProfileActionButtons(isEmployee: true,isFromCommonEdit: isFromCommonEdit),
+                  )
+                ],
+              ),
+            )
+          ],
           ),
-          gapH16(),
-          if(isFromCommonEdit!= true)  Padding(
-            padding: const EdgeInsets.only(top: 20),
-            child: EditProfileActionButtons(isEmployee: true,isFromCommonEdit: isFromCommonEdit),
-          )
+          if (hasError) Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              controller.sectionErrors["workExp"] ?? '',
+              style: Theme.of(context).textTheme.displaySmall?.copyWith(
+                color: Colors.red,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
         ],
       ),
     );

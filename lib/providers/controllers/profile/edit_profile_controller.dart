@@ -41,7 +41,6 @@ class EditEmployeeProfileController
     fetchInitialProfileData(userData);
   }
 
-  final formKey = GlobalKey<FormState>();
   final stateFocus = FocusNode();
   final cityFocus = FocusNode();
   final countryFocus = FocusNode();
@@ -181,20 +180,27 @@ class EditEmployeeProfileController
 
   /// 🔹 Call this to update chef details
   Future<void> updateEmployeeProfileDetails(BuildContext context, {bool isFromCommonEdit = true}) async {
-   if(isFromCommonEdit){
-     if (!(formKey.currentState?.validate() ?? false)) {
-       showSnackBar("Please fill all required fields");
-       return;
-     }
-   }
-   if (!_validateEducationEntries()) {
-     debugPrint("Cannot update: Validation failed");
-     return;
-   }
-   if (!_validateWorkExpEntries()) {
-     debugPrint("Cannot update: Validation failed");
-     return;
-   }
+   // if(isFromCommonEdit){
+   //   if (!(formKey.currentState?.validate() ?? false)) {
+   //     showSnackBar("Please fill all required fields");
+   //     return;
+   //   }
+   // }
+   // if (!_validateEducationEntries()) {
+   //   debugPrint("Cannot update: Validation failed");
+   //   return;
+   // }
+   // if (!_validateWorkExpEntries()) {
+   //   debugPrint("Cannot update: Validation failed");
+   //   return;
+   // }
+    final isValid = await validateAllSections();
+
+    if (!isValid) {
+      // Show error message
+      showOverlaySnackBar( context,'Please complete all required fields in the highlighted sections');
+      return;
+    }
     state = state.copyWith(pageState: PageState.loading);
     // print('--- Employee Profile Form stattteee ---');
     // print('gender: ${state.profileData?.gender}');
@@ -538,6 +544,96 @@ class EditEmployeeProfileController
     state = state.copyWith(cities: allCities,states: states);
   }
 
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  // Add section form keys
+  final basicInfoFormKey = GlobalKey<FormState>();
+  final locationFormKey = GlobalKey<FormState>();
+  final skillFormKey = GlobalKey<FormState>();
+  final educationFormKey = GlobalKey<FormState>();
+  final workExpFormKey = GlobalKey<FormState>();
+  final jobPrefFormKey = GlobalKey<FormState>();
+  final resumeFormKey = GlobalKey<FormState>();
+
+
+
+  // Validation errors for each section
+  final Map<String, String?> sectionErrors = {};
+
+  // Validate all sections
+  Future<bool> validateAllSections() async {
+    bool isValid = true;
+    sectionErrors.clear();
+
+    // Validate Basic Information
+    if (basicInfoFormKey.currentState?.validate() != true) {
+      isValid = false;
+      sectionErrors['basic'] = 'Please complete all required fields in Basic Information';
+      // expandedSections['basic'] = true;
+    }
+
+    // Validate Location Information
+    if (locationFormKey.currentState?.validate() != true) {
+      isValid = false;
+      sectionErrors['location'] = 'Please complete all required fields in Location Information';
+    }
+
+    // Validate Skills
+    if (skillFormKey.currentState?.validate() != true) {
+      isValid = false;
+      sectionErrors['skill'] = 'Please add at least one skill';
+    }
+
+    // Validate Education
+    if (educationFormKey.currentState?.validate() != true) {
+      isValid = false;
+      sectionErrors['education'] = 'Please complete all required fields in Education';
+    }
+
+    // Validate Work Experience (if employed)
+    if (state.profileData?.workStatus == 'employed') {
+      if (workExpFormKey.currentState?.validate() != true) {
+        isValid = false;
+        sectionErrors['workExp'] = 'Please add your work experience';
+      }
+    }
+
+    // Validate Job Preferences
+    if (jobPrefFormKey.currentState?.validate() != true) {
+      isValid = false;
+      sectionErrors['jobPref'] = 'Please complete Job Preferences';
+    }
+
+    // Validate Resume
+    if (resumeFormKey.currentState?.validate() != true) {
+      isValid = false;
+      sectionErrors['resume'] = 'Please upload your resume';
+    }
+
+    // Update state to trigger rebuild
+    state = state.copyWith();
+
+    // Update validation provider
+    ref.read(sectionValidationProvider.notifier).state = {
+      'basic': sectionErrors.containsKey('basic'),
+      'location': sectionErrors.containsKey('location'),
+      'skill': sectionErrors.containsKey('skill'),
+      'education': sectionErrors.containsKey('education'),
+      'workExp': sectionErrors.containsKey('workExp'),
+      'jobPref': sectionErrors.containsKey('jobPref'),
+      'resume': sectionErrors.containsKey('resume'),
+    };
+
+    return isValid;
+  }
+
+
+
+  void clearSectionError(String section) {
+    sectionErrors.remove(section);
+    state = state.copyWith();
+  }
+
 
 
 }
@@ -551,3 +647,6 @@ void showTopSnackBar(BuildContext context, String message) {
     SnackBar(content: Text(message)),
   );
 }
+
+// Add this to your providers file
+final sectionValidationProvider = StateProvider<Map<String, bool>>((ref) => {});
