@@ -85,6 +85,25 @@ class LetsConnectFormView extends ConsumerWidget {
               textCapitalization: TextCapitalization.words,
             ),
             gapH16(),
+            TransparentDropdownField(
+              isRequired: true,
+              label: "Share your interest for getting in touch ",
+              hint: "Select from the list",
+              icon: Icons.work_outline,
+              items: [
+                "Partnership",
+                "Career Opportunity",
+                "Project Discussion",
+                "General Inquiry",
+                "Technical Support",
+              ],
+              value: controller.interestController.text,
+              validator: AppValidators.dropDownFieldEmpty("your interest"),
+              onChanged: (value) {
+                controller.interestController.text = value.toString();
+              },
+            ),
+            gapH16(),
             TransparentFormField(
               isRequired: true,
               controller: controller.organisationController,
@@ -153,25 +172,8 @@ class LetsConnectFormView extends ConsumerWidget {
               maxLength: 250,
               showCounter: true,
             ),
-            gapH16(),
-            TransparentDropdownField(
-              isRequired: true,
-              label: "Share your interest for getting in touch ",
-              hint: "Select from the list",
-              icon: Icons.work_outline,
-              items: [
-                "Partnership",
-                "Career Opportunity",
-                "Project Discussion",
-                "General Inquiry",
-                "Technical Support",
-              ],
-              value: controller.interestController.text,
-              validator: AppValidators.dropDownFieldEmpty("your interest"),
-              onChanged: (value) {
-                controller.interestController.text = value.toString();
-              },
-            ),
+            gap100(),
+
           ],
         ),
       ),
