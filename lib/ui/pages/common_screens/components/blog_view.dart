@@ -61,42 +61,15 @@ class _SearchResultsViewState extends ConsumerState<BlogListView> {
   Widget _data(BlogState state) {
     return Column(
       children: [
-        // ColoredBox(
-        //   color: navigatorKey.currentContext!.colors.commonDividerBgColor,
-        //   child: SizedBox(
-        //     width: double.infinity,
-        //     child: Padding(
-        //       padding: const EdgeInsets.symmetric(
-        //         horizontal: 16,
-        //         vertical: 16,
-        //       ),
-        //       child:  Column(
-        //         crossAxisAlignment: CrossAxisAlignment.start,
-        //         children: [
-        //           Text(
-        //             "Stay Informed With Us",
-        //             style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
-        //               fontWeight: FontWeight.w600,
-        //             ),
-        //             textAlign: TextAlign.left,
-        //           ),
-        //           Text(
-        //             "Don't miss the trending news",
-        //             style: navigatorKey.currentContext!.textTheme.displaySmall
-        //                 ?.copyWith(color: navigatorKey.currentContext!.colors.black54),
-        //             textAlign: TextAlign.left,
-        //           ),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
         Expanded(
           child: ListView.separated(
             controller: _scrollController,
             padding: EdgeInsets.symmetric(vertical: 0, horizontal: 0),
             itemCount: state.data!.length + (state.isLoadingMore ? 1 : 0),
-            separatorBuilder: (c, s) => coloredGap(),
+            separatorBuilder: (c, s) => Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: coloredGap(),
+            ),
             itemBuilder: (context, index) {
               if (index < state.data!.length) {
                 final item = state.data![index];
