@@ -312,10 +312,10 @@ class AppNavigator {
     );
   }
 
-  static loadEditProfileScreen({bool isEmployer = false}) {
+  static loadEditProfileScreen({bool showIncompleteValidation = false}) {
     Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => EditProfileScreen()),
+      MaterialPageRoute(builder: (_) => EditProfileScreen(showIncompleteValidation:showIncompleteValidation)),
     );
   }
 

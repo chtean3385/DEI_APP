@@ -18,7 +18,8 @@ class EditJobPreferenceInfo extends ConsumerWidget {
     final jobTypeState = ref.watch(jobTypesProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final colorTheme = context.colors;
-    final hasError = controller.sectionErrors.containsKey("jobPref");
+    final hasError = state.sectionErrors?.containsKey("jobPref") ?? false;
+
 
 
     return Card(

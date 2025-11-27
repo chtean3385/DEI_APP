@@ -73,7 +73,7 @@ AppBar appBarHome(
               child: IconButton(
                 icon:  Icon(Icons.edit, color:context.colors.black54, size: 25),
                 onPressed: () =>
-                    AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
+                    AppNavigator.loadEditProfileScreen(),
               ),
             ),
           ]

@@ -22,7 +22,8 @@ class EditEducationInformation extends ConsumerWidget {
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final state = ref.watch(editEmployeeProfileProvider);
     final colorTheme = context.colors;
-    final hasError = controller.sectionErrors.containsKey("education");
+    final hasError = state.sectionErrors?.containsKey("education") ?? false;
+
 
     return Card(
       elevation: 2,

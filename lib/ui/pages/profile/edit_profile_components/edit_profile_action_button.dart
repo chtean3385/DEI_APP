@@ -61,7 +61,6 @@ class EditProfileActionButtons extends ConsumerWidget {
             // Save Button
             CustomThemeButton(
               onTap: () {
-                print("isEmployee -- $isEmployee");
                 if (isEmployee) {
                   employeeController.updateEmployeeProfileDetails(context,isFromCommonEdit:isFromCommonEdit );
                 } else {}

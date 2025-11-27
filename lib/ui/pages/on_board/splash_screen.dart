@@ -25,7 +25,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       resizeToAvoidBottomInset: false,
       body: Center(
         child: SizedBox(
-          height: 200,width: 200,
+          height:150,width: 150,
           child: WidgetUtils.logoWidget(),
         ),
       ),

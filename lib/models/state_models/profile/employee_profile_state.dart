@@ -27,6 +27,7 @@ class EmployeeProfileState {
  final List<LocalJsonItemModel>? cities ;
  final List<LocalJsonItemModel>? filteredCities ;
  final List<StateModel>? states ;
+  final Map<String, String?>? sectionErrors;
 
 
   EmployeeProfileState({
@@ -47,6 +48,7 @@ class EmployeeProfileState {
     this.cities,
     this.filteredCities,
     this.states,
+    this.sectionErrors
   });
 
   factory EmployeeProfileState.initial() =>
@@ -70,6 +72,7 @@ class EmployeeProfileState {
     List<LocalJsonItemModel>? cities ,
     List<LocalJsonItemModel>? filteredCities ,
     List<StateModel>? states ,
+ Map<String, String?>? sectionErrors ,
   }) {
     return EmployeeProfileState(
       profileData: profileData ?? this.profileData,
@@ -89,6 +92,7 @@ class EmployeeProfileState {
       cities: cities ?? this.cities,
       filteredCities: filteredCities ?? this.filteredCities,
       states: states ?? this.states,
+      sectionErrors: sectionErrors ?? this.sectionErrors,
     );
   }
 }

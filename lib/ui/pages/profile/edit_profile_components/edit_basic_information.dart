@@ -22,7 +22,7 @@ class EditBasicInformation extends ConsumerWidget {
     final state = ref.watch(editEmployeeProfileProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final colorTheme = context.colors;
-    final hasError = controller.sectionErrors.containsKey("basic");
+    final hasError = state.sectionErrors?.containsKey("basic") ?? false;
 
     final Map<String, String> workStatusLabels = {
       'employed': 'Employed',

@@ -23,7 +23,8 @@ class EditWorkExpInformation extends ConsumerWidget {
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final state = ref.watch(editEmployeeProfileProvider);
     final colorTheme = context.colors;
-    final hasError = controller.sectionErrors.containsKey("workExp");
+    final hasError = state.sectionErrors?.containsKey("workExp") ?? false;
+
 
     return Card(
       elevation: 2,

@@ -20,7 +20,8 @@ class EditResumeInformation extends ConsumerWidget {
     final state = ref.watch(editEmployeeProfileProvider);
     final theme = context.textTheme;
     final colorTheme = context.colors;
-    final hasError = controller.sectionErrors.containsKey("resume");
+    final hasError = state.sectionErrors?.containsKey("resume") ?? false;
+
 
 
     final fileName = state.resumeFile?.name;

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/profile/profile_details_view.dart';
 import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:flutter/material.dart';
@@ -16,9 +17,9 @@ class EmployeeProfileDetailsScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 8),
           child: IconButton(
-            icon: const Icon(Icons.edit, color: Colors.black54, size: 25),
+            icon:  Icon(Icons.edit, color: context.colors.black54, size: 25),
             onPressed: () =>
-                AppNavigator.loadEditProfileScreen(isEmployer: false),
+                AppNavigator.loadEditProfileScreen(),
           ),
         ),
       ]) ,

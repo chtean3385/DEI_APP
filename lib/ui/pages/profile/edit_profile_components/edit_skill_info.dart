@@ -16,7 +16,8 @@ class EditSkillInformation extends ConsumerWidget {
     final state = ref.watch(editEmployeeProfileProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final colorTheme = context.colors;
-    final hasError = controller.sectionErrors.containsKey("skill");
+    final hasError = state.sectionErrors?.containsKey("skill") ?? false;
+
 
     return Card(
       elevation: 2,

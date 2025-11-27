@@ -23,14 +23,19 @@ class EditEmployeeProfileController
 
   EditEmployeeProfileController(this.ref)
     : super(EmployeeProfileState.initial()) {
+    _initializeData();
+  }
+  Future<void> _initializeData() async {
     final profileDetails = ref.watch(employeeProfileProvider).profileData;
     initController(profileDetails);
-    fetchDegrees();
-    fetchInstitutes();
-    fetchPositions();
-    fetchCityState();
-  }
 
+    await Future.wait([
+      fetchDegrees(),
+      fetchInstitutes(),
+      fetchPositions(),
+      fetchCityState(),
+    ]);
+  }
 
   final EmployeeProfileService _employeeProfileService =
   EmployeeProfileService();
@@ -600,69 +605,62 @@ class EditEmployeeProfileController
   // Validation errors for each section
   final Map<String, String?> sectionErrors = {};
 
-  // Validate all sections
+
   Future<bool> validateAllSections() async {
     bool isValid = true;
     sectionErrors.clear();
 
-    // Validate Basic Information
+    // BASIC INFO
     if (basicInfoFormKey.currentState?.validate() != true) {
       isValid = false;
-      sectionErrors['basic'] = 'Please complete all required fields in Basic Information';
-      // expandedSections['basic'] = true;
+      sectionErrors['basic'] =
+      'Please complete all required fields in Basic Information';
     }
 
-    // Validate Location Information
+    // LOCATION INFO
     if (locationFormKey.currentState?.validate() != true) {
       isValid = false;
-      sectionErrors['location'] = 'Please complete all required fields in Location Information';
+      sectionErrors['location'] =
+      'Please complete all required fields in Location Information';
     }
 
-    // Validate Skills
+    // SKILLS
     if (skillFormKey.currentState?.validate() != true) {
       isValid = false;
       sectionErrors['skill'] = 'Please add at least one skill';
     }
 
-    // Validate Education
+    // EDUCATION
     if (educationFormKey.currentState?.validate() != true) {
       isValid = false;
-      sectionErrors['education'] = 'Please complete all required fields in Education';
+      sectionErrors['education'] =
+      'Please complete all required fields in Education';
     }
 
-    // Validate Work Experience (if employed)
+    // WORK EXPERIENCE – only validate if user is employed
     if (state.profileData?.workStatus == 'employed') {
       if (workExpFormKey.currentState?.validate() != true) {
         isValid = false;
-        sectionErrors['workExp'] = 'Please add your work experience';
+        sectionErrors['work'] =
+        'Please complete all required fields in Work Experience';
       }
     }
 
-    // Validate Job Preferences
+    // JOB PREFERENCE
     if (jobPrefFormKey.currentState?.validate() != true) {
       isValid = false;
-      sectionErrors['jobPref'] = 'Please complete Job Preferences';
+      sectionErrors['jobPref'] =
+      'Please complete all required fields in Job Preferences';
     }
 
-    // Validate Resume
+    // RESUME (optional – validate only if file required)
     if (resumeFormKey.currentState?.validate() != true) {
       isValid = false;
-      sectionErrors['resume'] = 'Please upload your resume';
+      sectionErrors['resume'] = 'Please upload a valid resume';
     }
 
-    // Update state to trigger rebuild
-    state = state.copyWith();
-
-    // Update validation provider
-    ref.read(sectionValidationProvider.notifier).state = {
-      'basic': sectionErrors.containsKey('basic'),
-      'location': sectionErrors.containsKey('location'),
-      'skill': sectionErrors.containsKey('skill'),
-      'education': sectionErrors.containsKey('education'),
-      'workExp': sectionErrors.containsKey('workExp'),
-      'jobPref': sectionErrors.containsKey('jobPref'),
-      'resume': sectionErrors.containsKey('resume'),
-    };
+    // 👇 UPDATE STATE so UI refreshes and highlights sections
+    state = state.copyWith(sectionErrors: Map.from(sectionErrors));
 
     return isValid;
   }

@@ -74,7 +74,7 @@ void showProfileAlert(BuildContext context,List<MissingField>? missingFields) {
                 Navigator.of(context, rootNavigator: true).pop();
 
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  AppNavigator.loadEditProfileScreen();
+                  AppNavigator.loadEditProfileScreen(showIncompleteValidation: true);
                 });
               },
               child:  Text(

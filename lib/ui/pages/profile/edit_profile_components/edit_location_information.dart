@@ -20,7 +20,7 @@ class EditLocationInformation extends ConsumerWidget {
     final state = ref.watch(editEmployeeProfileProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final colorTheme = context.colors;
-    final hasError = controller.sectionErrors.containsKey("location");
+    final hasError = state.sectionErrors?.containsKey("location") ?? false;
 
 print("State.filteredCitiestate.filteredCities-->> ${state.filteredCities?.length}");
 

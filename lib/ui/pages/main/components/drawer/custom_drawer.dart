@@ -284,7 +284,7 @@ class ProfileSection extends ConsumerWidget {
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () =>
-          AppNavigator.loadEditProfileScreen(isEmployer: isEmployer),
+          AppNavigator.loadEditProfileScreen(showIncompleteValidation: true),
       child: Container(
         padding: const EdgeInsets.all(12),
         margin: showMissingData ? const EdgeInsets.all(16) : null,
@@ -383,7 +383,7 @@ class ProfileSection extends ConsumerWidget {
             ),
             if (showMissingData)
               GestureDetector(
-                onTap:AppNavigator.loadEditProfileScreen ,
+                onTap:()=>AppNavigator.loadEditProfileScreen(showIncompleteValidation: true) ,
                 behavior: HitTestBehavior.translucent,
                 child: Text(
                   "${profilePercentData?.missingFieldsCount?.toString() ?? ""} Missing details",
