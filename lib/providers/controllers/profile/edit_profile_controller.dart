@@ -573,7 +573,7 @@ class EditEmployeeProfileController
 
     // filter its cities
     // filter and sort its cities alphabetically
-    final filtered = [...(selectedStateModel?.cities ?? [])]
+    final List<LocalJsonItemModel> filtered = [...(selectedStateModel?.cities ?? [])]
       ..sort((a, b) => a.name.trim().compareTo(b.name.trim()));
 
     // ✅ Update state AND clear form validation for city field
