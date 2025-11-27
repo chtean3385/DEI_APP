@@ -3,6 +3,7 @@ import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../../constants/app_navigator.dart';
 import '../../../../../main.dart';
 import '../../../../../models/profile/profile_completion/profile_completion_model.dart';
 
@@ -70,8 +71,11 @@ void showProfileAlert(BuildContext context,List<MissingField>? missingFields) {
                 ),
               ),
               onPressed: () {
-                Navigator.pop(context);
-                // AppNavigator.loadEditProfileScreen();
+                Navigator.of(context, rootNavigator: true).pop();
+
+                WidgetsBinding.instance.addPostFrameCallback((_) {
+                  AppNavigator.loadEditProfileScreen();
+                });
               },
               child:  Text(
                 "Okay",

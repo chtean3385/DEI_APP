@@ -26,7 +26,6 @@ class SelectedKeySkills extends StatelessWidget {
 
     return FormField<List<String>>(
       validator: (v) {
-        print("vvvvvvvv$v");
         if (selectedSkill.isEmpty) {
           return "Please select at least one ${label?.toLowerCase() ?? "skill"}";
         }

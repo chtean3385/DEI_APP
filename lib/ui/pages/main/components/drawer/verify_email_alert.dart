@@ -14,7 +14,7 @@ final colorTheme = navigatorKey.currentContext!.colors;
     context: navigatorKey.currentContext!,
     barrierDismissible: true,
     builder: (_) => Dialog(
-      backgroundColor: colorTheme.commonDividerBgColor,
+      backgroundColor: colorTheme.alertBgColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
