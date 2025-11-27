@@ -70,7 +70,7 @@ class BlogsHorizontalView extends ConsumerWidget {
                 const Spacer(),
                 ViewAllButton(
                   isSmall: true,
-                  onPressed: AppNavigator.loaBlogScreen,
+                  onPressed: ()=> AppNavigator.toBottomBar(initialPage: 4),
                 ),
               ],
             ),
