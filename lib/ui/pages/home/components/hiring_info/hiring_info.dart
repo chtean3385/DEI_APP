@@ -17,8 +17,8 @@ class HiringInfoWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 10),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: colorTheme.commonDividerBgColor,
-          borderRadius: BorderRadius.only(topRight:Radius.circular(30) ,topLeft: Radius.circular(30))
+          color: colorTheme.commonDividerBgColor.withValues(alpha: .3),
+          borderRadius: BorderRadius.only(topRight:Radius.circular(16) ,topLeft: Radius.circular(16))
         ),
         child: Align(
           alignment: AlignmentGeometry.centerLeft,
@@ -33,7 +33,7 @@ class HiringInfoWidget extends StatelessWidget {
                     "70% hiring \nhappens without \nany job post",
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: colorTheme.black26,
+                      color: colorTheme.grey.withValues(alpha: .5),
                     ),
                   ),
                   const SizedBox(height: 12),
@@ -41,13 +41,17 @@ class HiringInfoWidget extends StatelessWidget {
                     "Top companies on DEI are hiring by directly "
                         "reaching out to jobseekers without posting a job. "
                         "Learn how you can make the best of this opportunity",
+                    textAlign: TextAlign.left,
                     style: theme.textTheme.displaySmall?.copyWith(
-                      color: colorTheme.black45,
+                      color: colorTheme.black45,fontSize: 10,
                       height: 1.4,
                     ),
                   ),
                   const SizedBox(height: 12),
-                  ViewAllButton(text: "Learn more",isSmall: true,padding: EdgeInsets.zero,),
+                  Text("Learn more",style: theme.textTheme.displaySmall?.copyWith(
+                    color:  context.colors.buttonPrimaryColor,
+                    fontWeight: FontWeight.w600,
+                  )),
                   gapH20(),
                 ],
               ),
