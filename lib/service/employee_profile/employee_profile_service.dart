@@ -42,6 +42,7 @@ class EmployeeProfileService {
       }
       return MapEntry(key, value);
     });
+    print("encodedBodyencodedBodyencodedBody --->>>> ${encodedBody.toString()}");
     final result = await _apiHandler.uploadFile(
       url: ApiUrls.updateEmployeeProfileDetails,
       body: encodedBody,

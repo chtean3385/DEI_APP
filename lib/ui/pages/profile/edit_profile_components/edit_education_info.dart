@@ -179,6 +179,7 @@ class EditEducationInformation extends ConsumerWidget {
               gapH16(),
 
               YearSelector(
+                key: UniqueKey(),
                 title: "Graduation Year",
                 selectedYear: ctr3.text,
                 onChanged: (year) {

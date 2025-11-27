@@ -27,7 +27,7 @@ class EditEmployeeProfileController
   }
   Future<void> _initializeData() async {
     final profileDetails = ref.watch(employeeProfileProvider).profileData;
-    initController(profileDetails);
+
 
     await Future.wait([
       fetchDegrees(),
@@ -35,6 +35,7 @@ class EditEmployeeProfileController
       fetchPositions(),
       fetchCityState(),
     ]);
+    initController(profileDetails);
   }
 
   final EmployeeProfileService _employeeProfileService =
@@ -57,6 +58,7 @@ class EditEmployeeProfileController
   final dobController = TextEditingController();
   final descriptionController = TextEditingController();
 
+
   /// location info
   final addressController = TextEditingController();
   final cityController = TextEditingController();
@@ -64,11 +66,24 @@ class EditEmployeeProfileController
   final countryController = TextEditingController();
   final pinCodeController = TextEditingController();
 
+  /// professional info
+  final totalWorkExpController = TextEditingController();
+  final noticePeriodController = TextEditingController();
+  final departmentController = TextEditingController();
+  final communityController = TextEditingController();
+  final currentCtcController = TextEditingController();
+  String? departmentId;
+  String? communityId;
+
   /// skill info
   final skillController = TextEditingController();
 
   /// job preference info
   final preferredLocationController = TextEditingController();
+  final preferredSalaryController = TextEditingController();
+  final preferredJobTypeController = TextEditingController();
+  String? salaryRangeId;
+  String? jobTypeId;
 
   @override
   void dispose() {
@@ -85,7 +100,15 @@ class EditEmployeeProfileController
     countryController.dispose();
     pinCodeController.dispose();
 
+    totalWorkExpController.dispose();
+    noticePeriodController.dispose();
+    departmentController.dispose();
+    communityController.dispose();
+    currentCtcController.dispose();
+
     preferredLocationController.dispose();
+    preferredSalaryController.dispose();
+    preferredJobTypeController.dispose();
 
     if (state.educationEntries != null) {
       for (var entry in state.educationEntries!) {
@@ -109,18 +132,18 @@ class EditEmployeeProfileController
     mobileController.text = userData?.mobile ?? "";
     descriptionController.text = userData?.employeeDescription ?? "";
     addressController.text = userData?.address ?? "";
-    cityController.text = userData?.city ?? "";
+
 
     stateController.text = userData?.state ?? "";
     // ⬇ auto-filter for existing profile
     final existingState = stateController.text.trim();
     if (existingState.isNotEmpty) {
-      updateSelectedState(existingState);
+      updateSelectedState(existingState,clearCity: false,cityName:userData?.city );
     }
+
     countryController.text =  "India";
     pinCodeController.text = userData?.pincode ?? "";
-    preferredLocationController.text = (userData?.preferences?.preferredLocations?.isNotEmpty ?? false) ?
-        userData?.preferences?.preferredLocations?.first ?? "" : "";
+
     if (userData?.dateOfBirth != null && userData!.dateOfBirth!.isNotEmpty) {
       final parsedDate = DateTime.tryParse(userData.dateOfBirth!);
       if (parsedDate != null) {
@@ -130,6 +153,29 @@ class EditEmployeeProfileController
       }
     } else {
       dobController.text = "";
+    }
+
+    /// PROFESSIONAL INFO
+    totalWorkExpController.text = userData?.totalWorkExperience ?? "";
+    noticePeriodController.text = userData?.noticePeriod ?? "";
+    currentCtcController.text = userData?.currentSalary ?? "";
+
+// Department → coming from userData.department list (Preferences updated)
+    if (userData?.currentDepartment != null && userData!.currentDepartment!.isNotEmpty) {
+      departmentController.text = userData.currentDepartment!.first.name ?? "";
+      departmentId = userData.currentDepartment!.first.id ?? "";
+    } else {
+      departmentController.text = "";
+      departmentId = "";
+    }
+
+// Community (Industry) → assuming it maps to "industry.title"
+    if (userData?.industry != null && userData!.industry!.isNotEmpty) {
+      communityController.text = userData.industry!.first.title ?? "";
+      communityId = userData.industry!.first.id ?? "";
+    } else {
+      communityController.text = "";
+      communityId = "";
     }
 
     // Sample initial skill list
@@ -170,17 +216,30 @@ class EditEmployeeProfileController
       return controller;
     }).toList();
 
+    /// job preference
+    if (userData?.salaryRange != null ) {
+      preferredSalaryController.text = userData?.salaryRange?.range ?? "";
+      salaryRangeId = userData?.salaryRange?.id ?? "";
+    } else {
+      preferredSalaryController.text = "";
+      salaryRangeId = "";
+    }
+    if (userData?.jobType != null && userData!.jobType!.isNotEmpty) {
+      preferredJobTypeController.text = userData.jobType!.first.name ?? "";
+      jobTypeId = userData.jobType!.first.id ?? "";
+    } else {
+      preferredJobTypeController.text = "";
+      jobTypeId = "";
+    }
+    // preferredLocationController.text = (userData?.preferences?.preferredLocations?.isNotEmpty ?? false) ?
+    // userData?.preferences?.preferredLocations?.first ?? "" : "";
+
+
     state = state.copyWith(
       profileData: (userData ?? EmployeeUserModel()).copyWith(
         skills: initialSkills,
         experience: workExperiences,
         education: educationData,
-        salaryRange: userData?.preferences?.salaryRange?.range,
-
-        jobType: (userData?.preferences?.jobTypes?.isNotEmpty ?? false)
-            ? userData!.preferences!.jobTypes!.first.name ?? ""
-            : "",
-
         preferredLocations: userData?.preferences?.preferredLocations,
       ),
       workExpEntries: workExpControllers,
@@ -191,20 +250,6 @@ class EditEmployeeProfileController
 
   /// 🔹 Call this to update chef details
   Future<void> updateEmployeeProfileDetails(BuildContext context, {bool isFromCommonEdit = true}) async {
-   // if(isFromCommonEdit){
-   //   if (!(formKey.currentState?.validate() ?? false)) {
-   //     showSnackBar("Please fill all required fields");
-   //     return;
-   //   }
-   // }
-   // if (!_validateEducationEntries()) {
-   //   debugPrint("Cannot update: Validation failed");
-   //   return;
-   // }
-   // if (!_validateWorkExpEntries()) {
-   //   debugPrint("Cannot update: Validation failed");
-   //   return;
-   // }
     final isValid = await validateAllSections();
 
     if (!isValid) {
@@ -218,9 +263,12 @@ class EditEmployeeProfileController
     // print('workStatus: ${state.profileData?.workStatus}');
     // print('department: ${state.profileData?.department}');
     // print('category: ${state.profileData?.category}');
-    // print('education: ${state.profileData?.education?.length}');
-    // print('education: ${state.profileData?.education?.first.institution}');
-    // print('education: ${state.profileData?.education?.last.institution}');
+    // final eduList = state.profileData?.education ?? [];
+    // print('education length: ${eduList.length}');
+    // print('education first: ${eduList.isNotEmpty ? eduList.first.institution : "N/A"}');
+    // print('education last: ${eduList.isNotEmpty ? eduList.last.institution : "N/A"}');
+    //
+    //
     // print('experience: ${state.profileData?.experience}');
     // print('skills: ${state.profileData?.skills}');
     //
@@ -234,7 +282,16 @@ class EditEmployeeProfileController
     // print('State: ${stateController.text}');
     // print('Country: ${countryController.text}');
     // print('Pincode: ${pinCodeController.text}');
-    // print('Preferred Location: ${preferredLocationController.text}');
+    // print('Preferred state.profileData?.preferredLocations: ${state.profileData?.preferredLocations}');
+    // print('Preferred LtotalWorkExpControllerocation: ${totalWorkExpController.text}');
+    // print('Preferred LtotalWorkExpControllerocation: ${totalWorkExpController.text}');
+    // print('Preferred noticePeriodController: ${noticePeriodController.text}');
+    // print('Preferred departmentId: ${departmentId}');
+    // print('Preferred LoccommunityIdation: ${communityId}');
+    // print('Preferred currentCtcController: ${currentCtcController.text}');
+    // print('Preferred salaryRangeId: ${salaryRangeId}');
+    // print('Preferred jobTypeId: ${jobTypeId}');
+    // print('Preferred cityy: ${cityController.text}');
     // print('------------------------------------');
     final updatedExperience = buildUpdatedExperienceList();
     final updatedEducation = buildUpdatedEducationList();
@@ -252,25 +309,29 @@ class EditEmployeeProfileController
         state: stateController.text.trim(),
         country: countryController.text.trim(),
         pincode: pinCodeController.text.trim(),
-        jobType: state.profileData?.jobType,
         department: state.profileData?.department, // keep existing if not changed
         category: state.profileData?.category,
-        salaryRange: state.profileData?.salaryRange,
         preferredLocations: state.profileData?.preferredLocations,
         education: updatedEducation,
         experience: updatedExperience,
         skills: state.profileData?.skills,
+        totalWorkExperience: totalWorkExpController.text.trim() ,
+        noticePeriod: noticePeriodController.text.trim(),
+        currentSalary: currentCtcController.text.trim(),
+        departmentId: departmentId,
+        industryId: communityId,
+        salaryId: salaryRangeId,
+        jobTypeId: jobTypeId
       );
+
       final BaseModel result = await _employeeProfileService.updateEmployeeProfileDetails(
         data: updateData,
         profileFile: state.profileFile,
         resumeFile: state.resumeFile,
       );
-      final EmployeeUserModel profileData = EmployeeUserModel.fromJson(result.data);
-      // ref.read(drawerProfileProvider.notifier).updateProfileData(profileData);
       ref.refresh(employeeProfileProvider);
 
-      showSnackBar(result.message, duration: 2);
+      // showSnackBar(result.message, duration: 2);
       Navigator.pop(context);
     } catch (e) {
       state = state.copyWith(pageState: PageState.error);
@@ -290,18 +351,7 @@ class EditEmployeeProfileController
     state = state.copyWith(profileData: updatedProfile);
   }
 
-  void updateJobType(String jobType) {
-    final updatedProfile = state.profileData?.copyWith(jobType: jobType);
-    state = state.copyWith(profileData: updatedProfile);
-  }
-  void updateSalary(String salary) {
-    final updatedProfile = state.profileData?.copyWith(salaryRange: salary);
-    state = state.copyWith(profileData: updatedProfile);
-  }
-  // void updateSalary(String salary) {
-  //   final updatedProfile = state.profileData?.copyWith(salaryRange: salary);
-  //   state = state.copyWith(profileData: updatedProfile);
-  // }
+
 
   // Get selected skills directly from the model
   List<String> get selectedSkills => state.profileData?.skills ?? [];
@@ -395,33 +445,6 @@ class EditEmployeeProfileController
     )..removeAt(index);
 
     state = state.copyWith(educationEntries: newList);
-  }
-  /// Validate all form fields before adding or updating
-  bool _validateEducationEntries() {
-    for (final entry in state.educationEntries!) {
-      if (entry.degreeController.text.isEmpty ||
-          entry.institutionController.text.isEmpty ||
-          entry.graduationYearController.text.isEmpty) {
-        debugPrint("Validation failed: Some fields are empty");
-        showSnackBar("Some fields are empty in  education details .");
-        return false;
-      }
-    }
-    return true;
-  }
-  /// Validate all work experience form fields before adding or updating
-  bool _validateWorkExpEntries() {
-    for (final entry in state.workExpEntries ?? []) {
-      if (entry.companyController.text.isEmpty ||
-          entry.positionController.text.isEmpty ||
-          entry.startDateController.text.isEmpty ||
-          entry.endDateController.text.isEmpty ) {
-        debugPrint("Validation failed: Some fields are empty in work experience details");
-        showSnackBar("Some fields are empty in work experience details.");
-        return false;
-      }
-    }
-    return true;
   }
 
   void addWorkExpEntry(BuildContext context) {
@@ -564,11 +587,15 @@ class EditEmployeeProfileController
 
   }
 
-  void updateSelectedState(String stateName) {
-    stateController.text = stateName;
+  void updateSelectedState(String stateName,{bool clearCity = true,String? cityName}) {
+
 
     // ✅ Clear city text
-    cityController.text = "";
+    if (clearCity) {
+      stateController.clear();
+      cityController.clear();
+      stateController.text = stateName;
+    }
 
     // find this state model
     final selectedStateModel = state.states?.firstWhere(
@@ -584,8 +611,11 @@ class EditEmployeeProfileController
     // ✅ Update state AND clear form validation for city field
     state = state.copyWith(filteredCities: filtered);
 
+
     // ✅ Optional: trigger form revalidation
-    locationFormKey.currentState?.validate();
+   if(clearCity) locationFormKey.currentState?.validate();
+    if(!clearCity)cityController.text = cityName ?? "";
+
   }
 
 
@@ -594,6 +624,7 @@ class EditEmployeeProfileController
   // Add section form keys
   final basicInfoFormKey = GlobalKey<FormState>();
   final locationFormKey = GlobalKey<FormState>();
+  final professionalFormKey = GlobalKey<FormState>();
   final skillFormKey = GlobalKey<FormState>();
   final educationFormKey = GlobalKey<FormState>();
   final workExpFormKey = GlobalKey<FormState>();
@@ -622,6 +653,12 @@ class EditEmployeeProfileController
       isValid = false;
       sectionErrors['location'] =
       'Please complete all required fields in Location Information';
+    }
+    // PROFESSIONAL INFO
+    if (professionalFormKey.currentState?.validate() != true) {
+      isValid = false;
+      sectionErrors['professional'] =
+      'Please complete all required fields in Professional Information';
     }
 
     // SKILLS

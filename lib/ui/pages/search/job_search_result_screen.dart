@@ -50,8 +50,8 @@ class _JobSearchResultScreenState extends ConsumerState<JobSearchResultScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(searchJobListProvider);
-    final categoryState = ref.watch(jobCategoryProvider);
     final controller = ref.read(searchJobListProvider.notifier);
+    final categoryState = ref.watch(jobCategoryProvider);
     final jobTypeState = ref.watch(jobTypesProvider);
     final industryState = ref.watch(friendlyIndustryProvider);
     final salaryTypeState = ref.watch(salaryRangeTypesProvider);

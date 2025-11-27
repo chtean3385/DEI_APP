@@ -22,8 +22,6 @@ class EditLocationInformation extends ConsumerWidget {
     final colorTheme = context.colors;
     final hasError = state.sectionErrors?.containsKey("location") ?? false;
 
-print("State.filteredCitiestate.filteredCities-->> ${state.filteredCities?.length}");
-
     return Card(
       elevation: 2,
       color: colorTheme.jobCardBgColor,
@@ -79,6 +77,7 @@ print("State.filteredCitiestate.filteredCities-->> ${state.filteredCities?.lengt
                  ),
                  gapH16(),
                  TransparentDropdownField(
+                   key: UniqueKey(),
                    isRequired: true,
                    hint: "Select your state",
                    label: "State",
@@ -95,7 +94,7 @@ print("State.filteredCitiestate.filteredCities-->> ${state.filteredCities?.lengt
                  ),
                  gapH16(),
                  TransparentDropdownField(
-                   key: ValueKey(controller.stateController.text), // ✅ ADD THIS - forces rebuild when state changes
+                   key: UniqueKey(),
                    isRequired: true,
                    fillColor: controller.stateController.text.isEmpty ||
                        (state.filteredCities?.isEmpty ?? true)
@@ -105,9 +104,8 @@ print("State.filteredCitiestate.filteredCities-->> ${state.filteredCities?.lengt
                    label: AppStrings.employerCity,
                    icon: Icons.location_city_outlined,
                    items: state.filteredCities?.map((e) => e.name).toList() ?? [],
-                   value: (state.filteredCities?.any((e) => e.name == controller.cityController.text) == true)
-                       ? controller.cityController.text
-                       : null, // ✅ This is correct
+                   value: controller.cityController.text, // ✅ This is correct
+
                    validator: AppValidators.fieldEmpty("city"),
                    onChanged: (value) {
                      if (value != null && value.isNotEmpty) {
@@ -115,38 +113,6 @@ print("State.filteredCitiestate.filteredCities-->> ${state.filteredCities?.lengt
                      }
                    },
                  ),
-                 // SelectCity(
-                 //   controller: controller.cityController,
-                 //   cityList: state.filteredCities?.map((e)=>e.name).toList() ?? [],
-                 //   readOnly: controller.stateController.text.isEmpty || (state.filteredCities?.isEmpty ?? true),
-                 // ),
-                 // TransparentDropdownField(
-                 //   isRequired: true,
-                 //   hint: "Select your city",
-                 //   label: "City",
-                 //   icon: Icons.location_city_outlined,
-                 //   items: state.cities?.map((e)=>e.name).toList() ?? [],
-                 //   value: controller.cityController.text,
-                 //   validator: AppValidators.fieldEmpty("City"),
-                 //   onChanged: (value) {
-                 //     controller.cityController.text = value ?? "";
-                 //   },
-                 // ),
-
-
-                 // gapH16(),
-                 // TransparentDropdownField(
-                 //   isRequired: true,
-                 //   hint: "Select your country",
-                 //   label: "Country",
-                 //   icon: Icons.public_outlined,
-                 //   items: state.countries?.map((e)=>e.name).toList() ?? [],
-                 //   value: controller.countryController.text,
-                 //   validator: AppValidators.fieldEmpty("Country"),
-                 //   onChanged: (value) {
-                 //     controller.countryController.text = value ?? "";
-                 //   },
-                 // ),
 
 
                  gapH16(),

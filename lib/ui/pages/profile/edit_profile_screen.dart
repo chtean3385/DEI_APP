@@ -8,6 +8,7 @@ import 'edit_profile_components/edit_basic_information.dart';
 import 'edit_profile_components/edit_education_info.dart';
 import 'edit_profile_components/edit_job_preference_info.dart';
 import 'edit_profile_components/edit_location_information.dart';
+import 'edit_profile_components/edit_profesional_information.dart';
 import 'edit_profile_components/edit_profile_action_button.dart';
 import 'edit_profile_components/edit_resume.dart';
 import 'edit_profile_components/edit_skill_info.dart';
@@ -54,6 +55,8 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                     EditBasicInformation(),
                     gapH16(),
                     EditLocationInformation(),
+                    gapH16(),
+                    EditProfessionalInformation(),
                     gapH16(),
                     EditSkillInformation(),
                     gapH16(),

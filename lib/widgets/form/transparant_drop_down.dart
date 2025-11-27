@@ -38,12 +38,6 @@ class TransparentDropdownField extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colorTheme = context.colors;
-// Normalize current value (case-insensitive)
-    final normalizedValue = items.firstWhere(
-          (e) => e.toLowerCase() == value?.toLowerCase(),
-      orElse: () => '',
-    );
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -79,17 +73,7 @@ class TransparentDropdownField extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(right: 12),
             child: DropdownButtonFormField<String>(
-              value: (value != null && value?.trim().isNotEmpty == true)
-                  ? items.firstWhere(
-                    (e) => e.toLowerCase().trim() == value?.toLowerCase().trim(),
-                orElse: () => '', // return empty string
-              ).isEmpty
-                  ? null // if not found, return null so dropdown shows hint
-                  : items.firstWhere(
-                    (e) => e.toLowerCase().trim() == value?.toLowerCase().trim(),
-              )
-                  : null,
-
+              value: _getValidValue(value, items),
               validator: validator,
               isExpanded: true,
 
@@ -174,4 +158,15 @@ class TransparentDropdownField extends StatelessWidget {
       ],
     );
   }
+}
+String? _getValidValue(String? value, List<String> items) {
+  if (value == null || value.trim().isEmpty) return null;
+
+  // Find the first item that matches value ignoring case & spaces
+  final match = items.firstWhere(
+        (e) => e.toLowerCase().trim() == value.toLowerCase().trim(),
+    orElse: () => '',
+  );
+
+  return match.isEmpty ? null : match;
 }

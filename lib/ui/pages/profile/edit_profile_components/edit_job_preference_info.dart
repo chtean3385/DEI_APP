@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_theme.dart';
+import 'package:dei_champions/models/job/salary_range_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_styles.dart';
@@ -16,9 +17,12 @@ class EditJobPreferenceInfo extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(editEmployeeProfileProvider);
     final jobTypeState = ref.watch(jobTypesProvider);
+    final salaryTypeState = ref.watch(salaryRangeTypesProvider);
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final colorTheme = context.colors;
     final hasError = state.sectionErrors?.containsKey("jobPref") ?? false;
+    final salaryRangeList = salaryTypeState.data ?? [];
+    final jobTypeList = jobTypeState.data ?? [];
 
 
 
@@ -56,49 +60,57 @@ class EditJobPreferenceInfo extends ConsumerWidget {
                  children: [
                    jobTypeState.pageState == PageState.loading
                        ? const Center(child: CircularProgressIndicator())
-                       : TransparentDropdownField(
+                       :  TransparentDropdownField(
                      label: "Job Type",
                      hint: "Preferred job type",
                      icon: Icons.work_outline,
-                     // lowercase names for the dropdown list
-                     items: jobTypeState.data
-                         ?.where((type) => type.name != null && type.id != null)
-                         .map((type) => type.name!.toLowerCase())
-                         .toList() ??
-                         [],
-                     // find selected job name (based on ID) and make it lowercase
-
-                     value: (state.profileData?.preferences?.jobTypes?.isNotEmpty ?? false)
-                         ? jobTypeState.data
-                         ?.firstWhere(
-                           (type) => type.id == state.profileData?.preferences?.jobTypes?.first,
-                       orElse: () => JobTypeModel(),
-                     )
-                         .name
-                         ?.toLowerCase()
+                     items: jobTypeList.map((e) => e.name ?? "").toList(),
+                     value: controller.preferredJobTypeController.text.isNotEmpty
+                         ? controller.preferredJobTypeController.text
                          : null,
+                     onChanged: (value) {
+                       if (value == null) return;
 
-                     onChanged: (selectedName) {
-                       // find the job type by lowercase name
-                       final selectedType = jobTypeState.data?.firstWhere(
-                             (type) => type.name?.toLowerCase() == selectedName?.toString().toLowerCase(),
+                       final selectedJobType = jobTypeList.firstWhere(
+                             (d) =>
+                         (d.name ?? "").trim().toLowerCase() ==
+                             value.trim().toLowerCase(),
                          orElse: () => JobTypeModel(),
                        );
 
-                       // store only the ID
-                       controller.updateJobType(selectedType?.id ?? '');
+
+                       // Prevent crash
+                       if (selectedJobType.id?.isEmpty == true) return;
+
+                       controller.jobTypeId = selectedJobType.id;
+                       controller.preferredJobTypeController.text = selectedJobType.name ?? "";
                      },
                    ),
-
                    gapH16(),
                    TransparentDropdownField(
                      label: "Salary",
                      hint: "Salary Expectation",
                      icon: Icons.currency_rupee,
-                     items: ["10-20 lac", "20-30 lac", "30-40 lac", "40-50 lac"],
-                     value: state.profileData?.preferences?.salaryRange?.range,
+                     items: salaryRangeList.map((e) => e.name ?? "").toList(),
+                     value: controller.preferredSalaryController.text.isNotEmpty
+                         ? controller.preferredSalaryController.text
+                         : null,
                      onChanged: (value) {
-                       controller.updateSalary( value.toString());
+                       if (value == null) return;
+
+                       final selectedSal = salaryRangeList.firstWhere(
+                             (d) =>
+                         (d.name ?? "").trim().toLowerCase() ==
+                             value.trim().toLowerCase(),
+                         orElse: () => SalaryRangeModel(),
+                       );
+
+
+                       // Prevent crash
+                       if (selectedSal.id?.isEmpty == true) return;
+
+                       controller.salaryRangeId = selectedSal.id;
+                       controller.preferredSalaryController.text = selectedSal.name ?? "";
                      },
                    ),
                    gapH16(),

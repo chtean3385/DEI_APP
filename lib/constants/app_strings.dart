@@ -278,4 +278,24 @@ class AppStrings {
   ];
 
   static const somethingWentWrong = "Something went wrong";
+
+  static const noticePeriodOptions = [
+    {"value": "immediate", "label": "Immediate"},
+    {"value": "15-days", "label": "15 Days"},
+    {"value": "30-days", "label": "30 Days"},
+    {"value": "60-days", "label": "60 Days"},
+    {"value": "90-days", "label": "90 Days"},
+    {"value": "more-than-90-days", "label": "More than 90 Days"},
+  ];
+
+  static const totalExperienceOptions = [
+    {"value": "0-1", "label": "0-1 years"},
+    {"value": "1-3", "label": "1-3 years"},
+    {"value": "3-5", "label": "3-5 years"},
+    {"value": "5-8", "label": "5-8 years"},
+    {"value": "8-10", "label": "8-10 years"},
+    {"value": "10-15", "label": "10-15 years"},
+    {"value": "15+", "label": "15+ years"},
+  ];
+
 }
