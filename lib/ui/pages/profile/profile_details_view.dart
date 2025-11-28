@@ -22,6 +22,7 @@ class ProfileDetailsView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(employeeProfileProvider);
+    final stateCityList = ref.watch(stateListProvider);
     return SafeArea(
       child: state.pageState == PageState.error
           ? SomethingWentWrong()

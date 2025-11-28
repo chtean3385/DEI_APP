@@ -41,6 +41,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../constants/enums.dart';
 import '../models/state_models/applied/applied_job_state.dart';
 import '../models/state_models/auth_state.dart';
+import '../models/state_models/common/country_city_state.dart';
 import '../models/state_models/dash_board/dash_board_state.dart';
 import '../models/state_models/disability/disability_bottom_state.dart';
 import '../models/state_models/disability/disability_inclusion_steps_state.dart';
@@ -94,6 +95,7 @@ import 'controllers/common/csr/csr_impact_stories_section_controller.dart';
 import 'controllers/common/html_page_data_list_controller.dart';
 import 'controllers/common/lets_connect_controller.dart';
 import 'controllers/common/price_plan_controller.dart';
+import 'controllers/common/state_city_controller.dart';
 import 'controllers/dash_board/dash_board_controller.dart';
 import 'controllers/disability/disability_bottom_section_controller.dart';
 import 'controllers/disability/disability_inclusion_setps_controller.dart';
@@ -202,11 +204,19 @@ final dashBoardProvider =
 
 ///job categories
 final jobCategoryProvider =
-    StateNotifierProvider.autoDispose<JobCategoryController, JobCategoryState>((
+    StateNotifierProvider<JobCategoryController, JobCategoryState>((
       ref,
     ) {
       return JobCategoryController(ref);
     });
+
+///country state city data
+final stateListProvider =
+StateNotifierProvider<StateCityController, CountryCityState>((
+    ref,
+    ) {
+  return StateCityController(ref);
+});
 
 ///featured employers
 final featuredEmployersProvider =
@@ -219,7 +229,7 @@ final featuredEmployersProvider =
 
 ///friendly industries
 final friendlyIndustryProvider =
-    StateNotifierProvider.autoDispose<
+    StateNotifierProvider<
       FriendlyIndustryController,
       FriendlyIndustryState
     >((ref) {
@@ -598,7 +608,7 @@ final editEmployeeProfileProvider =
 
 ///job types
 final jobTypesProvider =
-    StateNotifierProvider.autoDispose<JobTypesController, JobTypeListState>((
+    StateNotifierProvider<JobTypesController, JobTypeListState>((
       ref,
     ) {
       return JobTypesController(ref);
@@ -606,7 +616,7 @@ final jobTypesProvider =
 
 ///job salary range types
 final salaryRangeTypesProvider =
-    StateNotifierProvider.autoDispose<
+    StateNotifierProvider<
       SalaryRangeTypesController,
       SalaryRangeListState
     >((ref) {

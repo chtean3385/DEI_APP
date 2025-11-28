@@ -130,7 +130,6 @@ class CommonService {
       'interest': interest,
       'query': query,
     };
-    print("bodybodybody-->> ${body.toString()}");
     final result = await _apiHandler.post(url: ApiUrls.contactUs, body: body, includeAuthToken: false,);
     if (result is Map<String, dynamic>) {
       final base = BaseModel.fromJson(result);
@@ -143,6 +142,21 @@ class CommonService {
       throw Exception('Invalid response format');
     }
   }
+  Future<BaseModel> getStateCityData() async {
+    String url = await ApiUrls.countryList;
+    final result = await _apiHandler.get(url: url);
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
+
   final apiData = {
     "success": true,
     "data": [

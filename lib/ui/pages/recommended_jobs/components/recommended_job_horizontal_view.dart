@@ -21,7 +21,8 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
     final state = ref.watch(recommendedJobListProvider);
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
-      return _shimmerLoader();
+      return SizedBox.shrink();
+      // return _shimmerLoader();
     } else if (state.pageState == PageState.error) {
       return SizedBox.shrink();
     } else if (state.data?.isEmpty == true) {

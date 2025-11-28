@@ -567,21 +567,17 @@ class EditEmployeeProfileController
    final positions = await _jsonService.loadPositions();
    state = state.copyWith(positions: positions);
   }
-  Future<void> fetchCountries() async {
-    final countries = await _jsonService.loadCountries();
-    state = state.copyWith(countries: countries);
-  }
   Future<void> fetchCityState() async {
-    final stateCities = await _jsonService.loadCityState();
+    final stateCities = ref.watch(stateListProvider).states;
     final states = stateCities;
     // sort states by name
-    stateCities.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+    stateCities?.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
     // expand all cities into 1 list
     final allCities = stateCities
-        .expand((s) => s.cities)
+        ?.expand((s) => s.cities)
         .toList()
-      ..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase())); // 🔥 sort alphabetically
+      ?..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase())); // 🔥 sort alphabetically
 
     state = state.copyWith(cities: allCities,states: states);
 
@@ -708,6 +704,8 @@ class EditEmployeeProfileController
     sectionErrors.remove(section);
     state = state.copyWith();
   }
+
+
 
 
 
