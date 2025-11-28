@@ -37,7 +37,7 @@ class LetsConnectScreen extends StatelessWidget {
               onTap: isLoading
                   ? null
                   : () async {
-                await ref.read(letsConnectProvider.notifier).updateEmployeeProfileDetails(context);
+                await ref.read(letsConnectProvider.notifier).sendLetsConnectRequest(context);
               },
               isLoading: isLoading,
               padding: isLoading

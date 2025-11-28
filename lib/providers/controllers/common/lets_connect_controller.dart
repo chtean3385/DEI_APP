@@ -1,3 +1,5 @@
+import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/constants/app_strings.dart';
 import 'package:dei_champions/service/common/common_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,8 +13,7 @@ class LetsConnectController extends StateNotifier<PageState> {
 
   LetsConnectController(this.ref) : super(PageState.initial) {}
 
-  final CommonService _service =
-  CommonService();
+  final CommonService _service = CommonService();
   final formKey = GlobalKey<FormState>();
   final stateFocus = FocusNode();
   final cityFocus = FocusNode();
@@ -43,17 +44,11 @@ class LetsConnectController extends StateNotifier<PageState> {
   }
 
   /// 🔹 Call this to update chef details
-  Future<void> updateEmployeeProfileDetails(
-    BuildContext context, {
-    bool isFromCommonEdit = true,
-  }) async {
-    if (isFromCommonEdit) {
-      if (!(formKey.currentState?.validate() ?? false)) {
-        showSnackBar("Please fill all required fields");
-        return;
-      }
+  Future<void> sendLetsConnectRequest(BuildContext context) async {
+    if (!(formKey.currentState?.validate() ?? false)) {
+      showSnackBar("Please fill all required fields");
+      return;
     }
-
     state = PageState.loading;
     print('--- LetsConnectController stattteee ---');
     print('firstNameController: ${firstNameController.text}');
@@ -64,32 +59,34 @@ class LetsConnectController extends StateNotifier<PageState> {
     print('Mobile: ${mobileController.text}');
     print('Description: ${descriptionController.text}');
     print('interestController: ${interestController.text}');
+    final matchedInterestValue =
+        AppStrings.inquiryOptions.firstWhere(
+              (e) =>
+                  e["label"]?.toLowerCase() ==
+                  interestController.text.toLowerCase(),
+              orElse: () => {"value": ""}, // fallback!
+            )["value"]
+            as String;
+
     try {
-      await Future.delayed(Duration(seconds: 2));
-      // final updateData = EmployeeUserModel(
-      //   name: nameController.text.trim(),
-      //   email: emailController.text.trim(),
-      //   mobile: mobileController.text.trim(),
-      //   dateOfBirth: dobController.text.trim(),
-      //   employeeDescription: descriptionController.text.trim(),
-      //   gender: state.profileData?.gender,
-      //   // assuming selected via dropdown
-      //   workStatus: state.profileData?.workStatus,
-      //   jobType: state.profileData?.jobType,
-      //   department: state.profileData?.department,
-      //   // keep existing if not changed
-      //   category: state.profileData?.category,
-      //   salaryRange: state.profileData?.salaryRange,
-      //   preferredLocations: state.profileData?.preferredLocations,
-      //   skills: state.profileData?.skills,
-      // );
-      // final BaseModel result = await _service
-      //     .letsConnect(
-      //
-      //     );
-      // showSnackBar(result.message, duration: 2);
+      final BaseModel result = await _service.letsConnect(
+        email: emailController.text,
+        phone: mobileController.text,
+        firstName: firstNameController.text,
+        lastName: lastNameController.text,
+        designation: designationController.text,
+        organisation: organisationController.text,
+        query: descriptionController.text,
+        interest: matchedInterestValue,
+      );
       state = PageState.success;
-      Navigator.pop(context);
+
+      /// 🔥 Show custom success popup
+      _showAutoCloseSuccessDialog(
+        context,
+        result.message ??
+            "Your contact request has been submitted successfully!",
+      );
     } catch (e) {
       state = PageState.error;
       showSnackBar(e.toString());
@@ -97,5 +94,43 @@ class LetsConnectController extends StateNotifier<PageState> {
       debugPrint(e.toString());
     }
   }
+}
 
+void _showAutoCloseSuccessDialog(BuildContext context, String message) {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (_) => Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.check_circle, color: Colors.green, size: 60),
+            const SizedBox(height: 12),
+            Text(
+              "Success",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+
+            const SizedBox(height: 8),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
+            ),
+
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    ),
+  );
+
+  /// ⏳ Close automatically after 4 seconds and go to Home screen
+  Future.delayed(const Duration(seconds: 4), () {
+    Navigator.pop(context); // close dialog
+    AppNavigator.toBottomBar();
+  });
 }

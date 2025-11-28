@@ -297,5 +297,13 @@ class AppStrings {
     {"value": "10-15", "label": "10-15 years"},
     {"value": "15+", "label": "15+ years"},
   ];
+  static const inquiryOptions = [
+    {"value": "", "label": "Select from the list"},
+    {"value": "partnership", "label": "Partnership"},
+    {"value": "career", "label": "Career Opportunity"},
+    {"value": "project", "label": "Project Discussion"},
+    {"value": "general", "label": "General Inquiry"},
+    {"value": "support", "label": "Technical Support"},
+  ];
 
 }

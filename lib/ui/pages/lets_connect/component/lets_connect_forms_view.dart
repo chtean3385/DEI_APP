@@ -70,7 +70,7 @@ class LetsConnectFormView extends ConsumerWidget {
               label: "First name",
               icon: Icons.person_outline,
               textInputAction: TextInputAction.next,
-              validator: AppValidators.fieldEmpty("First name"),
+              validator: AppValidators.letsConnectFieldEmpty("First name"),
               textCapitalization: TextCapitalization.words,
             ),
             gapH16(),
@@ -81,7 +81,7 @@ class LetsConnectFormView extends ConsumerWidget {
               label: "Last name",
               icon: Icons.person_outline,
               textInputAction: TextInputAction.next,
-              validator: AppValidators.fieldEmpty("Last name"),
+              validator: AppValidators.letsConnectFieldEmpty("Last name"),
               textCapitalization: TextCapitalization.words,
             ),
             gapH16(),
@@ -90,13 +90,7 @@ class LetsConnectFormView extends ConsumerWidget {
               label: "Share your interest for getting in touch ",
               hint: "Select from the list",
               icon: Icons.work_outline,
-              items: [
-                "Partnership",
-                "Career Opportunity",
-                "Project Discussion",
-                "General Inquiry",
-                "Technical Support",
-              ],
+              items: AppStrings.inquiryOptions.map((e) => e["label"] as String).toList(),
               value: controller.interestController.text,
               validator: AppValidators.dropDownFieldEmpty("your interest"),
               onChanged: (value) {
@@ -111,7 +105,7 @@ class LetsConnectFormView extends ConsumerWidget {
               label: "Name of Organisation / Company",
               icon: Icons.business_outlined,
               textInputAction: TextInputAction.next,
-              validator: AppValidators.fieldEmpty("name of Organisation / Company"),
+              validator: AppValidators.letsConnectFieldEmpty("Organisation"),
               textCapitalization: TextCapitalization.words,
             ),
 
@@ -123,7 +117,7 @@ class LetsConnectFormView extends ConsumerWidget {
               label: "Designation",
               icon: Icons.business_outlined,
               textInputAction: TextInputAction.next,
-              validator: AppValidators.fieldEmpty("Your Designation"),
+              validator: AppValidators.letsConnectFieldEmpty("Designation"),
               textCapitalization: TextCapitalization.words,
             ),
 
@@ -141,15 +135,6 @@ class LetsConnectFormView extends ConsumerWidget {
               maxLength: 10,
             ),
             gapH16(),
-            // TransparentFormField(
-            //   isRequired: true,
-            //   controller: controller.emailController,
-            //   hint: "your.email@company.com",
-            //   label: "Official E-mail",
-            //   icon: Icons.email_outlined,
-            // ),
-            // Email Field
-
             TransparentFormField(
               controller: controller.emailController,
               hint: "your.email@company.com",
@@ -166,7 +151,7 @@ class LetsConnectFormView extends ConsumerWidget {
               hint: "Your message",
               label: "Query",
               textInputAction: TextInputAction.next,
-              validator: AppValidators.fieldEmpty("Your message"),
+              validator: AppValidators.letsConnectFieldEmpty("Query"),
               textCapitalization: TextCapitalization.words,
               minLines: 3,
               maxLength: 250,

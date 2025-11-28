@@ -109,10 +109,29 @@ class CommonService {
       throw Exception('Invalid response format');
     }
   }
-
-  Future<BaseModel> letsConnect() async {
-    String url = await ApiUrls.employeeOurTeam;
-    final result = await _apiHandler.get(url: url);
+  Future<BaseModel> letsConnect({
+    required String firstName,
+    required String lastName,
+    required String organisation,
+    required String designation,
+    required String phone,
+    required String interest,
+    required String email,
+    required String query,
+  }) async {
+    final body = {
+      'firstName': firstName,
+      'lastName': lastName,
+      'organisation': organisation,
+      'designation': designation,
+      'phone': phone,
+      'captcha': true,
+      'email': email,
+      'interest': interest,
+      'query': query,
+    };
+    print("bodybodybody-->> ${body.toString()}");
+    final result = await _apiHandler.post(url: ApiUrls.contactUs, body: body, includeAuthToken: false,);
     if (result is Map<String, dynamic>) {
       final base = BaseModel.fromJson(result);
       if (base.isSuccess) {

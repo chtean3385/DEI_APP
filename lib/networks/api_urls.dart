@@ -103,6 +103,9 @@ class ApiUrls {
   static String updateEmployeeProfileDetails = 'users/update-profile-with-resume';
   static String employeeProfilePercentage = 'users/profile/percentage';
 
+  // contact us
+  static String contactUs = 'contact/add';
+
 
 // common
   static String commonFooterPageData = 'footer-page/get-all';

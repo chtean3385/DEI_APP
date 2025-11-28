@@ -15,6 +15,23 @@ class AppValidators {
       return null;
     };
   }
+  static FormFieldValidator<String> letsConnectFieldEmpty(String fieldName) {
+    return (value) {
+      if (value == null || value.isEmpty) {
+        return 'Please enter ${fieldName.toLowerCase()}';
+      }
+      if (fieldName.toLowerCase() == "query") {
+        if (value.trim().length < 10) {
+          return '${fieldName} must be at least 10 characters';
+        }
+      } else{
+        if (value.trim().length < 2) {
+          return '${fieldName} must be at least 2 characters';
+        }
+      }
+      return null;
+    };
+  }
   static FormFieldValidator<String> dropDownFieldEmpty(String fieldName) {
     return (value) {
       if (value == null || value.isEmpty) {
