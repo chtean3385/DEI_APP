@@ -74,6 +74,7 @@ import '../models/state_models/otp_state.dart';
 import '../models/state_models/out_teeam/our_team_state.dart';
 import '../models/state_models/profile/employee_profile_state.dart';
 import '../models/state_models/register_state.dart';
+import '../models/state_models/settings/employee_settings_state.dart';
 import '../models/state_models/signup_flow_state.dart';
 import '../models/state_models/veteran/veteran_advantag_state.dart';
 import '../models/state_models/veteran/veteran_future_state.dart';
@@ -134,6 +135,7 @@ import 'controllers/our_team/our_team_controller.dart';
 import 'controllers/profile/edit_profile_controller.dart';
 import 'controllers/profile/employee_profile_completion_controller.dart';
 import 'controllers/profile/employee_profile_controller.dart';
+import 'controllers/settings/employee_settings_controller.dart';
 import 'controllers/veteran/veteran_advantage_controller.dart';
 import 'controllers/veteran/veteran_organizational_gorwth_controller.dart';
 import 'controllers/veteran/veteran_quote_section_controller.dart';
@@ -622,6 +624,15 @@ final salaryRangeTypesProvider =
     >((ref) {
       return SalaryRangeTypesController(ref);
     });
+
+///job salary range types
+final employeeSettingsProvider =
+StateNotifierProvider<
+    EmployeeSettingsController,
+    EmployeeSettingsState
+>((ref) {
+  return EmployeeSettingsController(ref);
+});
 
 /// applied jobs
 final appliedJobsProvider =

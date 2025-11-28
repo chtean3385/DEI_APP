@@ -4,6 +4,7 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../providers/providers.dart';
 import '../../../providers/theme_controller.dart';
 import '../../../repo/shared_preference_repository.dart';
 import 'components/button_color_dialog.dart';
@@ -21,6 +22,7 @@ class SettingsBody extends ConsumerWidget {
     final themeMode = ref.watch(themeNotifierProvider);
     final themeController = ref.read(themeNotifierProvider.notifier);
 
+    final userSettings = ref.watch(employeeSettingsProvider);
     final settings = ref.watch(userSettingsProvider);
     final settingsCtrl = ref.read(userSettingsProvider.notifier);
 
