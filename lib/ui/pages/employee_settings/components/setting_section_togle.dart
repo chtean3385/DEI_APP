@@ -29,11 +29,12 @@ class SettingToggle extends StatelessWidget {
       shadowColor: themeColor.buttonPrimaryColor,
       surfaceTintColor: themeColor.buttonPrimaryColor,
       clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.only(bottom: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: ListTile(
         leading: Icon(icon, color: themeColor.buttonPrimaryColor,size: 25,),
         title: Text(title, style:  context.textTheme.labelMedium?.copyWith(height: 2)),
-        subtitle: Text(subtitle, style: context.textTheme.bodyMedium?.copyWith(color: themeColor.black54,height: 1.2)),
+        subtitle: Text(subtitle, style: context.textTheme.bodyMedium?.copyWith(color: themeColor.black54,height: 1,fontSize: 13)),
         trailing: SwitchTheme(
           data: SwitchThemeData(
             trackOutlineColor: MaterialStateProperty.resolveWith((states) {
@@ -93,11 +94,7 @@ class SettingArrow extends StatelessWidget {
           title,
           style: context.textTheme.labelMedium?.copyWith(height: 2),
         ),
-        subtitle: Text(
-          subtitle,
-          style:
-          context.textTheme.bodyMedium?.copyWith(color: themeColor.black54, height: 1.2),
-        ),
+        subtitle: Text(subtitle, style: context.textTheme.bodyMedium?.copyWith(color: themeColor.black54,height: 1,fontSize: 13)),
         trailing:  Icon(Icons.arrow_forward_ios, size: 20,color: themeColor.buttonPrimaryColor,),
       ),
     );

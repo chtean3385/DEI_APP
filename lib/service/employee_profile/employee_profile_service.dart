@@ -6,6 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../models/common/base_model.dart';
+import '../../models/settings/employee_settings_model.dart';
 import '../../networks/api_handler.dart';
 import '../../networks/api_urls.dart';
 
@@ -113,4 +114,36 @@ class EmployeeProfileService {
       throw Exception('Invalid response format');
     }
   }
+  Future<BaseModel> updateUserSettings({
+    required String privacyMode,
+    required bool notifications,
+    required bool smsAlerts,
+    required EmailAlertsModel emailAlerts,
+  }) async {
+    final body = {
+      'privacyMode': privacyMode,          // "private" | "selective"
+      'notifications': notifications,      // true | false
+      'smsAlerts': smsAlerts,              // true | false
+      'emailAlerts': emailAlerts.toJson(), // nested model
+    };
+
+    final result = await _apiHandler.post(
+      url: ApiUrls.updateUserSettings,
+      body: body,
+      includeAuthToken: true,
+    );
+
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
+
 }

@@ -29,6 +29,20 @@ class EmployeeSettingsModel {
       'emailAlerts': emailAlerts.toJson(),
     };
   }
+  EmployeeSettingsModel copyWith({
+    String? privacyMode,
+    bool? notifications,
+    bool? smsAlerts,
+    EmailAlertsModel? emailAlerts,
+  }) {
+    return EmployeeSettingsModel(
+      privacyMode: privacyMode ?? this.privacyMode,
+      notifications: notifications ?? this.notifications,
+      smsAlerts: smsAlerts ?? this.smsAlerts,
+      emailAlerts: emailAlerts ?? this.emailAlerts,
+    );
+  }
+
 }
 
 class EmailAlertsModel {
@@ -62,15 +76,36 @@ class EmailAlertsModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'jobAlerts': jobAlerts,
-      'estimateAlerts': estimateAlerts,
-      'invoiceAlerts': invoiceAlerts,
-      'serviceAlerts': serviceAlerts,
-      'serviceExpiredAlerts': serviceExpiredAlerts,
-      'jobApplicationAlerts': jobApplicationAlerts,
-      'profileAlerts': profileAlerts,
-    };
+  Map<String, dynamic> toJson() => {
+    "jobAlerts": jobAlerts,
+    "estimateAlerts": estimateAlerts,
+    "invoiceAlerts": invoiceAlerts,
+    "serviceAlerts": serviceAlerts,
+    "serviceExpiredAlerts": serviceExpiredAlerts,
+    "jobApplicationAlerts": jobApplicationAlerts,
+    "profileAlerts": profileAlerts,
+  };
+
+  EmailAlertsModel copyWith({
+    bool? jobAlerts,
+    bool? estimateAlerts,
+    bool? invoiceAlerts,
+    bool? serviceAlerts,
+    bool? serviceExpiredAlerts,
+    bool? jobApplicationAlerts,
+    bool? profileAlerts,
+  }) {
+    return EmailAlertsModel(
+      jobAlerts: jobAlerts ?? this.jobAlerts,
+      estimateAlerts: estimateAlerts ?? this.estimateAlerts,
+      invoiceAlerts: invoiceAlerts ?? this.invoiceAlerts,
+      serviceAlerts: serviceAlerts ?? this.serviceAlerts,
+      serviceExpiredAlerts: serviceExpiredAlerts ?? this.serviceExpiredAlerts,
+      jobApplicationAlerts:
+      jobApplicationAlerts ?? this.jobApplicationAlerts,
+      profileAlerts: profileAlerts ?? this.profileAlerts,
+    );
   }
+
 }
+

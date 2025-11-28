@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../../providers/theme_controller.dart';
 
 void showAccountDeleteOptionsSheet(BuildContext context) {
   showModalBottomSheet(
@@ -18,8 +17,7 @@ void showAccountDeleteOptionsSheet(BuildContext context) {
     builder: (BuildContext context) {
       return Consumer(
         builder: (context, ref, _) {
-          final settings = ref.watch(userSettingsProvider);
-          final settingsCtrl = ref.read(userSettingsProvider.notifier);
+
           return SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(24.0),

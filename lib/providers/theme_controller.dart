@@ -90,33 +90,3 @@ class UserSettingsModel {
   }
 }
 
-// -----------------------------------------------------
-// CONTROLLER
-// -----------------------------------------------------
-class UserSettingsController extends Notifier<UserSettingsModel> {
-  @override
-  UserSettingsModel build() => const UserSettingsModel();
-
-  void toggleNotifications(bool val) {
-    state = state.copyWith(notifications: val);
-  }
-
-  void toggleEmail(bool val) {
-    state = state.copyWith(emailAlert: val);
-  }
-
-  void toggleSMS(bool val) {
-    state = state.copyWith(smsAlert: val);
-  }
-
-  void setButtonColor(Color color) {
-    state = state.copyWith(buttonColor: color);
-  }
-  void setProfileMode(String newValue) {
-    state = state.copyWith(profileMode: newValue);
-  }
-}
-
-final userSettingsProvider =
-NotifierProvider<UserSettingsController, UserSettingsModel>(
-    UserSettingsController.new);

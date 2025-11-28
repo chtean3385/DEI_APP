@@ -627,7 +627,7 @@ final salaryRangeTypesProvider =
 
 ///job salary range types
 final employeeSettingsProvider =
-StateNotifierProvider<
+StateNotifierProvider.autoDispose<
     EmployeeSettingsController,
     EmployeeSettingsState
 >((ref) {

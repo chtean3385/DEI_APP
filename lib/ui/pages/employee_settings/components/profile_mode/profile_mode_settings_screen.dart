@@ -1,23 +1,22 @@
 import 'dart:ui';
 
-import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
+import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/ui/pages/employee_settings/components/profile_mode/delete_deactivate_account_bottom_sheet.dart';
 import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../providers/theme_controller.dart';
 
 class ProfileModeSettingsScreen extends ConsumerWidget {
   const ProfileModeSettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final settings = ref.watch(userSettingsProvider);
-    final settingsCtrl = ref.read(userSettingsProvider.notifier);
+    final settingsState = ref.watch(employeeSettingsProvider);
+    final settingCtrl = ref.read(employeeSettingsProvider.notifier);
     return Scaffold(
       appBar: appBarCommon(title: "Profile Mode",titleStyleSmall: true),
       body: SingleChildScrollView(
@@ -26,35 +25,28 @@ class ProfileModeSettingsScreen extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _settingCard(
-              title: 'Immediately looking for a job',
+              title: 'Private Mode',
               subtitle:
-              'Your profile is visible to recruiters & they can reach out to you for job opportunities',
-              actions: const [
-                _SettingTile(true, 'Job recommendations (daily)'),
-                _SettingTile(true, 'Job status updates'),
-                _SettingTile(true, 'Notification when your profile is viewed'),
-                _SettingTile(true, 'Profile visible to recruiters'),
-                _SettingTile(true, 'Jobs & messages from recruiters'),
-                _SettingTile(true, 'Promotional mails'),
-              ],
-              isSelected: settings.profileMode == "immediate",
-              onTap: ()=>settingsCtrl.setProfileMode("immediate")
+              'Your diversity details stay hidden from all employers.',
+              isSelected: settingsState.privacyMode == "private",
+              onTap: ()=>settingCtrl.setPrivacyMode("private")
             ),
             const SizedBox(height: 20),
             _settingCard(
-              isSelected: settings.profileMode == "not_active",
-              onTap: ()=>settingsCtrl.setProfileMode("not_active"),
-              title: 'Not actively looking but open for job opportunities',
+              isSelected: settingsState.privacyMode == "selective",
+              onTap: ()=>settingCtrl.setPrivacyMode("selective"),
+              title: 'Selective',
               subtitle:
-              'Your profile is not visible to recruiters but you can still search and apply to jobs',
-              actions: const [
-                _SettingTile(true, 'Job recommendations (weekly)'),
-                _SettingTile(true, 'Job status updates'),
-                _SettingTile(true, 'Notification when your profile is viewed'),
-                _SettingTile(false, 'Profile visible to recruiters'),
-                _SettingTile(false, 'Jobs & messages from recruiters'),
-                _SettingTile(false, 'Promotional mails'),
-              ],
+              'Visible only to verified inclusive employers.',
+
+            ),
+            const SizedBox(height: 20),
+            _settingCard(
+              isSelected: settingsState.privacyMode == "public",
+              onTap: ()=>settingCtrl.setPrivacyMode("public"),
+              title: 'Public',
+              subtitle:
+              'Your diversity info is visible to all employers.',
 
             ),
             const SizedBox(height: 20),
@@ -94,7 +86,6 @@ class ProfileModeSettingsScreen extends ConsumerWidget {
     required String title,
     required String subtitle,
     required bool isSelected,
-    required List<Widget> actions,
     required VoidCallback onTap
   }) {
     final colorTheme = navigatorKey.currentContext!.colors;
@@ -106,71 +97,71 @@ class ProfileModeSettingsScreen extends ConsumerWidget {
         decoration: BoxDecoration(
           color: colorTheme.jobCardBgColor,
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: isSelected? colorTheme.black87: colorTheme.black12,width: isSelected ?1.5:1),
-        ),
-
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      title,
-                      style: theme.titleMedium,
-                    ),
-                  ),
-                  if (isSelected ==true)Icon(Icons.check_circle,color: Colors.green,),
-                ],
-              ),
-              const SizedBox(height: 6),
-              Text(
-                subtitle,
-                style:theme.bodyMedium?.copyWith(color: colorTheme.black54),
-              ),
-              const SizedBox(height: 8),
-              Column(children: actions),
+          border: Border.all(
+            color: isSelected
+                ? colorTheme.buttonPrimaryColor.withValues(alpha: .9)
+                : colorTheme.black12,
+            width: isSelected ? 1.5 : 1,
+          ),
+          gradient: isSelected
+              ? LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              colorTheme.buttonPrimaryColor.withValues(alpha: .05),
+              colorTheme.buttonPrimaryColor.withValues(alpha: .12),
+              colorTheme.buttonPrimaryColor.withValues(alpha: .18),
             ],
-          ),
+          )
+              : null,
         ),
-      ),
-    );
-  }
-}
-
-class _SettingTile extends StatelessWidget {
-  final bool enabled;
-  final String text;
-
-  const _SettingTile(this.enabled, this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    final colorTheme = context.colors;
-    final theme = context.textTheme;
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Icon(
-            enabled ? Icons.check_circle : Icons.cancel,
-            size: 16,
-            color: colorTheme.black54,
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              text,
-              style: theme.displaySmall?.copyWith(fontWeight: FontWeight.w600),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: 110),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Text(
+                        title,
+                        style: theme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.w600,
+                          color: isSelected
+                              ? colorTheme.buttonPrimaryColor
+                              : colorTheme.black54,
+                        ),
+                      ),
+                    ),
+                    if (isSelected)
+                      Icon(
+                        Icons.check_circle,
+                        color: Colors.green,
+                        size: 30,
+                      ),
+                  ],
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  subtitle,
+                  style: theme.bodyMedium?.copyWith(
+                    color: isSelected
+                        ? colorTheme.buttonPrimaryColor.withValues(alpha: .9)
+                        : colorTheme.black54,
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      )
+      ,
     );
   }
 }
+
