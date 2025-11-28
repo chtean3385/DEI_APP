@@ -134,6 +134,7 @@ class EditLocationInformation extends ConsumerWidget {
                      padding: const EdgeInsets.only(top: 20),
                      child: EditProfileActionButtons(
                        isFromCommonEdit: isFromCommonEdit,
+                       sectionName: "location",
                      ),
                    ),
                ],

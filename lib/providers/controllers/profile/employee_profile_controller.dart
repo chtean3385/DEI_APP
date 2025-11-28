@@ -34,11 +34,48 @@ class EmployeeProfileController extends StateNotifier<EmployeeProfileState> {
       final EmployeeUserModel userModel = await EmployeeUserModel.fromJson(
         result,
       );
+      // ------------------------------
+// CLEAN EMPTY EXPERIENCE OBJECT
+// ------------------------------
+      final rawExp = userModel.experience ?? [];
+
+      bool isEmptyExp(ExperienceModel e) =>
+          (e.companyName ?? '').isEmpty &&
+              (e.position ?? '').isEmpty &&
+              e.startDate == null &&
+              e.endDate == null &&
+              (e.description ?? '').isEmpty;
+
+      final List<ExperienceModel> cleanedExperience =
+      (rawExp.length == 1 && isEmptyExp(rawExp.first)) ? [] : rawExp;
+
+
+// ------------------------------
+// CLEAN EMPTY EDUCATION OBJECT
+// ------------------------------
+      final rawEdu = userModel.education ?? [];
+
+      bool isEmptyEdu(EducationModel e) =>
+          (e.degree ?? '').isEmpty &&
+              (e.institution ?? '').isEmpty &&
+              (e.graduationYear == null || e.graduationYear == 0);
+
+      final List<EducationModel> cleanedEducation =
+      (rawEdu.length == 1 && isEmptyEdu(rawEdu.first)) ? [] : rawEdu;
+
+
+// ------------------------------
+// FINAL CLEANED USER MODEL
+// ------------------------------
+      final fixedModel = userModel.copyWith(
+        experience: cleanedExperience,
+        education: cleanedEducation,
+      );
       ref.read(drawerProfileProvider.notifier).updateProfileData(userModel);
       ref.read(profileCompletionProvider.notifier).getEmployeeProfileCompletionData();
       state = state.copyWith(
         pageState: PageState.success,
-        profileData: userModel,
+        profileData: fixedModel,
       );
       debugPrint("success - getEmployeeProfileData");
     } catch (e) {

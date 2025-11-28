@@ -202,7 +202,10 @@ class EditResumeInformation extends ConsumerWidget {
                         alignment: Alignment.center,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 20),
-                          child: EditProfileActionButtons(isFromCommonEdit: isFromCommonEdit),
+                          child: EditProfileActionButtons(
+                              isFromCommonEdit: isFromCommonEdit,
+                          sectionName:"resume" ,
+                          ),
                         ),
                       ),
                   ],

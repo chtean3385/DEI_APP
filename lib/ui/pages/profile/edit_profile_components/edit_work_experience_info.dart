@@ -98,7 +98,10 @@ class EditWorkExpInformation extends ConsumerWidget {
                   gapH16(),
                   if(isFromCommonEdit!= true)  Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: EditProfileActionButtons(isFromCommonEdit: isFromCommonEdit),
+                    child: EditProfileActionButtons(
+                        isFromCommonEdit: isFromCommonEdit,
+                      sectionName: "work",
+                    ),
                   )
                 ],
               ),

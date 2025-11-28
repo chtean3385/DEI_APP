@@ -180,40 +180,99 @@ class EditEmployeeProfileController
 
     // Sample initial skill list
     final initialSkills = userData?.skills ?? [];
-    final List<ExperienceModel> workExperiences = userData?.experience ?? [];
-    final List<EducationModel> educationData = userData?.education ?? [];
-    // Generate corresponding controllers list
-    final workExpControllers =  (workExperiences.isEmpty) ?[WorkExperienceEntryControllers()] : workExperiences.map((exp) {
-      final controller = WorkExperienceEntryControllers();
-      controller.companyController.text = exp.companyName ?? '';
-      controller.positionController.text = exp.position ?? '';
-      controller.descriptionController.text = exp.description ?? '';
+   //  final List<ExperienceModel> workExperiences = userData?.experience ?? [];
+   //  final List<EducationModel> educationData = userData?.education ?? [];
+   //  // Generate corresponding controllers list
+   //  final workExpControllers =  (workExperiences.isEmpty) ?[WorkExperienceEntryControllers()] : workExperiences.map((exp) {
+   //    final controller = WorkExperienceEntryControllers();
+   //    controller.companyController.text = exp.companyName ?? '';
+   //    controller.positionController.text = exp.position ?? '';
+   //    controller.descriptionController.text = exp.description ?? '';
+   //
+   //    // Format the date to "MMM - yyyy" if needed
+   //    if (exp.startDate != null) {
+   //      controller.startDateController.text = DateFormat(
+   //        'dd-MM-yyyy',
+   //      ).format(exp.startDate!);
+   //    }
+   //
+   //    if (exp.endDate != null) {
+   //      controller.endDateController.text = DateFormat(
+   //        'dd-MM-yyyy',
+   //      ).format(exp.endDate!);
+   //    } else if (exp.isCurrentlyWorking == true) {
+   //      controller.endDateController.text = 'Present';
+   //    }
+   //
+   //    return controller;
+   //  }).toList();
+   //
+   //
+   // final educationControllers =  (educationData.isEmpty) ?[EducationEntryControllers()] : educationData.map((edu) {
+   //    final controller = EducationEntryControllers();
+   //    controller.degreeController.text = edu.degree ?? '';
+   //    controller.institutionController.text = edu.institution ?? '';
+   //    controller.graduationYearController.text =
+   //        edu.graduationYear?.toString() ?? '';
+   //    return controller;
+   //  }).toList();
 
-      // Format the date to "MMM - yyyy" if needed
-      if (exp.startDate != null) {
-        controller.startDateController.text = DateFormat(
-          'dd-MM-yyyy',
-        ).format(exp.startDate!);
-      }
+    // ---------- 2. CLEAN education ----------
+    final rawEdu = userData?.education ?? [];
 
-      if (exp.endDate != null) {
-        controller.endDateController.text = DateFormat(
-          'dd-MM-yyyy',
-        ).format(exp.endDate!);
-      } else if (exp.isCurrentlyWorking == true) {
-        controller.endDateController.text = 'Present';
-      }
+    bool isEmptyEdu(EducationModel e) =>
+        (e.degree == null || e.degree!.isEmpty) &&
+            (e.institution == null || e.institution!.isEmpty) &&
+            e.graduationYear == null;
+    final List<EducationModel> educationData =
+    (rawEdu.length == 1 && isEmptyEdu(rawEdu.first)) ? [] : rawEdu;
 
-      return controller;
-    }).toList();
-
-
-   final educationControllers =  (educationData.isEmpty) ?[EducationEntryControllers()] : educationData.map((edu) {
+    // Build controllers
+    final educationControllers = (educationData.isEmpty)
+        ? [EducationEntryControllers()]
+        : educationData.map((edu) {
       final controller = EducationEntryControllers();
       controller.degreeController.text = edu.degree ?? '';
       controller.institutionController.text = edu.institution ?? '';
       controller.graduationYearController.text =
           edu.graduationYear?.toString() ?? '';
+      return controller;
+    }).toList();
+
+    // ---------- 3. CLEAN experience ----------
+    final rawExp = userData?.experience ?? [];
+
+    bool isEmptyExp(ExperienceModel e) =>
+        (e.companyName == null || e.companyName!.isEmpty) &&
+            (e.position == null || e.position!.isEmpty) &&
+            e.startDate == null &&
+            e.endDate == null &&
+            (e.description == null || e.description!.isEmpty);
+
+    final  List<ExperienceModel> experienceData =
+    (rawExp.length == 1 && isEmptyExp(rawExp.first)) ? [] : rawExp;
+
+    // Build controllers
+    final workExpControllers = (experienceData.isEmpty)
+        ? [WorkExperienceEntryControllers()]
+        : experienceData.map((exp) {
+      final controller = WorkExperienceEntryControllers();
+      controller.companyController.text = exp.companyName ?? '';
+      controller.positionController.text = exp.position ?? '';
+      controller.descriptionController.text = exp.description ?? '';
+
+      if (exp.startDate != null) {
+        controller.startDateController.text =
+            DateFormat('dd-MM-yyyy').format(exp.startDate!);
+      }
+
+      if (exp.endDate != null) {
+        controller.endDateController.text =
+            DateFormat('dd-MM-yyyy').format(exp.endDate!);
+      } else if (exp.isCurrentlyWorking == true) {
+        controller.endDateController.text = 'Present';
+      }
+
       return controller;
     }).toList();
 
@@ -239,7 +298,7 @@ class EditEmployeeProfileController
     state = state.copyWith(
       profileData: (userData ?? EmployeeUserModel()).copyWith(
         skills: initialSkills,
-        experience: workExperiences,
+        experience: experienceData,
         education: educationData,
         preferredLocations: userData?.preferences?.preferredLocations,
       ),
@@ -250,16 +309,30 @@ class EditEmployeeProfileController
 
 
   /// 🔹 Call this to update chef details
-  Future<void> updateEmployeeProfileDetails(BuildContext context, {bool isFromCommonEdit = true}) async {
-    if(isFromCommonEdit){
-      final isValid =  await validateAllSections();
+  Future<void> updateEmployeeProfileDetails(BuildContext context, {bool isFromCommonEdit = true,String? sectionName}) async {
+    if (isFromCommonEdit) {
+      final isValid = await validateAllSections();
 
       if (!isValid) {
-        // Show error message
-        showOverlaySnackBar( context,'Please complete all required fields in the highlighted sections');
+        showOverlaySnackBar(
+          context,
+          'Please complete all required fields in the highlighted sections',
+        );
+        return;
+      }
+
+    } else {
+      final isValid = await validateSection(sectionName);
+
+      if (!isValid) {
+        showOverlaySnackBar(
+          context,
+          'Please complete all required fields in the highlighted sections',
+        );
         return;
       }
     }
+
 
     state = state.copyWith(pageState: PageState.loading);
     // print('--- Employee Profile Form stattteee ---');
@@ -478,48 +551,80 @@ class EditEmployeeProfileController
     state = state.copyWith(workExpEntries: newList);
   }
 
+
+  List<EducationModel> buildUpdatedEducationList() {
+    final controllers = state.educationEntries ?? [];
+
+    return controllers
+        .map((e) {
+      final yearText = e.graduationYearController.text.trim();
+      final year = int.tryParse(yearText); // null if invalid
+
+      return EducationModel(
+        degree: e.degreeController.text.trim().isEmpty
+            ? null
+            : e.degreeController.text.trim(),
+        institution: e.institutionController.text.trim().isEmpty
+            ? null
+            : e.institutionController.text.trim(),
+        graduationYear: year,
+      );
+    })
+    // remove rows where everything is empty
+        .where((edu) =>
+    edu.degree != null ||
+        edu.institution != null ||
+        edu.graduationYear != null)
+        .toList();
+  }
   List<ExperienceModel> buildUpdatedExperienceList() {
-    final experienceControllers = state.workExpEntries ?? [];
+    final controllers = state.workExpEntries ?? [];
 
-    return experienceControllers.map((e) {
-      DateTime? startDate;
-      DateTime? endDate;
+    return controllers
+        .map((e) {
+      DateTime? start;
+      DateTime? end;
 
-      // Parse start date
       if (e.startDateController.text.isNotEmpty) {
         try {
-          startDate = DateFormat('dd-MM-yyyy').parse(e.startDateController.text);
+          start = DateFormat('dd-MM-yyyy')
+              .parse(e.startDateController.text.trim());
         } catch (_) {}
       }
 
-      // Parse end date (if not "Present")
-      if (e.endDateController.text.isNotEmpty && e.endDateController.text != 'Present') {
+      if (e.endDateController.text.isNotEmpty &&
+          e.endDateController.text != 'Present') {
         try {
-          endDate = DateFormat('dd-MM-yyyy').parse(e.endDateController.text);
+          end = DateFormat('dd-MM-yyyy')
+              .parse(e.endDateController.text.trim());
         } catch (_) {}
       }
 
       return ExperienceModel(
-        companyName: e.companyController.text.trim(),
-        position: e.positionController.text.trim(),
-        description: e.descriptionController.text.trim(),
-        startDate: startDate,
-        endDate: endDate,
+        companyName: e.companyController.text.trim().isEmpty
+            ? null
+            : e.companyController.text.trim(),
+        position: e.positionController.text.trim().isEmpty
+            ? null
+            : e.positionController.text.trim(),
+        description: e.descriptionController.text.trim().isEmpty
+            ? null
+            : e.descriptionController.text.trim(),
+        startDate: start,
+        endDate: end,
         isCurrentlyWorking: e.endDateController.text == 'Present',
       );
-    }).toList();
+    })
+    // remove completely empty entries
+        .where((exp) =>
+    exp.companyName != null ||
+        exp.position != null ||
+        exp.startDate != null ||
+        exp.endDate != null ||
+        exp.description != null)
+        .toList();
   }
-  List<EducationModel> buildUpdatedEducationList() {
-    final educationControllers = state.educationEntries ?? [];
 
-    return educationControllers.map((e) {
-      return EducationModel(
-        degree: e.degreeController.text.trim(),
-        institution: e.institutionController.text.trim(),
-        graduationYear: int.tryParse(e.graduationYearController.text.trim()),
-      );
-    }).toList();
-  }
 
   Future<void> pickProfileImage() async {
     final picked = await pickImageFromGalleryOrCamera(
@@ -706,6 +811,104 @@ class EditEmployeeProfileController
 
     return isValid;
   }
+  Future<bool> validateSection(String? sectionKey) async {
+    bool isValid = true;
+
+    switch (sectionKey) {
+      case 'basic':
+        if (basicInfoFormKey.currentState?.validate() != true) {
+          isValid = false;
+          sectionErrors['basic'] =
+          'Please complete all required fields in Basic Information';
+        } else {
+          sectionErrors.remove('basic');
+        }
+        break;
+
+      case 'location':
+        if (locationFormKey.currentState?.validate() != true) {
+          isValid = false;
+          sectionErrors['location'] =
+          'Please complete all required fields in Location Information';
+        } else {
+          sectionErrors.remove('location');
+        }
+        break;
+
+      case 'professional':
+        if (professionalFormKey.currentState?.validate() != true) {
+          isValid = false;
+          sectionErrors['professional'] =
+          'Please complete all required fields in Professional Information';
+        } else {
+          sectionErrors.remove('professional');
+        }
+        break;
+
+      case 'skill':
+        if (skillFormKey.currentState?.validate() != true) {
+          isValid = false;
+          sectionErrors['skill'] = 'Please add at least one skill';
+        } else {
+          sectionErrors.remove('skill');
+        }
+        break;
+
+      case 'education':
+        if (educationFormKey.currentState?.validate() != true) {
+          isValid = false;
+          sectionErrors['education'] =
+          'Please complete all required fields in Education';
+        } else {
+          sectionErrors.remove('education');
+        }
+        break;
+
+      case 'work':
+        if (state.profileData?.workStatus == 'employed') {
+          if (workExpFormKey.currentState?.validate() != true) {
+            isValid = false;
+            sectionErrors['work'] =
+            'Please complete all required fields in Work Experience';
+          } else {
+            sectionErrors.remove('work');
+          }
+        }
+        break;
+
+      case 'jobPref':
+        if (jobPrefFormKey.currentState?.validate() != true) {
+          isValid = false;
+          sectionErrors['jobPref'] =
+          'Please complete all required fields in Job Preferences';
+        } else {
+          sectionErrors.remove('jobPref');
+        }
+        break;
+
+      case 'resume':
+        final resumeFileEmpty = state.resumeFile == null;
+        final resumeUrlEmpty = state.profileData?.resume?.isEmpty ?? true;
+
+        if (resumeFileEmpty && resumeUrlEmpty) {
+          isValid = false;
+          sectionErrors['resume'] = 'Please upload your resume';
+        } else {
+          sectionErrors.remove('resume');
+        }
+        break;
+
+      default:
+        debugPrint("⚠️ Unknown validation section: $sectionKey");
+        return true;
+    }
+
+    // Update UI
+    state = state.copyWith(sectionErrors: Map.from(sectionErrors));
+
+    return isValid;
+  }
+
 
 
 
@@ -718,5 +921,19 @@ class EditEmployeeProfileController
 
 
 
+}
+
+bool isEmptyEducation(EducationModel edu) {
+  return (edu.degree == null || edu.degree!.isEmpty) &&
+      (edu.institution == null || edu.institution!.isEmpty) &&
+      edu.graduationYear == null;
+}
+
+bool isEmptyExperience(ExperienceModel exp) {
+  return (exp.companyName == null || exp.companyName!.isEmpty) &&
+      (exp.position == null || exp.position!.isEmpty) &&
+      exp.startDate == null &&
+      exp.endDate == null &&
+      (exp.description == null || exp.description!.isEmpty);
 }
 
