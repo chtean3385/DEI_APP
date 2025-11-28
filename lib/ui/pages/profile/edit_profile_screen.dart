@@ -71,7 +71,7 @@ class _EditProfileScreenState extends ConsumerState<EditProfileScreen> {
                 ),
               ),
             ),
-            EditProfileActionButtons(isEmployee: true),
+            EditProfileActionButtons(),
           ],
         ),
       ),

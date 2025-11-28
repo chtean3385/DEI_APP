@@ -251,13 +251,16 @@ class EditEmployeeProfileController
 
   /// 🔹 Call this to update chef details
   Future<void> updateEmployeeProfileDetails(BuildContext context, {bool isFromCommonEdit = true}) async {
-    final isValid = await validateAllSections();
+    if(isFromCommonEdit){
+      final isValid =  await validateAllSections();
 
-    if (!isValid) {
-      // Show error message
-      showOverlaySnackBar( context,'Please complete all required fields in the highlighted sections');
-      return;
+      if (!isValid) {
+        // Show error message
+        showOverlaySnackBar( context,'Please complete all required fields in the highlighted sections');
+        return;
+      }
     }
+
     state = state.copyWith(pageState: PageState.loading);
     // print('--- Employee Profile Form stattteee ---');
     // print('gender: ${state.profileData?.gender}');

@@ -187,8 +187,8 @@ class EmployeeUserModel {
     'totalWorkExperience': totalWorkExperience,
     'noticePeriod': noticePeriod,
     'currentSalary': currentSalary,
-    'departments': [departmentId],
-    'industries': [industryId],
+    if(departmentId?.isNotEmpty == true)'departments': [departmentId],
+    if(industryId?.isNotEmpty == true)'industries': [industryId],
     'jobType': jobTypeId,
     'salaryRange': salaryId,
     'preferences': {

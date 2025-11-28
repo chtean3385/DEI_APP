@@ -174,7 +174,6 @@ class EditBasicInformation extends ConsumerWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 20),
                         child: EditProfileActionButtons(
-                          isEmployee: true,
                           isFromCommonEdit: isFromCommonEdit,
                         ),
                       ),
