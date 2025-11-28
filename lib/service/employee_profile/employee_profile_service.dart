@@ -126,8 +126,8 @@ class EmployeeProfileService {
       'smsAlerts': smsAlerts,              // true | false
       'emailAlerts': emailAlerts.toJson(), // nested model
     };
-
-    final result = await _apiHandler.post(
+print("bodybodybodybody--->>${body.toString()}");
+    final result = await _apiHandler.put(
       url: ApiUrls.updateUserSettings,
       body: body,
       includeAuthToken: true,

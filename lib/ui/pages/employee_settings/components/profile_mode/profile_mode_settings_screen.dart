@@ -9,6 +9,9 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'confirm_public_mode_alert.dart';
+
+
 
 class ProfileModeSettingsScreen extends ConsumerWidget {
   const ProfileModeSettingsScreen({super.key});
@@ -16,7 +19,6 @@ class ProfileModeSettingsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final settingsState = ref.watch(employeeSettingsProvider);
-    final settingCtrl = ref.read(employeeSettingsProvider.notifier);
     return Scaffold(
       appBar: appBarCommon(title: "Profile Mode",titleStyleSmall: true),
       body: SingleChildScrollView(
@@ -29,21 +31,61 @@ class ProfileModeSettingsScreen extends ConsumerWidget {
               subtitle:
               'Your diversity details stay hidden from all employers.',
               isSelected: settingsState.privacyMode == "private",
-              onTap: ()=>settingCtrl.setPrivacyMode("private")
+               onTap: () {
+                 showPrivacyModeConfirmAlert(
+                   context: context,
+                   title: "Switch to Private Mode?",
+                   description:
+                   "In Private Mode, none of your diversity information will be visible to employers.",
+                   icon: Icons.lock_outline,
+                   iconColor: Colors.redAccent,
+                   onConfirm: () {
+                     ref.read(employeeSettingsProvider.notifier).setPrivacyMode(
+                         "private");
+                   },
+                 );
+               }
             ),
             const SizedBox(height: 20),
             _settingCard(
               isSelected: settingsState.privacyMode == "selective",
-              onTap: ()=>settingCtrl.setPrivacyMode("selective"),
               title: 'Selective',
               subtitle:
               'Visible only to verified inclusive employers.',
+              onTap: (){
+                showPrivacyModeConfirmAlert(
+                  context: context,
+                  title: "Enable Selective Mode?",
+                  description:
+                  "Your diversity details will be visible only to verified inclusive employers.",
+                  icon: Icons.verified_user_outlined,
+                  iconColor: Colors.amber,
+                  onConfirm: () {
+                    ref.read(employeeSettingsProvider.notifier).setPrivacyMode("selective");
+                  },
+                );
+
+              }
 
             ),
             const SizedBox(height: 20),
             _settingCard(
               isSelected: settingsState.privacyMode == "public",
-              onTap: ()=>settingCtrl.setPrivacyMode("public"),
+              onTap: () {
+                showPrivacyModeConfirmAlert(
+                  context: context,
+                  title: "Enable Public Mode?",
+                  description:
+                  "You are about to make your diversity information visible to all employers. This means any employer on the platform will be able to view your professional profile and category information.",
+                  icon: Icons.public,
+                  iconColor: Colors.blue,
+                  onConfirm: () {
+                    ref.read(employeeSettingsProvider.notifier).setPrivacyMode("public");
+                  },
+                );
+
+              },
+
               title: 'Public',
               subtitle:
               'Your diversity info is visible to all employers.',

@@ -4,6 +4,7 @@ import 'package:dei_champions/models/settings/employee_settings_model.dart';
 
 class EmployeeSettingsState {
   final PageState pageState;
+  final PageState updatePageState;
   final EmployeeSettingsModel? data;
   final String? errorMessage;
 
@@ -15,6 +16,7 @@ class EmployeeSettingsState {
 
   EmployeeSettingsState({
     required this.pageState,
+    required this.updatePageState,
     this.data,
     this.errorMessage,
     required this.notifications,
@@ -25,6 +27,7 @@ class EmployeeSettingsState {
 
   factory EmployeeSettingsState.initial() => EmployeeSettingsState(
     pageState: PageState.initial,
+    updatePageState: PageState.initial,
     data: null,
     errorMessage: null,
     notifications: false,
@@ -43,6 +46,7 @@ class EmployeeSettingsState {
 
   EmployeeSettingsState copyWith({
     PageState? pageState,
+    PageState? updatePageState,
     EmployeeSettingsModel? data,
     String? errorMessage,
     bool? notifications,
@@ -52,6 +56,7 @@ class EmployeeSettingsState {
   }) {
     return EmployeeSettingsState(
       pageState: pageState ?? this.pageState,
+      updatePageState: updatePageState ?? this.updatePageState,
       data: data ?? this.data,
       errorMessage: errorMessage ?? this.errorMessage,
       notifications: notifications ?? this.notifications,

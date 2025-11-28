@@ -1,12 +1,15 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../constants/enums.dart';
 import '../../../providers/providers.dart';
 import '../../../providers/theme_controller.dart';
 import '../../../repo/shared_preference_repository.dart';
+import '../../../widgets/others/custom_loader.dart';
 import 'components/button_color_dialog.dart';
 import 'components/setting_section_title.dart';
 import 'components/setting_section_togle.dart';
@@ -24,6 +27,13 @@ class SettingsBody extends ConsumerWidget {
 
     final settings = ref.watch(employeeSettingsProvider);
     final settingsCtrl = ref.read(employeeSettingsProvider.notifier);
+    if (settings.pageState == PageState.loading) {
+      return  _shimmerLoading() ;
+    }
+
+    if (settings.pageState == PageState.error) {
+      return SomethingWentWrong();
+    }
 
     return SafeArea(
       child: ListView(
@@ -230,4 +240,26 @@ class SettingsBody extends ConsumerWidget {
       ),
     );
   }
+  Widget _shimmerLoading() {
+    return ShimmerLoader(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        child: ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: 8,
+          itemBuilder: (context, index) {
+            return SettingToggle(
+              title: "Enable Notifications",
+              subtitle: "Receive all types of notifications",
+              value: false,
+              icon: Icons.notifications_active_outlined,
+              onChanged: (v) {},
+            );
+          },
+        ),
+      ),
+    );
+  }
+
 }

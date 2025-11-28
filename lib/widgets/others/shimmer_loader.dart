@@ -17,8 +17,8 @@ class ShimmerLoader extends StatelessWidget {
     final colorTheme = context.colors;
 
     return Shimmer.fromColors(
-      baseColor: colorTheme.shimmerBaseColor,
-      highlightColor: colorTheme.shimmerBaseColor,
+      baseColor: colorTheme.shimmerBaseColor,         // light/dark base
+      highlightColor: colorTheme.shimmerHighlightColor, // light/dark highlight
       child: child,
     );
   }
