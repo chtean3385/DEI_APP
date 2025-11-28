@@ -534,6 +534,8 @@ class EditEmployeeProfileController
     final file = await pickResumeFile();
     if (file != null) {
       state = state.copyWith(resumeFile: file);
+    sectionErrors.remove("resume");
+    state = state.copyWith(sectionErrors: Map.from(sectionErrors));
     }
   }
 
@@ -687,10 +689,15 @@ class EditEmployeeProfileController
     }
 
     // RESUME (optional – validate only if file required)
-    if (resumeFormKey.currentState?.validate() != true) {
+    // RESUME VALIDATION
+    final resumeFileEmpty = state.resumeFile == null;
+    final resumeUrlEmpty = state.profileData?.resume?.isEmpty ?? true;
+
+    if (resumeFileEmpty && resumeUrlEmpty) {
       isValid = false;
-      sectionErrors['resume'] = 'Please upload a valid resume';
+      sectionErrors['resume'] = 'Please upload your resume';
     }
+
 
     // 👇 UPDATE STATE so UI refreshes and highlights sections
     state = state.copyWith(sectionErrors: Map.from(sectionErrors));
@@ -710,16 +717,4 @@ class EditEmployeeProfileController
 
 
 }
-void showTopSnackBar(BuildContext context, String message) {
-  final messenger = ScaffoldMessenger.of(
-    Navigator.of(context, rootNavigator: true).context,
-  );
 
-  messenger.clearSnackBars();
-  messenger.showSnackBar(
-    SnackBar(content: Text(message)),
-  );
-}
-
-// Add this to your providers file
-final sectionValidationProvider = StateProvider<Map<String, bool>>((ref) => {});
