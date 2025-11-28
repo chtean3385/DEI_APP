@@ -31,10 +31,6 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
       state = state.copyWith(
         pageState: PageState.success,
         data: settings,
-        privacyMode: settings.privacyMode,
-        notifications: settings.notifications,
-        smsAlerts: settings.smsAlerts,
-        emailAlerts: settings.emailAlerts,
       );
     } catch (e) {
       state = state.copyWith(
@@ -45,47 +41,46 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
     }
   }
 
-  // ------------- UI Toggles -------------
+  // -----------------------------
+  // UI Toggles directly update state.data
+  // -----------------------------
   void toggleNotifications(bool val) {
-    state = state.copyWith(notifications: val);
+    if (state.data == null) return;
+    final updatedData = state.data!.copyWith(notifications: val);
+    state = state.copyWith(data: updatedData);
   }
 
   void toggleSMS(bool val) {
-    state = state.copyWith(smsAlerts: val);
+    if (state.data == null) return;
+    final updatedData = state.data!.copyWith(smsAlerts: val);
+    state = state.copyWith(data: updatedData);
   }
 
   void toggleEmailAlert(String field, bool val) {
-    final current = state.data?.emailAlerts;
+    if (state.data == null) return;
 
-    if (current == null) return;
-
-    final updated = EmailAlertsModel(
+    final current = state.data!.emailAlerts;
+    final updatedEmailAlerts = EmailAlertsModel(
       jobAlerts: field == "jobAlerts" ? val : current.jobAlerts,
       estimateAlerts: field == "estimateAlerts" ? val : current.estimateAlerts,
       invoiceAlerts: field == "invoiceAlerts" ? val : current.invoiceAlerts,
       serviceAlerts: field == "serviceAlerts" ? val : current.serviceAlerts,
-      serviceExpiredAlerts: field == "serviceExpiredAlerts"
-          ? val
-          : current.serviceExpiredAlerts,
-      jobApplicationAlerts: field == "jobApplicationAlerts"
-          ? val
-          : current.jobApplicationAlerts,
-      profileAlerts:
-      field == "profileAlerts" ? val : current.profileAlerts,
+      serviceExpiredAlerts: field == "serviceExpiredAlerts" ? val : current.serviceExpiredAlerts,
+      jobApplicationAlerts: field == "jobApplicationAlerts" ? val : current.jobApplicationAlerts,
+      profileAlerts: field == "profileAlerts" ? val : current.profileAlerts,
     );
 
-    final updatedData =
-    state.data!.copyWith(emailAlerts: updated);
-
+    final updatedData = state.data!.copyWith(emailAlerts: updatedEmailAlerts);
     state = state.copyWith(data: updatedData);
   }
 
-
   void setPrivacyMode(String value) {
-    state = state.copyWith(privacyMode: value);
+    if (state.data == null) return;
+    final updatedData = state.data!.copyWith(privacyMode: value);
+    state = state.copyWith(data: updatedData);
     updateUserSettings(isFromPrivacy: true);
-
   }
+
 
   // -----------------------------
   // Update settings API
@@ -96,10 +91,10 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
 
     try {
       final result = await _service.updateUserSettings(
-        emailAlerts:state.emailAlerts,
-        notifications:state.notifications,
-        privacyMode:state.privacyMode ,
-        smsAlerts: state.smsAlerts,
+        emailAlerts: state.data!.emailAlerts,
+        notifications: state.data!.notifications,
+        privacyMode: state.data!.privacyMode,
+        smsAlerts: state.data!.smsAlerts,
 
       );
       if (isFromPrivacy) {

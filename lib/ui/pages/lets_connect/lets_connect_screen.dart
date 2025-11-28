@@ -1,9 +1,9 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../widgets/others/app_bar_common.dart';
-import '../../../constants/app_colors.dart';
 import '../../../providers/providers.dart';
 import '../../../widgets/others/custom_theme_button.dart';
 import 'component/lets_connect_forms_view.dart';
@@ -54,8 +54,8 @@ class LetsConnectScreen extends StatelessWidget {
               ),
 
               radius: 30,
-              color: AppColors.primaryColor,
-              borderColor: AppColors.primaryColor,
+              color:  context.colors.buttonPrimaryColor,
+              borderColor:  context.colors.buttonPrimaryColor,
             ),
           ),
         );

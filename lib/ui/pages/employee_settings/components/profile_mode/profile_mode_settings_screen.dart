@@ -30,7 +30,7 @@ class ProfileModeSettingsScreen extends ConsumerWidget {
               title: 'Private Mode',
               subtitle:
               'Your diversity details stay hidden from all employers.',
-              isSelected: settingsState.privacyMode == "private",
+              isSelected: settingsState.data?.privacyMode == "private",
                onTap: () {
                  showPrivacyModeConfirmAlert(
                    context: context,
@@ -48,7 +48,7 @@ class ProfileModeSettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 20),
             _settingCard(
-              isSelected: settingsState.privacyMode == "selective",
+              isSelected: settingsState.data?.privacyMode == "selective",
               title: 'Selective',
               subtitle:
               'Visible only to verified inclusive employers.',
@@ -70,7 +70,7 @@ class ProfileModeSettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 20),
             _settingCard(
-              isSelected: settingsState.privacyMode == "public",
+              isSelected: settingsState.data?.privacyMode == "public",
               onTap: () {
                 showPrivacyModeConfirmAlert(
                   context: context,
