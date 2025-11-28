@@ -183,7 +183,7 @@ class EditEmployeeProfileController
     final List<ExperienceModel> workExperiences = userData?.experience ?? [];
     final List<EducationModel> educationData = userData?.education ?? [];
     // Generate corresponding controllers list
-    final workExpControllers = workExperiences.map((exp) {
+    final workExpControllers =  (workExperiences.isEmpty) ?[WorkExperienceEntryControllers()] : workExperiences.map((exp) {
       final controller = WorkExperienceEntryControllers();
       controller.companyController.text = exp.companyName ?? '';
       controller.positionController.text = exp.position ?? '';
@@ -207,7 +207,8 @@ class EditEmployeeProfileController
       return controller;
     }).toList();
 
-    final educationControllers = educationData.map((edu) {
+
+   final educationControllers =  (educationData.isEmpty) ?[EducationEntryControllers()] : educationData.map((edu) {
       final controller = EducationEntryControllers();
       controller.degreeController.text = edu.degree ?? '';
       controller.institutionController.text = edu.institution ?? '';
@@ -324,7 +325,7 @@ class EditEmployeeProfileController
         jobTypeId: jobTypeId
       );
 
-      final BaseModel result = await _employeeProfileService.updateEmployeeProfileDetails(
+     await _employeeProfileService.updateEmployeeProfileDetails(
         data: updateData,
         profileFile: state.profileFile,
         resumeFile: state.resumeFile,
@@ -687,8 +688,6 @@ class EditEmployeeProfileController
       sectionErrors['jobPref'] =
       'Please complete all required fields in Job Preferences';
     }
-
-    // RESUME (optional – validate only if file required)
     // RESUME VALIDATION
     final resumeFileEmpty = state.resumeFile == null;
     final resumeUrlEmpty = state.profileData?.resume?.isEmpty ?? true;

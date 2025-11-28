@@ -23,7 +23,7 @@ class EditWorkExpInformation extends ConsumerWidget {
     final controller = ref.read(editEmployeeProfileProvider.notifier);
     final state = ref.watch(editEmployeeProfileProvider);
     final colorTheme = context.colors;
-    final hasError = state.sectionErrors?.containsKey("workExp") ?? false;
+    final hasError = state.sectionErrors?.containsKey("work") ?? false;
 
 
     return Card(
@@ -108,7 +108,7 @@ class EditWorkExpInformation extends ConsumerWidget {
           if (hasError) Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Text(
-              controller.sectionErrors["workExp"] ?? '',
+              controller.sectionErrors["work"] ?? '',
               style: Theme.of(context).textTheme.displaySmall?.copyWith(
                 color: Colors.red,
                 fontWeight: FontWeight.w500,

@@ -178,15 +178,41 @@ class EditEducationInformation extends ConsumerWidget {
 
               gapH16(),
 
-              YearSelector(
-                key: UniqueKey(),
-                title: "Graduation Year",
-                selectedYear: ctr3.text,
-                onChanged: (year) {
-                  ctr3.text = year;
-                  print("Selected Graduation Year: $year");
+              FormField<String>(
+                initialValue: ctr3.text,
+                validator: (value) {
+                  if (value == null || value.isEmpty) return 'Select Graduation Year';
+                  return null;
+                },
+                builder: (field) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      YearSelector(
+                        key: UniqueKey(),
+                        title: "Graduation Year",
+                        selectedYear: ctr3.text,
+                        onChanged: (year) {
+                          ctr3.text = year;
+                          field.didChange(year); // important to update FormField state
+                        },
+                      ),
+                      if (field.hasError)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 4.0, left: 12),
+                          child: Text(
+                            field.errorText ?? '',
+                            style: Theme.of(navigatorKey.currentContext!).textTheme.displaySmall?.copyWith(
+                              color: Colors.red,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                    ],
+                  );
                 },
               ),
+
               gapH16(),
               Align(
                 alignment: Alignment.centerRight,
