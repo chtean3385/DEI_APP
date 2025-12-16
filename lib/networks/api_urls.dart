@@ -140,6 +140,7 @@ class ApiUrls {
   //web page  url
 
   static String aboutUsPage = 'https://frontend-dei.vercel.app/about-us';
+  static String popup = 'popups/page/home';
 
 
 

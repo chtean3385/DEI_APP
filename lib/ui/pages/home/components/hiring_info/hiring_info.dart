@@ -48,10 +48,10 @@ class HiringInfoWidget extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 12),
-                  Text("Learn more",style: theme.textTheme.displaySmall?.copyWith(
-                    color:  context.colors.buttonPrimaryColor,
-                    fontWeight: FontWeight.w600,
-                  )),
+                  // Text("Learn more",style: theme.textTheme.displaySmall?.copyWith(
+                  //   color:  context.colors.buttonPrimaryColor,
+                  //   fontWeight: FontWeight.w600,
+                  // )),
                   gapH20(),
                 ],
               ),
