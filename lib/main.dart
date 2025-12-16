@@ -53,6 +53,14 @@ class _MyAppState extends ConsumerState<MyApp> {
       themeMode: themeMode,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaler: TextScaler.noScaling,  // 🚫 stops system text-size from affecting UI
+          ),
+          child: child!,
+        );
+      },
     );
   }
 }
