@@ -17,6 +17,7 @@ import '../home/home_screen.dart';
 import '../profile/profile_details_view.dart';
 import '../saved_jobs/saved_jobs_view.dart';
 import 'components/drawer/custom_drawer.dart';
+import 'components/drawer/promotion_alert.dart';
 import 'components/floating_filter.dart';
 
 class BottomBar extends StatefulWidget {
@@ -41,6 +42,11 @@ class _BottomBarState extends State<BottomBar> {
     _params = widget.params;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       initialiseController();
+      showDialog(
+        context: navigatorKey.currentContext!,
+        barrierDismissible: true,
+        builder: (_) => const HomePromotionDialog(),
+      );
     });
   }
 

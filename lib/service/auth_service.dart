@@ -129,8 +129,8 @@ class AuthService {
     }
   }
 
-  Future<BaseModel> resendOtp({required String phoneNumber}) async {
-    final body = {'phone_number': phoneNumber};
+  Future<BaseModel> resendOtp({required String userId}) async {
+    final body = {'userId': userId};
     final result = await _apiHandler.post(
       url: ApiUrls.resendOtp,
       body: body,

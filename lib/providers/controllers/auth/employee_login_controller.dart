@@ -95,7 +95,6 @@ class LoginController extends StateNotifier<AuthState> {
     }
   }
 
-  ///Sign In ///
   Future<void> forgotPassword(String email) async {
     setResetPageState(PageState.loading);
     try {
@@ -115,5 +114,24 @@ class LoginController extends StateNotifier<AuthState> {
   }
   void updateEmailValidity(bool isValid) {
     state = state.copyWith(isEmailValid: isValid);
+  }
+
+  //send userd id from signin/signup
+  Future<void> resendOtp() async {
+    setResetPageState(PageState.loading);
+    try {
+      final BaseModel result = await _authService.resendOtp(
+         userId:  ""
+      );
+      showSnackBar(result.message, duration: 3);
+      setResetPageState(PageState.success);
+      setEmailSendStatus(true);
+      debugPrint("success - forgotPassword");
+    } catch (e) {
+      setResetPageState(PageState.error);
+      showSnackBar(e.toString());
+      debugPrint("catch - forgotPassword");
+      debugPrint(e.toString());
+    }
   }
 }

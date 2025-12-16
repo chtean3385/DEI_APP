@@ -14,6 +14,7 @@ import 'package:dei_champions/models/state_models/common/faq_state.dart';
 import 'package:dei_champions/models/state_models/common/price_plan_state.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
+import 'package:dei_champions/models/state_models/home/popup_alert_state.dart';
 import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart';
 import 'package:dei_champions/models/state_models/common/html_page_data_state.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
@@ -33,6 +34,7 @@ import 'package:dei_champions/providers/controllers/home/category/friendly_indus
 import 'package:dei_champions/providers/controllers/home/category/how_it_works_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/job_category_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/job_service_controller.dart';
+import 'package:dei_champions/providers/controllers/home/category/popup_alert_controller.dart';
 import 'package:dei_champions/providers/controllers/home/category/we_are_hiring_controller.dart';
 import 'package:dei_champions/providers/controllers/notification/notification_controller.dart';
 import 'package:dei_champions/providers/controllers/services/services_controller.dart';
@@ -701,6 +703,13 @@ final employeeNotificationProvider =
     >((ref) {
       return NotificationController();
     });
+final popupAlertProvider =
+StateNotifierProvider.autoDispose<
+    PopupAlertController,
+    PopupAlertState
+>((ref) {
+  return PopupAlertController(ref);
+});
 
 
 //////*****///////////******* EMPLOYER //////*****///////////*******

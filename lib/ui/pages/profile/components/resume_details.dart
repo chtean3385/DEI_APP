@@ -90,31 +90,38 @@ class ResumeDetails extends ConsumerWidget {
   Widget _loader() {
     return ShimmerLoader(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
           border: Border.all(color: Colors.white, width: 1),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            // ---------- Top Row ----------
             Row(
-              mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: const [
                 ShimmerBox(height: 16, width: 100),
                 ShimmerBox(height: 14, width: 14),
               ],
             ),
-            gapH8(),
+            const SizedBox(height: 8),
+
+            // ---------- Bottom Row ----------
             Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                ShimmerBox(height: 14, width: 14),
-                gapW8(),
-                ShimmerBox(height: 10, width: 300),
+                const ShimmerBox(height: 14, width: 14),
+                const SizedBox(width: 8),
+                // Use Expanded to fill remaining space
+                Expanded(
+                  child: ShimmerBox(
+                    height: 10,
+                    width: double.infinity,
+                    // width removed so it flexibly fills available space
+                  ),
+                ),
               ],
             ),
           ],
@@ -122,4 +129,5 @@ class ResumeDetails extends ConsumerWidget {
       ),
     );
   }
+
 }

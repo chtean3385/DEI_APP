@@ -1,142 +1,108 @@
-import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-/// Promotion Model Example
-class PromotionModel {
-  final String? imageUrl;       // if image promotion
-  final String? heading;        // if text promotion
-  final String? subHeading;
-  final String? content;
-  final String? buttonText;
-  final String? buttonUrl;      // deep link / website
+import '../../../../../providers/providers.dart';
 
-  PromotionModel({
-    this.imageUrl,
-    this.heading,
-    this.subHeading,
-    this.content,
-    this.buttonText,
-    this.buttonUrl,
-  });
-}
 
-void showPromotionAlert(PromotionModel promo) {
-  final context = navigatorKey.currentContext;
-  if (context == null) return;
+class HomePromotionDialog extends StatelessWidget {
+  const HomePromotionDialog({super.key});
 
-  final theme = Theme.of(context).textTheme;
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context).textTheme;
 
-  showDialog(
-    context: context,
-    barrierDismissible: true,
-    builder: (_) => Dialog(
-      backgroundColor: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(18),
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+    return Consumer(
+      builder: (context, ref, _) {
+        final promo = ref.watch(popupAlertProvider).data;
+
+        if (promo == null) return const SizedBox.shrink();
+
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+          child: Stack(
+            alignment: Alignment.center,
+            clipBehavior: Clip.none,
             children: [
-
               // -------------------------------
-              // 1️⃣ IMAGE PROMOTION
+              // MAIN IMAGE CARD
               // -------------------------------
-              if (promo.imageUrl != null) ...[
-                RoundedNetworkImage(imageUrl:  promo.imageUrl ?? "")
-                ,
-                const SizedBox(height: 16),
-              ],
-
-              // -------------------------------
-              // 2️⃣ TEXT Heading/Subheading
-              // -------------------------------
-              if (promo.heading != null) ...[
-                Text(
-                  promo.heading!,
-                  textAlign: TextAlign.center,
-                  style: theme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: RoundedNetworkImage(
+                  imageUrl: promo.imageUrl ?? '',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: 300,
                 ),
-                const SizedBox(height: 8),
-              ],
-
-              if (promo.subHeading != null) ...[
-                Text(
-                  promo.subHeading!,
-                  textAlign: TextAlign.center,
-                  style: theme.titleMedium?.copyWith(
-                    color: Colors.grey[700],
-                  ),
-                ),
-                const SizedBox(height: 10),
-              ],
+              ),
 
               // -------------------------------
-              // 3️⃣ TEXT Content
+              // OPTIONAL BUTTON OVER IMAGE
               // -------------------------------
-              if (promo.content != null) ...[
-                Text(
-                  promo.content!,
-                  textAlign: TextAlign.center,
-                  style: theme.bodyMedium?.copyWith(
-                    height: 1.4,
-                    color: Colors.black87,
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
-
-              // -------------------------------
-              // 4️⃣ BUTTON (Optional)
-              // -------------------------------
-              if (promo.buttonText != null) ...[
-                ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
-                    minimumSize: const Size(double.infinity, 48),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+              if (promo.link != null && promo.link!.isNotEmpty)
+                Positioned(
+                  bottom: 10,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(visualDensity: VisualDensity.compact,
+                      backgroundColor: Colors.blueAccent,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 28,
+                        vertical: 14,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      elevation: 8,
                     ),
-                  ),
-                  child: Text(
-                    promo.buttonText!,
-                    style: theme.titleMedium?.copyWith(color: Colors.white),
-                  ),
-                  onPressed: () async {
-                    if (promo.buttonUrl != null) {
-                      final uri = Uri.parse(promo.buttonUrl!);
+                    onPressed: () async {
+                      final uri = Uri.parse(promo.link!);
                       if (await canLaunchUrl(uri)) {
                         await launchUrl(uri, mode: LaunchMode.externalApplication);
                       }
-                    }
-                    Navigator.pop(context);
-                  },
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      "View Now",
+                      style: theme.titleSmall?.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
                 ),
-                const SizedBox(height: 12),
-              ],
 
               // -------------------------------
-              // 5️⃣ CLOSE BUTTON
+              // CLOSE ICON BELOW IMAGE
               // -------------------------------
-              TextButton(
-                onPressed: () => Navigator.pop(context),
-                child: Text(
-                  "Close",
-                  style: theme.titleMedium?.copyWith(
-                    color: Colors.black54,
+              Positioned(
+                bottom: -50,
+                child: Material(
+                  color: Colors.white,
+                  shape: const CircleBorder(),
+                  elevation: 4,
+                  child: InkWell(
+                    customBorder: const CircleBorder(),
+                    onTap: () => Navigator.pop(context),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.close,
+                        size: 24,
+                        color: Colors.black54,
+                      ),
+                    ),
                   ),
                 ),
               ),
             ],
           ),
-        ),
-      ),
-    ),
-  );
+        );
+      },
+    );
+  }
 }
+
+
