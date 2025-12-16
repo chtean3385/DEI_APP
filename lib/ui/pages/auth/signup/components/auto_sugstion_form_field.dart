@@ -59,6 +59,7 @@ class AutoSuggestionDropdownField extends StatefulWidget {
 
 class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownField> {
   final LayerLink _layerLink = LayerLink();
+  final ScrollController _scrollController = ScrollController(); // ✅ ADD
   OverlayEntry? _overlayEntry;
   late FocusNode _focusNode;
   FocusNode? _internalFocusNode; // track if we created it
@@ -83,6 +84,7 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
 
   @override
   void dispose() {
+    _scrollController.dispose(); // ✅ ADD
     _focusNode.removeListener(_onFocusChanged);
     widget.controller.removeListener(_onTextChanged);
     _removeOverlay();
@@ -227,11 +229,14 @@ class _AutoSuggestionDropdownFieldState extends State<AutoSuggestionDropdownFiel
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: Scrollbar( // ✅ Added Scrollbar
+          child: Scrollbar(
+            controller: _scrollController, // ✅ REQUIRED
+            // ✅ Added Scrollbar
             thumbVisibility: true, // always show scrollbar when scrollable
             radius: const Radius.circular(8), // rounded scrollbar thumb
             thickness: 10, // scrollbar width
             child: ListView.builder(
+              controller: _scrollController, // ✅ REQUIRED
               padding: EdgeInsets.zero,
               itemCount: _filteredSuggestions.length,
               itemBuilder: (context, index) {
