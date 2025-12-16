@@ -6,12 +6,12 @@ import '../constants/app_strings.dart';
 import '../main.dart';
 
 class WidgetUtils {
-  static Future<bool> showExitPopUp(BuildContext context) async {
+  static Future<bool> showExitPopUp(BuildContext context,{String? message,String? sBtnLbl}) async {
     final result = await showConfirmExitPopUp(
       context,
       title: "Confirmation",
-      message: "Are you sure you want to exit the app?",
-      sBtnLabel: "Exit",
+      message:  message ?? "Are you sure to exit the app?",
+      sBtnLabel:  sBtnLbl ?? "Exit",
       sBtnFunction: () => Navigator.of(context).pop(true),
       showBtnN: true,
     );
