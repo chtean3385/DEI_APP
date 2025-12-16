@@ -17,12 +17,16 @@ class OTPInputFields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: List.generate(6, (index) {
-        return OTPInputField(
-          controller: otpControllers[index],
-          focusNode: focusNodes[index],
-          onChanged: (value) => onChanged(index, value),
+        return Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: OTPInputField(
+              controller: otpControllers[index],
+              focusNode: focusNodes[index],
+              onChanged: (value) => onChanged(index, value),
+            ),
+          ),
         );
       }),
     );
@@ -45,7 +49,6 @@ class OTPInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorTheme = context.colors;
     return Container(
-      width: 45,
       height: 55,
       decoration: BoxDecoration(
         border: Border.all(
@@ -60,6 +63,7 @@ class OTPInputField extends StatelessWidget {
         controller: controller,
         focusNode: focusNode,
         textAlign: TextAlign.center,
+        autofillHints: const [AutofillHints.oneTimeCode],
         style: const TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.bold,
