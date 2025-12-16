@@ -82,7 +82,7 @@ class _OtherInfoState extends State<OtherInfo> {
                             icon: Icons.lock_outline,
                             textInputAction: TextInputAction.next,
                             isPassword: true,
-                            validator: AppValidators.password,
+                            validator: AppValidators.signupPassword,
                             nextFocusNode:_confirmPasswordFocus ,
                           ),
 
