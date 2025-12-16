@@ -138,8 +138,6 @@ class ApiHandler {
         data: body,
         options: Options(headers: requestHeaders),
       );
-      // print("body -- ${body.toString()}");
-      // print("response -- ${response.data.toString()}");
       return _handleResponse(response);
     } on DioException catch (e) {
       throw _handleDioException(e);

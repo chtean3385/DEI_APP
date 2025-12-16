@@ -1,15 +1,10 @@
-import 'dart:developer';
 
 import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/providers/controllers/auth/employee_login_controller.dart';
 import 'package:dei_champions/providers/providers.dart';
-import 'package:dei_champions/widgets/others/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sms_autofill/sms_autofill.dart';
 
 // Import the component files
-import '../../../../constants/app_navigator.dart';
 import 'components/otp_animation_controller.dart';
 import 'components/otp_floating_background.dart';
 import 'components/otp_main_card.dart';
@@ -34,7 +29,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
   late OTPAnimationController _animationController;
   List<TextEditingController> otpControllers = List.generate(6, (_) => TextEditingController());
   List<FocusNode> focusNodes = List.generate(6, (_) => FocusNode());
-  int resendTimer = 120;
+
+  static const int  seconds = 120;
+  int resendTimer = seconds;
 
   @override
   void initState() {
@@ -87,14 +84,13 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
       context,
     ).read(verifyOtpProvider.notifier).resendOtp();
     setState(() {
-      resendTimer = 30;
+      resendTimer = seconds;
       // Clear OTP inputs
       for (var controller in otpControllers) {
         controller.clear();
       }
     });
     _startTimer();
-    showSnackBar("Verification code sent!");
   }
 
   @override
