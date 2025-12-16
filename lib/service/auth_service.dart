@@ -170,4 +170,22 @@ class AuthService {
       throw Exception('Invalid response format');
     }
   }
+  Future<BaseModel> forgotPassword({required String email}) async {
+    final body = {'email': email};
+    final result = await _apiHandler.post(
+      url: ApiUrls.forgotPassword,
+      body: body,
+      includeAuthToken: false,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
 }

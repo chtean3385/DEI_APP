@@ -99,7 +99,11 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                                     },
                                   ),
                                   GestureDetector(
-                                    onTap: AppNavigator.loadForgotPasswordScreen,
+                                    onTap:(){
+                                      controller.setResetPageState(PageState.initial);
+                                      controller.setEmailSendStatus(false);
+                                      AppNavigator.loadForgotPasswordScreen();
+                                    } ,
                                     child: Text(
                                       AppStrings.forgotPassword,
                                       style: context.textTheme.bodyMedium?.copyWith(color: colorTheme.buttonPrimaryColor),

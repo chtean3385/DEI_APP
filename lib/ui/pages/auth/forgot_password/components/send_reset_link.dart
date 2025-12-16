@@ -1,24 +1,29 @@
+import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SendResetLink extends StatelessWidget {
-  final bool isLoading;
+import '../../../../../providers/providers.dart';
+
+class SendResetLink extends ConsumerWidget {
   final VoidCallback onSendReset;
 
   const SendResetLink({
     super.key,
-    required this.isLoading,
     required this.onSendReset,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(loginProvider);
     return Container(
       width: double.infinity,
       height: 56,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF667eea), Color(0xFF764ba2)],
+        gradient:  LinearGradient(
+          colors: state.isEmailValid ==true
+              ? const [Color(0xFF667eea), Color(0xFF764ba2)] // active
+              : [Colors.grey.shade400, Colors.grey.shade600],    // disabled
         ),
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
@@ -33,9 +38,9 @@ class SendResetLink extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: isLoading ? null : onSendReset,
+          onTap: state.restPageState == PageState.loading ? null : onSendReset,
           child: Center(
-            child: isLoading
+            child: state.restPageState == PageState.loading
                 ? const SizedBox(
                     width: 24,
                     height: 24,

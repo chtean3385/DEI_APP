@@ -27,6 +27,12 @@ class LoginController extends StateNotifier<AuthState> {
   void setPageState(PageState newState) {
     state = state.copyWith(pageState: newState);
   }
+  void setResetPageState(PageState newState) {
+    state = state.copyWith(restPageState: newState);
+  }
+  void setEmailSendStatus(bool newState) {
+    state = state.copyWith(isEmailSend: newState);
+  }
   Future<void> loadSavedCredentials() async {
     final bool remember = await SharedPreferenceRepository.getRememberMe();
     state = state.copyWith(rememberMe: remember);
@@ -87,5 +93,27 @@ class LoginController extends StateNotifier<AuthState> {
       debugPrint("Saved Fcm  error --->> ${e.toString()} ");
       showSnackBar(e.toString());
     }
+  }
+
+  ///Sign In ///
+  Future<void> forgotPassword(String email) async {
+    setResetPageState(PageState.loading);
+    try {
+      final BaseModel result = await _authService.forgotPassword(
+       email: email
+      );
+      showSnackBar(result.message, duration: 3);
+      setResetPageState(PageState.success);
+      setEmailSendStatus(true);
+      debugPrint("success - forgotPassword");
+    } catch (e) {
+      setResetPageState(PageState.error);
+      showSnackBar(e.toString());
+      debugPrint("catch - forgotPassword");
+      debugPrint(e.toString());
+    }
+  }
+  void updateEmailValidity(bool isValid) {
+    state = state.copyWith(isEmailValid: isValid);
   }
 }

@@ -1,3 +1,5 @@
+import 'package:dei_champions/constants/app_theme.dart';
+import 'package:dei_champions/constants/app_validators.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPasswordEmailInput extends StatelessWidget {
@@ -12,28 +14,43 @@ class ForgotPasswordEmailInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colorTheme = context.colors;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withValues(alpha: 0.1),
+            color: Colors.grey.withOpacity(0.1),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),
         ],
       ),
-      child: TextField(
+      child: TextFormField(
         controller: controller,
         focusNode: focusNode,
         keyboardType: TextInputType.emailAddress,
-        style: const TextStyle(
-          fontSize: 16,
-          color: Color(0xFF2D3748),
+        style: theme.textTheme.bodyMedium?.copyWith(
+          color: colorTheme.themBasedBlack,
+          fontWeight: FontWeight.normal,
         ),
+        autovalidateMode: AutovalidateMode.onUserInteraction,
+        validator: AppValidators.email,
         decoration: InputDecoration(
           labelText: 'Email Address',
           hintText: 'Enter your email',
+          hintStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: colorTheme.black54,
+          ),
+          labelStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: colorTheme.black54,
+          ),
+          errorStyle: theme.textTheme.displaySmall?.copyWith(
+            color: Colors.redAccent,
+            fontWeight: FontWeight.normal,
+            fontSize: 10,
+          ),
           prefixIcon: _EmailIcon(),
           filled: true,
           fillColor: Colors.grey[50],
@@ -51,6 +68,7 @@ class ForgotPasswordEmailInput extends StatelessWidget {
     );
   }
 }
+
 
 class _EmailIcon extends StatelessWidget {
   @override

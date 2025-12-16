@@ -7,7 +7,6 @@ import 'forgot_password_header.dart';
 class ForgotPasswordFormCard extends StatelessWidget {
   final TextEditingController emailController;
   final FocusNode emailFocusNode;
-  final bool isLoading;
   final Animation<double> pulseAnimation;
   final VoidCallback onSendReset;
 
@@ -15,7 +14,6 @@ class ForgotPasswordFormCard extends StatelessWidget {
     super.key,
     required this.emailController,
     required this.emailFocusNode,
-    required this.isLoading,
     required this.pulseAnimation,
     required this.onSendReset,
   });
@@ -46,7 +44,6 @@ class ForgotPasswordFormCard extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           SendResetLink(
-            isLoading: isLoading,
             onSendReset: onSendReset,
           ),
           const SizedBox(height: 24),

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../widgets/others/snack_bar.dart';
+import '../../../../constants/app_validators.dart';
+import '../../../../constants/enums.dart';
+import '../../../../providers/controllers/auth/employee_login_controller.dart';
+import '../../../../providers/providers.dart';
 import 'components/forgot_password_animation_controller.dart';
 import 'components/forgot_password_back_button.dart';
 import 'components/forgot_password_background_component.dart';
 import 'components/forgot_password_form_component.dart';
 import 'components/forgot_password_success_component.dart';
-import 'components/forgot_password_validation_result.dart';
 
 // Import component files
 
@@ -22,15 +25,29 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   late ForgotPasswordAnimationController _animationController;
   final TextEditingController _emailController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
-
-  bool _isLoading = false;
-  bool _emailSent = false;
-
+  final _formKey = GlobalKey<FormState>();
+  late final LoginController controller;
   @override
   void initState() {
     super.initState();
+
     _animationController = ForgotPasswordAnimationController(this);
     _animationController.initializeAnimations();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller = ProviderScope.containerOf(
+        context,
+      ).read(loginProvider.notifier);
+      // Listen to email changes
+      _emailController.addListener(() {
+        final text = _emailController.text.trim();
+        final isValid = _isValid(AppValidators.email, text);
+        controller.updateEmailValidity(isValid);
+      });
+    });
+  }
+
+  bool _isValid(FormFieldValidator<String> validator, String value) {
+    return validator(value) == null;
   }
 
   @override
@@ -42,31 +59,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   }
 
   void _sendResetEmail() async {
-    final validationResult = ForgotPasswordValidator.validateEmail(
-      _emailController.text,
-    );
-
-    if (!validationResult.isValid) {
-      showSnackBar(validationResult.errorMessage!);
-      return;
+    if (_formKey.currentState?.validate() == true) {
+      controller.forgotPassword(_emailController.text);
     }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    // Simulate API call
-    await Future.delayed(const Duration(seconds: 2));
-
-    setState(() {
-      _isLoading = false;
-      _emailSent = true;
-    });
-
-    showSnackBar('Reset link sent to your email!');
   }
-
-
+  void _reSendResetEmail() async {
+      controller.forgotPassword(_emailController.text);
+  }
 
   void _goBack() {
     Navigator.of(context).pop();
@@ -111,20 +110,28 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                       child: Center(
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.all(24),
-                          child: _emailSent
-                              ? ForgotPasswordSuccessCard(
+                          child: Consumer(
+                              builder: (context, ref, _) {
+                                final _emailSent = ref.watch(loginProvider).isEmailSend == true;
+
+                                return _emailSent ? ForgotPasswordSuccessCard(
                                   email: _emailController.text,
                                   pulseAnimation:
-                                      _animationController.pulseAnimation,
-                                )
-                              : ForgotPasswordFormCard(
-                                  emailController: _emailController,
-                                  emailFocusNode: _emailFocusNode,
-                                  isLoading: _isLoading,
-                                  pulseAnimation:
-                                      _animationController.pulseAnimation,
-                                  onSendReset: _sendResetEmail,
-                                ),
+                                  _animationController.pulseAnimation,
+                                  onResend: _reSendResetEmail,
+
+                                ) : Form(
+                                  key: _formKey,
+                                  child: ForgotPasswordFormCard(
+                                    emailController: _emailController,
+                                    emailFocusNode: _emailFocusNode,
+                                    pulseAnimation:
+                                    _animationController.pulseAnimation,
+                                    onSendReset: _sendResetEmail,
+                                  ),
+                                );
+                              }
+                          )
                         ),
                       ),
                     ),
