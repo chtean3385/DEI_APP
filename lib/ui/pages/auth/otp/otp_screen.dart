@@ -30,7 +30,7 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
   List<TextEditingController> otpControllers = List.generate(6, (_) => TextEditingController());
   List<FocusNode> focusNodes = List.generate(6, (_) => FocusNode());
 
-  static const int  seconds = 120;
+  static const int  seconds = 300;
   int resendTimer = seconds;
 
   @override
