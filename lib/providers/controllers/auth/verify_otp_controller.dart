@@ -46,6 +46,23 @@ class VerifyOtpController extends StateNotifier<OtpState> {
     }
   }
 
+  Future<void> resendOtp() async {
+    setResendPageState(PageState.loading);
+    try {
+      final BaseModel result = await _authService.resendOtp(
+          userId: state.userId ?? ""
+      );
+      showSnackBar(result.message, duration: 3);
+      setResendPageState(PageState.success);
+      debugPrint("success - resendOtp");
+    } catch (e) {
+      setResendPageState(PageState.error);
+      showSnackBar(e.toString());
+      debugPrint("catch - resendOtp");
+      debugPrint(e.toString());
+    }
+  }
+
 
   saveFcm() async {
     try {
@@ -66,6 +83,9 @@ class VerifyOtpController extends StateNotifier<OtpState> {
     state = state.copyWith(pageState: newState);
   }
 
+  void setResendPageState(PageState newState) {
+    state = state.copyWith(resendPageState: newState);
+  }
   void setMobileUserId(String? email,String? userId) {
     state = state.copyWith(email: email,userId:userId );
   }

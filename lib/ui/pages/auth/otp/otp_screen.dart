@@ -29,7 +29,7 @@ class OTPVerificationScreen extends StatefulWidget {
 }
 
 class _OTPVerificationScreenState extends State<OTPVerificationScreen>
-    with TickerProviderStateMixin, CodeAutoFill {
+    with TickerProviderStateMixin {
 
   late OTPAnimationController _animationController;
   List<TextEditingController> otpControllers = List.generate(6, (_) => TextEditingController());
@@ -42,36 +42,18 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
     _animationController = OTPAnimationController(this);
     _animationController.initializeAnimations();
     _startTimer();
-    // 🔥 START SMS LISTENER
-    listenForCode();
-
     // (Optional but recommended) log hash once
-    logAppSignature();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ProviderScope.containerOf(
         context,
       ).read(verifyOtpProvider.notifier).setMobileUserId(widget.mobileNumber,widget.userId);
     });
   }
-  @override
-  void codeUpdated() {
-    if (code == null || code!.length != 6) return;
 
-    log("📩 OTP received automatically: $code");
-
-    for (int i = 0; i < 6; i++) {
-      otpControllers[i].text = code![i];
-    }
-
-    FocusScope.of(context).unfocus();
-
-    _verifyOTP();
-  }
 
 
   @override
   void dispose() {
-    cancel(); // 🔥 VERY IMPORTANT
     _animationController.dispose();
     for (var controller in otpControllers) {
       controller.dispose();
@@ -101,6 +83,9 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
   }
 
   void _resendCode() {
+    ProviderScope.containerOf(
+      context,
+    ).read(verifyOtpProvider.notifier).resendOtp();
     setState(() {
       resendTimer = 30;
       // Clear OTP inputs
@@ -110,18 +95,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen>
     });
     _startTimer();
     showSnackBar("Verification code sent!");
-  }
-  Future<void> logAppSignature() async {
-    try {
-      final signature = await SmsAutoFill().getAppSignature;
-      log("📱 ===== SMS AUTOFILL CONFIGURATION =====");
-      log("📱 App Signature: $signature");
-      log("📱 Backend Team: Add this hash to end of SMS:");
-      log("📱 SMS Format: <#> Your Nutrition Nook code is 123456\\n\\n$signature");
-      log("📱 =========================================");
-    } catch (e) {
-      log("Error getting app signature: $e");
-    }
   }
 
   @override
