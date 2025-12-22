@@ -1,89 +1,68 @@
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class NotificationModel {
-  final String? id;
-  final String? title;
-  final String? description;
-  final DateTime? createdAt;
-  final String? iconName; // FontAwesome icon name
-  final Color? iconBgColor;
-  final Color? statusColor;
-  final bool? isRead;
+  final String id;
+  final String title;
+  final String description;
+  final DateTime createdAt;
+  final String type;
+  final bool isRead;
 
   NotificationModel({
-    this.id,
-    this.title,
-    this.description,
-    this.createdAt,
-    this.iconName,
-    this.iconBgColor,
-    this.statusColor,
-    this.isRead,
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.createdAt,
+    required this.type,
+    required this.isRead,
   });
-  /// ✅ Add copyWith for immutable updates
-  NotificationModel copyWith({
-    String? id,
-    String? title,
-    String? description,
-    DateTime? createdAt,
-    String? iconName,
-    Color? iconBgColor,
-    Color? statusColor,
-    bool? isRead,
-  }) {
+
+  NotificationModel copyWith({bool? isRead}) {
     return NotificationModel(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      createdAt: createdAt ?? this.createdAt,
-      iconName: iconName ?? this.iconName,
-      iconBgColor: iconBgColor ?? this.iconBgColor,
-      statusColor: statusColor ?? this.statusColor,
+      id: id,
+      title: title,
+      description: description,
+      createdAt: createdAt,
+      type: type,
       isRead: isRead ?? this.isRead,
     );
   }
 
-  /// Factory: Create from JSON
-  factory NotificationModel.fromJson(Map<String, dynamic> json) {
+  /// 🔥 Firestore factory
+  factory NotificationModel.fromFirestore(
+    DocumentSnapshot<Map<String, dynamic>> doc,
+  ) {
+    final data = doc.data()!;
+    print("datadatadatadata   ${data['createdAt']}");
+    print("datadatadatadata   ${data['title']}");
+    print("datadatadatadata   ${data['message']}");
+    print("datadatadatadata   ${data['type']}");
+    print("datadatadatadata   ${data['isRead']}");
     return NotificationModel(
-      id: json['id'] as String?,
-      title: json['title'] as String?,
-      description: json['description'] as String?,
-      createdAt: json["createdAt"] != null
-          ? DateTime.tryParse(json["createdAt"])
-          : null,
-      iconName: json['iconName'] as String?,
-      iconBgColor: _parseColor(json['iconBgColor']),
-      statusColor: _parseColor(json['statusColor']),
-      isRead: json['isRead'] as bool?,
+      id: doc.id,
+      title: data['title'] ?? '',
+      description: data['message'] ?? '',
+      type: data['type'] ?? 'default',
+      isRead: data['isRead'] ?? false,
+      createdAt: parseCreatedAt(data['createdAt']),
     );
+  }
+}
 
+DateTime parseCreatedAt(dynamic value) {
+  if (value == null) return DateTime.now();
+
+  if (value is Timestamp) {
+    return value.toDate();
   }
 
-
-  /// Get FontAwesome IconData from string name
-  IconData get faIcon {
-    final map = {
-      'briefcase': FontAwesomeIcons.briefcase,
-      'calendar': FontAwesomeIcons.calendar,
-      'envelope': FontAwesomeIcons.envelope,
-      'fileAlt': FontAwesomeIcons.fileAlt,
-      'comment': FontAwesomeIcons.comment,
-      'bell': FontAwesomeIcons.bell,
-      'check': FontAwesomeIcons.check,
-      'user': FontAwesomeIcons.user,
-    };
-    return map[iconName] ?? FontAwesomeIcons.bell; // default fallback
+  if (value is int) {
+    return DateTime.fromMillisecondsSinceEpoch(value);
   }
 
-  /// Parse color from string or int
-  static Color? _parseColor(dynamic value) {
-    if (value == null) return null;
-    try {
-      return Color(int.parse(value.toString()));
-    } catch (_) {
-      return null;
-    }
+  if (value is String) {
+    return DateTime.tryParse(value) ?? DateTime.now();
   }
+
+  return DateTime.now();
 }

@@ -170,7 +170,6 @@ final registerProvider =
       return EmployeeRegisterController(ref);
     });
 
-
 /// verify OTP controller
 final verifyOtpProvider =
     StateNotifierProvider.autoDispose<VerifyOtpController, OtpState>((ref) {
@@ -184,8 +183,7 @@ final signupFlowControllerProvider =
     );
 
 /// logout controller
-final logoutProvider =
-StateNotifierProvider<LogoutController, OtpState>((ref) {
+final logoutProvider = StateNotifierProvider<LogoutController, OtpState>((ref) {
   return LogoutController(ref);
 });
 
@@ -208,19 +206,15 @@ final dashBoardProvider =
 
 ///job categories
 final jobCategoryProvider =
-    StateNotifierProvider<JobCategoryController, JobCategoryState>((
-      ref,
-    ) {
+    StateNotifierProvider<JobCategoryController, JobCategoryState>((ref) {
       return JobCategoryController(ref);
     });
 
 ///country state city data
 final stateListProvider =
-StateNotifierProvider<StateCityController, CountryCityState>((
-    ref,
-    ) {
-  return StateCityController(ref);
-});
+    StateNotifierProvider<StateCityController, CountryCityState>((ref) {
+      return StateCityController(ref);
+    });
 
 ///featured employers
 final featuredEmployersProvider =
@@ -233,10 +227,9 @@ final featuredEmployersProvider =
 
 ///friendly industries
 final friendlyIndustryProvider =
-    StateNotifierProvider<
-      FriendlyIndustryController,
-      FriendlyIndustryState
-    >((ref) {
+    StateNotifierProvider<FriendlyIndustryController, FriendlyIndustryState>((
+      ref,
+    ) {
       return FriendlyIndustryController();
     });
 
@@ -275,12 +268,12 @@ final championCandidatesProvider =
 
 ///promo banner
 final promoBannerProvider =
-StateNotifierProvider.autoDispose<
-    PromoBannerController,
-    PromoBannerState
->((ref) {
-  return PromoBannerController(ref);
-});
+    StateNotifierProvider.autoDispose<PromoBannerController, PromoBannerState>((
+      ref,
+    ) {
+      return PromoBannerController(ref);
+    });
+
 ///what we do -about us
 final whatWeDoProvider =
     StateNotifierProvider.autoDispose<WhatWeDoController, WhatWeDoState>((ref) {
@@ -509,12 +502,12 @@ final lgbtqInclusionPointsProvider =
 
 /// career explore services
 final careerExploreServicesProvider =
-StateNotifierProvider.autoDispose<
-    CareerExploreServicesController,
-    CareerExploreServicesState
->((ref) {
-  return CareerExploreServicesController();
-});
+    StateNotifierProvider.autoDispose<
+      CareerExploreServicesController,
+      CareerExploreServicesState
+    >((ref) {
+      return CareerExploreServicesController();
+    });
 
 final ourTeamProvider =
     StateNotifierProvider.autoDispose<OurTeamController, OurTeamState>((ref) {
@@ -586,11 +579,15 @@ final drawerProfileProvider =
     StateNotifierProvider<DrawerProfileController, EmployeeProfileState>((ref) {
       return DrawerProfileController();
     });
+
 /// employee profile completion
 final profileCompletionProvider =
-StateNotifierProvider<EmployeeProfileCompletionController, EmployeeProfileCompletionState>((ref) {
-  return EmployeeProfileCompletionController();
-});
+    StateNotifierProvider<
+      EmployeeProfileCompletionController,
+      EmployeeProfileCompletionState
+    >((ref) {
+      return EmployeeProfileCompletionController();
+    });
 
 /// employee profile
 final employeeProfileProvider =
@@ -612,29 +609,26 @@ final editEmployeeProfileProvider =
 
 ///job types
 final jobTypesProvider =
-    StateNotifierProvider<JobTypesController, JobTypeListState>((
-      ref,
-    ) {
+    StateNotifierProvider<JobTypesController, JobTypeListState>((ref) {
       return JobTypesController(ref);
     });
 
 ///job salary range types
 final salaryRangeTypesProvider =
-    StateNotifierProvider<
-      SalaryRangeTypesController,
-      SalaryRangeListState
-    >((ref) {
+    StateNotifierProvider<SalaryRangeTypesController, SalaryRangeListState>((
+      ref,
+    ) {
       return SalaryRangeTypesController(ref);
     });
 
 ///job salary range types
 final employeeSettingsProvider =
-StateNotifierProvider.autoDispose<
-    EmployeeSettingsController,
-    EmployeeSettingsState
->((ref) {
-  return EmployeeSettingsController(ref);
-});
+    StateNotifierProvider.autoDispose<
+      EmployeeSettingsController,
+      EmployeeSettingsState
+    >((ref) {
+      return EmployeeSettingsController(ref);
+    });
 
 /// applied jobs
 final appliedJobsProvider =
@@ -666,14 +660,15 @@ final searchJobListProvider =
     >((ref) {
       return EmployeeSearchJobController();
     });
+
 /// recommended jobs list
 final recommendedJobListProvider =
-StateNotifierProvider.autoDispose<
-    EmployeeRecommendedJobController,
-    JobListState
->((ref) {
-  return EmployeeRecommendedJobController();
-});
+    StateNotifierProvider.autoDispose<
+      EmployeeRecommendedJobController,
+      JobListState
+    >((ref) {
+      return EmployeeRecommendedJobController();
+    });
 
 /// employee manage job
 final employeeManageJobProvider =
@@ -686,37 +681,29 @@ final employeeJobDetailsProvider =
     StateNotifierProvider<EmployeeJobDetailsController, JobState>((ref) {
       return EmployeeJobDetailsController();
     });
+
 /// similar jobs list
-final similarJobListProvider =
-StateNotifierProvider.autoDispose.family<
-    EmployeeSimilarJobController,
-    JobListState,
-    String?
->((ref,jobId) {
-  return EmployeeSimilarJobController(jobId);
-});
-/// employee notifications
-final employeeNotificationProvider =
-    StateNotifierProvider.autoDispose<
-      NotificationController,
-      NotificationsState
-    >((ref) {
-      return NotificationController();
+final similarJobListProvider = StateNotifierProvider.autoDispose
+    .family<EmployeeSimilarJobController, JobListState, String?>((ref, jobId) {
+      return EmployeeSimilarJobController(jobId);
     });
+
+/// employee notifications
+
+final employeeNotificationProvider =
+    StateNotifierProvider<NotificationController, NotificationsState>(
+      (ref) => NotificationController(ref),
+    );
+
 final popupAlertProvider =
-StateNotifierProvider.autoDispose<
-    PopupAlertController,
-    PopupAlertState
->((ref) {
-  return PopupAlertController(ref);
-});
-
+    StateNotifierProvider.autoDispose<PopupAlertController, PopupAlertState>((
+      ref,
+    ) {
+      return PopupAlertController(ref);
+    });
 
 //////*****///////////******* EMPLOYER //////*****///////////*******
 //////*****///////////******* EMPLOYER //////*****///////////*******
 //////*****///////////******* EMPLOYER //////*****///////////*******
 //////*****///////////******* EMPLOYER //////*****///////////*******
 //////*****///////////******* EMPLOYER //////*****///////////*******
-
-
-

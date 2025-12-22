@@ -1,73 +1,64 @@
 import 'package:dei_champions/models/notification/notification_model.dart';
 import 'package:dei_champions/models/state_models/notification/notification_state.dart';
+import 'package:dei_champions/repo/shared_preference_repository.dart';
 import 'package:dei_champions/service/notification/notification_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
+import '../../../service/notification/firestore_notification_service.dart';
 
 class NotificationController extends StateNotifier<NotificationsState> {
-  final NotificationService _service = NotificationService();
+  final FirestoreNotificationService _service;
+  final Ref ref;
 
-  NotificationController() : super(NotificationsState.initial()) {
-    fetchData();
+  NotificationController(this.ref)
+      : _service = FirestoreNotificationService(),
+        super(NotificationsState.initial()) {
+    _startListening();
   }
 
-  Future<void> fetchData() async {
+  Future<void> _startListening() async {
+    final userId = await SharedPreferenceRepository.getUserId();
+print("userId  -- $userId");
     state = state.copyWith(pageState: PageState.loading);
-    try {
-      await Future.delayed(Duration(seconds: 2));
-      final result = await _service.getNotificationsData();
-      final List<dynamic>? list = result.data as List<dynamic>?;
-      final List<NotificationModel> data = list != null
-          ? list
-          .map(
-            (e) => NotificationModel.fromJson(e as Map<String, dynamic>),
-      )
-          .toList()
-          : [];
-      state = state.copyWith(pageState: PageState.success, data: data,unreadCount: _calculateUnreadCount(data),);
-    } catch (e, st) {
-      debugPrint("❌ catch NotificationController fetchData - $e");
-      debugPrintStack(stackTrace: st);
-      state = state.copyWith(
-        pageState: PageState.error,
-        errorMessage: e.toString(),
-      );
-      showSnackBar(e.toString());
-    }
+
+    _service.listenNotifications(userId).listen(
+          (list) {
+        state = state.copyWith(
+          pageState: PageState.success,
+          data: list,
+          unreadCount: _calculateUnreadCount(list),
+        );
+      },
+      onError: (e) {
+        state = state.copyWith(
+          pageState: PageState.error,
+          errorMessage: e.toString(),
+        );
+        print("_catch notofiation startListening -- ${e.toString()}");
+      },
+    );
   }
 
-  /// 🔹 Calculate unread notifications count
   int _calculateUnreadCount(List<NotificationModel> list) =>
-      list
-          .where((n) => n.isRead == false)
-          .length;
+      list.where((n) => !n.isRead).length;
 
-  /// 🔹 Mark all notifications as read
-  void markAllAsRead() {
-    final current = state.data ?? [];
-    final updated = current.map((n) => n.copyWith(isRead: true)).toList();
+  /// 🔹 Firestore update
+  Future<void> markAllAsRead() async {
+    final unreadIds = state.data
+        ?.where((e) => !e.isRead)
+        .map((e) => e.id)
+        .toList() ??
+        [];
 
-    state = state.copyWith(
-      data: updated,
-      unreadCount: _calculateUnreadCount(updated),
-    );
+    await _service.markAllAsRead(unreadIds);
   }
 
-  /// 🔹 Toggle single notification
-  void toggleNotificationRead(String id) {
-    final current = state.data ?? [];
-    final updated = current.map((n) {
-      if (n.id == id) {
-        return n.copyWith(isRead: !(n.isRead ?? false));
-      }
-      return n;
-    }).toList();
-
-    state = state.copyWith(
-      data: updated,
-      unreadCount: _calculateUnreadCount(updated),
-    );
+  /// 🔹 Firestore update
+  Future<void> markAsRead(String id) async {
+    await _service.markAsRead(id);
   }
 }
+
+

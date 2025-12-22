@@ -56,7 +56,7 @@ class NotificationCard extends StatelessWidget {
                     ),
                     child: Center(
                       child: Icon(
-                        getFontAwesomeIcon(notification.iconName),
+                        Icons.notifications,
                         size: 16,
                         color: AppColors.primaryColor,
                       ),
@@ -89,7 +89,7 @@ class NotificationCard extends StatelessWidget {
                   (notification.isRead == false)
                       ? CircleAvatar(
                           radius: 5,
-                          backgroundColor: notification.statusColor,
+                          backgroundColor: Colors.red,
                         )
                       : SizedBox(width: 12, height: 12),
                 ],

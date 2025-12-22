@@ -29,8 +29,10 @@ class NotificationView extends ConsumerWidget {
   }
 
   Widget _data(NotificationsState state, BuildContext context) {
-    return SafeArea(
-      child: ListView.separated(
+    final length = state.data?.length ?? 0;
+
+    return  SafeArea(
+      child: length > 0 ? ListView.separated(
         itemCount: state.data!.length,
         shrinkWrap: true,
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -38,7 +40,7 @@ class NotificationView extends ConsumerWidget {
           return NotificationCard(notification: state.data![index]);
         },
         separatorBuilder: (c, s) => gapH8(),
-      ),
+      ) : EmptyWidget(),
     );
   }
 
