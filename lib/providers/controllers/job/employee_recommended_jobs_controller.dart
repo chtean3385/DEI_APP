@@ -31,8 +31,9 @@ class EmployeeRecommendedJobController extends StateNotifier<JobListState> {
     try {
       final BaseModel result = await _jobService.getRecommendedJobs(page: 1);
       final userId = await SharedPreferenceRepository.getUserId();
+      print("userIduserId -- $userId");
       final Data = (result.data as List)
-          .map((e) => JobModelApi.fromJson(e,currentUserId: userId))
+          .map((e) => JobModelApi.fromJsonRecommendedJobs(e,currentUserId: userId))
           .toList();
       state = state.copyWith(
         pageState: PageState.success,
@@ -42,6 +43,7 @@ class EmployeeRecommendedJobController extends StateNotifier<JobListState> {
         totalCount: result.count
       );
     } catch (e) {
+      print("catch fetchJobs EmployeeRecommendedJobController -- ${e.toString()}");
       state = state.copyWith(
         pageState: PageState.error,
         errorMessage: e.toString(),

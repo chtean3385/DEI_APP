@@ -95,6 +95,53 @@ class JobModelApi {
     );
   }
 
+  factory JobModelApi.fromJsonRecommendedJobs(
+      Map<String, dynamic> json, {
+        String? currentUserId,
+      }) {
+    final applicantsList = (json["applicants"] as List?)
+        ?.map((e) => e.toString())
+        .toList() ??
+        [];
+
+    final savedUsersList = (json["savedBy"] as List?)
+        ?.map((e) => e.toString())
+        .toList() ??
+        [];
+
+    // 🔹 Check if user has applied/saved
+    final hasApplied =
+        currentUserId != null && applicantsList.contains(currentUserId);
+    final hasSaved =
+        currentUserId != null && savedUsersList.contains(currentUserId);
+    return JobModelApi(
+      id: json["_id"],
+      title: json["jobTitle"],
+      description: json["jobDescription"],
+      city: json["city"],
+      state: json["state"],
+      country: json["country"],
+      salary: json["salary"] != null ? json["salary"]["range"] : null,
+      status: json["status"],
+      myStatus: json["myStatus"],
+      jobType: json["jobType"] != null ? json["jobType"]["name"] : null,
+      category: json["category"] != null ? json["category"]["title"] : null,
+      employer: json["postedBy"] != null
+          ? Employer.fromJson(json["postedBy"])
+          : null,
+      skills: json["tags"] != null ? List<String>.from(json["tags"]) : [],
+      // isApproved: json["isApproved"],
+      createdAt: json["createdAt"] != null
+          ? DateTime.tryParse(json["createdAt"])
+          : null,
+      updatedAt: json["updatedAt"] != null
+          ? DateTime.tryParse(json["updatedAt"])
+          : null,
+      isApplied: hasApplied,
+      isSaved: hasSaved,
+    );
+  }
+
   factory  JobModelApi.fromJsonSimilarJobs(
       Map<String, dynamic> json, {
         String? currentUserId,
