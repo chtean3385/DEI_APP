@@ -17,13 +17,15 @@ class NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final color = getNotificationColor(notification.type);
+    final colorTheme  = context.colors;;
+    final textTheme  = context.textTheme;;
     return Card(
       elevation: 2,
-      color: Colors.white,
+      color: colorTheme.cardBgColor,
       shadowColor: AppColors.primaryColor,
       surfaceTintColor: notification.isRead == true
           ? Colors.white
-          : AppColors.primaryColor,
+          : colorTheme.buttonPrimaryColor,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
@@ -46,7 +48,7 @@ class NotificationCard extends StatelessWidget {
                         height: 30,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Colors.white, // background color
+                          color: colorTheme.commonBg2Color, // background color
                           boxShadow: [
                             BoxShadow(
                               color: Colors.blue.withValues(alpha: 0.2),
@@ -79,7 +81,7 @@ class NotificationCard extends StatelessWidget {
                             Text(
                               notification.description ?? "",
                               style: context.textTheme.displaySmall?.copyWith(
-                                color: Colors.black54,
+                                color: colorTheme.black54,
                               ),
                             ),
                           ],
@@ -140,7 +142,7 @@ class NotificationCard extends StatelessWidget {
                   Icon(
                     Icons.access_time_rounded,
                     size: 12,
-                    color: Colors.black54,
+                    color: colorTheme.black54,
                   ),
                   gapW6(),
                   Text(
@@ -149,7 +151,7 @@ class NotificationCard extends StatelessWidget {
                     softWrap: true,
                     overflow: TextOverflow.ellipsis,
                     style: context.textTheme.displaySmall?.copyWith(
-                      color: Colors.black54,
+                      color: colorTheme.black54,
                       fontSize: 10,
                     ),
                   ),
