@@ -1,5 +1,6 @@
 class ApiUrls {
-  static const baseUrl = 'https://dei-backend.onrender.com/api/';
+  // static const baseUrl = 'https://dei-backend.onrender.com/api/';
+  static const baseUrl = 'https://mobile.deichampion.com/api/';
 
 
   //on board

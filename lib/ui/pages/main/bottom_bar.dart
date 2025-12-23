@@ -35,20 +35,37 @@ class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 0;
   Map<String, dynamic>? _params;
   final _advancedDrawerController = AdvancedDrawerController();
+
+
   @override
   void initState() {
     super.initState();
     _currentIndex = widget.initialPage;
     _params = widget.params;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       initialiseController();
-      showDialog(
-        context: navigatorKey.currentContext!,
-        barrierDismissible: true,
-        builder: (_) => const HomePromotionDialog(),
+
+      final container = ProviderScope.containerOf(
+        navigatorKey.currentContext!,
       );
+
+      // Wait for popup API
+      await container.read(popupAlertProvider.notifier).fetchPopupData();
+
+      final promo = container.read(popupAlertProvider).data;
+
+      // ✅ SHOW DIALOG ONLY IF POPUP EXISTS
+      if (promo != null) {
+        showDialog(
+          context: navigatorKey.currentContext!,
+          barrierDismissible: true,
+          builder: (_) => const HomePromotionDialog(),
+        );
+      }
     });
   }
+
 
   initialiseController(){
     final providerScope =  ProviderScope.containerOf(

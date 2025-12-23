@@ -33,12 +33,12 @@ class NotificationModel {
     DocumentSnapshot<Map<String, dynamic>> doc,
   ) {
     final data = doc.data()!;
-    print("datadatadatadata   ${data['createdAt']}");
-    print("datadatadatadata   ${data['title']}");
-    print("datadatadatadata   ${data['message']}");
-    print("datadatadatadata   ${data['type']}");
-    print("datadatadatadata   ${data['isRead']}");
-    print("datadatadatadata   ${data['_id']}");
+    // print("datadatadatadata   ${data['createdAt']}");
+    // print("datadatadatadata   ${data['title']}");
+    // print("datadatadatadata   ${data['message']}");
+    // print("datadatadatadata   ${data['type']}");
+    // print("datadatadatadata   ${data['isRead']}");
+    // print("datadatadatadata   ${data['_id']}");
     return NotificationModel(
       id: doc.id,
       title: data['title'] ?? '',

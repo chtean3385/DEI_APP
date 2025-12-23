@@ -13,7 +13,6 @@ class PopupAlertController extends StateNotifier<PopupAlertState> {
   final JobCategoryService _jobCategoryService = JobCategoryService();
 
   PopupAlertController(this._ref) : super(PopupAlertState.initial()) {
-    fetchPopupData();
   }
 
   @override
@@ -34,7 +33,6 @@ class PopupAlertController extends StateNotifier<PopupAlertState> {
         errorMessage: e.toString(),
       );
       debugPrint(" catch fetchPopupData -${e.toString()}");
-      showSnackBar(e.toString());
     }
   }
 }

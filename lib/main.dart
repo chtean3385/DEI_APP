@@ -20,9 +20,9 @@ Future<void> main() async {
 
   await NotificationService().init();
   // Lock app to portrait mode only
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-  ]);
+  // await SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  // ]);
   runApp(ProviderScope(child: const MyApp()));
 }
 
