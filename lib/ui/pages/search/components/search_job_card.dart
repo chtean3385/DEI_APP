@@ -403,6 +403,7 @@ class SearchJobCard extends StatelessWidget {
 
   Widget _buildStatusButton(String status) {
     final theme = navigatorKey.currentContext!.textTheme;
+    final colorTheme =  navigatorKey.currentContext!.colors;
 
     // Normalize input
     final s = status.toLowerCase().trim();
@@ -454,7 +455,7 @@ class SearchJobCard extends StatelessWidget {
           Icon(
             Icons.send_and_archive_outlined,
             size: 20,
-            color: Colors.black54,
+            color: colorTheme.black54,
           ),
           gapW8(),
           Text(
