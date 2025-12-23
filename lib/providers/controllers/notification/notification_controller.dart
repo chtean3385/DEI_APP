@@ -20,7 +20,6 @@ class NotificationController extends StateNotifier<NotificationsState> {
 
   Future<void> _startListening() async {
     final userId = await SharedPreferenceRepository.getUserId();
-print("userId  -- $userId");
     state = state.copyWith(pageState: PageState.loading);
 
     _service.listenNotifications(userId).listen(
@@ -36,7 +35,6 @@ print("userId  -- $userId");
           pageState: PageState.error,
           errorMessage: e.toString(),
         );
-        print("_catch notofiation startListening -- ${e.toString()}");
       },
     );
   }

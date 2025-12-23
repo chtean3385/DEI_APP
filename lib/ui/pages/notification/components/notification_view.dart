@@ -1,10 +1,12 @@
 import 'package:dei_champions/constants/app_styles.dart';
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/state_models/notification/notification_state.dart';
 import 'package:dei_champions/ui/pages/notification/components/notification_card.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_navigator.dart';
 import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/custom_loader.dart';
@@ -24,11 +26,12 @@ class NotificationView extends ConsumerWidget {
     } else if (state.data?.isEmpty == true) {
       return EmptyWidget();
     } else {
-      return _data(state, context);
+      return _data(state, context,ref);
     }
   }
 
-  Widget _data(NotificationsState state, BuildContext context) {
+  Widget _data(NotificationsState state, BuildContext context,WidgetRef ref) {
+    final controller = ref.read(employeeNotificationProvider.notifier);
     final length = state.data?.length ?? 0;
 
     return  SafeArea(
@@ -37,7 +40,11 @@ class NotificationView extends ConsumerWidget {
         shrinkWrap: true,
         padding: EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         itemBuilder: (context, index) {
-          return NotificationCard(notification: state.data![index]);
+          final notification = state.data![index]; // 👈 THIS LINE
+          return NotificationCard(notification: notification,
+            onTap: (){
+              controller.markAsRead(notification.id);
+            });
         },
         separatorBuilder: (c, s) => gapH8(),
       ) : EmptyWidget(),
@@ -84,5 +91,78 @@ class MarkAllRead extends ConsumerWidget {
             ),
           )
         : SizedBox.shrink();
+  }
+}
+
+
+
+class NotificationIconButton extends ConsumerWidget {
+  const NotificationIconButton({super.key, this.showTutorial = false});
+
+  final bool showTutorial;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(employeeNotificationProvider);
+    final unreadCount = state.unreadCount ?? 0;
+
+    return GestureDetector(
+      behavior: HitTestBehavior.translucent,
+      onTap: () =>
+          AppNavigator.loadEmployeeNotificationsScreen(),
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          IconButton(
+            icon: Icon(
+              Icons.notifications_none,
+              color: context.colors.black45,
+              size: 25,
+            ),
+            onPressed: null,
+          ),
+
+          /// 🔴 RED BADGE
+          if (unreadCount > 0)
+            Positioned(
+              top: 6,
+              right: 6,
+              child: _Badge(count: unreadCount),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class _Badge extends StatelessWidget {
+  final int count;
+
+  const _Badge({required this.count});
+
+  @override
+  Widget build(BuildContext context) {
+    final text = count > 99 ? '99+' : count.toString();
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+      decoration: const BoxDecoration(
+        color: Colors.red,
+        shape: BoxShape.circle,
+      ),
+      constraints: const BoxConstraints(
+        minWidth: 18,
+        minHeight: 18,
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 10,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
 }

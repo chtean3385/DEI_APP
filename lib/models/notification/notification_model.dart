@@ -38,6 +38,7 @@ class NotificationModel {
     print("datadatadatadata   ${data['message']}");
     print("datadatadatadata   ${data['type']}");
     print("datadatadatadata   ${data['isRead']}");
+    print("datadatadatadata   ${data['_id']}");
     return NotificationModel(
       id: doc.id,
       title: data['title'] ?? '',

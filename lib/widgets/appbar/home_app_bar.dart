@@ -4,6 +4,7 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/app_keys.dart';
+import '../../ui/pages/notification/components/notification_view.dart';
 import '../form/home_search.dart';
 
 AppBar appBarHome(
@@ -55,15 +56,8 @@ AppBar appBarHome(
         ? [
             Padding(
               padding: const EdgeInsets.only(right: 8),
-              child: IconButton(
-                key:!showTutorial ? null : AppTutorialKeys.notificationButtonKey,
-                icon:  Icon(
-                  Icons.notifications_none,
-                  color: context.colors.black45,
-                  size: 25,
-                ),
-                onPressed:  () => AppNavigator.loadEmployeeNotificationsScreen(),
-              ),
+              child: const NotificationIconButton(),
+
             ),
           ]
         : isFromProfile
