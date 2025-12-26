@@ -55,6 +55,19 @@ class LoginController extends StateNotifier<AuthState> {
       showSnackBar(result.message, duration: 3);
      if(state.rememberMe) saveCredentials();
       setPageState(PageState.success);
+
+      /// 🔐 OTP pending user
+      final otpUser = OtpPendingUserModel.fromJson(result.data);
+
+      if (otpUser.requiresOtpVerification == true) {
+        setPageState(PageState.success);
+
+        AppNavigator.loadOtpScreenForSignup(
+          mobile: otpUser.mobile ?? '',
+          userId: otpUser.userId ?? '',
+        );
+        return;
+      }
       final AuthModel authModel = AuthModel.fromJson(result.data);
       await AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
       saveFcm();
