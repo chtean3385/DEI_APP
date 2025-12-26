@@ -2,6 +2,8 @@ import 'package:dei_champions/models/common/blog_model.dart';
 import 'package:dei_champions/models/state_models/common/blog_detail_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
 import '../../../constants/app_strings.dart';
@@ -42,4 +44,60 @@ class BlogDetailController extends StateNotifier<BlogDetailState> {
       showSnackBar(AppStrings.somethingWentWrong);
     }
   }
+
+
+
+
 }
+Future<void> openWebUrl(String blogId) async {
+  final uri = Uri.tryParse("https://frontend-dei.vercel.app/blog-details?blog=$blogId");
+
+  if (uri == null) return;
+
+  if (!await canLaunchUrl(uri)) {
+    throw 'Could not launch $uri';
+  }
+
+  await launchUrl(
+    uri,
+    mode: LaunchMode.externalApplication, // opens browser
+  );
+}
+
+
+Future<void> shareBlog({
+  required String blogId,
+  required String title,
+}) async {
+  try {
+    final url =
+        "https://frontend-dei.vercel.app/blog-details?blog=$blogId";
+
+    final safeTitle =
+    title.trim().isEmpty ? 'DEI Blog' : title.trim();
+
+    final message = '''
+📘 $safeTitle
+
+✨ Thought-provoking insights from the DEI platform.
+Explore ideas that inspire inclusion, learning, and growth.
+
+Read the full blog here 👇
+$url
+''';
+
+    await SharePlus.instance.share(
+      ShareParams(
+        text: message.trim(), // extra safety
+        subject: safeTitle,
+      ),
+    );
+  } catch (e, s) {
+    debugPrint('❌ Share failed: $e');
+    debugPrintStack(stackTrace: s);
+    showSnackBar('Unable to share right now');
+  }
+}
+
+
+

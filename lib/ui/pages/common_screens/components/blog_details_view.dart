@@ -1,9 +1,11 @@
 import 'package:dei_champions/constants/app_drawables.dart';
+import 'package:dei_champions/constants/app_strings.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/models/common/blog_model.dart';
 import 'package:dei_champions/models/state_models/common/blog_detail_state.dart';
+import 'package:dei_champions/providers/controllers/common/blog_detail_controller.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -278,7 +280,7 @@ class BlogDetailsView extends ConsumerWidget {
                   overflow: TextOverflow.ellipsis,
                 ),
                 gapH16(),
-                BlogTagsAndShare(tags: ['Eventss', 'Career', 'Interview']),
+                BlogTagsAndShare(tags: ['Eventss', 'Career', 'Interview'],onShareTap: ()=>shareBlog(title:AppStrings.appName ,blogId: item?.id ?? ""),),
               ],
             ),
           ),
@@ -324,8 +326,9 @@ class BlogDetailsView extends ConsumerWidget {
 
 class BlogTagsAndShare extends StatelessWidget {
   final List<String> tags;
+  final VoidCallback? onShareTap;
 
-  const BlogTagsAndShare({super.key, required this.tags});
+  const BlogTagsAndShare({super.key, required this.tags,this.onShareTap,});
 
   @override
   Widget build(BuildContext context) {
@@ -344,35 +347,38 @@ class BlogTagsAndShare extends StatelessWidget {
           children: tags.map((s) => commonChip(s,isFromDetails: true)).toList(),
         ),
         gapH16(),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              'Share',
-              style: theme.bodyMedium?.copyWith(
-                fontWeight: FontWeight.w600,
+        GestureDetector(
+          onTap: onShareTap,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                'Share',
+                style: theme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: colorTheme.grey600,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Icon(
+                FontAwesomeIcons.facebookF,
+                size: 18,
                 color: colorTheme.grey600,
               ),
-            ),
-            const SizedBox(width: 12),
-            Icon(
-              FontAwesomeIcons.facebookF,
-              size: 18,
-              color: colorTheme.grey600,
-            ),
-            const SizedBox(width: 12),
-            Icon(
-              FontAwesomeIcons.twitter,
-              size: 18,
-              color: colorTheme.grey600,
-            ),
-            const SizedBox(width: 12),
-            Icon(
-              FontAwesomeIcons.pinterestP,
-              size: 18,
-              color: colorTheme.grey600,
-            ),
-          ],
+              const SizedBox(width: 12),
+              Icon(
+                FontAwesomeIcons.twitter,
+                size: 18,
+                color: colorTheme.grey600,
+              ),
+              const SizedBox(width: 12),
+              Icon(
+                FontAwesomeIcons.pinterestP,
+                size: 18,
+                color: colorTheme.grey600,
+              ),
+            ],
+          ),
         ),
       ],
     );
