@@ -154,15 +154,22 @@ class EditBasicInformation extends ConsumerWidget {
                       hint: "Select your gender",
                       icon: Icons.person_outline,
                       items: genderOptions.values.toList(), // UI labels
-                      value: genderOptions[state.profileData?.gender], // map key → label
+                      value: genderOptions[state.profileData?.gender],
                       onChanged: (label) {
-                        final selectedKey = genderOptions.entries
-                            .firstWhere((e) => e.value == label)
-                            .key;
+                        if (label == null) return;
 
-                        controller.updateGender(selectedKey); // store key
+                        final selectedKey = genderOptions.entries
+                            .where((e) => e.value == label)
+                            .map((e) => e.key)
+                            .cast<String?>()
+                            .firstOrNull;
+
+                        if (selectedKey == null) return;
+
+                        controller.updateGender(selectedKey);
                       },
                     ),
+
 
                     // TransparentDropdownField(
                     //   label: "Gender",
@@ -182,9 +189,15 @@ class EditBasicInformation extends ConsumerWidget {
                       items: employmentStatusOptions.values.toList(),
                       value: employmentStatusOptions[state.profileData?.workStatus],
                       onChanged: (label) {
+                        if (label == null) return;
+
                         final selectedKey = employmentStatusOptions.entries
-                            .firstWhere((e) => e.value == label)
-                            .key;
+                            .where((e) => e.value == label)
+                            .map((e) => e.key)
+                            .cast<String?>()
+                            .firstOrNull;
+
+                        if (selectedKey == null) return;
 
                         controller.updateWorkStatus(selectedKey);
                       },
