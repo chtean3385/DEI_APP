@@ -109,6 +109,7 @@ class ApiUrls {
   static String contactUs = 'contact/add';
   static String userSettings = 'user-setting/get-my';
   static String updateUserSettings = 'user-setting/update';
+  static String deleteUserAccount = 'users/delete-account';
 
 
 // common

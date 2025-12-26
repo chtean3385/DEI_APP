@@ -126,7 +126,6 @@ class EmployeeProfileService {
       'smsAlerts': smsAlerts,              // true | false
       'emailAlerts': emailAlerts.toJson(), // nested model
     };
-print("bodybodybodybody--->>${body.toString()}");
     final result = await _apiHandler.put(
       url: ApiUrls.updateUserSettings,
       body: body,
@@ -136,6 +135,23 @@ print("bodybodybodybody--->>${body.toString()}");
     if (result is Map<String, dynamic>) {
       final base = BaseModel.fromJson(result);
 
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
+
+  Future<BaseModel> deleteUserAccount() async {
+    final result = await _apiHandler.delete(
+      url: ApiUrls.deleteUserAccount,
+      includeAuthToken: true,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
       if (base.isSuccess) {
         return base;
       } else {

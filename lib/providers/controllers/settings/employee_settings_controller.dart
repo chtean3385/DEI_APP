@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
+import '../../providers.dart';
 
 
 class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
@@ -109,6 +110,29 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
     } catch (e) {
       state = state.copyWith(
         updatePageState: PageState.error,
+        errorMessage: e.toString(),
+      );
+      showSnackBar(e.toString());
+    }
+  }
+  // -----------------------------
+  // Delete Account API
+  // -----------------------------
+  Future<void> deleteUserAccount() async {
+    state = state.copyWith(pageState: PageState.loading);
+
+
+    try {
+      // await Future.delayed(Duration(seconds: 3));
+      final result = await _service.deleteUserAccount();
+      showSnackBar(result.message,duration: 5);
+
+
+       await _ref.read(logoutProvider.notifier).signOut();
+      state = state.copyWith(pageState: PageState.success);
+    } catch (e) {
+      state = state.copyWith(
+        pageState: PageState.error,
         errorMessage: e.toString(),
       );
       showSnackBar(e.toString());
