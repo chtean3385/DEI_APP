@@ -9,13 +9,12 @@ import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
 import '../../providers.dart';
 
-
 class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
   final Ref _ref;
   final EmployeeProfileService _service = EmployeeProfileService();
 
   EmployeeSettingsController(this._ref)
-      : super(EmployeeSettingsState.initial()) {
+    : super(EmployeeSettingsState.initial()) {
     fetchData();
   }
 
@@ -29,10 +28,7 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
       final result = await _service.getSettingsData();
       final settings = EmployeeSettingsModel.fromJson(result.data);
 
-      state = state.copyWith(
-        pageState: PageState.success,
-        data: settings,
-      );
+      state = state.copyWith(pageState: PageState.success, data: settings);
     } catch (e) {
       state = state.copyWith(
         pageState: PageState.error,
@@ -66,8 +62,12 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
       estimateAlerts: field == "estimateAlerts" ? val : current.estimateAlerts,
       invoiceAlerts: field == "invoiceAlerts" ? val : current.invoiceAlerts,
       serviceAlerts: field == "serviceAlerts" ? val : current.serviceAlerts,
-      serviceExpiredAlerts: field == "serviceExpiredAlerts" ? val : current.serviceExpiredAlerts,
-      jobApplicationAlerts: field == "jobApplicationAlerts" ? val : current.jobApplicationAlerts,
+      serviceExpiredAlerts: field == "serviceExpiredAlerts"
+          ? val
+          : current.serviceExpiredAlerts,
+      jobApplicationAlerts: field == "jobApplicationAlerts"
+          ? val
+          : current.jobApplicationAlerts,
       profileAlerts: field == "profileAlerts" ? val : current.profileAlerts,
     );
 
@@ -82,13 +82,11 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
     updateUserSettings(isFromPrivacy: true);
   }
 
-
   // -----------------------------
   // Update settings API
   // -----------------------------
-  Future<void> updateUserSettings({bool isFromPrivacy =false}) async {
+  Future<void> updateUserSettings({bool isFromPrivacy = false}) async {
     state = state.copyWith(updatePageState: PageState.loading);
-
 
     try {
       final result = await _service.updateUserSettings(
@@ -96,7 +94,6 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
         notifications: state.data!.notifications,
         privacyMode: state.data!.privacyMode,
         smsAlerts: state.data!.smsAlerts,
-
       );
       if (isFromPrivacy) {
         Navigator.of(navigatorKey.currentContext!, rootNavigator: true).pop();
@@ -115,20 +112,17 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
       showSnackBar(e.toString());
     }
   }
+
   // -----------------------------
   // Delete Account API
   // -----------------------------
   Future<void> deleteUserAccount() async {
     state = state.copyWith(pageState: PageState.loading);
-
-
     try {
-      // await Future.delayed(Duration(seconds: 3));
       final result = await _service.deleteUserAccount();
-      showSnackBar(result.message,duration: 5);
+      showSnackBar(result.message, duration: 5);
 
-
-       await _ref.read(logoutProvider.notifier).signOut();
+      await _ref.read(logoutProvider.notifier).signOut();
       state = state.copyWith(pageState: PageState.success);
     } catch (e) {
       state = state.copyWith(
@@ -139,4 +133,3 @@ class EmployeeSettingsController extends StateNotifier<EmployeeSettingsState> {
     }
   }
 }
-
