@@ -365,15 +365,18 @@ class SearchJobCard extends StatelessWidget {
         }
 
         return Row(
-          children: [
-            ...visible.map(
-              (s) => Padding(
-                padding: const EdgeInsets.only(right: spacing),
-                child: _tagChip(s),
-              ),
-            ),
-          ],
+          mainAxisSize: MainAxisSize.min,
+          children: List.generate(visible.length, (index) {
+            final s = visible[index];
+            final isLast = index == visible.length - 1;
+
+            return Padding(
+              padding: EdgeInsets.only(right: isLast ? 0 : spacing),
+              child: _tagChip(s),
+            );
+          }),
         );
+
       },
     );
   }

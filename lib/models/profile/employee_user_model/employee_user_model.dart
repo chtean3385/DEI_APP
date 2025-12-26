@@ -307,12 +307,23 @@ class EducationModel {
     id: json['_id'],
   );
 
-  Map<String, dynamic> toJson() => {
-    'degree': degree,
-    'institution': institution,
-    'graduationYear': graduationYear.toString(),
-    '_id': id,
-  };
+  // Map<String, dynamic> toJson() => {
+  //   'degree': degree,
+  //   'institution': institution,
+  //   'graduationYear': graduationYear.toString(),
+  //   '_id': id,
+  // };
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{
+      if (id != null) '_id': id,
+      if (degree != null) 'degree': degree,
+      if (institution != null) 'institution': institution,
+      if (graduationYear != null) 'graduationYear': graduationYear,
+    };
+
+    return map; // 🚫 NO _id
+  }
+
 }
 
 class ExperienceModel {
@@ -344,14 +355,29 @@ class ExperienceModel {
     id: json['_id'],
   );
 
-  Map<String, dynamic> toJson() => {
-    'companyName': companyName,
-    'position': position,
-    'startDate': startDate.toString(),
-    'endDate': endDate.toString(),
-    'description': description,
-    '_id': id,
-  };
+  // Map<String, dynamic> toJson() => {
+  //   'companyName': companyName,
+  //   'position': position,
+  //   'startDate': startDate.toString(),
+  //   'endDate': endDate.toString(),
+  //   'description': description,
+  //   '_id': id,
+  // };
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{
+      if (id != null) '_id': id, // 👈 ONLY if editing
+      if (companyName != null) 'companyName': companyName,
+      if (position != null) 'position': position,
+      if (description != null) 'description': description,
+      if (startDate != null) 'startDate': startDate!.toIso8601String(),
+      if (endDate != null) 'endDate': endDate!.toIso8601String(),
+      if (isCurrentlyWorking != null)
+        'isCurrentlyWorking': isCurrentlyWorking,
+    };
+
+    return map; // 🚫 DO NOT include _id
+  }
+
 
   ExperienceModel copyWith({
     String? companyName,

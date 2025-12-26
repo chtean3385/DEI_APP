@@ -26,10 +26,24 @@ class EditBasicInformation extends ConsumerWidget {
 
     final Map<String, String> workStatusLabels = {
       'employed': 'Employed',
-      'un-employed': 'Looking for a Job',
+      'unemployed': 'Looking for a Job',
       'student': 'Student / Intern',
       'self-employed': 'Running Own Business',
     };
+    const Map<String, String> genderOptions = {
+      "male": "Male",
+      "female": "Female",
+      "other": "Other",
+      "prefer-not-to-say": "Prefer not to say",
+    };
+
+    const Map<String, String> employmentStatusOptions = {
+      "employed": "Employed",
+      "unemployed": "Unemployed",
+      "student": "Student",
+      "self-employed": "Self-Employed",
+    };
+
     return Card(
       elevation: 2,
       color: colorTheme.jobCardBgColor,
@@ -139,25 +153,55 @@ class EditBasicInformation extends ConsumerWidget {
                       label: "Gender",
                       hint: "Select your gender",
                       icon: Icons.person_outline,
-                      items: ["male", "female", "other", "prefer not to say"],
-                      value: state.profileData?.gender,
-                      onChanged: (value) {
-                        controller.updateGender(value.toString());
+                      items: genderOptions.values.toList(), // UI labels
+                      value: genderOptions[state.profileData?.gender], // map key → label
+                      onChanged: (label) {
+                        final selectedKey = genderOptions.entries
+                            .firstWhere((e) => e.value == label)
+                            .key;
+
+                        controller.updateGender(selectedKey); // store key
                       },
                     ),
+
+                    // TransparentDropdownField(
+                    //   label: "Gender",
+                    //   hint: "Select your gender",
+                    //   icon: Icons.person_outline,
+                    //   items: ["male", "female", "other", "prefer not to say"],
+                    //   value: state.profileData?.gender,
+                    //   onChanged: (value) {
+                    //     controller.updateGender(value.toString());
+                    //   },
+                    // ),
                     gapH16(),
                     TransparentDropdownField(
-                      isRequired: true,
                       label: "Work Status",
                       hint: "Select your current work status",
                       icon: Icons.work_outline,
-                      items: ["student", "employed", "un-employed", "self-employed"],
-                      value: state.profileData?.workStatus,
-                      validator: AppValidators.fieldEmpty("Work Status"),
-                      onChanged: (value) {
-                        controller.updateWorkStatus(value.toString());
+                      items: employmentStatusOptions.values.toList(),
+                      value: employmentStatusOptions[state.profileData?.workStatus],
+                      onChanged: (label) {
+                        final selectedKey = employmentStatusOptions.entries
+                            .firstWhere((e) => e.value == label)
+                            .key;
+
+                        controller.updateWorkStatus(selectedKey);
                       },
                     ),
+
+                    // TransparentDropdownField(
+                    //   isRequired: true,
+                    //   label: "Work Status",
+                    //   hint: "Select your current work status",
+                    //   icon: Icons.work_outline,
+                    //   items: ["student", "employed", "unemployed", "self-employed"],
+                    //   value: state.profileData?.workStatus,
+                    //   validator: AppValidators.fieldEmpty("Work Status"),
+                    //   onChanged: (value) {
+                    //     controller.updateWorkStatus(value.toString());
+                    //   },
+                    // ),
                     gapH16(),
                     TransparentFormField(
                       isRequired: true,

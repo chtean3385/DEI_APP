@@ -336,41 +336,41 @@ class EditEmployeeProfileController
 
 
     state = state.copyWith(pageState: PageState.loading);
-    // print('--- Employee Profile Form stattteee ---');
-    // print('gender: ${state.profileData?.gender}');
-    // print('workStatus: ${state.profileData?.workStatus}');
-    // print('department: ${state.profileData?.department}');
-    // print('category: ${state.profileData?.category}');
-    // final eduList = state.profileData?.education ?? [];
-    // print('education length: ${eduList.length}');
-    // print('education first: ${eduList.isNotEmpty ? eduList.first.institution : "N/A"}');
-    // print('education last: ${eduList.isNotEmpty ? eduList.last.institution : "N/A"}');
-    //
-    //
-    // print('experience: ${state.profileData?.experience}');
-    // print('skills: ${state.profileData?.skills}');
-    //
-    // print('--- Employee Profile Form Values ---');
-    // print('Name: ${nameController.text}');
-    // print('Email: ${emailController.text}');
-    // print('Mobile: ${mobileController.text}');
-    // print('Description: ${descriptionController.text}');
-    // print('Address: ${addressController.text}');
-    // print('City: ${cityController.text}');
-    // print('State: ${stateController.text}');
-    // print('Country: ${countryController.text}');
-    // print('Pincode: ${pinCodeController.text}');
-    // print('Preferred state.profileData?.preferredLocations: ${state.profileData?.preferredLocations}');
-    // print('Preferred LtotalWorkExpControllerocation: ${totalWorkExpController.text}');
-    // print('Preferred LtotalWorkExpControllerocation: ${totalWorkExpController.text}');
-    // print('Preferred noticePeriodController: ${noticePeriodController.text}');
-    // print('Preferred departmentId: ${departmentId}');
-    // print('Preferred LoccommunityIdation: ${communityId}');
-    // print('Preferred currentCtcController: ${currentCtcController.text}');
-    // print('Preferred salaryRangeId: ${salaryRangeId}');
-    // print('Preferred jobTypeId: ${jobTypeId}');
-    // print('Preferred cityy: ${cityController.text}');
-    // print('------------------------------------');
+    print('--- Employee Profile Form stattteee ---');
+    print('gender: ${state.profileData?.gender}');
+    print('workStatus: ${state.profileData?.workStatus}');
+    print('department: ${state.profileData?.department}');
+    print('category: ${state.profileData?.category}');
+    final eduList = state.profileData?.education ?? [];
+    print('education length: ${eduList.length}');
+    print('education first: ${eduList.isNotEmpty ? eduList.first.institution : "N/A"}');
+    print('education last: ${eduList.isNotEmpty ? eduList.last.institution : "N/A"}');
+
+
+    print('experience: ${state.profileData?.experience}');
+    print('skills: ${state.profileData?.skills}');
+
+    print('--- Employee Profile Form Values ---');
+    print('Name: ${nameController.text}');
+    print('Email: ${emailController.text}');
+    print('Mobile: ${mobileController.text}');
+    print('Description: ${descriptionController.text}');
+    print('Address: ${addressController.text}');
+    print('City: ${cityController.text}');
+    print('State: ${stateController.text}');
+    print('Country: ${countryController.text}');
+    print('Pincode: ${pinCodeController.text}');
+    print('Preferred state.profileData?.preferredLocations: ${state.profileData?.preferredLocations}');
+    print('Preferred LtotalWorkExpControllerocation: ${totalWorkExpController.text}');
+    print('Preferred LtotalWorkExpControllerocation: ${totalWorkExpController.text}');
+    print('Preferred noticePeriodController: ${noticePeriodController.text}');
+    print('Preferred departmentId: ${departmentId}');
+    print('Preferred LoccommunityIdation: ${communityId}');
+    print('Preferred currentCtcController: ${currentCtcController.text}');
+    print('Preferred salaryRangeId: ${salaryRangeId}');
+    print('Preferred jobTypeId: ${jobTypeId}');
+    print('Preferred cityy: ${cityController.text}');
+    print('------------------------------------');
     final updatedExperience = buildUpdatedExperienceList();
     final updatedEducation = buildUpdatedEducationList();
     try {
