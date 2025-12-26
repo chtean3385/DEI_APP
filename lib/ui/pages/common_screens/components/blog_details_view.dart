@@ -265,9 +265,9 @@ class BlogDetailsView extends ConsumerWidget {
                 Text(
                   plainText,
                   style: theme.displaySmall?.copyWith(color: colorTheme.black87),
-                  maxLines: 3,
-                  softWrap: true,
-                  overflow: TextOverflow.ellipsis,
+                  // maxLines: 3,
+                  // softWrap: true,
+                  // overflow: TextOverflow.ellipsis,
                 ),
                 gapH16(),
                 Text(
