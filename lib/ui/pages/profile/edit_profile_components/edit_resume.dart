@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/controllers/profile/employee_profile_controller.dart';
 import '../../../../providers/providers.dart';
+import '../components/resume_details.dart';
 import 'edit_profile_action_button.dart';
 
 class EditResumeInformation extends ConsumerWidget {
@@ -134,7 +135,7 @@ class EditResumeInformation extends ConsumerWidget {
                             gapW8(),
                             Expanded(
                               child: Text(
-                                state.profileData?.resume ?? "no resume added",
+                                getFileNameFromPath(state.profileData?.resume),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 softWrap: true,

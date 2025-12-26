@@ -183,41 +183,41 @@ class SettingsBody extends ConsumerWidget {
             onChanged: (v) => settingsCtrl.toggleEmailAlert("jobAlerts", v),
           ),
 
-          SettingToggle(
-            title: "Estimate Alerts",
-            subtitle: "Alerts for estimates sent, overdue, and status changes",
-            value: settings.data?.emailAlerts.estimateAlerts ?? false,
-            icon: Icons.request_quote_outlined,
-            onChanged: (v) =>
-                settingsCtrl.toggleEmailAlert("estimateAlerts", v),
-          ),
+          // SettingToggle(
+          //   title: "Estimate Alerts",
+          //   subtitle: "Alerts for estimates sent, overdue, and status changes",
+          //   value: settings.data?.emailAlerts.estimateAlerts ?? false,
+          //   icon: Icons.request_quote_outlined,
+          //   onChanged: (v) =>
+          //       settingsCtrl.toggleEmailAlert("estimateAlerts", v),
+          // ),
+          //
+          // SettingToggle(
+          //   title: "Invoice Alerts",
+          //   subtitle: "Notifications for invoices sent and overdue",
+          //   value: settings.data?.emailAlerts.invoiceAlerts ?? false,
+          //   icon: Icons.receipt_long_outlined,
+          //   onChanged: (v) =>
+          //       settingsCtrl.toggleEmailAlert("invoiceAlerts", v),
+          // ),
 
-          SettingToggle(
-            title: "Invoice Alerts",
-            subtitle: "Notifications for invoices sent and overdue",
-            value: settings.data?.emailAlerts.invoiceAlerts ?? false,
-            icon: Icons.receipt_long_outlined,
-            onChanged: (v) =>
-                settingsCtrl.toggleEmailAlert("invoiceAlerts", v),
-          ),
-
-          SettingToggle(
-            title: "Service Alerts",
-            subtitle: "Notifications for service enable/disable",
-            value: settings.data?.emailAlerts.serviceAlerts ?? false,
-            icon: Icons.miscellaneous_services_outlined,
-            onChanged: (v) =>
-                settingsCtrl.toggleEmailAlert("serviceAlerts", v),
-          ),
-
-          SettingToggle(
-            title: "Service Expired Alerts",
-            subtitle: "Alerts when services are about to expire",
-            value: settings.data?.emailAlerts.serviceExpiredAlerts ?? false,
-            icon: Icons.warning_amber_outlined,
-            onChanged: (v) =>
-                settingsCtrl.toggleEmailAlert("serviceExpiredAlerts", v),
-          ),
+          // SettingToggle(
+          //   title: "Service Alerts",
+          //   subtitle: "Notifications for service enable/disable",
+          //   value: settings.data?.emailAlerts.serviceAlerts ?? false,
+          //   icon: Icons.miscellaneous_services_outlined,
+          //   onChanged: (v) =>
+          //       settingsCtrl.toggleEmailAlert("serviceAlerts", v),
+          // ),
+          //
+          // SettingToggle(
+          //   title: "Service Expired Alerts",
+          //   subtitle: "Alerts when services are about to expire",
+          //   value: settings.data?.emailAlerts.serviceExpiredAlerts ?? false,
+          //   icon: Icons.warning_amber_outlined,
+          //   onChanged: (v) =>
+          //       settingsCtrl.toggleEmailAlert("serviceExpiredAlerts", v),
+          // ),
 
           SettingToggle(
             title: "Job Application Alerts",

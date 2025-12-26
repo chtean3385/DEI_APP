@@ -20,7 +20,7 @@ class ResumeDetails extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(employeeProfileProvider);
     final colorTheme = context.colors;
-
+print(" state.profileData?.resume -- ${ state.profileData?.resume}");
     return state.pageState == PageState.loading
         ? _loader()
         : Container(
@@ -71,7 +71,7 @@ class ResumeDetails extends ConsumerWidget {
                     gapW8(),
                     Expanded(
                       child: Text(
-                        state.profileData?.resume ?? "no resume added",
+                        getFileNameFromPath(state.profileData?.resume)  ,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         softWrap: true,
@@ -130,4 +130,15 @@ class ResumeDetails extends ConsumerWidget {
     );
   }
 
+}
+String getFileNameFromPath(String? path) {
+  if (path == null || path.trim().isEmpty) {
+    return "no resume added";
+  }
+
+  try {
+    return path.split('/').last;
+  } catch (e) {
+    return  "no resume added";
+  }
 }

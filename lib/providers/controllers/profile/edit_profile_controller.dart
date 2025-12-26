@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
+import 'package:open_filex/open_filex.dart';
 
 import '../../../constants/enums.dart';
 import '../../../models/common/base_model.dart';
@@ -659,12 +660,33 @@ class EditEmployeeProfileController
   }
 
   /// View resume — open PDF/doc viewer (implement later)
-  void viewResume() {
-    if (state.resumeFile != null) {
-      debugPrint('Viewing: ${state.resumeFile!.name}');
-      // You can use `open_filex` or any viewer here.
+  void viewResume() async {
+    final file = state.resumeFile;
+    debugPrint('Viewing: ${state.resumeFile!.name}');
+    if (file == null) {
+      debugPrint('No resume file selected');
+      return;
+    }
+
+    try {
+      // Case 1: Local file path available
+      if (file.path != null) {
+        final result = await OpenFilex.open(file.path!);
+        debugPrint('Open result: ${result.message}');
+        return;
+      }
+
+      // Case 2: Bytes only (Web / some Android cases)
+      if (file.bytes != null) {
+        debugPrint('Cannot open file directly from bytes');
+        // You may need to save to temp directory first
+      }
+    } catch (e) {
+      debugPrint('Error opening resume: $e');
+      showSnackBar(e.toString());
     }
   }
+
   /// Load degrees and store locally
   Future<void> fetchDegrees() async {
   final  degrees = await _jsonService.loadDegrees();

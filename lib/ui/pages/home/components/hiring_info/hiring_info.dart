@@ -38,9 +38,7 @@ class HiringInfoWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    "Top companies on DEI are hiring by directly "
-                        "reaching out to jobseekers without posting a job. "
-                        "Learn how you can make the best of this opportunity",
+                    "Top companies on DEI are hiring by directly\n reaching out to jobseekers without posting a job.\n Learn how you can make the best of this opportunity",
                     textAlign: TextAlign.left,
                     style: theme.textTheme.displaySmall?.copyWith(
                       color: colorTheme.black45,fontSize: 10,
