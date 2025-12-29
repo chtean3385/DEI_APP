@@ -1,6 +1,8 @@
 class AppStrings {
   static const appName = 'DEI Champions';
   static const appTitle = 'Breaking Barriers, Building Careers';
+  static const contactUsEmail = 'hrsupport@deichampion.com';
+  static const contactUsMobile = '+91 9147737181';
   static const String loginTitle = 'Login to your Account';
   static const name = 'Your Full Name';
   static const mobile = 'Mobile Number';

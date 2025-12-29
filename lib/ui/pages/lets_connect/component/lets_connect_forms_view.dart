@@ -3,7 +3,6 @@ import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
@@ -17,6 +16,7 @@ class LetsConnectFormView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(letsConnectProvider.notifier);
+
     final colorTheme = context.colors;
     return Form(
       key: controller.formKey,
@@ -57,8 +57,7 @@ class LetsConnectFormView extends ConsumerWidget {
             gapH8(),
             _contactDetailsTile(Icons.phone,AppStrings.contactUsMobile),
             gapH8(),
-            // _contactDetailsTile(Icons.location_on,"Your Company Address"),
-            // gapH8(),
+
 
             gapH16(),
 

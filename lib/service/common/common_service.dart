@@ -112,8 +112,6 @@ class CommonService {
   Future<BaseModel> letsConnect({
     required String firstName,
     required String lastName,
-    required String organisation,
-    required String designation,
     required String phone,
     required String interest,
     required String email,
@@ -122,10 +120,7 @@ class CommonService {
     final body = {
       'firstName': firstName,
       'lastName': lastName,
-      'organisation': organisation,
-      'designation': designation,
       'phone': phone,
-      'captcha': true,
       'email': email,
       'interest': interest,
       'query': query,

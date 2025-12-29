@@ -6,12 +6,46 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/enums.dart';
 import '../../../models/common/base_model.dart';
+import '../../../models/profile/employee_user_model/employee_user_model.dart';
+import '../../../models/state_models/profile/employee_profile_state.dart';
 import '../../../widgets/others/snack_bar.dart';
+import '../../providers.dart';
 
 class LetsConnectController extends StateNotifier<PageState> {
   final Ref ref;
 
-  LetsConnectController(this.ref) : super(PageState.initial) {}
+  LetsConnectController(this.ref) : super(PageState.initial) {
+    debugPrint('🚀 LetsConnectController constructor called');
+    init();
+  }
+
+  void init() {
+    debugPrint('🟡 init() called');
+
+    /// 1️⃣ FILL IMMEDIATELY if already loaded
+    final current = ref.read(drawerProfileProvider);
+    debugPrint('⚡ Current profile at init: ${current.profileData}');
+
+    if (current.profileData != null) {
+      debugPrint('✅ Filling from existing state');
+      _fillProfile(current.profileData!);
+    }
+
+    /// 2️⃣ Listen for future updates
+    ref.listen<EmployeeProfileState>(
+      drawerProfileProvider,
+          (previous, next) {
+        debugPrint('🟢 drawerProfileProvider changed');
+        debugPrint('Next profile: ${next.profileData}');
+
+        if (next.profileData != null) {
+          _fillProfile(next.profileData!);
+        }
+      },
+    );
+  }
+
+
 
   final CommonService _service = CommonService();
   final formKey = GlobalKey<FormState>();
@@ -22,8 +56,6 @@ class LetsConnectController extends StateNotifier<PageState> {
   /// basic info
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
-  final organisationController = TextEditingController();
-  final designationController = TextEditingController();
   final emailController = TextEditingController();
   final mobileController = TextEditingController();
   final descriptionController = TextEditingController();
@@ -34,13 +66,26 @@ class LetsConnectController extends StateNotifier<PageState> {
     debugPrint("🔥 LetsConnectController disposed");
     firstNameController.dispose();
     lastNameController.dispose();
-    organisationController.dispose();
-    designationController.dispose();
     emailController.dispose();
     mobileController.dispose();
     descriptionController.dispose();
     interestController.dispose();
     super.dispose();
+  }
+
+
+  void _fillProfile(EmployeeUserModel profile) {
+    /// Name split (safe)
+    final nameParts = profile.name?.split(' ') ?? [];
+
+    firstNameController.text =
+    nameParts.isNotEmpty ? nameParts.first :  profile.name ?? '';
+
+    lastNameController.text =
+    nameParts.length > 1 ? nameParts.sublist(1).join(' ') : '';
+
+    emailController.text = profile.email ?? '';
+    mobileController.text = profile.mobile ?? '';
   }
 
   /// 🔹 Call this to update chef details
@@ -53,8 +98,6 @@ class LetsConnectController extends StateNotifier<PageState> {
     print('--- LetsConnectController stattteee ---');
     print('firstNameController: ${firstNameController.text}');
     print('lastNameController: ${lastNameController.text}');
-    print('organisationController: ${organisationController.text}');
-    print('designationController: ${designationController.text}');
     print('emailController: ${emailController.text}');
     print('Mobile: ${mobileController.text}');
     print('Description: ${descriptionController.text}');
@@ -74,8 +117,6 @@ class LetsConnectController extends StateNotifier<PageState> {
         phone: mobileController.text,
         firstName: firstNameController.text,
         lastName: lastNameController.text,
-        designation: designationController.text,
-        organisation: organisationController.text,
         query: descriptionController.text,
         interest: matchedInterestValue,
       );
@@ -84,8 +125,7 @@ class LetsConnectController extends StateNotifier<PageState> {
       /// 🔥 Show custom success popup
       _showAutoCloseSuccessDialog(
         context,
-        result.message ??
-            "Your contact request has been submitted successfully!",
+        result.message
       );
     } catch (e) {
       state = PageState.error;
