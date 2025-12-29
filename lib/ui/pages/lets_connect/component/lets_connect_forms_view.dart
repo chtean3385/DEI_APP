@@ -53,12 +53,12 @@ class LetsConnectFormView extends ConsumerWidget {
             ),
             gapH8(),
 
-            _contactDetailsTile(Icons.email,"contact@company.com"),
+            _contactDetailsTile(Icons.email,AppStrings.contactUsEmail),
             gapH8(),
-            _contactDetailsTile(Icons.phone,"+91 90103432486"),
+            _contactDetailsTile(Icons.phone,AppStrings.contactUsMobile),
             gapH8(),
-            _contactDetailsTile(Icons.location_on,"Your Company Address"),
-            gapH8(),
+            // _contactDetailsTile(Icons.location_on,"Your Company Address"),
+            // gapH8(),
 
             gapH16(),
 
@@ -100,30 +100,6 @@ class LetsConnectFormView extends ConsumerWidget {
             gapH16(),
             TransparentFormField(
               isRequired: true,
-              controller: controller.organisationController,
-              hint: "Organisation / Company",
-              label: "Name of Organisation / Company",
-              icon: Icons.business_outlined,
-              textInputAction: TextInputAction.next,
-              validator: AppValidators.letsConnectFieldEmpty("Organisation"),
-              textCapitalization: TextCapitalization.words,
-            ),
-
-            gapH16(),
-            TransparentFormField(
-              isRequired: true,
-              controller: controller.designationController,
-              hint: "Your Designation",
-              label: "Designation",
-              icon: Icons.business_outlined,
-              textInputAction: TextInputAction.next,
-              validator: AppValidators.letsConnectFieldEmpty("Designation"),
-              textCapitalization: TextCapitalization.words,
-            ),
-
-            gapH16(),
-            TransparentFormField(
-              isRequired: true,
               controller: controller.mobileController,
               hint: AppStrings.enterMobile,
               label: AppStrings.mobile,
@@ -137,8 +113,8 @@ class LetsConnectFormView extends ConsumerWidget {
             gapH16(),
             TransparentFormField(
               controller: controller.emailController,
-              hint: "your.email@company.com",
-              label: "Official E-mail",
+              hint: "your email address",
+              label: "E-mail",
               icon: Icons.email_outlined,
               textInputAction: TextInputAction.next,
               validator: AppValidators.email,
