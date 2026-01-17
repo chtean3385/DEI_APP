@@ -11,9 +11,9 @@ class AppStrings {
   static const password = 'Your Password';
   static const login = 'Login';
   static const loginMsg = 'Already have an account? ';
-  static const signup = 'Signup';
+  static const signup = 'Sign up';
   static const createAccount = 'Create Account';
-  static const signIn = 'SignIn';
+  static const signIn = 'Sign In';
   static const forgotPassword = 'Forgot Password?';
   static const rememberMe = 'Remember Me';
   static const otp = 'OTP';
@@ -23,7 +23,7 @@ class AppStrings {
   static const next = 'Next';
   static const skip = 'Skip';
   static const signupMsg = 'Dont have an account ? ';
-  static const signupForFree = 'Signup up for free';
+  static const signupForFree = 'Sign up for free';
   static const getStarted = 'Get Started';
   static const proceed = 'Proceed';
   static const city = 'Current City';

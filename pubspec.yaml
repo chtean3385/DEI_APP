@@ -53,7 +53,7 @@ dependencies:
   google_sign_in: ^7.1.1
   html: ^0.15.6
   intl:
-  image_cropper:
+  image_cropper: ^11.0.0
   image_picker:
   open_filex: ^4.7.0
   otp_text_field: ^1.1.3
