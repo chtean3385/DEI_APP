@@ -13,6 +13,7 @@ import '../models/auth/auth_model.dart';
 import '../models/job/job_model.dart';
 import '../providers/controllers/job/employee_search_jobs_controller.dart';
 import '../repo/shared_preference_repository.dart';
+import '../ui/pages/accessibility/accessibility_screen.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
@@ -313,6 +314,12 @@ class AppNavigator {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(builder: (_) => EmployeeSettingsScreen()),
+    );
+  }
+  static loadAccessibilityScreen() {
+    Navigator.push(
+      navigatorKey.currentContext!,
+      MaterialPageRoute(builder: (_) => AccessibilityScreen()),
     );
   }
 

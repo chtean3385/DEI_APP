@@ -1,17 +1,12 @@
-import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/app_styles.dart';
 import '../../../constants/enums.dart';
 import '../../../providers/providers.dart';
-import '../../../providers/theme_controller.dart';
-import '../../../repo/shared_preference_repository.dart';
 import '../../../widgets/others/custom_loader.dart';
-import 'components/button_color_dialog.dart';
 import 'components/setting_section_title.dart';
 import 'components/setting_section_togle.dart';
 
@@ -20,11 +15,6 @@ class SettingsBody extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accessibility = ref.watch(accessibilityProvider);
-    final accController = ref.read(accessibilityProvider.notifier);
-
-    final themeMode = ref.watch(themeNotifierProvider);
-    final themeController = ref.read(themeNotifierProvider.notifier);
 
     final settings = ref.watch(employeeSettingsProvider);
     final settingsCtrl = ref.read(employeeSettingsProvider.notifier);
@@ -59,18 +49,18 @@ class SettingsBody extends ConsumerWidget {
           // -----------------------------------
           // THEME SWITCH
           // -----------------------------------
-          SettingToggle(
-            title: themeMode == ThemeMode.dark ? "Dark Mode" : "Light Mode",
-            subtitle: "Switch between dark and light themes",
-            value: themeMode == ThemeMode.dark,
-            icon: themeMode == ThemeMode.dark
-                ? Icons.dark_mode
-                : Icons.light_mode,
-            onChanged: (val) {
-              themeController.state = val ? ThemeMode.dark : ThemeMode.light;
-               SharedPreferenceRepository.setTheme(val?"dark":"light" );
-            },
-          ),
+          // SettingToggle(
+          //   title: themeMode == ThemeMode.dark ? "Dark Mode" : "Light Mode",
+          //   subtitle: "Switch between dark and light themes",
+          //   value: themeMode == ThemeMode.dark,
+          //   icon: themeMode == ThemeMode.dark
+          //       ? Icons.dark_mode
+          //       : Icons.light_mode,
+          //   onChanged: (val) {
+          //     themeController.state = val ? ThemeMode.dark : ThemeMode.light;
+          //      SharedPreferenceRepository.setTheme(val?"dark":"light" );
+          //   },
+          // ),
 
           // -----------------------------------
           // FONT SIZE
