@@ -8,6 +8,7 @@ import '../../../../constants/app_navigator.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../models/state_models/home/job_category_state.dart';
 import '../../../../providers/controllers/job/employee_search_jobs_controller.dart';
+import '../../../../providers/theme_controller.dart';
 import 'job_category_card.dart';
 
 /// 📌 "Jobs categories based
@@ -17,6 +18,9 @@ class JobsCategorySection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categoryState = ref.watch(jobCategoryProvider);
+    final accessibility = ref.watch(accessibilityProvider);
+    double baseHeight = 95;
+    double scaledHeight = baseHeight * accessibility.fontScale;
     final hasData = (categoryState.data?.categories ?? []).isNotEmpty;
 
     if (!hasData && categoryState.pageState != PageState.loading) {
@@ -24,7 +28,7 @@ class JobsCategorySection extends ConsumerWidget {
     }
     return categoryState.pageState == PageState.loading
         ?_loadingUi():
-    _data(categoryState, context);
+    _data(categoryState, context,scaledHeight);
 
   }
 
@@ -55,7 +59,7 @@ class JobsCategorySection extends ConsumerWidget {
     );
   }
 
-  Widget _data(JobCategoryState categoryState, BuildContext context) {
+  Widget _data(JobCategoryState categoryState, BuildContext context,double scaledHeight) {
     final theme = Theme.of(context).textTheme;
     return Column(
       children: [
@@ -80,7 +84,7 @@ class JobsCategorySection extends ConsumerWidget {
                 ),
               ),
               // horizontal list
-              _dataItems(categoryState),
+              _dataItems(categoryState,scaledHeight),
             ],
           ),
         ),
@@ -103,10 +107,10 @@ class JobsCategorySection extends ConsumerWidget {
     );
   }
 
-  Widget _dataItems(JobCategoryState categoryState) {
+  Widget _dataItems(JobCategoryState categoryState,double scaledHeight) {
     return (categoryState.data?.categories.length ?? 0) > 0
         ? SizedBox(
-      height: 95,
+      height: scaledHeight,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),

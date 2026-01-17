@@ -10,6 +10,7 @@ import '../../../../constants/app_navigator.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/state_models/job/job_list_state.dart';
 import '../../../../providers/providers.dart';
+import '../../../../providers/theme_controller.dart';
 import '../../../../widgets/others/view_all_button.dart';
 import '../../home/components/jobs_you_might_like/jobs_card.dart';
 
@@ -19,6 +20,10 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(recommendedJobListProvider);
+    final accessibility = ref.watch(accessibilityProvider);
+
+    double baseHeight = 190;
+    double scaledHeight = baseHeight * accessibility.fontScale;
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return SizedBox.shrink();
@@ -28,11 +33,12 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
     } else if (state.data?.isEmpty == true) {
       return SizedBox.shrink();
     } else {
-      return _data(state);
+      return _data(state,scaledHeight);
     }
   }
 
-  Widget _data(JobListState state) {
+  Widget _data(JobListState state,double scaledHeight) {
+
     // Safely handle null or empty list
     if (state.data == null || state.data?.isEmpty == true) return const SizedBox();
     int length = state.data!.length > 5
@@ -66,7 +72,7 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               SizedBox(
-                height: 190,
+                height: scaledHeight,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   padding: EdgeInsets.symmetric(horizontal: 16),
