@@ -16,13 +16,10 @@ import '../repo/shared_preference_repository.dart';
 import '../ui/pages/auth/forgot_password/forgot_password_screen.dart';
 import '../ui/pages/auth/login_screen.dart';
 import '../ui/pages/auth/otp/otp_screen.dart';
-import '../ui/pages/career_explorers/career_explorers_screen.dart';
 import '../ui/pages/common_screens/blog/blog_detail_screen.dart';
 import '../ui/pages/common_screens/blog/blog_screen.dart';
 import '../ui/pages/common_screens/faq/faq_screen.dart';
 import '../ui/pages/common_screens/html_detail_page.dart';
-import '../ui/pages/common_screens/our_team/our_team_screen.dart';
-import '../ui/pages/common_screens/plan_pricing/plan_pricing_screen.dart';
 import '../ui/pages/company/company_profile_screen.dart';
 import '../ui/pages/genz/genz_screen.dart';
 import '../ui/pages/home/components/boost/profile_completion_slider.dart';
@@ -123,14 +120,7 @@ class AppNavigator {
       ),
     );
   }
-  static loadOurTeams() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(
-        builder: (context) => OurTeamScreen(),
-      ),
-    );
-  }
+
   static loadLetsConnect() {
     Navigator.push(
       navigatorKey.currentContext!,
@@ -163,14 +153,7 @@ class AppNavigator {
       ),
     );
   }
-  static loaPricePlanScreen() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(
-        builder: (context) => PlanPricingScreen(),
-      ),
-    );
-  }
+
   static loadJobSearchResultScreen({EmployeeSearchJobsParams? params}) {
     Navigator.push(
       navigatorKey.currentContext!,
@@ -292,12 +275,6 @@ class AppNavigator {
     );
   }
 
-  static loadCareerExplorersScreen() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => CareerExplorersScreen()),
-    );
-  }
 
   static loadCorporatesChampioningScreen() {
     Navigator.push(

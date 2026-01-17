@@ -143,6 +143,7 @@ class ApiUrls {
 
   static String aboutUsPage = 'https://frontend-dei.vercel.app/about-us';
   static String popup = 'popups/page/home';
+  static String letsConnectContactData = 'contact-content/get-all';
 
 
 

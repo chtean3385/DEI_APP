@@ -19,6 +19,7 @@ import 'package:dei_champions/models/state_models/home/we_are_hiring_state.dart'
 import 'package:dei_champions/models/state_models/common/html_page_data_state.dart';
 import 'package:dei_champions/models/state_models/job/job_list_state.dart';
 import 'package:dei_champions/models/state_models/job/job_type_list_state.dart';
+import 'package:dei_champions/models/state_models/lets_connect/lets_connect_state.dart';
 import 'package:dei_champions/models/state_models/notification/notification_state.dart';
 import 'package:dei_champions/models/state_models/profile/employee_profile_completion_state.dart';
 import 'package:dei_champions/models/state_models/services/services_state.dart';
@@ -514,7 +515,7 @@ final ourTeamProvider =
       return OurTeamController(ref);
     });
 final letsConnectProvider =
-    StateNotifierProvider.autoDispose<LetsConnectController, PageState>((ref) {
+    StateNotifierProvider.autoDispose<LetsConnectController, LetsConnectState>((ref) {
       return LetsConnectController(ref);
     });
 final faqProvider = StateNotifierProvider.autoDispose<FaqController, FaqState>((
@@ -530,12 +531,7 @@ final blogDetailProvider = StateNotifierProvider.autoDispose
     .family<BlogDetailController, BlogDetailState, String>((ref, id) {
       return BlogDetailController(id);
     });
-final planPriceProvider =
-    StateNotifierProvider.autoDispose<PricePlanController, PricePlanState>((
-      ref,
-    ) {
-      return PricePlanController();
-    });
+
 
 /// csr
 final csrBannerSectionProvider =

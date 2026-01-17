@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_strings.dart';
+import 'package:dei_champions/models/lets_connect/lets_connect_model.dart';
 import 'package:dei_champions/service/common/common_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,15 +8,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../constants/enums.dart';
 import '../../../models/common/base_model.dart';
 import '../../../models/profile/employee_user_model/employee_user_model.dart';
+import '../../../models/state_models/lets_connect/lets_connect_state.dart';
 import '../../../models/state_models/profile/employee_profile_state.dart';
 import '../../../widgets/others/snack_bar.dart';
 import '../../providers.dart';
 
-class LetsConnectController extends StateNotifier<PageState> {
+class LetsConnectController extends StateNotifier<LetsConnectState> {
   final Ref ref;
 
-  LetsConnectController(this.ref) : super(PageState.initial) {
+  LetsConnectController(this.ref) : super(LetsConnectState.initial()) {
     debugPrint('🚀 LetsConnectController constructor called');
+    getLetsConnectContactDetails();
     init();
   }
 
@@ -94,7 +97,7 @@ class LetsConnectController extends StateNotifier<PageState> {
       showSnackBar("Please fill all required fields");
       return;
     }
-    state = PageState.loading;
+    state = state.copyWith(submitPageState: PageState.loading);
     print('--- LetsConnectController stattteee ---');
     print('firstNameController: ${firstNameController.text}');
     print('lastNameController: ${lastNameController.text}');
@@ -120,7 +123,8 @@ class LetsConnectController extends StateNotifier<PageState> {
         query: descriptionController.text,
         interest: matchedInterestValue,
       );
-      state = PageState.success;
+      state = state.copyWith(submitPageState: PageState.success);
+
 
       /// 🔥 Show custom success popup
       _showAutoCloseSuccessDialog(
@@ -128,9 +132,47 @@ class LetsConnectController extends StateNotifier<PageState> {
         result.message
       );
     } catch (e) {
-      state = PageState.error;
+      state = state.copyWith(submitPageState: PageState.error);
       showSnackBar(e.toString());
       debugPrint("catch - updateEmployeeProfileDetails");
+      debugPrint(e.toString());
+    }
+  }
+  /// 🔹 Call this to employee profile  data from API call
+  Future<void> getLetsConnectContactDetails() async {
+    state = state.copyWith(pageState: PageState.loading);
+    try {
+      final BaseModel result = await _service.getLetsConnectData();
+      // 🔹 Validate data type
+      if (result.data == null) {
+         Exception('LetsConnect data is null');
+      }
+
+      if (result.data is! List) {
+         Exception('LetsConnect data is not a list');
+      }
+
+      final List list = result.data as List;
+
+      // 🔹 Handle empty list
+      if (list.isEmpty) {
+         Exception('LetsConnect data list is empty');
+      }
+
+      // 🔹 Take first item safely
+      final LetsConnectModel letsConnectModel =
+      LetsConnectModel.fromJson(list.first as Map<String, dynamic>);
+
+
+      state = state.copyWith(
+        pageState: PageState.success,
+        data: letsConnectModel,
+      );
+      debugPrint("success - ${letsConnectModel.title}");
+      debugPrint("success - getLetsConnectContactDetails");
+    } catch (e) {
+      state = state.copyWith(pageState: PageState.error);
+      debugPrint("catch - getLetsConnectContactDetails");
       debugPrint(e.toString());
     }
   }
@@ -173,4 +215,6 @@ void _showAutoCloseSuccessDialog(BuildContext context, String message) {
     Navigator.pop(context); // close dialog
     AppNavigator.toBottomBar();
   });
+
+
 }

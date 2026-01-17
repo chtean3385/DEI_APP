@@ -6,9 +6,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
+import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
+import 'lets_connect_contact_info.dart';
 
 class LetsConnectFormView extends ConsumerWidget {
   const LetsConnectFormView({super.key});
@@ -16,8 +18,6 @@ class LetsConnectFormView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final controller = ref.read(letsConnectProvider.notifier);
-
-    final colorTheme = context.colors;
     return Form(
       key: controller.formKey,
       child: SingleChildScrollView(
@@ -25,43 +25,8 @@ class LetsConnectFormView extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RichText(
-              text: TextSpan(
-                text: "Let's ",
-                style: context.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
-                children: [
-                  TextSpan(
-                    text: 'Connect',
-                    style: context.textTheme.bodyLarge?.copyWith(
-                      color: colorTheme.buttonPrimaryColor,fontWeight: FontWeight.w600
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            gapH8(),
-            Text(
-              "Email us personally or complete the form below to set up a meeting or discuss an idea.",
-              style: context.textTheme.bodyMedium?.copyWith(
-                color: colorTheme.black54,
-              ),
-            ),
-            gapH8(),
-            Text(
-              "We will respond right away.",
-              style: context.textTheme.labelMedium?.copyWith(color: Colors.green),
-            ),
-            gapH8(),
-
-            _contactDetailsTile(Icons.email,AppStrings.contactUsEmail),
-            gapH8(),
-            _contactDetailsTile(Icons.phone,AppStrings.contactUsMobile),
-            gapH8(),
-
-
+            LetsConnectContactSection(),
             gapH16(),
-
-
             TransparentFormField(
               isRequired: true,
               controller: controller.firstNameController,
@@ -140,16 +105,4 @@ class LetsConnectFormView extends ConsumerWidget {
     );
   }
 
-  Widget _contactDetailsTile(IconData,title){
-    return Row(
-      children: [
-        Icon(IconData, size: 15, color: navigatorKey.currentContext!.colors.buttonPrimaryColor),
-        gapW16(),
-        Text(
-          title,
-          style: navigatorKey.currentContext!.textTheme.bodyMedium?.copyWith(color: navigatorKey.currentContext!.colors.black54),
-        ),
-      ],
-    );
-  }
 }

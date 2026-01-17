@@ -26,7 +26,7 @@ class LetsConnectScreen extends StatelessWidget {
   Widget _submit() {
     return Consumer(
       builder: (context, ref, _) {
-        final isLoading = ref.watch(letsConnectProvider) == PageState.loading;
+        final isLoading = ref.watch(letsConnectProvider).submitPageState == PageState.loading;
 
         return SafeArea(
           child: Padding(
