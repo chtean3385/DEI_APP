@@ -55,7 +55,7 @@ class SettingFontSize extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                fontSize.toString(),
+                fontSize == 16 ? "Standard" : fontSize.toString(),
                 style: context.textTheme.bodyMedium,
               ),
             ),
