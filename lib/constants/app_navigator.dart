@@ -5,7 +5,6 @@ import 'package:dei_champions/ui/pages/corporates_championing/corporates_champio
 import 'package:dei_champions/ui/pages/employee_settings/components/profile_mode/profile_mode_settings_screen.dart';
 import 'package:dei_champions/ui/pages/employee_settings/employee_settings.dart';
 import 'package:dei_champions/ui/pages/empower_women/empower_women_screen.dart';
-import 'package:dei_champions/ui/pages/home/components/top_companies/top_companies_list_screen.dart';
 import 'package:dei_champions/ui/pages/lgbtq/Shine%20with%20Pride_screen.dart';
 import 'package:flutter/material.dart';
 import '../main.dart';
@@ -169,13 +168,6 @@ class AppNavigator {
   }
 
 
-
-  static loadTopCompaniesListScreen() {
-    Navigator.push(
-      navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => TopCompanyListScreen()),
-    );
-  }
 
   static loadRecommendedJobsScreen({int initialCategoryId = 1}) {
     Navigator.push(
