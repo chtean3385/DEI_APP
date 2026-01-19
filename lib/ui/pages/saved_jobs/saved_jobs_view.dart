@@ -28,8 +28,8 @@ class SavedJobsView extends StatelessWidget {
                   child: Text(
                     "Track the status of all your saved jobs in one place ",
                     style: context.theme
-                        .extension<AppTextSizes>()!
-                        .xSmall,
+                        .extension<AppTextSizes>()
+                        ?.xSmall ?? const TextStyle(fontSize: 11),
                     textAlign: TextAlign.left,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

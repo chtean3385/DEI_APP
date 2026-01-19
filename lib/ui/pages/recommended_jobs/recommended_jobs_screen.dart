@@ -29,8 +29,8 @@ class RecommendedJobsScreen extends StatelessWidget {
                   child: Text(
                     "Discover jobs tailored to your profile and career goals.",
                     style: context.theme
-                        .extension<AppTextSizes>()!
-                        .xSmall,
+                        .extension<AppTextSizes>()
+                        ?.xSmall ?? const TextStyle(fontSize: 11),
                     textAlign: TextAlign.left,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

@@ -163,8 +163,8 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
                 child: Text(
                   "Track the status of all your job applications in one place",
                   style: context.theme
-                      .extension<AppTextSizes>()!
-                      .xSmall,
+                      .extension<AppTextSizes>()
+                      ?.xSmall ?? const TextStyle(fontSize: 11),
 
                   textAlign: TextAlign.left,
                   maxLines: 2,

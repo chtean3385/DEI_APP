@@ -8,10 +8,12 @@ class CustomTabBar extends StatefulWidget {
   final Function(Map<String, dynamic>)? onItemSelected;
   final double? horizontalPadding;
   final int? initialId;
+  final  double scaledHeight;
 
   const CustomTabBar({
     super.key,
     required this.filterItems,
+    required this.scaledHeight,
     this.onItemSelected,
     this.horizontalPadding,
     this.initialId,
@@ -84,7 +86,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
     final theme = Theme.of(context).textTheme;
     final colorTheme = context.colors;
     return SizedBox(
-      height: 40,
+      height: widget.scaledHeight,
       child: SingleChildScrollView(
         controller: _scrollController,
         scrollDirection: Axis.horizontal,

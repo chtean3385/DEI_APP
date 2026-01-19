@@ -11,6 +11,7 @@ import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/custom_loader.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
+import 'notification_empty_widget.dart';
 
 class NotificationView extends ConsumerWidget {
   NotificationView({super.key});
@@ -24,7 +25,7 @@ class NotificationView extends ConsumerWidget {
     } else if (state.pageState == PageState.error) {
       return SomethingWentWrong();
     } else if (state.data?.isEmpty == true) {
-      return EmptyWidget();
+      return EmptyNotificationWidget();
     } else {
       return _data(state, context,ref);
     }

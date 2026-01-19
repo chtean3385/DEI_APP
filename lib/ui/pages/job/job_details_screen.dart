@@ -8,6 +8,7 @@ import '../../../constants/app_styles.dart';
 import '../../../constants/enums.dart';
 import '../../../models/job/job_model.dart';
 import '../../../providers/providers.dart';
+import '../../../providers/theme_controller.dart';
 import '../../../widgets/others/custom_loader.dart';
 import '../home/components/recommended_jobs/components/custom_tab_bar.dart';
 import 'components/apply_job_button.dart';
@@ -89,6 +90,13 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(employeeJobDetailsProvider);
+    final accessibility = ref.watch(accessibilityProvider);
+
+    double baseHeight = 40;
+    double scaledHeight = baseHeight * accessibility.fontScale ;
+    double baseButtonHeight = 60; // minimum height for normal font
+    double maxHeight = 80; // maximum allowed height
+    double scaledButtonHeight = (baseButtonHeight * accessibility.fontScale).clamp(baseHeight, maxHeight);
     final categories = [
       {"id": 1, "title": 'Job Details'},
       {"id": 2, "title": 'About Company'},
@@ -241,6 +249,7 @@ final colorTheme = context.colors;
                                 CustomTabBar(
                                   filterItems: categories,
                                   initialId: 0,
+                                  scaledHeight: scaledHeight,
                                   onItemSelected: (item) {
                                     if (item['id'] == 1) {
                                       _scrollToSection(_jobDetailsKey);
@@ -300,7 +309,7 @@ final colorTheme = context.colors;
                 // Fixed Apply Button at bottom
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
-                  height: _showApplyButton ? 80 : 0,
+                  height: _showApplyButton ? scaledButtonHeight + MediaQuery.of(context).padding.bottom : 0,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 300),
                     opacity: _showApplyButton ? 1.0 : 0.0,
@@ -337,10 +346,10 @@ class _StickyTabBarDelegate extends SliverPersistentHeaderDelegate {
   _StickyTabBarDelegate({required this.child});
 
   @override
-  double get minExtent => 70; // Height when pinned
+  double get minExtent => 80; // Height when pinned
 
   @override
-  double get maxExtent => 70; // Height when expanded
+  double get maxExtent => 80; // Height when expanded
 
   @override
   Widget build(

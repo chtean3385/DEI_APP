@@ -77,6 +77,9 @@ class JobsCategorySection extends ConsumerWidget {
                   children: [
                     Text(
                       categoryState.data?.title ?? "",
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
                       style: theme.bodySmall?.copyWith(fontWeight: FontWeight.w600),
                     ),
                     const SizedBox(height: 8),

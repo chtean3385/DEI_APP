@@ -72,46 +72,48 @@ class _StateDropdownState extends State<StateDropdown> {
       ) {
     final colorTheme  = context.colors;
 
-    return Row(
+    return  Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "$label : ",
-          style: context.textTheme.displaySmall?.copyWith(color: colorTheme.black54),
+        Padding(
+          padding: const EdgeInsets.only(left: 4,bottom: 4),
+          child: Text(
+            "$label : ",
+            style: context.textTheme.displaySmall?.copyWith(color: colorTheme.black54),
+          ),
         ),
-        Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(color: colorTheme.grey300, width: 1),
-              borderRadius: BorderRadius.circular(6),
-              color: colorTheme.themBasedWhite,
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 6),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: selectedValue,
-                isExpanded: true,
-                isDense: true,
-                icon:  Icon(Icons.keyboard_arrow_down_rounded, size: 20, color: colorTheme.black54),
-                style:  TextStyle(
-                  color: colorTheme.black87,
-                  fontSize: 12,
-                ),
-                dropdownColor: colorTheme.themBasedWhite,
-                borderRadius: BorderRadius.circular(6),
-                items: items.map((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(
-                      value,
-                      style:  TextStyle(
-                        color: colorTheme.black87,
-                        fontSize: 12,
-                      ),
-                    ),
-                  );
-                }).toList(),
-                onChanged: onChanged,
+        Container(
+          decoration: BoxDecoration(
+            border: Border.all(color: colorTheme.grey300, width: 1),
+            borderRadius: BorderRadius.circular(6),
+            color: colorTheme.themBasedWhite,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 6),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              value: selectedValue,
+              isExpanded: true,
+              isDense: true,
+              icon:  Icon(Icons.keyboard_arrow_down_rounded, size: 20, color: colorTheme.black54),
+              style:  TextStyle(
+                color: colorTheme.black87,
+                fontSize: 12,
               ),
+              dropdownColor: colorTheme.themBasedWhite,
+              borderRadius: BorderRadius.circular(6),
+              items: items.map((String value) {
+                return DropdownMenuItem<String>(
+                  value: value,
+                  child: Text(
+                    value,
+                    style:  TextStyle(
+                      color: colorTheme.black87,
+                      fontSize: 12,
+                    ),
+                  ),
+                );
+              }).toList(),
+              onChanged: onChanged,
             ),
           ),
         ),

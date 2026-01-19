@@ -353,65 +353,71 @@ class SearchJobCard extends StatelessWidget {
   Widget _skillsRow(List<String>? skills) {
     if (skills == null || skills.isEmpty) return const SizedBox.shrink();
 
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        double maxWidth = constraints.maxWidth;
-
-        double usedWidth = 0;
-        const spacing = 8.0;
-
-        List<String> visible = [];
-        List<String> hidden = [];
-
-        for (var skill in skills) {
-          double chipWidth = measureChipWidth(context, skill);
-
-          if (visible.isEmpty) {
-            // Always add first chip
-            usedWidth = chipWidth;
-            visible.add(skill);
-          } else if (usedWidth + spacing + chipWidth <= maxWidth) {
-            // Fits in single line
-            usedWidth += spacing + chipWidth;
-            visible.add(skill);
-          } else {
-            hidden.add(skill);
-          }
-        }
-
-        // if there's overflow, add +N more chip
-        if (hidden.isNotEmpty) {
-          String lastChip = "+${hidden.length} more";
-
-          double chipWidth = measureChipWidth(context, lastChip);
-
-          // Remove last visible chips until "+N more" fits
-          while (visible.isNotEmpty &&
-              usedWidth + spacing + chipWidth > maxWidth) {
-            double removedChipWidth = measureChipWidth(context, visible.last);
-            visible.removeLast();
-            usedWidth -= (visible.isEmpty
-                ? removedChipWidth
-                : removedChipWidth + spacing);
-          }
-
-          visible.add(lastChip);
-        }
-
-        return Row(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(visible.length, (index) {
-            final s = visible[index];
-            final isLast = index == visible.length - 1;
-
-            return Padding(
-              padding: EdgeInsets.only(right: isLast ? 0 : spacing),
-              child: _tagChip(s),
-            );
-          }),
-        );
-      },
+    // return LayoutBuilder(
+    //   builder: (context, constraints) {
+    //     double maxWidth = constraints.maxWidth;
+    //
+    //     double usedWidth = 0;
+    //     const spacing = 8.0;
+    //
+    //     List<String> visible = [];
+    //     List<String> hidden = [];
+    //
+    //     for (var skill in skills) {
+    //       double chipWidth = measureChipWidth(context, skill);
+    //
+    //       if (visible.isEmpty) {
+    //         // Always add first chip
+    //         usedWidth = chipWidth;
+    //         visible.add(skill);
+    //       } else if (usedWidth + spacing + chipWidth <= maxWidth) {
+    //         // Fits in single line
+    //         usedWidth += spacing + chipWidth;
+    //         visible.add(skill);
+    //       } else {
+    //         hidden.add(skill);
+    //       }
+    //     }
+    //
+    //     // if there's overflow, add +N more chip
+    //     if (hidden.isNotEmpty) {
+    //       String lastChip = "+${hidden.length} more";
+    //
+    //       double chipWidth = measureChipWidth(context, lastChip);
+    //
+    //       // Remove last visible chips until "+N more" fits
+    //       while (visible.isNotEmpty &&
+    //           usedWidth + spacing + chipWidth > maxWidth) {
+    //         double removedChipWidth = measureChipWidth(context, visible.last);
+    //         visible.removeLast();
+    //         usedWidth -= (visible.isEmpty
+    //             ? removedChipWidth
+    //             : removedChipWidth + spacing);
+    //       }
+    //
+    //       visible.add(lastChip);
+    //     }
+    //
+    //     return Row(
+    //       mainAxisSize: MainAxisSize.min,
+    //       children: List.generate(visible.length, (index) {
+    //         final s = visible[index];
+    //         final isLast = index == visible.length - 1;
+    //
+    //         return Padding(
+    //           padding: EdgeInsets.only(right: isLast ? 0 : spacing),
+    //           child: _tagChip(s),
+    //         );
+    //       }),
+    //     );
+    //   },
+    // );
+    return Wrap(
+      spacing: 8,
+      runSpacing: 6,
+      children: skills.map(_tagChip).toList(),
     );
+
   }
 
   Widget _tagChip(String tag) {

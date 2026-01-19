@@ -56,13 +56,17 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
-                    Text(
-                      "Recommended jobs for you",
-                      style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
+                    Expanded(
+                      child: Text(
+                        "Recommended jobs for you",
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                    const Spacer(),
                   if(state.data!.length > 5)  ViewAllButton(
                       isSmall: true,
                       onPressed: AppNavigator.loadRecommendedJobsScreen,
@@ -104,14 +108,17 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
                             child: Center(
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    "View all ${state.totalCount?.toString() ?? ""} jobs",
-                                    style: navigatorKey
-                                        .currentContext!
-                                        .textTheme
-                                        .labelMedium
-                                        ?.copyWith(color: AppColors.primaryColor),
+                                  Expanded(
+                                    child: Text(
+                                      "View all ${state.totalCount?.toString() ?? ""} jobs",
+                                      style: navigatorKey
+                                          .currentContext!
+                                          .textTheme
+                                          .labelMedium
+                                          ?.copyWith(color: AppColors.primaryColor),
+                                    ),
                                   ),
                                   SizedBox(width: 6),
                                   Icon(

@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_navigator.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../providers/controllers/job/employee_search_jobs_controller.dart';
+import '../../../../providers/theme_controller.dart';
 import 'dei_friendly_industry_card.dart';
 
 class DeiFriendlyIndustrySection extends ConsumerWidget {
@@ -18,6 +19,10 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(friendlyIndustryProvider);
+    final accessibility = ref.watch(accessibilityProvider);
+
+    double baseHeight = 190;
+    double scaledHeight = baseHeight * accessibility.fontScale;
     final hasData = (state.data ?? []).isNotEmpty;
 
     if (!hasData && state.pageState != PageState.loading) {
@@ -30,7 +35,7 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
         child: state.pageState == PageState.loading
             ? _loadingUi()
         // : _loadingUi()
-            : _data(state, context),
+            : _data(state, context,scaledHeight),
       ),
     );
   }
@@ -67,6 +72,7 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
   Widget _data(
     FriendlyIndustryState state,
     BuildContext context,
+      double scaledHeight
   ) {
     final theme = Theme.of(context).textTheme;
     return  state.data?.isNotEmpty == true ?
@@ -92,7 +98,7 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
             ),
           ),
           // horizontal list
-          _dataItems(state),
+          _dataItems(state,scaledHeight),
         ],
       ),
     ) : SizedBox.shrink();
@@ -113,12 +119,12 @@ class DeiFriendlyIndustrySection extends ConsumerWidget {
     );
   }
 
-  Widget _dataItems(FriendlyIndustryState state) {
+  Widget _dataItems(FriendlyIndustryState state,double scaledHeight) {
     final industries = state.data?.first.department;
     if (industries?.isEmpty == true) return const SizedBox.shrink();
 
     return SizedBox(
-      height: 190,
+      height: scaledHeight,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(horizontal: 16),

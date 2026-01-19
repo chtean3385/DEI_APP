@@ -49,25 +49,30 @@ class BlogsHorizontalView extends ConsumerWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Stay Informed With Us",
-                      style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Stay Informed With Us",
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        style: navigatorKey.currentContext!.textTheme.bodySmall?.copyWith(
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
-                      textAlign: TextAlign.left,
-                    ),
-                    Text(
-                      "Don't miss the trending news",
-                      style: navigatorKey.currentContext!.textTheme.displaySmall
-                          ?.copyWith(color: navigatorKey.currentContext!.colors.black54),
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
+                      Text(
+                        "Don't miss the trending news",
+                        textAlign: TextAlign.left,
+                        overflow: TextOverflow.ellipsis,
+                        softWrap: true,
+                        style: navigatorKey.currentContext!.textTheme.displaySmall
+                            ?.copyWith(color: navigatorKey.currentContext!.colors.black54),
+                      ),
+                    ],
+                  ),
                 ),
-                const Spacer(),
                 ViewAllButton(
                   isSmall: true,
                   onPressed: ()=> AppNavigator.toBottomBar(initialPage: 4),

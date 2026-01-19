@@ -25,12 +25,16 @@ class _SortByDropdownState extends State<SortByDropdown> {
   @override
   Widget build(BuildContext context) {
     final colorTheme  = context.colors;
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          "Sort by : ",
-          style: context.textTheme.displaySmall?.copyWith(
-            color: colorTheme.black54,
+        Padding(
+          padding: const EdgeInsets.only(left: 4,bottom: 4),
+          child: Text(
+            "Sort by : ",
+            style: context.textTheme.displaySmall?.copyWith(
+              color: colorTheme.black54,
+            ),
           ),
         ),
         gapW8(),
