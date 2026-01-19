@@ -245,6 +245,17 @@ class ApiHandler {
   }
 
   Exception _handleDioException(DioException e) {
+    final statusCode = e.response?.statusCode;
+    final data = e.response?.data;
+    // If backend sends plain text or HTML
+    if (data is String) {
+      if (statusCode == 404) {
+        return AppException('API endpoint not found (404)');
+      }
+      if (statusCode == 500) {
+        return AppException('Internal server error');
+      }
+    }
     final response = e.response;
     final message = response?.data?['message'] ??
         response?.statusMessage ??

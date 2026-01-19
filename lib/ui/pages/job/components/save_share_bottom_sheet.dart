@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../providers/providers.dart';
+import '../../search/components/job_share_util.dart';
 
 void showJobOptionsSheet(BuildContext context) {
   showModalBottomSheet(
@@ -30,6 +31,37 @@ void showJobOptionsSheet(BuildContext context) {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  CustomDynamicButton(
+                    activeIcon: FontAwesomeIcons.shareNodes,
+                    inActiveIcon: FontAwesomeIcons.shareNodes,
+                    activeTitle: "Share",
+                    inActiveTitle: "Share",
+                    radius: 30,
+                    smaller: true,
+                    activeIconSize: 12,
+                    inActiveIconSize: 12,
+                    activeColor: colorTheme.buttonPrimaryColor,
+                    inActiveColor: colorTheme.buttonPrimaryColor,
+                    activeBgColor: colorTheme.jobCardBgColor,
+                    inActiveBgColor: colorTheme.jobCardBgColor,
+                    initialValue: false,
+                    // no toggle state needed
+                    onPressed: (_) async {
+                      final jobId = job?.id ?? "";
+                      final jobTitle = job?.title ?? "Job Opportunity";
+
+                      await JobShareUtil.shareJob(
+                        context: context,
+                        jobId: jobId,
+                        jobTitle: jobTitle,
+                      );
+                      Navigator.pop(context);
+                      return false;
+                    },
+                  ),
+
+
+                  gapH16(),
                   /// 🔹 Save / Unsave Button
                   CustomDynamicButton(
                     activeIcon: FontAwesomeIcons.bookmark,
@@ -99,21 +131,6 @@ void showJobOptionsSheet(BuildContext context) {
 
                   gapH16(),
 
-                  // /// 🔹 Share Button
-                  // CustomDynamicButton(
-                  //   activeIcon: Icons.share,
-                  //   inActiveIcon: Icons.share_outlined,
-                  //   activeTitle: "Shared Job",
-                  //   inActiveTitle: "Share Job",
-                  //   size: 30,
-                  //   smaller: false,
-                  //   onPressed: (shared) async {
-                  //     debugPrint("Share tapped!");
-                  //     return true;
-                  //   },
-                  // ),
-                  //
-                  // gapH16(),
                 ],
               ),
             ),

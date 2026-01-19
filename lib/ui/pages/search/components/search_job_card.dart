@@ -1,4 +1,3 @@
-import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/job/job_model_api.dart';
 import 'package:dei_champions/providers/providers.dart';
@@ -8,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../../../../constants/app_styles.dart';
 import '../../../../../../main.dart';
