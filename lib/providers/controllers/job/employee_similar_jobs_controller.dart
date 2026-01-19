@@ -34,12 +34,13 @@ class EmployeeSimilarJobController extends StateNotifier<JobListState> {
       final Data = (result.data as List)
           .map((e) => JobModelApi.fromJsonSimilarJobs(e,currentUserId: userId))
           .toList();
-      print( state.data?.length);
+      if (!mounted) return;
       state = state.copyWith(
         pageState: PageState.success,
         data: Data,
       );
     } catch (e) {
+      debugPrint("catch fetchJobs similar jobs - ${e.toString()}");
       state = state.copyWith(
         pageState: PageState.error,
         errorMessage: e.toString(),

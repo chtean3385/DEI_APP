@@ -45,6 +45,7 @@ class EmployeeSavedJobController extends StateNotifier<JobListState> {
         totalCount: result.totalJobs
       );
     } catch (e) {
+      if (!mounted) return;
       state = state.copyWith(
         pageState: PageState.error,
         errorMessage: e.toString(),
