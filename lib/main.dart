@@ -56,7 +56,7 @@ class _MyAppState extends ConsumerState<MyApp> {
       builder: (context, child) {
         return MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.noScaling,  // 🚫 stops system text-size from affecting UI
+            textScaler: TextScaler.linear(accessibility.fontScale),
           ),
           child: child!,
         );

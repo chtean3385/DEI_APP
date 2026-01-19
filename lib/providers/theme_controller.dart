@@ -35,14 +35,28 @@ final themeFutureProvider = FutureProvider<ThemeMode>((ref) async {
 
 class AccessibilityController extends Notifier<AccessibilitySettingsModel> {
   @override
-  AccessibilitySettingsModel build() => const AccessibilitySettingsModel();
+  AccessibilitySettingsModel build() {
+    _loadFontScale();
+    return const AccessibilitySettingsModel();
+  }
+
+  Future<void> _loadFontScale() async {
+    final savedScale = await SharedPreferenceRepository.getFontScale();
+    if (savedScale != null) {
+      state = state.copyWith(fontScale: savedScale);
+    }
+  }
 
   void increaseFont() {
-    state = state.copyWith(fontScale: (state.fontScale + 0.1).clamp(0.8, 1.5));
+    final newScale = (state.fontScale + 0.1).clamp(0.8, 1.5);
+    state = state.copyWith(fontScale: newScale);
+    SharedPreferenceRepository.setFontScale(newScale);
   }
 
   void decreaseFont() {
-    state = state.copyWith(fontScale: (state.fontScale - 0.1).clamp(0.8, 1.5));
+    final newScale = (state.fontScale - 0.1).clamp(0.8, 1.5);
+    state = state.copyWith(fontScale: newScale);
+    SharedPreferenceRepository.setFontScale(newScale);
   }
 
   void setButtonColor(Color color) {

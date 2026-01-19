@@ -12,6 +12,8 @@ class SharedPreferenceRepository {
   static const String HAS_UPLOADED_RESUME = "HAS_UPLOADED_RESUME";
   static const String isHomeTutorialShown = "isHomeTutorialShown";
   static const String KEY_THEME = "KEY_THEME";
+  static const String KEY_FONT_SCALE = 'key_font_scale';
+
 
   static Future<void> setToken(String token) async {
     // debugPrint("set token -- $token");
@@ -113,6 +115,16 @@ class SharedPreferenceRepository {
     String theme = preferences.getString(KEY_THEME) ?? "";
     debugPrint("getTheme -- $theme");
     return theme;
+  }
+  // ---------------- FONT SCALE ----------------
+  static Future<void> setFontScale(double scale) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.setDouble(KEY_FONT_SCALE, scale);
+  }
+
+  static Future<double?> getFontScale() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    return preferences.getDouble(KEY_FONT_SCALE);
   }
 
 }
