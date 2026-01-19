@@ -120,7 +120,13 @@ import 'app_theme_color_scheme.dart';
          shimmerHighlightColor: Color(0xFFF5F5F5),
            jobCardBgColor: Colors.white,
            jobCardSkillTagBgColor: AppColors.bg2
-       )
+       ),
+       AppTextSizes(
+         xSmall: GoogleFonts.inter(
+           fontSize: isTablet ? 13 : 11,
+           fontWeight: FontWeight.normal,
+         ),
+       ),
      ],
 
    );
@@ -342,4 +348,26 @@ TextTheme buildBaseTextTheme({
       color: color,
     ),
   );
+}
+
+
+
+@immutable
+class AppTextSizes extends ThemeExtension<AppTextSizes> {
+  final TextStyle xSmall;
+
+  const AppTextSizes({required this.xSmall});
+
+  @override
+  AppTextSizes copyWith({TextStyle? xSmall}) {
+    return AppTextSizes(xSmall: xSmall ?? this.xSmall);
+  }
+
+  @override
+  AppTextSizes lerp(ThemeExtension<AppTextSizes>? other, double t) {
+    if (other is! AppTextSizes) return this;
+    return AppTextSizes(
+      xSmall: TextStyle.lerp(xSmall, other.xSmall, t)!,
+    );
+  }
 }

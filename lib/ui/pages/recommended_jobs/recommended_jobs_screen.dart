@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/app_styles.dart';
+import '../../../constants/app_theme.dart';
 import '../../../constants/enums.dart';
 import '../../../widgets/others/shimmer_loader.dart';
 import '../search/components/search_job_card.dart';
@@ -22,14 +23,14 @@ class RecommendedJobsScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
                   child: Text(
                     "Discover jobs tailored to your profile and career goals.",
-                    style: context.textTheme.displaySmall?.copyWith(
-                      fontSize: 11,
-                    ),
+                    style: context.theme
+                        .extension<AppTextSizes>()!
+                        .xSmall,
                     textAlign: TextAlign.left,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

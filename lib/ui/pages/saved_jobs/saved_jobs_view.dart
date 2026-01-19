@@ -6,6 +6,7 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../constants/app_theme.dart';
 import '../search/components/search_job_card.dart';
 import 'components/saved_jobs_list_view.dart';
 
@@ -21,14 +22,14 @@ class SavedJobsView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Expanded(
                   child: Text(
                     "Track the status of all your saved jobs in one place ",
-                    style: context.textTheme.displaySmall?.copyWith(
-                      fontSize: 11,
-                    ),
+                    style: context.theme
+                        .extension<AppTextSizes>()!
+                        .xSmall,
                     textAlign: TextAlign.left,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,

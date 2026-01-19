@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
+import '../../../../providers/theme_controller.dart';
 import '../../../../widgets/others/shimmer_loader.dart';
 import '../../search/components/search_job_card.dart';
 
@@ -94,6 +95,15 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
     final state = ref.watch(employeeAppliedJobsProvider);
     final controller = ref.read(employeeAppliedJobsProvider.notifier);
     final colorTheme = context.colors;
+    final accessibility = ref.watch(accessibilityProvider);
+    final fontScale = accessibility.fontScale;
+
+// 🔹 adjust only when font is large
+    final VisualDensity chipDensity =
+    fontScale > 1.2
+        ? const VisualDensity(horizontal: -1, vertical: -1)
+        : const VisualDensity(horizontal: -4, vertical: -4);
+
 
     final currentApiKey = state.status ?? "allApplications";
     final currentLabel = keyToLabelMap[currentApiKey] ?? "All";
@@ -114,10 +124,7 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 4),
                 child: ChoiceChip(
-                  visualDensity: const VisualDensity(
-                    horizontal: -4,
-                    vertical: -4,
-                  ),
+                  visualDensity: chipDensity,
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   labelPadding: const EdgeInsets.symmetric(horizontal: 8),
                   padding: EdgeInsets.zero,
@@ -155,7 +162,10 @@ class _AppliedFilterOptionsState extends ConsumerState<AppliedFilterOptions> {
               Expanded(
                 child: Text(
                   "Track the status of all your job applications in one place",
-                  style: context.textTheme.displaySmall?.copyWith(fontSize: 11),
+                  style: context.theme
+                      .extension<AppTextSizes>()!
+                      .xSmall,
+
                   textAlign: TextAlign.left,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
