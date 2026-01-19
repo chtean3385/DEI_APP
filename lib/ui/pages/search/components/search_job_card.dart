@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../../../../../constants/app_styles.dart';
 import '../../../../../../main.dart';
@@ -15,6 +16,7 @@ import '../../../../../../widgets/others/rounded_network_image.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
 import '../../home/champion_candidates/champion_candidate_card.dart';
 import '../../job/components/save_hide_button.dart';
+import 'job_share_util.dart';
 
 class SearchJobCard extends StatelessWidget {
   final JobModelApi jobModel;
@@ -266,41 +268,75 @@ class SearchJobCard extends StatelessWidget {
                         ),
 
                       if (!hideSaveButton)
-                        CustomDynamicButton(
-                          activeIcon: FontAwesomeIcons.bookmark,
-                          // outline
-                          inActiveIcon: FontAwesomeIcons.solidBookmark,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            CustomDynamicButton(
+                              activeIcon: FontAwesomeIcons.bookmark,
+                              // outline
+                              inActiveIcon: FontAwesomeIcons.solidBookmark,
 
-                          // filled
-                          activeTitle: "Save",
-                          inActiveTitle: "Saved",
-                          radius: 30,
-                          smaller: true,
-                          activeIconSize: 12,
-                          inActiveIconSize: 12,
-                          activeColor: colorTheme.buttonPrimaryColor,
-                          inActiveColor: colorTheme.buttonPrimaryColor,
-                          activeBgColor: colorTheme.jobCardBgColor,
-                          inActiveBgColor: colorTheme.jobCardBgColor,
-                          initialValue: !jobModel.isSaved,
-                          onPressed: (isSavedNow) async {
-                            // 🔹 Add API call here
-                            print("Save/Hide tapped!  -- $isSavedNow");
-                            final jobId = jobModel.id ?? "";
-                            final notifier = ProviderScope.containerOf(
-                              context,
-                            ).read(employeeManageJobProvider.notifier);
+                              // filled
+                              activeTitle: "Save",
+                              inActiveTitle: "Saved",
+                              radius: 30,
+                              smaller: true,
+                              activeIconSize: 12,
+                              inActiveIconSize: 12,
+                              activeColor: colorTheme.buttonPrimaryColor,
+                              inActiveColor: colorTheme.buttonPrimaryColor,
+                              activeBgColor: colorTheme.jobCardBgColor,
+                              inActiveBgColor: colorTheme.jobCardBgColor,
+                              initialValue: !jobModel.isSaved,
+                              onPressed: (isSavedNow) async {
+                                // 🔹 Add API call here
+                                print("Save/Hide tapped!  -- $isSavedNow");
+                                final jobId = jobModel.id ?? "";
+                                final notifier = ProviderScope.containerOf(
+                                  context,
+                                ).read(employeeManageJobProvider.notifier);
 
-                            if (isSavedNow) {
-                              notifier.unSaveJob(jobId);
-                              print("❌ unSaveJob from job $jobId");
-                              return true;
-                            } else {
-                              notifier.saveJob(jobId);
-                              print("✅ saveJob for job $jobId");
-                              return true;
-                            }
-                          },
+                                if (isSavedNow) {
+                                  notifier.unSaveJob(jobId);
+                                  print("❌ unSaveJob from job $jobId");
+                                  return true;
+                                } else {
+                                  notifier.saveJob(jobId);
+                                  print("✅ saveJob for job $jobId");
+                                  return true;
+                                }
+                              },
+                            ),
+                            gapW8(),
+                            CustomDynamicButton(
+                              activeIcon: FontAwesomeIcons.shareNodes,
+                              inActiveIcon: FontAwesomeIcons.shareNodes,
+                              activeTitle: "Share",
+                              inActiveTitle: "Share",
+                              radius: 30,
+                              smaller: true,
+                              activeIconSize: 12,
+                              inActiveIconSize: 12,
+                              activeColor: colorTheme.buttonPrimaryColor,
+                              inActiveColor: colorTheme.buttonPrimaryColor,
+                              activeBgColor: colorTheme.jobCardBgColor,
+                              inActiveBgColor: colorTheme.jobCardBgColor,
+                              initialValue: false,
+                              // no toggle state needed
+                              onPressed: (_) async {
+                                final jobId = jobModel.id ?? "";
+                                final jobTitle = jobModel.title ?? "Job Opportunity";
+
+                                await JobShareUtil.shareJob(
+                                  context: context,
+                                  jobId: jobId,
+                                  jobTitle: jobTitle,
+                                );
+
+                                return false;
+                              },
+                            ),
+                          ],
                         ),
                       if (showMyApplicationStatusButton)
                         _buildStatusButton(jobModel.myStatus ?? ""),
@@ -376,7 +412,6 @@ class SearchJobCard extends StatelessWidget {
             );
           }),
         );
-
       },
     );
   }
@@ -406,7 +441,7 @@ class SearchJobCard extends StatelessWidget {
 
   Widget _buildStatusButton(String status) {
     final theme = navigatorKey.currentContext!.textTheme;
-    final colorTheme =  navigatorKey.currentContext!.colors;
+    final colorTheme = navigatorKey.currentContext!.colors;
 
     // Normalize input
     final s = status.toLowerCase().trim();
