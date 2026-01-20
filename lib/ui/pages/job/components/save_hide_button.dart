@@ -78,6 +78,7 @@ class CustomDynamicButton extends StatefulWidget {
   final Color inActiveColor;
   final Color inActiveBgColor;
   final double radius;
+  final double scaledFontSize;
   final Future<bool> Function(bool)?
   onPressed; // ✅ callback returns whether to accept toggle
 
@@ -98,6 +99,7 @@ class CustomDynamicButton extends StatefulWidget {
     this.activeIconSize,
     this.inActiveIconSize,
     this.radius = 12,
+    this.scaledFontSize = 14,
   });
 
   @override
@@ -162,13 +164,17 @@ class _CustomDynamicButtonState extends State<CustomDynamicButton> {
             isActive ? widget.activeTitle : widget.inActiveTitle,
             style: widget.smaller
                 ? theme.labelSmall?.copyWith(
+              fontSize: widget.scaledFontSize,
                     color: isActive ? widget.activeColor : widget.inActiveColor,
                     fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
                   )
                 : theme.labelMedium?.copyWith(
+
                     color: isActive ? widget.activeColor : widget.inActiveColor,
                     fontWeight: isActive ? FontWeight.w600 : FontWeight.normal,
                   ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),

@@ -48,13 +48,13 @@ class AccessibilityController extends Notifier<AccessibilitySettingsModel> {
   }
 
   void increaseFont() {
-    final newScale = (state.fontScale + 0.1).clamp(0.8, 1.5);
+    final newScale = (state.fontScale + 0.1).clamp(0.8, 1.375);
     state = state.copyWith(fontScale: newScale);
     SharedPreferenceRepository.setFontScale(newScale);
   }
 
   void decreaseFont() {
-    final newScale = (state.fontScale - 0.1).clamp(0.8, 1.5);
+    final newScale = (state.fontScale - 0.1).clamp(0.8, 1.375);
     state = state.copyWith(fontScale: newScale);
     SharedPreferenceRepository.setFontScale(newScale);
   }

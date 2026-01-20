@@ -7,6 +7,7 @@ import '../../../../constants/app_navigator.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/state_models/job/job_list_state.dart';
 import '../../../../providers/providers.dart';
+import '../../../../providers/theme_controller.dart';
 
 class SearchResultsView extends ConsumerStatefulWidget {
   const SearchResultsView();
@@ -56,6 +57,11 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
   }
 
   Widget _data(JobListState state) {
+    final theme = Theme.of(context).textTheme;
+    final accessibility = ref.watch(accessibilityProvider);
+    final double baseFontSize = theme.labelMedium?.fontSize ?? 14;
+    final double scaledFontSize =
+    (baseFontSize * accessibility.fontScale).clamp(12.0, 15.0);
     return ListView.builder(
       controller: _scrollController,
       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -65,6 +71,7 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
           final item = state.data![index];
           return SearchJobCard(
             key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
+            scaledFontSize: scaledFontSize,
             jobModel: item,
             onTap: ()=>AppNavigator.loadJobDetailsScreen(jobId: item.id ?? "",),
           );

@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,6 +57,7 @@ class _JobSearchResultScreenState extends ConsumerState<JobSearchResultScreen> {
     final industryState = ref.watch(friendlyIndustryProvider);
     final salaryTypeState = ref.watch(salaryRangeTypesProvider);
 
+
     return Scaffold(
       appBar: appBarSearch(
         context,
@@ -97,14 +99,13 @@ class _JobSearchResultScreenState extends ConsumerState<JobSearchResultScreen> {
                 top: 4,
               ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Expanded(
-                    child: Text(
-                      "${state.totalCount ?? 0} results ",
-                      style: context.textTheme.displaySmall,
-                    ),
+                  Text(
+                    "${state.totalCount ?? 0} results ",
+                    style: context.textTheme.displaySmall,
                   ),
+                  gapW16(),
                   Expanded(
                     child: CategoryDropdown(
                       onChanged: (categoryId) =>

@@ -23,6 +23,7 @@ class SearchJobCard extends StatelessWidget {
   final bool hideApplyButton;
   final bool showWithdrawButton;
   final bool showMyApplicationStatusButton;
+  final double scaledFontSize;
 
   const SearchJobCard({
     super.key,
@@ -32,6 +33,7 @@ class SearchJobCard extends StatelessWidget {
     this.hideApplyButton = false,
     this.showWithdrawButton = false,
     this.showMyApplicationStatusButton = false,
+     this.scaledFontSize = 14
   });
 
   @override
@@ -204,6 +206,7 @@ class SearchJobCard extends StatelessWidget {
                           activeIconSize: 12,
                           inActiveIconSize: 14,
                           size: 20,
+                          scaledFontSize: scaledFontSize,
                           smaller: true,
                           radius: 30,
                           initialValue: !jobModel.isApplied,
@@ -237,6 +240,7 @@ class SearchJobCard extends StatelessWidget {
                           size: 15,
                           activeIconSize: 12,
                           radius: 30,
+                          scaledFontSize: scaledFontSize,
                           smaller: true,
                           activeColor: colorTheme.buttonPrimaryColor,
                           inActiveColor: colorTheme.buttonPrimaryColor,
@@ -281,6 +285,7 @@ class SearchJobCard extends StatelessWidget {
                               smaller: true,
                               activeIconSize: 12,
                               inActiveIconSize: 12,
+                              scaledFontSize: scaledFontSize,
                               activeColor: colorTheme.buttonPrimaryColor,
                               inActiveColor: colorTheme.buttonPrimaryColor,
                               activeBgColor: colorTheme.jobCardBgColor,
@@ -315,6 +320,7 @@ class SearchJobCard extends StatelessWidget {
                               smaller: true,
                               activeIconSize: 12,
                               inActiveIconSize: 12,
+                              scaledFontSize: scaledFontSize,
                               activeColor: colorTheme.buttonPrimaryColor,
                               inActiveColor: colorTheme.buttonPrimaryColor,
                               activeBgColor: colorTheme.jobCardBgColor,

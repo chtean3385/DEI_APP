@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../providers/providers.dart';
+import '../../../../providers/theme_controller.dart';
 
 /// 🔹 Separate widget for bottom filter options (with filter list + modal logic)
 class FilterOptionsBar extends StatelessWidget {
@@ -244,7 +245,10 @@ class _FilterModalState extends ConsumerState<FilterModal> {
   Widget build(BuildContext context) {
     final leftWidth = 140.0;
     final theme = Theme.of(context).textTheme;
+    final accessibility = ref.watch(accessibilityProvider);
 
+    double baseHeight = 56;
+    double scaledHeight = baseHeight * accessibility.fontScale;
     final options = _options[selectedCategory] ?? [];
     final colorTheme = context.colors;
 
@@ -350,7 +354,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                               });
                             },
                             child: Container(
-                              height: 56,
+                              height: scaledHeight,
                               color: selected
                                   ? Colors.blue.shade50
                                   : colorTheme.themBasedWhite,
@@ -484,7 +488,7 @@ class _FilterModalState extends ConsumerState<FilterModal> {
                     Expanded(
                       child: CustomThemeButton(
                         child: Text(
-                          "Apply filters",
+                          "Apply",
                           style: theme.labelMedium?.copyWith(
                             color: colorTheme.themBasedWhite,
                           ),
