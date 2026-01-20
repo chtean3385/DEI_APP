@@ -100,8 +100,10 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                                   ),
                                   GestureDetector(
                                     onTap:(){
+
+                                      ///to reset page state in forgot password
                                       controller.setResetPageState(PageState.initial);
-                                      controller.setEmailSendStatus(false);
+                                      controller.setOtpSendStatus(false);
                                       AppNavigator.loadForgotPasswordScreen();
                                     } ,
                                     child: Text(

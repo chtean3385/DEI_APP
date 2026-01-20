@@ -36,10 +36,10 @@ class ForgotPasswordEmailInput extends StatelessWidget {
           fontWeight: FontWeight.normal,
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        validator: AppValidators.email,
+        validator: AppValidators.phone,
         decoration: InputDecoration(
-          labelText: 'Email Address',
-          hintText: 'Enter your email',
+          labelText: 'Mobile',
+          hintText: 'Enter your mobile number',
           hintStyle: theme.textTheme.bodyMedium?.copyWith(
             color: colorTheme.black54,
           ),
@@ -83,7 +83,7 @@ class _EmailIcon extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: const Icon(
-        Icons.email,
+        Icons.phone_android_outlined,
         color: Colors.white,
         size: 20,
       ),

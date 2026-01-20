@@ -7,13 +7,13 @@ import '../../../../../providers/providers.dart';
 import 'back_to_login.dart';
 
 class ForgotPasswordSuccessCard extends StatelessWidget {
-  final String email;
+  final String mobile;
   final Animation<double> pulseAnimation;
   final VoidCallback onResend; // callback for resend
 
   const ForgotPasswordSuccessCard({
     super.key,
-    required this.email,
+    required this.mobile,
     required this.pulseAnimation,
     required this.onResend,
   });
@@ -42,7 +42,7 @@ class ForgotPasswordSuccessCard extends StatelessWidget {
           const SizedBox(height: 16),
           _SuccessMessage(),
           const SizedBox(height: 8),
-          _EmailDisplay(email: email),
+          _EmailDisplay(mobile: mobile),
           const SizedBox(height: 16),
           _ExtraInfo(onResend: onResend),
           const SizedBox(height: 32),
@@ -92,7 +92,7 @@ class _SuccessTitle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Text(
-      'Check Your Email',
+      'OTP Sent!',
       style: context.textTheme.headlineLarge?.copyWith(fontWeight: FontWeight.w600,color: Colors.black)
 
     );
@@ -103,7 +103,7 @@ class _SuccessMessage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'We\'ve sent a password reset link to',
+        'We’ve sent a 6-digit verification code to your mobile number. ',
       textAlign: TextAlign.center,
       style: context.textTheme.bodySmall?.copyWith(color: Colors.black54)
 
@@ -112,10 +112,10 @@ class _SuccessMessage extends StatelessWidget {
 }
 
 class _EmailDisplay extends StatelessWidget {
-  final String email;
+  final String mobile;
 
   const _EmailDisplay({
-    required this.email,
+    required this.mobile,
   });
 
   @override
@@ -127,7 +127,7 @@ class _EmailDisplay extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
-        email,
+        mobile,
         style: context.textTheme.titleMedium?.copyWith(color: Color(0xFF4CAF50),fontWeight: FontWeight.w600)
       ),
     );
@@ -171,7 +171,7 @@ class _ExtraInfo extends ConsumerWidget {
             : GestureDetector(
           onTap: onResend,
           child: Text(
-            "Resend Email",
+            "Resend Otp",
             style: context.textTheme.bodyMedium?.copyWith(
               color: const Color(0xFF667eea),
               fontWeight: FontWeight.w600,

@@ -26,7 +26,11 @@ class AuthService {
       'acceptTerms': acceptTerms,
       'roleId': roleId,
     };
-    final result = await _apiHandler.post(url: ApiUrls.employeeSignup, body: body, includeAuthToken: false,);
+    final result = await _apiHandler.post(
+      url: ApiUrls.employeeSignup,
+      body: body,
+      includeAuthToken: false,
+    );
     if (result is Map<String, dynamic>) {
       final base = BaseModel.fromJson(result);
       if (base.isSuccess) {
@@ -38,6 +42,7 @@ class AuthService {
       throw Exception('Invalid response format');
     }
   }
+
   Future<BaseModel> employerSignUp({
     required String name,
     required String email,
@@ -56,26 +61,29 @@ class AuthService {
     required bool acceptTerms,
     required int roleId,
   }) async {
-    final body =
-      {
-        "mobile": mobile,
-        "name": name,
-        "email": email,
-        "password": password,
-        "companyName": companyName,
-        "companyEmail": companyEmail,
-        "companyDesignation": companyDesignation,
-        "companySize": companySize,
-        "companyWebsite": companyWebsite,
-        "companyAccountType":companyAccountType ,
-        "address": address,
-        "city": city,
-        "state": state,
-        "pincode": pinCode,
-        "acceptTerms": acceptTerms,
-        "roleId": roleId
+    final body = {
+      "mobile": mobile,
+      "name": name,
+      "email": email,
+      "password": password,
+      "companyName": companyName,
+      "companyEmail": companyEmail,
+      "companyDesignation": companyDesignation,
+      "companySize": companySize,
+      "companyWebsite": companyWebsite,
+      "companyAccountType": companyAccountType,
+      "address": address,
+      "city": city,
+      "state": state,
+      "pincode": pinCode,
+      "acceptTerms": acceptTerms,
+      "roleId": roleId,
     };
-    final result = await _apiHandler.post(url: ApiUrls.employerSignup, body: body, includeAuthToken: false,);
+    final result = await _apiHandler.post(
+      url: ApiUrls.employerSignup,
+      body: body,
+      includeAuthToken: false,
+    );
     if (result is Map<String, dynamic>) {
       final base = BaseModel.fromJson(result);
       if (base.isSuccess) {
@@ -87,19 +95,18 @@ class AuthService {
       throw Exception('Invalid response format');
     }
   }
-  Future<BaseModel> verifyEmailOtp({required String userId, required String otp}) async {
-    final body = {
-      "userId": userId,
-      "roleId": "2",
-      "mobileOtp": otp
-    };
+
+  Future<BaseModel> verifyEmailOtp({
+    required String userId,
+    required String otp,
+  }) async {
+    final body = {"userId": userId, "roleId": "2", "mobileOtp": otp};
     final result = await _apiHandler.post(
       url: ApiUrls.verifyOtp,
       body: body,
       includeAuthToken: false,
     );
 
-
     if (result is Map<String, dynamic>) {
       final base = BaseModel.fromJson(result);
       if (base.isSuccess) {
@@ -112,8 +119,11 @@ class AuthService {
     }
   }
 
-  Future<BaseModel> employeeSignIn({required String email,required String password}) async {
-    final body = {'email': email,"password":password};
+  Future<BaseModel> employeeSignIn({
+    required String email,
+    required String password,
+  }) async {
+    final body = {'email': email, "password": password};
 
     final result = await _apiHandler.post(url: ApiUrls.signIn, body: body);
 
@@ -147,16 +157,21 @@ class AuthService {
       throw Exception('Invalid response format');
     }
   }
-  saveFcmToken({ String? fcm,required String userId,required String deviceType}) async {
-    var body =  {
-      "fcmToken":fcm ?? "",
-      "userId":userId,
-      "deviceType":deviceType,
+
+  saveFcmToken({
+    String? fcm,
+    required String userId,
+    required String deviceType,
+  }) async {
+    var body = {
+      "fcmToken": fcm ?? "",
+      "userId": userId,
+      "deviceType": deviceType,
     };
     final result = await ApiHandler().post(
-        url: ApiUrls.saveFcmToken,
-        includeAuthToken: true,
-        body:body
+      url: ApiUrls.saveFcmToken,
+      includeAuthToken: true,
+      body: body,
     );
 
     if (result is Map<String, dynamic>) {
@@ -170,10 +185,42 @@ class AuthService {
       throw Exception('Invalid response format');
     }
   }
-  Future<BaseModel> forgotPassword({required String email}) async {
-    final body = {'email': email};
+
+  Future<BaseModel> forgotPassword({required String mobile}) async {
+    final body = {'mobile': mobile};
     final result = await _apiHandler.post(
       url: ApiUrls.forgotPassword,
+      body: body,
+      includeAuthToken: false,
+    );
+    if (result is Map<String, dynamic>) {
+      final base = BaseModel.fromJson(result);
+      if (base.isSuccess) {
+        return base;
+      } else {
+        throw (base.message);
+      }
+    } else {
+      throw Exception('Invalid response format');
+    }
+  }
+
+  Future<BaseModel> resetPassword({
+    required String mobile,
+    required String otp,
+    required String newPswd,
+    required String cnfPswd,
+  }) async {
+    final body = {
+      "mobile": mobile,
+      "otp": otp,
+      "newPassword": newPswd,
+      "confirmPassword": cnfPswd,
+    };
+    print("body.toString()");
+    print(body.toString());
+    final result = await _apiHandler.post(
+      url: ApiUrls.resetPassword,
       body: body,
       includeAuthToken: false,
     );

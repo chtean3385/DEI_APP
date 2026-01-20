@@ -23,7 +23,7 @@ class ForgotPasswordScreen extends StatefulWidget {
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
     with TickerProviderStateMixin {
   late ForgotPasswordAnimationController _animationController;
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController mobileController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
   final _formKey = GlobalKey<FormState>();
   late final LoginController controller;
@@ -38,10 +38,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
         context,
       ).read(loginProvider.notifier);
       // Listen to email changes
-      _emailController.addListener(() {
-        final text = _emailController.text.trim();
-        final isValid = _isValid(AppValidators.email, text);
-        controller.updateEmailValidity(isValid);
+      mobileController.addListener(() {
+        final text = mobileController.text.trim();
+        final isValid = _isValid(AppValidators.phone, text);
+        controller.updatePhonValidity(isValid);
       });
     });
   }
@@ -53,18 +53,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
   @override
   void dispose() {
     _animationController.dispose();
-    _emailController.dispose();
+    mobileController.dispose();
     _emailFocusNode.dispose();
     super.dispose();
   }
 
-  void _sendResetEmail() async {
+  void _sendResetOtp() async {
     if (_formKey.currentState?.validate() == true) {
-      controller.forgotPassword(_emailController.text);
+      controller.forgotPassword(mobileController.text);
     }
-  }
-  void _reSendResetEmail() async {
-      controller.forgotPassword(_emailController.text);
   }
 
   void _goBack() {
@@ -110,27 +107,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen>
                       child: Center(
                         child: SingleChildScrollView(
                           padding: const EdgeInsets.all(24),
-                          child: Consumer(
-                              builder: (context, ref, _) {
-                                final _emailSent = ref.watch(loginProvider).isEmailSend == true;
-
-                                return _emailSent ? ForgotPasswordSuccessCard(
-                                  email: _emailController.text,
-                                  pulseAnimation:
-                                  _animationController.pulseAnimation,
-                                  onResend: _reSendResetEmail,
-
-                                ) : Form(
-                                  key: _formKey,
-                                  child: ForgotPasswordFormCard(
-                                    emailController: _emailController,
-                                    emailFocusNode: _emailFocusNode,
-                                    pulseAnimation:
-                                    _animationController.pulseAnimation,
-                                    onSendReset: _sendResetEmail,
-                                  ),
-                                );
-                              }
+                          child: Form(
+                            key: _formKey,
+                            child: ForgotPasswordFormCard(
+                              emailController: mobileController,
+                              emailFocusNode: _emailFocusNode,
+                              pulseAnimation:
+                              _animationController.pulseAnimation,
+                              onSendReset: _sendResetOtp,
+                            ),
                           )
                         ),
                       ),

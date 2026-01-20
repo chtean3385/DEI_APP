@@ -71,7 +71,7 @@ class _Description extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Don\'t worry! It happens. Please enter the email address associated with your account.',
+      'Don\'t worry! It happens. Please enter the mobile number associated with your account.',
       textAlign: TextAlign.center,
       style: context.textTheme.bodySmall?.copyWith(color: Colors.black54),
     );

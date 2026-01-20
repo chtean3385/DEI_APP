@@ -43,7 +43,7 @@ class ForgotPasswordFormCard extends StatelessWidget {
             focusNode: emailFocusNode,
           ),
           const SizedBox(height: 32),
-          SendResetLink(
+          SendResetOtp(
             onSendReset: onSendReset,
           ),
           const SizedBox(height: 24),

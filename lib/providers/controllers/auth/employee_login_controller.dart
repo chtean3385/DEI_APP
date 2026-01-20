@@ -30,8 +30,8 @@ class LoginController extends StateNotifier<AuthState> {
   void setResetPageState(PageState newState) {
     state = state.copyWith(restPageState: newState);
   }
-  void setEmailSendStatus(bool newState) {
-    state = state.copyWith(isEmailSend: newState);
+  void setOtpSendStatus(bool newState) {
+    state = state.copyWith(isOtpSend: newState);
   }
   Future<void> loadSavedCredentials() async {
     final bool remember = await SharedPreferenceRepository.getRememberMe();
@@ -108,15 +108,18 @@ class LoginController extends StateNotifier<AuthState> {
     }
   }
 
-  Future<void> forgotPassword(String email) async {
+  Future<void> forgotPassword(String mobile) async {
     setResetPageState(PageState.loading);
+
     try {
       final BaseModel result = await _authService.forgotPassword(
-       email: email
+       mobile: mobile
       );
       showSnackBar(result.message, duration: 3);
       setResetPageState(PageState.success);
-      setEmailSendStatus(true);
+      setOtpSendStatus(true);
+      AppNavigator.loadResetPasswordScreen(mobile: mobile);
+
       debugPrint("success - forgotPassword");
     } catch (e) {
       setResetPageState(PageState.error);
@@ -125,8 +128,28 @@ class LoginController extends StateNotifier<AuthState> {
       debugPrint(e.toString());
     }
   }
-  void updateEmailValidity(bool isValid) {
-    state = state.copyWith(isEmailValid: isValid);
+
+  Future<void> resetPassword({
+    required String mobile,
+    required String otp,
+    required String newPswd,
+    required String cnfPswd,}) async {
+    try {
+      final BaseModel result = await _authService.resetPassword(
+          mobile: mobile,cnfPswd:cnfPswd ,newPswd: newPswd,otp: otp
+      );
+      showSnackBar(result.message, duration: 3);
+      debugPrint("success - resetPassword");
+      AppNavigator.loadSignInScreen();
+    } catch (e) {
+      showSnackBar(e.toString());
+      debugPrint("catch - resetPassword");
+      debugPrint(e.toString());
+    }
+  }
+
+  void updatePhonValidity(bool isValid) {
+    state = state.copyWith(isMobileValid: isValid);
   }
 
 }

@@ -5,16 +5,16 @@ class AuthState {
   final String otp;
   final PageState pageState;
   final PageState restPageState;
-  final bool? isEmailValid;
-  final bool? isEmailSend;
+  final bool? isMobileValid;
+  final bool? isOtpSend;
 
   const AuthState({
     this.rememberMe = false,
     this.otp = '',
     this.pageState = PageState.initial,
     this.restPageState = PageState.initial,
-    this.isEmailValid,
-    this.isEmailSend,
+    this.isMobileValid,
+    this.isOtpSend,
   });
 
   AuthState copyWith({
@@ -23,16 +23,16 @@ class AuthState {
     String? otp,
     PageState? pageState,
     PageState? restPageState,
-    bool? isEmailValid,
-    bool? isEmailSend,
+    bool? isMobileValid,
+    bool? isOtpSend,
   }) {
     return AuthState(
       rememberMe: rememberMe ?? this.rememberMe,
       otp: otp ?? this.otp,
       pageState: pageState ?? this.pageState,
       restPageState: restPageState ?? this.restPageState,
-      isEmailValid: isEmailValid ?? this.isEmailValid,
-      isEmailSend: isEmailSend ?? this.isEmailSend,
+      isMobileValid: isMobileValid ?? this.isMobileValid,
+      isOtpSend: isOtpSend ?? this.isOtpSend,
     );
   }
 
@@ -44,7 +44,7 @@ class AuthState {
           rememberMe == other.rememberMe &&
           otp == other.otp &&
           pageState == other.pageState &&
-          restPageState == other.restPageState;
+          restPageState == other.restPageState ;
 
   @override
   int get hashCode => rememberMe.hashCode ^ otp.hashCode ^ pageState.hashCode;

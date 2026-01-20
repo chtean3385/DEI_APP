@@ -9,7 +9,8 @@ class ApiUrls {
   //auth
   static const verifyOtp = 'users/employee/verify-otp';
   static const resendOtp = 'users/resend-otp';
-  static const forgotPassword = 'users/forgot-password';
+  static const forgotPassword = 'users/app-forgot-password';
+  static const resetPassword = 'users/app-reset-password';
   static const signIn = 'users/employee/login';
   static const employeeSignup = 'users/employee/register';
   static const employerSignup = 'users/employer/register';

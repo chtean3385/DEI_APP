@@ -5,10 +5,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../providers/providers.dart';
 
-class SendResetLink extends ConsumerWidget {
+class SendResetOtp extends ConsumerWidget {
   final VoidCallback onSendReset;
 
-  const SendResetLink({
+  const SendResetOtp({
     super.key,
     required this.onSendReset,
   });
@@ -21,7 +21,7 @@ class SendResetLink extends ConsumerWidget {
       height: 56,
       decoration: BoxDecoration(
         gradient:  LinearGradient(
-          colors: state.isEmailValid ==true
+          colors: state.isMobileValid ==true
               ? const [Color(0xFF667eea), Color(0xFF764ba2)] // active
               : [Colors.grey.shade400, Colors.grey.shade600],    // disabled
         ),
@@ -50,7 +50,7 @@ class SendResetLink extends ConsumerWidget {
                     ),
                   )
                 : Text(
-                    'Send Reset Link',
+                    'Send OTP',
                     style: context.textTheme.bodyLarge?.copyWith(
                       color: context.theme.colorScheme.onPrimary,
                       fontWeight: FontWeight.w600,
