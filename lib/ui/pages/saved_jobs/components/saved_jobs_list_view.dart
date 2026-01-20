@@ -6,6 +6,8 @@ import '../../../../../../constants/app_colors.dart';
 import '../../../../../../constants/enums.dart';
 import '../../../../../../models/state_models/job/job_list_state.dart';
 import '../../../../../../providers/providers.dart';
+import '../../../../models/accessibility/acccessibility_settings.dart';
+import '../../../../providers/theme_controller.dart';
 import '../../../../widgets/others/custom_loader.dart';
 import '../../search/components/search_job_card.dart';
 
@@ -45,6 +47,7 @@ class _SearchResultsViewState extends ConsumerState<EmployeeSavedJobListView> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(employeeSavedJobsProvider);
+    final accessibility = ref.watch(accessibilityProvider);
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();
@@ -53,11 +56,15 @@ class _SearchResultsViewState extends ConsumerState<EmployeeSavedJobListView> {
     } else if (state.data?.isEmpty == true) {
       return SavedJobsEmptyScreen();
     } else {
-      return _data(state);
+      return _data(state,context,accessibility);
     }
   }
 
-  Widget _data(JobListState state) {
+  Widget _data(JobListState state,BuildContext context,AccessibilitySettingsModel accessibility) {
+    final theme = Theme.of(context).textTheme;
+    final double baseFontSize = theme.labelMedium?.fontSize ?? 14;
+    final double scaledFontSize =
+    (baseFontSize * accessibility.fontScale).clamp(11.0, 14.0);
     return ListView.builder(
       controller: _scrollController,
       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -66,6 +73,7 @@ class _SearchResultsViewState extends ConsumerState<EmployeeSavedJobListView> {
         if (index < state.data!.length) {
           final item = state.data![index];
           return SearchJobCard(
+            scaledFontSize: scaledFontSize,
             key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
             jobModel: item,
             onTap: () =>

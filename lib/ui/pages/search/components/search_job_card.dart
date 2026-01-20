@@ -343,7 +343,7 @@ class SearchJobCard extends StatelessWidget {
                           ],
                         ),
                       if (showMyApplicationStatusButton)
-                        _buildStatusButton(jobModel.myStatus ?? ""),
+                        _buildStatusButton(jobModel.myStatus ?? "",scaledFontSize),
                     ],
                   ),
                 ],
@@ -449,7 +449,7 @@ class SearchJobCard extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusButton(String status) {
+  Widget _buildStatusButton(String status,double scaledFontSize) {
     final theme = navigatorKey.currentContext!.textTheme;
     final colorTheme = navigatorKey.currentContext!.colors;
 
@@ -509,7 +509,7 @@ class SearchJobCard extends StatelessWidget {
           Text(
             buttonText,
             style: theme.labelSmall?.copyWith(
-              color: buttonColor,
+              color: buttonColor,fontSize: scaledFontSize,
               fontWeight: FontWeight.w600,
             ),
           ),

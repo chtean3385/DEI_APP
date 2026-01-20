@@ -5,14 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../providers/providers.dart';
 import '../../search/components/job_share_util.dart';
 
 void showJobOptionsSheet(BuildContext context) {
+  final colorTheme = context.colors;
   showModalBottomSheet(
     context: context,
-    backgroundColor: Colors.white,
+    backgroundColor: colorTheme.alertBgColor,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
     ),
@@ -21,7 +21,6 @@ void showJobOptionsSheet(BuildContext context) {
         builder: (context, ref, _) {
           final job = ref.watch(employeeJobDetailsProvider).data; // 👈 read directly
           final jobNotifier = ref.read(employeeManageJobProvider.notifier);
-          final colorTheme = context.colors;
 
 
           return SafeArea(

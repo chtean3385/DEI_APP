@@ -61,7 +61,7 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
     final accessibility = ref.watch(accessibilityProvider);
     final double baseFontSize = theme.labelMedium?.fontSize ?? 14;
     final double scaledFontSize =
-    (baseFontSize * accessibility.fontScale).clamp(12.0, 15.0);
+    (baseFontSize * accessibility.fontScale).clamp(11.0, 14.0);
     return ListView.builder(
       controller: _scrollController,
       padding: EdgeInsets.symmetric(horizontal: 16),

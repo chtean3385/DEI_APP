@@ -7,8 +7,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_navigator.dart';
 import '../../../../constants/enums.dart';
+import '../../../../models/accessibility/acccessibility_settings.dart';
 import '../../../../models/state_models/job/job_list_state.dart';
 import '../../../../providers/providers.dart';
+import '../../../../providers/theme_controller.dart';
 
 class RecommendedJobsView extends ConsumerStatefulWidget {
   const RecommendedJobsView();
@@ -46,6 +48,7 @@ class _SearchResultsViewState extends ConsumerState<RecommendedJobsView> {
   Widget build(BuildContext context) {
     final state = ref.watch(recommendedJobListProvider);
     final profileCompletionState = ref.watch(profileCompletionProvider);
+    final accessibility = ref.watch(accessibilityProvider);
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();
@@ -54,11 +57,16 @@ class _SearchResultsViewState extends ConsumerState<RecommendedJobsView> {
     } else if (state.data?.isEmpty == true) {
       return RecommendedJobsEmptyView(isProfileIncomplete:profileCompletionState.profileData?.profileCompletion != 100 ,);
     } else {
-      return _data(state);
+      return _data(state,context,accessibility);
     }
   }
 
-  Widget _data(JobListState state) {
+  Widget _data(JobListState state,BuildContext context,AccessibilitySettingsModel accessibility) {
+    final theme = Theme.of(context).textTheme;
+
+    final double baseFontSize = theme.labelMedium?.fontSize ?? 14;
+    final double scaledFontSize =
+    (baseFontSize * accessibility.fontScale).clamp(11.0, 14.0);
     return ListView.builder(
       controller: _scrollController,
       padding: EdgeInsets.symmetric(horizontal: 16),
@@ -68,6 +76,7 @@ class _SearchResultsViewState extends ConsumerState<RecommendedJobsView> {
           final item = state.data![index];
           return SearchJobCard(
             key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
+            scaledFontSize:scaledFontSize,
             jobModel: item,
             onTap: ()=>AppNavigator.loadJobDetailsScreen(jobId: item.id ?? "",),
           );

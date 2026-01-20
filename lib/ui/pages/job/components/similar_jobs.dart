@@ -6,8 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_navigator.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/enums.dart';
+import '../../../../models/accessibility/acccessibility_settings.dart';
 import '../../../../models/state_models/job/job_list_state.dart';
 import '../../../../providers/providers.dart';
+import '../../../../providers/theme_controller.dart';
 import '../../../../widgets/others/custom_loader.dart';
 import '../../search/components/search_job_card.dart';
 
@@ -19,6 +21,7 @@ class SimilarJobsListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context,WidgetRef ref) {
     final state = ref.watch(similarJobListProvider(jobId));
+    final accessibility = ref.watch(accessibilityProvider);
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();
@@ -27,11 +30,15 @@ class SimilarJobsListView extends ConsumerWidget {
     } else if (state.data?.isEmpty == true) {
       return SomethingWentWrong(text: "Sorry.. No similar jobs found",);
     } else {
-      return _data(state);
+      return _data(state,context,accessibility);
     }
   }
 
-  Widget _data(JobListState state) {
+  Widget _data(JobListState state,BuildContext context,AccessibilitySettingsModel accessibility) {
+    final theme = Theme.of(context).textTheme;
+    final double baseFontSize = theme.labelMedium?.fontSize ?? 14;
+    final double scaledFontSize =
+    (baseFontSize * accessibility.fontScale).clamp(11.0, 14.0);
     final jobs = state.data ?? [];
     if (jobs.isEmpty) return const SizedBox();
     return Column(
@@ -52,6 +59,7 @@ class SimilarJobsListView extends ConsumerWidget {
             final item = state.data![index];
             return SearchJobCard(
               key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
+              scaledFontSize: scaledFontSize,
               jobModel: item,
               onTap: () =>
                   AppNavigator.loadJobDetailsScreen(jobId: item.id ?? ""),
