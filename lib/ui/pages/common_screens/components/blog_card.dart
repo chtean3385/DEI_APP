@@ -11,6 +11,8 @@ import 'package:html/parser.dart' as html_parser;
 import 'package:intl/intl.dart';
 
 import '../../../../constants/app_colors.dart';
+import '../../../../constants/app_drawables.dart';
+import '../../../../constants/app_strings.dart';
 import '../../../../main.dart';
 import '../../../../models/common/blog_model.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
@@ -69,13 +71,8 @@ class BlogCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           // center vertically
                           children: [
-                            RoundedNetworkImage(
-                              height: 40,
-                              width: 40,
-                              imageUrl: item.authorImage ?? "",
-                              borderRadius: 20,
-                            ),
-                            gapW16(),
+                            ClipOval(child: Image.asset(AppDrawables.logo,height: 30,width: 30,)),
+                            gapW8(),
                             Expanded(
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -83,15 +80,14 @@ class BlogCard extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    item.authorName ?? "",
+                                    AppStrings.appName,
                                     maxLines: 1,
                                     softWrap: true,
                                     overflow: TextOverflow.ellipsis,
-                                    style: theme.labelMedium?.copyWith(
-                                      color: colorTheme.black54,
+                                    style: theme.displaySmall?.copyWith(
+                                        color: colorTheme.black54,
                                     ),
                                   ),
-                                  gapH4(),
 
                                   Text(
                                     DateFormat(
@@ -101,7 +97,7 @@ class BlogCard extends StatelessWidget {
                                     softWrap: true,
                                     overflow: TextOverflow.ellipsis,
                                     style: theme.displaySmall?.copyWith(
-                                      color: colorTheme.black54,
+                                      color: colorTheme.black54,fontSize: 12
                                     ),
                                   ),
                                 ],

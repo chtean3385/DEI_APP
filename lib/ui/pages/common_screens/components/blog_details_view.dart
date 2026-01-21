@@ -8,6 +8,8 @@ import 'package:dei_champions/models/state_models/common/blog_detail_state.dart'
 import 'package:dei_champions/providers/controllers/common/blog_detail_controller.dart';
 import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -62,7 +64,9 @@ class BlogDetailsView extends ConsumerWidget {
                 Container(
                   margin: EdgeInsets.all(16),
                   padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(color: colorTheme.commonDividerBgColor),
+                  decoration: BoxDecoration(
+                    color: colorTheme.commonDividerBgColor,
+                  ),
                   child: Column(
                     children: [
                       Text(
@@ -73,31 +77,28 @@ class BlogDetailsView extends ConsumerWidget {
                       gapH16(),
                       Row(
                         mainAxisSize: MainAxisSize.min,
-                        children: [
-                          RoundedNetworkImage(
-                            height: 40,
-                            width: 40,
-                            imageUrl: item?.authorImage ?? "",
-                            borderRadius: 20,
-                          ),
-                          gapW16(),
-                          Text(
-                            item?.authorName ?? "",
-                            maxLines: 1,
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                            style: theme.labelMedium?.copyWith(
-                              color: colorTheme.black54,
-                            ),
-                          ),
-                        ],
-                      ),
-                      gapH8(),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
 
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+
+                              ClipOval(child: Image.asset(AppDrawables.logo,height: 20,width: 20,)),
+                              gapW8(),
+                              Text(
+                                AppStrings.appName,
+                                maxLines: 1,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                style: theme.displaySmall?.copyWith(
+                                    color: colorTheme.black54,fontSize: 12
+                                ),
+                              ),
+                            ],
+                          ),
+                          gapW16(),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -115,31 +116,12 @@ class BlogDetailsView extends ConsumerWidget {
                                 maxLines: 1,
                                 softWrap: true,
                                 overflow: TextOverflow.ellipsis,
-                                style: theme.displaySmall?.copyWith(
-                                  color: colorTheme.black54,
-                                ),
-                              ),
-                            ],
-                          ),
-                          gapW16(),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Icon(
-                                Icons.access_time_rounded,
-                                size: 20,
-                                color: colorTheme.black54,
-                              ),
-                              gapW6(),
-                              Text(
-                                "8 mins to read",
-                                maxLines: 1,
-                                softWrap: true,
-                                overflow: TextOverflow.ellipsis,
-                                style: theme.displaySmall?.copyWith(
-                                  color: colorTheme.black54,
-                                ),
+                                style:
+                                context.theme
+                                    .extension<AppTextSizes>()
+                                    ?.xSmall
+                                    .copyWith(color: colorTheme.black54) ??
+                                    const TextStyle(fontSize: 12),
                               ),
                             ],
                           ),
@@ -242,7 +224,6 @@ class BlogDetailsView extends ConsumerWidget {
 
   Widget _itemDetails(BlogModel? item) {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
-    final plainText = html_parser.parse(item?.description).body?.text ?? '';
     final colorTheme = navigatorKey.currentContext!.colors;
     return Card(
       elevation: 2,
@@ -264,23 +245,68 @@ class BlogDetailsView extends ConsumerWidget {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Text(
-                  plainText,
-                  style: theme.displaySmall?.copyWith(color: colorTheme.black87),
-                  // maxLines: 3,
-                  // softWrap: true,
-                  // overflow: TextOverflow.ellipsis,
+                Html(
+                  data: item?.description ?? "",
+                  shrinkWrap: true,
+                  style: {
+                    "body": Style(
+                      margin: Margins.zero,
+                      padding: HtmlPaddings.zero,
+                      fontSize: FontSize(14),
+                      lineHeight: LineHeight(1.6),
+                      color: colorTheme.black87,
+                    ),
+                    "p": Style(
+                      margin: Margins.only(bottom: 12),
+                      whiteSpace: WhiteSpace.normal,
+                    ),
+                  },
+
+                  extensions: [
+                    TagExtension(
+                      tagsToExtend: {"p"},
+                      builder: (context) {
+                        final text = context.element?.text.trim() ?? "";
+
+                        // 👇 preserve empty &nbsp; paragraphs
+                        if (text.isEmpty) {
+                          return const SizedBox(height: 12);
+                        }
+
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8),
+                          child: Text(
+                            text,
+                            style: TextStyle(
+                              fontSize: 14,
+                              height: 1.6,
+                              color: colorTheme.black87,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
                 ),
+
                 gapH16(),
                 Text(
                   "Thank you for reading this blog post. We hope you found it informative and useful.",
-                  style: theme.displaySmall?.copyWith(color: colorTheme.black87),
+                  style: theme.displaySmall?.copyWith(
+                    color: colorTheme.black87,fontSize: 12
+                  ),
                   maxLines: 3,
                   softWrap: true,
                   overflow: TextOverflow.ellipsis,
                 ),
                 gapH16(),
-                BlogTagsAndShare(tags: ['Eventss', 'Career', 'Interview'],onShareTap: ()=>shareBlog(title:AppStrings.appName ,blogId: item?.id ?? ""),),
+                BlogTagsAndShare(
+                  tags: [item?.category ?? ""],
+                  onShareTap: () => shareBlog(
+                    title: AppStrings.appName,
+                    blogId: item?.id ?? "",
+                  ),
+                ),
               ],
             ),
           ),
@@ -328,23 +354,24 @@ class BlogTagsAndShare extends StatelessWidget {
   final List<String> tags;
   final VoidCallback? onShareTap;
 
-  const BlogTagsAndShare({super.key, required this.tags,this.onShareTap,});
+  const BlogTagsAndShare({super.key, required this.tags, this.onShareTap});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).textTheme;
     final colorTheme = context.colors;
 
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Divider(thickness: 1, color: colorTheme.black12),
+        Divider(thickness: 1, color: colorTheme.black12),
         const SizedBox(height: 12),
         Wrap(
           spacing: 8, // horizontal space between chips
           runSpacing: 8, // vertical space between lines
-          children: tags.map((s) => commonChip(s,isFromDetails: true)).toList(),
+          children: tags
+              .map((s) => commonChip(s, isFromDetails: true))
+              .toList(),
         ),
         gapH16(),
         GestureDetector(
