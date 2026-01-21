@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:open_filex/open_filex.dart';
 
 import '../../../constants/enums.dart';
-import '../../../models/common/base_model.dart';
 import '../../../models/profile/edit_profile/json_item_model.dart';
 import '../../../models/profile/employee_user_model/employee_user_model.dart';
 import '../../../models/state_models/profile/employee_profile_state.dart';

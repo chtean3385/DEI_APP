@@ -5,7 +5,6 @@ import 'package:dei_champions/widgets/others/rounded_network_image.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../models/home/promo_banner/promo_banner_model.dart';
 
 class PromoBannerWidget extends StatelessWidget {
@@ -29,14 +28,15 @@ class PromoBannerWidget extends StatelessWidget {
           width: double.infinity,
           borderRadius: 16,
         ),
+        // 🌑 Overlay with border radius
         Positioned.fill(
-          child: ColoredBox(
-
-           color:  Colors.black.withValues(alpha: 0.45),
-
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.black.withValues(alpha: 0.45),
+            ),
           ),
         ),
-
         Padding(
           padding: const EdgeInsets.all(12),
           child: ElevatedButton(
