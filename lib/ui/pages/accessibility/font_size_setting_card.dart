@@ -17,6 +17,8 @@ class SettingFontSize extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeColor = context.colors;
+    final rawPercent = _fontSizeToRawPercent(fontSize);
+    final percent = _snapToSteps(rawPercent);
 
     return Card(
       elevation: 2,
@@ -48,18 +50,18 @@ class SettingFontSize extends StatelessWidget {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _FontActionButton(
+            if (percent > 50)_FontActionButton(
               icon: Icons.remove,
               onTap: onDecrease,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: Text(
-                fontSize == 16 ? "Standard" : fontSize.toString(),
+                percent == 100 ? "100% (Standard)" : "$percent%",
                 style: context.textTheme.bodyMedium,
               ),
             ),
-            _FontActionButton(
+            if (percent < 200) _FontActionButton(
               icon: Icons.add,
               onTap: onIncrease,
             ),
@@ -96,3 +98,23 @@ class _FontActionButton extends StatelessWidget {
     );
   }
 }
+int _fontSizeToRawPercent(int fontSize) {
+  const int minPx = 13;
+  const int maxPx = 22;
+  const int minPercent = 50;
+  const int maxPercent = 200;
+
+  return (((fontSize - minPx) *
+      (maxPercent - minPercent) /
+      (maxPx - minPx)) +
+      minPercent)
+      .round();
+}
+int _snapToSteps(int value) {
+  const steps = [50, 75, 100, 125, 150, 175, 200];
+
+  return steps.reduce(
+        (a, b) => (value - a).abs() < (value - b).abs() ? a : b,
+  );
+}
+
