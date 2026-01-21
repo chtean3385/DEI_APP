@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/auth/forgot_password/components/send_reset_link.dart';
 import 'package:flutter/material.dart';
 import 'back_to_login.dart';
@@ -20,14 +21,15 @@ class ForgotPasswordFormCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return Container(
       padding: const EdgeInsets.all(32),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.95),
+        color: colorTheme.whiteOpacity95,
         borderRadius: BorderRadius.circular(28),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
+            color: colorTheme.black87,
             blurRadius: 30,
             offset: const Offset(0, 15),
           ),

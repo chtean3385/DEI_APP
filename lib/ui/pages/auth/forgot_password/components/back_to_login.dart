@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
@@ -6,6 +7,7 @@ class BackToLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return TextButton(
       onPressed: () => Navigator.of(context).pop(),
       style: TextButton.styleFrom(
@@ -14,16 +16,16 @@ class BackToLogin extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Icon(
+           Icon(
             Icons.arrow_back,
-            color: Color(0xFF667eea),
+            color: colorTheme.buttonPrimaryColor,
             size: 18,
           ),
           const SizedBox(width: 8),
            Text(
             'Back to Login',
             style: context.textTheme.bodySmall?.copyWith(
-              color: context.theme.colorScheme.primary,
+              color: colorTheme.buttonPrimaryColor,
               fontWeight: FontWeight.w600,
             ),
           ),
