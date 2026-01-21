@@ -56,7 +56,7 @@ class WorkStatusCard extends StatelessWidget {
             const SizedBox(height: 12),
             Text(
               title,
-              style: context.textTheme.bodyMedium?.copyWith( fontWeight: FontWeight.w600),
+              style: context.textTheme.bodyMedium?.copyWith( fontWeight: FontWeight.w600,fontSize: 14),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 8),

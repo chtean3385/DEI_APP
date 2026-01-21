@@ -168,13 +168,14 @@ class _OtherInfoState extends State<OtherInfo> {
             mainAxisAlignment:  MainAxisAlignment.end,
             children: [
               SizedBox(
-                width: 80,
+                width: 90,
                 child: CustomThemeButton(
                   color: context.colors.buttonPrimaryColor,
                   height: 56,
                   radius: 16,
                   isExpanded: true,
                   alignRight: true,
+                  padding: EdgeInsets.zero,
                   isLoading:state.pageState == PageState.loading ,
                   onTap: () {
                     if (otherInfoFormKey.currentState?.validate() == true) {
@@ -186,7 +187,7 @@ class _OtherInfoState extends State<OtherInfo> {
                   child: Text(
                     AppStrings.next,
                     style: context.textTheme.titleMedium?.copyWith(
-                      color: Colors.white,
+                      color: Colors.white,fontSize: 16
                     ),
                   ),
                 ),

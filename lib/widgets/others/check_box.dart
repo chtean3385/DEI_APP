@@ -1,5 +1,6 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_theme.dart';
+import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckbox extends StatefulWidget {
@@ -73,7 +74,9 @@ class _CustomCheckboxState extends State<CustomCheckbox> {
           ),
         ),
         const SizedBox(width: 6),
-        Text(widget.label),
+        Text(widget.label,
+          style: context.textTheme.bodyMedium?.copyWith(fontSize: 12),
+        ),
       ],
     );
   }

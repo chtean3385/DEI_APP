@@ -108,7 +108,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
                                     } ,
                                     child: Text(
                                       AppStrings.forgotPassword,
-                                      style: context.textTheme.bodyMedium?.copyWith(color: colorTheme.buttonPrimaryColor),
+                                      style: context.textTheme.bodyMedium?.copyWith(color: colorTheme.buttonPrimaryColor,fontSize: 12),
                                     ),
                                   ),
                                 ],
@@ -201,7 +201,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
       child:  Text(
         AppStrings.signIn,
         style: context.textTheme.titleMedium?.copyWith(
-          color: Colors.white,
+          color: Colors.white,fontSize: 16
         ),
       ),
     );

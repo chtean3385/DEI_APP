@@ -66,6 +66,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.colors;
     return FocusTraversalGroup(
       child: Stack(
         children: [
@@ -152,51 +153,50 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
 
                     gapH16(),
 
-                    // Divider
-                    Row(
-                      children: [
-                        Expanded(
-                          child: Divider(color: Colors.white30, thickness: 1),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            'OR',
-                            style: context.textTheme.bodyMedium?.copyWith(
-                              color: Colors.white70,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Divider(color: Colors.white30, thickness: 1),
-                        ),
-                      ],
-                    ),
-
-                    gapH16(),
-
-                    // Login Link
-                    GestureDetector(
-                      onTap: () => AppNavigator.loadSignInScreen(),
-                      child: RichText(
-                        text: TextSpan(
-                          text: 'Already have an account? ',
-                          style: context.textTheme.bodyMedium?.copyWith(
-                            color: Colors.white70,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: 'Sign In',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    // // Divider
+                    // Row(
+                    //   children: [
+                    //     Expanded(
+                    //       child: Divider(color: colorTheme.black54, thickness: 1),
+                    //     ),
+                    //     Padding(
+                    //       padding: EdgeInsets.symmetric(horizontal: 16),
+                    //       child: Text(
+                    //         'OR',
+                    //         style: context.textTheme.bodyMedium?.copyWith(
+                    //           color: colorTheme.black54,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     Expanded(
+                    //       child: Divider(color: colorTheme.black54, thickness: 1),
+                    //     ),
+                    //   ],
+                    // ),
+                    //
+                    // gapH16(),
+                    //
+                    // // Login Link
+                    // GestureDetector(
+                    //   onTap: () => AppNavigator.loadSignInScreen(),
+                    //   child: RichText(
+                    //     text: TextSpan(
+                    //       text: 'Already have an account? ',
+                    //       style: context.textTheme.bodyMedium?.copyWith(
+                    //         color: colorTheme.black87,
+                    //       ),
+                    //       children: [
+                    //         TextSpan(
+                    //           text: 'Sign In',
+                    //           style: TextStyle(
+                    //             color: colorTheme.buttonPrimaryColor,
+                    //             fontWeight: FontWeight.w600,
+                    //           ),
+                    //         ),
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -233,7 +233,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
           child: Text(
             AppStrings.next,
             style: context.textTheme.titleMedium?.copyWith(
-              color: Colors.white,
+              color: Colors.white,fontSize: 16
             ),
           ),
         );
