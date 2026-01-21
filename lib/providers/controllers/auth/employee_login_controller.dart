@@ -110,7 +110,6 @@ class LoginController extends StateNotifier<AuthState> {
 
   Future<void> forgotPassword(String mobile) async {
     setResetPageState(PageState.loading);
-
     try {
       final BaseModel result = await _authService.forgotPassword(
        mobile: mobile

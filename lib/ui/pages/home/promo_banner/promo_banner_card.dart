@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
@@ -28,6 +29,13 @@ class PromoBannerWidget extends StatelessWidget {
           width: double.infinity,
           borderRadius: 16,
         ),
+        Positioned.fill(
+          child: ColoredBox(
+
+           color:  Colors.black.withValues(alpha: 0.45),
+
+          ),
+        ),
 
         Padding(
           padding: const EdgeInsets.all(12),
@@ -43,7 +51,7 @@ class PromoBannerWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            onPressed: () {},
+            onPressed: ()=> AppNavigator.loadJobSearchResultScreen(),
             child: Text(
               banner.buttonLabel ?? "Explore",
               style: navigatorKey.currentContext!.textTheme.bodyMedium
@@ -64,6 +72,7 @@ class PromoBannerWidget extends StatelessWidget {
         : [Colors.white, Colors.orange.shade50, Colors.orange.shade50];
     return Container(
       padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
+      width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         gradient: LinearGradient(
@@ -106,7 +115,7 @@ class PromoBannerWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(30),
               ),
             ),
-            onPressed: () {},
+            onPressed: ()=> AppNavigator.loadJobSearchResultScreen(),
             child: Text(
               banner.buttonLabel ?? "Explore",
               style: navigatorKey.currentContext!.textTheme.bodyMedium

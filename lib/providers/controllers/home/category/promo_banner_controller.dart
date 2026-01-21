@@ -54,35 +54,41 @@ class PromoBannerController extends StateNotifier<PromoBannerState> {
 final List<PromoBannerModel> bannerList = [
   PromoBannerModel(
     id: "1",
-    title: "Level up your career with Pro!",
+    title: "Find your next job faster",
     subTitle:
-    "Get an enhanced profile, hidden jobs, AI resume maker, AI interview tools, & more",
-    buttonLabel: "Know more",
+    "Search thousands of jobs and apply directly from the app in just a few taps.",
+    buttonLabel: "Search Jobs",
     isBannerImage: false,
   ),
   PromoBannerModel(
     id: "2",
-    imageUrl: "https://pub-141831e61e69445289222976a15b6fb3.r2.dev/1763544784415-ywhz4crxxh8-1763544782453_vaqst2_free_photo_we_are_.jpeg",
-    buttonLabel: "Join Now",
+    imageUrl:
+    "https://deichampion.com/_next/image?url=https%3A%2F%2Fmobile.deichampion.com%2Fuploads%2Fimages%2F1768815751826-976933292.jpeg&w=3840&q=75",
+    buttonLabel: "Browse Jobs",
     isBannerImage: true,
   ),
   PromoBannerModel(
     id: "3",
-    title: "Boost your job visibility instantly!",
-    subTitle: "Stand out to top employers looking for talent like you.",
-    buttonLabel: "Get Boost",
+    title: "Apply with confidence",
+    subTitle:
+    "Discover roles that match your skills and experience perfectly.",
+    buttonLabel: "Apply Now",
     isBannerImage: false,
   ),
   PromoBannerModel(
     id: "4",
-    imageUrl: "https://pub-141831e61e69445289222976a15b6fb3.r2.dev/1763544784481-xguxhl93h0c-1763544782454_1tx0tb_should_i_apply_for_a.jpeg",
-    buttonLabel: "View Offers",
+    imageUrl:
+    "https://deichampion.com/_next/image?url=https%3A%2F%2Fmobile.deichampion.com%2Fuploads%2Fimages%2F1768815751843-228173371.jpeg&w=3840&q=75",
+    buttonLabel: "Explore Careers",
     isBannerImage: true,
   ),
   PromoBannerModel(
     id: "5",
-    imageUrl: "https://pub-141831e61e69445289222976a15b6fb3.r2.dev/1763544784555-6w42prgzwz3-1763544782454_m5ftmk_must-ask_questions_b.jpeg",
-    buttonLabel: "View Jobs",
-    isBannerImage: true,
+    title: "Your career starts here",
+    subTitle:
+    "Find verified job listings and apply securely with ease.",
+    buttonLabel: "Find Jobs",
+    isBannerImage: false,
   ),
 ];
+
