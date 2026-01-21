@@ -41,7 +41,7 @@ class EmployeeSignupScreen extends ConsumerWidget {
             height: double.infinity,
             child: PageView(
               controller: controller.pageController,
-              physics:   const ClampingScrollPhysics(),
+              physics:   NeverScrollableScrollPhysics(),
               allowImplicitScrolling: true,
               children: [
                 BasicPersonalInfo(onNext: () => controller.nextStep()),
