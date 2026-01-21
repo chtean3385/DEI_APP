@@ -222,6 +222,7 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
           radius: 16,
           isExpanded: false,
           alignRight: true,
+          padding:  const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           onTap: () {
             if (basicPersonalInfoFormKey.currentState?.validate() == true) {
               notifier.setName(_nameController.text.trim());

@@ -37,6 +37,7 @@ class ForgotPasswordEmailInput extends StatelessWidget {
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: AppValidators.phone,
+        maxLength: 10,
         decoration: InputDecoration(
           labelText: 'Mobile',
           hintText: 'Enter your mobile number',
@@ -48,6 +49,11 @@ class ForgotPasswordEmailInput extends StatelessWidget {
           ),
           errorStyle: theme.textTheme.displaySmall?.copyWith(
             color: Colors.redAccent,
+            fontWeight: FontWeight.normal,
+            fontSize: 10,
+          ),
+          counterStyle: theme.textTheme.displaySmall?.copyWith(
+            color: Colors.grey,
             fontWeight: FontWeight.normal,
             fontSize: 10,
           ),

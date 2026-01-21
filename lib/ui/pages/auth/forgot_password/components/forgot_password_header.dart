@@ -61,7 +61,7 @@ class _Title extends StatelessWidget {
     return Text(
       'Forgot Password?',
       style: context.textTheme.headlineLarge?.copyWith(
-        fontWeight: FontWeight.w600,color: Colors.black
+        fontWeight: FontWeight.w600,color: Colors.black,fontSize: 28
       ),
     );
   }
@@ -73,7 +73,7 @@ class _Description extends StatelessWidget {
     return Text(
       'Don\'t worry! It happens. Please enter the mobile number associated with your account.',
       textAlign: TextAlign.center,
-      style: context.textTheme.bodySmall?.copyWith(color: Colors.black54),
+      style: context.textTheme.bodySmall?.copyWith(color: Colors.black54,fontSize: 16),
     );
   }
 }

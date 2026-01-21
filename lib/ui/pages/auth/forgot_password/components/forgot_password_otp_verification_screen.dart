@@ -145,10 +145,11 @@ class _ResetPasswordOTPVerificationScreenState
                     ? context.colors.buttonPrimaryColor
                     : context.colors.grey,
                 onTap: _isLoading? null : (_canSubmit ? _submit : null),
+                padding: EdgeInsets.symmetric(horizontal: 20,vertical: 0),
                 child: Text(
                   AppStrings.submit,
                   style: context.textTheme.titleMedium?.copyWith(
-                    color: Colors.white,
+                    color: Colors.white,fontSize: 16
                   ),
                 ),
               ),
@@ -172,7 +173,7 @@ class _SuccessMessage extends StatelessWidget {
       textAlign: TextAlign.left,
       style: context.textTheme.bodyMedium?.copyWith(
         color: context.colors.themBasedBlack,
-        fontWeight: FontWeight.normal,
+        fontWeight: FontWeight.normal,fontSize: 14
       ),
     );
   }
