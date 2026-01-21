@@ -20,7 +20,6 @@ class JobsCategorySection extends ConsumerWidget {
     final categoryState = ref.watch(jobCategoryProvider);
     final accessibility = ref.watch(accessibilityProvider);
     double baseHeight = 95;
-    // double scaledHeight = baseHeight * accessibility.fontScale;
     final scaledHeight =
     (baseHeight * accessibility.fontScale).clamp(baseHeight, double.infinity);
 

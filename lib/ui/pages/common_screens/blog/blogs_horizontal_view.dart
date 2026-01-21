@@ -10,6 +10,7 @@ import '../../../../constants/app_navigator.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/state_models/common/blog_state.dart';
 import '../../../../providers/providers.dart';
+import '../../../../providers/theme_controller.dart';
 import '../../../../widgets/others/view_all_button.dart';
 import '../components/blog_card.dart';
 
@@ -19,6 +20,10 @@ class BlogsHorizontalView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(blogProvider);
+    final accessibility = ref.watch(accessibilityProvider);
+    double baseHeight = 200;
+    final scaledHeight =
+    (baseHeight * accessibility.fontScale).clamp(baseHeight, double.infinity);
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();
@@ -27,11 +32,11 @@ class BlogsHorizontalView extends ConsumerWidget {
     } else if (state.data?.isEmpty == true) {
       return SizedBox.shrink();
     } else {
-      return _data(state);
+      return _data(state,scaledHeight);
     }
   }
 
-  Widget _data(BlogState state) {
+  Widget _data(BlogState state,double scaledHeight) {
     // Safely handle null or empty list
     if (state.data == null || state.data?.isEmpty == true)
       return const SizedBox();
@@ -82,7 +87,7 @@ class BlogsHorizontalView extends ConsumerWidget {
           ),
           const SizedBox(height: 12),
           SizedBox(
-            height: 200,
+            height: scaledHeight,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               padding: EdgeInsets.symmetric(horizontal: 16),

@@ -5,12 +5,10 @@ import 'package:dei_champions/ui/pages/search/components/search_job_card.dart';
 import 'package:dei_champions/widgets/others/rounded_network_image.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
-import 'package:dei_champions/widgets/others/view_all_button.dart';
 import 'package:flutter/material.dart';
 import 'package:html/parser.dart' as html_parser;
 import 'package:intl/intl.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_drawables.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../main.dart';
@@ -310,46 +308,56 @@ class BlogCardHorizontal extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
                     style: theme.labelSmall?.copyWith(height: 1.2))),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Row(
-                        children: [
-                          RoundedNetworkImage(
-                            height: 10,
-                            width: 10,
-                            imageUrl: item.authorImage ?? "",
-                            borderRadius: 5,
-                          ),
-                          gapW4(),
-                          Expanded(
-                            child: Text(
-                              item.authorName ?? "",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: theme.displaySmall?.copyWith(
-                                color: colorTheme.black54,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // time ago text
-                    Flexible(
-                      child: Text(
-                        " ${getShortTimeAgo(item.createdAt ?? DateTime.now())}",
-                        overflow: TextOverflow.ellipsis,
-                        style: theme.displaySmall?.copyWith(
-                          color: colorTheme.black45,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // LEFT SIDE
+                Expanded(
+                  child: Row(
+                    children: [
+                      ClipOval(
+                        child: Image.asset(
+                          AppDrawables.logo,
+                          height: 10,
+                          width: 10,
+                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                  ],
-                )
+                      gapW4(),
+                      Expanded(
+                        child: Text(
+                          AppStrings.appName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: theme.displaySmall?.copyWith(
+                            color: colorTheme.black54,
+                            fontSize: 10,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
+                gapW8(),
+
+                // RIGHT SIDE (time)
+                IntrinsicWidth(
+                  child: Text(
+                    getShortTimeAgo(item.createdAt ?? DateTime.now()),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: theme.displaySmall?.copyWith(
+                      color: colorTheme.black45,
+                      fontSize: 10,
+                    ),
+                  ),
+                ),
               ],
+            )
+
+
+            ],
             ),
           ),
         ),
