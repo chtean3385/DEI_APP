@@ -18,8 +18,12 @@ class ApiHandler {
           Dio(
             BaseOptions(
               baseUrl: ApiUrls.baseUrl,
-              connectTimeout: const Duration(seconds: 20),
-              receiveTimeout: const Duration(seconds: 20),
+              connectTimeout: const Duration(seconds: 60),
+              receiveTimeout: const Duration(seconds: 60),
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
             ),
           ) {
     _dio.interceptors.add(LogInterceptor(responseBody: true));
@@ -37,6 +41,7 @@ class ApiHandler {
         requestHeaders = {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         };
       }
     }
@@ -129,6 +134,7 @@ class ApiHandler {
         requestHeaders = {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         };
       }
     }
@@ -156,6 +162,7 @@ class ApiHandler {
         requestHeaders = {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         };
       }
     }
@@ -183,6 +190,7 @@ class ApiHandler {
         requestHeaders = {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         };
       }
     }
@@ -212,6 +220,7 @@ class ApiHandler {
         requestHeaders = {
           'Authorization': 'Bearer $token',
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
         };
       }
     }
@@ -247,6 +256,7 @@ class ApiHandler {
   Exception _handleDioException(DioException e) {
     final statusCode = e.response?.statusCode;
     final data = e.response?.data;
+
     // If backend sends plain text or HTML
     if (data is String) {
       if (statusCode == 404) {
@@ -308,4 +318,25 @@ class AppException implements Exception {
 
   @override
   String toString() => message;
+}
+String _extractMessage(DioException e) {
+  final response = e.response;
+  final data = response?.data;
+
+  if (data is Map<String, dynamic>) {
+    return data['message']?.toString() ??
+        response?.statusMessage ??
+        'Unexpected error';
+  }
+
+  if (data is String) {
+    if (data.contains('<!DOCTYPE html') || data.contains('<html')) {
+      return 'Session expired';
+    }
+    return data;
+  }
+
+  return response?.statusMessage ??
+      e.message ??
+      'Unexpected error';
 }
