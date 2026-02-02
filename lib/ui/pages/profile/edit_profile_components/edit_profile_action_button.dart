@@ -46,7 +46,7 @@ class EditProfileActionButtons extends ConsumerWidget {
                   Text(
                     'Cancel',
                     style: context.textTheme.titleMedium?.copyWith(
-                      color: colorTheme.buttonPrimaryColor,
+                      color: colorTheme.buttonPrimaryColor,fontSize: 16
                     ),
                   ),
                 ],
@@ -81,7 +81,7 @@ class EditProfileActionButtons extends ConsumerWidget {
                     child: Text(
                       'Save',
                       style: context.textTheme.titleMedium?.copyWith(
-                        color: Colors.white,
+                        color: Colors.white,fontSize: 16
                       ),
                     ),
                   ),

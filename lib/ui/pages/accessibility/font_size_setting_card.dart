@@ -55,9 +55,9 @@ class SettingFontSize extends StatelessWidget {
               onTap: onDecrease,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 0),
               child: Text(
-                percent == 100 ? "100% (Standard)" : "$percent%",
+                percent == 100 ? "100%" : "$percent%",
                 style: context.textTheme.bodyMedium,
               ),
             ),
