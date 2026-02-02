@@ -49,10 +49,13 @@ class ContactDetails extends ConsumerWidget {
                         isDraggable: true,
                         content: const EditBasicInformation(isFromCommonEdit: false),
                       ),
-                      child: Icon(
-                        Icons.edit_outlined,
-                        color: colorTheme.buttonPrimaryColor,
-                        size: 15,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon(
+                          Icons.edit_outlined,
+                          color: colorTheme.buttonPrimaryColor,
+                          size: 15,
+                        ),
                       ),
                     ),
                   ],

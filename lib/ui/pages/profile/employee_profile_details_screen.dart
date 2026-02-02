@@ -17,6 +17,7 @@ class EmployeeProfileDetailsScreen extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(right: 8),
           child: IconButton(
+            padding: EdgeInsets.all(8),
             icon:  Icon(Icons.edit, color: context.colors.black54, size: 25),
             onPressed: () =>
                 AppNavigator.loadEditProfileScreen(),
