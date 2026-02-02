@@ -44,10 +44,14 @@ class _TransparentDatePickerFieldState extends State<TransparentDatePickerField>
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     final now = DateTime.now();
+    final DateTime initialDate =
+        _parseDateFromController() ??
+            widget.initialDate ??
+            DateTime(now.year - 18);
     final DateTime? picked = await showDatePicker(
       context: context,
       locale: const Locale('en', 'GB'),
-      initialDate: widget.initialDate ?? DateTime(now.year - 18),
+      initialDate: initialDate,
       firstDate: widget.firstDate ?? DateTime(1900),
       lastDate: widget.lastDate ?? now,
       builder: (context, child) {
@@ -148,4 +152,22 @@ class _TransparentDatePickerFieldState extends State<TransparentDatePickerField>
       ],
     );
   }
+  DateTime? _parseDateFromController() {
+    final text = widget.controller.text.trim();
+    if (text.isEmpty) return null;
+
+    try {
+      final parts = text.split('-');
+      if (parts.length != 3) return null;
+
+      final day = int.parse(parts[0]);
+      final month = int.parse(parts[1]);
+      final year = int.parse(parts[2]);
+
+      return DateTime(year, month, day);
+    } catch (_) {
+      return null;
+    }
+  }
+
 }
