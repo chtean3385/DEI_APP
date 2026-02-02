@@ -444,6 +444,8 @@ class EditEmployeeProfileController
   // Get selected skills directly from the model
   List<String> get selectedSkills => state.profileData?.skills ?? [];
   List<String> get selectedLocations => state.profileData?.preferredLocations ?? [];
+  List<IndustryModel> get selectedIndustries => state.profileData?.industry?? [];
+  List<DepartmentModel> get selectedCategories => state.profileData?.currentDepartment ?? [];
 
   // Add skill
   void addSkill(String skill) {
@@ -505,6 +507,72 @@ class EditEmployeeProfileController
       ),
     );
   }
+
+  void addIndustry(IndustryModel industry) {
+    final currentIndustries = List<IndustryModel>.from(selectedIndustries);
+
+    // prevent duplicates (by id or name – adjust if needed)
+    final alreadyExists =
+    currentIndustries.any((e) => e.id == industry.id);
+
+    if (!alreadyExists) {
+      currentIndustries.add(industry);
+
+      state = state.copyWith(
+        profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+          industry: currentIndustries,
+        ),
+      );
+    }
+
+    formKey.currentState?.validate();
+  }
+
+  void removeIndustry(IndustryModel industry) {
+    final currentIndustries = List<IndustryModel>.from(selectedIndustries);
+
+    currentIndustries.removeWhere((e) => e.id == industry.id);
+
+    state = state.copyWith(
+      profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+        industry: currentIndustries,
+      ),
+    );
+  }
+
+  void addCategory(DepartmentModel category) {
+    final currentCategories =
+    List<DepartmentModel>.from(selectedCategories);
+
+    final alreadyExists =
+    currentCategories.any((e) => e.id == category.id);
+
+    if (!alreadyExists) {
+      currentCategories.add(category);
+
+      state = state.copyWith(
+        profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+          currentDepartment: currentCategories,
+        ),
+      );
+    }
+
+    formKey.currentState?.validate();
+  }
+  void removeCategory(DepartmentModel category) {
+    final currentCategories =
+    List<DepartmentModel>.from(selectedCategories);
+
+    currentCategories.removeWhere((e) => e.id == category.id);
+
+    state = state.copyWith(
+      profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
+        currentDepartment: currentCategories,
+      ),
+    );
+  }
+
+
 
   void addEducationEntry(BuildContext context) {
     // Check if any existing entry is incomplete

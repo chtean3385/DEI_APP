@@ -1,6 +1,7 @@
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/home/friendly_industries/friendly_industry_model.dart';
-import 'package:dei_champions/models/profile/employee_user_model/employee_user_model.dart';
+import 'package:dei_champions/models/profile/employee_user_model/employee_user_model.dart' as IndustryModel2;
+import 'package:dei_champions/ui/pages/profile/components/show_selected_industries.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_strings.dart';
@@ -11,6 +12,9 @@ import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
 import '../../auth/common/select_city.dart';
+import '../../auth/signup/widgets/key_skills/selected_key_skills.dart';
+import '../components/set_prefered_community.dart';
+import '../components/set_preferred_category.dart';
 import 'edit_profile_action_button.dart';
 
 class EditProfessionalInformation extends ConsumerWidget {
@@ -26,11 +30,38 @@ class EditProfessionalInformation extends ConsumerWidget {
     final industryState = ref.watch(friendlyIndustryProvider);
     final colorTheme = context.colors;
     final hasError = state.sectionErrors?.containsKey("professional") ?? false;
-    final departmentList = (industryState.data?.first.department ?? [])
-      ..sort((a, b) => (a.name ?? "").compareTo(b.name ?? ""));
+    final industry = industryState.data?.first;
 
-    final communityList = (categoryState.data?.categories ?? [])
-      ..sort((a, b) => (a.title ?? "").compareTo(b.title ?? ""));
+// 1️⃣ sort departments first
+    final sortedDepartments = List.from(industry?.department ?? [])
+      ..sort((a, b) => (a.name ?? '').compareTo(b.name ?? ''));
+
+// 2️⃣ map into IndustryModel2
+    final List<IndustryModel2.IndustryModel> departmentList =
+    sortedDepartments
+        .map(
+          (dept) => IndustryModel2.IndustryModel(
+        id: dept.id,
+        title: dept.name,
+      ),
+    )
+        .toList();
+    //
+    final sortedCategory = List.from(categoryState.data?.categories ?? [])
+      ..sort((a, b) => (a.title ?? '').compareTo(b.title ?? ''));
+
+    // // 2️⃣ map into IndustryModel2
+    final List<IndustryModel2.DepartmentModel> communityList =
+    sortedCategory
+        .map(
+          (dept) => IndustryModel2.DepartmentModel(
+        id: dept.id,
+        name: dept.title, // ✅ use title here
+      ),
+    )
+        .toList();
+
+
 
 
 
@@ -119,77 +150,94 @@ class EditProfessionalInformation extends ConsumerWidget {
                      print("selectedValueselectedValueselectedValue${ controller.noticePeriodController.text}");
                    },
                  ),
+                 gapH16(),
+
+                 SelectPreferredIndustries(
+                   controller: controller.departmentController,
+                   data: departmentList.map((e) => e.title ?? "").toList(),
+                   onSkillSelected: (selectedName) {
+                     final industry = departmentList.firstWhere(
+                           (e) => e.title == selectedName,
+                       orElse: () => IndustryModel2.IndustryModel(),
+                     );
+
+                     if (industry.id != null) {
+                       controller.addIndustry(industry);
+                     }
+                   },
+                 ),
+
 
                  gapH16(),
 
-                 /// ------------------ DEPARTMENT ------------------
-                 TransparentDropdownField(
-                   isRequired: true,
-                   hint: "Select department",
-                   label: "Department",
-                   icon: Icons.apartment_outlined,
-                   items: departmentList.map((e) => e.name ?? "").toList(),
-                   value: controller.departmentController.text.isNotEmpty
-                       ? controller.departmentController.text
-                       : null,
-                   validator: AppValidators.fieldEmpty("Department"),
-                   onChanged: (value) {
-                     if (value == null) return;
-
-                     final selectedDept = departmentList.firstWhere(
-                           (d) =>
-                       (d.name ?? "").trim().toLowerCase() ==
-                           value.trim().toLowerCase(),
-                       orElse: () => IndustryDepartmentModel(),
-                     );
-
-
-                     // Prevent crash
-                     if (selectedDept.id?.isEmpty == true) return;
-
-                     controller.departmentId = selectedDept.id;
-                     controller.departmentController.text = selectedDept.name ?? "";
-
-                     print("controller.departmentId ${controller.departmentId}");
-                     print("controller.departmentController.text ${ controller.departmentController.text}");
-                   },
+                 ShowSelectedIndustries(
+                   selectedIndustries: state.profileData?.industry ?? [],
+                   onRemove: controller.removeIndustry,
+                   label: "Selected Industries",
                  ),
 
                  gapH16(),
 
-
-                 /// ------------------ COMMUNITY PREFERENCE ------------------
-                 TransparentDropdownField(
-                   isRequired: true,
-                   hint: "Select community",
-                   label: "Which Community you preferred",
-                   icon: Icons.people_outline,
-                   items: communityList.map((e) => e.title ?? "").toList(),
-                   value: controller.communityController.text.isNotEmpty
-                       ? controller.communityController.text
-                       : null,
-                   validator: AppValidators.fieldEmpty("Community"),
-                   onChanged: (value) {
-                     if (value == null) return;
-
-                     final selectedComm = communityList.firstWhere(
-                           (c) =>
-                       (c.title ?? "").trim().toLowerCase() ==
-                           value.trim().toLowerCase(),
-                       orElse: () => JobCategoryMode(),
+                 // SelectPreferredCategories(
+                 //   data: communityList,
+                 //   onSelected: controller.addCategory,
+                 // ),
+                 SelectPreferredCategories(
+                   controller: controller.communityController,
+                   data: communityList.map((e) => e.name ?? "").toList(),
+                   onSkillSelected: (selectedName) {
+                     final industry = communityList.firstWhere(
+                           (e) => e.name == selectedName,
+                       orElse: () => IndustryModel2.DepartmentModel(),
                      );
 
-
-                     if (selectedComm.id?.isEmpty == true) return;
-
-                     controller.communityId = selectedComm.id;
-                     controller.communityController.text = selectedComm.title ?? "";
-                     print("controller.communityId ${controller.communityId}");
-                     print("controller.communityController.text ${ controller.communityController.text}");
+                     if (industry.id != null) {
+                       controller.addCategory(industry);
+                     }
                    },
                  ),
-
+                 //
                  gapH16(),
+                 //
+                 ShowSelectedCategories(
+                   selectedIndustries: state.profileData?.currentDepartment ?? [],
+                   onRemove: controller.removeCategory,
+                   label: "Selected Categories",
+                 ),
+
+
+                 // /// ------------------ COMMUNITY PREFERENCE ------------------
+                 // TransparentDropdownField(
+                 //   isRequired: true,
+                 //   hint: "Select community",
+                 //   label: "Which Community you preferred",
+                 //   icon: Icons.people_outline,
+                 //   items: communityList.map((e) => e.title ?? "").toList(),
+                 //   value: controller.communityController.text.isNotEmpty
+                 //       ? controller.communityController.text
+                 //       : null,
+                 //   validator: AppValidators.fieldEmpty("Community"),
+                 //   onChanged: (value) {
+                 //     if (value == null) return;
+                 //
+                 //     final selectedComm = communityList.firstWhere(
+                 //           (c) =>
+                 //       (c.title ?? "").trim().toLowerCase() ==
+                 //           value.trim().toLowerCase(),
+                 //       orElse: () => JobCategoryMode(),
+                 //     );
+                 //
+                 //
+                 //     if (selectedComm.id?.isEmpty == true) return;
+                 //
+                 //     controller.communityId = selectedComm.id;
+                 //     controller.communityController.text = selectedComm.title ?? "";
+                 //     print("controller.communityId ${controller.communityId}");
+                 //     print("controller.communityController.text ${ controller.communityController.text}");
+                 //   },
+                 // ),
+                 //
+                 // gapH16(),
 
 
                  /// ------------------ CURRENT SALARY ------------------
