@@ -11,6 +11,7 @@ import '../../../../../constants/app_navigator.dart';
 import '../../../../../constants/enums.dart';
 import '../../../../../models/profile/profile_completion/profile_completion_model.dart';
 import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
+import '../../../../../providers/theme_controller.dart';
 import '../../../main/components/drawer/custom_drawer.dart';
 import '../../../main/components/drawer/promotion_alert.dart';
 import '../../../main/components/drawer/verify_email_alert.dart';
@@ -80,16 +81,20 @@ class _ProfileCompletionSliderState
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(profileCompletionProvider);
+    final accessibility = ref.watch(accessibilityProvider);
+
+    double baseHeight = 85;
+    double scaledHeight = baseHeight * accessibility.fontScale;
     final hasData = ((state.profileData?.missingFieldsCount ?? 0) > 0);
     if (!hasData && state.pageState != PageState.loading) {
       return const SizedBox.shrink();
     }
     return state.pageState == PageState.loading
         ? _loadingItems()
-        : _data(state);
+        : _data(state,scaledHeight);
   }
 
-  Widget _data(EmployeeProfileCompletionState state) {
+  Widget _data(EmployeeProfileCompletionState state,double scaledHeight) {
     final profile = state.profileData;
     if(profile?.profileCompletion == 100) return const SizedBox.shrink();
     final List<MissingField> data = profile?.missingFields ?? [];
@@ -105,7 +110,7 @@ class _ProfileCompletionSliderState
                   child: SizedBox(height: 50, width: double.infinity),
                 ),
                 SizedBox(
-                  height: 80,
+                  height: scaledHeight,
                   child: PageView.builder(
                     controller: _controller,
                     itemCount: data.length,
