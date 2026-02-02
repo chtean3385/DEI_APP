@@ -94,34 +94,34 @@ class CompanyInfoCard extends StatelessWidget {
           style: theme.bodySmall?.copyWith(color: colorTheme.grey600),
         ),
 
-        const SizedBox(height: 8),
-
-        GestureDetector(
-          onTap: () {
-            // TODO: Navigate to open jobs page
-          },
-          child: Text(
-            openJobsText,
-            style: theme.bodyMedium?.copyWith(
-              color: colorTheme.buttonPrimaryColor,
-              fontWeight: FontWeight.w600,
-              decoration: TextDecoration.underline,
-            ),
-          ),
-        ),
+        // const SizedBox(height: 8),
+        //
+        // GestureDetector(
+        //   onTap: () {
+        //     // TODO: Navigate to open jobs page
+        //   },
+        //   child: Text(
+        //     openJobsText,
+        //     style: theme.bodyMedium?.copyWith(
+        //       color: colorTheme.buttonPrimaryColor,
+        //       fontWeight: FontWeight.w600,
+        //       decoration: TextDecoration.underline,
+        //     ),
+        //   ),
+        // ),
 
         const SizedBox(height: 12),
 
         /// Address & Contact Info
-        _infoRow(Icons.home_outlined, address, context),
-        _infoRow(Icons.phone, phone, context, onTap: () => _launchPhone(phone)),
-        _infoRow(
+        if(address.isNotEmpty) _infoRow(Icons.home_outlined, address, context),
+        if(phone.isNotEmpty) _infoRow(Icons.phone, phone, context, onTap: () => _launchPhone(phone)),
+        if(email.isNotEmpty) _infoRow(
           Icons.email_outlined,
           email,
           context,
           onTap: () => _launchEmail(email),
         ),
-        _infoRow(
+       if(website.isNotEmpty) _infoRow(
           Icons.language,
           website,
           context,

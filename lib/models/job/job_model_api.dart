@@ -14,6 +14,7 @@ class JobModelApi {
   String? candidateQualification;
   String? genderPreference;
   String? status;
+  int? openings;
   String? myStatus;
   Employer? employer;
   List<String>? skills;
@@ -39,6 +40,7 @@ class JobModelApi {
     this.status,
     this.workExperience,
     this.jobLocation,
+    this.openings,
     this.candidateQualification,
     this.myStatus,
     this.genderPreference,
@@ -91,6 +93,7 @@ class JobModelApi {
       jobLocation: json["jobLocation"],
       candidateQualification: json["candidateQualification"],
       genderPreference: json["genderPreference"],
+      openings: json["openings"],
       jobType: json["jobType"] != null ? json["jobType"]["name"] : null,
       category: json["category"] != null ? json["category"]["title"] : null,
       department: json["department"] != null ? json["department"]["name"] : null,
