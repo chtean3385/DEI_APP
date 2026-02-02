@@ -94,9 +94,9 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
 
     double baseHeight = 40;
     double scaledHeight = baseHeight * accessibility.fontScale ;
-    double baseButtonHeight = 60; // minimum height for normal font
-    double maxHeight = 70; // maximum allowed height
-    double scaledButtonHeight = (baseButtonHeight * accessibility.fontScale).clamp(baseHeight, maxHeight);
+    // double baseButtonHeight = 60; // minimum height for normal font
+    // double maxHeight = 70; // maximum allowed height
+    // double scaledButtonHeight = (baseButtonHeight * accessibility.fontScale).clamp(baseHeight, maxHeight);
     final categories = [
       {"id": 1, "title": 'Job Details'},
       {"id": 2, "title": 'About Company'},
@@ -309,12 +309,12 @@ final colorTheme = context.colors;
                 // Fixed Apply Button at bottom
                 AnimatedContainer (
                   duration: const Duration(milliseconds: 300),
-                  height: _showApplyButton ? scaledButtonHeight + MediaQuery.of(context).padding.bottom : 0,
+                  height: _showApplyButton ? 80 : 0,
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 300),
                     opacity: _showApplyButton ? 1.0 : 0.0,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
                       decoration: BoxDecoration(
                         color: colorTheme.themBasedWhite,
                         boxShadow: [

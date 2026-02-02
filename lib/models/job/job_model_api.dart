@@ -7,7 +7,12 @@ class JobModelApi {
   String? country;
   String? salary;
   String? category;
+  String? department;
   String? jobType;
+  String? workExperience;
+  String? jobLocation;
+  String? candidateQualification;
+  String? genderPreference;
   String? status;
   String? myStatus;
   Employer? employer;
@@ -29,9 +34,14 @@ class JobModelApi {
     this.country,
     this.salary,
     this.category,
+    this.department,
     this.jobType,
     this.status,
+    this.workExperience,
+    this.jobLocation,
+    this.candidateQualification,
     this.myStatus,
+    this.genderPreference,
     this.employer,
     this.skills,
     this.applicants,
@@ -77,8 +87,13 @@ class JobModelApi {
       salary: json["salary"] != null ? json["salary"]["range"] : null,
       status: json["status"],
       myStatus: json["myStatus"],
+      workExperience: json["workExperience"],
+      jobLocation: json["jobLocation"],
+      candidateQualification: json["candidateQualification"],
+      genderPreference: json["genderPreference"],
       jobType: json["jobType"] != null ? json["jobType"]["name"] : null,
       category: json["category"] != null ? json["category"]["title"] : null,
+      department: json["department"] != null ? json["department"]["name"] : null,
       employer: json["postedBy"] != null
           ? Employer.fromJson(json["postedBy"])
           : null,

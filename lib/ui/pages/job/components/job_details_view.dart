@@ -8,6 +8,7 @@ import 'package:dei_champions/widgets/others/custom_decorated_box.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../widgets/others/rounded_network_image.dart';
@@ -42,7 +43,6 @@ class JobDetailsView extends StatelessWidget {
     required this.companyGalleryKey,
     required this.jobModel,
   });
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +79,10 @@ class JobDetailsView extends StatelessWidget {
           // if (jobModel.hasSalaryInsights) SalaryInsightsCard(),
           // if (jobModel.hasSalaryInsights) SizedBox(height: 18),
           gapH16(),
-          ApplyJobButton(jobId: jobModel.id ?? "",),
+          ApplyJobButton(jobId: jobModel.id ?? ""),
           gapH32(),
 
-
-          SimilarJobsListView(key:similarJobsKey,jobId: jobModel.id ?? ""),
+          SimilarJobsListView(key: similarJobsKey, jobId: jobModel.id ?? ""),
         ],
       ),
     );
@@ -143,20 +142,19 @@ class JobDetailsView extends StatelessWidget {
         Text('Company Gallery', style: theme.titleMedium),
         gapH16(),
         // no tags, no widget
-              CustomDecoratedBox(
-                child: CompanyGallerySlider(
-                  items:
-                      jobModel.employer?.companyGallery
-                          ?.map((e) => e.imageUrl ?? '')
-                          .where((url) => url.isNotEmpty)
-                          .toList() ??
-                      [],
-                ),
-              ),
+        CustomDecoratedBox(
+          child: CompanyGallerySlider(
+            items:
+                jobModel.employer?.companyGallery
+                    ?.map((e) => e.imageUrl ?? '')
+                    .where((url) => url.isNotEmpty)
+                    .toList() ??
+                [],
+          ),
+        ),
       ],
     );
   }
-
 
   Widget _buildInfoSection(String label, String value) {
     final theme = Theme.of(navigatorKey.currentContext!).textTheme;
@@ -166,7 +164,12 @@ class JobDetailsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(label, style: theme.bodyMedium?.copyWith(color: navigatorKey.currentContext!.colors.black54)),
+          Text(
+            label,
+            style: theme.bodyMedium?.copyWith(
+              color: navigatorKey.currentContext!.colors.black54,
+            ),
+          ),
           SizedBox(height: 4),
           Text(value, style: theme.bodyMedium),
         ],
@@ -183,44 +186,39 @@ class JobDetailsView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          gapH8(),
-          Row(
-            children: [
-              Icon(Icons.apartment_outlined, size: 24, color: colorTheme.black54),
-              gapW16(),
-              Text(
-                jobModel.category ?? "",
-                style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
-              ),
-            ],
-          ),
-          gapH8(),
-          Row(
-            children: [
-              Icon(Icons.badge_outlined, size: 24, color: colorTheme.black54),
-              // userTie
-              gapW16(),
-              Expanded(
-                child: Text(
-                  "Experienced (Non - Manager)",
+          if (jobModel.category?.isNotEmpty == true) gapH8(),
+          if (jobModel.category?.isNotEmpty == true)
+            Row(
+              children: [
+                Icon(
+                  FontAwesomeIcons.users,
+                  size: 18,
+                  color: colorTheme.black54,
+                ),
+                gapW16(),
+                Text(
+                  jobModel.category ?? "",
                   style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
                 ),
-              ),
-            ],
-          ),
-          gapH8(),
-          Row(
-            children: [
-              Icon(Icons.currency_rupee, size: 24, color: colorTheme.black54),
-              // rupeeSign
-              gapW16(),
-              Text(
-                jobModel.salary ?? "",
-                style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
-              ),
-            ],
-          ),
-          gapH8(),
+              ],
+            ),
+          if (jobModel.department?.isNotEmpty == true) gapH8(),
+          if (jobModel.department?.isNotEmpty == true)
+            Row(
+              children: [
+                Icon(
+                  Icons.apartment_outlined,
+                  size: 24,
+                  color: colorTheme.black54,
+                ),
+                gapW16(),
+                Text(
+                  jobModel.department ?? "",
+                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                ),
+              ],
+            ),
+          if (jobModel.workExperience?.isNotEmpty == true) gapH8(),
           Row(
             children: [
               Icon(
@@ -230,30 +228,81 @@ class JobDetailsView extends StatelessWidget {
               ), // briefcase
               gapW16(),
               Text(
-                "1 - 2 years",
+                jobModel.workExperience ?? "",
                 style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
               ),
             ],
           ),
-          gapH8(),
-          Row(
+          if (jobModel.salary?.isNotEmpty == true) gapH8(),
+          if (jobModel.salary?.isNotEmpty == true)
+            Row(
+              children: [
+                Icon(Icons.currency_rupee, size: 24, color: colorTheme.black54),
+                // rupeeSign
+                gapW16(),
+                Text(
+                  jobModel.salary ?? "",
+                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                ),
+              ],
+            ),
+          if (jobModel.jobType?.isNotEmpty == true) gapH8(),
+          if (jobModel.jobType?.isNotEmpty == true)
+            Row(
+              children: [
+                Icon(Icons.work_outline, size: 24, color: colorTheme.black54),
+                // mugSaucer
+                gapW16(),
+                Text(
+                  jobModel.jobType ?? "",
+                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                ),
+              ],
+            ),
+          if (jobModel.jobLocation?.isNotEmpty == true) gapH8(),
+          if (jobModel.jobLocation?.isNotEmpty == true)
+            Row(
+              children: [
+                Icon(
+                  Icons.maps_home_work_outlined,
+                  size: 24,
+                  color: colorTheme.black54,
+                ),
+                // mugSaucer
+                gapW16(),
+                Text(
+                  jobModel.jobLocation ?? "",
+                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                ),
+              ],
+            ),
+
+          if (jobModel.candidateQualification?.isNotEmpty == true) gapH8(),
+          if (jobModel.candidateQualification?.isNotEmpty == true)  Row(
             children: [
-              Icon(Icons.work_outline, size: 24, color: colorTheme.black54),
-              // mugSaucer
+              Icon(
+                FontAwesomeIcons.graduationCap,
+                size: 20,
+                color: colorTheme.black54,
+              ), // clock
               gapW16(),
               Text(
-                jobModel.jobType ?? "",
+                jobModel.candidateQualification ?? "",
                 style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
               ),
             ],
           ),
-          gapH8(),
-          Row(
+          if (jobModel.genderPreference?.isNotEmpty == true) gapH8(),
+          if (jobModel.genderPreference?.isNotEmpty == true)  Row(
             children: [
-              Icon(Icons.access_time, size: 24, color: colorTheme.black54), // clock
+              Icon(
+                Icons.person,
+                size: 20,
+                color: colorTheme.black54,
+              ), // clock
               gapW16(),
               Text(
-                "Open until filled",
+                jobModel.genderPreference ?? "",
                 style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
               ),
             ],
@@ -261,7 +310,7 @@ class JobDetailsView extends StatelessWidget {
           gapH8(),
           Row(
             children: [
-              Icon(Icons.update, size: 24, color: colorTheme.black54), // rotate
+              Icon(Icons.update, size: 22, color: colorTheme.black54), // rotate
               gapW16(),
               Text(
                 '${getTimeAgo(jobModel.updatedAt ?? DateTime.now())}',
@@ -269,23 +318,26 @@ class JobDetailsView extends StatelessWidget {
               ),
             ],
           ),
-          gapH8(),
-          Row(
-            children: [
-              Icon(Icons.location_on_outlined, size: 24, color: colorTheme.black54),
-              // locationDot
-              gapW16(),
-              Expanded(
-                child: Text(
-                  "${jobModel.city ?? ""}, ${jobModel.state ?? ""}, ${jobModel.country ?? ""}",
-                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
-                  overflow: TextOverflow.ellipsis,
-                  softWrap: true,
-                  maxLines: 2,
+          if (jobModel.city?.isNotEmpty == true ||
+              jobModel.state?.isNotEmpty == true)
+            gapH8(),
+          if (jobModel.city?.isNotEmpty == true ||
+              jobModel.state?.isNotEmpty == true)
+            Row(
+              children: [
+                Icon(
+                  Icons.location_on_outlined,
+                  size: 22,
+                  color: colorTheme.black54,
                 ),
-              ),
-            ],
-          ),
+                // mugSaucer
+                gapW16(),
+                Text(
+                  "${jobModel.city ?? ""} , ${jobModel.state ?? ""}",
+                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                ),
+              ],
+            ),
           gapH8(),
         ],
       ),
@@ -294,7 +346,6 @@ class JobDetailsView extends StatelessWidget {
 
   Widget _descriptionCard(BuildContext context) {
     final theme = Theme.of(context).textTheme;
-
 
     return CustomDecoratedBox(
       child: Column(
@@ -371,7 +422,6 @@ class JobDetailsView extends StatelessWidget {
     //   return const SizedBox.shrink(); // no tags, no widget
     // }
 
-
     return CustomDecoratedBox(
       key: deiCertificates,
       child: Column(
@@ -383,37 +433,41 @@ class JobDetailsView extends StatelessWidget {
           ),
           gapH8(),
           (jobModel.employer?.certifiedTags == null ||
-              jobModel.employer?.certifiedTags?.isEmpty == true)? SizedBox(
-            height: 50,
-            child: const Center(child: Text('No Certifications available')),
-          ) :
-          Column(
-            children: jobModel.employer!.certifiedTags!.map((tag) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6),
-                child: Row(
-                  children: [
-                    RoundedNetworkImage(
-                      imageUrl: tag.image ?? "",
-                      width: 28,
-                      height: 28,
-                      borderRadius: 6,
-                    ),
-                    gapW16(),
-                    Expanded(
-                      child: Text(
-                        tag.name ?? "",
-                        style: theme.bodyMedium?.copyWith(
-                          color: navigatorKey.currentContext!.colors.black87,
-                          fontWeight: FontWeight.w500,
-                        ),
+                  jobModel.employer?.certifiedTags?.isEmpty == true)
+              ? SizedBox(
+                  height: 50,
+                  child: const Center(
+                    child: Text('No Certifications available'),
+                  ),
+                )
+              : Column(
+                  children: jobModel.employer!.certifiedTags!.map((tag) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 6),
+                      child: Row(
+                        children: [
+                          RoundedNetworkImage(
+                            imageUrl: tag.image ?? "",
+                            width: 28,
+                            height: 28,
+                            borderRadius: 6,
+                          ),
+                          gapW16(),
+                          Expanded(
+                            child: Text(
+                              tag.name ?? "",
+                              style: theme.bodyMedium?.copyWith(
+                                color:
+                                    navigatorKey.currentContext!.colors.black87,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                    );
+                  }).toList(),
                 ),
-              );
-            }).toList(),
-          ),
         ],
       ),
     );
@@ -453,8 +507,6 @@ class JobDescriptionView extends StatelessWidget {
     );
   }
 }
-
-
 
 /// A reusable widget to display a list of tags or skills in a wrapped layout.
 class TagList extends StatelessWidget {
