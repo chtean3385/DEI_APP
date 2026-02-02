@@ -153,54 +153,39 @@ class EditBasicInformation extends ConsumerWidget {
                       label: "Gender",
                       hint: "Select your gender",
                       icon: Icons.person_outline,
-                      items: genderOptions.values.toList(), // UI labels
-                      value: genderOptions[state.profileData?.gender],
-                      onChanged: (label) {
-                        if (label == null) return;
-
-                        final selectedKey = genderOptions.entries
-                            .where((e) => e.value == label)
-                            .map((e) => e.key)
-                            .cast<String?>()
-                            .firstOrNull;
-
-                        if (selectedKey == null) return;
-
-                        controller.updateGender(selectedKey);
+                      items: genderOptions.keys.toList(), // UI labels
+                      value: state.profileData?.gender,
+                      onChanged: (key) {
+                        if (key == null) return;
+                        controller.updateGender(key);
                       },
                     ),
 
-
-                    // TransparentDropdownField(
-                    //   label: "Gender",
-                    //   hint: "Select your gender",
-                    //   icon: Icons.person_outline,
-                    //   items: ["male", "female", "other", "prefer not to say"],
-                    //   value: state.profileData?.gender,
-                    //   onChanged: (value) {
-                    //     controller.updateGender(value.toString());
-                    //   },
-                    // ),
                     gapH16(),
                     TransparentDropdownField(
                       label: "Work Status",
                       hint: "Select your current work status",
                       icon: Icons.work_outline,
-                      items: employmentStatusOptions.values.toList(),
-                      value: employmentStatusOptions[state.profileData?.workStatus],
-                      onChanged: (label) {
-                        if (label == null) return;
-
-                        final selectedKey = employmentStatusOptions.entries
-                            .where((e) => e.value == label)
-                            .map((e) => e.key)
-                            .cast<String?>()
-                            .firstOrNull;
-
-                        if (selectedKey == null) return;
-
-                        controller.updateWorkStatus(selectedKey);
+                      items: employmentStatusOptions.keys.toList(),
+                      value: state.profileData?.workStatus,
+                      onChanged: (key) {
+                        if (key == null) return;
+                        controller.updateWorkStatus(key);
                       },
+
+                      // onChanged: (label) {
+                      //   if (label == null) return;
+                      //   print("label updateWorkStatus $label");
+                      //   final selectedKey = employmentStatusOptions.entries
+                      //       .where((e) => e.value == label)
+                      //       .map((e) => e.key)
+                      //       .cast<String?>()
+                      //       .firstOrNull;
+                      //
+                      //   if (selectedKey == null) return;
+                      //   print("workStatus updateWorkStatus $selectedKey");
+                      //   controller.updateWorkStatus(selectedKey);
+                      // },
                     ),
 
                     // TransparentDropdownField(
