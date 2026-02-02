@@ -39,8 +39,8 @@ class EmployeeUserModel {
   final List<DepartmentModel>? currentDepartment;
   final String? noticePeriod;
   final String? totalWorkExperience;
-  final String? departmentId;
-  final String? industryId;
+  final List<String>? departmentId;
+  final List<String>? industryId;
   final String? salaryId;
   final String? jobTypeId;
 
@@ -187,8 +187,8 @@ class EmployeeUserModel {
     'totalWorkExperience': totalWorkExperience,
     'noticePeriod': noticePeriod,
     'currentSalary': currentSalary,
-    if(departmentId?.isNotEmpty == true)'departments': [departmentId],
-    if(industryId?.isNotEmpty == true)'industries': [industryId],
+    if(departmentId?.isNotEmpty == true)'departments': departmentId,
+    if(industryId?.isNotEmpty == true)'industries': industryId,
     'jobType': jobTypeId,
     'salaryRange': salaryId,
     'preferences': {

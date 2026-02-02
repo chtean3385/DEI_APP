@@ -160,23 +160,23 @@ class EditEmployeeProfileController
     noticePeriodController.text = userData?.noticePeriod ?? "";
     currentCtcController.text = userData?.currentSalary ?? "";
 
-// Department → coming from userData.department list (Preferences updated)
-    if (userData?.currentDepartment != null && userData!.currentDepartment!.isNotEmpty) {
-      departmentController.text = userData.currentDepartment!.first.name ?? "";
-      departmentId = userData.currentDepartment!.first.id ?? "";
-    } else {
-      departmentController.text = "";
-      departmentId = "";
-    }
-
-// Community (Industry) → assuming it maps to "industry.title"
-    if (userData?.industry != null && userData!.industry!.isNotEmpty) {
-      communityController.text = userData.industry!.first.title ?? "";
-      communityId = userData.industry!.first.id ?? "";
-    } else {
-      communityController.text = "";
-      communityId = "";
-    }
+// // Department → coming from userData.department list (Preferences updated)
+//     if (userData?.currentDepartment != null && userData!.currentDepartment!.isNotEmpty) {
+//       departmentController.text = userData.currentDepartment!.first.name ?? "";
+//       departmentId = userData.currentDepartment!.first.id ?? "";
+//     } else {
+//       departmentController.text = "";
+//       departmentId = "";
+//     }
+//
+// // Community (Industry) → assuming it maps to "industry.title"
+//     if (userData?.industry != null && userData!.industry!.isNotEmpty) {
+//       communityController.text = userData.industry!.first.title ?? "";
+//       communityId = userData.industry!.first.id ?? "";
+//     } else {
+//       communityController.text = "";
+//       communityId = "";
+//     }
 
     // Sample initial skill list
     final initialSkills = userData?.skills ?? [];
@@ -355,6 +355,30 @@ class EditEmployeeProfileController
 
     print('experience: ${state.profileData?.experience}');
     print('skills: ${state.profileData?.skills}');
+    final departmentIds = state.profileData?.industry
+        ?.map((d) => d.id)
+        .whereType<String>()
+        .toList() ?? [];
+
+    final categoryIds = state.profileData?.currentDepartment
+        ?.map((d) => d.id)
+        .whereType<String>()
+        .toList() ?? [];
+
+
+    // final departmentIds = (state.profileData?.industry as List?)
+    //     ?.cast<IndustryModel>()
+    //     .map((d) => d.id)
+    //     .whereType<String>()
+    //     .join(',') ?? '';
+
+    // final categoryIds = (state.profileData?.currentDepartment as List?)
+    //     ?.cast<DepartmentModel>()
+    //     .map((c) => c.id)
+    //     .whereType<String>()
+    //     .join(',') ?? '';
+    print('departmentIds: ${departmentIds}');
+    print('categoryIds: ${categoryIds}');
 
     print('--- Employee Profile Form Values ---');
     print('Name: ${nameController.text}');
@@ -395,17 +419,17 @@ class EditEmployeeProfileController
         state: stateController.text.trim(),
         country: countryController.text.trim(),
         pincode: pinCodeController.text.trim(),
-        department: state.profileData?.department, // keep existing if not changed
-        category: state.profileData?.category,
-        preferredLocations: state.profileData?.preferredLocations,
+          department: state.profileData?.department, // keep existing if not changed
+          category: state.profileData?.category,
+          preferredLocations: state.profileData?.preferredLocations,
         education: updatedEducation,
         experience: updatedExperience,
         skills: state.profileData?.skills,
         totalWorkExperience: totalWorkExpController.text.trim() ,
         noticePeriod: noticePeriodController.text.trim(),
         currentSalary: currentCtcController.text.trim(),
-        departmentId: departmentId,
-        industryId: communityId,
+        departmentId: departmentIds,
+        industryId: categoryIds,
         salaryId: salaryRangeId,
         jobTypeId: jobTypeId
       );

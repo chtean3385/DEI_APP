@@ -156,11 +156,16 @@ class ShowSelectedCategories extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        skill.name ?? "",
-                        style: context.textTheme.displaySmall?.copyWith(
-                          color: colorTheme.themBasedBlack,
-                          fontWeight: FontWeight.w500,
+                      Flexible(
+                        child: Text(
+                          skill.name ?? "",
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                          style: context.textTheme.displaySmall?.copyWith(
+                            color: colorTheme.themBasedBlack,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
                       ),
                       if(showRemoveOption)   const SizedBox(width: 4),
