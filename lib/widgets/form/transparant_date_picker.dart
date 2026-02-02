@@ -46,6 +46,7 @@ class _TransparentDatePickerFieldState extends State<TransparentDatePickerField>
     final now = DateTime.now();
     final DateTime? picked = await showDatePicker(
       context: context,
+      locale: const Locale('en', 'GB'),
       initialDate: widget.initialDate ?? DateTime(now.year - 18),
       firstDate: widget.firstDate ?? DateTime(1900),
       lastDate: widget.lastDate ?? now,

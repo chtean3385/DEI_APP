@@ -311,15 +311,15 @@ class EditEmployeeProfileController
   /// 🔹 Call this to update chef details
   Future<void> updateEmployeeProfileDetails(BuildContext context, {bool isFromCommonEdit = true,String? sectionName}) async {
     if (isFromCommonEdit) {
-      final isValid = await validateAllSections();
-
-      if (!isValid) {
-        showOverlaySnackBar(
-          context,
-          'Please complete all required fields in the highlighted sections',
-        );
-        return;
-      }
+      // final isValid = await validateAllSections();
+      //
+      // if (!isValid) {
+      //   showOverlaySnackBar(
+      //     context,
+      //     'Please complete all required fields in the highlighted sections',
+      //   );
+      //   return;
+      // }
 
     } else {
       final isValid = await validateSection(sectionName);
