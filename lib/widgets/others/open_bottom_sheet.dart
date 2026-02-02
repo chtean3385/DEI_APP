@@ -18,6 +18,7 @@ Future<void> openEditBottomSheet({
     return showModalBottomSheet(
       context: context,
       isScrollControlled: true,
+      useSafeArea: true,
       backgroundColor: Colors.transparent,
       clipBehavior: Clip.antiAlias,
       builder: (ctx) => Container(
@@ -74,6 +75,7 @@ Future<void> openDynamicFormSheet({
 
   return showModalBottomSheet(
     context: context,
+    useSafeArea: true,
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     enableDrag: isDismissible,
@@ -116,6 +118,7 @@ Future<void> openDynamicFormSheet2({
   return showModalBottomSheet(
     context: context,
     isScrollControlled: true,
+    useSafeArea: true,
     backgroundColor: Colors.transparent,
     builder: (ctx) {
       return LayoutBuilder(

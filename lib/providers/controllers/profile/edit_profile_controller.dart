@@ -336,6 +336,13 @@ class EditEmployeeProfileController
 
     state = state.copyWith(pageState: PageState.loading);
     print('--- Employee Profile Form stattteee ---');
+    final dobText = dobController.text.trim();
+
+    DateTime? dob = dobText.isEmpty
+        ? null
+        : DateFormat('dd-MM-yyyy').tryParse(dobText);
+
+
     print('gender: ${state.profileData?.gender}');
     print('workStatus: ${state.profileData?.workStatus}');
     print('department: ${state.profileData?.department}');
@@ -377,7 +384,9 @@ class EditEmployeeProfileController
         name: nameController.text.trim(),
         email: emailController.text.trim(),
         mobile: mobileController.text.trim(),
-        dateOfBirth: dobController.text.trim(),
+        dateOfBirth: dob == null
+            ? null
+            : DateFormat('yyyy-MM-dd').format(dob),
         employeeDescription: descriptionController.text.trim(),
         gender: state.profileData?.gender, // assuming selected via dropdown
         workStatus: state.profileData?.workStatus,
@@ -424,8 +433,10 @@ class EditEmployeeProfileController
 
 
   void updateWorkStatus(String workStatus) {
+
     final updatedProfile = state.profileData?.copyWith(workStatus: workStatus);
     state = state.copyWith(profileData: updatedProfile);
+    print("workStatus  $workStatus --  state -->> ${state.profileData?.workStatus}");
   }
 
 
