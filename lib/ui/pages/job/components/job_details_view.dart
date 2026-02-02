@@ -196,9 +196,11 @@ class JobDetailsView extends StatelessWidget {
                   color: colorTheme.black54,
                 ),
                 gapW16(),
-                Text(
-                  jobModel.category ?? "",
-                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                Flexible(
+                  child: Text(
+                    jobModel.category ?? "",
+                    style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                  ),
                 ),
               ],
             ),
