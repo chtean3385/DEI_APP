@@ -242,7 +242,7 @@ class ApiHandler {
     if (statusCode == 401 ||
         (response.data is Map && response.data['message']?.toString().contains('Unauthorized') == true) || (response.data is Map && response.data['message']?.toString().contains('Token expired') == true)) {
       final providerScope =  ProviderScope.containerOf(navigatorKey.currentContext!);
-      providerScope.read(logoutProvider.notifier).forceLogout(message: "Your last session has expired. Please log in again.");
+      providerScope.read(logoutProvider.notifier).forceLogout(message: "Please sign in to continue.");
       throw AppException("Unauthorized");
     }
     if (statusCode == 204) return null;
@@ -274,7 +274,7 @@ class ApiHandler {
     // ✅ Handle Unauthorized globally
     if (response?.statusCode == 401 || message.contains('Unauthorized') || message.contains('Token expired')) {
       final providerScope =  ProviderScope.containerOf(navigatorKey.currentContext!);
-      providerScope.read(logoutProvider.notifier).forceLogout(message: "Your last session has expired. Please log in again.");
+      providerScope.read(logoutProvider.notifier).forceLogout(message: "Please sign in to continue.");
 
       return AppException("Unauthorized");
     }

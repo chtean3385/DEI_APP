@@ -36,8 +36,10 @@ class LogoutController extends StateNotifier<OtpState> {
     AppNavigator.loadSignInScreen();
 
   }
-
+  bool _isLoggingOut = false;
   Future<void> forceLogout({String? message}) async {
+    if (_isLoggingOut) return;
+    _isLoggingOut = true;
     await SharedPreferenceRepository.setToken("");
     await SharedPreferenceRepository.setUserId("");
     await SharedPreferenceRepository.setRoleId(0);
@@ -48,6 +50,7 @@ class LogoutController extends StateNotifier<OtpState> {
       }
     });
     await Future.delayed(Duration(seconds: 1));
+    _isLoggingOut = false;
   }
 
   deleteFcm() async {
