@@ -93,6 +93,16 @@ class _WebViewPageState extends State<WebViewPage> {
 
             onWebViewCreated: (controller) async {
               _controller = controller;
+              controller.addJavaScriptHandler(
+                handlerName: 'onClientError',
+                callback: (args) {
+                  setState(() {
+                    _hasError = true;
+                    _isLoading = false;
+                    _errorMessage = "Something went wrong. Please try again later.";
+                  });
+                },
+              );
             },
 
             onLoadStart: (controller, url) async {
@@ -228,10 +238,26 @@ forceCSS.innerHTML = `
   }
 `;
 document.head.appendChild(forceCSS);
+ // 4️⃣ 🔴 NEXT.JS CLIENT-SIDE ERROR DETECTION (ADD HERE)
+      setTimeout(() => {
+        const bodyText = document.body?.innerText || "";
+
+        if (
+          bodyText.includes("Application error") ||
+          bodyText.includes("client-side exception") ||
+          bodyText.includes("See the browser console")
+        ) {
+          window.flutter_inappwebview.callHandler(
+            'onClientError',
+            'CLIENT_SIDE_ERROR'
+          );
+        }
+      }, 800);
 
 
     })();
   """);
+
 
               setState(() => _isLoading = false);
             },
@@ -273,7 +299,7 @@ document.head.appendChild(forceCSS);
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Icon(Icons.error, color: Colors.red, size: 80),
+             Icon(Icons.error, color: context.colors.buttonPrimaryColor, size: 80),
             const SizedBox(height: 16),
             const Text("Something went wrong."),
             const SizedBox(height: 16),
