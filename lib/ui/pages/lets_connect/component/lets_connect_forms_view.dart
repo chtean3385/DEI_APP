@@ -1,12 +1,8 @@
-import 'package:dei_champions/constants/app_theme.dart';
-import 'package:dei_champions/main.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
-import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
@@ -20,8 +16,8 @@ class LetsConnectFormView extends ConsumerWidget {
     final controller = ref.read(letsConnectProvider.notifier);
     return Form(
       key: controller.formKey,
-      child: SingleChildScrollView(
-        padding: EdgeInsets.all(16),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -36,6 +32,7 @@ class LetsConnectFormView extends ConsumerWidget {
               textInputAction: TextInputAction.next,
               validator: AppValidators.letsConnectFieldEmpty("First name"),
               textCapitalization: TextCapitalization.words,
+              onFieldSubmitted: (v){TextInputAction.next;},
             ),
             gapH16(),
             TransparentFormField(
@@ -47,6 +44,7 @@ class LetsConnectFormView extends ConsumerWidget {
               textInputAction: TextInputAction.next,
               validator: AppValidators.letsConnectFieldEmpty("Last name"),
               textCapitalization: TextCapitalization.words,
+              onFieldSubmitted: (v){TextInputAction.next;},
             ),
             gapH16(),
             TransparentDropdownField(
@@ -60,6 +58,7 @@ class LetsConnectFormView extends ConsumerWidget {
               onChanged: (value) {
                 controller.interestController.text = value.toString();
               },
+
             ),
             gapH16(),
             TransparentFormField(
@@ -73,6 +72,7 @@ class LetsConnectFormView extends ConsumerWidget {
               validator: AppValidators.phone,
               keyboardType: TextInputType.phone,
               maxLength: 10,
+              onFieldSubmitted: (v){TextInputAction.next;},
             ),
             gapH16(),
             TransparentFormField(
@@ -82,6 +82,7 @@ class LetsConnectFormView extends ConsumerWidget {
               icon: Icons.email_outlined,
               textInputAction: TextInputAction.next,
               validator: AppValidators.email,
+              onFieldSubmitted: (v){TextInputAction.next;},
             ),
             gapH16(),
 
@@ -90,14 +91,14 @@ class LetsConnectFormView extends ConsumerWidget {
               controller: controller.descriptionController,
               hint: "Your message",
               label: "Query",
-              textInputAction: TextInputAction.next,
+              textInputAction: TextInputAction.done,
               validator: AppValidators.letsConnectFieldEmpty("Query"),
               textCapitalization: TextCapitalization.words,
               minLines: 3,
               maxLength: 250,
               showCounter: true,
+              onFieldSubmitted: (v){TextInputAction.done;},
             ),
-            gap100(),
 
           ],
         ),

@@ -15,10 +15,28 @@ class LetsConnectScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: appBarCommon(title: "Write to Us",arrowLeft: true,titleStyleSmall: true),
-      body: SafeArea(child: LetsConnectFormView()),
-      floatingActionButton: _submit(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: SafeArea(
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: LetsConnectFormView(),
+                    ),
+                  ),
+                  _submit(),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
