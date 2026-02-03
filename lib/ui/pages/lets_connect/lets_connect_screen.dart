@@ -8,7 +8,6 @@ import '../../../providers/providers.dart';
 import '../../../widgets/others/custom_theme_button.dart';
 import 'component/lets_connect_forms_view.dart';
 
-
 class LetsConnectScreen extends StatelessWidget {
   const LetsConnectScreen({super.key});
 
@@ -16,7 +15,11 @@ class LetsConnectScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
-      appBar: appBarCommon(title: "Write to Us",arrowLeft: true,titleStyleSmall: true),
+      appBar: appBarCommon(
+        title: "Write to Us",
+        arrowLeft: true,
+        titleStyleSmall: true,
+      ),
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -40,28 +43,30 @@ class LetsConnectScreen extends StatelessWidget {
     );
   }
 
-
   Widget _submit() {
     return Consumer(
       builder: (context, ref, _) {
-        final isLoading = ref.watch(letsConnectProvider).submitPageState == PageState.loading;
-
+        final isLoading =
+            ref.watch(letsConnectProvider).submitPageState == PageState.loading;
         return SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.symmetric(vertical: 56),
             child: CustomThemeButton(
               isExpanded: false,
               removeAlign: true,
-              onTap: isLoading
-                  ? null
-                  : () async {
-                await ref.read(letsConnectProvider.notifier).sendLetsConnectRequest(context);
+              onTap: () async {
+                if (isLoading) {
+                  return;
+                }
+                await ref
+                    .read(letsConnectProvider.notifier)
+                    .sendLetsConnectRequest(context);
               },
               isLoading: isLoading,
               padding: isLoading
                   ? const EdgeInsets.symmetric(horizontal: 50, vertical: 12)
                   : const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              child:  Padding(
+              child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: Text(
                   'Submit',
@@ -72,19 +77,15 @@ class LetsConnectScreen extends StatelessWidget {
               ),
 
               radius: 30,
-              color:  context.colors.buttonPrimaryColor,
-              borderColor:  context.colors.buttonPrimaryColor,
+              color: context.colors.buttonPrimaryColor,
+              borderColor: context.colors.buttonPrimaryColor,
             ),
           ),
         );
       },
     );
   }
-
-
 }
-
-
 
 class CustomFAB extends StatelessWidget {
   final Widget child;
@@ -118,4 +119,3 @@ class CustomFAB extends StatelessWidget {
     );
   }
 }
-

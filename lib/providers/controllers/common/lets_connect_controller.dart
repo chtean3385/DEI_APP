@@ -132,6 +132,7 @@ class LetsConnectController extends StateNotifier<LetsConnectState> {
         result.message
       );
     } catch (e) {
+      if(!mounted) return;
       state = state.copyWith(submitPageState: PageState.error);
       showSnackBar(e.toString());
       debugPrint("catch - updateEmployeeProfileDetails");

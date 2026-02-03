@@ -106,11 +106,12 @@ class CommonService {
     final body = {
       'firstName': firstName,
       'lastName': lastName,
-      'phone': phone,
+      'phone': "+91$phone",
       'email': email,
       'interest': interest,
       'query': query,
     };
+    print("letsConnect  body-->>${body.toString()}");
     final result = await _apiHandler.post(url: ApiUrls.contactUs, body: body, includeAuthToken: false,);
     if (result is Map<String, dynamic>) {
       final base = BaseModel.fromJson(result);
