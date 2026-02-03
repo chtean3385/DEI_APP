@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../../constants/app_keys.dart';
 import '../../ui/pages/notification/components/notification_view.dart';
 import '../form/home_search.dart';
+import '../others/open_bottom_sheet.dart';
 
 AppBar appBarHome(
   BuildContext context, {
@@ -63,11 +64,15 @@ AppBar appBarHome(
         : isFromProfile
         ? [
             Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: IconButton(
-                icon:  Icon(Icons.edit, color:context.colors.black54, size: 25),
-                onPressed: () =>
-                    AppNavigator.loadEditProfileScreen(),
+              padding: const EdgeInsets.only(right: 10),
+              child:  IconTapButton(
+                icon: Icons.edit_outlined,
+                color: context.colors.buttonPrimaryColor,
+                size: 20,
+                stopLoadingBeforeCall: true,
+                onTap: () async {
+                  AppNavigator.loadEditProfileScreen();
+                },
               ),
             ),
           ]

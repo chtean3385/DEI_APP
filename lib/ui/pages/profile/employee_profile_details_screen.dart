@@ -4,6 +4,7 @@ import 'package:dei_champions/widgets/others/app_bar_common.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/app_navigator.dart';
+import '../../../widgets/others/open_bottom_sheet.dart';
 import '../home/components/boost/profile_completion_slider.dart';
 
 class EmployeeProfileDetailsScreen extends StatelessWidget {
@@ -15,12 +16,15 @@ class EmployeeProfileDetailsScreen extends StatelessWidget {
     return Scaffold(
       appBar:appBarCommon(actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 8),
-          child: IconButton(
-            padding: EdgeInsets.all(8),
-            icon:  Icon(Icons.edit, color: context.colors.black54, size: 25),
-            onPressed: () =>
-                AppNavigator.loadEditProfileScreen(),
+          padding: const EdgeInsets.only(right: 10),
+          child: IconTapButton(
+            icon: Icons.edit_outlined,
+            color: context.colors.buttonPrimaryColor,
+            size: 20,
+            stopLoadingBeforeCall: true,
+            onTap: () async {
+              AppNavigator.loadEditProfileScreen();
+            },
           ),
         ),
       ]) ,

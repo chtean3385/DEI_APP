@@ -122,13 +122,14 @@ Future<void> openDynamicFormSheet({
 
 
 
-class IconTapButton extends StatelessWidget {
+class IconTapButton extends StatefulWidget {
   final IconData icon;
-  final VoidCallback onTap;
+  final Future<void> Function() onTap;
   final Color color;
   final double size;
   final double padding;
   final BorderRadius? borderRadius;
+  final bool stopLoadingBeforeCall;
 
   const IconTapButton({
     super.key,
@@ -136,34 +137,85 @@ class IconTapButton extends StatelessWidget {
     required this.onTap,
     required this.color,
     this.size = 16,
-    this.padding = 6,
+    this.padding = 8,
     this.borderRadius,
+    this.stopLoadingBeforeCall = false,
   });
 
   @override
+  State<IconTapButton> createState() => _IconTapButtonState();
+}
+
+
+
+class _IconTapButtonState extends State<IconTapButton> {
+
+
+  bool _loading = false;
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _loading = false;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final shape = widget.borderRadius == null
+        ? const CircleBorder()
+        : RoundedRectangleBorder(borderRadius: widget.borderRadius!);
+
     return Material(
-      color: Colors.transparent,
-      shape: borderRadius == null ? const CircleBorder() : null,
+      type: MaterialType.transparency,
+      shape: shape,
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
-        customBorder:
-        borderRadius == null ? const CircleBorder() : null,
-        borderRadius: borderRadius,
-        splashColor: color.withValues(alpha: 0.25),
-        highlightColor: color.withValues(alpha: 0.12),
-        onTap: () {
+        customBorder: shape,
+        onTap: _loading
+            ? null
+            : () async {
           HapticFeedback.selectionClick();
-          onTap();
+
+          setState(() => _loading = true);
+
+
+          // 🔑 Let Flutter paint loading indicator
+          await Future<void>.delayed(Duration(milliseconds: 500));
+          await Future.sync(widget.onTap);
+          await WidgetsBinding.instance.endOfFrame;
+
+
+
+          if (mounted) {
+            setState(() => _loading = false);
+          }
         },
+        splashColor: widget.color.withValues(alpha: 0.25),
+        highlightColor: widget.color.withValues(alpha: 0.12),
         child: Padding(
-          padding: EdgeInsets.all(padding),
-          child: Icon(
-            icon,
-            size: size,
-            color: color,
+          padding: EdgeInsets.all(widget.padding),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 150),
+            child: _loading
+                ? SizedBox(
+              width: widget.size,
+              height: widget.size,
+              child: CircularProgressIndicator(
+                strokeWidth: 2,
+                color: widget.color,
+              ),
+            )
+                : Icon(
+              widget.icon,
+              size: widget.size,
+              color: widget.color,
+            ),
           ),
         ),
       ),
     );
   }
 }
+
