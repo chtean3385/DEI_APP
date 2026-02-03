@@ -179,6 +179,11 @@ class _WebViewPageState extends State<WebViewPage> {
             s.remove();
           }
         });
+        // 🔹 Remove entire Join the Movement section
+document
+  .querySelectorAll('.join-dei-revolution')
+  .forEach(el => el.remove());
+
 
         // Remove shadow DOM instances
         const walker = document.createTreeWalker(document, NodeFilter.SHOW_ELEMENT);
