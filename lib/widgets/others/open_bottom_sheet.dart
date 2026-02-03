@@ -174,15 +174,15 @@ class _IconTapButtonState extends State<IconTapButton> {
       child: InkWell(
         customBorder: shape,
         onTap: _loading
-            ? null
-            : () async {
+            ? null:
+            () async {
           HapticFeedback.selectionClick();
 
           setState(() => _loading = true);
 
 
           // 🔑 Let Flutter paint loading indicator
-          await Future<void>.delayed(Duration(milliseconds: 500));
+        if(!widget.stopLoadingBeforeCall)  await Future<void>.delayed(Duration(milliseconds: 500));
           await Future.sync(widget.onTap);
           await WidgetsBinding.instance.endOfFrame;
 
