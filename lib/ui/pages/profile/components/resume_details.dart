@@ -43,19 +43,15 @@ print(" state.profileData?.resume -- ${ state.profileData?.resume}");
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
+                    IconTapButton(
+                      icon: Icons.edit_outlined,
+                      color: colorTheme.buttonPrimaryColor,
                       onTap: () => openEditBottomSheet(
                         context: context,
                         isDraggable: false,
                         content: const EditResumeInformation(
                           isFromCommonEdit: false,
                         ),
-                      ),
-                      child: Icon(
-                        Icons.edit_outlined,
-                        color: colorTheme.buttonPrimaryColor,
-                        size: 15,
                       ),
                     ),
                   ],

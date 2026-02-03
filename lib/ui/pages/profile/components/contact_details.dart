@@ -42,20 +42,13 @@ class ContactDetails extends ConsumerWidget {
                         ),
                       ),
                     ),
-                    GestureDetector(
-                      behavior: HitTestBehavior.translucent,
+                    IconTapButton(
+                      icon: Icons.edit_outlined,
+                      color: colorTheme.buttonPrimaryColor,
                       onTap: () => openEditBottomSheet(
                         context: context,
                         isDraggable: true,
                         content: const EditBasicInformation(isFromCommonEdit: false),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Icon(
-                          Icons.edit_outlined,
-                          color: colorTheme.buttonPrimaryColor,
-                          size: 15,
-                        ),
                       ),
                     ),
                   ],

@@ -43,13 +43,14 @@ class ExperienceDetails extends ConsumerWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap:() => openDynamicFormSheet(
-                    context:context,
-                    child: const EditWorkExpInformation(isFromCommonEdit: false),
-                  ),
-                  child: Icon(Icons.edit_outlined,color: colorTheme.buttonPrimaryColor,size: 15))
+              IconTapButton(
+                icon: Icons.edit_outlined,
+                color: colorTheme.buttonPrimaryColor,
+                onTap:() => openDynamicFormSheet(
+                  context:context,
+                  child: const EditWorkExpInformation(isFromCommonEdit: false),
+                ),
+              ),
             ],
           ),
         state.profileData?.experience?.isNotEmpty == true ?  ListView.separated(

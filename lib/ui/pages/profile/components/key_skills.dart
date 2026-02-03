@@ -41,17 +41,13 @@ class MyKeySkill extends ConsumerWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
+              IconTapButton(
+                icon: Icons.edit_outlined,
+                color: colorTheme.buttonPrimaryColor,
                 onTap: () => openEditBottomSheet(
                   context: context,
                   isDraggable: false,
                   content: const EditSkillInformation(isFromCommonEdit: false),
-                ),
-                child: Icon(
-                  Icons.edit_outlined,
-                  color: colorTheme.buttonPrimaryColor,
-                  size: 15,
                 ),
               ),
             ],

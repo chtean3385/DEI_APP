@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Future<void> openEditBottomSheet({
   required BuildContext context,
@@ -29,7 +31,11 @@ Future<void> openEditBottomSheet({
             color: colorTheme.commonDividerBgColor,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
           ),
-          clipBehavior: Clip.antiAlias,child: content),
+          clipBehavior: Clip.antiAlias,child: Padding(
+        padding: const EdgeInsets.all(16),
+            child: content,
+          )
+      ),
     );
   } else {
     return showModalBottomSheet(
@@ -54,9 +60,11 @@ Future<void> openEditBottomSheet({
               ),
               clipBehavior: Clip.antiAlias,
               child: SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
                 controller: scrollController,
                 child: content,
-              ),
+
+            ),
             );
           },
         );
@@ -111,69 +119,51 @@ Future<void> openDynamicFormSheet({
     },
   );
 }
-Future<void> openDynamicFormSheet2({
-  required BuildContext context,
-  required Widget child,
-}) {
-  return showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    useSafeArea: true,
-    backgroundColor: Colors.transparent,
-    builder: (ctx) {
-      return LayoutBuilder(
-        builder: (context, constraints) {
-          return DraggableScrollableSheet(
-            expand: false,
-            initialChildSize: 0.3,      // starts small
-            minChildSize: 0.3,          // minimum height
-            maxChildSize: 0.95,         // grows until 95% of screen
-            builder: (context, scrollController) {
-              return AnimatedPadding(
-                duration: const Duration(milliseconds: 150),
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // ---- TOP DRAG HANDLE ----
-                      Container(
-                        width: 45,
-                        height: 5,
-                        margin: const EdgeInsets.only(top: 10, bottom: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade400,
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
 
-                      // ---- SCROLLING CONTENT ----
-                      Expanded(
-                        child: SingleChildScrollView(
-                          controller: scrollController,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16, vertical: 10),
-                            child: child,
-                          ),
-                        ),
-                      ),
 
-                      // ---- STICKY BOTTOM BUTTONS HERE ----
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
+
+class IconTapButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+  final Color color;
+  final double size;
+  final double padding;
+  final BorderRadius? borderRadius;
+
+  const IconTapButton({
+    super.key,
+    required this.icon,
+    required this.onTap,
+    required this.color,
+    this.size = 16,
+    this.padding = 6,
+    this.borderRadius,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      shape: borderRadius == null ? const CircleBorder() : null,
+      child: InkWell(
+        customBorder:
+        borderRadius == null ? const CircleBorder() : null,
+        borderRadius: borderRadius,
+        splashColor: color.withValues(alpha: 0.25),
+        highlightColor: color.withValues(alpha: 0.12),
+        onTap: () {
+          HapticFeedback.selectionClick();
+          onTap();
         },
-      );
-    },
-  );
+        child: Padding(
+          padding: EdgeInsets.all(padding),
+          child: Icon(
+            icon,
+            size: size,
+            color: color,
+          ),
+        ),
+      ),
+    );
+  }
 }

@@ -41,18 +41,14 @@ class EducationDetails extends ConsumerWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              GestureDetector(
-                behavior: HitTestBehavior.translucent,
+              IconTapButton(
+                icon: Icons.edit_outlined,
+                color: colorTheme.buttonPrimaryColor,
                 onTap: () => openDynamicFormSheet(
                   context: context,
                   child: const EditEducationInformation(
                     isFromCommonEdit: false,
                   ),
-                ),
-                child: Icon(
-                  Icons.edit_outlined,
-                  color: colorTheme.buttonPrimaryColor,
-                  size: 15,
                 ),
               ),
             ],
