@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 class EmployeeUserModel {
   final Preferences? preferences;
   final String? id;
@@ -30,6 +32,7 @@ class EmployeeUserModel {
   final String? employeeDescription;
   final List<JobTypeModel>? jobType;
   final String? department;
+  final String? commaSeparatedIndustries;
   final String? category;
   final SalaryRangeModel? salaryRange;
   final List<String>? preferredLocations;
@@ -77,6 +80,7 @@ class EmployeeUserModel {
     this.employeeDescription,
     this.jobType,
     this.department,
+    this.commaSeparatedIndustries,
     this.category,
     this.salaryRange,
     this.preferredLocations,
@@ -180,6 +184,8 @@ class EmployeeUserModel {
     'country': country,
     'pincode': pincode,
     'category': category,
+    'department': department,
+    'industry': commaSeparatedIndustries,
     'preferredLocations': preferredLocations,
     'education': education?.map((e) => e.toJson()).toList(),
     'experience': experience?.map((e) => e.toJson()).toList(),
@@ -191,10 +197,29 @@ class EmployeeUserModel {
     if(industryId?.isNotEmpty == true)'industries': industryId,
     'jobType': jobTypeId,
     'salaryRange': salaryId,
+    // ...buildPreferencesOnlyPayload(),
     'preferences': {
       "preffered_locations": preferredLocations ?? [],
+      if(departmentId?.isNotEmpty == true)'department': departmentId,
+      if(industryId?.isNotEmpty == true)'industry': industryId,
     }
   };
+  Map<String, dynamic> buildPreferencesOnlyPayload() {
+    return {
+      'preferences': jsonEncode({
+        "preffered_locations": preferredLocations ?? [],
+        if (departmentId?.isNotEmpty == true)
+          'department': departmentId,
+        if (industryId?.isNotEmpty == true)
+          'industry': industryId,
+        'category': category,
+        'jobTypes': jobTypeId,
+        'salaryRange': salaryId,
+      }),
+    };
+  }
+
+
 
 
 

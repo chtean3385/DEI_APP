@@ -159,7 +159,8 @@ class EditEmployeeProfileController
     totalWorkExpController.text = userData?.totalWorkExperience ?? "";
     noticePeriodController.text = userData?.noticePeriod ?? "";
     currentCtcController.text = userData?.currentSalary ?? "";
-
+print("state.profileData?.currentDepartment?.length");
+print(state.profileData?.currentDepartment?.length);
 // // Department → coming from userData.department list (Preferences updated)
 //     if (userData?.currentDepartment != null && userData!.currentDepartment!.isNotEmpty) {
 //       departmentController.text = userData.currentDepartment!.first.name ?? "";
@@ -301,6 +302,8 @@ class EditEmployeeProfileController
         experience: experienceData,
         education: educationData,
         preferredLocations: userData?.preferences?.preferredLocations,
+        currentDepartment: userData?.currentDepartment,
+        industry: userData?.industry
       ),
       workExpEntries: workExpControllers,
       educationEntries: educationControllers,
@@ -365,18 +368,6 @@ class EditEmployeeProfileController
         .whereType<String>()
         .toList() ?? [];
 
-
-    // final departmentIds = (state.profileData?.industry as List?)
-    //     ?.cast<IndustryModel>()
-    //     .map((d) => d.id)
-    //     .whereType<String>()
-    //     .join(',') ?? '';
-
-    // final categoryIds = (state.profileData?.currentDepartment as List?)
-    //     ?.cast<DepartmentModel>()
-    //     .map((c) => c.id)
-    //     .whereType<String>()
-    //     .join(',') ?? '';
     print('departmentIds: ${departmentIds}');
     print('categoryIds: ${categoryIds}');
 
@@ -419,8 +410,8 @@ class EditEmployeeProfileController
         state: stateController.text.trim(),
         country: countryController.text.trim(),
         pincode: pinCodeController.text.trim(),
-          department: state.profileData?.department, // keep existing if not changed
-          category: state.profileData?.category,
+          department: departmentIds.join(','), // keep existing if not changed
+          commaSeparatedIndustries: categoryIds.join(','),
           preferredLocations: state.profileData?.preferredLocations,
         education: updatedEducation,
         experience: updatedExperience,

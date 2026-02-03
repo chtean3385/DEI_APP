@@ -17,15 +17,15 @@ class SelectPreferredCategories extends StatelessWidget {
     return AutoSuggestionDropdownField(
       controller: controller,
       focusNode: focusNode,
-      hint: "Select industry",
-      label: "Industry",
+      hint: "Select category",
+      label: "Category",
       icon: Icons.apartment_outlined,
       suggestions: data,
       maxSuggestions: 50,
       caseSensitive: false,
       showAbove: true,
       onSuggestionSelected: (suggestion) {
-        print('Selected industry: $suggestion');
+        print('Selected category: $suggestion');
         if (suggestion.trim().isNotEmpty) {
           onSkillSelected?.call(suggestion.trim());
           controller.clear();
