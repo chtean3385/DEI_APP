@@ -76,7 +76,7 @@ class _JobDetailsScreenState extends ConsumerState<JobDetailsScreen> {
         final screenHeight = MediaQuery.of(context).size.height;
 
         // Hide button when About Company section reaches middle of screen
-        bool shouldShowButton = position.dy > screenHeight * 0.98;
+        bool shouldShowButton = position.dy > screenHeight * 0.99;
 
         if (shouldShowButton != _showApplyButton) {
           setState(() {
@@ -336,7 +336,6 @@ final colorTheme = context.colors;
       ),
     );
   }
-
 }
 
 // Custom delegate for sticky tab bar
