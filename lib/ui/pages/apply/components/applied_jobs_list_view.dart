@@ -79,6 +79,7 @@ class _SearchResultsViewState extends ConsumerState<AppliedJobListView> {
                       AppNavigator.loadJobDetailsScreen(jobId: item.id ?? ""),
                   hideSaveButton: true,
                   hideApplyButton: true,
+                  hideShareButton: true,
                   showWithdrawButton:
                       item.myStatus == 'pending' || item.myStatus == 'accepted',
                   showMyApplicationStatusButton: true,

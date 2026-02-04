@@ -165,10 +165,11 @@ class JobModelApi {
         String? currentUserId,
       }) {
 
-    final applicantsList = (json["applicants"] as List?)
-        ?.map((e) => e.toString())
-        .toList() ??
-        [];
+    final applicantsList = (json["applicationStatus"] as List?)
+        ?.map((e) => e is Map<String, dynamic> ? e["applicant"]?.toString() : null)
+        .whereType<String>()
+        .toList() ?? [];
+
 
     final savedUsersList = (json["savedBy"] as List?)
         ?.map((e) => e.toString())
@@ -180,7 +181,7 @@ class JobModelApi {
         currentUserId != null && applicantsList.contains(currentUserId);
     final hasSaved =
         currentUserId != null && savedUsersList.contains(currentUserId);
-
+    // print("$currentUserId - currentUserId -- $hasApplied  jobid=  ${json["_id"] }  ");
     return JobModelApi(
       id: json["_id"] ?? '',
       title: json["jobTitle"] ?? '',

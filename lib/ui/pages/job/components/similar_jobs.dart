@@ -59,6 +59,7 @@ class SimilarJobsListView extends ConsumerWidget {
             final item = state.data![index];
             return SearchJobCard(
               key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
+              hideSaveButton: true,
               scaledFontSize: scaledFontSize,
               jobModel: item,
               onTap: () =>

@@ -334,9 +334,11 @@ class JobDetailsView extends StatelessWidget {
                 ),
                 // mugSaucer
                 gapW16(),
-                Text(
-                  "${jobModel.city ?? ""} , ${jobModel.state ?? ""}",
-                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                Flexible(
+                  child: Text(
+                    "${jobModel.city ?? ""} , ${jobModel.state ?? ""}",overflow: TextOverflow.ellipsis,softWrap: true,maxLines: 1,
+                    style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                  ),
                 ),
               ],
             ),

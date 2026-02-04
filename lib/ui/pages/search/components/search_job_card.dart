@@ -20,6 +20,7 @@ class SearchJobCard extends StatelessWidget {
   final JobModelApi jobModel;
   final GestureTapCallback? onTap;
   final bool hideSaveButton;
+  final bool hideShareButton;
   final bool hideApplyButton;
   final bool showWithdrawButton;
   final bool showMyApplicationStatusButton;
@@ -30,6 +31,7 @@ class SearchJobCard extends StatelessWidget {
     required this.jobModel,
     this.onTap,
     this.hideSaveButton = false,
+    this.hideShareButton = false,
     this.hideApplyButton = false,
     this.showWithdrawButton = false,
     this.showMyApplicationStatusButton = false,
@@ -271,11 +273,11 @@ class SearchJobCard extends StatelessWidget {
                           },
                         ),
 
-                      if (!hideSaveButton)
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            CustomDynamicButton(
+                            if (!hideSaveButton) CustomDynamicButton(
                               activeIcon: FontAwesomeIcons.bookmark,
                               // outline
                               inActiveIcon: FontAwesomeIcons.solidBookmark,
@@ -312,8 +314,8 @@ class SearchJobCard extends StatelessWidget {
                                 }
                               },
                             ),
-                            gapW8(),
-                            CustomDynamicButton(
+                            if (!hideShareButton) gapW8(),
+                            if (!hideShareButton) CustomDynamicButton(
                               activeIcon: FontAwesomeIcons.shareNodes,
                               inActiveIcon: FontAwesomeIcons.shareNodes,
                               activeTitle: "Share",
