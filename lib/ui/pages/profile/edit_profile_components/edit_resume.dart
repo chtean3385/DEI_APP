@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../providers/controllers/profile/employee_profile_controller.dart';
 import '../../../../providers/providers.dart';
+import '../../../../widgets/others/download_file.dart';
 import '../components/resume_details.dart';
 import 'edit_profile_action_button.dart';
 
@@ -122,36 +123,42 @@ class EditResumeInformation extends ConsumerWidget {
                     ),
                     gapH16(),
                     if (state.profileData?.resume?.isNotEmpty == true)
-                      GestureDetector(
-                        onTap: () =>
-                            viewResumeFromUrl(state.profileData?.resume ?? ""),
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.picture_as_pdf_sharp,
-                              size: 20,
-                              color: Colors.red.shade600,
-                            ),
-                            gapW8(),
-                            Expanded(
-                              child: Text(
-                                getFileNameFromPath(state.profileData?.resume),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                                style: context.textTheme.labelLarge?.copyWith(
-                                  color: colorTheme.buttonPrimaryColor,
-                                ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.picture_as_pdf_sharp,
+                            size: 20,
+                            color: Colors.red.shade600,
+                          ),
+                          gapW8(),
+                          Expanded(
+                            child: Text(
+                              getFileNameFromPath(state.profileData?.resume),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              softWrap: true,
+                              style: context.textTheme.labelLarge?.copyWith(
+                                color: colorTheme.buttonPrimaryColor,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
+
                     const SizedBox(height: 16),
 
                     Text(
                       'Accepted formats: PDF, DOC, DOCX (Max size: 5MB)',
                       style: TextStyle(fontSize: 12, color: colorTheme.black54),
+                    ),
+                    if (state.profileData?.resume?.isNotEmpty == true)   const SizedBox(height: 16),
+                    if (state.profileData?.resume?.isNotEmpty == true) Center(
+                      child: DownloadInvoiceButton(
+                        url:
+                        state.profileData?.resume,
+                        title: "Resume",
+                        label: "Download Resume",
+                      ),
                     ),
 
                     if (fileName != null) ...[
