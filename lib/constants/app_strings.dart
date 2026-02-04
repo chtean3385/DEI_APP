@@ -29,66 +29,8 @@ class AppStrings {
   static const city = 'Current City';
   static const area = 'Your Area';
 
-  static const List<String> courses = [
-    "B.Tech / B.E.",
-    "B.Com",
-    "B.Sc",
-    "B.A",
-    "BBA",
-    "BCA",
-    "LLB",
-    "MBBS",
-    "BDS",
-    "B.Pharm",
-    "B.Arch",
-    "B.Ed",
-    "BHM (Hotel Management)",
-    "BFA (Fine Arts)",
-    "B.Design",
-    "B.Voc",
-    "BPT (Physiotherapy)",
-    "BMS (Management Studies)",
-    "BMM (Mass Media)",
-    "CA (Chartered Accountancy)",
-    "CS (Company Secretary)",
-    "CFA (Chartered Financial Analyst)",
-    "Diploma in Engineering",
-    "Diploma in Pharmacy",
-    "M.Tech / M.E.",
-    "M.Com",
-    "M.Sc",
-    "M.A",
-    "MBA / PGDM",
-    "MCA",
-    "LLM",
-    "M.Pharm",
-    "M.Arch",
-    "M.Ed",
-    "M.Des",
-    "Ph.D",
-    "Other",
-  ];
-  static const List<String> specializations = [
-    "Computer Science", "Information Technology", "Mechanical Engineering",
-    "Civil Engineering", "Electrical Engineering", "Electronics & Communication",
-    "Chemical Engineering", "Aerospace Engineering", "Automobile Engineering",
-    "Biotechnology", "Biochemical Engineering", "Industrial Engineering",
-    "Production Engineering", "Architecture", "Fashion Design", "Graphic Design",
-    "Interior Design", "Fine Arts", "MBA - Marketing", "MBA - Finance",
-    "MBA - HR", "MBA - Operations", "MBA - IT", "MBA - International Business",
-    "BBA - Marketing", "BBA - Finance", "BBA - HR", "BBA - IT",
-    "Economics", "Psychology", "Sociology", "Political Science",
-    "Philosophy", "Mathematics", "Statistics", "Physics", "Chemistry",
-    "Biology", "Pharmacy", "Nursing", "Education", "Law", "Journalism & Mass Communication",
-    "Media Studies", "Hospitality & Hotel Management", "Tourism Management",
-    "Sports Science", "Physical Education", "Agriculture", "Environmental Science",
-  ];
 
-  static const List<String> introList = [
-'Abc with B.Tech/B.E., currently living in Thrissur, Kerala',
-'Seasoned professional with 2 years of experience. Expert in Sales',
-'Flutter developer with 5+ years of experience building scalable apps',
-];
+
 
   /// employer
   static const nameAsPerPAN = 'Full Name as per PAN';
@@ -110,14 +52,6 @@ class AppStrings {
   static const website = 'Website';
   static const enterWebsite = 'https://yourcompany.com';
 
-  static const List<String> companyEmployeeSize = [
-    "1-10 employees",
-    "11-50 employees",
-    "51-200 employees",
-    "201-500 employees",
-    "501-1000 employees",
-    "1000+ employees",
-  ];
 
   static const completeAddress = 'Complete Address';
   static const enterCompleteAddress = 'Enter your complete address';
@@ -214,62 +148,9 @@ class AppStrings {
     "Warangal",
   ];
 
-  static const List<String> jobDepartments = [
-    "Accounting & Finance",
-    "Administration",
-    "Advertising & Marketing",
-    "Architecture & Design",
-    "Arts & Media",
-    "Business Development",
-    "Customer Service",
-    "Data & Analytics",
-    "Education & Training",
-    "Engineering",
-    "Healthcare & Medical",
-    "Hospitality & Tourism",
-    "Human Resources",
-    "Information Technology",
-    "Legal & Compliance",
-    "Logistics & Supply Chain",
-    "Manufacturing & Production",
-    "Operations",
-    "Product Management",
-    "Project Management",
-    "Public Relations",
-    "Quality Assurance",
-    "Research & Development",
-    "Sales & Business Development",
-    "Software Development",
-    "Support & Maintenance",
-    "Technical Support",
-    "Writing & Editing",
-    "Others",
-  ];
-  static const List<String> JobSalaryRange = [
-    "1 - 3 Lacs PA",
-    "3 - 5 Lacs PA",
-    "5 - 8 Lacs PA",
-    "8 - 12 Lacs PA",
-    "12 - 20 Lacs PA",
-    "20+ Lacs PA",
-  ];
-  static const List<String> JobType = [
-    "Full-Time",
-    "Part-Time",
-    "Internship",
-    "Freelance",
-    "Remote",
-    "Contract",
-    "Temporary",
-  ];
-  static const List<String> JobCategories = [
-    "All Inclusive",
-    "PWD",
-    "Gen Z",
-    "Multi-Generation",
-    "LGBTQIA+",
-    "Women",
-  ];
+
+
+
 
   static const List<String> searchHintList= [
   'Search for "BE/BTech"',

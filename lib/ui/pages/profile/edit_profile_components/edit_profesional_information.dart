@@ -204,6 +204,7 @@ class EditProfessionalInformation extends ConsumerWidget {
                    onRemove: controller.removeCategory,
                    label: "Selected Categories",
                  ),
+                 gapH16(),
 
 
                  // /// ------------------ COMMUNITY PREFERENCE ------------------

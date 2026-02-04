@@ -69,7 +69,7 @@ class EmployeeAppliedJobsController extends StateNotifier<JobListState> {
     try {
       final result = await _jobService.getAppliedJobs(
         page: state.currentPage + 1,
-        status: state.status == "All" ? "" : state.status?.toLowerCase(),
+        status: state.status == "allApplications" ? "" : state.status?.toLowerCase(),
       );
       final Data = (result.data as List)
           .map((e) => JobModelApi.fromJson(e))

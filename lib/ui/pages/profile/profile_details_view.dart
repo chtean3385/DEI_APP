@@ -7,6 +7,7 @@ import '../../../providers/providers.dart';
 import '../home/components/boost/profile_completion_slider.dart';
 import 'components/about_me.dart';
 import 'components/basic_details.dart';
+import 'components/category_details.dart';
 import 'components/contact_details.dart';
 import 'components/education_details.dart';
 import 'components/experience_details.dart';
@@ -35,6 +36,7 @@ class ProfileDetailsView extends ConsumerWidget {
                   BasicDetails(),
                   ContactDetails(),
                   AboutMe(),
+                  CategoryDetails(),
                   MyKeySkill(),
                   ExperienceDetails(),
                   EducationDetails(),
