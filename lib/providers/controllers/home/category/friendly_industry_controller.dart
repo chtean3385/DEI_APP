@@ -36,7 +36,7 @@ class FriendlyIndustryController extends StateNotifier<FriendlyIndustryState> {
         errorMessage: e.toString(),
       );
       debugPrint(" catch  FriendlyIndustryController fetchData -${e.toString()}");
-      showSnackBar(AppStrings.somethingWentWrong);
+      // showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 

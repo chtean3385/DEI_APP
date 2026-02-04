@@ -15,7 +15,9 @@ class AboutUsView extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [AboutUsHeader(),gapH16(), WhatWeDo(),VisionMissionSection(),gapH16(),DeiRevolutions(),OurCoreValuesSection(),],
+          children: [AboutUsHeader(),gapH16(), WhatWeDo(),VisionMissionSection(),gapH16(),
+            // DeiRevolutions(),
+            OurCoreValuesSection(),],
         ),
       ),
     );

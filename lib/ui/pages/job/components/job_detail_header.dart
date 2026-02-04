@@ -75,20 +75,24 @@ class JobDetailHeader extends StatelessWidget {
                 ),
                 gapW8(),
                 Text(
-                  jobModel.jobType ?? "",
+                  jobModel.jobType ?? "",maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,
                   style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
                 ),
               ],
             ),
-            Row(
-              children: [
-                Icon(Icons.access_time, size: 24, color: colorTheme.black54),
-                gapW8(),
-                Text(
-                  '${getShortTimeAgo(jobModel.createdAt ?? DateTime.now())}',
-                  style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
-                ),
-              ],
+            Flexible(
+              child: Row(
+                children: [
+                  Icon(Icons.access_time, size: 24, color: colorTheme.black54),
+                  gapW8(),
+                  Flexible(
+                    child: Text(
+                      '${getShortTimeAgo(jobModel.createdAt ?? DateTime.now())}',maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,
+                      style: theme.bodyMedium?.copyWith(color: colorTheme.black54),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

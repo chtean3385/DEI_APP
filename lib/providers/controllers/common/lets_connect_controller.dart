@@ -212,7 +212,7 @@ void _showAutoCloseSuccessDialog(BuildContext context, String message) {
   );
 
   /// ⏳ Close automatically after 4 seconds and go to Home screen
-  Future.delayed(const Duration(seconds: 4), () {
+  Future.delayed(const Duration(seconds: 3), () {
     Navigator.pop(context); // close dialog
     AppNavigator.toBottomBar();
   });

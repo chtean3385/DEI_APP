@@ -307,14 +307,14 @@ final colorTheme = context.colors;
                 ),
 
                 // Fixed Apply Button at bottom
-                AnimatedContainer (
+                _showApplyButton ? AnimatedContainer (
                   duration: const Duration(milliseconds: 300),
-                  height: _showApplyButton ? 80 : 0,
+                  margin: const EdgeInsets.symmetric(vertical: 20),
                   child: AnimatedOpacity(
                     duration: const Duration(milliseconds: 300),
                     opacity: _showApplyButton ? 1.0 : 0.0,
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                      padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 0),
                       decoration: BoxDecoration(
                         color: colorTheme.themBasedWhite,
                         boxShadow: [
@@ -328,7 +328,7 @@ final colorTheme = context.colors;
                       child:  ApplyJobButton(jobId: jobDetails.id ?? "",),
                     ),
                   ),
-                ),
+                ) : SizedBox.shrink(),
               ],
             ),
           );

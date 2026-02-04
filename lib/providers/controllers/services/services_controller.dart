@@ -45,7 +45,7 @@ class CareerExploreServicesController extends StateNotifier<CareerExploreService
         errorMessage: e.toString(),
       );
       debugPrint(" catch CareerExploreServicesController fetchData -${e.toString()}");
-      showSnackBar(AppStrings.somethingWentWrong);
+      // showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 }

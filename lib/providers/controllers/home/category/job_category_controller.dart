@@ -37,7 +37,7 @@ class JobCategoryController extends StateNotifier<JobCategoryState> {
         errorMessage: e.toString(),
       );
       debugPrint(" catch fetchCategories -${e.toString()}");
-      showSnackBar(AppStrings.somethingWentWrong);
+      // showSnackBar(AppStrings.somethingWentWrong);
     }
   }
 }
