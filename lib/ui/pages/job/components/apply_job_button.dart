@@ -23,7 +23,7 @@ class ApplyJobButton extends ConsumerWidget {
     return CustomThemeButton(
       onTap: () =>isApplied ? controller.unApplyJob(context, jobId):  controller.applyJob(context, jobId),
       isExpanded: true,
-      isLoading: applyState.pageState ==PageState.loading,
+      isLoading: applyState.pageState ==PageState.loading && applyState.loadingJobIds.contains(jobId),
       radius: 50,
       color: isApplied ? colorTheme.grey: colorTheme.buttonPrimaryColor,
       borderColor: isApplied ? colorTheme.grey: colorTheme.buttonPrimaryColor,

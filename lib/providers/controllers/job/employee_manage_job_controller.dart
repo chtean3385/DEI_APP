@@ -58,7 +58,7 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
     }
 
     try {
-      state = state.copyWith(pageState: PageState.loading);
+      state = state.copyWith(pageState: PageState.loading,loadingJobIds: {...state.loadingJobIds, jobId}, );
       final BaseModel result = await _jobService.applyJob(jobId: jobId);
       // 🔹 Update local data — mark job as applied
 
@@ -79,12 +79,17 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
         errorMessage: e.toString(),
       );
       return false;
+    } finally {
+      final updated = Set<String>.from(state.loadingJobIds)
+        ..remove(jobId);
+
+      state = state.copyWith(loadingJobIds: updated);
     }
   }
 
   Future<bool> unApplyJob(BuildContext context, String jobId) async {
     try {
-      state = state.copyWith(pageState: PageState.loading);
+      state = state.copyWith(pageState: PageState.loading,loadingJobIds: {...state.loadingJobIds, jobId},);
       final BaseModel result = await _jobService.unApplyJob(jobId: jobId);
       // 🔹 Update local data — mark job as applied
       final updatedJob = state.data?.copyWith(isApplied: false);
@@ -107,6 +112,11 @@ class EmployeeManageJobController extends StateNotifier<JobState> {
         errorMessage: e.toString(),
       );
       return false;
+    } finally {
+      final updated = Set<String>.from(state.loadingJobIds)
+        ..remove(jobId);
+
+      state = state.copyWith(loadingJobIds: updated);
     }
   }
 
