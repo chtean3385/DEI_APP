@@ -644,6 +644,14 @@ print(state.profileData?.currentDepartment?.length);
 
     state = state.copyWith(workExpEntries: newList);
   }
+  void updateWorkExpCurrentlyWorking(int index, bool value) {
+    state.workExpEntries![index].currentlyWorking = value;
+
+    // 🔥 force rebuild
+    state = state.copyWith(
+      workExpEntries: List.from(state.workExpEntries!),
+    );
+  }
 
 
   List<EducationModel> buildUpdatedEducationList() {
