@@ -358,18 +358,18 @@ print(state.profileData?.currentDepartment?.length);
 
     print('experience: ${state.profileData?.experience}');
     print('skills: ${state.profileData?.skills}');
-    final departmentIds = state.profileData?.industry
+    final departmentIds = state.profileData?.currentDepartment
         ?.map((d) => d.id)
         .whereType<String>()
         .toList() ?? [];
 
-    final categoryIds = state.profileData?.currentDepartment
+    final industryIds = state.profileData?.industry
         ?.map((d) => d.id)
         .whereType<String>()
         .toList() ?? [];
 
     print('departmentIds: ${departmentIds}');
-    print('categoryIds: ${categoryIds}');
+    print('industryIds: ${industryIds}');
 
     print('--- Employee Profile Form Values ---');
     print('Name: ${nameController.text}');
@@ -411,7 +411,7 @@ print(state.profileData?.currentDepartment?.length);
         country: countryController.text.trim(),
         pincode: pinCodeController.text.trim(),
           department: departmentIds.join(','), // keep existing if not changed
-          commaSeparatedIndustries: categoryIds.join(','),
+          commaSeparatedIndustries: industryIds.join(','),
           preferredLocations: state.profileData?.preferredLocations,
         education: updatedEducation,
         experience: updatedExperience,
@@ -420,7 +420,7 @@ print(state.profileData?.currentDepartment?.length);
         noticePeriod: noticePeriodController.text.trim(),
         currentSalary: currentCtcController.text.trim(),
         departmentId: departmentIds,
-        industryId: categoryIds,
+        industryId: industryIds,
         salaryId: salaryRangeId,
         jobTypeId: jobTypeId
       );
@@ -459,8 +459,8 @@ print(state.profileData?.currentDepartment?.length);
   // Get selected skills directly from the model
   List<String> get selectedSkills => state.profileData?.skills ?? [];
   List<String> get selectedLocations => state.profileData?.preferredLocations ?? [];
-  List<IndustryModel> get selectedIndustries => state.profileData?.industry?? [];
-  List<DepartmentModel> get selectedCategories => state.profileData?.currentDepartment ?? [];
+  List<DepartmentModel> get selectedIndustryDepartments => state.profileData?.currentDepartment?? [];
+  List<IndustryModel> get selectedCategories => state.profileData?.industry ?? [];
 
   // Add skill
   void addSkill(String skill) {
@@ -523,8 +523,8 @@ print(state.profileData?.currentDepartment?.length);
     );
   }
 
-  void addIndustry(IndustryModel industry) {
-    final currentIndustries = List<IndustryModel>.from(selectedIndustries);
+  void addIndustryDepartment(DepartmentModel industry) {
+    final currentIndustries = List<DepartmentModel>.from(selectedIndustryDepartments);
 
     // prevent duplicates (by id or name – adjust if needed)
     final alreadyExists =
@@ -535,7 +535,7 @@ print(state.profileData?.currentDepartment?.length);
 
       state = state.copyWith(
         profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
-          industry: currentIndustries,
+          currentDepartment: currentIndustries,
         ),
       );
     }
@@ -543,21 +543,21 @@ print(state.profileData?.currentDepartment?.length);
     formKey.currentState?.validate();
   }
 
-  void removeIndustry(IndustryModel industry) {
-    final currentIndustries = List<IndustryModel>.from(selectedIndustries);
+  void removeIndustry(DepartmentModel industry) {
+    final currentIndustries = List<DepartmentModel>.from(selectedIndustryDepartments);
 
     currentIndustries.removeWhere((e) => e.id == industry.id);
 
     state = state.copyWith(
       profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
-        industry: currentIndustries,
+        currentDepartment: currentIndustries,
       ),
     );
   }
 
-  void addCategory(DepartmentModel category) {
+  void addCategory(IndustryModel category) {
     final currentCategories =
-    List<DepartmentModel>.from(selectedCategories);
+    List<IndustryModel>.from(selectedCategories);
 
     final alreadyExists =
     currentCategories.any((e) => e.id == category.id);
@@ -567,22 +567,22 @@ print(state.profileData?.currentDepartment?.length);
 
       state = state.copyWith(
         profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
-          currentDepartment: currentCategories,
+          industry: currentCategories,
         ),
       );
     }
 
     formKey.currentState?.validate();
   }
-  void removeCategory(DepartmentModel category) {
+  void removeCategory(IndustryModel category) {
     final currentCategories =
-    List<DepartmentModel>.from(selectedCategories);
+    List<IndustryModel>.from(selectedCategories);
 
     currentCategories.removeWhere((e) => e.id == category.id);
 
     state = state.copyWith(
       profileData: (state.profileData ?? EmployeeUserModel()).copyWith(
-        currentDepartment: currentCategories,
+        industry: currentCategories,
       ),
     );
   }

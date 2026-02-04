@@ -38,6 +38,7 @@ class EmployeeProfileService {
         // Convert ["Delhi", "Bangalore"] → ["Delhi,Bangalore"]
         return MapEntry(key, [value.join(',')]);
       }
+
       if (value is List || value is Map) {
         return MapEntry(key, jsonEncode(value)); // ✅ encode only complex values
       }

@@ -37,12 +37,12 @@ class EditProfessionalInformation extends ConsumerWidget {
       ..sort((a, b) => (a.name ?? '').compareTo(b.name ?? ''));
 
 // 2️⃣ map into IndustryModel2
-    final List<IndustryModel2.IndustryModel> departmentList =
+    final List<IndustryModel2.DepartmentModel> departmentList =
     sortedDepartments
         .map(
-          (dept) => IndustryModel2.IndustryModel(
+          (dept) => IndustryModel2.DepartmentModel(
         id: dept.id,
-        title: dept.name,
+        name: dept.name,
       ),
     )
         .toList();
@@ -51,12 +51,12 @@ class EditProfessionalInformation extends ConsumerWidget {
       ..sort((a, b) => (a.title ?? '').compareTo(b.title ?? ''));
 
     // // 2️⃣ map into IndustryModel2
-    final List<IndustryModel2.DepartmentModel> communityList =
+    final List<IndustryModel2.IndustryModel> communityList =
     sortedCategory
         .map(
-          (dept) => IndustryModel2.DepartmentModel(
+          (dept) => IndustryModel2.IndustryModel(
         id: dept.id,
-        name: dept.title, // ✅ use title here
+        title: dept.title, // ✅ use title here
       ),
     )
         .toList();
@@ -152,17 +152,17 @@ class EditProfessionalInformation extends ConsumerWidget {
                  ),
                  gapH16(),
 
-                 SelectPreferredIndustries(
+                 SelectPreferredDeparmentIndustries(
                    controller: controller.departmentController,
-                   data: departmentList.map((e) => e.title ?? "").toList(),
+                   data: departmentList.map((e) => e.name ?? "").toList(),
                    onSkillSelected: (selectedName) {
                      final industry = departmentList.firstWhere(
-                           (e) => e.title == selectedName,
-                       orElse: () => IndustryModel2.IndustryModel(),
+                           (e) => e.name == selectedName,
+                       orElse: () => IndustryModel2.DepartmentModel(),
                      );
 
                      if (industry.id != null) {
-                       controller.addIndustry(industry);
+                       controller.addIndustryDepartment(industry);
                      }
                    },
                  ),
@@ -170,8 +170,8 @@ class EditProfessionalInformation extends ConsumerWidget {
 
                  gapH16(),
 
-                 ShowSelectedIndustries(
-                   selectedIndustries: state.profileData?.industry ?? [],
+                 ShowSelectedDepartmentIndustries(
+                   selectedIndustries: state.profileData?.currentDepartment ?? [],
                    onRemove: controller.removeIndustry,
                    label: "Selected Industries",
                  ),
@@ -184,11 +184,11 @@ class EditProfessionalInformation extends ConsumerWidget {
                  // ),
                  SelectPreferredCategories(
                    controller: controller.communityController,
-                   data: communityList.map((e) => e.name ?? "").toList(),
+                   data: communityList.map((e) => e.title ?? "").toList(),
                    onSkillSelected: (selectedName) {
                      final industry = communityList.firstWhere(
-                           (e) => e.name == selectedName,
-                       orElse: () => IndustryModel2.DepartmentModel(),
+                           (e) => e.title == selectedName,
+                       orElse: () => IndustryModel2.IndustryModel(),
                      );
 
                      if (industry.id != null) {
@@ -200,7 +200,7 @@ class EditProfessionalInformation extends ConsumerWidget {
                  gapH16(),
                  //
                  ShowSelectedCategories(
-                   selectedIndustries: state.profileData?.currentDepartment ?? [],
+                   selectedIndustries: state.profileData?.industry ?? [],
                    onRemove: controller.removeCategory,
                    label: "Selected Categories",
                  ),

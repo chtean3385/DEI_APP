@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../auth/signup/components/auto_sugstion_form_field.dart';
 
-class SelectPreferredIndustries extends StatelessWidget {
+class SelectPreferredDeparmentIndustries extends StatelessWidget {
   final TextEditingController controller;
   final FocusNode? focusNode;
   final List<String> data;
   final ValueChanged<String>? onSkillSelected;
 
 
-  SelectPreferredIndustries({super.key, required this.controller,  this.focusNode,required this.data, this.onSkillSelected});
+  SelectPreferredDeparmentIndustries({super.key, required this.controller,  this.focusNode,required this.data, this.onSkillSelected});
 
 
   @override

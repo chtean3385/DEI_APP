@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:dei_champions/models/profile/employee_user_model/employee_user_model.dart'
 as IndustryModel2;
 
-class ShowSelectedIndustries extends StatelessWidget {
-  final List<IndustryModel2.IndustryModel> selectedIndustries;
-  final Function(IndustryModel2.IndustryModel) onRemove;
+class ShowSelectedDepartmentIndustries extends StatelessWidget {
+  final List<IndustryModel2.DepartmentModel> selectedIndustries;
+  final Function(IndustryModel2.DepartmentModel) onRemove;
   final GlobalKey<FormState>? formKey;
   final bool showRemoveOption;
   final Color? borderColor;
   final String? label;
 
-  const ShowSelectedIndustries({
+  const ShowSelectedDepartmentIndustries({
     Key? key,
     required this.selectedIndustries,
     required this.onRemove,
@@ -65,7 +65,7 @@ class ShowSelectedIndustries extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          skill.title ?? "",
+                          skill.name ?? "",
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
@@ -98,8 +98,8 @@ class ShowSelectedIndustries extends StatelessWidget {
   }
 }
 class ShowSelectedCategories extends StatelessWidget {
-  final List<IndustryModel2.DepartmentModel> selectedIndustries;
-  final Function(IndustryModel2.DepartmentModel) onRemove;
+  final List<IndustryModel2.IndustryModel> selectedIndustries;
+  final Function(IndustryModel2.IndustryModel) onRemove;
   final GlobalKey<FormState>? formKey;
   final bool showRemoveOption;
   final Color? borderColor;
@@ -158,7 +158,7 @@ class ShowSelectedCategories extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          skill.name ?? "",
+                          skill.title ?? "",
                           softWrap: true,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
