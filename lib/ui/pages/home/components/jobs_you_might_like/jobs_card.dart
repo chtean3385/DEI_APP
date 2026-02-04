@@ -75,9 +75,11 @@ class RecommendedJobCard extends StatelessWidget {
                       color: colorTheme.black54,
                     ),
                     SizedBox(width: 4),
-                    Text(
-                      jobModel.state ?? "",
-                      style: theme.displaySmall?.copyWith(color: colorTheme.black54,fontSize: 13),
+                    Flexible(
+                      child: Text(
+                        jobModel.state ?? "",maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,
+                        style: theme.displaySmall?.copyWith(color: colorTheme.black54,fontSize: 13),
+                      ),
                     ),
                   ],
                 ),

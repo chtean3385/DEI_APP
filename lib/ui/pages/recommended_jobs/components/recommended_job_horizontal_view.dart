@@ -106,27 +106,30 @@ class RecommendedJobHorizontalView extends ConsumerWidget {
                             borderRadius: BorderRadius.circular(12),
                             onTap: () => AppNavigator.loadRecommendedJobsScreen(),
                             child: Center(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      "View all ${state.totalCount?.toString() ?? ""} jobs",
-                                      style: navigatorKey
-                                          .currentContext!
-                                          .textTheme
-                                          .labelMedium
-                                          ?.copyWith(color: AppColors.primaryColor),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Flexible(
+                                      child: Text(
+                                        "View all ${state.totalCount?.toString() ?? ""} jobs",
+                                        style: navigatorKey
+                                            .currentContext!
+                                            .textTheme
+                                            .labelMedium
+                                            ?.copyWith(color: AppColors.primaryColor),
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(width: 6),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 14,
-                                    color: AppColors.primaryColor,
-                                  ),
-                                ],
+                                    SizedBox(width: 6),
+                                    Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 14,
+                                      color: AppColors.primaryColor,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

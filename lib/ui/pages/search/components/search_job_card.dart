@@ -114,10 +114,12 @@ class SearchJobCard extends StatelessWidget {
                         color: colorTheme.black54,
                       ),
                       SizedBox(width: 4),
-                      Text(
-                        jobModel.state ?? "N/A",
-                        style: theme.displaySmall?.copyWith(
-                          color: colorTheme.black54,
+                      Flexible(
+                        child: Text(
+                          jobModel.state ?? "N/A",maxLines: 1,overflow: TextOverflow.ellipsis,softWrap: true,
+                          style: theme.displaySmall?.copyWith(
+                            color: colorTheme.black54,
+                          ),
                         ),
                       ),
                     ],
