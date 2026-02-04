@@ -71,8 +71,9 @@ class EmployeeAppliedJobsController extends StateNotifier<JobListState> {
         page: state.currentPage + 1,
         status: state.status == "allApplications" ? "" : state.status?.toLowerCase(),
       );
+      final userId = await SharedPreferenceRepository.getUserId();
       final Data = (result.data as List)
-          .map((e) => JobModelApi.fromJson(e))
+          .map((e) => JobModelApi.fromJson(e, currentUserId: userId))
           .toList();
       state = state.copyWith(
         data: [...?state.data, ...Data],

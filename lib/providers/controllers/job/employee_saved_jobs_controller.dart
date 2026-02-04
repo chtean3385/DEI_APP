@@ -65,8 +65,9 @@ class EmployeeSavedJobController extends StateNotifier<JobListState> {
       final result = await _jobService.getSavedJobs(
         page: state.currentPage + 1,
       );
+      final userId = await SharedPreferenceRepository.getUserId();
       final Data = (result.data as List)
-          .map((e) => JobModelApi.fromJson(e))
+          .map((e) => JobModelApi.fromJson(e,currentUserId: userId))
           .toList();
       state = state.copyWith(
         data: [...?state.data, ...Data],
