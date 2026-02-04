@@ -1,5 +1,11 @@
 # Changelog – DEI  app
 
+## [1.0.0+6]
+### changes - 4-feb-2026
+bug fixing 
+other changes
+
+
 
 ## [1.0.0+5]
 ### changes - 30-Jan-2026
