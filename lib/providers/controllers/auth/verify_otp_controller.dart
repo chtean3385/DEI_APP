@@ -13,6 +13,7 @@ import '../../../models/state_models/otp_state.dart';
 import '../../../repo/shared_preference_repository.dart';
 import '../../../service/auth_service.dart';
 import '../../../widgets/others/snack_bar.dart';
+import '../../providers.dart';
 
 class VerifyOtpController extends StateNotifier<OtpState> {
   final Ref ref;
@@ -35,7 +36,8 @@ class VerifyOtpController extends StateNotifier<OtpState> {
       final AuthModel authModel = AuthModel.fromJson(result.data);
       setPageState(PageState.success);
       Navigator.pop(navigatorKey.currentContext!, true);
-     await AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
+      ref.read(guestProvider.notifier).disableGuest();
+      await AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
       saveFcm();
       debugPrint("success - verifyOtp");
     } catch (e) {

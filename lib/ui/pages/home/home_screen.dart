@@ -23,7 +23,7 @@ class HomeScreen extends StatelessWidget {
           PromoBannerSection(),
           if(!isGuest)  RecommendedJobsHorizontal(),
           JobsCategorySection(),
-          ExploreServicesPrograms(isGuest: isGuest,),
+          ExploreServicesPrograms(),
           BlogsHorizontal(),
           DeiFriendlyIndustrySection(),
           HiringInfoWidget(),

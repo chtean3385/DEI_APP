@@ -43,6 +43,7 @@ class SearchJobCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("isGuest -->> $isGuest");
     final theme = Theme.of(context).textTheme;
     final colorTheme = context.colors;
     final bool isNew = isNewJob(jobModel.createdAt);

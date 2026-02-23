@@ -62,7 +62,7 @@ class CustomDrawer extends StatelessWidget {
             // _drawerItem(Icons.bar_chart, "Profile performance"),
             //
             // const Divider(color: Colors.black12),
-            if(!isGuest)   _drawerItem(
+               _drawerItem(
               Icons.accessibility_new,
               "Accessibility",
               false,
@@ -145,7 +145,7 @@ class CustomDrawer extends StatelessWidget {
                 //   null,
                 //   () => AppNavigator.loadOurTeams(),
                 // ),
-                 _drawerItem(
+                if(!isGuest)  _drawerItem(
                   Icons.rate_review_outlined,
                   'Write to Us',
                   false,

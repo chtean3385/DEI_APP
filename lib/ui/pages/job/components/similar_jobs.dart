@@ -22,6 +22,7 @@ class SimilarJobsListView extends ConsumerWidget {
   Widget build(BuildContext context,WidgetRef ref) {
     final state = ref.watch(similarJobListProvider(jobId));
     final accessibility = ref.watch(accessibilityProvider);
+    final isGuest = ref.read(guestProvider);
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();
@@ -30,11 +31,11 @@ class SimilarJobsListView extends ConsumerWidget {
     } else if (state.data?.isEmpty == true) {
       return SomethingWentWrong(text: "Sorry.. No similar jobs found",);
     } else {
-      return _data(state,context,accessibility);
+      return _data(state,context,accessibility,isGuest);
     }
   }
 
-  Widget _data(JobListState state,BuildContext context,AccessibilitySettingsModel accessibility) {
+  Widget _data(JobListState state,BuildContext context,AccessibilitySettingsModel accessibility,bool? isGuest) {
     final theme = Theme.of(context).textTheme;
     final double baseFontSize = theme.labelMedium?.fontSize ?? 14;
     final double scaledFontSize =
@@ -62,6 +63,7 @@ class SimilarJobsListView extends ConsumerWidget {
               hideSaveButton: true,
               scaledFontSize: scaledFontSize,
               jobModel: item,
+              isGuest: isGuest ?? false,
               onTap: () =>
                   AppNavigator.loadJobDetailsScreen(jobId: item.id ?? ""),
             );

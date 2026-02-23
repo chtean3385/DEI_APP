@@ -93,6 +93,7 @@ import 'controllers/app_controller.dart';
 import 'controllers/applied/applied_jobs_controller.dart';
 import 'controllers/auth/employee_login_controller.dart';
 import 'controllers/auth/employee_register_controller.dart';
+import 'controllers/auth/guest_controller.dart';
 import 'controllers/auth/register_page_view_controller.dart';
 import 'controllers/common/blog_detail_controller.dart';
 import 'controllers/common/csr/csr_impact_stories_section_controller.dart';
@@ -186,6 +187,11 @@ final signupFlowControllerProvider =
 /// logout controller
 final logoutProvider = StateNotifierProvider<LogoutController, OtpState>((ref) {
   return LogoutController(ref);
+});
+
+final guestProvider =
+StateNotifierProvider<GuestController, bool>((ref) {
+  return GuestController();
 });
 
 ///common html content screens

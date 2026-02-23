@@ -12,8 +12,7 @@ import '../../../../constants/app_styles.dart';
 import 'explore_service_program_card.dart';
 
 class ExploreServicesPrograms extends ConsumerStatefulWidget {
-  final bool isGuest;
-  const ExploreServicesPrograms({Key? key,this.isGuest = false}) : super(key: key);
+  const ExploreServicesPrograms({Key? key}) : super(key: key);
 
   @override
   ConsumerState<ExploreServicesPrograms> createState() =>
@@ -78,7 +77,7 @@ class _ExploreServicesProgramsState
   Widget _dataItems(CareerExploreServicesState state) {
     final exploreServiceProgramModels = state.data ?? [];
     if (exploreServiceProgramModels.isEmpty) return const SizedBox.shrink();
-
+    final isGuest = ref.read(guestProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -124,7 +123,7 @@ class _ExploreServicesProgramsState
           itemCount: exploreServiceProgramModels.length,
           itemBuilder: (context, index, realIdx) {
             final item = exploreServiceProgramModels[index];
-            return ExploreServiceProgramCard(item: item, width: 240,isGuest:widget.isGuest);
+            return ExploreServiceProgramCard(item: item, width: 240,isGuest:isGuest);
           },
           options: CarouselOptions(
             height: 210,

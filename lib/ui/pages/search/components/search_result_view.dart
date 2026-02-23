@@ -44,6 +44,9 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(searchJobListProvider);
+
+
+
     // return _shimmerLoader();
     if (state.pageState == PageState.loading && state.data?.isEmpty == true) {
       return _shimmerLoader();
@@ -59,6 +62,7 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
   Widget _data(JobListState state) {
     final theme = Theme.of(context).textTheme;
     final accessibility = ref.watch(accessibilityProvider);
+    final isGuest = ref.read(guestProvider);
     final double baseFontSize = theme.labelMedium?.fontSize ?? 14;
     final double scaledFontSize =
     (baseFontSize * accessibility.fontScale).clamp(11.0, 14.0);
@@ -73,6 +77,7 @@ class _SearchResultsViewState extends ConsumerState<SearchResultsView> {
             key: ValueKey("${item.id}_${item.isApplied}_${item.isSaved}"),
             scaledFontSize: scaledFontSize,
             jobModel: item,
+            isGuest: isGuest ?? false,
             onTap: ()=>AppNavigator.loadJobDetailsScreen(jobId: item.id ?? "",),
           );
         } else {

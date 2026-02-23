@@ -1,3 +1,4 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../constants/app_navigator.dart';
@@ -7,13 +8,14 @@ import '../../../../constants/app_drawables.dart';
 
 Future<void> showGuestButtonRestriction(BuildContext context,{String? subtitle}) {
   final theme = Theme.of(context);
+  final colorTheme = context.colors;
 
   return showDialog(
     context: context,
     barrierDismissible: true,
     builder: (context) {
       return Dialog(
-        backgroundColor: Colors.white,
+        backgroundColor: colorTheme.alertBgColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
@@ -38,7 +40,7 @@ Future<void> showGuestButtonRestriction(BuildContext context,{String? subtitle})
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
-                  color: Colors.black87,
+                  color: colorTheme.black87,
                 ),
               ),
 
@@ -46,10 +48,10 @@ Future<void> showGuestButtonRestriction(BuildContext context,{String? subtitle})
 
               /// 🔹 Description
               Text(
-                subtitle ??  "Please sign in to add delicious items to your cart and place your order.",
+                subtitle ??  "Sign in to apply for jobs, save opportunities, and track your application status.",
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.grey.shade600,
+                  color: colorTheme.grey,
                   height: 1.4,
                 ),
               ),
@@ -58,13 +60,17 @@ Future<void> showGuestButtonRestriction(BuildContext context,{String? subtitle})
 
               /// 🔹 Buttons Row
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-
-                  /// Cancel Button
-                  Expanded(
+                  SizedBox(
+                    width: 120, // adjust if needed
+                    height: 44,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        side: BorderSide(
+                          color: colorTheme.buttonPrimaryColor,
+                          width: 1.5, // optional thickness
+                        ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -73,20 +79,21 @@ Future<void> showGuestButtonRestriction(BuildContext context,{String? subtitle})
                       child: Text(
                         "Cancel",
                         style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
+                          color: colorTheme.buttonPrimaryColor,fontSize: 16
                         ),
                       ),
                     ),
+
                   ),
 
-                  const SizedBox(width: 12),
+                  const SizedBox(width: 16),
 
-                  /// Sign In Button
-                  Expanded(
+                  SizedBox(
+                    width: 120, // adjust if needed
+                    height: 44,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.primaryColor,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        backgroundColor: colorTheme.buttonPrimaryColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -95,17 +102,12 @@ Future<void> showGuestButtonRestriction(BuildContext context,{String? subtitle})
                         Navigator.pop(context);
                         AppNavigator.loadSignInScreen();
                       },
-                      child: Text(
-                        "Sign In",
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      child:  Text("Sign In",style:theme.textTheme.titleMedium?.copyWith(color: Colors.white,fontSize: 16),),
                     ),
                   ),
                 ],
               ),
+
             ],
           ),
         ),

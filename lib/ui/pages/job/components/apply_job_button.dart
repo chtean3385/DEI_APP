@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_colors.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
+import '../../auth/guest/guest_promot_login_alert.dart';
 
 class ApplyJobButton extends ConsumerWidget {
   final String jobId;
@@ -13,6 +14,7 @@ class ApplyJobButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final isGuest = ref.read(guestProvider);
     final state = ref.watch(employeeJobDetailsProvider);
     final applyState = ref.watch(employeeManageJobProvider);
     final controller = ref.read(employeeManageJobProvider.notifier);
@@ -21,7 +23,13 @@ class ApplyJobButton extends ConsumerWidget {
     final colorTheme = context.colors;
 
     return CustomThemeButton(
-      onTap: () =>isApplied ? controller.unApplyJob(context, jobId):  controller.applyJob(context, jobId),
+      onTap: () async {
+        if (isGuest) {
+          await showGuestButtonRestriction(context);
+          return ;
+        }
+
+        isApplied ? controller.unApplyJob(context, jobId):  controller.applyJob(context, jobId);},
       isExpanded: true,
       isLoading: applyState.pageState ==PageState.loading && applyState.loadingJobIds.contains(jobId),
       radius: 50,

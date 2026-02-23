@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../providers/providers.dart';
+import '../../auth/guest/guest_promot_login_alert.dart';
 import '../../search/components/job_share_util.dart';
 
 void showJobOptionsSheet(BuildContext context) {
@@ -19,6 +20,7 @@ void showJobOptionsSheet(BuildContext context) {
     builder: (BuildContext context) {
       return Consumer(
         builder: (context, ref, _) {
+          final isGuest = ref.read(guestProvider);
           final job = ref.watch(employeeJobDetailsProvider).data; // 👈 read directly
           final jobNotifier = ref.read(employeeManageJobProvider.notifier);
 
@@ -46,6 +48,10 @@ void showJobOptionsSheet(BuildContext context) {
                     initialValue: false,
                     // no toggle state needed
                     onPressed: (_) async {
+                      if (isGuest) {
+                        await showGuestButtonRestriction(context);
+                        return false ;
+                      }
                       final jobId = job?.id ?? "";
                       final jobTitle = job?.title ?? "Job Opportunity";
 
@@ -77,6 +83,11 @@ void showJobOptionsSheet(BuildContext context) {
                     inActiveBgColor: colorTheme.jobCardBgColor,
                     initialValue: !(job?.isSaved ?? false),
                     onPressed: (isSavedNow) async {
+                      if (isGuest) {
+                        await showGuestButtonRestriction(context);
+                        return false ;
+                      }
+
                       final jobId = job?.id ?? "";
 
                       if (isSavedNow) {
@@ -112,6 +123,11 @@ void showJobOptionsSheet(BuildContext context) {
                     inActiveBgColor: colorTheme.jobCardBgColor,
                     initialValue: !(job?.isApplied ?? false),
                     onPressed: (isAppliedNow) async {
+
+                      if (isGuest) {
+                        await showGuestButtonRestriction(context);
+                        return false ;
+                      }
                       final jobId = job?.id ?? "";
 
                       if (isAppliedNow) {

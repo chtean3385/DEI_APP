@@ -66,7 +66,7 @@ class CustomThemeButton extends StatelessWidget {
                                   ? const SizedBox(
                                       height: 20,
                                       width: 20,
-                                      child: CircularProgressIndicator.adaptive(
+                                      child: CircularProgressIndicator(
                                         strokeWidth: 2,
                                         backgroundColor: Colors.transparent,
                                         valueColor:
@@ -82,7 +82,7 @@ class CustomThemeButton extends StatelessWidget {
                         ? const SizedBox(
                             height: 20,
                             width: 20,
-                            child: CircularProgressIndicator.adaptive(
+                            child: CircularProgressIndicator(
                               strokeWidth: 2,
                               backgroundColor: Colors.transparent,
                               valueColor: AlwaysStoppedAnimation<Color>(
@@ -134,7 +134,7 @@ class CustomThemeButton extends StatelessWidget {
                                         height: 20,
                                         width: 20,
                                         child:
-                                            CircularProgressIndicator.adaptive(
+                                            CircularProgressIndicator(
                                               strokeWidth: 2,
                                               backgroundColor:
                                                   Colors.transparent,
@@ -151,7 +151,7 @@ class CustomThemeButton extends StatelessWidget {
                           ? const SizedBox(
                               height: 20,
                               width: 20,
-                              child: CircularProgressIndicator.adaptive(
+                              child: CircularProgressIndicator(
                                 strokeWidth: 2,
                                 backgroundColor: Colors.transparent,
                                 valueColor: AlwaysStoppedAnimation<Color>(

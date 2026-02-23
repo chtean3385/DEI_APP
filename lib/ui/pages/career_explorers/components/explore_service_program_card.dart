@@ -7,6 +7,7 @@ import '../../../../constants/app_navigator.dart';
 import '../../../../models/explore_career/explore_service_program_model.dart';
 import '../../../../utils/fa_icon.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
+import '../../auth/guest/guest_promot_login_alert.dart';
 
 
 class ExploreServiceProgramCard extends StatelessWidget {
@@ -99,7 +100,13 @@ class ExploreServiceProgramCard extends StatelessWidget {
               const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               color: colorTheme.buttonPrimaryColor,
               borderColor: colorTheme.buttonPrimaryColor,
-              onTap: () => AppNavigator.loadLetsConnect(isGuest:isGuest ),
+              onTap: () async {
+                if (isGuest) {
+                  await showGuestButtonRestriction(context,subtitle: "Please sign in to send an enquiry and connect with us.");
+                  return  ;
+                }
+
+                AppNavigator.loadLetsConnect(isGuest:isGuest );},
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,

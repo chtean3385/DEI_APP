@@ -71,6 +71,7 @@ class LoginController extends StateNotifier<AuthState> {
         );
         return;
       }
+      ref.read(guestProvider.notifier).disableGuest();
       final AuthModel authModel = AuthModel.fromJson(result.data);
       await AppNavigator.saveAuthDataAndLoadBottomBar(authModel: authModel);
       saveFcm();
@@ -160,6 +161,7 @@ class LoginController extends StateNotifier<AuthState> {
 
     ref.read(drawerProfileProvider.notifier).clearState();
     ref.read(profileCompletionProvider.notifier).clearState();
+    ref.read(guestProvider.notifier).enableGuest();
     AppNavigator.toBottomBar(isGuest: true);
 
   }
