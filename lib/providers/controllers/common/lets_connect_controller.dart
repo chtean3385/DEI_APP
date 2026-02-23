@@ -92,7 +92,7 @@ class LetsConnectController extends StateNotifier<LetsConnectState> {
   }
 
   /// 🔹 Call this to update chef details
-  Future<void> sendLetsConnectRequest(BuildContext context) async {
+  Future<void> sendLetsConnectRequest(BuildContext context,{bool isGuest = false}) async {
     if (!(formKey.currentState?.validate() ?? false)) {
       showSnackBar("Please fill all required fields");
       return;
@@ -129,7 +129,8 @@ class LetsConnectController extends StateNotifier<LetsConnectState> {
       /// 🔥 Show custom success popup
       _showAutoCloseSuccessDialog(
         context,
-        result.message
+        result.message,
+          isGuest: isGuest
       );
     } catch (e) {
       if(!mounted) return;
@@ -179,7 +180,7 @@ class LetsConnectController extends StateNotifier<LetsConnectState> {
   }
 }
 
-void _showAutoCloseSuccessDialog(BuildContext context, String message) {
+void _showAutoCloseSuccessDialog(BuildContext context, String message,{bool isGuest= false}) {
   showDialog(
     context: context,
     barrierDismissible: false,
@@ -214,7 +215,7 @@ void _showAutoCloseSuccessDialog(BuildContext context, String message) {
   /// ⏳ Close automatically after 4 seconds and go to Home screen
   Future.delayed(const Duration(seconds: 3), () {
     Navigator.pop(context); // close dialog
-    AppNavigator.toBottomBar();
+    AppNavigator.toBottomBar(isGuest: isGuest);
   });
 
 

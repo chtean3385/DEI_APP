@@ -145,13 +145,13 @@ class CustomDrawer extends StatelessWidget {
                 //   null,
                 //   () => AppNavigator.loadOurTeams(),
                 // ),
-                if(!isGuest)  _drawerItem(
+                 _drawerItem(
                   Icons.rate_review_outlined,
                   'Write to Us',
                   false,
                   null,
                   () =>
-                      AppNavigator.loadLetsConnect(), // or whatever your contact route is
+                      AppNavigator.loadLetsConnect(isGuest: isGuest), // or whatever your contact route is
                 ),
                 _drawerItem(
                   Icons.help_outline,

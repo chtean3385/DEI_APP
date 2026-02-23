@@ -121,11 +121,11 @@ class AppNavigator {
     );
   }
 
-  static loadLetsConnect() {
+  static loadLetsConnect({bool isGuest = false}) {
     Navigator.push(
       navigatorKey.currentContext!,
       MaterialPageRoute(
-        builder: (context) => LetsConnectScreen(),
+        builder: (context) => LetsConnectScreen(isGuest: isGuest,),
       ),
     );
   }

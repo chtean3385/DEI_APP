@@ -12,8 +12,9 @@ import '../../../../widgets/others/custom_theme_button.dart';
 class ExploreServiceProgramCard extends StatelessWidget {
   final ExploreServiceProgramModel item;
   final double width;
+  final bool isGuest;
 
-  const ExploreServiceProgramCard({required this.item, required this.width});
+  const ExploreServiceProgramCard({required this.item, required this.width,this.isGuest = false});
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +99,7 @@ class ExploreServiceProgramCard extends StatelessWidget {
               const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               color: colorTheme.buttonPrimaryColor,
               borderColor: colorTheme.buttonPrimaryColor,
-              onTap: () => AppNavigator.loadLetsConnect(),
+              onTap: () => AppNavigator.loadLetsConnect(isGuest:isGuest ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,

@@ -9,7 +9,8 @@ import '../../../widgets/others/custom_theme_button.dart';
 import 'component/lets_connect_forms_view.dart';
 
 class LetsConnectScreen extends StatelessWidget {
-  const LetsConnectScreen({super.key});
+  final bool isGuest;
+  const LetsConnectScreen({super.key,this.isGuest = false});
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +61,7 @@ class LetsConnectScreen extends StatelessWidget {
                 }
                 await ref
                     .read(letsConnectProvider.notifier)
-                    .sendLetsConnectRequest(context);
+                    .sendLetsConnectRequest(context,isGuest: isGuest);
               },
               isLoading: isLoading,
               padding: isLoading
