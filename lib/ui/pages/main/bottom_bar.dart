@@ -183,7 +183,7 @@ class _BottomBarState extends State<BottomBar> {
         ),
         floatingActionButton: _currentIndex == 0 ? FloatingFilterFab() : null,
       ),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(isGuest: widget.isGuest),
     );
   }
   void _handleMenuButtonPressed() {

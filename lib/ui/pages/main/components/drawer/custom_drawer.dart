@@ -19,7 +19,8 @@ import '../../../../../widgets/others/shimmer_loader.dart';
 import '../../../../../widgets/others/snack_bar.dart';
 
 class CustomDrawer extends StatelessWidget {
-  const CustomDrawer({super.key});
+  final bool isGuest;
+  const CustomDrawer({super.key,this.isGuest = false});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +31,7 @@ class CustomDrawer extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: 20),
           children: [
             // 🔹 Profile Section
-            ProfileSection(),
+            ProfileSection(isGuest: isGuest),
 
              Divider(color: context.colors.black12),
 
@@ -43,14 +44,14 @@ class CustomDrawer extends StatelessWidget {
               null,
               () => AppNavigator.loadJobSearchResultScreen(),
             ),
-            _drawerItem(
+          if(!isGuest)  _drawerItem(
               Icons.work_outline,
               "Recommended jobs",
               false,
               null,
               () => AppNavigator.loadRecommendedJobsScreen(),
             ),
-            _drawerItem(
+            if(!isGuest)   _drawerItem(
               Icons.bookmark_border,
               "Saved jobs",
               false,
@@ -61,14 +62,14 @@ class CustomDrawer extends StatelessWidget {
             // _drawerItem(Icons.bar_chart, "Profile performance"),
             //
             // const Divider(color: Colors.black12),
-            _drawerItem(
+            if(!isGuest)   _drawerItem(
               Icons.accessibility_new,
               "Accessibility",
               false,
               null,
                   () => AppNavigator.loadAccessibilityScreen(),
             ),
-            _drawerItem(Icons.settings, "Settings", false,
+            if(!isGuest)   _drawerItem(Icons.settings, "Settings", false,
               null,
                   () => AppNavigator.loadSettingsScreen(),),
 
@@ -144,7 +145,7 @@ class CustomDrawer extends StatelessWidget {
                 //   null,
                 //   () => AppNavigator.loadOurTeams(),
                 // ),
-                _drawerItem(
+                if(!isGuest)  _drawerItem(
                   Icons.rate_review_outlined,
                   'Write to Us',
                   false,
@@ -209,7 +210,7 @@ class CustomDrawer extends StatelessWidget {
               ],
             ),
 
-            _drawerItem(
+            if(!isGuest)    _drawerItem(
               Icons.logout,
               "Logout",
               false, // bold
@@ -256,15 +257,20 @@ class CustomDrawer extends StatelessWidget {
 class ProfileSection extends ConsumerWidget {
   final bool isEmployer;
   final bool showMissingData;
+  final bool isGuest;
 
   const ProfileSection({
     super.key,
     this.isEmployer = false,
     this.showMissingData = false,
+    this.isGuest = false,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if(isGuest){
+      return _guest(context);
+    }
     final state = ref.watch(drawerProfileProvider);
     final profilePercentData = ref.watch(profileCompletionProvider);
     // return _loaderShowMissing();
@@ -490,21 +496,83 @@ class ProfileSection extends ConsumerWidget {
       ),
     );
   }
+
+  Widget _guest(BuildContext context){
+
+    return  Container(
+      padding: const EdgeInsets.all(12),
+      margin: showMissingData ? const EdgeInsets.all(16) : null,
+      decoration: showMissingData
+          ? BoxDecoration(
+        color: context.colors.cardBgColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+          bottomLeft: Radius.circular(16),
+          bottomRight: Radius.circular(16),
+        ),
+        border: Border.all(color:  context.colors.black12, width: 1),
+      )
+          : null,
+
+      child: Stack(
+        alignment: AlignmentGeometry.topRight,
+        children: [
+          Row(
+            children: [
+              Column(
+                children: [
+                  Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      SizedBox(
+                        width: 70,
+                        height: 70,
+                        child: CircularProgressIndicator(
+                          value: 0,
+                          strokeWidth: 5,
+                          backgroundColor: context.colors.black12,
+                          valueColor: AlwaysStoppedAnimation(
+                            Colors.grey,
+                          ),
+                        ),
+                      ),
+                       CircleAvatar(
+                        radius: 30,
+                        backgroundColor:  context.colors.black12,
+                        child: Icon(
+                          Icons
+                              .person, // ✅ Add Profile Image icon
+                          size: 30, // optional: adjust size
+                          color:  context.colors.grey600, // optional: adjust color
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Guest User",
+                      style: context.textTheme.labelMedium,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      softWrap: true,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-
-
-// Future<void> forceLogout({String? message}) async {
-//   await SharedPreferenceRepository.setToken("");
-//   await SharedPreferenceRepository.setUserId("");
-//   await SharedPreferenceRepository.setRoleId(0);
-//   WidgetsBinding.instance.addPostFrameCallback((_) {
-//     AppNavigator.loadSignInScreen();
-//     if (message != null) {
-//       showSnackBar(message, duration: 3);
-//     }
-//   });
-//   await Future.delayed(Duration(seconds: 1));
-// }
 
 
