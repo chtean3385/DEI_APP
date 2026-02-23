@@ -6,12 +6,14 @@ class EmailSuggestionFieldLogin extends StatefulWidget {
   final TextEditingController controller;
   final String hint;
   final String label;
+  final FocusNode? nextFocusNode;
 
   const EmailSuggestionFieldLogin({
     super.key,
     required this.controller,
     required this.hint,
     required this.label,
+     this.nextFocusNode,
   });
 
   @override
@@ -71,6 +73,10 @@ class _EmailSuggestionFieldLoginState extends State<EmailSuggestionFieldLogin> {
         );
       },
       onFieldSubmitted: (_) {
+        if(widget.nextFocusNode != null ){
+          FocusScope.of(context).requestFocus(widget.nextFocusNode);
+          return;
+        }
         FocusScope.of(context).nextFocus();
       },
     );

@@ -72,13 +72,6 @@ class AppNavigator {
     );
   }
 
-  // static loadCommonSignUp() {
-  //   Navigator.push(
-  //     navigatorKey.currentContext!,
-  //     MaterialPageRoute(builder: (_) => ChooseSignupType()),
-  //     // (route) => false,
-  //   );
-  // }
 
   static loadSignUpScreen({bool isFromLogout = false}) {
     Navigator.push(

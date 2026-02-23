@@ -12,6 +12,7 @@ import '../../../repo/shared_preference_repository.dart';
 import '../../../service/auth_service.dart';
 import '../../../service/employee_profile/employee_profile_service.dart';
 import '../../../widgets/others/snack_bar.dart';
+import '../../providers.dart';
 
 class LoginController extends StateNotifier<AuthState> {
   final Ref ref;
@@ -23,6 +24,8 @@ class LoginController extends StateNotifier<AuthState> {
   final AuthService _authService = AuthService();
   final emailNameController = TextEditingController();
   final passwordController = TextEditingController();
+  final emailFocus = FocusNode();
+  final passwordFocus = FocusNode();
 
   void setPageState(PageState newState) {
     state = state.copyWith(pageState: newState);
@@ -149,6 +152,16 @@ class LoginController extends StateNotifier<AuthState> {
 
   void updatePhonValidity(bool isValid) {
     state = state.copyWith(isMobileValid: isValid);
+  }
+  Future<void> loadMainScreenAsGuest() async {
+    await SharedPreferenceRepository.setToken("");
+    await SharedPreferenceRepository.setUserId("");
+    await SharedPreferenceRepository.setRoleId(0);
+
+    ref.read(drawerProfileProvider.notifier).clearState();
+    ref.read(profileCompletionProvider.notifier).clearState();
+    AppNavigator.toBottomBar();
+
   }
 
 }

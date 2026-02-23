@@ -49,12 +49,6 @@ class _AnimatedSignupWrapperState extends State<AnimatedSignupWrapper>
         final container = ProviderScope.containerOf(context);
         container.read(signupFlowControllerProvider.notifier).iniController();
       });
-      // if (kReleaseMode) {
-      //   WidgetsBinding.instance.addPostFrameCallback((_) {
-      //     final container = ProviderScope.containerOf(context);
-      //     container.read(signupFlowControllerProvider.notifier).iniController();
-      //   });
-      // }
     }
 
   }
