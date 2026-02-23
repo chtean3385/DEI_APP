@@ -12,6 +12,7 @@ import '../../../../../../constants/app_styles.dart';
 import '../../../../../../main.dart';
 import '../../../../../../widgets/others/rounded_network_image.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
+import '../../auth/guest/guest_promot_login_alert.dart';
 import '../../home/champion_candidates/champion_candidate_card.dart';
 import '../../job/components/save_hide_button.dart';
 import 'job_share_util.dart';
@@ -25,6 +26,7 @@ class SearchJobCard extends StatelessWidget {
   final bool showWithdrawButton;
   final bool showMyApplicationStatusButton;
   final double scaledFontSize;
+  final bool isGuest;
 
   const SearchJobCard({
     super.key,
@@ -35,6 +37,7 @@ class SearchJobCard extends StatelessWidget {
     this.hideApplyButton = false,
     this.showWithdrawButton = false,
     this.showMyApplicationStatusButton = false,
+    this.isGuest = false,
      this.scaledFontSize = 14
   });
 
@@ -252,6 +255,10 @@ class SearchJobCard extends StatelessWidget {
                           inActiveBgColor: colorTheme.jobCardBgColor,
                           initialValue: !jobModel.isApplied,
                           onPressed: (isAppliedNow) async {
+                            if (isGuest) {
+                              await showGuestButtonRestriction(context);
+                              return false;
+                            }
                             final jobId = jobModel.id ?? "";
                             final notifier = ProviderScope.containerOf(
                               context,
@@ -296,6 +303,10 @@ class SearchJobCard extends StatelessWidget {
                               inActiveBgColor: colorTheme.jobCardBgColor,
                               initialValue: !jobModel.isSaved,
                               onPressed: (isSavedNow) async {
+                                if (isGuest) {
+                                  await showGuestButtonRestriction(context);
+                                  return false;
+                                }
                                 // 🔹 Add API call here
                                 print("Save/Hide tapped!  -- $isSavedNow");
                                 final jobId = jobModel.id ?? "";
@@ -332,6 +343,10 @@ class SearchJobCard extends StatelessWidget {
                               initialValue: false,
                               // no toggle state needed
                               onPressed: (_) async {
+                                if (isGuest) {
+                                  await showGuestButtonRestriction(context);
+                                  return false;
+                                }
                                 final jobId = jobModel.id ?? "";
                                 final jobTitle = jobModel.title ?? "Job Opportunity";
 

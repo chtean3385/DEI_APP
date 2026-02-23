@@ -5,7 +5,7 @@ import '../../../../constants/app_navigator.dart';
 import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_drawables.dart';
 
-Future<void> showGuestAddToCartDialog(BuildContext context,{String? subtitle}) {
+Future<void> showGuestButtonRestriction(BuildContext context,{String? subtitle}) {
   final theme = Theme.of(context);
 
   return showDialog(
