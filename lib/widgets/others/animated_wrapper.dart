@@ -45,12 +45,16 @@ class _AnimatedSignupWrapperState extends State<AnimatedSignupWrapper>
     _controller.forward();
     // Run after widget is mounted
     if(widget.enableGoogleSign){
-      if (kReleaseMode) {
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          final container = ProviderScope.containerOf(context);
-          container.read(signupFlowControllerProvider.notifier).iniController();
-        });
-      }
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final container = ProviderScope.containerOf(context);
+        container.read(signupFlowControllerProvider.notifier).iniController();
+      });
+      // if (kReleaseMode) {
+      //   WidgetsBinding.instance.addPostFrameCallback((_) {
+      //     final container = ProviderScope.containerOf(context);
+      //     container.read(signupFlowControllerProvider.notifier).iniController();
+      //   });
+      // }
     }
 
   }

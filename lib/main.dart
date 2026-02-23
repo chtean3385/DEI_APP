@@ -62,7 +62,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           child: child!,
         );
       },
-      locale: const Locale('en', 'GB'), // 👈 ADD HERE
+      locale: const Locale('en', 'GB'),
       supportedLocales: const [
         Locale('en', 'GB'),
       ],
