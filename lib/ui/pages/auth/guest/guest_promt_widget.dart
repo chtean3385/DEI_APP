@@ -1,6 +1,6 @@
+import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_drawables.dart';
 import '../../../../constants/app_navigator.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
@@ -10,6 +10,7 @@ class GuestPromptWidget extends StatelessWidget {
   final String? subTitle;
   final bool? isGoBack;
   final bool hideButton;
+  final bool showSignupButton;
 
   const GuestPromptWidget({
     super.key,
@@ -17,15 +18,18 @@ class GuestPromptWidget extends StatelessWidget {
     this.subTitle,
     this.isGoBack = false,
     this.hideButton = false,
+    this.showSignupButton = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colorTheme = context.colors;
     return LayoutBuilder(
       builder: (context, constraints) {
         return SingleChildScrollView(
           keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: EdgeInsets.symmetric(horizontal: 50),
           child: ConstrainedBox(
             constraints: BoxConstraints(minHeight: constraints.maxHeight),
             child: IntrinsicHeight(
@@ -37,7 +41,7 @@ class GuestPromptWidget extends StatelessWidget {
                     // Illustration
                     Image.asset(
                       AppDrawables.logo,
-                      height: 200,
+                      height: 100,
                     ),
 
                     const SizedBox(height: 24),
@@ -48,7 +52,7 @@ class GuestPromptWidget extends StatelessWidget {
                       textAlign: TextAlign.center,
                       style: theme.textTheme.titleLarge?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: Colors.black87,
+                        color: colorTheme.black87,
                       ),
                     ),
 
@@ -56,10 +60,10 @@ class GuestPromptWidget extends StatelessWidget {
 
                     // Subtitle
                     Text(
-                      subTitle ?? "Sign in to view your order history\nand track current orders.",
+                      subTitle ?? "Sign in to explore jobs and track your applications.",
                       textAlign: TextAlign.center,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.grey.shade500,
+                        color: colorTheme.grey600,
                         fontSize: 12,
                       ),
                     ),
@@ -70,7 +74,7 @@ class GuestPromptWidget extends StatelessWidget {
                     // Sign In button
 
                       CustomThemeButton(
-                        color: AppColors.primaryColor,
+                        color: colorTheme.buttonPrimaryColor,
                         radius: 30,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         onTap: () => AppNavigator.loadSignInScreen(), // TODO: your sign in route
@@ -89,7 +93,7 @@ class GuestPromptWidget extends StatelessWidget {
                     // Go Back button
                     if (isGoBack == true)
                       CustomThemeButton(
-                        color: AppColors.primaryColor,
+                        color: colorTheme.buttonPrimaryColor,
                         radius: 30,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                         onTap: () => Navigator.pop(context),
@@ -105,7 +109,7 @@ class GuestPromptWidget extends StatelessWidget {
                     const SizedBox(height: 16),
 
                     // Sign Up link
-                    GestureDetector(
+                  if(showSignupButton)  GestureDetector(
                       onTap: () => AppNavigator.loadSignUpScreen(), // TODO: your sign up route
                       child: RichText(
                         text: TextSpan(
@@ -113,14 +117,14 @@ class GuestPromptWidget extends StatelessWidget {
                             TextSpan(
                               text: "Don't have an account? ",
                               style: theme.textTheme.bodySmall?.copyWith(
-                                color: Colors.grey,
+                                color: colorTheme.grey,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
                             TextSpan(
                               text: "Sign Up",
                               style: theme.textTheme.bodySmall?.copyWith(
-                                color: AppColors.primaryColor,
+                                color: colorTheme.buttonPrimaryColor,
                                 fontWeight: FontWeight.w700,
                               ),
                             ),

@@ -23,9 +23,10 @@ import 'components/floating_filter.dart';
 class BottomBar extends StatefulWidget {
   final int initialPage;
   final bool showTutorial ;
+  final bool isGuest ;
   final Map<String, dynamic>? params;
 
-  const BottomBar({super.key, this.initialPage = 0, this.params,this.showTutorial =false});
+  const BottomBar({super.key, this.initialPage = 0, this.params,this.showTutorial =false,this.isGuest = false});
 
   @override
   State<BottomBar> createState() => _BottomBarState();
@@ -42,28 +43,31 @@ class _BottomBarState extends State<BottomBar> {
     super.initState();
     _currentIndex = widget.initialPage;
     _params = widget.params;
+    if(!widget.isGuest) {
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        initialiseController();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      initialiseController();
-
-      final container = ProviderScope.containerOf(
-        navigatorKey.currentContext!,
-      );
-
-      // Wait for popup API
-      await container.read(popupAlertProvider.notifier).fetchPopupData();
-
-      final promo = container.read(popupAlertProvider).data;
-
-      // ✅ SHOW DIALOG ONLY IF POPUP EXISTS
-      if (promo != null) {
-        showDialog(
-          context: navigatorKey.currentContext!,
-          barrierDismissible: true,
-          builder: (_) => const HomePromotionDialog(),
+        final container = ProviderScope.containerOf(
+          navigatorKey.currentContext!,
         );
-      }
-    });
+
+        // Wait for popup API
+        await container.read(popupAlertProvider.notifier).fetchPopupData();
+
+        final promo = container.read(popupAlertProvider).data;
+
+        // ✅ SHOW DIALOG ONLY IF POPUP EXISTS
+        if (promo != null) {
+          showDialog(
+            context: navigatorKey.currentContext!,
+            barrierDismissible: true,
+            builder: (_) => const HomePromotionDialog(),
+          );
+        }
+      });
+    }
+
+
   }
 
 
@@ -108,7 +112,7 @@ class _BottomBarState extends State<BottomBar> {
       ),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromBlog: _currentIndex == 4,isFromProfile: _currentIndex == 3 ,  onPressed: _handleMenuButtonPressed,showTutorial: widget.showTutorial ),
+        appBar: appBarHome(context,isFromHome: _currentIndex == 0,isFromBlog: _currentIndex == 4,isFromProfile: _currentIndex == 3 ,  onPressed: _handleMenuButtonPressed,showTutorial: widget.showTutorial,isGuest: widget.isGuest ),
         // drawer: CustomDrawer(),
         body: _buildScreen(_currentIndex),
         bottomNavigationBar: SafeArea(
@@ -195,13 +199,13 @@ class _BottomBarState extends State<BottomBar> {
   Widget _buildScreen(int index) {
     switch (index) {
       case 0:
-        return HomeScreen();
+        return HomeScreen(isGuest: widget.isGuest);
       case 1:
-        return  ApplyScreen(params: _params);
+        return  ApplyScreen(params: _params,isGuest: widget.isGuest);
       case 2:
-        return const SavedJobsView();
+        return  SavedJobsView(isGuest: widget.isGuest);
       case 3:
-        return const ProfileDetailsView();
+        return  ProfileDetailsView(isGuest: widget.isGuest);
       case 4:
         return  BlogListView();
       default:

@@ -7,14 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../constants/app_theme.dart';
+import '../auth/guest/guest_promt_widget.dart';
 import '../search/components/search_job_card.dart';
 import 'components/saved_jobs_list_view.dart';
 
 class SavedJobsView extends StatelessWidget {
-  const SavedJobsView({Key? key}) : super(key: key);
+  final bool isGuest;
+  const SavedJobsView({Key? key,  this.isGuest = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if(isGuest) {
+      return Center(child: GuestPromptWidget(
+        subTitle: "You're browsing as a guest. Sign in to track the status of all your saved jobs in one place ",
+      ));
+    }
     return SafeArea(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

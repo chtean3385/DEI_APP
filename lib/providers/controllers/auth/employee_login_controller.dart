@@ -160,7 +160,7 @@ class LoginController extends StateNotifier<AuthState> {
 
     ref.read(drawerProfileProvider.notifier).clearState();
     ref.read(profileCompletionProvider.notifier).clearState();
-    AppNavigator.toBottomBar();
+    AppNavigator.toBottomBar(isGuest: true);
 
   }
 

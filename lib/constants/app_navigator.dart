@@ -56,10 +56,10 @@ class AppNavigator {
     );
   }
 
-  static Future<void> toBottomBar({int initialPage = 0,Map<String, dynamic>? params}) async {
+  static Future<void> toBottomBar({int initialPage = 0,Map<String, dynamic>? params,bool isGuest = false}) async {
     Navigator.pushAndRemoveUntil(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (_) => BottomBar(initialPage: initialPage,params: params,showTutorial: false)),
+      MaterialPageRoute(builder: (_) => BottomBar(initialPage: initialPage,params: params,showTutorial: false,isGuest: isGuest)),
           (route) => false,
     );
   }

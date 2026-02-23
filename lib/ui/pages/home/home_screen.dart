@@ -10,7 +10,8 @@ import 'components/hiring_info/hiring_info.dart';
 import 'explore_job_category/job_categories_horizontal_scroll.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final bool isGuest;
+  const HomeScreen({super.key,this.isGuest = false});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +19,9 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ProfileCompletionSlider(),
+         if(!isGuest) ProfileCompletionSlider(),
           PromoBannerSection(),
-          RecommendedJobsHorizontal(),
+          if(!isGuest)  RecommendedJobsHorizontal(),
           JobsCategorySection(),
           ExploreServicesPrograms(),
           BlogsHorizontal(),

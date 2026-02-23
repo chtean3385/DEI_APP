@@ -1,4 +1,5 @@
 import 'package:dei_champions/constants/app_navigator.dart';
+import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +18,7 @@ AppBar appBarHome(
   VoidCallback? onPressed,
   bool isEmployer = false,
   bool showTutorial = false,
+  bool isGuest = false,
 }) {
   return AppBar(
     elevation: 0,
@@ -53,7 +55,7 @@ AppBar appBarHome(
     title.isNotEmpty
         ? Text(title, style: context.textTheme.headlineMedium)
         : null,
-    actions: isFromHome
+    actions: isGuest ? [gapW16()] : isFromHome
         ? [
             Padding(
               padding: const EdgeInsets.only(right: 8),
