@@ -10,6 +10,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../constants/app_colors.dart';
 import '../../../../../providers/providers.dart';
+import '../../../../../widgets/form/ios_style_form_field.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';
 import '../../../../../widgets/others/custom_theme_button.dart';
 import '../../common/email_suggestion_field.dart';
@@ -119,20 +120,26 @@ class _BasicPersonalInfoState extends State<BasicPersonalInfo>
                     ),
                     gapH20(),
 
-                    // Confirm Password Field
-                    TransparentFormField(
+                    IOSStylePhoneField(
                       controller: _mobileController,
                       focusNode: _mobileFocus,
-                      hint: AppStrings.mobile,
-                      label: AppStrings.mobile,
-                      autofillHints: [AutofillHints.telephoneNumber],
-                      textInputAction: TextInputAction.next,
-                      icon: Icons.phone_android,
                       validator: AppValidators.phone,
-                      keyboardType: TextInputType.phone,
-                      maxLength: 10,
                       nextFocusNode:_checkBoxFocus ,
                     ),
+                    // Confirm Password Field
+                    // TransparentFormField(
+                    //   controller: _mobileController,
+                    //   focusNode: _mobileFocus,
+                    //   hint: AppStrings.mobile,
+                    //   label: AppStrings.mobile,
+                    //   autofillHints: [AutofillHints.telephoneNumber],
+                    //   textInputAction: TextInputAction.next,
+                    //   icon: Icons.phone_android,
+                    //   validator: AppValidators.phone,
+                    //   keyboardType: TextInputType.phone,
+                    //   maxLength: 10,
+                    //   nextFocusNode:_checkBoxFocus ,
+                    // ),
                     gapH20(),
 
 

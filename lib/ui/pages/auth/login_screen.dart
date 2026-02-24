@@ -44,11 +44,14 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isSmall = screenHeight < 650;
     final isMedium = screenHeight < 800;
+    final isLarge = screenHeight < 900;
+    print("screenHeight - > $screenHeight");
+    print("screenHeight - > $screenHeight");
 
     // Responsive spacing
-    final verticalGap = isSmall ? 8.0 : isMedium ? 12.0 : 16.0;
+    final verticalGap = isSmall ? 8.0 : isMedium ? 12.0 : isLarge ?  16.0 : 20.0;
     final horizontalPadding = (screenWidth * 0.06).clamp(16.0, 40.0);
-    final topPadding = isSmall ? 12.0 : isMedium ? 30.0 : 50.0;
+    final topPadding = isSmall ? 12.0 : isMedium ? 30.0 : isLarge ? 50.0 : 65.0;
     final borderRadius = isSmall ? 30.0 : 50.0;
 
     return Scaffold(
@@ -60,7 +63,7 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
           child: Column(
             children: [
               // ── Logo Section ──────────────────────────────────────────
-              _LogoSection(isSmall: isSmall, isMedium: isMedium),
+              _LogoSection(isSmall: isSmall, isMedium: isMedium,isLarge: isLarge),
 
               // ── Form Card ─────────────────────────────────────────────
               Expanded(
@@ -234,8 +237,9 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
 class _LogoSection extends StatelessWidget {
   final bool isSmall;
   final bool isMedium;
+  final bool isLarge;
 
-  const _LogoSection({required this.isSmall, required this.isMedium});
+  const _LogoSection({required this.isSmall, required this.isMedium,required this.isLarge,});
 
   @override
   Widget build(BuildContext context) {
@@ -247,7 +251,9 @@ class _LogoSection extends StatelessWidget {
         ? 90.0
         : isMedium
         ? 120.0
-        : 150.0;
+        : isLarge
+        ? 150.0
+        : 200.0;
 
     final padding = keyboardOpen
         ? 8.0
@@ -255,8 +261,11 @@ class _LogoSection extends StatelessWidget {
         ? 12.0
         : isMedium
         ? 20.0
-        : 45.0;
-
+        : isLarge
+        ? 45.0
+        : 55.0;
+print("logoSize -->> $logoSize");
+print("padding -->> $padding");
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,
