@@ -1,6 +1,7 @@
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/auth/forgot_password/components/send_reset_link.dart';
 import 'package:flutter/material.dart';
+import '../../../../../widgets/form/ios_style_form_field.dart';
 import 'back_to_login.dart';
 import 'forgot_password_email_field.dart';
 import 'forgot_password_header.dart';
@@ -40,10 +41,14 @@ class ForgotPasswordFormCard extends StatelessWidget {
         children: [
           ForgotPasswordHeader(pulseAnimation: pulseAnimation),
           const SizedBox(height: 40),
-          ForgotPasswordEmailInput(
+          IOSStylePhoneField(
             controller: emailController,
             focusNode: emailFocusNode,
           ),
+          // ForgotPasswordEmailInput(
+          //   controller: emailController,
+          //   focusNode: emailFocusNode,
+          // ),
           const SizedBox(height: 32),
           SendResetOtp(
             onSendReset: onSendReset,

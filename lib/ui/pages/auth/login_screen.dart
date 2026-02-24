@@ -45,8 +45,6 @@ class _SignUpScreenState extends ConsumerState<SignInScreen> {
     final isSmall = screenHeight < 650;
     final isMedium = screenHeight < 800;
     final isLarge = screenHeight < 900;
-    print("screenHeight - > $screenHeight");
-    print("screenHeight - > $screenHeight");
 
     // Responsive spacing
     final verticalGap = isSmall ? 8.0 : isMedium ? 12.0 : isLarge ?  16.0 : 20.0;
@@ -264,8 +262,6 @@ class _LogoSection extends StatelessWidget {
         : isLarge
         ? 45.0
         : 55.0;
-print("logoSize -->> $logoSize");
-print("padding -->> $padding");
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeOut,

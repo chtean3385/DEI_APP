@@ -30,13 +30,15 @@ class ForgotPasswordEmailInput extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         focusNode: focusNode,
-        keyboardType: TextInputType.emailAddress,
+        keyboardType: TextInputType.phone,
         style: theme.textTheme.bodyMedium?.copyWith(
           color: colorTheme.themBasedBlack,
           fontWeight: FontWeight.normal,
         ),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: AppValidators.phone,
+        textInputAction: TextInputAction.done,
+
         maxLength: 10,
         decoration: InputDecoration(
           labelText: 'Mobile',

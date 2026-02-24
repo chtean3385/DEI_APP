@@ -6,12 +6,15 @@ import 'package:flutter/material.dart';
 
 import '../../constants/app_strings.dart';
 import '../../constants/app_validators.dart';
+import '../../ui/pages/auth/forgot_password/components/forgot_password_email_field.dart';
 
 class IOSStylePhoneField extends StatefulWidget {
   final TextEditingController controller;
   final FormFieldValidator<String>? validator;
   final FocusNode? focusNode;
   final FocusNode? nextFocusNode;
+  final bool isForgotPassword;
+  final bool isFromLetsConnect;
 
   const IOSStylePhoneField({
     Key? key,
@@ -19,6 +22,8 @@ class IOSStylePhoneField extends StatefulWidget {
     this.validator,
     this.focusNode,
     this.nextFocusNode,
+    this.isForgotPassword = false,
+    this.isFromLetsConnect = false,
   }) : super(key: key);
 
   @override
@@ -77,6 +82,14 @@ class _IOSStylePhoneFieldState extends State<IOSStylePhoneField> {
                 CupertinoButton(
                   padding: EdgeInsets.symmetric(horizontal: 16),
                   onPressed: () {
+                    if (widget.isFromLetsConnect) {
+                      if (widget.nextFocusNode != null) {
+                        FocusScope.of(context).requestFocus(widget.nextFocusNode);
+                      } else {
+                        _focusNode.unfocus();
+                      }
+                      return;
+                    }
                     _focusNode.unfocus();
                   },
                   child: Text(
@@ -117,6 +130,28 @@ class _IOSStylePhoneFieldState extends State<IOSStylePhoneField> {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.isForgotPassword){
+      return ForgotPasswordEmailInput(
+        controller: widget.controller,
+        focusNode:_focusNode,
+      );
+    }
+    if(widget.isFromLetsConnect){
+      return TransparentFormField(
+        isRequired: true,
+        controller:  widget.controller,
+        hint: AppStrings.enterMobile,
+        label: AppStrings.mobile,
+        autofillHints: [AutofillHints.telephoneNumber],
+        textInputAction: TextInputAction.next,
+        icon: Icons.phone_android,
+        validator: AppValidators.phone,
+        keyboardType: TextInputType.phone,
+        maxLength: 10,
+        onFieldSubmitted: (v){TextInputAction.next;},
+        nextFocusNode:widget.nextFocusNode ,
+      );
+    }
     return  TransparentFormField(
       controller: widget.controller,
       focusNode:_focusNode,
@@ -133,3 +168,5 @@ class _IOSStylePhoneFieldState extends State<IOSStylePhoneField> {
 
   }
 }
+
+

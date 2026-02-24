@@ -52,9 +52,7 @@ class LetsConnectController extends StateNotifier<LetsConnectState> {
 
   final CommonService _service = CommonService();
   final formKey = GlobalKey<FormState>();
-  final stateFocus = FocusNode();
-  final cityFocus = FocusNode();
-  final countryFocus = FocusNode();
+  final emailFocus = FocusNode();
 
   /// basic info
   final firstNameController = TextEditingController();

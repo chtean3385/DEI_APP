@@ -4,6 +4,7 @@ import '../../../../constants/app_strings.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
 import '../../../../providers/providers.dart';
+import '../../../../widgets/form/ios_style_form_field.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
 import 'lets_connect_contact_info.dart';
@@ -61,21 +62,27 @@ class LetsConnectFormView extends ConsumerWidget {
 
             ),
             gapH16(),
-            TransparentFormField(
-              isRequired: true,
+            IOSStylePhoneField(
               controller: controller.mobileController,
-              hint: AppStrings.enterMobile,
-              label: AppStrings.mobile,
-              autofillHints: [AutofillHints.telephoneNumber],
-              textInputAction: TextInputAction.next,
-              icon: Icons.phone_android,
               validator: AppValidators.phone,
-              keyboardType: TextInputType.phone,
-              maxLength: 10,
-              onFieldSubmitted: (v){TextInputAction.next;},
+              nextFocusNode: controller.emailFocus,
             ),
+            // TransparentFormField(
+            //   isRequired: true,
+            //   controller: controller.mobileController,
+            //   hint: AppStrings.enterMobile,
+            //   label: AppStrings.mobile,
+            //   autofillHints: [AutofillHints.telephoneNumber],
+            //   textInputAction: TextInputAction.next,
+            //   icon: Icons.phone_android,
+            //   validator: AppValidators.phone,
+            //   keyboardType: TextInputType.phone,
+            //   maxLength: 10,
+            //   onFieldSubmitted: (v){TextInputAction.next;},
+            // ),
             gapH16(),
             TransparentFormField(
+              focusNode: controller.emailFocus,
               controller: controller.emailController,
               hint: "your email address",
               label: "E-mail",
