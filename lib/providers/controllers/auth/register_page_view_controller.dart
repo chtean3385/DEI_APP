@@ -94,7 +94,7 @@ class SignupFlowController extends AutoDisposeNotifier<SignupFlowState> {
   Future<void> _autoFillUserData() async {
     debugPrint("SignupFlowController _autoFillUserData");
     final email = await UserInfoService.getUserEmail();
-
+    debugPrint("SignupFlowController _autoFillUserData email -$email");
     state = state.copyWith(
       email: email,
     );

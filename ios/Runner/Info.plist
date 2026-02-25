@@ -22,6 +22,8 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>GIDClientID</key>
+    <string>325714813742-me68iclfkd366hg8b378pv6fspt2eqtf.apps.googleusercontent.com</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -29,8 +31,8 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>YOUR_REVERSED_CLIENT_ID_HERE</string>
-			</array>
+            <string>com.googleusercontent.apps.325714813742-me68iclfkd366hg8b378pv6fspt2eqtf</string>
+            </array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
