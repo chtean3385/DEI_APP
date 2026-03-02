@@ -21,6 +21,7 @@ class BlogsHorizontalView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(blogProvider);
     final accessibility = ref.watch(accessibilityProvider);
+    final isGuest = ref.read(guestProvider);
     double baseHeight = 200;
     final scaledHeight =
     (baseHeight * accessibility.fontScale).clamp(baseHeight, double.infinity);
@@ -32,11 +33,11 @@ class BlogsHorizontalView extends ConsumerWidget {
     } else if (state.data?.isEmpty == true) {
       return SizedBox.shrink();
     } else {
-      return _data(state,scaledHeight);
+      return _data(state,scaledHeight,isGuest);
     }
   }
 
-  Widget _data(BlogState state,double scaledHeight) {
+  Widget _data(BlogState state,double scaledHeight,bool isGuest) {
     // Safely handle null or empty list
     if (state.data == null || state.data?.isEmpty == true)
       return const SizedBox();
@@ -80,7 +81,7 @@ class BlogsHorizontalView extends ConsumerWidget {
                 ),
                 ViewAllButton(
                   isSmall: true,
-                  onPressed: ()=> AppNavigator.toBottomBar(initialPage: 4),
+                  onPressed: ()=> AppNavigator.toBottomBar(initialPage: 4,isGuest:isGuest ),
                 ),
               ],
             ),
