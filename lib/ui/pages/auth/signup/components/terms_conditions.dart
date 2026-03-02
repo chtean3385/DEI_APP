@@ -1,5 +1,8 @@
 import 'package:dei_champions/constants/app_theme.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../constants/app_navigator.dart';
 
 class TermsAndConditions extends StatelessWidget {
   const TermsAndConditions({super.key});
@@ -24,6 +27,10 @@ class TermsAndConditions extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline,
               ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  AppNavigator.loadHtmlDetailPage('Terms & Conditions');
+                },
             ),
             TextSpan(text: ' and '),
             TextSpan(
@@ -32,6 +39,10 @@ class TermsAndConditions extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 decoration: TextDecoration.underline,
               ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  AppNavigator.loadHtmlDetailPage('Privacy Policy');
+                },
             ),
           ],
         ),
