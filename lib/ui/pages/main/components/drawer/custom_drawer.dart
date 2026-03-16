@@ -17,6 +17,7 @@ import '../../../../../utils/widget_utils.dart';
 import '../../../../../widgets/others/rounded_network_image.dart';
 import '../../../../../widgets/others/shimmer_loader.dart';
 import '../../../../../widgets/others/snack_bar.dart';
+import 'app_version_widget.dart';
 
 class CustomDrawer extends StatelessWidget {
   final bool isGuest;
@@ -27,201 +28,211 @@ class CustomDrawer extends StatelessWidget {
     return SafeArea(
       child: Container(
         color: context.colors.themBasedWhite,
-        child: ListView(
-          padding: EdgeInsets.symmetric(vertical: 20),
+        child: Column(
           children: [
-            // 🔹 Profile Section
-            ProfileSection(isGuest: isGuest),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                children: [
+                  // 🔹 Profile Section
+                  ProfileSection(isGuest: isGuest),
 
-             Divider(color: context.colors.black12),
+                   Divider(color: context.colors.black12),
 
-            // 🔹 Job Actions
-            // _drawerItem(Icons.visibility, "Actively searching jobs", true),
-            _drawerItem(
-              Icons.search,
-              "Search jobs",
-              false,
-              null,
-              () => AppNavigator.loadJobSearchResultScreen(),
-            ),
-          if(!isGuest)  _drawerItem(
-              Icons.work_outline,
-              "Recommended jobs",
-              false,
-              null,
-              () => AppNavigator.loadRecommendedJobsScreen(),
-            ),
-            if(!isGuest)   _drawerItem(
-              Icons.bookmark_border,
-              "Saved jobs",
-              false,
-              null,
-              () => AppNavigator.loadSavedJobsScreen(),
-            ),
-
-            // _drawerItem(Icons.bar_chart, "Profile performance"),
-            //
-            // const Divider(color: Colors.black12),
-               _drawerItem(
-              Icons.accessibility_new,
-              "Accessibility",
-              false,
-              null,
-                  () => AppNavigator.loadAccessibilityScreen(),
-            ),
-            if(!isGuest)   _drawerItem(Icons.settings, "Settings", false,
-              null,
-                  () => AppNavigator.loadSettingsScreen(),),
-
-
-
-            //
-            // const Divider(color: Colors.black12),
-
-            // _drawerItem(Icons.woman_outlined, "Empower Women", false, // bold
-            //     null,  // badge
-            //         () =>AppNavigator.loadEmpowerWomenScreen()),
-            // _drawerItem(Icons.man, "Men as Allies", false, // bold
-            //     null,  // badge
-            //         () =>AppNavigator.loadMenAsAliasScreen()),
-            // _drawerItem(Icons.accessible_forward, "Not Defined by Disability", false,
-            //     null,
-            //         () => AppNavigator.loadNotDefinedByDisabilityScreen()),
-            // _drawerItem(
-            //   Icons.auto_awesome,
-            //   "Gen Z",
-            //   false,
-            //   null,
-            //       () => AppNavigator.loadGenZScreen(),
-            // ),
-            // _drawerItem(
-            //   Icons.military_tech,
-            //   "Defense Veteran",
-            //   false,
-            //   null,
-            //       () => AppNavigator.loadVeteranScreen(),
-            // ),
-            // _drawerItem(
-            //   Icons.diversity_3,
-            //   "Shine with Pride",
-            //   false,
-            //   null,
-            //       () => AppNavigator.loadLgbtqScreen(),
-            // ),
-            // _drawerItem(
-            //   Icons.explore,
-            //   "Career Explorers",
-            //   false,
-            //   null,
-            //   () => AppNavigator.loadCareerExplorersScreen(),
-            // ),
-            // _drawerItem(
-            //   Icons.corporate_fare,
-            //   "Corporates Championing",
-            //   false,
-            //   null,
-            //   () => AppNavigator.loadCorporatesChampioningScreen(),
-            // ),
-            // _drawerItem(
-            //   FontAwesomeIcons.handshake,
-            //   "Corporate Social Responsibility",
-            //   false,
-            //   null,
-            //   () => AppNavigator.loadCSR(),
-            // ),
-            _drawerItem(
-              Icons.info_outline,
-              "About us",
-              false, // bold
-              null, // badge
-              () => AppNavigator.loadAboutUsScreen(),
-            ),
-            Column(
-              children: [
-                // _drawerItem(
-                //   Icons.privacy_tip_outlined,
-                //   'Our Team',
-                //   false,
-                //   null,
-                //   () => AppNavigator.loadOurTeams(),
-                // ),
+                  // 🔹 Job Actions
+                  // _drawerItem(Icons.visibility, "Actively searching jobs", true),
+                  _drawerItem(
+                    Icons.search,
+                    "Search jobs",
+                    false,
+                    null,
+                    () => AppNavigator.loadJobSearchResultScreen(),
+                  ),
                 if(!isGuest)  _drawerItem(
-                  Icons.rate_review_outlined,
-                  'Write to Us',
-                  false,
-                  null,
-                  () =>
-                      AppNavigator.loadLetsConnect(isGuest: isGuest), // or whatever your contact route is
-                ),
-                _drawerItem(
-                  Icons.help_outline,
-                  'FAQ',
-                  false,
-                  null,
-                  () =>
-                      AppNavigator.loadFaqScreen(), // navigate to your FAQ screen
-                ),
-                // _drawerItem(
-                //   Icons.article_outlined,
-                //   // more suitable icon for blogs/articles
-                //   'Blog',
-                //   false,
-                //   null,
-                //   () =>
-                //       AppNavigator.loaBlogScreen(), // navigate to your Blog screen
-                // ),
-                // _drawerItem(
-                //   Icons.lock_clock_outlined,
-                //   'Security',
-                //   false,
-                //   null,
-                //   () => AppNavigator.loadHtmlDetailPage('Security'),
-                // ),
+                    Icons.work_outline,
+                    "Recommended jobs",
+                    false,
+                    null,
+                    () => AppNavigator.loadRecommendedJobsScreen(),
+                  ),
+                  if(!isGuest)   _drawerItem(
+                    Icons.bookmark_border,
+                    "Saved jobs",
+                    false,
+                    null,
+                    () => AppNavigator.loadSavedJobsScreen(),
+                  ),
 
-                _drawerItem(
-                  Icons.description_outlined,
-                  'Terms & Conditions',
-                  false,
-                  null,
-                  () => AppNavigator.loadHtmlDetailPage('Terms & Conditions'),
-                ),
-                //
-                // _drawerItem(
-                //   Icons.rule_rounded,
-                //   'Terms of Use',
-                //   false,
-                //   null,
-                //   () => AppNavigator.loadHtmlDetailPage('Terms of Use'),
-                // ),
-                // _drawerItem(
-                //   Icons.accessibility_new_outlined,
-                //   'Accessibility',
-                //   false,
-                //   null,
-                //   () => AppNavigator.loadHtmlDetailPage('Accessibility'),
-                // ),
-                _drawerItem(
-                  Icons.privacy_tip_outlined,
-                  'Privacy Policy',
-                  false,
-                  null,
-                  () => AppNavigator.loadHtmlDetailPage('Privacy Policy'),
-                ),
-              ],
+                  // _drawerItem(Icons.bar_chart, "Profile performance"),
+                  //
+                  // const Divider(color: Colors.black12),
+                     _drawerItem(
+                    Icons.accessibility_new,
+                    "Accessibility",
+                    false,
+                    null,
+                        () => AppNavigator.loadAccessibilityScreen(),
+                  ),
+                  if(!isGuest)   _drawerItem(Icons.settings, "Settings", false,
+                    null,
+                        () => AppNavigator.loadSettingsScreen(),),
+
+
+
+                  //
+                  // const Divider(color: Colors.black12),
+
+                  // _drawerItem(Icons.woman_outlined, "Empower Women", false, // bold
+                  //     null,  // badge
+                  //         () =>AppNavigator.loadEmpowerWomenScreen()),
+                  // _drawerItem(Icons.man, "Men as Allies", false, // bold
+                  //     null,  // badge
+                  //         () =>AppNavigator.loadMenAsAliasScreen()),
+                  // _drawerItem(Icons.accessible_forward, "Not Defined by Disability", false,
+                  //     null,
+                  //         () => AppNavigator.loadNotDefinedByDisabilityScreen()),
+                  // _drawerItem(
+                  //   Icons.auto_awesome,
+                  //   "Gen Z",
+                  //   false,
+                  //   null,
+                  //       () => AppNavigator.loadGenZScreen(),
+                  // ),
+                  // _drawerItem(
+                  //   Icons.military_tech,
+                  //   "Defense Veteran",
+                  //   false,
+                  //   null,
+                  //       () => AppNavigator.loadVeteranScreen(),
+                  // ),
+                  // _drawerItem(
+                  //   Icons.diversity_3,
+                  //   "Shine with Pride",
+                  //   false,
+                  //   null,
+                  //       () => AppNavigator.loadLgbtqScreen(),
+                  // ),
+                  // _drawerItem(
+                  //   Icons.explore,
+                  //   "Career Explorers",
+                  //   false,
+                  //   null,
+                  //   () => AppNavigator.loadCareerExplorersScreen(),
+                  // ),
+                  // _drawerItem(
+                  //   Icons.corporate_fare,
+                  //   "Corporates Championing",
+                  //   false,
+                  //   null,
+                  //   () => AppNavigator.loadCorporatesChampioningScreen(),
+                  // ),
+                  // _drawerItem(
+                  //   FontAwesomeIcons.handshake,
+                  //   "Corporate Social Responsibility",
+                  //   false,
+                  //   null,
+                  //   () => AppNavigator.loadCSR(),
+                  // ),
+                  _drawerItem(
+                    Icons.info_outline,
+                    "About us",
+                    false, // bold
+                    null, // badge
+                    () => AppNavigator.loadAboutUsScreen(),
+                  ),
+                  Column(
+                    children: [
+                      // _drawerItem(
+                      //   Icons.privacy_tip_outlined,
+                      //   'Our Team',
+                      //   false,
+                      //   null,
+                      //   () => AppNavigator.loadOurTeams(),
+                      // ),
+                      if(!isGuest)  _drawerItem(
+                        Icons.rate_review_outlined,
+                        'Write to Us',
+                        false,
+                        null,
+                        () =>
+                            AppNavigator.loadLetsConnect(isGuest: isGuest), // or whatever your contact route is
+                      ),
+                      _drawerItem(
+                        Icons.help_outline,
+                        'FAQ',
+                        false,
+                        null,
+                        () =>
+                            AppNavigator.loadFaqScreen(), // navigate to your FAQ screen
+                      ),
+                      // _drawerItem(
+                      //   Icons.article_outlined,
+                      //   // more suitable icon for blogs/articles
+                      //   'Blog',
+                      //   false,
+                      //   null,
+                      //   () =>
+                      //       AppNavigator.loaBlogScreen(), // navigate to your Blog screen
+                      // ),
+                      // _drawerItem(
+                      //   Icons.lock_clock_outlined,
+                      //   'Security',
+                      //   false,
+                      //   null,
+                      //   () => AppNavigator.loadHtmlDetailPage('Security'),
+                      // ),
+
+                      _drawerItem(
+                        Icons.description_outlined,
+                        'Terms & Conditions',
+                        false,
+                        null,
+                        () => AppNavigator.loadHtmlDetailPage('Terms & Conditions'),
+                      ),
+                      //
+                      // _drawerItem(
+                      //   Icons.rule_rounded,
+                      //   'Terms of Use',
+                      //   false,
+                      //   null,
+                      //   () => AppNavigator.loadHtmlDetailPage('Terms of Use'),
+                      // ),
+                      // _drawerItem(
+                      //   Icons.accessibility_new_outlined,
+                      //   'Accessibility',
+                      //   false,
+                      //   null,
+                      //   () => AppNavigator.loadHtmlDetailPage('Accessibility'),
+                      // ),
+                      _drawerItem(
+                        Icons.privacy_tip_outlined,
+                        'Privacy Policy',
+                        false,
+                        null,
+                        () => AppNavigator.loadHtmlDetailPage('Privacy Policy'),
+                      ),
+                    ],
+                  ),
+
+                  if(!isGuest)    _drawerItem(
+                    Icons.logout,
+                    "Logout",
+                    false, // bold
+                    null, // badge
+                    () {
+                      final providerScope =  ProviderScope.containerOf(context);
+                      providerScope.read(logoutProvider.notifier).logoutAlertBox(context);
+                    },
+                  ),
+
+
+
+                  const SizedBox(height: 20),
+                ],
+              ),
             ),
-
-            if(!isGuest)    _drawerItem(
-              Icons.logout,
-              "Logout",
-              false, // bold
-              null, // badge
-              () {
-                final providerScope =  ProviderScope.containerOf(context);
-                providerScope.read(logoutProvider.notifier).logoutAlertBox(context);
-              },
-            ),
-
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
+            const DrawerAppVersion(),
           ],
         ),
       ),
