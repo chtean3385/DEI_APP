@@ -21,7 +21,7 @@ class ForgotPasswordEmailInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: colorTheme.grey.withOpacity(0.1),
+            color: colorTheme.grey.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),

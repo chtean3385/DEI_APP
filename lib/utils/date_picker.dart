@@ -117,7 +117,7 @@ class DatePickerTextField extends StatelessWidget {
                 ? OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                     borderSide: BorderSide(
-                      color: borderColor ?? Colors.black.withOpacity(.5),
+                      color: borderColor ?? Colors.black.withValues(alpha: .5),
                       width: .2,
                     ),
                   )
@@ -126,7 +126,7 @@ class DatePickerTextField extends StatelessWidget {
                 ? OutlineInputBorder(
                     borderRadius: BorderRadius.circular(5),
                     borderSide: BorderSide(
-                      color: borderColor ?? Colors.black.withOpacity(.5),
+                      color: borderColor ?? Colors.black.withValues(alpha: .5),
                       width: 1,
                     ),
                   )
@@ -134,28 +134,28 @@ class DatePickerTextField extends StatelessWidget {
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(
-                color: borderColor ?? Colors.black.withOpacity(.8),
+                color: borderColor ?? Colors.black.withValues(alpha: .8),
                 width: 1,
               ),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(
-                color: Colors.black.withOpacity(.5),
+                color: Colors.black.withValues(alpha: .5),
                 width: 1,
               ),
             ),
             disabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(
-                color: Colors.black.withOpacity(.5),
+                color: Colors.black.withValues(alpha: .5),
                 width: 1,
               ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5),
               borderSide: BorderSide(
-                color: borderColor ?? Colors.black.withOpacity(.5),
+                color: borderColor ?? Colors.black.withValues(alpha: .5),
                 width: 1,
               ),
             ),

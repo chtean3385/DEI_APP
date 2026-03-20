@@ -38,7 +38,7 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
-                  child: Text(requestMessage,textScaleFactor: 1,style:Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorTheme.themBasedBlack,) ,
+                  child: Text(requestMessage,style:Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorTheme.themBasedBlack,) ,
                   ),
                 ),
                 Row(
@@ -52,7 +52,7 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 8),
                           child: Text(
-                            "CANCEL",textScaleFactor: 1,
+                            "CANCEL",
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorTheme.themBasedBlack),
                           )),
                     ),
@@ -69,7 +69,7 @@ Future<void> showPermissionAlert({required String requestMessage}) async {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 8, vertical: 8),
                           child: Text(
-                            "CONTINUE",textScaleFactor: 1,
+                            "CONTINUE",
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: colorTheme.themBasedBlack),
                           )),
                     ),

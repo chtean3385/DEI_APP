@@ -102,7 +102,6 @@ class DropDownOutlined extends StatelessWidget {
         return DropdownMenuItem<String>(
           value: value,
           child: Text(
-            textScaleFactor: 1,
             suffixText?.isNotEmpty == true ? "$value $suffixText" : value,
             style: context.textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w800,

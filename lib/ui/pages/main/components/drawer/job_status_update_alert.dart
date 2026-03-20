@@ -138,7 +138,7 @@ Widget buildStatusChangeBox(String oldStatus, String newStatus, TextTheme theme)
   return Container(
     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
     decoration: BoxDecoration(
-      color: color.withOpacity(0.3),   // background color with 30% opacity
+      color: color.withValues(alpha: 0.3),   // background color with 30% opacity
       borderRadius: BorderRadius.circular(12),
     ),
     child: Text(
