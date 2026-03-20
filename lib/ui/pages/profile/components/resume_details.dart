@@ -5,7 +5,6 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/open_bottom_sheet.dart';

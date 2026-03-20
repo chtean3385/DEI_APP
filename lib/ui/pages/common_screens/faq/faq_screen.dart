@@ -2,7 +2,6 @@ import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
-import '../../../../constants/app_colors.dart';
 import '../../../../widgets/others/app_bar_common.dart';
 import '../components/faq_view.dart';
 

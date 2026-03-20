@@ -1,4 +1,3 @@
-import 'package:dei_champions/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'components/company_details_header.dart';

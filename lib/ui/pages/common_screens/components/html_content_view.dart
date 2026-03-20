@@ -5,7 +5,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/custom_loader.dart';

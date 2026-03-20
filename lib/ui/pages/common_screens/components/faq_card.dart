@@ -2,7 +2,6 @@ import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/common/faq_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../constants/app_colors.dart';
 
 class FaqCard extends StatelessWidget {
   final FaqModel item;

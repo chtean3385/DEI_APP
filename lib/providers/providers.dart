@@ -11,7 +11,6 @@ import 'package:dei_champions/models/state_models/common/csr/csr_focus_area_stat
 import 'package:dei_champions/models/state_models/common/csr/csr_impact_state.dart';
 import 'package:dei_champions/models/state_models/common/csr/csr_objectives_state.dart';
 import 'package:dei_champions/models/state_models/common/faq_state.dart';
-import 'package:dei_champions/models/state_models/common/price_plan_state.dart';
 import 'package:dei_champions/models/state_models/home/friendly_industries_state.dart';
 import 'package:dei_champions/models/state_models/home/job_category_state.dart';
 import 'package:dei_champions/models/state_models/home/popup_alert_state.dart';
@@ -99,7 +98,6 @@ import 'controllers/common/blog_detail_controller.dart';
 import 'controllers/common/csr/csr_impact_stories_section_controller.dart';
 import 'controllers/common/html_page_data_list_controller.dart';
 import 'controllers/common/lets_connect_controller.dart';
-import 'controllers/common/price_plan_controller.dart';
 import 'controllers/common/state_city_controller.dart';
 import 'controllers/dash_board/dash_board_controller.dart';
 import 'controllers/disability/disability_bottom_section_controller.dart';

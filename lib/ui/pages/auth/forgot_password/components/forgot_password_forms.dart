@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../../constants/app_strings.dart';
 import '../../../../../constants/app_styles.dart';
 import '../../../../../constants/app_validators.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';

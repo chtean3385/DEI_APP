@@ -2,7 +2,6 @@ import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_navigator.dart';
 import '../../../../models/explore_career/explore_service_program_model.dart';
 import '../../../../utils/fa_icon.dart';

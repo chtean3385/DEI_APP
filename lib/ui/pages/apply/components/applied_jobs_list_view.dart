@@ -2,7 +2,6 @@ import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../../../constants/app_colors.dart';
 import '../../../../../../constants/enums.dart';
 import '../../../../../../models/state_models/job/job_list_state.dart';
 import '../../../../../../providers/providers.dart';

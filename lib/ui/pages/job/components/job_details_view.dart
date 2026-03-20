@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../widgets/others/rounded_network_image.dart';
 import '../../search/components/search_job_card.dart';
 import 'company_gallery_slider.dart';

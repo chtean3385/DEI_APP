@@ -3,7 +3,6 @@ import 'package:dei_champions/ui/pages/auth/forgot_password/components/send_rese
 import 'package:flutter/material.dart';
 import '../../../../../widgets/form/ios_style_form_field.dart';
 import 'back_to_login.dart';
-import 'forgot_password_email_field.dart';
 import 'forgot_password_header.dart';
 
 class ForgotPasswordFormCard extends StatelessWidget {

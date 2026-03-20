@@ -13,7 +13,6 @@ import '../../../../../../main.dart';
 import '../../../../../../widgets/others/rounded_network_image.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
 import '../../auth/guest/guest_promot_login_alert.dart';
-import '../../home/champion_candidates/champion_candidate_card.dart';
 import '../../job/components/save_hide_button.dart';
 import 'job_share_util.dart';
 

@@ -13,7 +13,6 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:html/parser.dart' as html_parser;
 import 'package:intl/intl.dart';
 import '../../../../constants/enums.dart';
 import '../../../../providers/providers.dart';

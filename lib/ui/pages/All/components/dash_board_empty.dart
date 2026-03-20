@@ -1,7 +1,6 @@
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/app_drawables.dart';
 import '../../../../constants/app_navigator.dart';
 import '../../../../widgets/others/custom_theme_button.dart';

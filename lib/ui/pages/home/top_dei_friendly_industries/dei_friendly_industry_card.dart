@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import '../../../../../constants/app_styles.dart';
 import '../../../../main.dart';
 import '../../../../utils/fa_icon.dart';
-import '../../career_explorers/components/explore_service_program_card.dart';
 
 class DeiFriendlyIndustryCard extends StatelessWidget {
   final IndustryDepartmentModel department;

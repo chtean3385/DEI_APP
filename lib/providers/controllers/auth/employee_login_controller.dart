@@ -10,7 +10,6 @@ import '../../../models/common/base_model.dart';
 import '../../../models/state_models/auth_state.dart';
 import '../../../repo/shared_preference_repository.dart';
 import '../../../service/auth_service.dart';
-import '../../../service/employee_profile/employee_profile_service.dart';
 import '../../../widgets/others/snack_bar.dart';
 import '../../providers.dart';
 

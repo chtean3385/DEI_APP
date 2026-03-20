@@ -13,7 +13,6 @@ import '../../../../../models/profile/profile_completion/profile_completion_mode
 import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
 import '../../../../../providers/theme_controller.dart';
 import '../../../main/components/drawer/custom_drawer.dart';
-import '../../../main/components/drawer/promotion_alert.dart';
 import '../../../main/components/drawer/verify_email_alert.dart';
 
 /// 🔄 PageView slider for ResumeBoostCards

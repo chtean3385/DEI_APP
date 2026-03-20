@@ -4,7 +4,6 @@ import 'package:dei_champions/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../widgets/others/custom_theme_button.dart';
 import '../../auth/guest/guest_promot_login_alert.dart';
 

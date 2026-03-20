@@ -1,4 +1,3 @@
-import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/main.dart';
 import 'package:dei_champions/widgets/others/custom_theme_button.dart';

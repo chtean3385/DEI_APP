@@ -1,11 +1,8 @@
 import 'package:dei_champions/models/notification/notification_model.dart';
 import 'package:dei_champions/models/state_models/notification/notification_state.dart';
 import 'package:dei_champions/repo/shared_preference_repository.dart';
-import 'package:dei_champions/service/notification/notification_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/enums.dart';
-import '../../../../widgets/others/snack_bar.dart';
 import '../../../service/notification/firestore_notification_service.dart';
 
 class NotificationController extends StateNotifier<NotificationsState> {

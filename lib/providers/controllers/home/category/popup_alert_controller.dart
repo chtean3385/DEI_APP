@@ -6,7 +6,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/home/promo_banner/home_popup_model.dart';
 import '../../../../service/home/job_category_service.dart';
-import '../../../../widgets/others/snack_bar.dart';
 
 class PopupAlertController extends StateNotifier<PopupAlertState> {
   final Ref _ref;

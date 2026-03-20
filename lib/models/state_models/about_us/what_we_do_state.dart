@@ -1,6 +1,5 @@
 import 'package:dei_champions/constants/enums.dart';
 import '../../about_us/what_we_do_model.dart';
-import '../../home/dei_champion_candidates/champion_list_model.dart';
 
 class WhatWeDoState {
   final PageState pageState;

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../../constants/app_colors.dart';
 import '../../../../widgets/others/app_bar_common.dart';
 import '../components/blog_details_view.dart';
 

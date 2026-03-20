@@ -36,7 +36,7 @@ import 'app_theme_color_scheme.dart';
 // ⬇️ APPLY BUTTON COLOR HERE
      elevatedButtonTheme: ElevatedButtonThemeData(
        style: ElevatedButton.styleFrom(
-         backgroundColor: a.buttonColor ?? Colors.black,
+         backgroundColor: a.buttonColor,
          foregroundColor: Colors.white,
          textStyle: GoogleFonts.inter(
            fontWeight: FontWeight.bold,
@@ -46,8 +46,8 @@ import 'app_theme_color_scheme.dart';
      ),
      outlinedButtonTheme: OutlinedButtonThemeData(
        style: OutlinedButton.styleFrom(
-         foregroundColor: a.buttonColor ?? Colors.black,
-         side: BorderSide(color: a.buttonColor ?? Colors.black, width: 1.5),
+         foregroundColor: a.buttonColor ,
+         side: BorderSide(color: a.buttonColor, width: 1.5),
          textStyle: GoogleFonts.inter(
            fontWeight: FontWeight.bold,
            fontSize: 14 * a.fontScale,
@@ -57,7 +57,7 @@ import 'app_theme_color_scheme.dart';
 
      textButtonTheme: TextButtonThemeData(
        style: TextButton.styleFrom(
-         foregroundColor: a.buttonColor ?? Colors.black,
+         foregroundColor: a.buttonColor,
          textStyle: GoogleFonts.inter(
            fontWeight: FontWeight.bold,
            fontSize: 14 * a.fontScale,
@@ -65,7 +65,7 @@ import 'app_theme_color_scheme.dart';
        ),
      ),
      floatingActionButtonTheme: FloatingActionButtonThemeData(
-       backgroundColor:a.buttonColor ??  darkColorScheme.primary,
+       backgroundColor:a.buttonColor,
        foregroundColor: Colors.white,
      ),
 
@@ -160,7 +160,7 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
 // ⬇️ APPLY BUTTON COLOR HERE
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: a.buttonColor ?? Colors.black,
+        backgroundColor: a.buttonColor,
         foregroundColor: Colors.black,
         textStyle: GoogleFonts.inter(
           fontWeight: FontWeight.bold,
@@ -170,8 +170,8 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
-        foregroundColor: a.buttonColor ?? Colors.black,
-        side: BorderSide(color: a.buttonColor ?? Colors.black, width: 1.5),
+        foregroundColor: a.buttonColor,
+        side: BorderSide(color: a.buttonColor, width: 1.5),
         textStyle: GoogleFonts.inter(
           fontWeight: FontWeight.bold,
           fontSize: 14 * a.fontScale,
@@ -181,7 +181,7 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
 
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
-        foregroundColor: a.buttonColor ?? Colors.black,
+        foregroundColor: a.buttonColor,
         textStyle: GoogleFonts.inter(
           fontWeight: FontWeight.bold,
           fontSize: 14 * a.fontScale,
@@ -189,7 +189,7 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
       ),
     ),
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor:a.buttonColor ??  darkColorScheme.primary,
+      backgroundColor:a.buttonColor,
       foregroundColor: Colors.black,
     ),
 
@@ -256,22 +256,6 @@ ThemeData darkTheme(BuildContext context,AccessibilitySettingsModel a) {
 
 
 
-
-
-// final ColorScheme darkColorScheme = ColorScheme(
-//   brightness: Brightness.dark,
-//   primary: AppColors.primarySemiDarkColor, // slighty deeper blue/purple blend
-//   onPrimary: Colors.white,
-//   secondary: AppColors.primaryDarkColor,
-//   onSecondary: Colors.white,
-//   surface: Colors.grey[900]!,
-//   onSurface: Colors.white,
-//   background: Colors.black,
-//   onBackground: Colors.white,
-//   error: Colors.red[400]!,
-//   onError: Colors.black,
-//
-// );
 
 
 TextTheme applyFontScale(TextTheme base, double scale) {

@@ -1,8 +1,6 @@
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/models/home/job_services/job_service_model.dart';
 
-import '../../home/featured_employer/employer_model.dart';
-import '../../home/friendly_industries/friendly_industry_model.dart';
 
 class JobServiceState {
   final PageState pageState;

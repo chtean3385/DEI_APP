@@ -1,6 +1,5 @@
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/models/about_us/about_vision_model.dart';
-import '../../about_us/about_us_model.dart';
 
 class AboutVisionState {
   final PageState pageState;

@@ -1,5 +1,4 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/constants/enums.dart';
 import 'package:dei_champions/models/state_models/services/services_state.dart';

@@ -1,11 +1,8 @@
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/models/home/job_services/job_service_model.dart';
-import 'package:dei_champions/widgets/others/shimmer_loader.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../widgets/others/rounded_network_image.dart';
-import '../../../../widgets/others/view_all_button.dart';
 
 class JobServiceCard extends StatelessWidget {
   final JobServiceModel jobServiceModel;

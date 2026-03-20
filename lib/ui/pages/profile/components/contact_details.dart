@@ -1,12 +1,10 @@
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/ui/pages/profile/edit_profile_components/edit_basic_information.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
-import 'package:dei_champions/widgets/others/view_all_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/enums.dart';
-import '../../../../providers/controllers/profile/employee_profile_controller.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/open_bottom_sheet.dart';
 import '../../../../widgets/others/shimmer_loader.dart';

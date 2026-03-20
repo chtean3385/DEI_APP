@@ -1,4 +1,3 @@
-import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_strings.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_theme.dart';
@@ -8,7 +7,6 @@ import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../../constants/app_colors.dart';
 import '../../../../../providers/providers.dart';
 import '../../../../../widgets/form/ios_style_form_field.dart';
 import '../../../../../widgets/form/transparent_form_field.dart';

@@ -1,28 +1,14 @@
 import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/enums.dart';
-import 'package:dei_champions/main.dart';
 import 'package:dei_champions/providers/providers.dart';
 import 'package:dei_champions/widgets/others/shimmer_loader.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../constants/app_styles.dart';
 import '../../../../models/state_models/home/job_service_state.dart';
-import '../top_dei_friendly_industries/dei_friendly_industry_card.dart';
 import 'job_service_card.dart';
 
-import 'package:dei_champions/constants/app_colors.dart';
-import 'package:dei_champions/constants/enums.dart';
-import 'package:dei_champions/main.dart';
-import 'package:dei_champions/providers/providers.dart';
-import 'package:dei_champions/widgets/others/shimmer_loader.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../../constants/app_styles.dart';
-import '../../../../models/state_models/home/job_service_state.dart';
-import 'job_service_card.dart';
 
 class JobsServiceSection extends ConsumerStatefulWidget {
   const JobsServiceSection({Key? key}) : super(key: key);

@@ -1,4 +1,3 @@
-import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_navigator.dart';
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_theme.dart';
@@ -12,11 +11,8 @@ import '../../../../../constants/enums.dart';
 import '../../../../../models/state_models/profile/employee_profile_completion_state.dart';
 import '../../../../../models/state_models/profile/employee_profile_state.dart';
 import '../../../../../providers/providers.dart';
-import '../../../../../repo/shared_preference_repository.dart';
-import '../../../../../utils/widget_utils.dart';
 import '../../../../../widgets/others/rounded_network_image.dart';
 import '../../../../../widgets/others/shimmer_loader.dart';
-import '../../../../../widgets/others/snack_bar.dart';
 import 'app_version_widget.dart';
 
 class CustomDrawer extends StatelessWidget {

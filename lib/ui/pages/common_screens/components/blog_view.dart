@@ -1,12 +1,9 @@
 import 'package:dei_champions/constants/app_styles.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/models/state_models/common/blog_state.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/enums.dart';
-import '../../../../main.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/others/custom_loader.dart';
 import 'blog_card.dart';

@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/pickers/show_permission_alert.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -10,7 +9,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../constants/app_colors.dart';
 import '../../constants/app_strings.dart';
 import '../../main.dart';
 

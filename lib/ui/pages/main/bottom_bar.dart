@@ -10,7 +10,6 @@ import '../../../providers/controllers/profile/employee_profile_completion_contr
 import '../../../providers/providers.dart';
 import '../../../utils/widget_utils.dart';
 import '../../../widgets/appbar/home_app_bar.dart';
-import '../All/dashboard_all_section_screen.dart';
 import '../apply/apply_screen.dart';
 import '../common_screens/components/blog_view.dart';
 import '../home/home_screen.dart';

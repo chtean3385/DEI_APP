@@ -2,7 +2,6 @@ import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../constants/app_colors.dart';
 
 class SettingToggle extends StatelessWidget {
   final String title;

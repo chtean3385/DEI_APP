@@ -1,9 +1,7 @@
-import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_theme.dart';
 import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/app_drawables.dart';
 
 class CustomLoader extends StatelessWidget {
   final String? text;

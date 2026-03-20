@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../constants/app_colors.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/profile/employee_user_model/employee_user_model.dart';
 import '../../../../providers/providers.dart';

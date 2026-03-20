@@ -1,4 +1,3 @@
-import 'package:dei_champions/models/defense_veteran/dv_quote_model.dart';
 import 'package:dei_champions/service/veteran/veteran_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +6,6 @@ import '../../../../constants/enums.dart';
 import '../../../../widgets/others/snack_bar.dart';
 import '../../../models/defense_veteran/dv_organizationa_benefit_model.dart';
 import '../../../models/state_models/veteran/veteran_organizational_benefit_state.dart';
-import '../../../models/state_models/veteran/veteran_quote_state.dart';
 
 class VeteranOrganizationalBenefitSectionController extends StateNotifier<VeteranOrganizationalBenefitState> {
   final VeteranService _service = VeteranService();

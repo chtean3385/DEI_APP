@@ -1,5 +1,4 @@
 import 'package:dei_champions/constants/app_theme.dart';
-import 'package:dei_champions/models/home/friendly_industries/friendly_industry_model.dart';
 import 'package:dei_champions/models/profile/employee_user_model/employee_user_model.dart' as IndustryModel2;
 import 'package:dei_champions/ui/pages/profile/components/show_selected_industries.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../constants/app_strings.dart';
 import '../../../../constants/app_styles.dart';
 import '../../../../constants/app_validators.dart';
-import '../../../../models/home/job_category/job_category_model.dart';
 import '../../../../providers/providers.dart';
 import '../../../../widgets/form/transparant_drop_down.dart';
 import '../../../../widgets/form/transparent_form_field.dart';
-import '../../auth/common/select_city.dart';
-import '../../auth/signup/widgets/key_skills/selected_key_skills.dart';
 import '../components/set_prefered_community.dart';
 import '../components/set_preferred_category.dart';
 import 'edit_profile_action_button.dart';

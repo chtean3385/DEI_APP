@@ -3,7 +3,6 @@ import 'package:dei_champions/ui/pages/about_us/components/vision_mission_sectio
 import 'package:dei_champions/ui/pages/about_us/components/what_we_do.dart';
 import 'package:flutter/material.dart';
 import 'about_us_header.dart';
-import 'dei_revolutions.dart';
 import 'our_core_values_section.dart';
 
 class AboutUsView extends StatelessWidget {

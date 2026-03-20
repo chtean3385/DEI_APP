@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:dei_champions/main.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/providers.dart';
 import '../repo/shared_preference_repository.dart';
-import '../ui/pages/main/components/drawer/custom_drawer.dart';
 import 'api_urls.dart';
 
 class ApiHandler {
@@ -319,24 +317,4 @@ class AppException implements Exception {
   @override
   String toString() => message;
 }
-String _extractMessage(DioException e) {
-  final response = e.response;
-  final data = response?.data;
 
-  if (data is Map<String, dynamic>) {
-    return data['message']?.toString() ??
-        response?.statusMessage ??
-        'Unexpected error';
-  }
-
-  if (data is String) {
-    if (data.contains('<!DOCTYPE html') || data.contains('<html')) {
-      return 'Session expired';
-    }
-    return data;
-  }
-
-  return response?.statusMessage ??
-      e.message ??
-      'Unexpected error';
-}

@@ -2,11 +2,9 @@ import 'package:dei_champions/models/home/job_category/job_category_group.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../../constants/app_strings.dart';
 import '../../../../constants/enums.dart';
 import '../../../../models/state_models/home/job_category_state.dart';
 import '../../../../service/home/job_category_service.dart';
-import '../../../../widgets/others/snack_bar.dart';
 
 
 class JobCategoryController extends StateNotifier<JobCategoryState> {

@@ -3,7 +3,6 @@ import 'package:dei_champions/constants/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show TextInputFormatter;
 
-import '../../constants/app_colors.dart';
 
 class TransparentFormField extends StatefulWidget {
   final TextEditingController controller;

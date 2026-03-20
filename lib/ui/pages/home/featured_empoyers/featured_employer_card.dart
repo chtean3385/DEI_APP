@@ -1,8 +1,6 @@
 import 'package:dei_champions/models/home/featured_employer/employer_model.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../../constants/app_styles.dart';
-import '../../../../../widgets/others/view_all_button.dart';
 
 class FeaturedEmployerCard extends StatelessWidget {
   final Employer employer;

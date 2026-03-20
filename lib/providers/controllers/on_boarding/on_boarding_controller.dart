@@ -1,5 +1,4 @@
 import 'package:dei_champions/constants/app_strings.dart';
-import 'package:dei_champions/models/defense_veteran/dv_advantages_model.dart';
 import 'package:dei_champions/models/on_board/on_board_model.dart';
 import 'package:dei_champions/models/state_models/on_boarding_state.dart';
 import 'package:dei_champions/service/on_boarding_service.dart';

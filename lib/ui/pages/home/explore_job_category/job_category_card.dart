@@ -1,11 +1,8 @@
-import 'package:dei_champions/constants/app_colors.dart';
 import 'package:dei_champions/constants/app_theme.dart';
-import 'package:dei_champions/widgets/others/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../models/home/job_category/job_category_model.dart';
 import '../../../../widgets/others/rounded_network_image.dart';
-import '../../../../widgets/others/view_all_button.dart';
 
 /// 📌 Individual Job category Card
 class JobCategoryCard extends StatelessWidget {
