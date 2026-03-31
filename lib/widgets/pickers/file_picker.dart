@@ -1,10 +1,7 @@
-import 'package:dei_champions/widgets/pickers/show_permission_alert.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'dart:io';
 
-import '../../constants/app_strings.dart';
 
 /// Pick a file from device storage
 ///
@@ -27,65 +24,39 @@ Future<dynamic> pickFileFromStorage({
 }) async {
   PlatformFile? pickedFile;
   List<PlatformFile>? pickedFiles;
-  bool storagePermission = false;
 
-  // Check storage permission for Android
-  if (Platform.isAndroid) {
-    // Try photos/media permission first (Android 13+)
-    final photos = await Permission.photos.request();
+  // ✅ No permission check needed — FilePicker uses system picker
+  try {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: fileType,
+      allowedExtensions: allowedExtensions,
+      allowMultiple: allowMultiple,
+      withData: kIsWeb,
+      withReadStream: !kIsWeb,
+    );
 
-    if (photos.isGranted) {
-      storagePermission = true;
-    } else {
-      // Fallback for Android 12 and below
-      final storage = await Permission.storage.request();
-      storagePermission = storage.isGranted;
-    }
-  } else {
-    storagePermission = true; // iOS + Web
-  }
-
-
-  if (storagePermission) {
-    try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: fileType,
-        allowedExtensions: allowedExtensions,
-        allowMultiple: allowMultiple,
-        withData: kIsWeb, // Load file data on web
-        withReadStream: !kIsWeb, // Use read stream on mobile for better performance
-      );
-
-      if (result != null) {
-        if (allowMultiple) {
-          // Validate all files
-          List<PlatformFile> validFiles = [];
-          for (var file in result.files) {
-            if (await validateFileSize(file, maxSizeInMB)) {
-              validFiles.add(file);
-            }
-          }
-          pickedFiles = validFiles.isNotEmpty ? validFiles : null;
-          return pickedFiles;
-        } else {
-          // Single file selection
-          pickedFile = result.files.single;
-          if (await validateFileSize(pickedFile, maxSizeInMB)) {
-            return pickedFile;
-          } else {
-            return null;
+    if (result != null) {
+      if (allowMultiple) {
+        List<PlatformFile> validFiles = [];
+        for (var file in result.files) {
+          if (await validateFileSize(file, maxSizeInMB)) {
+            validFiles.add(file);
           }
         }
+        pickedFiles = validFiles.isNotEmpty ? validFiles : null;
+        return pickedFiles;
+      } else {
+        pickedFile = result.files.single;
+        if (await validateFileSize(pickedFile, maxSizeInMB)) {
+          return pickedFile;
+        } else {
+          return null;
+        }
       }
-    } catch (e) {
-      debugPrint('File picker error: $e');
-      return null;
     }
-  } else {
-    showPermissionAlert(
-      requestMessage:
-      '"${AppStrings.appName}" needs access to your storage to pick files',
-    );
+  } catch (e) {
+    debugPrint('File picker error: $e');
+    return null;
   }
 
   return allowMultiple ? pickedFiles : pickedFile;

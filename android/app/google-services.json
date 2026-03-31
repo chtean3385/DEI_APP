@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:325714813742:android:70baa600d4c1d1e7be90bf",
         "android_client_info": {
-          "package_name": "com.drmstc.dei_champions"
+          "package_name": "com.dreamstech.dei"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "325714813742-a6qudjd6mjqavjcsv9b7abrull1n9kj1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.drmstc.dei_champions",
+            "package_name": "com.dreamstech.dei",
             "certificate_hash": "af6a8295e2508db556167fea47c246d252e0a536"
           }
         },
@@ -25,7 +25,7 @@
           "client_id": "325714813742-g3e0tbtm4iudajtijo0ur657jgillpeu.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.drmstc.dei_champions",
+            "package_name": "com.dreamstech.dei",
             "certificate_hash": "2748459f56ba21b244af0af5823955ee552d4514"
           }
         },

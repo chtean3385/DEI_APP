@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dei_champions/ui/pages/profile/edit_profile_components/edit_work_experience_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +16,7 @@ import '../../../service/local_json_service.dart';
 import '../../../ui/pages/profile/edit_profile_components/edit_education_info.dart';
 import '../../../widgets/others/snack_bar.dart';
 import '../../../widgets/pickers/file_picker.dart';
+import '../../../widgets/pickers/image_compress.dart';
 import '../../../widgets/pickers/image_picker.dart';
 import '../../providers.dart';
 
@@ -84,6 +87,7 @@ class EditEmployeeProfileController
   final preferredJobTypeController = TextEditingController();
   String? salaryRangeId;
   String? jobTypeId;
+  File? compressedProfileImage;
 
   @override
   void dispose() {
@@ -120,7 +124,7 @@ class EditEmployeeProfileController
         entry.dispose();
       }
     }
-
+    compressedProfileImage= null;
     super.dispose();
   }
 
@@ -308,6 +312,7 @@ print(state.profileData?.currentDepartment?.length);
       workExpEntries: workExpControllers,
       educationEntries: educationControllers,
     );
+    compressedProfileImage = null;
   }
 
 
@@ -427,7 +432,9 @@ print(state.profileData?.currentDepartment?.length);
 
      await _employeeProfileService.updateEmployeeProfileDetails(
         data: updateData,
-        profileFile: state.profileFile,
+        profileFile: compressedProfileImage != null
+            ? compressedProfileImage
+            : null,
         resumeFile: state.resumeFile,
       );
       ref.refresh(employeeProfileProvider);
@@ -736,6 +743,12 @@ print(state.profileData?.currentDepartment?.length);
     );
     if (picked != null) {
       state = state.copyWith(profileFile: picked);
+      compressedProfileImage = await ImageUploadService.processImage(
+        File(picked.path),
+        type: ImageType.profile,
+      );
+      int kb2 = File(picked.path).lengthSync() ~/ 1024;
+      debugPrint("File size: $kb2 KB");
     }
   }
 

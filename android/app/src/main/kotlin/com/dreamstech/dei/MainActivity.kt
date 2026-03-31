@@ -1,4 +1,4 @@
-package com.drmstc.dei_champions
+package com.dreamstech.dei
 
 import io.flutter.embedding.android.FlutterActivity
 

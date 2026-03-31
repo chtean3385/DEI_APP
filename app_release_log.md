@@ -1,5 +1,13 @@
 # Changelog – DEI  app
 
+## [1.0.0+2]
+27 march-2026
+### audio video permission policy exceptions
+
+## [1.0.0+1]
+### new package name
+
+
 ## [1.0.0+6]
 ### changes - 4-feb-2026
 bug fixing 

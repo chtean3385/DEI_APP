@@ -221,14 +221,7 @@ final stateListProvider =
       return StateCityController(ref);
     });
 
-///featured employers
-final featuredEmployersProvider =
-    StateNotifierProvider.autoDispose<
-      FeaturedEmployersController,
-      FeaturedEmployersState
-    >((ref) {
-      return FeaturedEmployersController();
-    });
+
 
 ///friendly industries
 final friendlyIndustryProvider =

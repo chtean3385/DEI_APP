@@ -1,72 +1,40 @@
 import 'dart:io';
 
-import 'package:dei_champions/widgets/pickers/show_permission_alert.dart';
-import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:permission_handler/permission_handler.dart';
-
-import '../../constants/app_strings.dart';
 import '../../main.dart';
 
+
+/// ===============================
 Future<XFile?> pickImageFromGalleryOrCamera({
   bool isCircleShape = false,
   bool isSquareCrop = false,
   bool isLockAspectRatio = true,
   CropAspectRatioPreset? ratio,
 }) async {
-  XFile? pickedFile;
-  bool storagePermission = false;
-
-  if (!kIsWeb) {
-    int sdkInt = 0;
-
-    if (Platform.isAndroid) {
-      try {
-        AndroidDeviceInfo androidInfo = await DeviceInfoPlugin().androidInfo;
-        sdkInt = androidInfo.version.sdkInt ?? 0;
-      } catch (_) {
-        sdkInt = 0; // fallback
-      }
-
-      if (sdkInt > 32) {
-        await Permission.photos.request();
-        storagePermission = await Permission.photos.isGranted;
-      } else {
-        await Permission.storage.request();
-        storagePermission = await Permission.storage.isGranted;
-      }
-    } else if (Platform.isIOS) {
-      // final result = await Permission.photos.request();
-      // storagePermission = result.isGranted || result.isLimited;
-      storagePermission = true; // iOS automatically handles permissions
-    }
-  } else {
-    storagePermission = true; // Web doesn't need permission
-  }
-
-  if (storagePermission) {
-    pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      return await cropImage(
-        imageFile: pickedFile,
-        isCircleShape: isCircleShape,
-        isLockAspectRatio: isLockAspectRatio,
-        ratio: ratio,
-        isSquareCrop: isSquareCrop,
-      );
-    }
-  } else {
-    showPermissionAlert(
-      requestMessage:
-      '"${AppStrings.appName}" needs access to your media and camera',
+  try {
+    // ✅ No permission handling needed
+    final XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 90,
     );
-  }
 
-  return pickedFile;
+    if (pickedFile == null) return null;
+
+    return await cropImage(
+      imageFile: pickedFile,
+      isCircleShape: isCircleShape,
+      isSquareCrop: isSquareCrop,
+      isLockAspectRatio: isLockAspectRatio,
+      ratio: ratio,
+    );
+  } catch (e) {
+    debugPrint('Image pick error: $e');
+    return null;
+  }
 }
 
 Future<XFile?> cropImage(

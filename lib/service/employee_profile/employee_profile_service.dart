@@ -27,7 +27,7 @@ class EmployeeProfileService {
   /// 🔹 update employee profile data
   Future<BaseModel> updateEmployeeProfileDetails({
     required EmployeeUserModel data,
-    required XFile? profileFile,
+    required File? profileFile,
     required PlatformFile? resumeFile,
   }) async {
     final body = data.toJson();
@@ -49,7 +49,7 @@ class EmployeeProfileService {
       url: ApiUrls.updateEmployeeProfileDetails,
       body: encodedBody,
       profileImg: profileFile != null && profileFile.path.isNotEmpty
-          ? File(profileFile.path)
+          ? profileFile
           : null,
       resumeFile: resumeFile != null && (resumeFile.path?.isNotEmpty ?? false)
           ? File(resumeFile.path!)
